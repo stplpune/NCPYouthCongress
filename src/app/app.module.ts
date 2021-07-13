@@ -7,6 +7,10 @@ import { HeaderComponent } from './partial/template/header/header.component';
 import { SidebarComponent } from './partial/template/sidebar/sidebar.component';
 import { FooterComponent } from './partial/template/footer/footer.component';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+import { WebComponent } from './web/web.component';
+import { PartialComponent } from './partial/partial.component';
+import { WebHeaderComponent } from './web/template/web-header/web-header.component';
+import { WebFooterComponent } from './web/template/web-footer/web-footer.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,11 @@ import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.co
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    WebComponent,
+    PartialComponent,
+    WebHeaderComponent,
+    WebFooterComponent
   ],
   imports: [
     BrowserModule,
