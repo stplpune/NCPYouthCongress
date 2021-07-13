@@ -23,6 +23,10 @@
     /* padding-bottom: 3rem; */
     overflow: hidden;
 }
+.nav .nav-head img
+{
+    width: 38px;
+}
 
 .nav__container {
     height: 100%;
