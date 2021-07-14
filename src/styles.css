@@ -1,6 +1,25 @@
-body{
+body {
     font-family: 'Inter', sans-serif;
+    background-color: #f3f3f3;
 }
-:root{
-    --main-color:#1c7ff7;
+
+:root {
+    --main-color: #272848;
+}
+
+.main-content {
+    margin: 4rem 0 0;
+    padding: 0;
+}
+
+@media screen and (min-width:768px) {
+    .main-content {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main-content {
+        margin-left: 0 !important;
+    }
 }

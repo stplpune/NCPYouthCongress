@@ -1,1 +1,28 @@
-<p>header works!</p>
+<!-- <header class="header">
+    <div class="header__container">
+        <img src="assets/images/dashboard-images/ncplogo.png" alt="" class="header__img"> sdf
+        <div class="header__toggle">
+            <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>
+        </div>
+    </div>
+</header> -->
+
+<header class="header">
+    <div class="header__container">
+        <h5 class="mb-0">राष्ट्रवादी युवक कॉंग्रेस</h5>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Welcome Admin
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fas fa-key"></i>Change Password</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+            </ul>
+        </div>
+        <div class="header__toggle">
+            <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>
+        </div>
+    </div>
+
+</header>

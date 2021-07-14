@@ -23,8 +23,8 @@
     /* padding-bottom: 3rem; */
     overflow: hidden;
 }
-.nav .nav-head img
-{
+
+.nav .nav-head img {
     width: 38px;
 }
 
@@ -63,7 +63,7 @@
         width: 68px
     }
     .nav:hover {
-        width: var(--nav-width)
+        width: 230px
     }
     .nav:hover span {
         display: block;
@@ -78,7 +78,7 @@
         width: 0
     }
     .show-menu {
-        width: var(--nav-width);
+        width: 219px;
     }
 }
 

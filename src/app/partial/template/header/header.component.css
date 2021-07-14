@@ -1,0 +1,89 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--main-color);
+    padding: 0 1rem;
+    z-index: 100
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.header__container h5 {
+    font-family: 'Yatra One';
+}
+
+.header__container .btn {
+    border-radius: 2px;
+    font-size: 0.85rem;
+}
+
+.header__img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%
+}
+
+.header__logo {
+    color: #19181B;
+    font-weight: 500;
+    display: none
+}
+
+.header__icon,
+.header__toggle {
+    font-size: 1.2rem
+}
+
+.header__toggle {
+    color: #fff;
+    cursor: pointer
+}
+
+.header .dropdown-menu {
+    font-size: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 1px 1px 1px #eee;
+}
+
+.header .dropdown-menu i {
+    width: 20px;
+}
+
+@media screen and (max-width:320px) {
+    .header__search {
+        width: 70%
+    }
+}
+
+@media screen and (min-width:768px) {
+    .header {
+        padding: 0 1rem 0 5rem
+    }
+    .header__container {
+        height: calc(3rem + .5rem)
+    }
+    .header__search {
+        width: 300px;
+        padding: .55rem .75rem
+    }
+    .header__toggle {
+        display: none
+    }
+    .header__logo {
+        display: block
+    }
+    .header__img {
+        width: 40px;
+        height: 40px;
+        order: 1
+    }
+}

@@ -1,3 +1,29 @@
-.main-content{
-    margin-left: 75px;
+.main-content {
+    margin-left: 69px;
+}
+
+#pageheader {
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    /* box-shadow: 1px 1px 4px #dfdfdf; */
+    padding: 5px 10px;
+}
+
+#pageheader span {
+    line-height: 34px;
+}
+
+#pageheader .page-name {
+    font-weight: 600;
+    color: var(--main-color);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#pageheader .form-control {
+    font-size: 0.85rem;
+    box-shadow: none !important;
+    outline: none !important;
 }

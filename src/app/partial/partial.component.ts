@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./partial.component.css']
 })
 export class PartialComponent implements OnInit {
-
+  isShowMenu: boolean = false;
+  isAuthenticated: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
