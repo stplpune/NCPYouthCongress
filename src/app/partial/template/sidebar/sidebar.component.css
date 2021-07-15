@@ -107,7 +107,7 @@
     background: var(--main-color);
 }
 
-.nava label:hover svg path {
+.nava label:hover i {
     fill: #fff;
 }
 
@@ -183,7 +183,7 @@ label>span {
     transform: rotate(90deg);
 }
 
-.nav__list svg {
+.nav__list i {
     padding: 10px;
     border-radius: 3px;
     margin-right: 20px;
@@ -191,12 +191,7 @@ label>span {
     min-height: 36px;
     width: 36px;
     height: 36px;
-    line-height: 36px;
     /* border: solid 1px #ddd; */
-}
-
-.nav__list svg path {
-    fill: rgb(107, 107, 107);
 }
 
 .nav__list li label {
