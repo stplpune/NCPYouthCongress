@@ -21,6 +21,8 @@ const routes: Routes = [
       { path: 'work-this-week', loadChildren: () => import('./partial/work-this-week/work-this-week.module').then(m => m.WorkThisWeekModule) },
       { path: 'social-media-image', loadChildren: () => import('./partial/social-media-image/social-media-image.module').then(m => m.SocialMediaImageModule) },
       { path: 'executive-members', loadChildren: () => import('./partial/executive-members/executive-members.module').then(m => m.ExecutiveMembersModule) },
+      { path: 'registrations', loadChildren: () => import('./partial/registrations/registrations.module').then(m => m.RegistrationsModule) },
+      { path: 'political-work', loadChildren: () => import('./partial/political-work/political-work.module').then(m => m.PoliticalWorkModule) },
     ]
   },
   { path: '**', component: PageNotFoundComponent }

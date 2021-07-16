@@ -1,0 +1,147 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="pageheader">
+                <span class="page-name">Registrations
+                </span>
+                <span class="float-end">
+                    <button type="button" class="btn btn-main btn-sm" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
+                        <i class="fas fa-plus me-2"></i> Add Member
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Registration Date</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Mobile No.</th>
+                            <th scope="col">Email ID</th>
+                            <th scope="col">District</th>
+                            <th scope="col">Taluka</th>
+                            <th scope="col">Village</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>+91-9876543210</td>
+                            <td>example@example.com</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary me-1">
+                                    <i class="fas fa-lock-open"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>+91-9876543210</td>
+                            <td>exampleexample@example.com</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary me-1">
+                                    <i class="fas fa-lock-open"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>+91-9876543210</td>
+                            <td>exampleexample@example.com</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>Pune</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary me-1">
+                                    <i class="fas fa-lock-open"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="AddMemberModalLabel">Add Member</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label for="txtFullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="txtFullName" placeholder="Full Name">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="txtEmailID" class="form-label">Email ID</label>
+                            <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="txtContactNo" class="form-label">Contact No</label>
+                            <input type="number" class="form-control" id="txtContactNo" placeholder="Contact No">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="ddlDistrict" class="form-label">District</label>
+                            <select class="form-select" id="ddlDistrict">
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="ddlTaluka" class="form-label">Taluka</label>
+                            <select class="form-select" id="ddlTaluka">
+                                <option value="">Select Taluka</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <label for="ddlVillageTown" class="form-label">Village/Town</label>
+                        <select class="form-select" id="ddlVillageTown">
+                            <option value="">Select Village/Town</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-main btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-main btn-sm">Add Member</button>
+            </div>
+        </div>
+    </div>
+</div>
