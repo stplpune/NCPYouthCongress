@@ -1,0 +1,227 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="pageheader">
+                <span class="page-name">Messages From Social Media
+                </span>
+                <span class="float-end">
+                    <div class="input-group">
+                        <select class="form-select form-select-sm">
+                            <option value="">Select District</option>
+                            <option>Pune</option>
+                            <option>Beed</option>
+                            <option>Solapur</option>
+                            <option>Kolhapur</option>
+                            <option>Nagpur</option>
+                        </select>
+                        <select class="form-select form-select-sm">
+                            <option value="">Select Media Source</option>
+                            <option>WhatsApp</option>
+                            <option>Twitter</option>
+                            <option>Facebook</option>
+                            <option>Instagram</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Post Date</th>
+                            <th scope="col">Social Media</th>
+                            <th scope="col">Members Name</th>
+                            <th scope="col">Mobile No.</th>
+                            <th scope="col">Message in Favour</th>
+                            <th scope="col">Message in Oppose</th>
+                            <th scope="col">Party in Support</th>
+                            <th scope="col">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>01-07-2021</td>
+                            <td><i class="fab fa-whatsapp me-1"></i> WhatsApp</td>
+                            <td>Anil Kambale</td>
+                            <td>+91-9876543210</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                            <td>
+                                <img src="assets/images/dashboard-images/logos/bjp-logo.png" class="border-0" /> BJP
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>02-07-2021</td>
+                            <td><i class="fab fa-twitter me-1"></i> Twitter</td>
+                            <td>Anil Kambale</td>
+                            <td>+91-9876543210</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                            <td>
+                                <img src="assets/images/dashboard-images/logos/inc-logo.png" class="border-0" /> INC
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>03-07-2021</td>
+                            <td><i class="fab fa-facebook-square me-1"></i> Facebook</td>
+                            <td>Anil Kambale</td>
+                            <td>+91-9876543210</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                            <td>
+                                <img src="assets/images/dashboard-images/logos/ncp-logo.png" class="border-0" /> NCP
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>04-07-2021</td>
+                            <td><i class="fab fa-instagram me-1"></i> Instagram</td>
+                            <td>Anil Kambale</td>
+                            <td>+91-9876543210</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                            <td>
+                                <img src="assets/images/dashboard-images/logos/shivsena-logo.png" class="border-0" /> Shivsena
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>05-07-2021</td>
+                            <td><i class="fas fa-hashtag me-1"></i> Other</td>
+                            <td>Anil Kambale</td>
+                            <td>+91-9876543210</td>
+                            <td>Lorem Ipsum</td>
+                            <td>Lorem Ipsum</td>
+                            <td>
+                                <img src="assets/images/dashboard-images/logos/other.jpg" class="border-0" /> Other
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Location -->
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">1</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">01-12-2021</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Members Name</label>
+                            <div id="txtMembersName" class="form-data">
+                                Mr. Anil Kambale
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Social Media Source</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Mobile Number</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    +91-9876543210
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Post Description</label>
+                            <div id="txtDescription" class="form-data">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Message in Favour</label>
+                                <div id="txtMessageFavour" class="form-data">
+                                    Lorem Ipsum
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Message in Oppose</label>
+                                <div id="txtMessageOppse" class="form-data">
+                                    Lorem Ipsum
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Party in Support</label>
+                            <div id="txtPartyInSupport" class="form-data">
+                                <img src="assets/images/dashboard-images/logos/ncp-logo.png" class="partylogo" /> NCP
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Photos</label>
+                            <div class="row">
+                                <div class="col-sm-4 mb-3">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

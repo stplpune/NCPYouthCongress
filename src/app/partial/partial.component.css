@@ -142,11 +142,72 @@
 .form-container .form-label {
     font-size: 0.75rem;
     margin-bottom: 5px;
+    color: #757575;
 }
 
 .form-container .form-select,
-.form-container .form-control {
+.form-container .form-control,
+.form-container .form-data {
     font-size: 0.85rem;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-container .form-data {
+    font-weight: 600;
+}
+
+.form-container .partylogo {
+    width: 60px;
+}
+
+#email-container .list-group .active {
+    border-left: solid 4px var(--main-color);
+    border-bottom: none;
+    border-top: none;
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+#email-container .list-group-item {
+    border-left: solid 4px #fff;
+    border-bottom: none;
+    border-top: none;
+}
+
+#email-container .membername {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#email-container .feeddate {
+    font-size: 0.7rem;
+}
+
+#email-container .comment {
+    font-size: 0.75rem;
+    line-height: 18px;
+}
+
+#email-container .emailname {
+    font-size: 1.1rem;
+}
+
+#email-container .emaildate,
+#email-container .emailcontact,
+#email-container .lblfeedback,
+#email-container .form-floating label {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+#email-container .feedback {
+    font-size: 0.85rem;
+}
+
+#email-container .form-control {
+    font-size: 0.85rem;
+    height: 100px;
     outline: none;
     box-shadow: none;
 }
