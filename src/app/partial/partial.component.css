@@ -161,6 +161,10 @@
     width: 60px;
 }
 
+.form-container .btn {
+    font-size: 0.85rem;
+}
+
 #email-container .list-group .active {
     border-left: solid 4px var(--main-color);
     border-bottom: none;
