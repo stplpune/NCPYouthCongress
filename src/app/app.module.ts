@@ -12,6 +12,7 @@ import { PartialComponent } from './partial/partial.component';
 import { WebHeaderComponent } from './web/template/web-header/web-header.component';
 import { WebFooterComponent } from './web/template/web-footer/web-footer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

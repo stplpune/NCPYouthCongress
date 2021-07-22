@@ -8,45 +8,267 @@
         </div>
     </div>
 
-    <div class="row chartbox">
-        <div class="col-sm-4">
+    <div class="row chartbox mb-3">
+        <div class="col-sm-3">
             <div class="card">
-                <div class="card-header">Create Designation</div>
+                <div class="card-header">Create Organization Body</div>
                 <div class="card-body pt-0">
                     <div class="form-container">
+                        <div class="mb-2">
+                            <label for="txtBodyName" class="form-label">Body Name</label>
+                            <input type="text" class="form-control" id="txtBodyName" placeholder="Body Name">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Select Level</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Level">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Select State</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Select District</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Select Taluka</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Select City</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City">
+                            </ngx-select>
+                        </div>
                         <div class="mb-3">
-                            <label for="txtDesignationName" class="form-label">Designation Name</label>
-                            <input type="text" class="form-control" id="txtDesignationName" placeholder="Designation Name">
+                            <label class="form-label">Select Village</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Village">
+                            </ngx-select>
                         </div>
                         <div class="mb-2 text-end">
-                            <button type="button" class="btn btn-main">Create Designation</button>
-                            <button type="button" class="btn btn-warning mx-1">Update</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-main">Create Organization</button>
+                            <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
+                            <button type="button" class="btn btn-danger">Delete</button> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
-            <div class="card card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#ID</th>
-                            <th>Designation Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>President</td>
-                            <th>
-                                <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row g-1">
+                        <div class="col-sm-3 offset-4">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search..." />
+                                <button class="btn btn-sm btn-main" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Body Name</th>
+                                <th>Level</th>
+                                <th>Area</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Maharashtra State Committee</td>
+                                <td>State</td>
+                                <td>
+                                    Maharashtra
+                                </td>
+                                <th>
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Satara City Committee</td>
+                                <td>District</td>
+                                <td>
+                                    District <i class="fas fa-long-arrow-alt-right"></i> City
+                                </td>
+                                <th>
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Indapur Gram Panchayat Committee</td>
+                                <td>Village</td>
+                                <td>
+                                    District <i class="fas fa-long-arrow-alt-right"></i> Taluka <i class="fas fa-long-arrow-alt-right"></i> Village
+                                </td>
+                                <th>
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header">Assign Designation</div>
+                <div class="card-body pt-0">
+                    <div class="form-container">
+                        <div class="mb-3">
+                            <label for="ddlDesignationName" class="form-label">Designation Name</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Designation">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label d-block">Is Multiple</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" value="Yes">
+                                <label class="form-check-label" for="chkIsMultipleYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleNo" value="No">
+                                <label class="form-check-label" for="chkIsMultipleNo">No</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ddlBodyName" class="form-label">Body Name</label>
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Body">
+                            </ngx-select>
+                        </div>
+                        <div class="mb-2 text-end">
+                            <button type="button" class="btn btn-main">Assign Designation</button>
+                            <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
+                            <button type="button" class="btn btn-danger">Delete</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-3 offset-4">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Designation">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm-3">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Hierarchy">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="input-group input-group-sm pt-1">
+                                <div class="input-group-text border-0 bg-transparent">
+                                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Is Multiple">
+                                </div>
+                                <span class="input-group-text border-0 bg-transparent">Is Multiple</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Designation</th>
+                                <th>Is Multiple</th>
+                                <th>Body Assigned</th>
+                                <th>Person Assigned</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>President</td>
+                                <td>
+                                    <i class="fas fa-times text-danger"></i>
+                                </td>
+                                <td>Maharashtra State Committee</td>
+                                <td>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ViewMemberModal">
+                                        Mr. Anil Kambale
+                                    </a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Vice-President</td>
+                                <td>
+                                    <i class="fas fa-check text-success"></i>
+                                </td>
+                                <td>Maharashtra State Committee</td>
+                                <td>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ViewMemberModal">
+                                        Mr. Sunil Chavan
+                                    </a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewMemberModalLabel">Mr. Anil Kambale</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-0">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">President</h5>
+                                <p class="card-text text-muted mb-2">Maharashtra State Committee</p>
+                                <p class="card-text"><small class="text-muted">01-05-2020 - Till Date</small></p>
+                                <button type="button" class="btn btn-main btn-sm">View Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-main btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

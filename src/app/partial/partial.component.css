@@ -147,7 +147,8 @@
 
 .form-container .form-select,
 .form-container .form-control,
-.form-container .form-data {
+.form-container .form-data,
+.form-container .form-check-label {
     font-size: 0.85rem;
     outline: none;
     box-shadow: none;
@@ -213,5 +214,27 @@
     font-size: 0.85rem;
     height: 100px;
     outline: none;
+    box-shadow: none;
+}
+
+/deep/ .ngx-select__toggle,
+/deep/ .ngx-select input,
+/deep/ .ngx-select__toggle {
+    font-size: 0.8rem !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: 1px solid #ced4da;
+}
+
+/deep/ .ngx-select,
+/deep/ .ngx-select__item,
+/deep/ .ngx-select__clear {
+    font-size: 0.8rem !important;
+    box-shadow: none;
+}
+
+/deep/ .ngx-select__item_active {
+    background-color: var(--main-color);
+    color: #fff;
     box-shadow: none;
 }
