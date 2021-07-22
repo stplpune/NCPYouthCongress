@@ -27,8 +27,10 @@ const routes: Routes = [
       { path: 'political-work', loadChildren: () => import('./partial/political-work/political-work.module').then(m => m.PoliticalWorkModule) },
       { path: 'social-media-messages', loadChildren: () => import('./partial/social-media-messages/social-media-messages.module').then(m => m.SocialMediaMessagesModule) },
       { path: 'feedbacks', loadChildren: () => import('./partial/feedbacks/feedbacks.module').then(m => m.FeedbacksModule) },
+      { path: 'members/view-members', loadChildren: () => import('./partial/members/view-members/view-members.module').then(m => m.ViewMembersModule) },
+      { path: 'members/member-profile', loadChildren: () => import('./partial/members/member-profile/member-profile.module').then(m => m.MemberProfileModule) },
     ]
-  },
+  }, 
   { path: '**', component: PageNotFoundComponent }
 ];
 

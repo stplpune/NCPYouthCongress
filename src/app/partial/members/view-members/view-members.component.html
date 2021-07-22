@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <div class="row mx-1 px-0" id="pageheader">
+        <div class="col-sm-4">
+            <span class="page-name">View Members</span>
+        </div>
+        <div class="col-sm-8">
+            <div class="row g-1">
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" placeholder="Search Member" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Registration Date</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Contacts</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <img src="assets/images/executive-members/MehabubShaikh.jpg" class="prophoto" />
+                            </th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>example@example.com<br />+91-9876543210</td>
+                            <td>City(Village)<br/>Taluka, District</td>
+                            <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td>
+                            <td><i class="fas fa-shield-alt fa-2x text-success"></i></td>
+                            <td>
+                                <button class="btn btn-sm btn-light" routerLink="../../members/member-profile" type="button"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prophoto" />
+                            </th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>exampleexample@example.com<br/>+91-9876543210</td>
+                            <td>City(Village)<br/>Taluka, District</td>
+                            <td>Member</td>
+                            <td><i class="fas fa-shield-alt fa-2x text-success"></i></td>
+                            <td>
+                                <button class="btn btn-sm btn-light" routerLink="../../members/member-profile" type="button"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <img src="assets/images/executive-members/SunilChavan.jpg" class="prophoto" />
+                            </th>
+                            <td>01-07-2021</td>
+                            <td>Sunil Pawar</td>
+                            <td>exampleexample@example.com<br />+91-9876543210</td>
+                            <td>City(Village)<br/>Taluka, District</td>
+                            <td>Member</td>
+                            <td><i class="fas fa-ban fa-2x text-danger"></i></td>
+                            <td>
+                                <button class="btn btn-sm btn-light" routerLink="../../members/member-profile" type="button"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewMemberModalLabel">Mr. Anil Kambale</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                sdf
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-main btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
