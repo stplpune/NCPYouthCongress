@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-feedbacks',
-  templateUrl: './feedbacks.component.html',
-  styleUrls: ['./feedbacks.component.css', '../partial.component.css']
+  selector: 'app-notifications',
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.css', '../partial.component.css']
 })
-export class FeedbacksComponent implements OnInit {
+export class NotificationsComponent implements OnInit {
   public items: string[] = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
   'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
   'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',

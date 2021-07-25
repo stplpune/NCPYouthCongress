@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FeedbacksRoutingModule } from './feedbacks-routing.module';
-import { FeedbacksComponent } from './feedbacks.component';
+import { HelpSupportRoutingModule } from './help-support-routing.module';
+import { HelpSupportComponent } from './help-support.component';
 import { NgxSelectModule } from 'ngx-select-ex';
-
 
 @NgModule({
   declarations: [
-    FeedbacksComponent
+    HelpSupportComponent
   ],
   imports: [
     CommonModule,
-    FeedbacksRoutingModule,
+    HelpSupportRoutingModule,
     NgxSelectModule
   ]
 })
-export class FeedbacksModule { }
+export class HelpSupportModule { }

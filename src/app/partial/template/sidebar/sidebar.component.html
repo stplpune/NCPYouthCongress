@@ -17,7 +17,7 @@
                         <i class="fas fa-tools"></i>
                         Masters <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list">
-                        <li><a routerLink="masters/designation-master">Designation Master</a></li>
+                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
                         <li><a routerLink="masters/organization-master">Organization Master</a></li>
                     </ul>
                 </li>
@@ -28,7 +28,7 @@
                         Member Management <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list">
                         <li><a routerLink="members/view-members">View Members</a></li>
-                        <!-- <li><a routerLink="">Organization Master</a></li> -->
+                        <li><a routerLink="members/executive-members">Executive Members</a></li>
                     </ul>
                 </li>
                 <li>
@@ -56,16 +56,22 @@
                   Feedbacks</label>
                 </li>
                 <li>
+                    <input id="group-10" type="checkbox" hidden />
+                    <label for="group-10" routerLink="notifications">
+                        <i class="far fa-bell"></i>
+                  Notifications</label>
+                </li>
+                <li>
                     <input id="group-8" type="checkbox" hidden />
-                    <label for="group-8">
+                    <label for="group-8" routerLink="help-support">
                       <i class="fas fa-hands-helping"></i>
                   Support</label>
                 </li>
                 <li>
                     <input id="group-9" type="checkbox" hidden />
-                    <label for="group-9" routerLink="executive-members">
-                      <i class="fas fa-users"></i>
-                Executive Members</label>
+                    <label for="group-9" routerLink="forward-activities">
+                        <i class="fas fa-share"></i>
+                Forward Activities</label>
                 </li>
 
                 <!-- <li>

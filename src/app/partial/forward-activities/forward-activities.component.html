@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <div class="row mx-1 px-0" id="pageheader">
+        <div class="col-sm-4">
+            <span class="page-name">Forward Activities</span>
+        </div>
+        <div class="col-sm-8">
+            <div class="row g-1">
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" placeholder="Search Member" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="txtActivityTitle" class="form-label">Activity Title</label>
+                                <input type="text" class="form-control" id="txtActivityTitle" placeholder="Activity Title">
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtBody" class="form-label">Activity Body</label>
+                                <textarea type="text" rows="6" class="form-control" id="txtBody" placeholder="Activity Body"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label for="fuPhoto" class="form-label">Activity Photo</label>
+                                <input class="form-control form-control-sm" id="fuPhoto" type="file">
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtLinkURL" class="form-label">Link</label>
+                                <input type="url" class="form-control" id="txtLinkURL" placeholder="http://www.example.com">
+                            </div>
+                            <div class="mb-2">
+                                <label for="fuAttachments" class="form-label">Attachment(s)</label>
+                                <input class="form-control form-control-sm" id="fuAttachments" type="file" multiple>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtBody" class="form-label">Hashtags for Activity</label>
+                                <textarea type="text" rows="3" class="form-control" id="txtBody" placeholder="Hashtags for Activity"></textarea>
+                                <small class="form-text small">Use # symbol before every hashtag and separate each tag with comma (,).</small>
+                            </div>
+                            <div class="mb-2 text-end">
+                                <button type="button" class="btn btn-main">Publish Activity</button>
+                                <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
+                                <button type="button" class="btn btn-danger">Delete</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 border-start" id="notifications">
+                        <div class="d-flex media">
+                            <div class="flex-shrink-0">
+                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <span class="badge bg-primary">#activity</span>
+                                    <span class="badge bg-primary">#ncpyouth</span>
+                                    <span class="badge bg-primary">#sataracity</span>
+                                    <span class="badge bg-primary">#india</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex media">
+                            <div class="flex-shrink-0">
+                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <span class="badge bg-primary">#activity</span>
+                                    <span class="badge bg-primary">#ncpyouth</span>
+                                    <span class="badge bg-primary">#india</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex media">
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <span class="badge bg-primary">#activity</span>
+                                    <span class="badge bg-primary">#ncpyouth</span>
+                                    <span class="badge bg-primary">#sataracity</span>
+                                    <span class="badge bg-primary">#india</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

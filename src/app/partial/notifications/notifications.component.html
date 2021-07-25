@@ -1,0 +1,170 @@
+<div class="container-fluid">
+    <div class="row mx-1 px-0" id="pageheader">
+        <div class="col-sm-4">
+            <span class="page-name">Notifications</span>
+        </div>
+        <!-- <div class="col-sm-8">
+            <div class="row g-1">
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" placeholder="Search Member" />
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="txtTitleName" class="form-label">Title Name</label>
+                                <input type="text" class="form-control" id="txtTitleName" placeholder="Title Name">
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtBody" class="form-label">Notification Body</label>
+                                <textarea type="text" rows="4" class="form-control" id="txtBody" placeholder="Notification Body"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label for="fuPhoto" class="form-label">Photo</label>
+                                <input class="form-control form-control-sm" id="fuPhoto" type="file">
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtLinkURL" class="form-label">Link</label>
+                                <input type="url" class="form-control" id="txtLinkURL" placeholder="http://www.example.com">
+                            </div>
+                            <div class="mb-2">
+                                <label for="fuAttachments" class="form-label">Attachment(s)</label>
+                                <input class="form-control form-control-sm" id="fuAttachments" type="file" multiple>
+                            </div>
+                            <div class="mb-2">
+                                <label for="ddlScope" class="form-label">Scope of Notification</label>
+                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select Scope">
+                                </ngx-select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ddlMembers" class="form-label">Select Members</label>
+                                <ngx-select [allowClear]="true" [multiple]="true" [items]="items" placeholder="Select Members">
+                                </ngx-select>
+                            </div>
+                            <div class="mb-2 text-end">
+                                <button type="button" class="btn btn-main">Push Notification</button>
+                                <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
+                                <button type="button" class="btn btn-danger">Delete</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 border-start" id="notifications">
+                        <div class="text-end">
+                            <div class="row g-1">
+                                <div class="col-sm-auto">
+                                    <div class="form-check pt-2 me-3">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                          All
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="text" placeholder="Search Member" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <div class="d-flex media">
+                            <div class="flex-shrink-0">
+                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <div class="media-scope">
+                                    All Members
+                                </div>
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex media">
+                            <div class="flex-shrink-0">
+                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <div class="media-scope">
+                                    All Districts
+                                </div>
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex media">
+                            <div class="flex-grow-1 ms-3">
+                                <span class="media-date">10-02-2021</span>
+                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <div class="media-scope">
+                                    Satara District
+                                </div>
+                                <div class="media-body">
+                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
+                                    You can replace this with any content and adjust it as needed.
+                                </div>
+                                <div class="media-links">
+                                    <a href="#" class="me-5">Click Here</a>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

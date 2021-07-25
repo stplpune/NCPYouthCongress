@@ -1,0 +1,157 @@
+<div class="container-fluid">
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pt-3">
+                    <h5>Maharashtra State Committee</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4 border-end">
+                            <p>Current Designated Members</p>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Designation</th>
+                                        <th>Member Name</th>
+                                        <th>Device</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>President
+                                            <p class="small text-muted mb-0">01-01-2021 - Till</p>
+                                        </td>
+                                        <td>Mr. Mehabub Shaikh</td>
+                                        <td>
+                                            <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0" />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Vice President
+                                            <p class="small text-muted mb-0">01-01-2021 - Till</p>
+                                        </td>
+                                        <td>Mr. Anil Kambale</td>
+                                        <td>
+                                            <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0" />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                            <p>Previous Designated Members</p>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2" class="text-center bg-light">Presidents</th>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
+                                        <td>01-01-2001 - 31-12-2003</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
+                                        <td>01-01-2004 - 31-12-2008</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
+                                        <td>01-01-2009 - Till Date</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th colspan="2" class="text-center bg-light">Vice-Presidents</th>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
+                                        <td>01-01-2001 - 31-12-2003</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
+                                        <td>01-01-2004 - 31-12-2008</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
+                                        <td>01-01-2009 - Till Date</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th colspan="2" class="text-center bg-light">Chairmans</th>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
+                                        <td>01-01-2001 - 31-12-2003</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
+                                        <td>01-01-2004 - 31-12-2008</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
+                                        <td>01-01-2009 - Till Date</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-8">
+                            asdf
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Add/Update/Delete Member for any Designation -->
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="AddMemberModalLabel">Add Member</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label for="ddlDistrict" class="form-label">District</label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlTaluka" class="form-label">Taluka</label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlCityVillage" class="form-label">City / Village</label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select City / Village">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtMemberName" class="form-label">Body Name</label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-main">Assign Member</button>
+            </div>
+        </div>
+    </div>
+</div>
