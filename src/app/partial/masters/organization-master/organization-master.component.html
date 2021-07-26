@@ -13,6 +13,7 @@
             <div class="card">
                 <div class="card-header">Create Organization Body</div>
                 <div class="card-body pt-0">
+                    <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
                     <div class="form-container">
                         <div class="mb-2">
                             <label for="txtBodyName" class="form-label">Body Name</label>
@@ -25,45 +26,48 @@
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Select State</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select State"  formControlName="state">
                             </ngx-select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select District</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                            <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="district" (select)="getTaluka(this.orgMasterForm.value.district)"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
+                                <!-- [disabled]="!this.orgMasterForm.value.state"  -->
                             </ngx-select>
                         </div>
                         <div class="mb-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rblSector" id="rblRural" value="Rural">
-                                <label class="form-check-label" for="rblRural">Rural</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rblSector" id="rblUrban" value="Urban">
-                                <label class="form-check-label" for="rblUrban">Urban</label>
+                            <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
+                                <input class="form-check-input" type="radio" formControlName="category"   [value]="category" name="rblSector" id="rblRural"  [(ngModel)]='defultCategory'  (change)='onRadioChangeCategory(category)'>
+                                <label class="form-check-label" for="rblRural">{{category}}</label>
                             </div>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Select Taluka</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                            <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  [disabled]="!this.orgMasterForm.value.district"  formControlName="taluka"   optionValueField="TalukaId"  optionTextField="TalukaName"   placeholder="Select Taluka"  (select)="getVillageOrCity(this.orgMasterForm.value.taluka)" >
                             </ngx-select>
                         </div>
                         <div class="mb-2">
+                            <label class="form-label">Select {{villageCityLabel}}</label>
+                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" optionValueField="VillageId"  optionTextField="VillageName"  [disabled]="!this.orgMasterForm.value.taluka">
+                            </ngx-select>
+                        </div>
+                        <!-- <div class="mb-2" *ngIf="selCityFlag">
                             <label class="form-label">Select City</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City" [disabled]="!this.orgMasterForm.value.taluka">
                             </ngx-select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-2" *ngIf="selVillageFlag">
                             <label class="form-label">Select Village</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Village">
+                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity"    optionValueField="VillageId"  optionTextField="VillageName"  placeholder="Select Village" [disabled]="!this.orgMasterForm.value.taluka">
                             </ngx-select>
-                        </div>
+                        </div> -->
                         <div class="mb-2 text-end">
                             <button type="button" class="btn btn-main">Create Organization</button>
                             <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
                             <button type="button" class="btn btn-danger">Delete</button> -->
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
