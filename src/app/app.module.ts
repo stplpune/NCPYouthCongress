@@ -11,7 +11,10 @@ import { WebComponent } from './web/web.component';
 import { PartialComponent } from './partial/partial.component';
 import { WebHeaderComponent } from './web/template/web-header/web-header.component';
 import { WebFooterComponent } from './web/template/web-footer/web-footer.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,19 @@ import { WebFooterComponent } from './web/template/web-footer/web-footer.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      closeButton: true,
+        progressBar:true,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
