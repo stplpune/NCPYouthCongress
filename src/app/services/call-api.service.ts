@@ -15,8 +15,8 @@ export class CallAPIService {
   getBaseurl(url: string) {
     switch (url) {
       //Test server base url 
-      case 'ncpservice': return 'http://ncpservice.erpguru.in/service.asmx/'; break;
-      case 'ncpServiceForWeb': return 'http://ncpservice.erpguru.in/service.asmx?'; break;
+      // case 'ncpservice': return 'http://ncpservice.erpguru.in/service.asmx/'; break;
+      case 'ncpServiceForWeb': return 'http://ncpservice.erpguru.in/service.asmx/'; break;
       default: return ''; break;
     }
   }

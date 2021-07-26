@@ -21,11 +21,10 @@ export class OrganizationMasterComponent implements OnInit {
   allStates:any;
   public items: string[] = [];
 
-
-
   constructor(private callAPIService: CallAPIService, private fb: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
+    this.getState();
     this.getDistrict();
     this.customForm();
   }
@@ -39,7 +38,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getState() {
-    this.callAPIService.setHttp('get', 'GetDistrict?StateId=' + 1, false, false, false, 'ncpservice');
+    this.callAPIService.setHttp('get', 'Web_GetState_1_0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allStates = res.data1;
@@ -54,7 +53,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDistrict() {
-    this.callAPIService.setHttp('get', 'GetDistrict?StateId=' + 1, false, false, false, 'ncpservice');
+    this.callAPIService.setHttp('get', 'Web_GetDistrict?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allDistrict = res.data1;
@@ -69,7 +68,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    this.callAPIService.setHttp('get', 'GetTaluka?DistrictId=' + districtId, false, false, false, 'ncpservice');
+    this.callAPIService.setHttp('get', 'Web_GetTaluka?DistrictId=' + districtId, false, false, false, 'ncpservice');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getTalkaByDistrict = res.data1;
@@ -84,7 +83,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any) {
-    this.callAPIService.setHttp('get', 'GetVillage?talukaid=' + talukaID, false, false, false, 'ncpservice');
+
+    this.callAPIService.setHttp('get', 'Web_GetVillage?talukaid=' + talukaID, false, false, false, 'ncpservice');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resultVillageOrCity = res.data1;

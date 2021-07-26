@@ -26,13 +26,12 @@
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Select State</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select State"  formControlName="state">
+                            <ngx-select [allowClear]="true" [items]="allStates" formControlName="state" placeholder="Select State"  optionValueField="Id"  optionTextField="StateName"  formControlName="state">
                             </ngx-select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select District</label>
-                            <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="district" (select)="getTaluka(this.orgMasterForm.value.district)"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
-                                <!-- [disabled]="!this.orgMasterForm.value.state"  -->
+                            <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="district" [disabled]="!this.orgMasterForm.value.state"  (select)="getTaluka(this.orgMasterForm.value.district)"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
                             </ngx-select>
                         </div>
                         <div class="mb-2">
@@ -76,8 +75,9 @@
                 <div class="card-header">
                     <div class="row g-1">
                         <div class="col-sm-3 offset-4">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                            <ngx-select [allowClear]="true" [items]="allDistrict" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
                             </ngx-select>
+                          
                         </div>
                         <div class="col-sm-5">
                             <div class="input-group">
