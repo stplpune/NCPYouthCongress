@@ -254,6 +254,11 @@
             <div class="modal-body">
                 <div class="form-container">
                     <div class="mb-3">
+                        <label for="txtMemberName" class="form-label">Member Name</label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">District</label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                         </ngx-select>
@@ -266,11 +271,6 @@
                     <div class="mb-3">
                         <label for="ddlCityVillage" class="form-label">City / Village</label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select City / Village">
-                        </ngx-select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="txtMemberName" class="form-label">Body Name</label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
                 </div>
