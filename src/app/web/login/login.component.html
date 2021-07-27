@@ -1,7 +1,7 @@
 <div id="login">
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-4">
+            <div id="login-column" class="col-md-4 mt-5">
                 <div id="login-box" class="col-md-12">
                     <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
                         <h3 class="text-center">Login</h3>
@@ -22,18 +22,35 @@
                                 <div *ngIf="f.Password.errors.required">Password is required</div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div id="captcha" class="form-control py-0"></div>
-                                <button class="btn sync" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Captcha" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }">
+                                    <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
+                                        <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                                    </div>
+                                </div>
+                                
                             </div>
-                            <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
-                                <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <div id="captcha" class="form-control py-0"></div>
+                                        <button class="btn sync" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
+                                    </div>
+                                    <!-- <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
+                                        <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                                    </div> -->
+                                </div>
                             </div>
+                            <!-- <div class="col-md-12">
+                                <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
+                                    <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                                </div>
+                            </div> -->
                         </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Enter Captcha" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }">
-                        </div>
+                        
+                        
                         <div class="mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="remeber-me">

@@ -50,3 +50,21 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     background-color: var(--main-color);
     color: #fff;
 }
+
+
+.form-group{
+    position: relative;
+}
+
+.invalid-feedback {
+    position: absolute;
+    margin-top: -1px;
+    width: auto;
+    font-size: 70%;
+    color:#dc3545;
+}
+
+.invalid-feedback {
+    display: flex;
+    margin-top: 0;
+}
