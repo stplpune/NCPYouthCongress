@@ -1,0 +1,37 @@
+#login-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px #aaa;
+}
+
+#login-box h3 {
+    color: var(--main-color);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#login-box .form-control,
+#login-box .btn {
+    font-size: 0.85rem;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 12.8px 15px;
+}
+
+#login-box .form-check-label {
+    font-size: 0.85rem;
+}
+
+#login-box .input-group .form-control {
+    border-right: 0;
+}
+
+#login-box .input-group .btn {
+    border: 1px solid #ced4da;
+    border-left: 0;
+    background-color: none;
+}

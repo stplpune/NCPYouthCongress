@@ -23,3 +23,14 @@ body {
         margin-left: 0 !important;
     }
 }
+
+.btn-main {
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.btn-main:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
