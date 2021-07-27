@@ -19,6 +19,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    
+    NgxSpinnerModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,

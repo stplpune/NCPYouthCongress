@@ -7,7 +7,16 @@ import { Injectable } from '@angular/core';
 export class CommonService {
   constructor() { }
 
-  
+  getLocalStorageData() {
+    let loginObj = JSON.parse(localStorage.loggedInDetails).data1[0];
+    return loginObj;
+  }
+
+  loggedInUserId() {
+    let userId = this.getLocalStorageData();
+    return userId.Id;
+  }
+
   codecareerPage:any;
   createCaptchaCarrerPage() {
     //clear the contents of captcha div first

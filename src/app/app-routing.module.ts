@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthorizationGuard } from './auth/authorization.guard';
+import { LoggedInAuthGuard } from './auth/logged-in-auth.guard';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { PartialComponent } from './partial/partial.component';
 import { WebComponent } from './web/web.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '', component: WebComponent, children: [
-      { path: 'home', loadChildren: () => import('./web/home/home.module').then(m => m.HomeModule) },
+      { path: 'home', loadChildren: () => import('./web/home/home.module').then(m => m.HomeModule), data: { title: 'Login' }, canActivate: [LoggedInAuthGuard]  },
       { path: 'about', loadChildren: () => import('./web/about/about.module').then(m => m.AboutModule) },
       { path: 'register', loadChildren: () => import('./web/register/register.module').then(m => m.RegisterModule) },
       { path: 'login', loadChildren: () => import('./web/login/login.module').then(m => m.LoginModule) },
