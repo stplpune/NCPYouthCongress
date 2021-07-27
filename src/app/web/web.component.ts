@@ -7,7 +7,7 @@ import { Router, NavigationStart } from '@angular/router';
 })
 export class WebComponent implements OnInit {
 
-  login: boolean = false;
+  login: boolean = true;
   
   constructor(private router: Router) {
     // on route change to '/login', set the variable showHead to false
