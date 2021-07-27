@@ -1,46 +1,53 @@
 <div id="login">
-    <h3 class="text-center text-white pt-5">Login form</h3>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-4">
                 <div id="login-box" class="col-md-12">
                     <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
-                        <h3 class="text-center text-info">Login</h3>
-                        <div class="form-group">
-                            <label for="username" class="text-info">Username:</label><br>
-                            <input type="text" name="username" class="form-control" formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }"> 
+                        <h3 class="text-center">Login</h3>
+                        <div class="mb-3">
+                            <input type="text" placeholder="UserName" name="username" class="form-control" formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
                             <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
                                 <div *ngIf="f.UserName.errors.required">UserName is required</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password" class="text-info">Password:</label><br>
-                            <input autocomplete="off" [type]="show_button ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
-
-                            <!-- <input type="password" name="password" id="password" class="form-control" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">  -->
-                          
-                            <i class="eye-icon-pos" [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword()"> </i>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input autocomplete="off" [type]="show_button ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                                <button type="button" class="btn">
+                                    <i class="eye-icon-pos" [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword()"> </i>
+                                </button>
+                            </div>
                             <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
                                 <div *ngIf="f.Password.errors.required">Password is required</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="username" class="text-info">Catcha:</label><br>
-                        <input type="text"  class="form-control" placeholder="Enter Captcha" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }"> 
-                        <button class="btn btn-light sync rounded-0 btn-sm" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
-                        <div id="captcha"></div>
-                        <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
-                            <div *ngIf="f.recaptchaReactive.errors.required">Captcha  is required</div>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div id="captcha" class="form-control py-0"></div>
+                                <button class="btn sync" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
+                            </div>
+                            <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
+                                <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                            </div>
                         </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Enter Captcha" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }">
                         </div>
-                        <div class="form-group">
-                            <label for="remember-me" class="text-info"><span>Remember me</span> <span><input
-                                        id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                            <button type="submit" class="btn btn-info btn-md">submit</button>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="remeber-me">
+                                <label class="form-check-label" for="remeber-me">
+                                  Remember Me
+                                </label>
+                            </div>
                         </div>
-                        <div id="register-link" class="text-right">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-main">Submit</button>
+                        </div>
+                        <!-- <div id="register-link" class="text-right">
                             <a href="#" class="text-info">Register here</a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>

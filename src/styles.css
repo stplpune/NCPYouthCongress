@@ -24,6 +24,7 @@ body {
     }
 }
 
+<<<<<<< HEAD
 label.form-label.is-invalid {
     color: #dc3545 !important;
 }
@@ -40,3 +41,15 @@ label.form-label.is-invalid {
 ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     border-color: #dc3545 !important;
 }
+=======
+.btn-main {
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.btn-main:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
+>>>>>>> 366476942ac841deaa9d4178ed90db142856fdd7
