@@ -47,10 +47,10 @@
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Select {{villageCityLabel}}</label>
-                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" optionValueField="VillageId"  optionTextField="VillageName"  [disabled]="!this.orgMasterForm.value.taluka">
+                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" optionValueField="VillageId"  optionTextField="VillageName || CityName"  [disabled]="!this.orgMasterForm.value.taluka">
                             </ngx-select>
                         </div>
-                        <!-- <div class="mb-2" *ngIf="selCityFlag">
+                        <!-- <div class="mb-2" *ngIf="selCityFlag"> Id: 464, CityName: "Ahmadnagar"
                             <label class="form-label">Select City</label>
                             <ngx-select [allowClear]="true" [items]="items" placeholder="Select City" [disabled]="!this.orgMasterForm.value.taluka">
                             </ngx-select>

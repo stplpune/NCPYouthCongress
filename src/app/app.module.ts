@@ -14,8 +14,11 @@ import { WebFooterComponent } from './web/template/web-footer/web-footer.compone
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,20 +34,21 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
   ],
   imports: [
     BrowserModule,
+    
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 2000,
       closeButton: true,
-        progressBar:true,
-      positionClass: 'toast-top-right',
+      progressBar:true,
       preventDuplicates: true,
     }),
+    BrowserAnimationsModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

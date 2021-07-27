@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthorizationGuard } from './auth/authorization.guard';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { PartialComponent } from './partial/partial.component';
 import { WebComponent } from './web/web.component';
@@ -15,7 +17,10 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'partial', component: PartialComponent, children: [
+    path: '',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthorizationGuard],
+     component: PartialComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => import('./partial/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'masters/designation-master', loadChildren: () => import('./partial/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule) },
