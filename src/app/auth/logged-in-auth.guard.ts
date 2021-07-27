@@ -9,16 +9,13 @@ import { AuthService } from './auth.service';
 })
 export class LoggedInAuthGuard implements CanActivate {
   constructor(private _authService: AuthService,
-    private _router: Router, private toastrService:ToastrService) { }
+    private _router: Router, private toastrService: ToastrService) { }
 
   canActivate(): any {
     if (this._authService.isLoggedIn()) {
-      this._router.navigate(['/partial/dashboard']);
-      // this._snackBar.open("You have already logged in", "Ok", {
-      //   duration: 2000,
-      // })
+      this._router.navigate(['/dashboard']);
       this.toastrService.success('You are already logged in');
-  
+
     } else {
       return true;
     }
