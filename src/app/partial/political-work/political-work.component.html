@@ -34,13 +34,9 @@
                             <th scope="col">Member Name</th>
                             <th scope="col">Work Type</th>
                             <th scope="col">Title</th>
-                            <th scope="col">Program</th>
-                            <th scope="col">Media</th>
                             <th scope="col">Description</th>
-                            <th scope="col">URL Link</th>
                             <th scope="col">Photos</th>
-                            <th scope="col">Person Contact Details</th>
-                            <th scope="col">Location</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,17 +46,13 @@
                             <td>Anil Kambale</td>
                             <td>Political Work</td>
                             <td>Title</td>
-                            <td>-</td>
-                            <td>-</td>
                             <td>Description</td>
-                            <td>-</td>
                             <td>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                             </td>
-                            <td>-</td>
                             <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#LocationModal"><i class="fas fa-map-marker-alt"></i></button>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
                         <tr>
@@ -68,54 +60,45 @@
                             <td>02-07-2021</td>
                             <td>Sunil Jadhav</td>
                             <td>News Letters</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>Media</td>
+                            <td>Title</td>
                             <td>Description</td>
-                            <td><a href="#">URL Link</a></td>
                             <td>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                             </td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>03-07-2021</td>
                             <td>Ramesh Singh</td>
                             <td>Social Media Activity of Help</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>Title</td>
                             <td>Description</td>
-                            <td>-</td>
                             <td>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                             </td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>04-07-2021</td>
                             <td>Arvind Mohite-Patil</td>
                             <td>Personal Help</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>Title</td>
                             <td>Description</td>
-                            <td>-</td>
                             <td>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                             </td>
                             <td>
-                                <p class="text-muted mb-0">Mr. Sunil Kambale</p>
-                                <p class="text-muted mb-0">+91-9876543210</p>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
-                            <td>-</td>
                         </tr>
                         <tr>
                             <td>5</td>
@@ -123,17 +106,15 @@
                             <td>Rajesh Patil</td>
                             <td>Party Programs</td>
                             <td>Title</td>
-                            <td>Program</td>
-                            <td>-</td>
                             <td>Description</td>
-                            <td>-</td>
                             <td>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                             </td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -142,31 +123,114 @@
     </div>
 </div>
 
-<!-- Modal for Image Gallery -->
-<div class="modal fade" id="PhotoGalleryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PhotoGalleryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="PhotoGalleryModalLabel">Photo Gallery</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <img src="assets/images/dashboard-images/ncplogo.png" class="img-fluid" />
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal for Location -->
-<div class="modal fade" id="LocationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LocationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="LocationModalLabel">Location</h6>
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid">
+                <div class="row">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">1</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">01-12-2021</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Members Name</label>
+                            <div id="txtMembersName" class="form-data">
+                                Mr. Anil Kambale
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Work Type</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Title</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    Title of the program
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Program</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    Program Name
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Media</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    Medium of the program
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Post Description</label>
+                            <div id="txtDescription" class="form-data">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">URL Link</label>
+                                <div id="txtMessageFavour" class="form-data">
+                                    <a href="#">URL Link</a>>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Contact Person Details</label>
+                                <div id="txtMessageOppse" class="form-data">
+                                    Contact Person Name<br> +91-9871354230
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-12 form-container">
+                        <label class="form-label">Photos</label>
+                        <div class="row">
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                            <div class="col-sm-2 mb-3">
+                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
