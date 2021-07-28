@@ -18,7 +18,25 @@
             <div class="card">
                 <div class="card-header">Best Performed Karyakarini Member</div>
                 <div class="card-body">
-                    d
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Karyakarta Name</th>
+                                <th>Email ID</th>
+                                <th>Contact No</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let result of this.resBestPerformance; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{result.FullName}}</td>
+                                <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
+                                <td>{{result.MobileNo}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

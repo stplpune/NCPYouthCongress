@@ -51,7 +51,6 @@ export class AppComponent {
   }
 
   checkingInternetConnection() {
-    debugger;
     this.connectionService.monitor().subscribe((isConnected: any) => {
       this.isConnected = isConnected;
       if (this.isConnected) {
