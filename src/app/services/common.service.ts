@@ -17,6 +17,12 @@ export class CommonService {
     return userId.Id;
   }
 
+  districtId() {
+    let DistrictId = this.getLocalStorageData();
+    return DistrictId.DistrictId;
+  }
+
+  
   codecareerPage:any;
   createCaptchaCarrerPage() {
     //clear the contents of captcha div first

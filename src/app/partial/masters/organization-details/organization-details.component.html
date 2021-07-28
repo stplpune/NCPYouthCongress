@@ -247,6 +247,7 @@
 <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <form [formGroup]="AddMember" (ngSubmit)="onSubmit()">
             <div class="modal-header">
                 <p class="modal-title" id="AddMemberModalLabel">Add Member</p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -255,18 +256,27 @@
                 <div class="form-container">
                     <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">District</label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                        <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="DistrictId"   (select)="getTaluka(this.AddMember.value.DistrictId)"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                         </ngx-select>
+                        <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                            <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="ddlTaluka" class="form-label">Taluka</label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  [disabled]="!this.AddMember.value.DistrictId"  formControlName="TalukaId"   optionValueField="TalukaId"  optionTextField="TalukaName"   placeholder="Select Taluka"  (select)="getVillageOrCity(this.AddMember.value.TalukaId,villageCityLabel)"  [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                         </ngx-select>
+                        <div *ngIf="submitted && f.AddMember.errors" class="invalid-feedback">
+                            <div *ngIf="f.AddMember.errors.required">Taluka is required</div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="ddlCityVillage" class="form-label">City / Village</label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select City / Village">
+                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId"  [optionTextField]="setVillOrcityName"  [disabled]="!this.AddMember.value.TalukaId"  [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                         </ngx-select>
+                        <div *ngIf="submitted && f.AddMember.errors" class="invalid-feedback">
+                            <div *ngIf="f.AddMember.errors.required">Village is required</div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="txtMemberName" class="form-label">Body Name</label>
@@ -278,6 +288,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-main">Assign Member</button>
             </div>
+        </form>
         </div>
     </div>
 </div>

@@ -15,11 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule,
+    NgxPaginationModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       closeButton: true,

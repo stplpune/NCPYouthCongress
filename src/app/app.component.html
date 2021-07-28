@@ -3,11 +3,12 @@
 </ngx-spinner>
 <router-outlet></router-outlet>
 
-<button type="button" #openModal class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none;">
+<button type="button" #openModal class="btn btn-primary d-none"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Test
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel" aria-hidden="true">
     <button type="button" class="close" data-dismiss="modal" #close aria-label="Close" style="display: none;"></button>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

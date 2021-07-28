@@ -5,6 +5,7 @@ import { OrganizationMasterRoutingModule } from './organization-master-routing.m
 import { OrganizationMasterComponent } from './organization-master.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrganizationMasterRoutingModule,
     NgxSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class OrganizationMasterModule { }

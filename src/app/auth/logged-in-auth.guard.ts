@@ -17,6 +17,7 @@ export class LoggedInAuthGuard implements CanActivate {
       this.toastrService.success('You are already logged in');
 
     } else {
+      this.toastrService.error('Please login and try again');
       return true;
     }
   }

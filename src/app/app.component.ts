@@ -1,9 +1,8 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute, NavigationStart } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { CallAPIService } from './services/call-api.service';
 import { ConnectionService } from 'ng-connection-service';
 
 @Component({
@@ -16,11 +15,11 @@ export class AppComponent {
   isConnected = true;
   @ViewChild('openModal') openModal: any;
   @ViewChild('close') close: any;
-  
+
   title = 'NCPYouthCongress';
-  constructor(private router: Router,   private activatedRoute: ActivatedRoute,
-     private titleService: Title,  private spinner: NgxSpinnerService, 
-     private _callAPIService:CallAPIService,    private connectionService: ConnectionService){
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+    private titleService: Title, private spinner: NgxSpinnerService,
+    private connectionService: ConnectionService) {
     this.checkingInternetConnection();
 
     this.router.events.subscribe((event: any) => { //beefore page load spinner is show
@@ -51,17 +50,18 @@ export class AppComponent {
     }
   }
 
-  checkingInternetConnection(){
-    this.connectionService.monitor().subscribe((isConnected:any) => {
+  checkingInternetConnection() {
+    debugger;
+    this.connectionService.monitor().subscribe((isConnected: any) => {
       this.isConnected = isConnected;
       if (this.isConnected) {
         this.status = "Internet Connection Available";
-        let el: HTMLElement = this.close.nativeElement;
+        let el: any = this.close.nativeElement;
         el.click();
       }
       else {
         this.status = "No Internet Connection";
-        let el: HTMLElement = this.openModal.nativeElement;
+        let el: any = this.openModal.nativeElement;
         el.click();
       }
     })
