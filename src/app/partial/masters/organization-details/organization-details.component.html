@@ -121,6 +121,17 @@
                             </table>
                         </div>
                         <div class="col-sm-8">
+                            <div class="row mb-3">
+                                <div class="col-sm-4 offset-4">
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Work Type">
+                                    </ngx-select>
+                                </div>
+                            </div>
+
                             <div class="row" id="dash-stats">
                                 <div class="col-sm-3">
                                     <div class="card card-body bg-cyan">
@@ -280,8 +291,22 @@
                     </div>
                     <div class="mb-3">
                         <label for="txtMemberName" class="form-label">Body Name</label>
+                        <label for="txtMemberName" class="form-label">Member Name</label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
                         </ngx-select>
+                    </div>
+                    <div class="mb-3 chartbox">
+                        <div class="card">
+                            <div class="card-header pb-0">Member Details</div>
+                            <div class="card-body pt-0">
+                                <label class="form-label mb-0">Email ID</label>
+                                <div class="form-control-plaintext py-0">mehabub.shaikh@gmail.com</div>
+                                <label class="form-label mb-0">Contact No.</label>
+                                <div class="form-control-plaintext py-0">+91-9876543210</div>
+                                <label class="form-label mb-0">Location</label>
+                                <div class="form-control-plaintext py-0">City, Taluka, District</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
