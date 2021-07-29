@@ -15,7 +15,7 @@
             <div class="card card-body bg-cyan">
                 <i class="fas fa-users"></i>
                 <p>Executive Member</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.ExcecutiveMembers}}</h3>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="card card-body bg-green">
                 <i class="fas fa-user"></i>
                 <p>Youth Members</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container>
+               <!-- <h3> <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container></h3> -->
                 <h3>{{dashboardCount1Array?.YouthMembers}}</h3>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="card card-body bg-blue">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.ActiveMembers}}</h3>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="card card-body bg-gold">
                 <i class="fas fa-people-arrows"></i>
                 <p>Committee Work</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.CommitteeWork}}</h3>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="card card-body bg-red">
                 <i class="fas fa-user-cog"></i>
                 <p>Members Work</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.MemberWork}}</h3>
             </div>
         </div>
@@ -67,24 +67,11 @@
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <!-- <form [formGroup]="workInThisWeekForm"> -->
                             Work in This Week <a routerLink="../work-this-week"><i class="fas fa-external-link-alt"></i></a>
-                            <!-- <span class="float-end"> -->
-                            <!-- <input type="date" class="form-control form-control-sm" placeholder="Date Range" [parentFormGroup]="form"  [options]="secondFieldOptions" /> -->
-                            <span class="float-end">
-                            <date-range-picker  [instanceId]="'secondDateRange'" [controlName]="'secondDateRange'" #dateRangePicker>
-                            
-                            <!-- <div class="form-group">
-                                <div class="input-group">
-                                  <input  class="form-control" type="text" 
-                                      [value]="dateRangePicker.range" placeholder="From - To" formControlName="secondDateRange" />
-                                </div>
-                              </div> -->
-                            </date-range-picker>
-                        </span>
-                            <!-- </span> -->
-                            <!-- <button (click)="submit()">asd</button> -->
-                            <!-- </form> -->
+                           <span class="float-end">
+                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                            <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
+                        </span> 
                         </div>
                         <div class="card-body chartHeight workLineChartdiv">
 

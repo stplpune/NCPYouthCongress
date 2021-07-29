@@ -7,12 +7,23 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-sm-5 chartbox">
             <div class="card mb-3">
                 <div class="card-header">Work done by Yuvak</div>
                 <div class="card-body">
-                    d
+                    <img src="assets/images/mahamap.svg" class="img-fluid mb-4" />
+
+                    <p class="text-success font-weight-bold mb-1">Top Performance</p>
+                    <ul class="list-group list-group-horizontal mb-3" >
+                        <li class="list-group-item list-group-item-success" *ngFor="let topPerformance of WorkDoneByYuvakTP">{{topPerformance.DistrictName}}</li>
+                       
+                    </ul>
+                    <p class="text-danger font-weight-bold mb-1">Bottom Performance</p>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item list-group-item-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">{{bottomPerformance.DistrictName}}</li>
+
+                    </ul>
                 </div>
             </div>
             <div class="card">
@@ -29,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let result of this.resBestPerformance; let i = index">
+                            <tr *ngFor="let result of resBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{result.FullName}}</td>
                                 <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
@@ -43,27 +54,61 @@
         <div class="col-sm-7 chartbox">
             <div class="card mb-3">
                 <div class="card-header">Work done by Yuvak</div>
-                <div class="card-body">
-                    d
+                <div class="card-body p-0 WorkDoneByYuvak" style="height: 400px;">
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">Best Performance
-                    <span class="float-end">
-                        <div class="input-group">
-                            <select class="form-select mr-2">
-                                <option value="">Select District</option>
-                                <option>Pune</option>
-                            </select>
-                            <select class="form-select">
-                                <option value="">Select Taluka</option>
-                                <option>Pune</option>
-                            </select>
+                <div class="card-header">
+                    <form [formGroup]="filterBestPer">
+                    <div class="row">
+                        <div class="col-md-3">
+                            Best Performance
                         </div>
-                    </span>
+                            <div class="col-md-3">
+                                    <ngx-select [allowClear]="true" [items]="allDistrict"
+                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" formControlName="DistrictId"
+                                        optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                                    </ngx-select>
+                    
+                            </div>
+                            <div class="col-md-3">
+                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" optionValueField="TalukaId"
+                                        optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
+                                        (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)" [disabled]="!this.filterBestPer.value.DistrictId">
+                                    </ngx-select>
+                            </div>
+                            <div class="col-md-3">
+                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select village"
+                                        optionValueField="VillageName" optionTextField="VillageId" formControlName="VillageId"
+                                        [disabled]="!this.filterBestPer.value.TalukaId">
+                                    </ngx-select>
+                            </div>
+                        
+                    </div>
+                </form>
                 </div>
                 <div class="card-body">
-                    d
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Karyakarta Name</th>
+                                    <th>Email ID</th>
+                                    <th>Contact No</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let result of resBestPerMember; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{result.FullName}}</td>
+                                    <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
+                                    <td>{{result.MobileNo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

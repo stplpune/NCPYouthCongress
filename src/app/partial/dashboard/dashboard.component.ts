@@ -8,13 +8,14 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css', '../partial.component.css']
+  styleUrls: ['./dashboard.component.css', '../partial.component.css'],
+  providers: [DatePipe]
 })
 
 export class DashboardComponent implements OnInit {
@@ -26,14 +27,19 @@ export class DashboardComponent implements OnInit {
   typesOfWorksArray: any;
   perceptionOnSocialMediaArray: any;
   workInThisWeekForm!: FormGroup;
+  maxDate: any = new Date();
+  selWeekDate:any;
+  weekRangeObj:any;
 
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
-    private commonService:CommonService,
+    private commonService: CommonService,
     private fb: FormBuilder,
-  ) { }
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    public datepipe: DatePipe,
+  ) { { dateTimeAdapter.setLocale('en-IN') } }
 
   ngOnInit(): void {
     this.weeklyColumnChart();
@@ -44,12 +50,31 @@ export class DashboardComponent implements OnInit {
     this.getWorkInThisWeek();
   }
 
-submit(){
-  console.log(this.workInThisWeekForm.value)
-}
+  getweekRage(dates: any) {
+    let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
+    let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
+    this.weekRangeObj = {'fromDate':fromDate, 'toDate':toDate};
+    localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    // let date1: any = new Date(fromDate);
+    // let timeStamp = Math.round(new Date(toDate).getTime() / 1000);
+    // let timeStampYesterday = timeStamp - (168 * 3600);
+    // let is24 = date1 >= new Date(timeStampYesterday * 1000).getTime();
+
+    // if (!is24) {
+    //     this.toastrService.error("Date difference does not exceed 7 days");
+    //     this.spinner.hide();
+    //     return
+    // }else{
+    //   alert('ok')
+    // }
+  }
+
+  submit() {
+    console.log(this.workInThisWeekForm.value)
+  }
 
   getDistrict() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -69,11 +94,11 @@ submit(){
 
   getDashboardCount1() {
     this.spinner.show();
-    this.callAPIService.setHttp('get','Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.dashboardCount1Array= res.data1[0];
+        this.dashboardCount1Array = res.data1[0];
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -88,7 +113,7 @@ submit(){
 
   getLowestActivityDistricts() {
     this.spinner.show();
-    this.callAPIService.setHttp('get','Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -224,7 +249,7 @@ submit(){
     // Create axes
     let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
     xAxis.renderer.minGridDistance = 40;
-    
+
 
     // Create value axis
     let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -270,11 +295,11 @@ submit(){
 
     bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
 
-    
+
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
-    
+
     let hs2 = series2.segments.template.states.create("hover")
     hs2.properties.strokeWidth = 5;
     series2.segments.template.strokeWidth = 1;
@@ -285,16 +310,16 @@ submit(){
 
     // Add legend
     chart.legend = new am4charts.Legend();
-    chart.legend.itemContainers.template.events.on("over", function(event:any){
+    chart.legend.itemContainers.template.events.on("over", function (event: any) {
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function(segment:any){
+      segments.each(function (segment: any) {
         segment.isHover = true;
       })
     })
-    
-    chart.legend.itemContainers.template.events.on("out", function(event:any){
+
+    chart.legend.itemContainers.template.events.on("out", function (event: any) {
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function(segment:any){
+      segments.each(function (segment: any) {
         segment.isHover = false;
       })
     })
@@ -391,7 +416,7 @@ submit(){
     // Add data
     chart.data = this.typesOfWorksArray;
 
-    
+
 
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -422,7 +447,7 @@ submit(){
 
     chart.paddingBottom = 30;
 
-     chart.data=this.perceptionOnSocialMediaArray;
+    chart.data = this.perceptionOnSocialMediaArray;
     // chart.data = [{
     //   "name": "NCP",
     //   "steps": 45688,
@@ -447,10 +472,10 @@ submit(){
 
     // ];
 
-//     0: {ActivityCount: 70, PartyId: 1, PartyName: "Nationalist Congress Party", PartyShortCode: "NCP"}
-// 1: {ActivityCount: 15, PartyId: 2, PartyName: "Shivsena", PartyShortCode: "SS"}
-// 2: {ActivityCount: 53, PartyId: 3, PartyName: "Bharatiya Janata Party", PartyShortCode: "BJP"}
-// 3: {ActivityCount: 20, PartyId: 4, PartyName: "Indian National Congress", PartyShortCode: "INC"}
+    //     0: {ActivityCount: 70, PartyId: 1, PartyName: "Nationalist Congress Party", PartyShortCode: "NCP"}
+    // 1: {ActivityCount: 15, PartyId: 2, PartyName: "Shivsena", PartyShortCode: "SS"}
+    // 2: {ActivityCount: 53, PartyId: 3, PartyName: "Bharatiya Janata Party", PartyShortCode: "BJP"}
+    // 3: {ActivityCount: 20, PartyId: 4, PartyName: "Indian National Congress", PartyShortCode: "INC"}
 
 
     let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
