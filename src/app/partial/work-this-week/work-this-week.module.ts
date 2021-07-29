@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { WorkThisWeekRoutingModule } from './work-this-week-routing.module';
 import { WorkThisWeekComponent } from './work-this-week.component';
+import { NgxSelectModule } from 'ngx-select-ex';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { WorkThisWeekComponent } from './work-this-week.component';
   ],
   imports: [
     CommonModule,
-    WorkThisWeekRoutingModule
+    WorkThisWeekRoutingModule,
+    NgxSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class WorkThisWeekModule { }

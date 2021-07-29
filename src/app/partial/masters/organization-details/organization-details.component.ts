@@ -20,25 +20,46 @@ export class OrganizationDetailsComponent implements OnInit {
   villageCityLabel = "Village";
   setVillOrCityId = "VillageId";
   setVillOrcityName = "VillageName";
-  
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, private spinner: NgxSpinnerService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.defaultAddMemberForm();
-    this.getDistrict();
+    this.getAllMember();
+    // this.getDistrict();
   }
 
   defaultAddMemberForm() {
     this.AddMember = this.fb.group({
-      DistrictId:[''],
-      TalukaId:[''],
-      VillageId:['']
+      // DistrictId:[''],
+      // TalukaId:[''],
+      // VillageId:['']
     })
   }
 
   get f() { return this.AddMember.controls };
   onSubmit() {
+    this.getAllMember();
+  }
 
+
+
+  getAllMember() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetAllMember_1_0', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrict = res.data1;
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
   }
 
   getDistrict() {
