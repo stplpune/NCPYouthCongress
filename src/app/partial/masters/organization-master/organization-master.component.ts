@@ -336,7 +336,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDesignation() {
-    // this.spinner.show();
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Getdesignationmaster_1_0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

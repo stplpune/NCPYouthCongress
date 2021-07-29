@@ -4,7 +4,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxDateRangeModule } from 'ngx-daterange';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -15,9 +15,8 @@ import { NgxDateRangeModule } from 'ngx-daterange';
     DashboardRoutingModule,
     NgxSelectModule,
     FormsModule,
-    NgxDateRangeModule,
     ReactiveFormsModule,
-  
+    OwlNativeDateTimeModule
   ]
 })
 export class DashboardModule { }

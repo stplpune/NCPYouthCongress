@@ -21,7 +21,7 @@ export class WorkThisWeekComponent implements OnInit {
 
   getBestPerformance() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId='+this.commonService.loggedInUserId()+'&FromDate=&ToDate=&DistrictId='+this.commonService.districtId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0?UserId='+this.commonService.loggedInUserId()+'&FromDate=&ToDate=&DistrictId='+this.commonService.districtId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
