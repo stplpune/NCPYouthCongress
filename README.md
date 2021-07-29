@@ -32,4 +32,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     npm i ng-connection-service
     npm install @amcharts/amcharts4
     npm i ngx-pagination
+    npm i ngx-daterange
  -->

@@ -15,42 +15,48 @@
             <div class="card card-body bg-cyan">
                 <i class="fas fa-users"></i>
                 <p>Executive Member</p>
-                <h3>1257</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container>
+                <h3>{{dashboardCount1Array?.ExcecutiveMembers}}</h3>
             </div>
         </div>
         <div class="col-sm-2">
             <div class="card card-body bg-green">
                 <i class="fas fa-user"></i>
                 <p>Youth Members</p>
-                <h3>25312</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container>
+                <h3>{{dashboardCount1Array?.YouthMembers}}</h3>
             </div>
         </div>
         <div class="col-sm-2">
             <div class="card card-body bg-blue">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
-                <h3>7902</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container>
+                <h3>{{dashboardCount1Array?.ActiveMembers}}</h3>
             </div>
         </div>
         <div class="col-sm-2">
             <div class="card card-body bg-gold">
                 <i class="fas fa-people-arrows"></i>
                 <p>Committee Work</p>
-                <h3>3534</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container>
+                <h3>{{dashboardCount1Array?.CommitteeWork}}</h3>
             </div>
         </div>
         <div class="col-sm-2">
             <div class="card card-body bg-red">
                 <i class="fas fa-user-cog"></i>
                 <p>Members Work</p>
-                <h3>12310</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container>
+                <h3>{{dashboardCount1Array?.MemberWork}}</h3>
             </div>
         </div>
         <div class="col-sm-2">
             <div class="card card-body bg-voilet">
                 <i class="far fa-thumbs-up"></i>
                 <p>Social Media Work</p>
-                <h3>2720</h3>
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.SocialMediaWork"></i></ng-container>
+                <h3>{{dashboardCount1Array?.SocialMediaWork}}</h3>
             </div>
         </div>
     </div>
@@ -61,13 +67,25 @@
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <div class="card-header">
+                            <!-- <form [formGroup]="workInThisWeekForm"> -->
                             Work in This Week <a routerLink="../work-this-week"><i class="fas fa-external-link-alt"></i></a>
-                            <span class="float-end">
-                                <input type="date" class="form-control form-control-sm" placeholder="Date Range" />
-                            </span>
+                            <!-- <span class="float-end"> -->
+                                <!-- <input type="date" class="form-control form-control-sm" placeholder="Date Range" [parentFormGroup]="form"  [options]="secondFieldOptions" /> -->
+                                <date-range-picker [instanceId]="'secondDateRange'" 
+                                [controlName]="'secondDateRange'" #dateRangePicker>
+                              <!-- <div class="form-group">
+                                <div class="input-group">
+                                  <input  class="form-control" type="text" 
+                                      [value]="dateRangePicker.range" placeholder="From - To" formControlName="secondDateRange" />
+                                </div>
+                              </div> -->
+                            </date-range-picker>
+                            <!-- </span> -->
+                            <button (click)="submit()">asd</button>
+                        <!-- </form> -->
                         </div>
-                        <div class="card-body">
-                            asdfghj
+                        <div class="card-body chartHeight workLineChartdiv">
+                            
                         </div>
                     </div>
                 </div>
@@ -76,15 +94,11 @@
                         <div class="card-header">
                             New Members in This Week
                             <span class="float-end">
-                                <select class="form-select form-select-sm">
-                                    <option value="">Select District</option>
-                                    <option value="">Pune</option>
-                                    <option value="">Solapur</option>
-                                </select>
+                                <ngx-select [allowClear]="true" [items]="allDistrictArray"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
+                                </ngx-select>
                             </span>
                         </div>
-                        <div class="card-body">
-                            asdfghj
+                        <div class="card-body chartHeight weeklyChartdiv">
                         </div>
                     </div>
                 </div>
@@ -93,8 +107,7 @@
                         <div class="card-header">
                             Types of Works
                         </div>
-                        <div class="card-body">
-                            asdfghj
+                        <div class="card-body chartHeight pieChartdiv">
                         </div>
                     </div>
                 </div>
@@ -103,8 +116,7 @@
                         <div class="card-header">
                             Perception on Social Media <a routerLink="../social-media-image"><i class="fas fa-external-link-alt"></i></a>
                         </div>
-                        <div class="card-body">
-                            asdfghj
+                        <div class="card-body chartHeight socialMediaChartdiv">
                         </div>
                     </div>
                 </div>
@@ -114,50 +126,19 @@
             <div class="card mb-3">
                 <div class="card-header">Highest Activity Districts</div>
                 <div class="card-body pt-0 pb-1">
-                    <a class="activity-item bg-high">
-                        Satara
-                        <span class="float-end">250</span>
+                    <a class="activity-item bg-high" *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
+                        {{highestActivityDistricts.DistrictName}}
+                        <span class="float-end">{{highestActivityDistricts.ActivityCount}}</span>
                     </a>
-                    <a class="activity-item bg-high">
-                        Solapur
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-high">
-                        Pune
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-high">
-                        Chandrapur
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-high">
-                        Beed
-                        <span class="float-end">250</span>
-                    </a>
+                    
                 </div>
             </div>
             <div class="card mb-3">
                 <div class="card-header">Lowest Activity Districts</div>
-                <div class="card-body pt-0 pb-1">
+                <div class="card-body pt-0 pb-1" *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
                     <a class="activity-item bg-low">
-                        Sangali
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-low">
-                        Kolhapur
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-low">
-                        Dhule
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-low">
-                        Amaravati
-                        <span class="float-end">250</span>
-                    </a>
-                    <a class="activity-item bg-low">
-                        Jalgaon
-                        <span class="float-end">250</span>
+                        {{lowestActivityDistricts.DistrictName}}
+                        <span class="float-end">{{lowestActivityDistricts.ActivityCount}}</span>
                     </a>
                 </div>
             </div>

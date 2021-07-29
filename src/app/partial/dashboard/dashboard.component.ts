@@ -1,15 +1,556 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from "ngx-spinner";
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
+import am4themes_kelly from "@amcharts/amcharts4/themes/kelly";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { CallAPIService } from 'src/app/services/call-api.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommonService } from '../../services/common.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css', '../partial.component.css']
 })
-export class DashboardComponent implements OnInit {
 
-  constructor() { }
+export class DashboardComponent implements OnInit {
+  allDistrictArray: any;
+  dashboardCount1Array: any;
+  lowestActivityDistrictsArray: any;
+  workInThisWeekArray: any;
+  highestActivityDistrictsArray: any;
+  typesOfWorksArray: any;
+  perceptionOnSocialMediaArray: any;
+  workInThisWeekForm!: FormGroup;
+
+  constructor(
+    private callAPIService: CallAPIService,
+    private spinner: NgxSpinnerService,
+    private toastrService: ToastrService,
+    private commonService:CommonService,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
+    // this.customForm();
+    this.weeklyColumnChart();
+    this.workLineChart();
+    this.getDistrict();
+    this.getDashboardCount1();
+    this.getLowestActivityDistricts();
+    this.getWorkInThisWeek();
   }
+
+  customForm() {
+    this.workInThisWeekForm = this.fb.group({
+      secondDateRange: [''],
+    })
+    console.log(this.workInThisWeekForm.value)
+    
+  }
+
+submit(){
+  console.log(this.workInThisWeekForm.value)
+}
+
+  getDistrict() {
+    this.spinner.show();    
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrictArray = res.data1;
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getDashboardCount1() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get','Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.dashboardCount1Array= res.data1[0];
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getLowestActivityDistricts() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get','Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.highestActivityDistrictsArray = res.data1;
+        this.lowestActivityDistrictsArray = res.data2;
+        this.typesOfWorksArray = res.data3;
+        this.perceptionOnSocialMediaArray = res.data4;
+        //console.log(res)
+        this.pieChart();
+        this.socialMediaChart();
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getWorkInThisWeek() {
+    // this.spinner.show();
+    // this.callAPIService.setHttp('get','Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+1 + '&ToDate='+1, false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.getHttp().subscribe((res: any) => {
+    //   if (res.data == 0) {
+    //     this.spinner.hide();
+    //     this.workInThisWeekArray = res.data1;
+    //      console.log(this.workInThisWeekArray)
+    //   } else {
+    //     if (res.data == 1) {
+    //       this.spinner.hide();
+    //       this.toastrService.error("Data is not available");
+    //     } else {
+    //       this.spinner.hide();
+    //       this.toastrService.error("Please try again something went wrong");
+    //     }
+    //   }
+    // })
+  }
+
+  /* Chart code */
+
+  workLineChart() {
+    // Themes begin
+    am4core.useTheme(am4themes_kelly);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
+
+    // Add data
+    chart.data = [{
+      "x": 1,
+      "ay": 6.5,
+      "by": 2.2,
+      "aValue": 15,
+      "bValue": 10
+    }, {
+      "x": 2,
+      "ay": 12.3,
+      "by": 4.9,
+      "aValue": 8,
+      "bValue": 3
+    }, {
+      "x": 3,
+      "ay": 12.3,
+      "by": 5.1,
+      "aValue": 16,
+      "bValue": 4
+    }, {
+      "x": 5,
+      "ay": 2.9,
+      "aValue": 9
+    }, {
+      "x": 7,
+      "by": 8.3,
+      "bValue": 13
+    }, {
+      "x": 10,
+      "ay": 2.8,
+      "by": 13.3,
+      "aValue": 9,
+      "bValue": 13
+    }, {
+      "x": 12,
+      "ay": 3.5,
+      "by": 6.1,
+      "aValue": 5,
+      "bValue": 2
+    }, {
+      "x": 13,
+      "ay": 5.1,
+      "aValue": 10
+    }, {
+      "x": 15,
+      "ay": 6.7,
+      "by": 10.5,
+      "aValue": 3,
+      "bValue": 10
+    }, {
+      "x": 16,
+      "ay": 8,
+      "by": 12.3,
+      "aValue": 5,
+      "bValue": 13
+    }, {
+      "x": 20,
+      "by": 4.5,
+      "bValue": 11
+    }, {
+      "x": 22,
+      "ay": 9.7,
+      "by": 15,
+      "aValue": 15,
+      "bValue": 10
+    }, {
+      "x": 23,
+      "ay": 10.4,
+      "by": 10.8,
+      "aValue": 1,
+      "bValue": 11
+    }, {
+      "x": 24,
+      "ay": 1.7,
+      "by": 19,
+      "aValue": 12,
+      "bValue": 3
+    }];
+
+    // Create axes
+    let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    xAxis.renderer.minGridDistance = 40;
+    
+
+    // Create value axis
+    let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+    // Create series
+    let series1 = chart.series.push(new am4charts.LineSeries());
+    series1.dataFields.valueX = "x";
+    series1.dataFields.valueY = "ay";
+    series1.dataFields.value = "aValue";
+    series1.name = "Work Count";
+    series1.strokeWidth = 2;
+    // series1.bullets.push(new am4charts.CircleBullet());
+    // series1.tooltipText = "Place{name} in {valueX}: {valueY}";
+    // series1.legendSettings.valueText = "{valueY}";
+
+    let bullet1 = series1.bullets.push(new am4charts.CircleBullet());
+    series1.heatRules.push({
+      target: bullet1.circle,
+      min: 5,
+      max: 5,
+      property: "radius"
+    });
+
+    bullet1.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
+
+    let series2 = chart.series.push(new am4charts.LineSeries());
+    series2.dataFields.valueX = "x";
+    series2.dataFields.valueY = "by";
+    series2.dataFields.value = "bValue";
+    series2.name = 'Members Count';
+    series2.strokeWidth = 2;
+    // series2.bullets.push(new am4charts.CircleBullet());
+    // series2.tooltipText = "Place{name} in {valueX}: {valueY}";
+    // series2.legendSettings.valueText = "{valueY}";
+
+    let bullet2 = series2.bullets.push(new am4charts.CircleBullet());
+    series2.heatRules.push({
+      target: bullet2.circle,
+      min: 5,
+      max: 5,
+      property: "radius"
+    });
+
+    bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
+
+    
+    let hs1 = series1.segments.template.states.create("hover")
+    hs1.properties.strokeWidth = 5;
+    series1.segments.template.strokeWidth = 1;
+    
+    let hs2 = series2.segments.template.states.create("hover")
+    hs2.properties.strokeWidth = 5;
+    series2.segments.template.strokeWidth = 1;
+
+    // //scrollbars
+    // chart.scrollbarX = new am4core.Scrollbar();
+    // chart.scrollbarY = new am4core.Scrollbar();
+
+    // Add legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.itemContainers.template.events.on("over", function(event:any){
+      let segments = event.target.dataItem.dataContext.segments;
+      segments.each(function(segment:any){
+        segment.isHover = true;
+      })
+    })
+    
+    chart.legend.itemContainers.template.events.on("out", function(event:any){
+      let segments = event.target.dataItem.dataContext.segments;
+      segments.each(function(segment:any){
+        segment.isHover = false;
+      })
+    })
+  }
+
+  weeklyColumnChart() {
+    // Themes begin
+    am4core.useTheme(am4themes_kelly);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
+
+    chart.data = [{
+      "country": "Mon",
+      "visits": 2025
+    }, {
+      "country": "Tue",
+      "visits": 1882
+    }, {
+      "country": "Wed",
+      "visits": 1809
+    }, {
+      "country": "Thu",
+      "visits": 1322
+    }, {
+      "country": "Fri",
+      "visits": 1122
+    }, {
+      "country": "Sat",
+      "visits": 1114
+    }, {
+      "country": "Sun",
+      "visits": 984
+    }];
+
+    chart.padding(40, 40, 40, 40);
+
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "country";
+    categoryAxis.renderer.minGridDistance = 60;
+    categoryAxis.renderer.inversed = true;
+    categoryAxis.renderer.grid.template.disabled = true;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.extraMax = 0.1;
+    //valueAxis.rangeChangeEasing = am4core.ease.linear;
+    //valueAxis.rangeChangeDuration = 1500;
+
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "visits";
+    series.tooltipText = "{valueY.value}"
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.column.cornerRadiusTopRight = 10;
+    series.columns.template.column.cornerRadiusTopLeft = 10;
+    //series.interpolationDuration = 1500;
+    //series.interpolationEasing = am4core.ease.linear;
+    let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    labelBullet.label.verticalCenter = "bottom";
+    labelBullet.label.dy = -10;
+    labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+
+    chart.zoomOutButton.disabled = true;
+
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function (fill, target: any) {
+      return chart.colors.getIndex(target.dataItem.index);
+    });
+
+    setInterval(function () {
+      am4core.array.each(chart.data, function (item) {
+        item.visits += Math.round(Math.random() * 200 - 100);
+        item.visits = Math.abs(item.visits);
+      })
+      chart.invalidateRawData();
+    }, 2000)
+
+    categoryAxis.sortBySeries = series;
+
+  }
+
+  pieChart() {
+    // Themes begin
+    am4core.useTheme(am4themes_kelly);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    var chart = am4core.create("pieChartdiv", am4charts.PieChart);
+
+    // Add data
+    chart.data = this.typesOfWorksArray;
+
+    
+
+    // Add and configure Series
+    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "ActivityCount";
+    pieSeries.dataFields.category = "Category";
+    pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.slices.template.strokeOpacity = 1;
+
+    // This creates initial animation
+    pieSeries.hiddenState.properties.opacity = 1;
+    pieSeries.hiddenState.properties.endAngle = -90;
+    pieSeries.hiddenState.properties.startAngle = -90;
+
+    chart.hiddenState.properties.radius = am4core.percent(0);
+  }
+
+  socialMediaChart() {
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    /**
+     * Chart design taken from Samsung health app
+     */
+
+    let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+    chart.paddingBottom = 30;
+
+     chart.data=this.perceptionOnSocialMediaArray;
+    // chart.data = [{
+    //   "name": "NCP",
+    //   "steps": 45688,
+    //   "href": "https://www.logolynx.com/images/logolynx/70/70a6980f4721a7c7b4f8643d6eb6b8de.png"
+    // }, {
+    //   "name": "Shivsena",
+    //   "steps": 35781,
+    //   "href": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Logo_of_Shiv_Sena.svg/1200px-Logo_of_Shiv_Sena.svg.png"
+    // }, {
+    //   "name": "BJP",
+    //   "steps": 25464,
+    //   "href": "https://bjplogo.site/wp-content/uploads/2020/06/bjp-kamal-logo.png"
+    // }, {
+    //   "name": "INC",
+    //   "steps": 18788,
+    //   "href": "https://www.deccanherald.com/sites/dh/files/article_images/2019/11/13/Cong-1573660563.jpg"
+    // }, {
+    //   "name": "Others",
+    //   "steps": 15465,
+    //   "href": "https://image.freepik.com/free-vector/abstract-indian-background-with-building-silhouettes_1058-17.jpg"
+    // }
+
+    // ];
+
+//     0: {ActivityCount: 70, PartyId: 1, PartyName: "Nationalist Congress Party", PartyShortCode: "NCP"}
+// 1: {ActivityCount: 15, PartyId: 2, PartyName: "Shivsena", PartyShortCode: "SS"}
+// 2: {ActivityCount: 53, PartyId: 3, PartyName: "Bharatiya Janata Party", PartyShortCode: "BJP"}
+// 3: {ActivityCount: 20, PartyId: 4, PartyName: "Indian National Congress", PartyShortCode: "INC"}
+
+
+    let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "PartyShortCode";
+    categoryAxis.renderer.grid.template.strokeOpacity = 0;
+    categoryAxis.renderer.minGridDistance = 10;
+    categoryAxis.renderer.labels.template.dy = 35;
+    categoryAxis.renderer.tooltip.dy = 35;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.inside = true;
+    valueAxis.renderer.labels.template.fillOpacity = 0.3;
+    valueAxis.renderer.grid.template.strokeOpacity = 0;
+    valueAxis.min = 0;
+    valueAxis.cursorTooltipEnabled = false;
+    valueAxis.renderer.baseGrid.strokeOpacity = 0;
+
+    let series: any = chart.series.push(new am4charts.ColumnSeries);
+    series.dataFields.valueY = "ActivityCount";
+    series.dataFields.categoryX = "PartyShortCode";
+    series.tooltipText = "{valueY.value}";
+    series.tooltip.pointerOrientation = "vertical";
+    series.tooltip.dy = - 6;
+    series.columnsContainer.zIndex = 100;
+
+    let columnTemplate = series.columns.template;
+    columnTemplate.width = am4core.percent(50);
+    columnTemplate.maxWidth = 66;
+    columnTemplate.column.cornerRadius(60, 60, 10, 10);
+    columnTemplate.strokeOpacity = 0;
+
+    series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
+    series.mainContainer.mask = undefined;
+
+    let cursor = new am4charts.XYCursor();
+    chart.cursor = cursor;
+    cursor.lineX.disabled = true;
+    cursor.lineY.disabled = true;
+    cursor.behavior = "none";
+
+    let bullet: any = columnTemplate.createChild(am4charts.CircleBullet);
+    bullet.circle.radius = 30;
+    bullet.valign = "bottom";
+    bullet.align = "center";
+    bullet.isMeasured = true;
+    bullet.mouseEnabled = false;
+    bullet.verticalCenter = "bottom";
+    bullet.interactionsEnabled = false;
+
+    let hoverState = bullet.states.create("hover");
+    let outlineCircle = bullet.createChild(am4core.Circle);
+    outlineCircle.adapter.add("radius", function (radius: any, target: any) {
+      let circleBullet = target.parent;
+      return circleBullet.circle.pixelRadius + 10;
+    })
+
+    let image = bullet.createChild(am4core.Image);
+    image.width = 60;
+    image.height = 60;
+    image.horizontalCenter = "middle";
+    image.verticalCenter = "middle";
+    image.propertyFields.href = "href";
+
+    image.adapter.add("mask", function (mask: any, target: any) {
+      let circleBullet = target.parent;
+      return circleBullet.circle;
+    })
+
+    let previousBullet: any;
+    chart.cursor.events.on("cursorpositionchanged", function (event) {
+      let dataItem = series.tooltipDataItem;
+
+      if (dataItem.column) {
+        let bullet = dataItem.column.children.getIndex(1);
+
+        if (previousBullet && previousBullet != bullet) {
+          previousBullet.isHover = false;
+        }
+
+        if (previousBullet != bullet) {
+
+          let hs = bullet.states.getKey("hover");
+          hs.properties.dy = -bullet.parent.pixelHeight + 30;
+          bullet.isHover = true;
+
+          previousBullet = bullet;
+        }
+      }
+    })
+  }
+
+
 
 }
