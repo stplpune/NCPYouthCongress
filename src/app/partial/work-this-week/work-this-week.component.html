@@ -54,7 +54,7 @@
         <div class="col-sm-7 chartbox">
             <div class="card mb-3">
                 <div class="card-header">Work done by Yuvak</div>
-                <div class="card-body p-0 WorkDoneByYuvak" style="height: 400px;">
+                <div class="card-body p-2 WorkDoneByYuvak" style="height: 400px;">
                 </div>
             </div>
             <div class="card">
@@ -66,21 +66,21 @@
                         </div>
                             <div class="col-md-3">
                                     <ngx-select [allowClear]="true" [items]="allDistrict"
-                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" formControlName="DistrictId"
+                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear()"  formControlName="DistrictId"
                                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                     </ngx-select>
                     
                             </div>
                             <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" optionValueField="TalukaId"
+                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  (remove)="districtClear()" optionValueField="TalukaId"
                                         optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
                                         (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)" [disabled]="!this.filterBestPer.value.DistrictId">
                                     </ngx-select>
                             </div>
                             <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select village"
-                                        optionValueField="VillageName" optionTextField="VillageId" formControlName="VillageId"
-                                        [disabled]="!this.filterBestPer.value.TalukaId">
+                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity"  (remove)="districtClear()" placeholder="Select village"
+                                        optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId"
+                                        [disabled]="!this.filterBestPer.value.TalukaId" (select)="getVillByTaluka(this.filterBestPer.value.VillageId)" >
                                     </ngx-select>
                             </div>
                         
@@ -105,6 +105,11 @@
                                     <td>{{result.FullName}}</td>
                                     <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
                                     <td>{{result.MobileNo}}</td>
+                                </tr>
+                                <tr *ngIf="resBestPerMember?.length == 0">
+                                    <td colspan="4">
+                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

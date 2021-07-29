@@ -20,12 +20,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   selweekRange: any
   WorkDoneByYuvakBarchart: any;
   resBestPerKaryMember: any;
-  globalTalukId: number = 0;
-  globalVillageid: number = 0;
   resBestPerMember: any;
   chart: any;
   allDistrict: any;
-  globalDistrictId: number = 0;
+  filterObj = { 'globalDistrictId': 0, 'globalVillageid': 0, 'globalTalukId': 0 }
   getTalkaByDistrict: any;
   resultVillageOrCity: any;
   filterBestPer!: FormGroup;
@@ -70,8 +68,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
 
   getTaluka(districtId: any) {
     this.spinner.show();
-    this.globalDistrictId = districtId;
-    // this.getBestPerMember(JSON.parse(this.selweekRange))
+    this.filterObj.globalDistrictId = districtId;
+    this.getBestPerMember(JSON.parse(this.selweekRange))
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -88,8 +86,15 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     })
   }
 
+  districtClear() {
+    this.filterObj = { 'globalDistrictId': 0, 'globalVillageid': 0, 'globalTalukId': 0 }
+    this.filterBestPer.reset();
+    this.getBestPerMember(JSON.parse(this.selweekRange))
+  }
+
   getVillageOrCity(talukaID: any) {
-    alert(talukaID)
+    this.filterObj.globalTalukId = talukaID;
+    this.getBestPerMember(JSON.parse(this.selweekRange))
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -108,6 +113,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     })
   }
 
+  getVillByTaluka(villageId: any) {
+    this.filterObj.globalVillageid = villageId;
+    this.getBestPerMember(JSON.parse(this.selweekRange))
+  }
+
   defaultFilterBestPer() {
     this.filterBestPer = this.fb.group({
       DistrictId: [''],
@@ -118,7 +128,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
 
   getBestPerKaryMember(selweekRange: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.commonService.districtId() + '&TalukaId=' + this.globalTalukId + '&Villageid=' + this.globalVillageid, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.commonService.districtId() + '&TalukaId=0&Villageid=0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -136,7 +146,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
 
   getBestPerMember(selweekRange: any) { //filter API
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.globalDistrictId + '&TalukaId=' + this.globalTalukId + '&Villageid=' + this.globalVillageid, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.filterObj.globalDistrictId + '&TalukaId=' + this.filterObj.globalTalukId + '&Villageid=' + this.filterObj.globalVillageid, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -144,8 +154,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
+          this.resBestPerMember = [];
           this.toastrService.error("Data is not available");
+
         } else {
+          this.resBestPerMember = [];
           this.toastrService.error("Please try again something went wrong");
         }
       }
@@ -162,7 +175,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
         console.log(this.WorkDoneByYuvakBarchart);
-        this.chartWorkDoneByYuvak();
+        this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
         this.spinner.hide();
@@ -175,84 +188,91 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     })
   }
 
-
-  chartWorkDoneByYuvak() {
-    // Themes begin
-    am4core.useTheme(am4themes_kelly);
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-
-    let chart = am4core.create("WorkDoneByYuvak", am4charts.XYChart);
-
-    chart.data = this.WorkDoneByYuvakBarchart;
-    // [{
-    //   "country": "Mon",
-    //   "visits": 2025
-    // }, {
-    //   "country": "Tue",
-    //   "visits": 1882
-    // }, {
-    //   "country": "Wed",
-    //   "visits": 1809
-    // }, {
-    //   "country": "Thu",
-    //   "visits": 1322
-    // }, {
-    //   "country": "Fri",
-    //   "visits": 1122
-    // }, {
-    //   "country": "Sat",
-    //   "visits": 1114
-    // }, {
-    //   "country": "Sun",
-    //   "visits": 984
-    // }];
-
-    chart.padding(40, 40, 40, 40);
-
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "DistrictName";
-    categoryAxis.renderer.minGridDistance = 60;
-    categoryAxis.renderer.inversed = true;
-    categoryAxis.renderer.grid.template.disabled = true;
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.min = 0;
-    valueAxis.extraMax = 0.1;
-    //valueAxis.rangeChangeEasing = am4core.ease.linear;
-    //valueAxis.rangeChangeDuration = 1500;
-
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryX = "DistrictName";
-    series.dataFields.valueY = "MemberWork";
-    series.tooltipText = "{valueY.value}"
-    series.columns.template.strokeOpacity = 0;
-    series.columns.template.column.cornerRadiusTopRight = 10;
-    series.columns.template.column.cornerRadiusTopLeft = 10;
-    //series.interpolationDuration = 1500;
-    //series.interpolationEasing = am4core.ease.linear;
-    let labelBullet = series.bullets.push(new am4charts.LabelBullet());
-    labelBullet.label.verticalCenter = "bottom";
-    labelBullet.label.dy = -10;
-    labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
-
-    chart.zoomOutButton.disabled = true;
-
-    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-    series.columns.template.adapter.add("fill", function (fill, target: any) {
-      return chart.colors.getIndex(target.dataItem.index);
-    });
-
-    setInterval(function () {
-      am4core.array.each(chart.data, function (item) {
-        item.visits += Math.round(Math.random() * 200 - 100);
-        item.visits = Math.abs(item.visits);
-      })
-      chart.invalidateRawData();
-    }, 2000)
-
-    categoryAxis.sortBySeries = series;
+  // chart DIv 
+  WorkDoneByYuvak(){
+    am4core.ready(() =>{
+      am4core.useTheme(am4themes_animated);
+      
+      var chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
+      chart.colors.step = 2;
+      
+      chart.legend = new am4charts.Legend()
+      chart.legend.position = 'top'
+      chart.legend.paddingBottom = 10
+      chart.legend.labels.template.maxWidth = 20
+      
+      var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+      xAxis.dataFields.category = 'DistrictName'
+      xAxis.renderer.cellStartLocation = 0.1
+      xAxis.renderer.cellEndLocation = 0.9
+      xAxis.renderer.grid.template.location = 0;
+      
+      var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      yAxis.min = 0;
+      
+      function createSeries(value: string | undefined, name: string) {
+          var series = chart.series.push(new am4charts.ColumnSeries())
+          series.dataFields.valueY = value
+          series.dataFields.categoryX = 'DistrictName'
+          series.name = name
+      
+          series.events.on("hidden", arrangeColumns);
+          series.events.on("shown", arrangeColumns);
+      
+          var bullet = series.bullets.push(new am4charts.LabelBullet())
+          bullet.interactionsEnabled = false
+          bullet.dy = 30;
+          bullet.label.text = '{valueY}'
+          bullet.label.fill = am4core.color('#ffffff')
+      
+          return series;
+      }
+      
+      chart.data =  this.WorkDoneByYuvakBarchart;
+      
+      chart.padding(10, 5, 5, 5);
+      createSeries('MemberWork', 'Work Done by Committes');
+      createSeries('TotalWork', 'Total Work Done');
+      
+      function arrangeColumns() {
+      
+          var series:any = chart.series.getIndex(0);
+      
+          var w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
+          if (series.dataItems.length > 1) {
+              var x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
+              var x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
+              var delta = ((x1 - x0) / chart.series.length) * w;
+              if (am4core.isNumber(delta)) {
+                  var middle = chart.series.length / 2;
+      
+                  var newIndex = 0;
+                  chart.series.each(function(series) {
+                      if (!series.isHidden && !series.isHiding) {
+                          series.dummyData = newIndex;
+                          newIndex++;
+                      }
+                      else {
+                          series.dummyData = chart.series.indexOf(series);
+                      }
+                  })
+                  var visibleCount = newIndex;
+                  var newMiddle = visibleCount / 2;
+      
+                  chart.series.each(function(series) {
+                      var trueIndex = chart.series.indexOf(series);
+                      var newIndex = series.dummyData;
+      
+                      var dx = (newIndex - trueIndex + middle - newMiddle) * delta
+      
+                      series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                      series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                  })
+              }
+          }
+      }
+      
+      });
   }
 
   ngOnDestroy() {
