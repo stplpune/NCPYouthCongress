@@ -28,10 +28,13 @@ body {
 label.form-label.is-invalid {
     color: #dc3545 !important;
 }
-.form-control.is-invalid, .was-validated .form-control:invalid{
-	background-image:none;
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: none;
 }
-.required-field::after { 
+
+.required-field::after {
     content: "*";
     color: #dc3545!important;
     font-size: 18px;
@@ -41,6 +44,7 @@ label.form-label.is-invalid {
 ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     border-color: #dc3545 !important;
 }
+
 .btn-main {
     background-color: var(--main-color);
     color: #fff;
@@ -52,8 +56,7 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     color: #fff;
 }
 
-
-.form-group{
+.form-group {
     position: relative;
 }
 
@@ -62,7 +65,7 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     margin-top: -1px;
     width: auto;
     font-size: 70%;
-    color:#dc3545;
+    color: #dc3545;
 }
 
 .invalid-feedback {
@@ -70,8 +73,8 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     margin-top: 0;
 }
 
-tr.active{
-  background: #f5f5f5;
+tr.active {
+    background: #f5f5f5;
 }
 
 .ngx-pagination .current {
@@ -83,4 +86,48 @@ tr.active{
 .ngx-pagination li {
     display: inline-block;
     border: solid 1px #272848 !important;
+}
+
+
+/* dateRangePicker control css */
+
+.dateRangePicker-wrapper .dateRangePicker .form-inputs>.col {
+    padding: 0 10px !important;
+}
+
+.dateRangePicker-wrapper .dateRangePicker .form-inputs .form-control {
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+}
+
+.dateRangePicker .container-fluid {
+    padding: 0 11px !important;
+}
+
+.calendar .calendar-pagination .month-year {
+    font-size: 0.85rem !important;
+}
+
+.dateRangePicker-wrapper .dateRangePicker .btn img,
+.dateRangePicker-wrapper .dateRangePicker .btn.btn-link img {
+    width: 12px !important;
+}
+
+.calendar .table td,
+.calendar .table th,
+.calendar .table td {
+    height: 28px !important;
+    width: 28px !important;
+    max-width: 28px !important;
+    min-width: 28px !important;
+}
+
+.dateRangePicker-wrapper .dateRangePicker.open-left {
+    z-index: 1;
+}
+
+.chartbox .card .card-header .form-control,
+.chartbox .card .card-header .form-select {
+    font-size: 0.85rem;
+    box-shadow: none;
 }
