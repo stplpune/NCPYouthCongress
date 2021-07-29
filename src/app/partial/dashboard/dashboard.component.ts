@@ -36,21 +36,12 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.customForm();
     this.weeklyColumnChart();
     this.workLineChart();
     this.getDistrict();
     this.getDashboardCount1();
     this.getLowestActivityDistricts();
     this.getWorkInThisWeek();
-  }
-
-  customForm() {
-    this.workInThisWeekForm = this.fb.group({
-      secondDateRange: [''],
-    })
-    console.log(this.workInThisWeekForm.value)
-    
   }
 
 submit(){
