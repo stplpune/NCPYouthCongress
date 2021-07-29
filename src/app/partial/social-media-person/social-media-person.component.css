@@ -1,0 +1,65 @@
+#membername {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px #ddd;
+    color: var(--main-color);
+}
+
+#profile-left .card {
+    padding: 15px;
+}
+
+#profile-left .card .card-img-top {
+    border-radius: 10px;
+}
+
+#profile-left .card-text {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #565656;
+}
+
+#profile-left .list-group .list-group-item {
+    font-size: 0.85rem;
+}
+
+#profile-left .list-group .list-group-item i {
+    width: 30px;
+}
+
+#profile-left .card,
+#profile-right .card {
+    border-radius: 10px;
+    border: none;
+}
+
+#profile-right .card-header {
+    text-transform: uppercase !important;
+    font-size: 0.85rem !important;
+    font-weight: 600;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#profile-right #overview .card {
+    border: solid 1px rgba(27, 21, 21, 0.125);
+    text-align: center;
+    border-top-width: 5px;
+}
+
+#profile-right #overview .card i {
+    color: #aaa;
+}
+
+#profile-right #overview .card p {
+    margin: 5px 0;
+}
+
+#profile-right #overview .card h3 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--main-color);
+}
