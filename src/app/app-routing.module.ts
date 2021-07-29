@@ -39,8 +39,9 @@ const routes: Routes = [
       { path: 'help-support', loadChildren: () => import('./partial/help-support/help-support.module').then(m => m.HelpSupportModule), data: { title: 'Help Support' } },
       { path: 'forward-activities', loadChildren: () => import('./partial/forward-activities/forward-activities.module').then(m => m.ForwardActivitiesModule), data: { title: 'Forward Activities' } },
       { path: 'masters/organization-details', loadChildren: () => import('./partial/masters/organization-details/organization-details.module').then(m => m.OrganizationDetailsModule), data: { title: 'Organization Details' } },
+      { path: 'social-media-person', loadChildren: () => import('./partial/social-media-person/social-media-person.module').then(m => m.SocialMediaPersonModule) },
     ]
-  },
+  }, 
 
   { path: '**', component: PageNotFoundComponent }
 ];
