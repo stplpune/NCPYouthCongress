@@ -142,10 +142,10 @@
                                 <td><a routerLink="../organization-details">{{result.BodyOrgCellName}}</a></td>
                                 <td>{{result.LevelName}}</td>
                                 <td>{{result.Area}}</td>
-                                <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id)" data-bs-target="#AddDesignationModal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                    </button> </td>
                                 <td> {{result.DesignationAssigned}}</td>
+                                <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id)" data-bs-target="#AddDesignationModal">
+                                    <i class="fas fa-plus"></i>
+                                </button> </td>
                                 <td>{{result.AllottedDesignation}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
