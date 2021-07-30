@@ -4,23 +4,7 @@
             <span class="page-name">Forward Activities</span>
         </div>
         <div class="col-sm-8">
-            <div class="row g-1">
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Search Member" />
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -74,6 +58,23 @@
                         </div>
                     </div>
                     <div class="col-8 border-start" id="notifications">
+                        <div class="row g-1 mb-2 border-bottom pb-2">
+                            <div class="col-sm-3">
+                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Search Member" />
+                            </div>
+                        </div>
                         <div class="d-flex media">
                             <div class="flex-shrink-0">
                                 <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
