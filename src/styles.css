@@ -196,3 +196,7 @@ i.fa.fa-spinner.fa-spin.ng-star-inserted {
 a{
     cursor: pointer!important;
 }
+
+.h-400{
+    height: 400px;
+}

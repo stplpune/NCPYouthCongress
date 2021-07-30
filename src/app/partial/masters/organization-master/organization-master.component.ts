@@ -229,7 +229,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    this.spinner.show();
+    // this.spinner.show();
+    debugger;
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -244,7 +245,7 @@ export class OrganizationMasterComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available1");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -258,9 +259,11 @@ export class OrganizationMasterComponent implements OnInit {
       this.toastrService.error("Please select district");
       return
     } else {
+      // debugger;
       if (category == "Rural") {
         this.villageCityLabel = "Village";
-        this.getVillageOrCity(this.globalTalukaID, 'Village');
+        this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
+        this.btnText == "Update Organization" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
         this.setVillOrcityName = "VillageName";
         this.setVillOrCityId = "VillageId";
       }
@@ -270,7 +273,6 @@ export class OrganizationMasterComponent implements OnInit {
         this.setVillOrcityName = "CityName";
         this.setVillOrCityId = "Id";
       }
-
     }
   }
 
