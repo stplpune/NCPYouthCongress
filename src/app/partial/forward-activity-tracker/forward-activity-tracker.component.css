@@ -1,0 +1,29 @@
+#memberlist .list-group-item img {
+    width: 50px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#memberlist .list-group-item .bg-main {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+#memberlist .form-control {
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 0.85rem;
+    padding: 10px 15px;
+}
+
+#memberlist .list-group-item:hover {
+    background-color: #fafafa;
+}
+
+.personaname {
+    text-decoration: none;
+}
+
+.personaname:hover {
+    color: var(--main-color);
+}
