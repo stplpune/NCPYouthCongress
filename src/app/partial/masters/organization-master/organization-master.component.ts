@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -49,9 +50,13 @@ export class OrganizationMasterComponent implements OnInit {
   allAssignedDesignations: any;
   modalDeafult = false;
   globalTalukaID: any;
+  disableFlagDist:boolean = true;
+  disableFlagTal:boolean = true;
+  disableFlagVill:boolean = true;
 
-  constructor(private callAPIService: CallAPIService, private fb: FormBuilder,
-    private toastrService: ToastrService, private commonService: CommonService, private spinner: NgxSpinnerService) { }
+  constructor(private callAPIService: CallAPIService,private router:Router, private fb: FormBuilder,
+    private toastrService: ToastrService, private commonService: CommonService, 
+    private spinner: NgxSpinnerService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getOrganizationList();
@@ -63,13 +68,37 @@ export class OrganizationMasterComponent implements OnInit {
     this.defaultDesignationForm();
     this.defultFilterForm();
   }
+
+  selectLevel(levelId: any) {
+    if (levelId == 3) {
+        this.disableFlagDist = false;
+        this.disableFlagTal = true;
+        this.disableFlagVill = true;
+    }else if (levelId == 4) {
+        this.disableFlagTal = false;
+        this.disableFlagDist = false;
+        this.disableFlagVill = true;
+    } else if (levelId == 5) {
+        this.disableFlagVill = false;
+        this.disableFlagTal = false;
+        this.disableFlagDist = false
+    }else{
+        this.selectLevelClear()
+    }
+  }
+
+  selectLevelClear(){
+    this.disableFlagVill = true;
+    this.disableFlagTal = true;
+    this.disableFlagDist = true
+  }
   customForm() {
     this.orgMasterForm = this.fb.group({
       BodyOrgCellName: ['', Validators.required],
       StateId: ['', Validators.required],
-      DistrictId: ['', Validators.required],
-      TalukaId: ['', Validators.required],
-      VillageId: ['', Validators.required],
+      DistrictId: [''],
+      TalukaId: [''],
+      VillageId: [''],
       IsRural: [1, Validators.required],
       BodyLevelId: ['', Validators.required],
       CreatedBy: [this.commonService.loggedInUserId()],
@@ -92,7 +121,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getOrganizationList() {
-    debugger;
+    ;
     this.spinner.show();
     let s = this.searchFilter == null ? '' : this.searchFilter;
     let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + this.districtId + '&Search=' + s + '&nopage=' + this.paginationNo;
@@ -125,7 +154,7 @@ export class OrganizationMasterComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available 1");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -158,13 +187,13 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        if (this.btnText == "Update Organization") { // edit
+        if (this.btnText == "Update Organization" && this.selEditOrganization.DistrictId != 0) { // edit
           this.getTaluka(this.selEditOrganization.DistrictId)
         }
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available 2");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -173,7 +202,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    debugger;
     this.spinner.show();
     this.globalDistrictId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -181,7 +209,7 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        if (this.btnText == "Update Organization") { // edit
+        if (this.btnText == "Update Organization" && this.selEditOrganization.TalukaId != 0) { // edit
           this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
           let selFlagForRadioChange: any = this.selEditOrganization.IsRural == 0 ? "Urban" : "Rural";
           this.globalTalukaID = this.selEditOrganization.TalukaId
@@ -201,7 +229,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
     this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
@@ -250,7 +277,7 @@ export class OrganizationMasterComponent implements OnInit {
   get f() { return this.orgMasterForm.controls };
 
   onSubmit() {
-    this.spinner.show();
+    // this.spinner.show();
     this.submitted = true;
     if (this.orgMasterForm.invalid) {
       this.spinner.hide();
@@ -258,8 +285,10 @@ export class OrganizationMasterComponent implements OnInit {
     }
     else {
       let fromData: any = new FormData();
+  
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
-        fromData.append(cr, Object.values(this.orgMasterForm.value)[ind])
+        let value =  Object.values(this.orgMasterForm.value)[ind] != null ?  Object.values(this.orgMasterForm.value)[ind] : 0;
+        fromData.append(cr, value)
       })
       let btnTextFlag = this.btnText == "Create Organization" ? 0 : this.HighlightRow;
       fromData.append('Id', btnTextFlag);
@@ -269,7 +298,7 @@ export class OrganizationMasterComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
-          this.getOrganizationList();
+          // this.getOrganizationList();
           this.clearForm();
         } else {
           this.spinner.hide();
@@ -305,6 +334,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   editOrganization(BodyId: any) {
+    this.clearForm();
     this.btnText = "Update Organization";
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Getbodycellorgmaster_1_0?BodyId=' + BodyId, false, false, false, 'ncpServiceForWeb');
@@ -312,9 +342,11 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.selEditOrganization = res.data1[0];
+        console.log(this.selEditOrganization);
         this.HighlightRow = this.selEditOrganization.Id;
         this.getDistrict();
-        this.globalDistrictId
+        this.globalDistrictId;
+        this.selectLevel(this.selEditOrganization.BodyLevel) 
         this.orgMasterForm.patchValue({
           BodyOrgCellName: this.selEditOrganization.BodyOrgCellName,
           StateId: this.selEditOrganization.StateId,
@@ -455,5 +487,11 @@ export class OrganizationMasterComponent implements OnInit {
     this.searchFilter = searchText;
     this.getOrganizationList();
   }
+
+  redirectOrgDetails(bodyId:any){
+    localStorage.setItem('bodyId',bodyId)
+    this.router.navigate(['organization-details'], {relativeTo:this.route})
+  }
+  
 }
 

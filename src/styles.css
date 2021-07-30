@@ -183,3 +183,16 @@ i.fa.fa-spinner.fa-spin.ng-star-inserted {
     z-index: 999 !important;
     opacity: 1 !important;
 }
+
+#navbar ul li.active i {
+    color: #fff!important;
+}
+
+#navbar ul li.active label {
+    background: var(--main-color) !important;
+    color: #fff!important;
+}
+
+a{
+    cursor: pointer!important;
+}

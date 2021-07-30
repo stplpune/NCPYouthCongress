@@ -1,32 +1,32 @@
-<div class="nav" id="navbar" [class.show-menu]="isShowMenu">
+<div class="nav" id="navbar" [class.show-menu]="isShowMenu" (mouseover)="hide=true" (mouseout)="hide=false">
     <div class="nav-head">
         <img src="/assets/images/dashboard-images/ncplogo.png" />
     </div>
     <nav class="nav__container">
         <div class="nava">
             <ul class="nav__list">
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-1" type="checkbox" hidden />
                     <label for="group-1" routerLink="dashboard">
                       <i class="fas fa-tachometer-alt"></i>
                         Dashboard</label>
                 </li>
-                <li>
+                <li  routerLinkActive="active">
                     <input id="group-2" type="checkbox" hidden />
                     <label for="group-2">
                         <i class="fas fa-tools"></i>
                         Masters <span class="fa fa-angle-right"></span></label>
-                    <ul class="group-list">
+                    <ul class="group-list"  [class.d-none]="hide ? false : true">
                         <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
                         <li><a routerLink="masters/organization-master">Organization Master</a></li>
                     </ul>
                 </li>
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-3" type="checkbox" hidden />
                     <label for="group-3">
                         <i class="fas fa-users-cog"></i>
                         Member Management <span class="fa fa-angle-right"></span></label>
-                    <ul class="group-list">
+                    <ul class="group-list" [class.d-none]="hide ? false : true">
                         <li><a routerLink="members/view-members">View Members</a></li>
                         <li><a routerLink="members/executive-members">Executive Members</a></li>
                     </ul>
@@ -37,25 +37,25 @@
                       <i class="far fa-id-card"></i>
                       Registrations</label>
                 </li> -->
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-5" type="checkbox" hidden />
                     <label for="group-5" routerLink="social-media-messages">
                         <i class="fas fa-share-alt"></i>
                    Social Media Messages</label>
                 </li>
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-6" type="checkbox" hidden />
                     <label for="group-6" routerLink="political-work">
                       <i class="fas fa-praying-hands"></i>
                     Political Work</label>
                 </li>
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-7" type="checkbox" hidden />
                     <label for="group-7" routerLink="feedbacks">
                         <i class="far fa-comments"></i>
                   Feedbacks</label>
                 </li>
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-10" type="checkbox" hidden />
                     <label for="group-10" routerLink="notifications">
                         <i class="far fa-bell"></i>
@@ -67,7 +67,7 @@
                       <i class="fas fa-hands-helping"></i>
                   Support</label>
                 </li>
-                <li>
+                <li routerLinkActive="active">
                     <input id="group-9" type="checkbox" hidden />
                     <label for="group-9" routerLink="forward-activities">
                         <i class="fas fa-share"></i>

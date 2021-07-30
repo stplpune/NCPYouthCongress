@@ -67,7 +67,7 @@
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <div class="card-header">
-                            Work in This Week <a routerLink="../work-this-week"><i class="fas fa-external-link-alt"></i></a>
+                            Work in This Week <a (click)="redirectToWorkThisWeek()"><i class="fas fa-external-link-alt"></i></a>
                             <span class="float-end">
                             <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                             <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
@@ -103,9 +103,9 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-header">
-                            Perception on Social Media <a routerLink="../social-media-image"><i class="fas fa-external-link-alt"></i></a>
+                            Perception on Social Media <a routerLink="social-media-image"><i class="fas fa-external-link-alt"></i></a>
                         </div>
-                        <div class="card-body chartHeight socialMediaChartdiv">
+                        <div class="card-body chartHeight p-1 socialMediaChartdiv">
                         </div>
                     </div>
                 </div>

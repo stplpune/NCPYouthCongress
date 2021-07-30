@@ -10,6 +10,7 @@ import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,6 +40,8 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
+    private router:Router,
+    private route:ActivatedRoute,
   ) { { dateTimeAdapter.setLocale('en-IN') } }
 
   ngOnInit(): void {
@@ -49,7 +52,14 @@ export class DashboardComponent implements OnInit {
     this.getLowestActivityDistricts();
     this.getWorkInThisWeek();
   }
-
+  redirectToWorkThisWeek(){
+    if( localStorage.getItem('weekRange')){
+      this.router.navigate(['work-this-week'], {relativeTo:this.route});
+    }else{
+      this.toastrService.error('Please select week range')
+      return
+    }
+  }
   getweekRage(dates: any) {
     let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
@@ -120,7 +130,23 @@ export class DashboardComponent implements OnInit {
         this.highestActivityDistrictsArray = res.data1;
         this.lowestActivityDistrictsArray = res.data2;
         this.typesOfWorksArray = res.data3;
-        this.perceptionOnSocialMediaArray = res.data4;
+        let perOnSocialMedArray = res.data4;
+        let addLogoParty =  perOnSocialMedArray.map((ele:any)=>{
+          if (ele.PartyShortCode == 'NCP') {
+            ele['href'] = "assets/images/logos/ncp-logo.png";
+          } else if (ele.PartyShortCode == 'SS') {
+            ele['href'] = "assets/images/logos/shivsena-logo.png";
+          } else if (ele.PartyShortCode == 'BJP') {
+            ele['href'] = "assets/images/logos/bjp-logo.png";
+          } else if (ele.PartyShortCode == 'INC') {
+            ele['href'] = "assets/images/logos/inc-logo.png";
+          }else if (ele.PartyShortCode == 'OTR') {
+            ele['href'] = "assets/images/logos/other.jpg";
+          }
+          return ele
+        })
+        this.perceptionOnSocialMediaArray = addLogoParty 
+        // console.log(addLogoParty);
         //console.log(res)
         this.pieChart();
         this.socialMediaChart();

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
+  hide:boolean =true;
   isShowMenu:boolean=false;
   @Input() set showMenu(value: boolean) {
     this.isShowMenu = value
