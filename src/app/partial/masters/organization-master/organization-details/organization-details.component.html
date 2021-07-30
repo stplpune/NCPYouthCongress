@@ -20,110 +20,59 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>President
-                                            <p class="small text-muted mb-0">01-01-2021 - Till</p>
-                                        </td>
-                                        <td>Mr. Mehabub Shaikh</td>
-                                        <td>
-                                            <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0" />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Vice President
-                                            <p class="small text-muted mb-0">01-01-2021 - Till</p>
-                                        </td>
-                                        <td>Mr. Anil Kambale</td>
-                                        <td>
-                                            <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0" />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Vice President
-                                        </td>
-                                        <td>-</td>
-                                        <td>
-                                            -
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#AddMemberModal">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                        </td>
+                                    <tr *ngFor="let designatedMembers of allDesignatedMembers">
+                                       <td>{{designatedMembers.SrNo}}</td>
+                                       <td>{{designatedMembers.DesignationName}}</td>
+                                       <td>{{designatedMembers.MemberName}}</td>
+                                       <td>
+                                           <ng-container *ngIf="designatedMembers.DeviceType == 1">
+                                            <img  src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
+                                           </ng-container>
+                                           <ng-container *ngIf="designatedMembers.DeviceType == 2">
+                                           <img  src="assets/images/dashboard-images/Apple_logo.svg" class="border-0">
+                                           </ng-container>
+                                           <ng-container *ngIf="designatedMembers.DeviceType != 2 && designatedMembers.DeviceType != 1">
+                                            No Device
+                                            </ng-container>
+                                       </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <hr />
-                            <p>Previous Designated Members</p>
+                            <p >Previous Designated Members
+                                <!-- {{this.getPreviousDesignatedMembers(bodyId, designationName.DesignationId)}} -->
+
+                            </p>
                             <table class="table">
                                 <tbody>
-                                    <tr>
-                                        <th colspan="2" class="text-center bg-light">Presidents</th>
+                                    <tr *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
+                                        <th colspan="2" class="text-center bg-light">{{designationName.DesignationName}}</th>
+                                       
+                                        <div *ngFor="let desMembers of getPreDesMembersArray[i]">
+                                            <td><a>{{desMembers.MemberName}}</a></td>
+                                            <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
+                                        </div>
                                     </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
-                                        <td>01-01-2001 - 31-12-2003</td>
+                                    <!-- {{getPreDesMembersArray.length}} -->
+                                    <!-- <tr *ngFor="let desMembers of getPreDesMembersArray[0]">
+                                        <td><a>{{desMembers.MemberName}}</a></td>
+                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
+                                    </tr> -->
+                                    <!-- <tr *ngFor="let desMembers of getPreDesMembersArray[1]">
+                                        <td><a>{{desMembers.MemberName}}</a></td>
+                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
                                     </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
-                                        <td>01-01-2004 - 31-12-2008</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
-                                        <td>01-01-2009 - Till Date</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2" class="text-center bg-light">Vice-Presidents</th>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
-                                        <td>01-01-2001 - 31-12-2003</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
-                                        <td>01-01-2004 - 31-12-2008</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
-                                        <td>01-01-2009 - Till Date</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2" class="text-center bg-light">Chairmans</th>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Rajaram Shinde</a></td>
-                                        <td>01-01-2001 - 31-12-2003</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Anil Shinde</a></td>
-                                        <td>01-01-2004 - 31-12-2008</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a routerLink="#">Mr. Ajit Pawar</a></td>
-                                        <td>01-01-2009 - Till Date</td>
-                                    </tr>
+                                    <tr *ngFor="let desMembers of getPreDesMembersArray[2]">
+                                        <td><a>{{desMembers.MemberName}}</a></td>
+                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-sm-8">
                             <div class="row mb-3">
                                 <div class="col-sm-4 offset-4">
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                                    <ngx-select [allowClear]="true" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" placeholder="Select Member Name">
                                     </ngx-select>
                                 </div>
                                 <div class="col-sm-4">
@@ -137,21 +86,21 @@
                                     <div class="card card-body bg-cyan">
                                         <i class="fas fa-network-wired"></i>
                                         <p>Work Done</p>
-                                        <h3>1257</h3>
+                                        <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="card card-body bg-green">
                                         <i class="fab fa-apple"></i>
                                         <p>iOS Downloads</p>
-                                        <h3>25312</h3>
+                                        <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="card card-body bg-blue">
                                         <i class="fab fa-android"></i>
                                         <p>Android Downloads</p>
-                                        <h3>7902</h3>
+                                        <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -169,82 +118,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>01-07-2021</td>
-                                        <td>Anil Kambale</td>
+                                    <tr *ngFor="let bodyMemActivity of resBodyMemAct; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{bodyMemActivity.ActivityDate}}</td>
+                                        <td>{{bodyMemActivity.UserFName}}{{bodyMemActivity.UserLName}}</td>
                                         <td>Political Work</td>
-                                        <td>Title</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
+                                        <td>{{bodyMemActivity.Title}}</td>
+                                        <td *ngFor="let img of bodyMemActivity.ImagePath.split(',')">
+                                            <img src="{{img}}">
                                         </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>02-07-2021</td>
-                                        <td>Sunil Jadhav</td>
-                                        <td>News Letters</td>
-                                        <td>Title</td>
-                                        <td>
+                                        <!-- <td *ngFor="let imges of bodyMemActivity.split(); let i = index">
+                                            {{imges[i]}}
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>03-07-2021</td>
-                                        <td>Ramesh Singh</td>
-                                        <td>Social Media Activity of Help</td>
-                                        <td>Title</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>04-07-2021</td>
-                                        <td>Arvind Mohite-Patil</td>
-                                        <td>Personal Help</td>
-                                        <td>Title</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>05-07-2021</td>
-                                        <td>Rajesh Patil</td>
-                                        <td>Party Programs</td>
-                                        <td>Title</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                        </td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
 
                             <p>Individual Members Progress</p>
-                            Chart Members against work done by them
+                            <div class="h-400 membersProBarChart">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -269,7 +168,7 @@
                       
                             <label for="txtMemberName" class="form-label">Body Name</label>
                             <label for="txtMemberName" class="form-label">Member Name</label>
-                            <ngx-select  [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="ID" optionTextField="FullName"  (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"  placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
+                            <ngx-select  [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname"  (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"  placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
                             <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
                                 <div *ngIf="f.bodyId.errors.required">Body Member is required</div>
                             </div>
