@@ -386,7 +386,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addEditMember(id:any){
-    alert(id);
+    // alert(id);
   }
 
 }
