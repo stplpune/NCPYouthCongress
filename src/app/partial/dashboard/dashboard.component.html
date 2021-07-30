@@ -15,7 +15,7 @@
             <div class="card card-body bg-cyan">
                 <i class="fas fa-users"></i>
                 <p>Executive Member</p>
-                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container> -->
+                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container>
                 <h3>{{dashboardCount1Array?.ExcecutiveMembers}}</h3>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="card card-body bg-green">
                 <i class="fas fa-user"></i>
                 <p>Youth Members</p>
-                <!-- <h3> <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container></h3> -->
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.YouthMembers}}</h3>
             </div>
         </div>
@@ -55,7 +55,7 @@
             <div class="card card-body bg-voilet">
                 <i class="far fa-thumbs-up"></i>
                 <p>Social Media Work</p>
-                <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.SocialMediaWork"></i></ng-container>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.SocialMediaWork"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.SocialMediaWork}}</h3>
             </div>
         </div>
@@ -68,13 +68,13 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             Work in This Week <a (click)="redirectToWorkThisWeek()"><i class="fas fa-external-link-alt"></i></a>
-                            <span class="float-end">
+                           <span class="float-end">
                             <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                             <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
-                        </span>
+                        </span> 
                         </div>
                         <div class="card-body chartHeight workLineChartdiv">
-
+                            
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                         <div class="card-header">
                             New Members in This Week
                             <span class="float-end">
-                                <ngx-select [allowClear]="true" [items]="allDistrictArray"  optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
+                                <ngx-select [allowClear]="true" [items]="allDistrictArray" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
                                 </ngx-select>
                             </span>
                         </div>
@@ -119,7 +119,7 @@
                         {{highestActivityDistricts.DistrictName}}
                         <span class="float-end">{{highestActivityDistricts.ActivityCount}}</span>
                     </a>
-
+                    
                 </div>
             </div>
             <div class="card mb-3">

@@ -200,3 +200,9 @@ a{
 .h-400{
     height: 400px;
 }
+
+.h-150{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}

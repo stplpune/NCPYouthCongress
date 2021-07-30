@@ -20,39 +20,76 @@ export class OrganizationDetailsComponent implements OnInit {
   resAllMember: any;
   getTalkaByDistrict: any;
   resultVillageOrCity: any;
-  submitted:boolean = false;
+  submitted: boolean = false;
   items: string[] = [];
   villageCityLabel = "Village";
   setVillOrCityId = "VillageId";
   setVillOrcityName = "VillageName";
-  bodyMemberDetails:any;
-  bodyMemberFilterDetails:any;
-  allDesignatedMembers:any;
-  TotalWorkAndIosCount:any;
-  prevDesMembers:any[] = [];
-  resBodyMemAct:any;
-  resultBodyMemActGraph:any;
-  imgStringToArray:any;
-  DesignationNameBYBodyId:any;
-  bodyId:any;
-  resultPrevDesMembers:any;
-  getPreDesMembersArray:any[] = [];
+  bodyMemberDetails: any;
+  bodyMemberFilterDetails: any;
+  allDesignatedMembers: any;
+  TotalWorkAndIosCount: any;
+  prevDesMembers: any[] = [];
+  resBodyMemAct: any;
+  resultBodyMemActGraph: any;
+  imgStringToArray: any;
+  DesignationNameBYBodyId: any;
+  bodyId: any;
+  resultPrevDesMembers: any;
+  getPreDesMembersArray: any[] = [];
+  resultBodyMemActDetails: any;
+  paginationNo: number = 1;
+  total: any;
+  pageSize: number = 10;
+  resWorkcategory: any;
+  filter!: FormGroup;
+  globalMemberId: number = 0;
+  globalCategoryId: number = 0;
 
-  constructor(private fb: FormBuilder, private callAPIService: CallAPIService, private spinner: NgxSpinnerService, 
-    private toastrService: ToastrService, private router:Router) { this.bodyId = localStorage.getItem('bodyId') }
+  constructor(private fb: FormBuilder, private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
+    private toastrService: ToastrService, private router: Router) { this.bodyId = localStorage.getItem('bodyId') }
 
   ngOnInit(): void {
+    this.defaultFilterForm()
     this.defaultBodyMemForm();
     this.getAllBodyMember();
-    this.getBodyMemberFilterDetails(localStorage.getItem('bodyId'));
-    this.getCurrentDesignatedMembers(localStorage.getItem('bodyId'));
-    this.getBodyMemeberActivities(localStorage.getItem('bodyId'));
-    this.getBodyMemeberGraph(localStorage.getItem('bodyId'));
+    this.getBodyMemberFilterDetails(this.bodyId);
+    this.getCurrentDesignatedMembers(this.bodyId);
+    this.getBodyMemeberActivities(this.bodyId);
+    this.getBodyMemeberGraph(this.bodyId);
+    this.getWorkcategoryFilterDetails(this.bodyId);
+  }
+
+  defaultFilterForm() {
+    this.filter = this.fb.group({
+      memberName: ['', Validators.required],
+      workType: ['', Validators.required]
+    })
+  }
+
+  filterForm(text: any, flag: any) {
+    if (flag == "member") {
+      this.globalMemberId = text;
+      this.getBodyMemeberActivities(this.bodyId)
+    } else if (flag == "workType") {
+      this.globalCategoryId = text;
+      this.getBodyMemeberActivities(this.bodyId)
+    }
+  }
+
+  selectLevelClear(text: any) {
+    if (text == "member") {
+      this.globalMemberId = 0;
+      this.getBodyMemeberActivities(this.bodyId)
+    } else if (text == "workType") {
+      this.globalCategoryId = 0;
+      this.getBodyMemeberActivities(this.bodyId)
+    }
   }
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
-      bodyId:['',Validators.required]
+      bodyId: ['', Validators.required]
     })
   }
 
@@ -68,7 +105,7 @@ export class OrganizationDetailsComponent implements OnInit {
     else {
 
     }
-  
+
   }
 
   getAllBodyMember() {
@@ -89,9 +126,9 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getBodyMemberDetails(id:any) {
+  getBodyMemberDetails(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetMemberDetails_1_0?MemberId='+id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetMemberDetails_1_0?MemberId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -107,9 +144,9 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getBodyMemberFilterDetails(id:any) {
+  getBodyMemberFilterDetails(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyMemberList_1_0?BodyId='+id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetBodyMemberList_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -125,18 +162,41 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getCurrentDesignatedMembers(id:any) { //get designation  this.TotalWorkAndIosCount 3
+  getWorkcategoryFilterDetails(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId='+id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Workcategory_1_0', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resWorkcategory = res.data1;
+        console.log(this.resWorkcategory);
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Member is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+
+
+
+  getCurrentDesignatedMembers(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
+        console.log(this.allDesignatedMembers)
         this.TotalWorkAndIosCount = res.data2[0];
-        this.DesignationNameBYBodyId= res.data3;
+        this.DesignationNameBYBodyId = res.data3;
         // console.log(this.DesignationNameBYBodyId);
-        this.DesignationNameBYBodyId.forEach((ele:any) => {
-          this.getPreviousDesignatedMembers(localStorage.getItem('bodyId'),  ele.DesignationId);
+        this.DesignationNameBYBodyId.forEach((ele: any) => {
+          this.getPreviousDesignatedMembers(localStorage.getItem('bodyId'), ele.DesignationId);
         });
         // this.getPreDesMembersArray
       } else {
@@ -150,15 +210,15 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getPreviousDesignatedMembers(id:any, DesignationId:any) {
+  getPreviousDesignatedMembers(id: any, DesignationId: any) {
     // this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId='+id+'&DesignationId='+DesignationId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1)
         // this.prevDesMembers = res.data1;
-       
+
         // this.prevDesMembers.push(res.data1);
       } else {
         this.spinner.hide();
@@ -171,16 +231,18 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getBodyMemeberActivities(id:any){
+  getBodyMemeberActivities(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=0&BodyId='+id+'&nopage=1', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo+'&CategoryId='+this.globalCategoryId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.resBodyMemAct = res.data1;
+        this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
         if (res.data == 1) {
+          this.resBodyMemAct = [];
           this.toastrService.error("Member is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
@@ -189,9 +251,16 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getBodyMemeberGraph(id:any){
+
+  onClickPagintion(pageNo: number) {
+    // this.clearForm();
+    this.paginationNo = pageNo;
+    this.getBodyMemeberActivities(this.bodyId)
+  }
+
+  getBodyMemeberGraph(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesGraph?BodyId='+id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesGraph?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -208,8 +277,28 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-// chart DIv 
-bodyMemeberChartGraph(data:any) {
+  getBodyMemeberActivitiesDetails(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultBodyMemActDetails = res.data1[0];
+        console.log(this.resultBodyMemActDetails);
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Member is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+
+  // chart DIv 
+  bodyMemeberChartGraph(data: any) {
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
 
@@ -255,9 +344,7 @@ bodyMemeberChartGraph(data:any) {
       createSeries('TotalWork', 'Total Work Done');
 
       function arrangeColumns() {
-
         var series: any = chart.series.getIndex(0);
-
         let w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
         if (series.dataItems.length > 1) {
           let x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
@@ -291,13 +378,15 @@ bodyMemeberChartGraph(data:any) {
           }
         }
       }
-
     });
   }
 
-  
   ngOnDestroy() {
     localStorage.removeItem('bodyId');
+  }
+
+  addEditMember(id:any){
+    alert(id);
   }
 
 }

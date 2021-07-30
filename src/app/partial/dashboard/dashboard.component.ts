@@ -7,10 +7,11 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateTimeAdapter } from 'ng-pick-datetime';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -27,8 +28,14 @@ export class DashboardComponent implements OnInit {
   highestActivityDistrictsArray: any;
   typesOfWorksArray: any;
   perceptionOnSocialMediaArray: any;
-  workInThisWeekForm!: FormGroup;
+  workInThisWeekForm: any;
+  newMemberInThisWeekArray: any;
+  districtWiseMemberCountArray: any;
+  defaultToDate = new Date();
+  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
   maxDate: any = new Date();
+  fromDate:any;
+  toDate: any;
   selWeekDate:any;
   weekRangeObj:any;
 
@@ -41,22 +48,23 @@ export class DashboardComponent implements OnInit {
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
     private router:Router,
-    private route:ActivatedRoute,
+    private route:ActivatedRoute
   ) { { dateTimeAdapter.setLocale('en-IN') } }
 
   ngOnInit(): void {
-    this.weeklyColumnChart();
     this.workLineChart();
     this.getDistrict();
     this.getDashboardCount1();
-    this.getLowestActivityDistricts();
-    this.getWorkInThisWeek();
+    this.getLowHighSocialMTypesOfWorks();
+    this.getNewMemberAndWorkInThisWeek();
+    this.getDistrictWiseMemberCount();
   }
-  redirectToWorkThisWeek(){
+
+   redirectToWorkThisWeek(){
     if( localStorage.getItem('weekRange')){
       this.router.navigate(['work-this-week'], {relativeTo:this.route});
     }else{
-      this.toastrService.error('Please select week range')
+      this.toastrService.error('please select week range')
       return
     }
   }
@@ -65,26 +73,12 @@ export class DashboardComponent implements OnInit {
     let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
     this.weekRangeObj = {'fromDate':fromDate, 'toDate':toDate};
     localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
-    // let date1: any = new Date(fromDate);
-    // let timeStamp = Math.round(new Date(toDate).getTime() / 1000);
-    // let timeStampYesterday = timeStamp - (168 * 3600);
-    // let is24 = date1 >= new Date(timeStampYesterday * 1000).getTime();
-
-    // if (!is24) {
-    //     this.toastrService.error("Date difference does not exceed 7 days");
-    //     this.spinner.hide();
-    //     return
-    // }else{
-    //   alert('ok')
-    // }
+ 
   }
 
-  submit() {
-    console.log(this.workInThisWeekForm.value)
-  }
 
   getDistrict() {
-    this.spinner.show();
+    this.spinner.show();    
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -102,13 +96,13 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getDashboardCount1() {
+  getDashboardCount1() {//count1 api
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get','Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.dashboardCount1Array = res.data1[0];
+        this.dashboardCount1Array= res.data1[0];
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -121,9 +115,9 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getLowestActivityDistricts() {
+  getLowHighSocialMTypesOfWorks() {//count3 api
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get','Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -146,7 +140,7 @@ export class DashboardComponent implements OnInit {
           return ele
         })
         this.perceptionOnSocialMediaArray = addLogoParty 
-        // console.log(addLogoParty);
+        
         //console.log(res)
         this.pieChart();
         this.socialMediaChart();
@@ -162,24 +156,51 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getWorkInThisWeek() {
-    // this.spinner.show();
-    // this.callAPIService.setHttp('get','Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+1 + '&ToDate='+1, false, false, false, 'ncpServiceForWeb');
-    // this.callAPIService.getHttp().subscribe((res: any) => {
-    //   if (res.data == 0) {
-    //     this.spinner.hide();
-    //     this.workInThisWeekArray = res.data1;
-    //      console.log(this.workInThisWeekArray)
-    //   } else {
-    //     if (res.data == 1) {
-    //       this.spinner.hide();
-    //       this.toastrService.error("Data is not available");
-    //     } else {
-    //       this.spinner.hide();
-    //       this.toastrService.error("Please try again something went wrong");
-    //     }
-    //   }
-    // })
+  getNewMemberAndWorkInThisWeek() {
+    this.spinner.show();
+    let fromDate= this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+    let toDate= this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    this.callAPIService.setHttp('get','Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+fromDate + '&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.workInThisWeekArray = res.data2;
+        this.newMemberInThisWeekArray = res.data1;
+        this.weeklyColumnChart();
+         console.log('workInThisWeekArray',this.workInThisWeekArray);
+         console.log('newMemberInThisWeekArray',this.newMemberInThisWeekArray);
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getDistrictWiseMemberCount() {
+    this.spinner.show();
+    let Date1="15/05/2021";
+    let Date2="30/05/2021"
+    this.callAPIService.setHttp('get','Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+Date1 + '&ToDate='+Date2 + '&DistrictId='+11, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.districtWiseMemberCountArray = res.data1;
+        //console.log('getDistrictWiseMemberCount',this.districtWiseMemberCountArray);
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
   }
 
   /* Chart code */
@@ -193,7 +214,8 @@ export class DashboardComponent implements OnInit {
     // Create chart instance
     let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
 
-    // Add data
+    // Add data 
+    // chart.data = this.workInThisWeekArray;
     chart.data = [{
       "x": 1,
       "ay": 6.5,
@@ -272,10 +294,14 @@ export class DashboardComponent implements OnInit {
       "bValue": 3
     }];
 
+    // 13: {ActivityCount: 0, MemberCount: 0, UserCount: 0, Date: "28/05/2021"}
+  
+    
+
     // Create axes
     let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
     xAxis.renderer.minGridDistance = 40;
-
+    
 
     // Create value axis
     let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -321,11 +347,11 @@ export class DashboardComponent implements OnInit {
 
     bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
 
-
+    
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
-
+    
     let hs2 = series2.segments.template.states.create("hover")
     hs2.properties.strokeWidth = 5;
     series2.segments.template.strokeWidth = 1;
@@ -336,16 +362,16 @@ export class DashboardComponent implements OnInit {
 
     // Add legend
     chart.legend = new am4charts.Legend();
-    chart.legend.itemContainers.template.events.on("over", function (event: any) {
+    chart.legend.itemContainers.template.events.on("over", function(event:any){
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function (segment: any) {
+      segments.each(function(segment:any){
         segment.isHover = true;
       })
     })
-
-    chart.legend.itemContainers.template.events.on("out", function (event: any) {
+    
+    chart.legend.itemContainers.template.events.on("out", function(event:any){
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function (segment: any) {
+      segments.each(function(segment:any){
         segment.isHover = false;
       })
     })
@@ -359,53 +385,50 @@ export class DashboardComponent implements OnInit {
 
     let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
 
-    chart.data = [{
-      "country": "Mon",
-      "visits": 2025
-    }, {
-      "country": "Tue",
-      "visits": 1882
-    }, {
-      "country": "Wed",
-      "visits": 1809
-    }, {
-      "country": "Thu",
-      "visits": 1322
-    }, {
-      "country": "Fri",
-      "visits": 1122
-    }, {
-      "country": "Sat",
-      "visits": 1114
-    }, {
-      "country": "Sun",
-      "visits": 984
-    }];
+    chart.data = this.newMemberInThisWeekArray; 
+    // chart.data = [{
+    //   "country": "Mon",
+    //   "visits": 2025
+    // }, {
+    //   "country": "Tue",
+    //   "visits": 1882
+    // }, {
+    //   "country": "Wed",
+    //   "visits": 1809
+    // }, {
+    //   "country": "Thu",
+    //   "visits": 1322
+    // }, {
+    //   "country": "Fri",
+    //   "visits": 1122
+    // }, {
+    //   "country": "Sat",
+    //   "visits": 1114
+    // }, {
+    //   "country": "Sun",
+    //   "visits": 984
+    // }];
 
     chart.padding(40, 40, 40, 40);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "country";
+    categoryAxis.dataFields.category = "DayName";
     categoryAxis.renderer.minGridDistance = 60;
-    categoryAxis.renderer.inversed = true;
-    categoryAxis.renderer.grid.template.disabled = true;
+    // categoryAxis.renderer.inversed = true;
+    // categoryAxis.renderer.grid.template.disabled = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
-    //valueAxis.rangeChangeEasing = am4core.ease.linear;
-    //valueAxis.rangeChangeDuration = 1500;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryX = "country";
-    series.dataFields.valueY = "visits";
+    series.dataFields.categoryX = "DayName";
+    series.dataFields.valueY = "UserCount";
     series.tooltipText = "{valueY.value}"
     series.columns.template.strokeOpacity = 0;
     series.columns.template.column.cornerRadiusTopRight = 10;
     series.columns.template.column.cornerRadiusTopLeft = 10;
-    //series.interpolationDuration = 1500;
-    //series.interpolationEasing = am4core.ease.linear;
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.verticalCenter = "bottom";
     labelBullet.label.dy = -10;
@@ -420,13 +443,13 @@ export class DashboardComponent implements OnInit {
 
     setInterval(function () {
       am4core.array.each(chart.data, function (item) {
-        item.visits += Math.round(Math.random() * 200 - 100);
-        item.visits = Math.abs(item.visits);
+        item.UserCount += Math.round(Math.random() * 200 - 100);
+        item.UserCount = Math.abs(item.UserCount);
       })
       chart.invalidateRawData();
     }, 2000)
 
-    categoryAxis.sortBySeries = series;
+    // categoryAxis.sortBySeries = series;
 
   }
 
@@ -442,7 +465,7 @@ export class DashboardComponent implements OnInit {
     // Add data
     chart.data = this.typesOfWorksArray;
 
-
+    
 
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -474,36 +497,7 @@ export class DashboardComponent implements OnInit {
     chart.paddingBottom = 30;
 
     chart.data = this.perceptionOnSocialMediaArray;
-    // chart.data = [{
-    //   "name": "NCP",
-    //   "steps": 45688,
-    //   "href": "https://www.logolynx.com/images/logolynx/70/70a6980f4721a7c7b4f8643d6eb6b8de.png"
-    // }, {
-    //   "name": "Shivsena",
-    //   "steps": 35781,
-    //   "href": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Logo_of_Shiv_Sena.svg/1200px-Logo_of_Shiv_Sena.svg.png"
-    // }, {
-    //   "name": "BJP",
-    //   "steps": 25464,
-    //   "href": "https://bjplogo.site/wp-content/uploads/2020/06/bjp-kamal-logo.png"
-    // }, {
-    //   "name": "INC",
-    //   "steps": 18788,
-    //   "href": "https://www.deccanherald.com/sites/dh/files/article_images/2019/11/13/Cong-1573660563.jpg"
-    // }, {
-    //   "name": "Others",
-    //   "steps": 15465,
-    //   "href": "https://image.freepik.com/free-vector/abstract-indian-background-with-building-silhouettes_1058-17.jpg"
-    // }
-
-    // ];
-
-    //     0: {ActivityCount: 70, PartyId: 1, PartyName: "Nationalist Congress Party", PartyShortCode: "NCP"}
-    // 1: {ActivityCount: 15, PartyId: 2, PartyName: "Shivsena", PartyShortCode: "SS"}
-    // 2: {ActivityCount: 53, PartyId: 3, PartyName: "Bharatiya Janata Party", PartyShortCode: "BJP"}
-    // 3: {ActivityCount: 20, PartyId: 4, PartyName: "Indian National Congress", PartyShortCode: "INC"}
-
-
+   
     let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "PartyShortCode";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
@@ -592,7 +586,6 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-
 
 
 }
