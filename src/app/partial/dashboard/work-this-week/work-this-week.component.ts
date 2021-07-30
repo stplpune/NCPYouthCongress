@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-work-this-week',
   templateUrl: './work-this-week.component.html',
-  styleUrls: ['./work-this-week.component.css', '../partial.component.css']
+  styleUrls: ['./work-this-week.component.css', '../../partial.component.css']
 })
 export class WorkThisWeekComponent implements OnInit, OnDestroy {
   WorkDoneByYuvakTP: any;
@@ -38,7 +38,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
       this.getBestPerMember(JSON.parse(this.selweekRange));
     } else {
       this.router.navigate(['../dashboard']);
-      this.toastrService.error('please select week range')
+      this.toastrService.error('Please select week range')
     }
 
   }
@@ -86,9 +86,26 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     })
   }
 
-  districtClear() {
-    this.filterObj = { 'globalDistrictId': 0, 'globalVillageid': 0, 'globalTalukId': 0 }
-    this.filterBestPer.reset();
+  districtClear(flag: any) {
+    debugger;
+    if (flag == 'district') {
+      this.filterObj = { 'globalDistrictId': 0, 'globalVillageid': 0, 'globalTalukId': 0 }
+      this.filterBestPer.reset();
+    } else if (flag == 'taluka') {
+      this.filterBestPer.reset({
+        DistrictId: this.filterObj.globalDistrictId,
+        TalukaId: 0,
+        VillageId: 0
+      });
+      this.filterObj = { 'globalDistrictId': this.filterObj.globalDistrictId, 'globalVillageid': 0, 'globalTalukId': 0 }
+    } else if (flag == 'village') {
+      this.filterBestPer.reset({
+        DistrictId: this.filterObj.globalDistrictId,
+        TalukaId: this.filterObj.globalTalukId,
+        VillageId: 0
+      });
+      this.filterObj = { 'globalDistrictId': this.filterObj.globalDistrictId, 'globalVillageid': 0, 'globalTalukId': this.filterObj.globalTalukId }
+    }
     this.getBestPerMember(JSON.parse(this.selweekRange))
   }
 
@@ -101,7 +118,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultVillageOrCity = res.data1;
-        console.log(this.resultVillageOrCity);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -145,8 +161,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   }
 
   getBestPerMember(selweekRange: any) { //filter API
+    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.filterObj.globalDistrictId + '&TalukaId=' + this.filterObj.globalTalukId + '&Villageid=' + this.filterObj.globalVillageid, false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.filterObj.globalDistrictId + '&TalukaId=' + this.filterObj.globalTalukId + '&Villageid=' + this.filterObj.globalVillageid, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -189,90 +207,90 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   }
 
   // chart DIv 
-  WorkDoneByYuvak(){
-    am4core.ready(() =>{
+  WorkDoneByYuvak() {
+    am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
-      
-      var chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
+
+      let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
       chart.colors.step = 2;
-      
+
       chart.legend = new am4charts.Legend()
       chart.legend.position = 'top'
       chart.legend.paddingBottom = 10
       chart.legend.labels.template.maxWidth = 20
-      
-      var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+
+      let xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
       xAxis.dataFields.category = 'DistrictName'
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-      
-      var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+      let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
-      
+
       function createSeries(value: string | undefined, name: string) {
-          var series = chart.series.push(new am4charts.ColumnSeries())
-          series.dataFields.valueY = value
-          series.dataFields.categoryX = 'DistrictName'
-          series.name = name
-      
-          series.events.on("hidden", arrangeColumns);
-          series.events.on("shown", arrangeColumns);
-      
-          var bullet = series.bullets.push(new am4charts.LabelBullet())
-          bullet.interactionsEnabled = false
-          bullet.dy = 30;
-          bullet.label.text = '{valueY}'
-          bullet.label.fill = am4core.color('#ffffff')
-      
-          return series;
+        let series = chart.series.push(new am4charts.ColumnSeries())
+        series.dataFields.valueY = value
+        series.dataFields.categoryX = 'DistrictName'
+        series.name = name
+
+        series.events.on("hidden", arrangeColumns);
+        series.events.on("shown", arrangeColumns);
+
+        let bullet = series.bullets.push(new am4charts.LabelBullet())
+        bullet.interactionsEnabled = false
+        bullet.dy = 30;
+        bullet.label.text = '{valueY}'
+        bullet.label.fill = am4core.color('#ffffff')
+
+        return series;
       }
-      
-      chart.data =  this.WorkDoneByYuvakBarchart;
-      
+
+      chart.data = this.WorkDoneByYuvakBarchart;
+
       chart.padding(10, 5, 5, 5);
       createSeries('MemberWork', 'Work Done by Committes');
       createSeries('TotalWork', 'Total Work Done');
-      
+
       function arrangeColumns() {
-      
-          var series:any = chart.series.getIndex(0);
-      
-          var w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
-          if (series.dataItems.length > 1) {
-              var x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
-              var x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
-              var delta = ((x1 - x0) / chart.series.length) * w;
-              if (am4core.isNumber(delta)) {
-                  var middle = chart.series.length / 2;
-      
-                  var newIndex = 0;
-                  chart.series.each(function(series) {
-                      if (!series.isHidden && !series.isHiding) {
-                          series.dummyData = newIndex;
-                          newIndex++;
-                      }
-                      else {
-                          series.dummyData = chart.series.indexOf(series);
-                      }
-                  })
-                  var visibleCount = newIndex;
-                  var newMiddle = visibleCount / 2;
-      
-                  chart.series.each(function(series) {
-                      var trueIndex = chart.series.indexOf(series);
-                      var newIndex = series.dummyData;
-      
-                      var dx = (newIndex - trueIndex + middle - newMiddle) * delta
-      
-                      series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
-                      series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
-                  })
+
+        var series: any = chart.series.getIndex(0);
+
+        let w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
+        if (series.dataItems.length > 1) {
+          let x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
+          let x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
+          let delta = ((x1 - x0) / chart.series.length) * w;
+          if (am4core.isNumber(delta)) {
+            let middle = chart.series.length / 2;
+
+            let newIndex = 0;
+            chart.series.each(function (series) {
+              if (!series.isHidden && !series.isHiding) {
+                series.dummyData = newIndex;
+                newIndex++;
               }
+              else {
+                series.dummyData = chart.series.indexOf(series);
+              }
+            })
+            let visibleCount = newIndex;
+            let newMiddle = visibleCount / 2;
+
+            chart.series.each(function (series) {
+              let trueIndex = chart.series.indexOf(series);
+              let newIndex = series.dummyData;
+
+              let dx = (newIndex - trueIndex + middle - newMiddle) * delta
+
+              series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+              series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+            })
           }
+        }
       }
-      
-      });
+
+    });
   }
 
   ngOnDestroy() {

@@ -66,19 +66,19 @@
                         </div>
                             <div class="col-md-3">
                                     <ngx-select [allowClear]="true" [items]="allDistrict"
-                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear()"  formControlName="DistrictId"
+                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear('district')"  formControlName="DistrictId"
                                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                     </ngx-select>
                     
                             </div>
                             <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  (remove)="districtClear()" optionValueField="TalukaId"
+                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  (remove)="districtClear('taluka')" optionValueField="TalukaId"
                                         optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
                                         (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)" [disabled]="!this.filterBestPer.value.DistrictId">
                                     </ngx-select>
                             </div>
                             <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity"  (remove)="districtClear()" placeholder="Select village"
+                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity"  (remove)="districtClear('village')" placeholder="Select village"
                                         optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId"
                                         [disabled]="!this.filterBestPer.value.TalukaId" (select)="getVillByTaluka(this.filterBestPer.value.VillageId)" >
                                     </ngx-select>
