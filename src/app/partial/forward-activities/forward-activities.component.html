@@ -50,11 +50,22 @@
                                 <label for="fuAttachments" class="form-label">Attachment(s)</label>
                                 <input class="form-control form-control-sm" id="fuAttachments" type="file" multiple>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
+                                <label class="form-label">Scope of Activity</label>
+                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select Scope of Activity">
+                                </ngx-select>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Select Values</label>
+                                <ngx-select [multiple]="true" [allowClear]="true" [items]="items" placeholder="Select Value">
+                                </ngx-select>
+                            </div>
+                            <div class="mb-2">
                                 <label for="txtBody" class="form-label">Hashtags for Activity</label>
                                 <textarea type="text" rows="3" class="form-control" id="txtBody" placeholder="Hashtags for Activity"></textarea>
                                 <small class="form-text small">Use # symbol before every hashtag and separate each tag with comma (,).</small>
                             </div>
+
                             <div class="mb-2 text-end">
                                 <button type="button" class="btn btn-main">Publish Activity</button>
                                 <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
