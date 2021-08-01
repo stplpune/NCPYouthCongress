@@ -57,8 +57,8 @@
                                     <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                 </div>
                             </div>
-                            <!-- *ngIf="this.orgMasterForm.value.IsRural != 0" -->
-                            <div class="mb-2">
+                            <!-- -->
+                            <div class="mb-2" *ngIf="this.orgMasterForm.value.IsRural != 0" >
                                 <label class="form-label">Select Taluka</label>
                                 <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka" (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)"
                                     [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">

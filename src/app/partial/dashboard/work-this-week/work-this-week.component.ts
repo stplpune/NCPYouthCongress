@@ -9,10 +9,13 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_kelly from "@amcharts/amcharts4/themes/kelly";
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatePipe,Location } from '@angular/common';
+
 @Component({
   selector: 'app-work-this-week',
   templateUrl: './work-this-week.component.html',
-  styleUrls: ['./work-this-week.component.css', '../../partial.component.css']
+  styleUrls: ['./work-this-week.component.css', '../../partial.component.css'],
+  providers: [DatePipe]
 })
 export class WorkThisWeekComponent implements OnInit, OnDestroy {
   WorkDoneByYuvakTP: any;
@@ -27,19 +30,25 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   getTalkaByDistrict: any;
   resultVillageOrCity: any;
   filterBestPer!: FormGroup;
+  toDate: any;
+  fromDate: any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder) {
-
+    private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
+    public datepipe: DatePipe,
+    public location:Location
+    ) {
     if (localStorage.getItem('weekRange')) {
-      this.selweekRange = localStorage.getItem('weekRange');
-      this.geWeekReport(JSON.parse(this.selweekRange))
-      this.getBestPerKaryMember(JSON.parse(this.selweekRange));
-      this.getBestPerMember(JSON.parse(this.selweekRange));
+      let data:any = localStorage.getItem('weekRange');
+      this.selweekRange = JSON.parse(data);
     } else {
-      this.router.navigate(['../dashboard']);
-      this.toastrService.error('Please select week range')
+      this.toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
+      this.fromDate = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
+      this.selweekRange = {fromDate:this.fromDate, toDate:this.toDate}
     }
+    this.geWeekReport(this.selweekRange)
+    this.getBestPerKaryMember(this.selweekRange);
+    this.getBestPerMember(this.selweekRange);
 
   }
 
@@ -69,7 +78,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   getTaluka(districtId: any) {
     this.spinner.show();
     this.filterObj.globalDistrictId = districtId;
-    this.getBestPerMember(JSON.parse(this.selweekRange))
+    this.getBestPerMember(this.selweekRange)
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -87,7 +96,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   }
 
   districtClear(flag: any) {
-    debugger;
     if (flag == 'district') {
       this.filterObj = { 'globalDistrictId': 0, 'globalVillageid': 0, 'globalTalukId': 0 }
       this.filterBestPer.reset();
@@ -106,12 +114,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
       });
       this.filterObj = { 'globalDistrictId': this.filterObj.globalDistrictId, 'globalVillageid': 0, 'globalTalukId': this.filterObj.globalTalukId }
     }
-    this.getBestPerMember(JSON.parse(this.selweekRange))
+    this.getBestPerMember(this.selweekRange)
   }
 
   getVillageOrCity(talukaID: any) {
     this.filterObj.globalTalukId = talukaID;
-    this.getBestPerMember(JSON.parse(this.selweekRange))
+    this.getBestPerMember(this.selweekRange)
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -131,7 +139,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
 
   getVillByTaluka(villageId: any) {
     this.filterObj.globalVillageid = villageId;
-    this.getBestPerMember(JSON.parse(this.selweekRange))
+    this.getBestPerMember(this.selweekRange)
   }
 
   defaultFilterBestPer() {
@@ -161,7 +169,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   }
 
   getBestPerMember(selweekRange: any) { //filter API
-    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.filterObj.globalDistrictId + '&TalukaId=' + this.filterObj.globalTalukId + '&Villageid=' + this.filterObj.globalVillageid, false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + selweekRange.fromDate + '&ToDate=' + selweekRange.toDate + '&DistrictId=' + this.filterObj.globalDistrictId + '&TalukaId=' + this.filterObj.globalTalukId + '&Villageid=' + this.filterObj.globalVillageid, false, false, false, 'ncpServiceForWeb');

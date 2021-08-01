@@ -50,13 +50,13 @@ export class OrganizationMasterComponent implements OnInit {
   allAssignedDesignations: any;
   modalDeafult = false;
   globalTalukaID: any;
-  disableFlagDist:boolean = true;
-  disableFlagTal:boolean = true;
-  disableFlagVill:boolean = true;
+  disableFlagDist: boolean = true;
+  disableFlagTal: boolean = true;
+  disableFlagVill: boolean = true;
 
-  constructor(private callAPIService: CallAPIService,private router:Router, private fb: FormBuilder,
-    private toastrService: ToastrService, private commonService: CommonService, 
-    private spinner: NgxSpinnerService, private route:ActivatedRoute) { }
+  constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
+    private toastrService: ToastrService, private commonService: CommonService,
+    private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getOrganizationList();
@@ -71,23 +71,65 @@ export class OrganizationMasterComponent implements OnInit {
 
   selectLevel(levelId: any) {
     if (levelId == 3) {
-        this.disableFlagDist = false;
-        this.disableFlagTal = true;
-        this.disableFlagVill = true;
-    }else if (levelId == 4) {
-        this.disableFlagTal = false;
-        this.disableFlagDist = false;
-        this.disableFlagVill = true;
+      this.validationOncondition(levelId)
+      this.disableFlagDist = false;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
+    } else if (levelId == 4) {
+      this.validationOncondition(levelId)
+      this.disableFlagTal = false;
+      this.disableFlagDist = false;
+      this.disableFlagVill = true;
     } else if (levelId == 5) {
-        this.disableFlagVill = false;
-        this.disableFlagTal = false;
-        this.disableFlagDist = false
-    }else{
-        this.selectLevelClear()
+      this.validationOncondition(levelId)
+      this.disableFlagVill = false;
+      this.disableFlagTal = false;
+      this.disableFlagDist = false
+    } else if (levelId == 2) {
+      this.validationOncondition(levelId);
+    }
+    else {
+      this.selectLevelClear();
     }
   }
 
-  selectLevelClear(){
+  validationOncondition(levelId: any) {
+    if (levelId == 5) {
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+      this.updateValueAndValidityMF(levelId);
+    } else if (levelId == 4) {
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+      this.updateValueAndValidityMF(levelId);
+    } else if (levelId == 3) {
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.updateValueAndValidityMF(levelId);
+    } else {
+      this.clearValidatorsMF(levelId);
+      this.updateValueAndValidityMF(levelId);
+    }
+  }
+
+  clearValidatorsMF(levelId: any) {
+    // if (levelId == 5) {
+    this.orgMasterForm.controls['DistrictId'].clearValidators();
+    this.orgMasterForm.controls['TalukaId'].clearValidators();
+    this.orgMasterForm.controls['VillageId'].clearValidators();
+    // }
+  }
+
+  updateValueAndValidityMF(levelId: any) {
+    // if(levelId == 5){
+    this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
+    this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
+    this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
+    this.clearValidatorsMF(levelId);
+    // }
+  }
+
+  selectLevelClear() {
     this.disableFlagVill = true;
     this.disableFlagTal = true;
     this.disableFlagDist = true
@@ -121,7 +163,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getOrganizationList() {
-    ;
     this.spinner.show();
     let s = this.searchFilter == null ? '' : this.searchFilter;
     let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + this.districtId + '&Search=' + s + '&nopage=' + this.paginationNo;
@@ -187,8 +228,17 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        if (this.btnText == "Update Organization" && this.selEditOrganization.DistrictId != 0) { // edit
-          this.getTaluka(this.selEditOrganization.DistrictId)
+        if (this.btnText == "Update Organization" && this.selEditOrganization.DistrictId != 0 && this.selEditOrganization.IsRural == 1) { // edit
+          this.getTaluka(this.selEditOrganization.DistrictId);
+        } else {
+          if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) {
+            console.log(this.selEditOrganization)
+            this.globalDistrictId = this.selEditOrganization?.DistrictId;
+            let selFlagForRadioChange: any = this.selEditOrganization.IsRural == 0 ? "Urban" : "Rural";
+
+            this.onRadioChangeCategory(selFlagForRadioChange, true);
+          }
+
         }
       } else {
         this.spinner.hide();
@@ -229,8 +279,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    // this.spinner.show();
     debugger;
+    // this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -255,25 +305,31 @@ export class OrganizationMasterComponent implements OnInit {
 
 
   onRadioChangeCategory(category: any, flag: any) {
-    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
-      this.toastrService.error("Please select district");
-      return
-    } else {
-      // debugger;
-      if (category == "Rural") {
-        this.villageCityLabel = "Village";
+    // debugger;
+    if (category == "Rural") {
+      this.villageCityLabel = "Village";
+      if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+        this.toastrService.error("Please select district");
+        return
+      } else {
         this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
         this.btnText == "Update Organization" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
         this.setVillOrcityName = "VillageName";
         this.setVillOrCityId = "VillageId";
       }
-      else {
-        this.villageCityLabel = "City";
+    }
+    else {
+      this.villageCityLabel = "City";
+      if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+        this.toastrService.error("Please select district");
+        return
+      } else {
         this.getVillageOrCity(this.globalDistrictId, 'City');
         this.setVillOrcityName = "CityName";
         this.setVillOrCityId = "Id";
       }
     }
+    // }
   }
 
   get f() { return this.orgMasterForm.controls };
@@ -287,9 +343,9 @@ export class OrganizationMasterComponent implements OnInit {
     }
     else {
       let fromData: any = new FormData();
-  
+
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
-        let value =  Object.values(this.orgMasterForm.value)[ind] != null ?  Object.values(this.orgMasterForm.value)[ind] : 0;
+        let value = Object.values(this.orgMasterForm.value)[ind] != null ? Object.values(this.orgMasterForm.value)[ind] : 0;
         fromData.append(cr, value)
       })
       let btnTextFlag = this.btnText == "Create Organization" ? 0 : this.HighlightRow;
@@ -348,7 +404,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.HighlightRow = this.selEditOrganization.Id;
         this.getDistrict();
         this.globalDistrictId;
-        this.selectLevel(this.selEditOrganization.BodyLevel) 
+        this.selectLevel(this.selEditOrganization.BodyLevel)
         this.orgMasterForm.patchValue({
           BodyOrgCellName: this.selEditOrganization.BodyOrgCellName,
           StateId: this.selEditOrganization.StateId,
@@ -490,10 +546,9 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
 
-  redirectOrgDetails(bodyId:any){
-    localStorage.setItem('bodyId',bodyId)
-    this.router.navigate(['organization-details'], {relativeTo:this.route})
+  redirectOrgDetails(bodyId: any) {
+    localStorage.setItem('bodyId', bodyId)
+    this.router.navigate(['organization-details'], { relativeTo: this.route })
   }
-  
 }
 

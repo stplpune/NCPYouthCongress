@@ -60,14 +60,7 @@ export class DashboardComponent implements OnInit {
     this.getDistrictWiseMemberCount();
   }
 
-   redirectToWorkThisWeek(){
-    if( localStorage.getItem('weekRange')){
-      this.router.navigate(['work-this-week'], {relativeTo:this.route});
-    }else{
-      this.toastrService.error('please select week range')
-      return
-    }
-  }
+
   getweekRage(dates: any) {
     let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
