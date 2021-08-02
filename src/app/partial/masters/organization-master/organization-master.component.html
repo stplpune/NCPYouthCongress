@@ -149,7 +149,7 @@
                                 </button> </td>
                                 <td>{{result.AllottedDesignation}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Edit Organization" class="btn btn-warning btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="organizationRes?.length == 0">
