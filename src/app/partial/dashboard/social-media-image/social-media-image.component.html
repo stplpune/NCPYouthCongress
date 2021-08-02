@@ -1,24 +1,24 @@
 <div class="container-fluid">
     <div class="row  col-sm-12 " id="pageheader">
         <div class="col-sm-3">
-                <span class="page-name">Perception on Social Media
+            <span class="page-name">Perception on Social Media
                 </span>
-                </div>
-            <div class="col-sm-2">
-                <span>
-                    <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
-                    <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
-                </span> 
-            </div>
         </div>
-   
+        <div class="col-sm-2">
+            <span>
+                    <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
+                    <owl-date-time #dt1 ></owl-date-time>
+                </span>
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-sm-6 chartbox">
             <div class="card mb-3">
                 <div class="card-header">Trend on Social Media</div>
                 <div class="card-body chartHeight trendSocialMediaChart">
-                    
+
                 </div>
             </div>
             <div class="card">
@@ -38,7 +38,7 @@
                     </span>
                 </div>
                 <div class="card-body chartHeight socialMediaChartdiv">
-                    
+
                 </div>
             </div>
             <div class="row">
