@@ -476,7 +476,7 @@ export class OrganizationMasterComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          this.toastrService.error("Designations is  not available");
           this.allAssignedDesignations = [];
         } else {
           this.spinner.hide();
@@ -512,7 +512,7 @@ export class OrganizationMasterComponent implements OnInit {
         } else {
           this.spinner.hide();
           if (res.data == 1) {
-            this.toastrService.error("Data is not available");
+            this.toastrService.error("Members is not available");
           } else {
             this.spinner.hide();
             this.toastrService.error("Please try again something went wrong");
@@ -546,9 +546,13 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
 
-  redirectOrgDetails(bodyId: any) {
-    localStorage.setItem('bodyId', bodyId)
-    this.router.navigate(['organization-details'], { relativeTo: this.route })
+  redirectOrgDetails(bodyId: any, officeBearers:any) {
+    if(officeBearers == "" || officeBearers == null){
+      this.toastrService.error("Data not found..");
+    }else{
+      localStorage.setItem('bodyId', bodyId)
+      this.router.navigate(['organization-details'], { relativeTo: this.route })
+    }
   }
 }
 
