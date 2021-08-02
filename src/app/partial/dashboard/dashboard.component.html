@@ -117,7 +117,7 @@
                 <div class="card-body pt-0 pb-1">
                     <a class="activity-item bg-high" *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
                         {{highestActivityDistricts.DistrictName}}
-                        <span class="float-end">{{highestActivityDistricts.ActivityCount}}</span>
+                        <span class="float-end"><span class="badge bg-success">{{highestActivityDistricts.ActivityCount}}</span></span>
                     </a>
                     
                 </div>
@@ -127,7 +127,7 @@
                 <div class="card-body pt-0 pb-1" *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
                     <a class="activity-item bg-low">
                         {{lowestActivityDistricts.DistrictName}}
-                        <span class="float-end">{{lowestActivityDistricts.ActivityCount}}</span>
+                        <span class="float-end"><span class="badge bg-danger">{{lowestActivityDistricts.ActivityCount}}</span></span>
                     </a>
                 </div>
             </div>
