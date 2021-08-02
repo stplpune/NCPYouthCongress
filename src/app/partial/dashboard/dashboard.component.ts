@@ -437,9 +437,9 @@ export class DashboardComponent implements OnInit {
     setInterval(function () {
       am4core.array.each(chart.data, function (item) {
         item.UserCount += Math.round(Math.random() * 200 - 100);
-        item.UserCount = Math.abs(item.UserCount);
+       // item.UserCount = Math.abs(item.UserCount);
       })
-      chart.invalidateRawData();
+     // chart.invalidateRawData();
     }, 2000)
 
     // categoryAxis.sortBySeries = series;
