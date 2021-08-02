@@ -1,5 +1,4 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f3f3;
@@ -193,16 +192,20 @@ i.fa.fa-spinner.fa-spin.ng-star-inserted {
     color: #fff!important;
 }
 
-a{
+a {
     cursor: pointer!important;
 }
 
-.h-400{
+.h-400 {
     height: 400px;
 }
 
-.h-150{
+.h-150 {
     height: 150px;
     width: 150px;
     object-fit: cover;
+}
+
+owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inserted {
+    display: none !important;
 }

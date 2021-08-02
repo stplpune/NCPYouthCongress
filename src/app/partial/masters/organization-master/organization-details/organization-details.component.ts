@@ -56,7 +56,7 @@ export class OrganizationDetailsComponent implements OnInit {
   getCommitteeName:any;
   toDate:any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
   fromDate:any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
-
+  maxDate: any = new Date();
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
     private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService, private router: Router, 
@@ -236,7 +236,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   getBodyMemeberActivities(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId+'&FromDate=&'+this.filter.value.FromDate+'&ToDate='+this.filter.value.ToDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId+'&FromDate='+this.filter.value.FromDate+'&ToDate='+this.filter.value.ToDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -440,5 +440,11 @@ export class OrganizationDetailsComponent implements OnInit {
       })
     }
   }
-
+  getweekRage(event:any){
+    this.filter.patchValue({
+      FromDate:this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
+      ToDate:this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
+    })
+    this.getBodyMemeberActivities(this.bodyId)
+  }
 }
