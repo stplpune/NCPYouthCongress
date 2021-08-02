@@ -487,7 +487,7 @@ export class DashboardComponent implements OnInit {
     let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    chart.paddingBottom = 30;
+    chart.paddingBottom = 10;
 
     chart.data = this.perceptionOnSocialMediaArray;
    
