@@ -516,7 +516,7 @@ export class DashboardComponent implements OnInit {
 
     let columnTemplate = series.columns.template;
     columnTemplate.width = am4core.percent(50);
-    columnTemplate.maxWidth = 66;
+    columnTemplate.maxWidth = 40;
     columnTemplate.column.cornerRadius(60, 60, 10, 10);
     columnTemplate.strokeOpacity = 0;
 
@@ -542,12 +542,12 @@ export class DashboardComponent implements OnInit {
     let outlineCircle = bullet.createChild(am4core.Circle);
     outlineCircle.adapter.add("radius", function (radius: any, target: any) {
       let circleBullet = target.parent;
-      return circleBullet.circle.pixelRadius + 10;
+      return circleBullet.circle.pixelRadius + 0;
     })
 
     let image = bullet.createChild(am4core.Image);
-    image.width = 60;
-    image.height = 60;
+    image.width = 45;
+    image.height = 45;
     image.horizontalCenter = "middle";
     image.verticalCenter = "middle";
     image.propertyFields.href = "href";
