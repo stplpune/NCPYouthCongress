@@ -88,8 +88,15 @@
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
-                                        <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
-                                        <owl-date-time #dt1></owl-date-time>
+                                        <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date" formControlName="fromTodate">
+                                        <div class="trigger input-group-btn">
+                                            <button class="btn btn-default" type="button" [owlDateTimeTrigger]="dt1">
+                                                <i class="fas fa-calendar"></i></button>
+                                            <button class="btn btn-default" type="button" (click)="clearValue()">
+                                              <i class="fas fa-times"></i></button>
+                                        </div>
+
+                                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
                                     </div>
 
                                 </div>
@@ -279,7 +286,7 @@
                                     <div class="col-sm-6 form-container">
                                         <div class="mb-3">
                                             <label class="form-label">Location</label>
-                                            <agm-map [latitude]="lat" [longitude]="lng">
+                                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                                             </agm-map>
                                             <!-- <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid"> -->

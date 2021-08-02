@@ -56,7 +56,10 @@ export class OrganizationDetailsComponent implements OnInit {
   getCommitteeName:any;
   toDate:any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
   fromDate:any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
+  zoom: any = 12;
   maxDate: any = new Date();
+
+  
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
     private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService, private router: Router, 
@@ -83,8 +86,9 @@ export class OrganizationDetailsComponent implements OnInit {
     this.filter = this.fb.group({
       memberName: ['', Validators.required],
       workType: ['', Validators.required],
-      FromDate: [this.fromDate, Validators.required],
-      ToDate: [this.toDate, Validators.required],
+      FromDate: [, Validators.required],
+      ToDate: ['', Validators.required],
+      fromTodate: [['Sun Aug 01 2021 00:00:00 GMT+0530 (India Standard Time), Mon Aug 02 2021 00:00:00 GMT+0530 (India Standard Time)'], Validators.required],
     })
   }
 
@@ -441,10 +445,17 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   getweekRage(event:any){
+    console.log(event);
     this.filter.patchValue({
       FromDate:this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
       ToDate:this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
     })
     this.getBodyMemeberActivities(this.bodyId)
+  }
+
+  clearValue() {
+    // this.filter.value.fromTodate = '';
+    this.filter.controls['fromTodate'].setValue([null, null]);
+    // this.dateTime.setValue([null, null]);
   }
 }
