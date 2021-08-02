@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,LOCALE_ID  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SocialMediaImageRoutingModule } from './social-media-image-routing.module';
@@ -19,6 +19,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlDateTimeModule,
 OwlNativeDateTimeModule  
 
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: "en-IN" }, //replace "en-US" with your locale
+    //otherProviders...
   ]
 })
 export class SocialMediaImageModule { }

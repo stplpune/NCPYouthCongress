@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -20,6 +20,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: "en-IN" }, //replace "en-US" with your locale
+    //otherProviders...
   ]
 })
 export class DashboardModule { }

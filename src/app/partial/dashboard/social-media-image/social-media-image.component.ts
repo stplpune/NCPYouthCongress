@@ -14,7 +14,8 @@ import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-social-media-image',
   templateUrl: './social-media-image.component.html',
-  styleUrls: ['./social-media-image.component.css', '../../partial.component.css']
+  styleUrls: ['./social-media-image.component.css', '../../partial.component.css'],
+  
 })
 export class SocialMediaImageComponent implements OnInit {
 
@@ -33,7 +34,7 @@ export class SocialMediaImageComponent implements OnInit {
     private commonService: CommonService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-  ) { { dateTimeAdapter.setLocale('en-IN') } }
+  ) {  }
 
   ngOnInit(): void {
     this.getMostLikeHatedPerson();

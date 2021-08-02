@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     public datepipe: DatePipe,
     private router:Router,
     private route:ActivatedRoute
-  ) { { dateTimeAdapter.setLocale('en-IN') } }
+  ) {  }
 
   ngOnInit(): void {
     this.workLineChart();
