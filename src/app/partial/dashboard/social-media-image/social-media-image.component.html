@@ -48,7 +48,9 @@
                         <div class="card-body pt-0 pb-1">
                             <a class="activity-item bg-high" *ngFor="let mostLikedPerson of mostLikedPersonArray">
                                 {{mostLikedPerson.PersonName}}
-                                <span class="float-end">{{mostLikedPerson.cnt}}</span>
+                                <span class="float-end">
+                                    <span class="badge bg-success">{{mostLikedPerson.cnt}}</span>
+                                </span>
                             </a>
                             <!-- <a class="activity-item bg-high">
                                 Sambhajiraje Bhosale
@@ -75,7 +77,9 @@
                         <div class="card-body pt-0 pb-1">
                             <a class="activity-item bg-low" *ngFor="let mostHatedPerson of mostHatedPersonArray">
                                 {{mostHatedPerson.PersonName}}
-                                <span class="float-end">{{mostHatedPerson.cnt}}</span>
+                                <span class="float-end">
+                                    <span class="badge bg-danger">{{mostHatedPerson.cnt}}</span>
+                                </span>
                             </a>
                             <!-- <a class="activity-item bg-low">
                                 Narendra Modi
