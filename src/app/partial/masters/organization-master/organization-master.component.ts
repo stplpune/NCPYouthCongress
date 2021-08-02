@@ -546,11 +546,12 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
 
-  redirectOrgDetails(bodyId: any, officeBearers:any) {
+  redirectOrgDetails(bodyId: any, officeBearers:any, BodyOrgCellName:any) {
     if(officeBearers == "" || officeBearers == null){
       this.toastrService.error("Data not found..");
     }else{
-      localStorage.setItem('bodyId', bodyId)
+      let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+      localStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['organization-details'], { relativeTo: this.route })
     }
   }

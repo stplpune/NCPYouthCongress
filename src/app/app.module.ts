@@ -20,7 +20,7 @@ import { AuthService } from './auth/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
-
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -49,6 +49,11 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
       preventDuplicates: true,
     }),
     BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
+      language: 'en',
+      libraries: ['places']
+    }),
   ],
   providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
