@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pt-3">
-                    <h5>Maharashtra State Committee</h5>
+                    <h5>{{getCommitteeName}}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -25,6 +25,7 @@
                                         <td>{{designatedMembers.DesignationName}}</td>
                                         <td>{{designatedMembers.MemberName}}</td>
                                         <td>
+                                            <!-- {{designatedMembers.DeviceType}} -->
                                             <ng-container *ngIf="designatedMembers.DeviceType == 2">
                                                 <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
                                             </ng-container>
@@ -263,8 +264,8 @@
                         <div class="mb-3">
                             <label class="form-label">Link URL</label>
                             <div class="form-data">
-                                <a href="#">
-                                    http://www.google.com/
+                                <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
+                                    {{resultBodyMemActDetails.Link}}
                                 </a>
                             </div>
                         </div>
@@ -272,7 +273,10 @@
                     <div class="col-sm-6 form-container">
                         <div class="mb-3">
                             <label class="form-label">Location</label>
-                            <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid">
+                            <agm-map [latitude]="lat" [longitude]="lng">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+                            <!-- <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid"> -->
                         </div>
 
                     </div>
