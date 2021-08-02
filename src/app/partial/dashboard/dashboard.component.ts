@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
           } else if (ele.PartyShortCode == 'INC') {
             ele['href'] = "assets/images/logos/inc-logo.png";
           }else if (ele.PartyShortCode == 'OTR') {
-            ele['href'] = "assets/images/logos/other.jpg";
+            ele['href'] = "assets/images/logos/speech.png";
           }
           return ele
         })
