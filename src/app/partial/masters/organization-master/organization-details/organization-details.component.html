@@ -27,18 +27,23 @@
                                         <td>
                                             <!-- {{designatedMembers.DeviceType}} -->
                                             <ng-container *ngIf="designatedMembers.DeviceType == 2">
-                                                <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
+                                                <img src="assets/images/dashboard-images/Android_robot.svg"
+                                                    class="border-0">
                                             </ng-container>
                                             <ng-container *ngIf="designatedMembers.DeviceType == 1">
-                                                <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0">
+                                                <img src="assets/images/dashboard-images/Apple_logo.svg"
+                                                    class="border-0">
                                             </ng-container>
-                                            <ng-container *ngIf="designatedMembers.DeviceType != 2 && designatedMembers.DeviceType != 1">
+                                            <ng-container
+                                                *ngIf="designatedMembers.DeviceType != 2 && designatedMembers.DeviceType != 1">
                                                 No Device
                                             </ng-container>
                                         </td>
-                                        <td><button (click)="addEditMember(designatedMembers)" class="btn btn-sm btn-light">
-                                           <i class="fas fa-pencil-alt"></i></button>
-                                            <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
+                                        <td><button (click)="addEditMember(designatedMembers)"
+                                                class="btn btn-sm btn-light">
+                                                <i class="fas fa-pencil-alt"></i></button>
+                                            <button data-bs-toggle="modal" data-bs-target="#AddMemberModal"
+                                                #addMemberModal style="display: none;"></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -48,7 +53,7 @@
                                 <!-- {{this.getPreviousDesignatedMembers(bodyId, designationName.DesignationId)}} -->
 
                             </p>
-                            <table class="table">
+                            <!-- <table class="table">
                                 <tbody>
                                     <tr *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
                                         <th colspan="2" class="text-center bg-light">{{designationName.DesignationName}}</th>
@@ -58,32 +63,41 @@
                                             <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
                                         </div>
                                     </tr>
-                                    <!-- {{getPreDesMembersArray.length}} -->
-                                    <!-- <tr *ngFor="let desMembers of getPreDesMembersArray[0]">
-                                        <td><a>{{desMembers.MemberName}}</a></td>
-                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                    </tr> -->
-                                    <!-- <tr *ngFor="let desMembers of getPreDesMembersArray[1]">
-                                        <td><a>{{desMembers.MemberName}}</a></td>
-                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                    </tr>
-                                    <tr *ngFor="let desMembers of getPreDesMembersArray[2]">
-                                        <td><a>{{desMembers.MemberName}}</a></td>
-                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                    </tr> -->
                                 </tbody>
-                            </table>
+                            </table> -->
+                            <div class="chartbox">
+                                <div *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
+                                    <div class="text-center bg-light py-2 fw-bold border-bottom">{{designationName.DesignationName}}
+                                    </div>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
+                                                <td><a>{{desMembers.MemberName}}</a></td>
+                                                <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ?
+                                                    'Till Date' : desMembers.PostToDate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-8">
                             <form [formGroup]="filter">
                                 <div class="row mb-3">
 
                                     <div class="col-sm-4 offset-4">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')" (select)="filterForm(this.filter.value.memberName, 'member')" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')"
+                                            (select)="filterForm(this.filter.value.memberName, 'member')"
+                                            [items]="bodyMemberFilterDetails" optionValueField="ID"
+                                            optionTextField="FullName" formControlName="memberName"
+                                            placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')" (select)="filterForm(this.filter.value.workType, 'workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')"
+                                            (select)="filterForm(this.filter.value.workType, 'workType')"
+                                            [items]="resWorkcategory" optionValueField="Id" optionTextField="Category"
+                                            formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
 
@@ -126,17 +140,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                    <tr
+                                        *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                         <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                         <td>{{bodyMemActivity.ActivityDate}}</td>
                                         <td>{{bodyMemActivity.UserFName}}{{bodyMemActivity.UserLName}}</td>
                                         <td>{{bodyMemActivity.Category}}</td>
                                         <td>{{bodyMemActivity.Title}}</td>
                                         <td>
-                                            <img *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)" src="{{img}}">
+                                            <img *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)"
+                                                src="{{img}}">
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-light"
+                                                (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"
+                                                data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
+                                                    class="far fa-eye"></i></button>
                                         </td>
                                     </tr>
                                     <tr *ngIf="resBodyMemAct?.length == 0">
@@ -148,7 +167,8 @@
                                 </tbody>
                             </table>
                             <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
-                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls>
+                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event"
+                                    (click)="onClickPagintion(pageSize)"> </pagination-controls>
                             </div>
                             <div class="clearfix"></div>
                             <p>Individual Members Progress</p>
@@ -165,13 +185,15 @@
 
 
 <!-- Modal for Add/Update/Delete Member for any Designation -->
-<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form [formGroup]="bodyMember">
                 <div class="modal-header">
                     <p class="modal-title" id="AddMemberModalLabel">Add Member</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="height: 305px">
                     <div class="form-container">
@@ -179,7 +201,11 @@
 
                             <label for="txtMemberName" class="form-label">Body Name</label>
                             <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                            <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
+                            <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId"
+                                optionValueField="id" optionTextField="fullname"
+                                (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
+                                placeholder="Select Member Name"
+                                [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
                             <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
                                 <div *ngIf="f.bodyId.errors.required">Body Member is required</div>
                             </div>
@@ -194,7 +220,8 @@
                                     <label class="form-label mb-0">Contact No.</label>
                                     <div class="form-control-plaintext py-0">{{bodyMemberDetails?.MobileNo}}</div>
                                     <label class="form-label mb-0">Location</label>
-                                    <div class="form-control-plaintext py-0">{{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}</div>
+                                    <div class="form-control-plaintext py-0">{{bodyMemberDetails?.DistrictName}},
+                                        {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}</div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +236,8 @@
 </div>
 
 <!-- View Details Modal -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -284,7 +312,8 @@
                         <div class="mb-3">
                             <label class="form-label">Photos</label>
                             <div class="row">
-                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
+                                <div class="col-sm-2 mb-3"
+                                    *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
                                     <img src="{{img}}" class="img-thumbnail h-150">
                                     <!-- <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" /> -->
                                 </div>
