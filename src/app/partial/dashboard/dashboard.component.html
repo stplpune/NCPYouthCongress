@@ -113,21 +113,23 @@
         </div>
         <div class="col-sm-4 chartbox">
             <div class="card mb-3">
-                <div class="card-header">Highest Activity Districts</div>
+                <div class="card-header"><i class="fas fa-arrow-up bounce text-success me-2"></i>Highest Activity Districts</div>
                 <div class="card-body pt-0 pb-1">
                     <a class="activity-item bg-high" *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
+                        
                         {{highestActivityDistricts.DistrictName}}
-                        <span class="float-end">{{highestActivityDistricts.ActivityCount}}</span>
+                        <span class="float-end"><span class="badge bg-success">{{highestActivityDistricts.ActivityCount}}</span></span>
                     </a>
                     
                 </div>
             </div>
             <div class="card mb-3">
-                <div class="card-header">Lowest Activity Districts</div>
+                <div class="card-header "><i class="fas fa-arrow-down bounce text-danger me-2"></i>Lowest Activity Districts</div>
                 <div class="card-body pt-0 pb-1" *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
                     <a class="activity-item bg-low">
+                        
                         {{lowestActivityDistricts.DistrictName}}
-                        <span class="float-end">{{lowestActivityDistricts.ActivityCount}}</span>
+                        <span class="float-end"><span class="badge bg-danger">{{lowestActivityDistricts.ActivityCount}}</span></span>
                     </a>
                 </div>
             </div>
