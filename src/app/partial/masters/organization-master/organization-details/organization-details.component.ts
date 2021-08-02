@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -7,6 +7,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-organization-details',
@@ -45,9 +46,12 @@ export class OrganizationDetailsComponent implements OnInit {
   filter!: FormGroup;
   globalMemberId: number = 0;
   globalCategoryId: number = 0;
+  dataAddEditMember: any;
+  @ViewChild('addMemberModal') addMemberModal: any;
+  @ViewChild('closeAddMemberModal') closeAddMemberModal: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router) { this.bodyId = localStorage.getItem('bodyId') }
+    private toastrService: ToastrService, private router: Router, private commonService: CommonService) { this.bodyId = localStorage.getItem('bodyId') }
 
   ngOnInit(): void {
     this.defaultFilterForm()
@@ -95,18 +99,6 @@ export class OrganizationDetailsComponent implements OnInit {
 
   get f() { return this.bodyMember.controls };
 
-  onSubmit() {
-    // this.spinner.show();
-    this.submitted = true;
-    if (this.bodyMember.invalid) {
-      this.spinner.hide();
-      return;
-    }
-    else {
-
-    }
-
-  }
 
   getAllBodyMember() {
     this.spinner.show();
@@ -115,6 +107,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resAllMember = res.data1;
+        console.log(this.resAllMember);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -169,7 +162,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
-        console.log(this.resWorkcategory);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -181,9 +173,6 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
-
-
   getCurrentDesignatedMembers(id: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
@@ -191,10 +180,8 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
-        console.log(this.allDesignatedMembers)
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
-        // console.log(this.DesignationNameBYBodyId);
         this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(localStorage.getItem('bodyId'), ele.DesignationId);
         });
@@ -211,7 +198,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getPreviousDesignatedMembers(id: any, DesignationId: any) {
-    // this.spinner.show();
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -233,7 +220,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   getBodyMemeberActivities(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo+'&CategoryId='+this.globalCategoryId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -284,7 +271,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-        console.log(this.resultBodyMemActDetails);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -385,8 +371,54 @@ export class OrganizationDetailsComponent implements OnInit {
     localStorage.removeItem('bodyId');
   }
 
-  addEditMember(id:any){
-    // alert(id);
+  addEditMember(data: any) {
+    if (data.UserId == "" || data.UserId == "") {
+      this.toastrService.error("Please select member and try again");
+    }
+    else {
+      console.log(data)
+      this.dataAddEditMember = data
+      let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
+      openMemberModal.click();
+
+    }
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.bodyMember.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+      let fromData = new FormData();
+      fromData.append('UserPostBodyId', this.dataAddEditMember.userpostbodyId);
+      fromData.append('BodyId', this.dataAddEditMember.BodyId);
+      fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
+      fromData.append('UserId', this.bodyMember.value.bodyId);
+      fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
+      fromData.append('CreatedBy', this.commonService.loggedInUserId());
+      this.spinner.show();
+      this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.spinner.hide();
+          let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
+          closeAddMemModal.click();
+          this.resultBodyMemActDetails = res.data1[0];
+          this.toastrService.success(this.resultBodyMemActDetails.Msg);
+          this.bodyMember.reset();
+          this.getCurrentDesignatedMembers(this.bodyId);
+        } else {
+          this.spinner.hide();
+          if (res.data == 1) {
+            this.toastrService.error("Member is not available");
+          } else {
+            this.toastrService.error("Please try again something went wrong");
+          }
+        }
+      })
+    }
   }
 
 }
