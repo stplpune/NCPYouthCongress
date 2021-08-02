@@ -21,9 +21,12 @@
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" />
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" />
+                            <button type="button" class="btn btn-light border btn-sm" (click)="districtClear('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                         <button type="button" (click)="searchFilter()" class="btn btn-sm btn-main"><i class="fas fa-search"></i></button>
-                        <button type="button" class="btn btn-light border btn-sm" (click)="districtClear('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                        
+                        </div>
                     </div>
                 </div>
             </form>
@@ -54,7 +57,9 @@
                             </th>
                             <td>{{allMembers.PostDate}}</td>
                             <td>{{allMembers.FullName | titlecase}}</td>
-                            <td>{{allMembers.EmailId}}<br />{{allMembers.ContactNo}}</td>
+                            <td><p class="mb-0">{{allMembers.EmailId}}</p>
+                            <p class="mb-0">{{allMembers.ContactNo}}</p>
+                            </td>
                             <!-- <td>City(Village)<br/>Taluka, District</td> -->
                             <!-- <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td> -->
                             <td>{{allMembers.BodyOrgCellName}}</td>
