@@ -86,8 +86,8 @@ export class OrganizationDetailsComponent implements OnInit {
     this.filter = this.fb.group({
       memberName: ['', Validators.required],
       workType: ['', Validators.required],
-      FromDate: [, Validators.required],
-      ToDate: ['', Validators.required],
+      FromDate: [this.fromDate, Validators.required],
+      ToDate: [this.toDate, Validators.required],
       fromTodate: [['Sun Aug 01 2021 00:00:00 GMT+0530 (India Standard Time), Mon Aug 02 2021 00:00:00 GMT+0530 (India Standard Time)'], Validators.required],
     })
   }
