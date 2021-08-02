@@ -8,6 +8,8 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { CommonService } from 'src/app/services/common.service';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-organization-details',
@@ -52,13 +54,18 @@ export class OrganizationDetailsComponent implements OnInit {
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
   getCommitteeName:any;
+  toDate:any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
+  fromDate:any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
 
-  constructor(private fb: FormBuilder, private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router, private commonService: CommonService) { 
+  constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
+    private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
+    private toastrService: ToastrService, private router: Router, 
+    private commonService: CommonService , public datepipe: DatePipe,) { 
       let getLocalStorageData:any = localStorage.getItem('bodyId') ;
       getLocalStorageData = JSON.parse(getLocalStorageData);
       this.bodyId = getLocalStorageData.bodyId;
       this.getCommitteeName = getLocalStorageData.BodyOrgCellName;
+      { dateTimeAdapter.setLocale('en-IN')  }
     }
 
   ngOnInit(): void {
@@ -75,7 +82,9 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultFilterForm() {
     this.filter = this.fb.group({
       memberName: ['', Validators.required],
-      workType: ['', Validators.required]
+      workType: ['', Validators.required],
+      FromDate: [this.fromDate, Validators.required],
+      ToDate: [this.toDate, Validators.required],
     })
   }
 
@@ -227,7 +236,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   getBodyMemeberActivities(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId+'&FromDate=21/7/2021&ToDate=21/8/2021', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId+'&FromDate=&'+this.filter.value.FromDate+'&ToDate='+this.filter.value.ToDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

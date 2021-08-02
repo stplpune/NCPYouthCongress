@@ -78,13 +78,21 @@
                             <form [formGroup]="filter">
                                 <div class="row mb-3">
 
-                                    <div class="col-sm-4 offset-4">
+                                    <div class="col-sm-3">
                                         <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')" (select)="filterForm(this.filter.value.memberName, 'member')" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')" (select)="filterForm(this.filter.value.workType, 'workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" class="form-control input-group-addon" formControlName="FromDate" placeholder="From Date" [max]="" />
+                                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="form-control input-group-addon" formControlName="ToDate" placeholder="From Date" [max]="" />
+                                        <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
                                     </div>
 
                                 </div>
