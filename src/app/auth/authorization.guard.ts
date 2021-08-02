@@ -8,6 +8,7 @@ import {
   CanActivateChild
 } from '@angular/router';
 import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
 
 @Injectable({
