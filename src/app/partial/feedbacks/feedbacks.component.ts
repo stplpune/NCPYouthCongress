@@ -114,9 +114,12 @@ export class FeedbacksComponent implements OnInit {
   }
    
    getFeedBackData(FeedbackObj: any) {
-    (FeedbackObj.DistrictId == undefined || FeedbackObj.DistrictId  == null) ? FeedbackObj.DistrictId = 0 :   FeedbackObj.DistrictId;  
-    (FeedbackObj.Talukaid == undefined || FeedbackObj.DistrictId  == null) ? FeedbackObj.Talukaid = 0 :   FeedbackObj.Talukaid;  
-    (FeedbackObj.villageid == undefined || FeedbackObj.DistrictId  == null) ? FeedbackObj.villageid = 0 :   FeedbackObj.villageid;  
+     debugger;
+     if(FeedbackObj != false){
+       (FeedbackObj.DistrictId == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.DistrictId = 0 : FeedbackObj.DistrictId = this.FeedbackObj.DistrictId;
+       (FeedbackObj.Talukaid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.Talukaid = 0 : FeedbackObj.Talukaid = this.FeedbackObj.Talukaid;
+       (FeedbackObj.villageid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.villageid = 0 : FeedbackObj.villageid = this.FeedbackObj.villageid;
+     }
     this.spinner.show();
     this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&SearchText=' + FeedbackObj.SearchText + '&PageNo=' + this.paginationNo+'&StatusId='+this.FeedbackObj.statusId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -124,10 +127,10 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
         this.total = res.data2[0].TotalCount;
-        if(this.resultAllFeedBackData){
-          this.globalFullName = this.resultAllFeedBackData[0].FullName 
-          this.details(this.resultAllFeedBackData[0].Id);
-        }
+        // if(this.resultAllFeedBackData){
+        //   this.globalFullName = this.resultAllFeedBackData[0].FullName 
+        //   this.details(this.resultAllFeedBackData[0].Id);
+        // }
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -138,6 +141,15 @@ export class FeedbacksComponent implements OnInit {
         }
       }
     })
+  }
+
+  feedBackDataResult(flag:any){
+    if( flag == 'Ignored'){
+      this.FeedbackObj.statusId = 0;
+    }else{
+      this.FeedbackObj.statusId = 1;
+    }
+    this.getFeedBackData(this.FeedbackObj);
   }
 
   onClickPagintion(pageNo: number) {
@@ -190,7 +202,8 @@ export class FeedbacksComponent implements OnInit {
         }
       }
     })
-    
   }
+
+ 
 
 }
