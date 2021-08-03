@@ -68,13 +68,13 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             Work in This Week <a routerLink="work-this-week"><i class="fas fa-external-link-alt"></i></a>
-                           <span class="float-end">
+                            <span class="float-end">
                             <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                             <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
-                        </span> 
+                        </span>
                         </div>
                         <div class="card-body chartHeight workLineChartdiv">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             New Members in This Week
-                            <span class="float-end">
-                                <ngx-select [allowClear]="true" [items]="allDistrictArray" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
+                            <span class="float-end" style="width: 200px;">
+                                <ngx-select [allowClear]="true" (select)="getDistrictWiseMemberCount($event)" [items]="allDistrictArray" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
                                 </ngx-select>
                             </span>
                         </div>
@@ -120,7 +120,7 @@
                         {{highestActivityDistricts.DistrictName}}
                         <span class="float-end"><span class="badge bg-success">{{highestActivityDistricts.ActivityCount}}</span></span>
                     </a>
-                    
+
                 </div>
             </div>
             <div class="card mb-3">

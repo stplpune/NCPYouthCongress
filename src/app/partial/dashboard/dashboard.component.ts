@@ -38,7 +38,8 @@ export class DashboardComponent implements OnInit {
   toDate: any;
   selWeekDate:any;
   weekRangeObj:any;
-
+  districtId:number = 0;
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -57,7 +58,7 @@ export class DashboardComponent implements OnInit {
     this.getDashboardCount1();
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
-    this.getDistrictWiseMemberCount();
+    this.getDistrictWiseMemberCount(false);
   }
 
 
@@ -174,15 +175,17 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getDistrictWiseMemberCount() {
+  getDistrictWiseMemberCount(event:any) {
+    event == false ?  this.districtId = 0 : this.districtId = event;
     this.spinner.show();
-    let Date1="15/05/2021";
-    let Date2="30/05/2021"
-    this.callAPIService.setHttp('get','Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+Date1 + '&ToDate='+Date2 + '&DistrictId='+11, false, false, false, 'ncpServiceForWeb');
+    let fromDate= this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+    let toDate= this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    this.callAPIService.setHttp('get','Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+fromDate + '&ToDate='+toDate + '&DistrictId='+this.districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.districtWiseMemberCountArray = res.data1;
+        this.weeklyColumnChart();
         //console.log('getDistrictWiseMemberCount',this.districtWiseMemberCountArray);
       } else {
         if (res.data == 1) {
@@ -195,6 +198,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
 
   /* Chart code */
 
