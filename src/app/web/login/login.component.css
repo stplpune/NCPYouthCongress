@@ -1,13 +1,12 @@
 #login-box {
     background-color: #fff;
-    padding: 30px;
     border-radius: 10px;
     box-shadow: 1px 2px 5px #aaa;
 }
 
 #login-box h3 {
     color: var(--main-color);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-transform: uppercase;
     font-size: 1.4rem;
     font-weight: 800;
