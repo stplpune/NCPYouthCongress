@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FeedbacksRoutingModule } from './feedbacks-routing.module';
 import { FeedbacksComponent } from './feedbacks.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -13,7 +16,12 @@ import { NgxSelectModule } from 'ngx-select-ex';
   imports: [
     CommonModule,
     FeedbacksRoutingModule,
-    NgxSelectModule
+    NgxSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxPaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ]
 })
 export class FeedbacksModule { }

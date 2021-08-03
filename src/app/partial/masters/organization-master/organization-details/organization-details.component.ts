@@ -292,8 +292,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-       this.lat = latLong[0]
-       this.lng = latLong[0]
+        debugger;
+       this.lat = Number(latLong[0]);
+       this.lng = Number(latLong[1]);
         
       } else {
         this.spinner.hide();
