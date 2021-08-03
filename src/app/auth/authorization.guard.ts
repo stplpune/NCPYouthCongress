@@ -8,6 +8,8 @@ import {
   CanActivateChild
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Subject } from "rxjs";
+
 // import { Observable } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
 
