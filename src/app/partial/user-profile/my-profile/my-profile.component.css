@@ -1,0 +1,35 @@
+.btn-ediprofile{
+    font-size: 0.75rem;
+    border:solid 1px rgba(0,0,0,0.35);
+    color:#757575;
+    box-shadow: none;
+    outline: none;
+    padding: 3px 10px;
+}
+#myprofile img{
+    width: 130px;
+    border: solid 1px #ddd;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.update-photo{
+    background-color: #eee;
+    border: solid 1px rgba(0,0,0,0.125);
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    line-height: 3px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #000;
+    opacity: 0.9;
+    left: 165px;
+    top: 5px;
+}
+.modal img
+{
+    border-radius: 7px;
+}

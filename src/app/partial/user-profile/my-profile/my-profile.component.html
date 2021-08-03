@@ -1,1 +1,111 @@
-<p>my-profile works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="pageheader">
+                <span class="page-name">My Profile
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-sm-5 mx-auto">
+                        <div class="card shadow-none border">
+                            <div class="card-body" id="myprofile">
+                                <div class="mb-2 text-end">
+                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        Edit Profile
+                                    </button>
+                                </div>
+                                <div class="mb-4 text-center">
+                                    <img src="assets/images/executive-members/RavikantVarpe.jpg"
+                                        class="rounded-circle mx-auto d-block">
+                                    <h5>Mr. Anil Kambale</h5>
+                                    <p>Administrator</p>
+                                    <div class="alert alert-secondary text-center py-2" role="alert">
+                                        username
+                                    </div>
+                                </div>
+                                <div class="row mb-1 text-center">
+                                    <div class="col-sm-6 border-end border-2 py-2">
+                                        <i class="far fa-envelope text-muted mb-2"></i>
+                                        <p class="mb-0">ravikant.varpe@outlook.com</p>
+                                    </div>
+                                    <div class="col-sm-6 py-2">
+                                        <i class="fas fa-phone-alt text-muted mb-2"></i>
+                                        <p class="mb-0">+91-9876543210</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title mb-0" id="exampleModalLabel">Edit Profile</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a href="#" class="update-photo">
+                            <i class="fas fa-camera"></i>
+                        </a>
+                        <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid">
+
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="form-container">
+                            <div class="mb-3">
+                                <label for="txtFullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="txtFullName" placeholder="Full Name">
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-sm-6">
+                                    <label for="txtEmailID" class="form-label">Email ID</label>
+                                    <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtContactNo" class="form-label">Contact No</label>
+                                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-sm-6">
+                                    <label for="txtUserName" class="form-label">User Name</label>
+                                    <input type="text" readonly class="form-control" id="txtUserName"
+                                        placeholder="UserName">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtPassword" class="form-label">Password</label>
+                                    <input type="password" readonly class="form-control rounded border-right"
+                                        id="txtPassword" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtRole" class="form-label">Role</label>
+                                <input type="text" class="form-control" id="txtRole" placeholder="Role">
+                            </div>
+                            <hr />
+                            <div class="text-end">
+                                <button type="button" class="btn btn-main btn-sm">Update Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

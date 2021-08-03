@@ -195,7 +195,7 @@
 }
 
 .form-container .btn {
-    font-size: 0.85rem !important;
+    font-size: 0.85rem;
 }
 
 #email-container .list-group .active {
