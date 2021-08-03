@@ -406,7 +406,7 @@ export class DashboardComponent implements OnInit {
     //   "visits": 984
     // }];
 
-    chart.padding(40, 40, 40, 40);
+    chart.padding(5, 5, 5, 5);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;

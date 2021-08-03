@@ -83,7 +83,7 @@
                         <div class="card-header">
                             New Members in This Week
                             <span class="float-end" style="width: 200px;">
-                                <ngx-select [allowClear]="true" (select)="getDistrictWiseMemberCount($event)" [items]="allDistrictArray" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
+                                <ngx-select [allowClear]="true" (remove)="getNewMemberAndWorkInThisWeek()" (select)="getDistrictWiseMemberCount($event)" [items]="allDistrictArray" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District">
                                 </ngx-select>
                             </span>
                         </div>
