@@ -22,6 +22,10 @@ export class CommonService {
     return DistrictId.DistrictId;
   }
 
+  loggedInUserName() {
+    let Username = this.getLocalStorageData();
+    return Username.Username;
+  }
   
   codecareerPage:any;
   createCaptchaCarrerPage() {

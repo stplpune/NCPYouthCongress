@@ -43,41 +43,25 @@
                         </div>
 
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
+                            <a *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" class="list-group-item list-group-item-action active" id="list-home-list" (click)="details(result.Id)" [class.active]="result.SrNo == HighlightRow"
+                                data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
+                                    <p class="membername mb-1">{{result.FullName | titlecase}}</p>
+                                    <small class="feeddate">{{result.FeedbackDate}}</small>
                                 </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
+                                <small class="comment">{{result.Feedback}}</small>
                             </a>
-                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
-                            <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
-                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
+                            <div class="mt-2 text-right float-lg-end" *ngIf="resultAllFeedBackData?.length != 0">
+                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-9">
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="border-bottom mb-2 pb-1">
-                                    <span class="emailname">Mr. Anil Kambale</span>
+                                    <span class="emailname">{{globalFullName}}</span>
                                     <span class="float-end emaildate">
                                         <i class="far fa-calendar-alt me-1"></i> 01-04-2021, 12:35:25 PM
                                     </span>
