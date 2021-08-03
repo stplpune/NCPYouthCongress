@@ -160,7 +160,8 @@
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="organizationRes?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                     </div>
                 </div>
             </div>

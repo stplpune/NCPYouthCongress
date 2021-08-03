@@ -21,6 +21,7 @@ export class ViewMembersComponent implements OnInit {
   paginationNo: number = 1;
   total: any;
   pageSize: number = 10;
+  
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   filterForm!: FormGroup;
 
@@ -134,6 +135,8 @@ export class ViewMembersComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
+    debugger;
+    console.log(pageNo);
     this.paginationNo = pageNo;
     this.getViewMembers(this.viewMembersObj)
   }

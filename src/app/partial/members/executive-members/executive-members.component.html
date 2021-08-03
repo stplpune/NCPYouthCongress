@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mx-1 px-0" id="pageheader">
         <div class="col-sm-4">
-            <span class="page-name">View Members</span>
+            <span class="page-name">Executive Members</span>
         </div>
         <div class="col-sm-8">
             <form [formGroup]="filterForm">
@@ -81,7 +81,8 @@
                     </tbody>
                 </table>
                 <div class="mt-2  float-lg-end" *ngIf="resultAllViewMembers?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls>
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                 </div>
             </div>
         </div>

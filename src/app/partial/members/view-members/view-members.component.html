@@ -95,7 +95,8 @@
                     </tbody>
                 </table>
                 <div class="mt-2  float-lg-end" *ngIf="resultAllViewMembers?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls>
+                    <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                 </div>
             </div>
         </div>
