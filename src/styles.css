@@ -78,18 +78,6 @@ tr.active {
     background: #f5f5f5;
 }
 
-.ngx-pagination .current {
-    padding: 0.1875rem 0.625rem;
-    background: #272848!important;
-    border: solid 1px #272848 !important;
-}
-
-.ngx-pagination li {
-    display: inline-block;
-    border: solid 1px #272848 !important;
-}
-
-
 /* dateRangePicker control css */
 
 .dateRangePicker-wrapper .dateRangePicker .form-inputs>.col {
@@ -208,4 +196,24 @@ a {
 
 owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inserted {
     display: none !important;
+}
+
+
+.ngx-pagination{
+    padding:0 !important;
+}
+.ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: #272848!important;
+    border: solid 1px #bbb !important;
+}
+
+.ngx-pagination li {
+    display: inline-block;
+    border: solid 1px #bbb !important;
+}
+.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before{
+    content: "\f100" !important;
+    font-family: "Font Awesome 5 Solid";
+    color: red;
 }

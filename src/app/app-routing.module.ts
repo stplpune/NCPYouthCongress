@@ -26,6 +26,7 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./partial/dashboard/dashboard.module').then(m => m.DashboardModule), data: { title: 'Dashboard' } },
       { path: 'masters/designation-master', loadChildren: () => import('./partial/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule), data: { title: 'Designation Master' } },
       { path: 'masters/organization-master', loadChildren: () => import('./partial/masters/organization-master/organization-master.module').then(m => m.OrganizationMasterModule), data: { title: 'Organization Master' } },
+      { path: 'masters/party-program-master', loadChildren: () => import('./partial/masters/party-program-master/party-program-master.module').then(m => m.PartyProgramMasterModule) },
       { path: 'members/executive-members', loadChildren: () => import('./partial/members/executive-members/executive-members.module').then(m => m.ExecutiveMembersModule), data: { title: 'Executive Members' } },
       { path: 'registrations', loadChildren: () => import('./partial/registrations/registrations.module').then(m => m.RegistrationsModule), data: { title: 'Registrations' } },
       { path: 'political-work', loadChildren: () => import('./partial/political-work/political-work.module').then(m => m.PoliticalWorkModule), data: { title: 'Political Work' } },
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'user/change-password', loadChildren: () => import('./partial/user-profile/change-password/change-password.module').then(m => m.ChangePasswordModule) },
     ]
   },
+  
   
   
   
