@@ -63,6 +63,12 @@ export class DashboardComponent implements OnInit {
 
 
   getweekRage(dates: any) {
+    // let weekValidation = (dates.value[0].getDate() - dates.value[1].getDate());
+    // alert(Math.abs(weekValidation));
+    // if(Math.abs(weekValidation) >  7){
+    //   alert('no')
+    // }
+
     let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
     this.weekRangeObj = {'fromDate':fromDate, 'toDate':toDate};

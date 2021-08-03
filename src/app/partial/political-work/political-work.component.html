@@ -5,19 +5,25 @@
                 <span class="page-name">Political Works
                 </span>
                 <span class="float-end">
+                    <form [formGroup]="filterForm">
                     <div class="input-group">
                         <select class="form-select form-select-sm">
                             <option value="">Select Member Name</option>
                         </select>
-                        <select class="form-select form-select-sm">
-                            <option value="">Select Work Type</option>
-                            <option>Political Work</option>
-                            <option>News Letters</option>
-                            <option>Social Media Activity of Help</option>
-                            <option>Personal Help</option>
-                            <option>Party Programs</option>
+                        <!-- <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
+                        optionTextField="VillageName" placeholder="Select Member Name">
+                    </ngx-select> -->
+                        <select class="form-select form-select-sm" (change)="getPoliticalWorkById()" formControlName="workType">
+                            <option selected disabled value="">Select Work Type</option>
+                            <option value="1">Political Work</option>
+                            <option value="2">News Letters</option>
+                            <option value="3">Social Media Activity of Help</option>
+                            <option value="4">Personal Help</option>
+                            <option value="5">Party Programs</option>
+                            <option value="6">Help Me</option>
                         </select>
                     </div>
+                    </form>
                 </span>
             </div>
         </div>
@@ -40,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>01-07-2021</td>
                             <td>Anil Kambale</td>
@@ -54,70 +60,34 @@
                             <td>
                                 <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>02-07-2021</td>
-                            <td>Sunil Jadhav</td>
-                            <td>News Letters</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                            <td>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>03-07-2021</td>
-                            <td>Ramesh Singh</td>
-                            <td>Social Media Activity of Help</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                            <td>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                            </td>
+                        </tr> -->
+                        <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <td>{{politicalWork.SrNo}}</td>
+                            <td>{{politicalWork.ActivityDate}}</td>
+                            <td><a href="">{{politicalWork.FullName}}</a></td>
+                            <td>{{politicalWork.CategoryName}}</td>
+                            <td>{{politicalWork.Title}}</td>
+                            <td>{{politicalWork.Description}}</td>
+                            <!-- <td>{{politicalWork.Images}}</td> -->
+                            <th scope="row">
+                                <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">
+                                    <img src="{{img}}">
+                                </ng-container>
+                                <!-- <img  src="{{img}}"> -->
+
+                                <!-- <img *ngIf="politicalWork.Images" src="{{politicalWork.Images}}" class="prophoto" /> -->
+                            </th>
                             <td>
                                 <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>04-07-2021</td>
-                            <td>Arvind Mohite-Patil</td>
-                            <td>Personal Help</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                            <td>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>05-07-2021</td>
-                            <td>Rajesh Patil</td>
-                            <td>Party Programs</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                            <td>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                            </td>
-                        </tr>
+
+
                     </tbody>
                 </table>
+                <div class="mt-2  float-lg-end" *ngIf="politicalWorkArray?.length != 0">
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                </div>
             </div>
         </div>
     </div>

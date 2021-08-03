@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { PoliticalWorkRoutingModule } from './political-work-routing.module';
 import { PoliticalWorkComponent } from './political-work.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { PoliticalWorkComponent } from './political-work.component';
   ],
   imports: [
     CommonModule,
-    PoliticalWorkRoutingModule
+    PoliticalWorkRoutingModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PoliticalWorkModule { }
