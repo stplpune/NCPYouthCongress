@@ -11,56 +11,6 @@
     </div>
     <div class="row chartbox">
         <div class="col-sm-12">
-<<<<<<< HEAD
-            <div class="card card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Registration Date</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Contacts</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Designation</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Device</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let allMembers of resultAllViewMembers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-                            <th scope="row">
-                                <img src="{{allMembers.ProfilePhoto}}" class="prophoto" />
-                            </th>
-                            <td>{{allMembers.PostDate}}</td>
-                            <td><a routerLink="/members/member-profile">{{allMembers.FullName | titlecase}}</a></td>
-                            <td>
-                                <p class="mb-0">{{allMembers.EmailId}}</p>
-                                <p class="mb-0">{{allMembers.ContactNo}}</p>
-                            </td>
-                            <!-- <td>City(Village)<br/>Taluka, District</td> -->
-                            <!-- <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td> -->
-                            <td>{{allMembers.BodyOrgCellName}}</td>
-                            <td>{{allMembers.Designation}}</td>
-                            <td><i class="fas fa-shield-alt fa-2x text-success"></i></td>
-                            <td>
-                                <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0" />
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" routerLink="../../members/member-profile" type="button"><i class="far fa-eye"></i></button>
-                            </td>
-                        </tr>
-                        <tr *ngIf="resultAllViewMembers?.length == 0">
-                            <td colspan="9">
-                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mt-2  float-lg-end" *ngIf="resultAllViewMembers?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
-                    <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
-=======
             <div class="card">
                 <div class="card-header border-bottom">
                     <form [formGroup]="filterForm">
@@ -207,7 +157,6 @@
                         <pagination-controls previousLabel="" nextLabel=""
                             (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
->>>>>>> c65e6e67ce2960e4c70d10c24fa3fae9cd514a77
                 </div>
             </div>
         </div>
