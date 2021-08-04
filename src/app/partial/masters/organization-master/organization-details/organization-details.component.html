@@ -36,8 +36,9 @@
                                                 No Device
                                             </ng-container>
                                         </td>
-                                        <td><button (click)="addEditMember(designatedMembers)" class="btn btn-sm btn-light">
-                                                <i class="fas fa-pencil-alt"></i></button>
+                                        <td>
+                                            <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i class="fas fa-pencil-alt"></i></button>
+                                            <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
                                             <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                         </td>
                                     </tr>
@@ -186,7 +187,7 @@
                         <div class="modal-content">
                             <form [formGroup]="bodyMember">
                                 <div class="modal-header">
-                                    <p class="modal-title" id="AddMemberModalLabel">Add Member</p>
+                                    <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" style="height: 305px">

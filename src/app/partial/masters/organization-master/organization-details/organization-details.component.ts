@@ -58,6 +58,8 @@ export class OrganizationDetailsComponent implements OnInit {
   fromDate:any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
   zoom: any = 12;
   maxDate: any = new Date();
+  addMemberFlag:any;
+
 
   
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
@@ -202,11 +204,14 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
+        console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
-        this.DesignationNameBYBodyId = res.data3;
-        this.DesignationNameBYBodyId.forEach((ele: any) => {
+    
+        debugger;
+        this.allDesignatedMembers.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
         });
+        this.DesignationNameBYBodyId = res.data3;
         // this.getPreDesMembersArray
       } else {
         this.spinner.hide();
@@ -399,12 +404,12 @@ export class OrganizationDetailsComponent implements OnInit {
     localStorage.removeItem('bodyId');
   }
 
-  addEditMember(data: any) {
+  addEditMember(data: any, flag:any) {
+    this.addMemberFlag = flag;
     if (data.UserId == "" || data.UserId == "") {
       this.toastrService.error("Please select member and try again");
     }
     else {
-      console.log(data)
       this.dataAddEditMember = data
       let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
       openMemberModal.click();
@@ -419,8 +424,10 @@ export class OrganizationDetailsComponent implements OnInit {
       return;
     }
     else {
+      let UserPostBodyId :any;
+      this.addMemberFlag == 'Add' ? UserPostBodyId = 0 :  UserPostBodyId = this.dataAddEditMember.userpostbodyId  ;
       let fromData = new FormData();
-      fromData.append('UserPostBodyId', this.dataAddEditMember.userpostbodyId);
+      fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
       fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
       fromData.append('UserId', this.bodyMember.value.bodyId);
@@ -430,13 +437,17 @@ export class OrganizationDetailsComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.getCurrentDesignatedMembers(this.bodyId);
+          this.submitted = false;
           this.spinner.hide();
           let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
           closeAddMemModal.click();
           this.resultBodyMemActDetails = res.data1[0];
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
           this.bodyMember.reset();
-          this.getCurrentDesignatedMembers(this.bodyId);
+         
+          
+          this.addMemberFlag = null
         } else {
           this.spinner.hide();
           if (res.data == 1) {

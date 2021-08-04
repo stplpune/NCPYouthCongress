@@ -29,7 +29,8 @@ export class FeedbacksComponent implements OnInit {
   detailsData: any;
   defualtHideFeedback: boolean = false;
   globalFeedbackStatus: number = 0;
-
+  memberNameArray:any;
+  
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router,
@@ -111,6 +112,31 @@ export class FeedbacksComponent implements OnInit {
     })
   }
 
+  getVillByTaluka(villageId: any) {
+    // this.filterObj.globalVillageid = villageId;
+    // this.getFeedBackData(this.selweekRange)
+  }
+
+  getMemberName() {
+    this.spinner.show();    
+    this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.memberNameArray = res.data1;
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+
   filterVillage(villageId: any) {
     this.FeedbackObj.villageid = villageId
     this.getFeedBackData(this.FeedbackObj);
@@ -190,7 +216,7 @@ export class FeedbacksComponent implements OnInit {
     this.HighlightRow = data.SrNo
     this.detailsData = data;
     this.defualtHideFeedback = true;
-    this.insertFeebackReply(this.detailsData.FeedbackStatus, 'read', this.detailsData.Id);
+    this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -209,8 +235,29 @@ export class FeedbacksComponent implements OnInit {
     })
   }
 
-  insertFeebackReply(data: any, flag: any, id: any) {
-    if (data == 0) {
+  defaultFeebackReply(id: any, FeedbackStatus: any) {
+    if (FeedbackStatus == 0) {
+      this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + id + '&Replymessage=&FeedbackStatus=1', false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.defualtHideFeedback = true;
+          this.spinner.hide();
+          this.toastrService.success(' Message Read...')
+          this.getFeedBackData(this.FeedbackObj)
+        } else {
+          this.defualtHideFeedback = false;
+          this.spinner.hide();
+          if (res.data == 1) {
+            this.toastrService.error("Data is not available");
+          } else {
+            this.toastrService.error("Please try again something went wrong");
+          }
+        }
+      })
+    }
+}
+
+  insertFeebackReply(data: any, flag: any, id: any, fStatus:any) {
       if ((data == "" || data == null) && flag != 'read') {
         this.toastrService.error("Action taken field is required");
       } else {
@@ -228,6 +275,7 @@ export class FeedbacksComponent implements OnInit {
             this.spinner.hide();
             this.toastrService.success(res.data1[0].Msg)
             this.getFeedBackData(this.FeedbackObj)
+            this.defualtHideFeedback = false;
           } else {
             this.defualtHideFeedback = false;
             this.spinner.hide();
@@ -239,8 +287,5 @@ export class FeedbacksComponent implements OnInit {
           }
         })
       }
-    }
-
-
   }
 }

@@ -4,23 +4,29 @@
             <span class="page-name">Feedbacks</span>
         </div>
         <div class="col-sm-8">
-            <div class="row g-1">
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                    </ngx-select>
+            <form [formGroup]="filterForm">
+                <div class="row g-1">
+                    <div class="col-md-3">
+                        <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterForm.value.DistrictId)" (remove)="districtClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                        </ngx-select>
+
+                    </div>
+                    <div class="col-md-3">
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="districtClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
+                            [disabled]="!this.filterForm.value.DistrictId">
+                        </ngx-select>
+                    </div>
+                    <div class="col-md-3">
+                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select village" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterForm.value.TalukaId"
+                            (select)="getVillByTaluka(this.filterForm.value.VillageId)">
+                        </ngx-select>
+                    </div>
+                    <div class="col-md-3">
+                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" optionTextField="FullName" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Search Member" />
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -79,7 +85,7 @@
                                 </div>
                                 <div class="mb-3 pb-1 ">
                                     <p class="small text-muted mb-1 lblfeedback ">Message :</p>
-                                    <div class="card card-body border shadow-none" *ngFor="let msg of resultAllFeedBackDetails ">
+                                    <div class="card card-body border shadow-none mb-2" *ngFor="let msg of resultAllFeedBackDetails ">
                                         <span class="feedback ">{{msg.ReplyMessage | titlecase}}</span>
                                     </div>
                                 </div>
@@ -92,8 +98,8 @@
                                         </div>
                                     </div>
                                     <div class="text-end ">
-                                        <button class="btn btn-danger me-1 " type="submit " (click)="insertFeebackReply(txtReply.value, 'Ignore', detailsData.Id) ">Ignore</button>
-                                        <button class="btn btn-main " type="submit " (click)="insertFeebackReply(txtReply.value, 'Reply', detailsData.Id) ">Reply</button>
+                                        <button class="btn btn-danger me-1 " type="submit " (click)="insertFeebackReply(txtReply.value, 'Ignore', detailsData.Id, detailsData.FeedbackStatus) ">Ignore</button>
+                                        <button class="btn btn-main " type="submit " (click)="insertFeebackReply(txtReply.value, 'Reply', detailsData.Id, detailsData.FeedbackStatus) ">Reply</button>
                                     </div>
                                 </ng-container>
                             </div>

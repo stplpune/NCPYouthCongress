@@ -12,32 +12,161 @@
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-header">Create Program</div>
-                <div class="card-body pt-0">
-                    asdf
+                <div class="card-body pt-0 form-container">
+                    <div class="mb-2">
+                        <label for="txtProgramTitle" class="form-label">Program Title <span class="text-danger">*</span> </label>
+                        <input type="text" class="form-control" id="txtProgramTitle" placeholder="Program Title" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="txtProgramDescription" class="form-label">Program Description <span class="text-danger">*</span> </label>
+                        <textarea rows="5" class="form-control" id="txtProgramDescription" placeholder="Program Description"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
+                        <input type="text" class="form-control" id="txtProgramDuration" placeholder="From - To" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="ddlProgramLevel" class="form-label">Program Level <span class="text-danger">*</span> </label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Program Level">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="ddlState" class="form-label">Select State <span class="text-danger">*</span> </label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
+                            <label class="form-check-label" for="rblAreaRural">Rural</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="rblArea" id="rblAreaUrban" value="Urban">
+                            <label class="form-check-label" for="rblAreaUrban">Urban</label>
+                          </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="ddlTaluka" class="form-label">Select Taluka <span class="text-danger">*</span> </label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlCityVillage" class="form-label">Select City/Village <span class="text-danger">*</span> </label>
+                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                        </ngx-select>
+                    </div>
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-secondary btn-sm">Clear</button>
+                        <span class="float-end">
+                            <button type="button" class="btn btn-main btn-sm">Create Party Program</button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
             <div class="card">
                 <div class="card-header">
-                    asdf
+                    <div class="row g-2">
+                        <div class="col-sm">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Status">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm">
+                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" class="form-control" placeholder="From To">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>#ID</th>
-                                <th>Body Name</th>
+                                <th>Program Title</th>
                                 <th>Level</th>
                                 <th>Area</th>
-                                <th>Designations Assigned</th>
-                                <th></th>
-                                <th>Office Bearers</th>
+                                <th>Program Duration</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <tr>
+                                <td><a routerLink="../../masters/party-program-details">Indhan vadi viruddha Andholan</a></td>
+                                <td>State</td>
+                                <td>Maharashtra</td>
+                                <td>
+                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                </td>
+                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-info">Upcoming</span></h6></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="../../masters/party-program-details">Fees vadi viruddha Andholan</a></td>
+                                <td>State</td>
+                                <td>Maharashtra</td>
+                                <td>
+                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                </td>
+                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-success">Completed</span></h6></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="../../masters/party-program-details">Pariksha viruddha Andholan</a></td>
+                                <td>State</td>
+                                <td>Maharashtra</td>
+                                <td>
+                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                </td>
+                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-danger">Cancelled</span></h6></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -46,3 +175,51 @@
     </div>
 
 </div>
+
+
+<!-- View details modal -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewDetailsModal" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-container">
+                <div class="mb-3">
+                    <label class="form-label">Program Title</label>
+                    <p class="form-data">Indhan vadi viruddha Andholan</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Program Description</label>
+                    <p class="form-data">
+                        Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed. Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed.
+                    </p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Program Duration</label>
+                    <p class="form-data">01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Program Level</label>
+                    <p class="form-data">Village</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Program Location</label>
+                    <p class="form-data">Mahad, Malshiras, Pune</p>
+                </div>
+            </div>
+          <hr>
+          <div class="float-start">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="float-end">
+            <button type="button" class="btn btn-warning btn-sm me-2">Edit Program</button>
+            <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
