@@ -145,8 +145,10 @@ export class FeedbacksComponent implements OnInit {
 
   feedBackDataResult(flag:any){
     if( flag == 'Ignored'){
-      this.FeedbackObj.statusId = 0;
-    }else{
+      this.FeedbackObj.statusId = 3;
+    }else if (flag == 'Replied') {
+      this.FeedbackObj.statusId = 2;
+    }else if (flag == 'New') {
       this.FeedbackObj.statusId = 1;
     }
     this.getFeedBackData(this.FeedbackObj);
