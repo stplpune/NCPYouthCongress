@@ -105,6 +105,8 @@ export class OrganizationDetailsComponent implements OnInit {
   selectLevelClear(text: any) {
     if (text == "member") {
       this.globalMemberId = 0;
+      this.globalCategoryId = 0;
+      this.clearValue();
       this.getBodyMemeberActivities(this.bodyId)
     } else if (text == "workType") {
       this.globalCategoryId = 0;
@@ -245,6 +247,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resBodyMemAct = res.data1;
+        console.log(this.resBodyMemAct)
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -457,6 +460,9 @@ export class OrganizationDetailsComponent implements OnInit {
   clearValue() {
     // this.filter.value.fromTodate = '';
     this.filter.controls['fromTodate'].setValue([null, null]);
+    this.filter.controls['FromDate'].setValue(this.toDate);
+    this.filter.controls['FromDate'].setValue(this.fromDate);
+    this.getBodyMemeberActivities(this.bodyId)
     // this.dateTime.setValue([null, null]);
   }
 }
