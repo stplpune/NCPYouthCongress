@@ -28,7 +28,7 @@ export class FeedbacksComponent implements OnInit {
   globalFullName: any;
   detailsData: any;
   defualtHideFeedback: boolean = false;
-  globalFeedbackStatus:any;
+  globalFeedbackStatus: number = 0;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -129,10 +129,6 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
         this.total = res.data2[0].TotalCount;
-        // if(this.resultAllFeedBackData){
-        //   this.globalFullName = this.resultAllFeedBackData[0].FullName 
-        //   this.details(this.resultAllFeedBackData[0].Id);
-        // }
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -151,6 +147,8 @@ export class FeedbacksComponent implements OnInit {
     } else if (flag == 'Replied') {
       this.FeedbackObj.statusId = 2;
     } else if (flag == 'New') {
+      this.FeedbackObj.statusId = 0;
+    } else if (flag == 'Read') {
       this.FeedbackObj.statusId = 1;
     }
     this.getFeedBackData(this.FeedbackObj);
@@ -189,21 +187,21 @@ export class FeedbacksComponent implements OnInit {
   }
 
   details(data: any) {
+    this.HighlightRow = data.SrNo
     this.detailsData = data;
+    this.defualtHideFeedback = true;
+    this.insertFeebackReply(this.detailsData.FeedbackStatus, 'read', this.detailsData.Id);
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.sendData(this.detailsData.Id, 'read')
-        this.defualtHideFeedback = true;
         this.spinner.hide();
         this.resultAllFeedBackDetails = res.data1;
       } else {
-        this.defualtHideFeedback = false;
         this.spinner.hide();
         if (res.data == 1) {
           this.resultAllFeedBackDetails = [];
-          this.toastrService.error("Data is not available");
+          this.toastrService.error("Feedback is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -211,29 +209,38 @@ export class FeedbacksComponent implements OnInit {
     })
   }
 
-  sendData(data:any, flag:any){
-    debugger;
-    if(data == "" || data == null){
-      this.toastrService.error("Action taken field is required");
-    }else{
-      // this.globalFeedbackStatus = ""
-      // this.globalFeedbackStatus = ""
-      this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data+'&Replymessage='+data+'&FeedbackStatus='+this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
-      this.callAPIService.getHttp().subscribe((res: any) => {
-        if (res.data == 0) {
-          this.defualtHideFeedback = true;
-          this.spinner.hide();
-          this.resultAllFeedBackDetails = res.data1;
-        } else {
-          this.defualtHideFeedback = false;
-          this.spinner.hide();
-          if (res.data == 1) {
-            this.toastrService.error("Data is not available");
-          } else {
-            this.toastrService.error("Please try again something went wrong");
-          }
+  insertFeebackReply(data: any, flag: any, id: any) {
+    if (data == 0) {
+      if ((data == "" || data == null) && flag != 'read') {
+        this.toastrService.error("Action taken field is required");
+      } else {
+        if (flag == 'read') {
+          this.globalFeedbackStatus = 1
+        } else if (flag == 'Ignore') {
+          this.globalFeedbackStatus = 3
+        } else if (flag == 'Reply') {
+          this.globalFeedbackStatus = 2
         }
-      })
+        this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + id + '&Replymessage=' + data + '&FeedbackStatus=' + this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
+        this.callAPIService.getHttp().subscribe((res: any) => {
+          if (res.data == 0) {
+            this.defualtHideFeedback = true;
+            this.spinner.hide();
+            this.toastrService.success(res.data1[0].Msg)
+            this.getFeedBackData(this.FeedbackObj)
+          } else {
+            this.defualtHideFeedback = false;
+            this.spinner.hide();
+            if (res.data == 1) {
+              this.toastrService.error("Data is not available");
+            } else {
+              this.toastrService.error("Please try again something went wrong");
+            }
+          }
+        })
+      }
     }
+
+
   }
 }
