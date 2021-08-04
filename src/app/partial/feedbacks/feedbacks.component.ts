@@ -23,11 +23,12 @@ export class FeedbacksComponent implements OnInit {
   pageSize: number = 10;
   HighlightRow: number = 1;
   resultAllFeedBackDetails: any;
-  FeedbackObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', statusId: 1 }
+  FeedbackObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', statusId: 0 }
   filterForm!: FormGroup;
   globalFullName: any;
   detailsData: any;
   defualtHideFeedback: boolean = false;
+  globalFeedbackStatus:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -193,6 +194,7 @@ export class FeedbacksComponent implements OnInit {
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.sendData(this.detailsData.Id, 'read')
         this.defualtHideFeedback = true;
         this.spinner.hide();
         this.resultAllFeedBackDetails = res.data1;
@@ -207,5 +209,31 @@ export class FeedbacksComponent implements OnInit {
         }
       }
     })
+  }
+
+  sendData(data:any, flag:any){
+    debugger;
+    if(data == "" || data == null){
+      this.toastrService.error("Action taken field is required");
+    }else{
+      // this.globalFeedbackStatus = ""
+      // this.globalFeedbackStatus = ""
+      this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data+'&Replymessage='+data+'&FeedbackStatus='+this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.defualtHideFeedback = true;
+          this.spinner.hide();
+          this.resultAllFeedBackDetails = res.data1;
+        } else {
+          this.defualtHideFeedback = false;
+          this.spinner.hide();
+          if (res.data == 1) {
+            this.toastrService.error("Data is not available");
+          } else {
+            this.toastrService.error("Please try again something went wrong");
+          }
+        }
+      })
+    }
   }
 }
