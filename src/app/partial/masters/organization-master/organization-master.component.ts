@@ -89,6 +89,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagDist = false;
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
+      this.disableFlagDist = true;
     }
     else {
       this.selectLevelClear();

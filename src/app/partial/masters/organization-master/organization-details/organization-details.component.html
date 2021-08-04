@@ -38,7 +38,7 @@
                                                 No Device
                                             </ng-container>
                                         </td>
-                                        <td>
+                                        <td style="    width: 68px;">
                                             <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i class="fas fa-pencil-alt"></i></button>
                                             <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
                                             <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>

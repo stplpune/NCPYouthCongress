@@ -206,12 +206,10 @@ export class OrganizationDetailsComponent implements OnInit {
         this.allDesignatedMembers = res.data1;
         console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
-    
-        debugger;
-        this.allDesignatedMembers.forEach((ele: any) => {
+        this.DesignationNameBYBodyId = res.data3;
+        this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
         });
-        this.DesignationNameBYBodyId = res.data3;
         // this.getPreDesMembersArray
       } else {
         this.spinner.hide();
