@@ -509,6 +509,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.closeModalAddDes();
           this.spinner.hide();
           this.clearAddDesignationForm();
+          this.getOrganizationList();
         } else {
           this.spinner.hide();
           if (res.data == 1) {
