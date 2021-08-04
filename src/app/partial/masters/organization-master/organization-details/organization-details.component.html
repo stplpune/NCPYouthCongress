@@ -141,7 +141,7 @@
                                     <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                         <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                         <td>{{bodyMemActivity.ActivityDate}}</td>
-                                        <td>{{bodyMemActivity.UserFName}}{{bodyMemActivity.UserLName}}</td>
+                                        <td>{{bodyMemActivity.FullName}}</td>
                                         <td>{{bodyMemActivity.Category}}</td>
                                         <td>{{bodyMemActivity.Title}}</td>
                                         <td>
