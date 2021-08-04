@@ -53,6 +53,7 @@ export class OrganizationMasterComponent implements OnInit {
   disableFlagDist: boolean = true;
   disableFlagTal: boolean = true;
   disableFlagVill: boolean = true;
+  redioBtnDisabled : boolean = true;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -80,11 +81,12 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
+      this.redioBtnDisabled = false;
     } else if (levelId == 5) {
       this.validationOncondition(levelId)
       this.disableFlagVill = false;
       this.disableFlagTal = false;
-      this.disableFlagDist = false
+      this.disableFlagDist = false;
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
     }
