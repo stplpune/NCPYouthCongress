@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
   defaultToDate = new Date();
-  defaultFromDate = new Date(Date.now() + -7 * 24 * 60 * 60 * 1000);
+  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
   maxDate: any = new Date();
   fromDate: any;
   toDate: any;
