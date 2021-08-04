@@ -35,7 +35,7 @@
                                 <label class="btn btn-outline-primary" for="btnradio1" (click)="feedBackDataResult('New')"><i class="fas fa-star me-1" ></i>New</label>
 
                                 <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio2" autocomplete="off">
-                                <label class="btn btn-outline-success" for="btnradio2" (click)="feedBackDataResult('Replied')"><i class="fas fa-comment-dots me-1"></i>Replied</label>
+                                <label class="btn btn-outline-success" for="btnradio2" (click)="feedBackDataResult('Replied')"><i class="fas fa-comment-dots me-1"></i>Read</label>
 
                                 <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio3" autocomplete="off">
                                 <label class="btn btn-outline-danger" for="btnradio3" (click)="feedBackDataResult('Ignored')"><i class="fas fa-thumbs-down me-1" ></i>Ignored</label>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" class="list-group-item list-group-item-action active" id="list-home-list" (click)="details(result.Id)" [class.active]="result.SrNo == HighlightRow"
+                            <a *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" class="list-group-item list-group-item-action active" id="list-home-list" (click)="details(result)" [class.active]="result.SrNo == HighlightRow"
                                 data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
                                 <div class="d-flex w-100 justify-content-between">
                                     <p class="membername mb-1">{{result.FullName | titlecase}}</p>
@@ -58,35 +58,35 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-content" id="nav-tabContent" *ngIf="defualtHideFeedback">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="border-bottom mb-2 pb-1">
-                                    <span class="emailname">{{globalFullName}}</span>
+                                    <span class="emailname">{{detailsData.FullName}}</span>
                                     <span class="float-end emaildate">
-                                        <i class="far fa-calendar-alt me-1"></i> 01-04-2021, 12:35:25 PM
+                                        <i class="far fa-calendar-alt me-1"></i> {{detailsData.FeedbackDate}}
                                     </span>
                                 </div>
                                 <div class="mb-3 pb-1 emailcontact">
-                                    <i class="far fa-envelope me-1"></i> anilkambale@gmail.com
+                                    <i class="far fa-envelope me-1"></i>
                                     <span class="float-end">
-                                        <i class="fas fa-phone-alt me-1"></i> +91-9876543210
+                                        <i class="fas fa-phone-alt me-1"></i> {{detailsData.Mobileno}}
                                     </span>
                                 </div>
                                 <div class="mb-3 pb-1">
                                     <p class="small text-muted mb-1 lblfeedback">Message :</p>
-                                    <div class="card card-body border shadow-none">
-                                        <span class="feedback">Nowadays you can see how the Social Media is making a huge impact in Indian Politics and there are lot of Political Consulting Firms in India. We Trivoli Consultancy are Political Digital Marketing Agency and the leading Political Consulting Firm in India.</span>
+                                    <div class="card card-body border shadow-none" *ngFor="let msg of resultAllFeedBackDetails">
+                                        <span class="feedback">{{msg.ReplyMessage | titlecase}}</span>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Reply to comment here" id="txtReply" rows="4"></textarea>
-                                        <label for="floatingTextarea2">Reply</label>
+                                        <label for="floatingTextarea2">Action taken</label>
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button class="btn btn-danger me-1" type="submit">Ignore Message</button>
-                                    <button class="btn btn-main" type="submit">Reply Feedback</button>
+                                    <button class="btn btn-danger me-1" type="submit">Ignore</button>
+                                    <button class="btn btn-main" type="submit">Send</button>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">2</div>
