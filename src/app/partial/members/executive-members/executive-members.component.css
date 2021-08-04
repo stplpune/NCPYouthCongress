@@ -1,0 +1,22 @@
+.prophoto{
+    width: 80px;
+    border-radius: 5px;
+}
+.devicelogo{
+    width: 24px;
+}
+#exe-memcards{
+    font-size: 0.85rem;
+}
+#exe-memcards .card{
+    box-shadow:none;
+    border: solid 1px rgba(0,0,0,0.125);
+}
+#exe-memcards .card.card-body{
+    margin-bottom: 10px;
+    padding: 10px;
+}
+#exe-memcards .card:hover{
+    box-shadow: 1px 2px 5px #eee;
+    background-color:#fafafa;
+}

@@ -212,8 +212,3 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     display: inline-block;
     border: solid 1px #bbb !important;
 }
-.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before{
-    content: "\f100" !important;
-    font-family: "Font Awesome 5 Solid";
-    color: red;
-}
