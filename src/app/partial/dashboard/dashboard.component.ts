@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   selWeekDate:any;
   weekRangeObj:any;
   districtId:number = 0;
-  dateRange :any[]=[];
+  dateRange =  [new Date(Date.now() + -6 * 24 * 60 * 60 * 1000),new Date()];
   
   constructor(
     private callAPIService: CallAPIService,
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
   ) {
-    this.dateRange = [this.defaultFromDate,this.defaultToDate];
+
     }
 
   ngOnInit(): void {

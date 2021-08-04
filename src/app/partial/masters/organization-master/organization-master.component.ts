@@ -504,11 +504,12 @@ export class OrganizationMasterComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_postmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.clearAddDesignationForm();
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
           this.closeModalAddDes();
           this.spinner.hide();
-          this.clearAddDesignationForm();
+          
           this.getOrganizationList();
         } else {
           this.spinner.hide();

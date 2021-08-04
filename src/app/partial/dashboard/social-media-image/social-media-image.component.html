@@ -7,7 +7,7 @@
         <div class="col-sm-2">
             <span>
                     <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" [(ngModel)]="dateRange" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
-                    <owl-date-time #dt1 ></owl-date-time>
+                    <owl-date-time #dt1 [pickerType]="'calendar'" ></owl-date-time>
                 </span>
         </div>
     </div>
