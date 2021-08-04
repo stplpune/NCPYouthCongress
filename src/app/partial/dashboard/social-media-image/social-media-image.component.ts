@@ -26,6 +26,7 @@ export class SocialMediaImageComponent implements OnInit {
   mostHatedPersonArray: any;
   perceptionOnSocialMediaArray: any;
   trendOnSocialMediaArray: any;
+  dateRange :any[]=[];
 
   constructor(
     private callAPIService: CallAPIService,
@@ -34,7 +35,9 @@ export class SocialMediaImageComponent implements OnInit {
     private commonService: CommonService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-  ) {  }
+  ) { 
+    this.dateRange = [new Date(Date.now() + -6 * 24 * 60 * 60 * 1000),new Date()];
+   }
 
   ngOnInit(): void {
     this.getMostLikeHatedPerson();

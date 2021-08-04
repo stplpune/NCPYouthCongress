@@ -4,8 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-import { getBrightnessStep } from '@amcharts/amcharts4/.internal/core/utils/Colors';
-
 @Component({
   selector: 'app-political-work',
   templateUrl: './political-work.component.html',
@@ -16,7 +14,7 @@ export class PoliticalWorkComponent implements OnInit {
   paginationNo: number = 1;
   total: any;
   pageSize: number = 10;
-  viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
+  viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
   filterForm!: FormGroup;
 
   constructor(
@@ -30,7 +28,6 @@ export class PoliticalWorkComponent implements OnInit {
   ngOnInit(): void {
     this.defaultFilterForm();
     this.getPoliticalWork();
-    console.log(this.filterForm.value.workType)
   }
 
   defaultFilterForm() {
@@ -41,13 +38,14 @@ export class PoliticalWorkComponent implements OnInit {
   }
 
   getPoliticalWork() {
+    // console.log(this.filterForm.value)
     this.spinner.show();
-    let obj= 'categoryid=' + this.filterForm.value.workType + '&nopage=' + this.paginationNo
-    this.callAPIService.setHttp('get','GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
+    let obj = 'categoryid=' + this.filterForm.value.workType + '&nopage=' + this.paginationNo
+    this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.politicalWorkArray= res.data1;
+        this.politicalWorkArray = res.data1;
         console.log(this.politicalWorkArray);
         this.total = res.data2[0].TotalCount;
       } else {
@@ -61,7 +59,8 @@ export class PoliticalWorkComponent implements OnInit {
       }
     })
   }
-  getPoliticalWorkById(){
+  
+  getPoliticalWorkById() {
     this.paginationNo = 1;
     this.getPoliticalWork()
   }

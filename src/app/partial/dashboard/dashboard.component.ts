@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   selWeekDate:any;
   weekRangeObj:any;
   districtId:number = 0;
+  dateRange :any[]=[];
   
   constructor(
     private callAPIService: CallAPIService,
@@ -49,8 +50,10 @@ export class DashboardComponent implements OnInit {
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
     private router:Router,
-    private route:ActivatedRoute
-  ) {  }
+    private route:ActivatedRoute,
+  ) {
+    this.dateRange = [this.defaultFromDate,this.defaultToDate];
+    }
 
   ngOnInit(): void {
     this.workLineChart();
@@ -63,19 +66,11 @@ export class DashboardComponent implements OnInit {
 
 
   getweekRage(dates: any) {
-    // let weekValidation = (dates.value[0].getDate() - dates.value[1].getDate());
-    // alert(Math.abs(weekValidation));
-    // if(Math.abs(weekValidation) >  7){
-    //   alert('no')
-    // }
-
     let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
     this.weekRangeObj = {'fromDate':fromDate, 'toDate':toDate};
     localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
- 
   }
-
 
   getDistrict() {
     this.spinner.show();    
@@ -140,8 +135,6 @@ export class DashboardComponent implements OnInit {
           return ele
         })
         this.perceptionOnSocialMediaArray = addLogoParty 
-        
-        //console.log(res)
         this.pieChart();
         this.socialMediaChart();
       } else {
@@ -590,5 +583,25 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  redirectCountingPage(status:any){
+    if(status=='executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers!==0){
+      this.router.navigate(['/members/executive-members'], {relativeTo:this.route})
+     } else if(status=='YouthMembers' && this.dashboardCount1Array?.YouthMembers!==0){
+      this.router.navigate(['/members/view-members'], {relativeTo:this.route})
+     } else if(status=='activeMembers' && this.dashboardCount1Array?.ActiveMembers!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!");
+    } else if(status=='committeeWork' && this.dashboardCount1Array?.CommitteeWork!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!");
+     } else if(status=='memberWork' && this.dashboardCount1Array?.MemberWork!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!!");
+    } else if(status=='socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork!==0){
+      this.router.navigate(['/social-media-messages'], {relativeTo:this.route})
+    } else{
+      this.toastrService.error("Data is not available.");
+    }   
+}
 
 }

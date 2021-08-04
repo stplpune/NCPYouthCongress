@@ -6,23 +6,24 @@
                 </span>
                 <span class="float-end">
                     <form [formGroup]="filterForm">
-                    <div class="input-group">
-                        <select class="form-select form-select-sm">
-                            <option value="">Select Member Name</option>
-                        </select>
-                        <!-- <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
-                        optionTextField="VillageName" placeholder="Select Member Name">
+                        <div class="input-group">
+                            <select class="form-select form-select-sm">
+                                <option value="">Select Member Name</option>
+                            </select>
+                            <!-- <ngx-select [allowClear]="true" [items]="politicalWorkArray"  formControlName="memberName" optionValueField="Id" (select)="getPoliticalWork()"
+                        optionTextField="FullName" placeholder="Select Member Name">
                     </ngx-select> -->
-                        <select class="form-select form-select-sm" (change)="getPoliticalWorkById()" formControlName="workType">
-                            <option selected disabled value="">Select Work Type</option>
-                            <option value="1">Political Work</option>
-                            <option value="2">News Letters</option>
-                            <option value="3">Social Media Activity of Help</option>
-                            <option value="4">Personal Help</option>
-                            <option value="5">Party Programs</option>
-                            <option value="6">Help Me</option>
-                        </select>
-                    </div>
+                            <select class="form-select form-select-sm" (change)="getPoliticalWorkById()"
+                                formControlName="workType">
+                                <option selected disabled value="">Select Work Type</option>
+                                <option value="1">Political Work</option>
+                                <option value="2">News Letters</option>
+                                <option value="3">Social Media Activity of Help</option>
+                                <option value="4">Personal Help</option>
+                                <option value="5">Party Programs</option>
+                                <option value="6">Help Me</option>
+                            </select>
+                        </div>
                     </form>
                 </span>
             </div>
@@ -46,47 +47,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>01-07-2021</td>
-                            <td>Anil Kambale</td>
-                            <td>Political Work</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                            <td>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                            </td>
-                        </tr> -->
-                        <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                        <tr
+                            *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <td>{{politicalWork.SrNo}}</td>
                             <td>{{politicalWork.ActivityDate}}</td>
-                            <td><a href="">{{politicalWork.FullName}}</a></td>
+                            <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
                             <td>{{politicalWork.Title}}</td>
                             <td>{{politicalWork.Description}}</td>
-                            <!-- <td>{{politicalWork.Images}}</td> -->
                             <th scope="row">
                                 <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">
                                     <img src="{{img}}">
                                 </ng-container>
-                                <!-- <img  src="{{img}}"> -->
-
-                                <!-- <img *ngIf="politicalWork.Images" src="{{politicalWork.Images}}" class="prophoto" /> -->
                             </th>
                             <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
-
-
+                        <tr *ngIf="politicalWorkArray?.length == 0">
+                            <td colspan="9">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="mt-2  float-lg-end" *ngIf="politicalWorkArray?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    <pagination-controls previousLabel="" nextLabel=""
+                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                 </div>
             </div>
         </div>
@@ -95,7 +83,8 @@
 
 
 <!-- Modal for Location -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -152,7 +141,9 @@
                         <div class="mb-3">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </div>
                         </div>
                         <div class="row mb-3">
