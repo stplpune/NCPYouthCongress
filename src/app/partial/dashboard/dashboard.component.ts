@@ -11,8 +11,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,15 +30,15 @@ export class DashboardComponent implements OnInit {
   newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
   defaultToDate = new Date();
-  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
+  defaultFromDate = new Date(Date.now() + -7 * 24 * 60 * 60 * 1000);
   maxDate: any = new Date();
-  fromDate:any;
+  fromDate: any;
   toDate: any;
-  selWeekDate:any;
-  weekRangeObj:any;
-  districtId:number = 0;
-  dateRange :any[]=[];
-  
+  selWeekDate: any;
+  weekRangeObj: any;
+  districtId: number = 0;
+  dateRange = [this.defaultFromDate, this.defaultToDate];
+
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -49,11 +47,9 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-    private router:Router,
-    private route:ActivatedRoute,
-  ) {
-    this.dateRange = [this.defaultFromDate,this.defaultToDate];
-    }
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
     this.workLineChart();
@@ -64,16 +60,22 @@ export class DashboardComponent implements OnInit {
     this.getDistrictWiseMemberCount(false);
   }
 
-
   getweekRage(dates: any) {
-    let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
-    let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
-    this.weekRangeObj = {'fromDate':fromDate, 'toDate':toDate};
-    localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    var Time = dates.value[1].getTime() - dates.value[0].getTime();
+    var Days = Time / (1000 * 3600 * 24);
+
+    if (Days <= 7) {
+      let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
+      let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
+      this.weekRangeObj = { 'fromDate': fromDate, 'toDate': toDate };
+      localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    } else {
+      this.toastrService.error("Please Select Date Only Week Range");
+    }
   }
 
   getDistrict() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -93,11 +95,11 @@ export class DashboardComponent implements OnInit {
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
-    this.callAPIService.setHttp('get','Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Count1_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.dashboardCount1Array= res.data1[0];
+        this.dashboardCount1Array = res.data1[0];
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -112,7 +114,7 @@ export class DashboardComponent implements OnInit {
 
   getLowHighSocialMTypesOfWorks() {//count3 api
     this.spinner.show();
-    this.callAPIService.setHttp('get','Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -120,7 +122,7 @@ export class DashboardComponent implements OnInit {
         this.lowestActivityDistrictsArray = res.data2;
         this.typesOfWorksArray = res.data3;
         let perOnSocialMedArray = res.data4;
-        let addLogoParty =  perOnSocialMedArray.map((ele:any)=>{
+        let addLogoParty = perOnSocialMedArray.map((ele: any) => {
           if (ele.PartyShortCode == 'NCP') {
             ele['href'] = "assets/images/logos/ncp-logo.png";
           } else if (ele.PartyShortCode == 'SS') {
@@ -129,12 +131,12 @@ export class DashboardComponent implements OnInit {
             ele['href'] = "assets/images/logos/bjp-logo.png";
           } else if (ele.PartyShortCode == 'INC') {
             ele['href'] = "assets/images/logos/inc-logo.png";
-          }else if (ele.PartyShortCode == 'OTR') {
+          } else if (ele.PartyShortCode == 'OTR') {
             ele['href'] = "assets/images/logos/speech.png";
           }
           return ele
         })
-        this.perceptionOnSocialMediaArray = addLogoParty 
+        this.perceptionOnSocialMediaArray = addLogoParty
         this.pieChart();
         this.socialMediaChart();
       } else {
@@ -151,17 +153,17 @@ export class DashboardComponent implements OnInit {
 
   getNewMemberAndWorkInThisWeek() {
     this.spinner.show();
-    let fromDate= this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
-    let toDate= this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
-    this.callAPIService.setHttp('get','Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+fromDate + '&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
+    let fromDate = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+    let toDate = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    this.callAPIService.setHttp('get', 'Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
-         console.log('workInThisWeekArray',this.workInThisWeekArray);
-         console.log('newMemberInThisWeekArray',this.newMemberInThisWeekArray);
+        console.log('workInThisWeekArray', this.workInThisWeekArray);
+        console.log('newMemberInThisWeekArray', this.newMemberInThisWeekArray);
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -174,12 +176,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getDistrictWiseMemberCount(event:any) {
-    event == false ?  this.districtId = 0 : this.districtId = event;
+  getDistrictWiseMemberCount(event: any) {
+    event == false ? this.districtId = 0 : this.districtId = event;
     this.spinner.show();
-    let fromDate= this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
-    let toDate= this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
-    this.callAPIService.setHttp('get','Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate='+fromDate + '&ToDate='+toDate + '&DistrictId='+this.districtId, false, false, false, 'ncpServiceForWeb');
+    let fromDate = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+    let toDate = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    this.callAPIService.setHttp('get', 'Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -291,13 +293,13 @@ export class DashboardComponent implements OnInit {
     }];
 
     // 13: {ActivityCount: 0, MemberCount: 0, UserCount: 0, Date: "28/05/2021"}
-  
-    
+
+
 
     // Create axes
     let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
     xAxis.renderer.minGridDistance = 40;
-    
+
 
     // Create value axis
     let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -343,11 +345,11 @@ export class DashboardComponent implements OnInit {
 
     bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
 
-    
+
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
-    
+
     let hs2 = series2.segments.template.states.create("hover")
     hs2.properties.strokeWidth = 5;
     series2.segments.template.strokeWidth = 1;
@@ -358,16 +360,16 @@ export class DashboardComponent implements OnInit {
 
     // Add legend
     chart.legend = new am4charts.Legend();
-    chart.legend.itemContainers.template.events.on("over", function(event:any){
+    chart.legend.itemContainers.template.events.on("over", function (event: any) {
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function(segment:any){
+      segments.each(function (segment: any) {
         segment.isHover = true;
       })
     })
-    
-    chart.legend.itemContainers.template.events.on("out", function(event:any){
+
+    chart.legend.itemContainers.template.events.on("out", function (event: any) {
       let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function(segment:any){
+      segments.each(function (segment: any) {
         segment.isHover = false;
       })
     })
@@ -381,7 +383,7 @@ export class DashboardComponent implements OnInit {
 
     let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
 
-    chart.data = this.newMemberInThisWeekArray; 
+    chart.data = this.newMemberInThisWeekArray;
     // chart.data = [{
     //   "country": "Mon",
     //   "visits": 2025
@@ -440,9 +442,9 @@ export class DashboardComponent implements OnInit {
     setInterval(function () {
       am4core.array.each(chart.data, function (item) {
         item.UserCount += Math.round(Math.random() * 200 - 100);
-       // item.UserCount = Math.abs(item.UserCount);
+        // item.UserCount = Math.abs(item.UserCount);
       })
-     // chart.invalidateRawData();
+      // chart.invalidateRawData();
     }, 2000)
 
     // categoryAxis.sortBySeries = series;
@@ -461,7 +463,7 @@ export class DashboardComponent implements OnInit {
     // Add data
     chart.data = this.typesOfWorksArray;
 
-    
+
 
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -493,7 +495,7 @@ export class DashboardComponent implements OnInit {
     chart.paddingBottom = 10;
 
     chart.data = this.perceptionOnSocialMediaArray;
-   
+
     let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "PartyShortCode";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
@@ -583,25 +585,25 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  redirectCountingPage(status:any){
-    if(status=='executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers!==0){
-      this.router.navigate(['/members/executive-members'], {relativeTo:this.route})
-     } else if(status=='YouthMembers' && this.dashboardCount1Array?.YouthMembers!==0){
-      this.router.navigate(['/members/view-members'], {relativeTo:this.route})
-     } else if(status=='activeMembers' && this.dashboardCount1Array?.ActiveMembers!==0){
+  redirectCountingPage(status: any) {
+    if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
+      this.router.navigate(['/members/executive-members'], { relativeTo: this.route })
+    } else if (status == 'YouthMembers' && this.dashboardCount1Array?.YouthMembers !== 0) {
+      this.router.navigate(['/members/view-members'], { relativeTo: this.route })
+    } else if (status == 'activeMembers' && this.dashboardCount1Array?.ActiveMembers !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.success("Page Not Avaliable...!!!");
-    } else if(status=='committeeWork' && this.dashboardCount1Array?.CommitteeWork!==0){
+    } else if (status == 'committeeWork' && this.dashboardCount1Array?.CommitteeWork !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.success("Page Not Avaliable...!!!");
-     } else if(status=='memberWork' && this.dashboardCount1Array?.MemberWork!==0){
+    } else if (status == 'memberWork' && this.dashboardCount1Array?.MemberWork !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.success("Page Not Avaliable...!!!!");
-    } else if(status=='socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork!==0){
-      this.router.navigate(['/social-media-messages'], {relativeTo:this.route})
-    } else{
+    } else if (status == 'socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork !== 0) {
+      this.router.navigate(['/social-media-messages'], { relativeTo: this.route })
+    } else {
       this.toastrService.error("Data is not available.");
-    }   
-}
+    }
+  }
 
 }
