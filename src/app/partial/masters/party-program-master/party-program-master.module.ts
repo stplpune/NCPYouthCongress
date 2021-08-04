@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PartyProgramMasterRoutingModule } from './party-program-master-routing.module';
 import { PartyProgramMasterComponent } from './party-program-master.component';
-
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { PartyProgramMasterComponent } from './party-program-master.component';
   ],
   imports: [
     CommonModule,
-    PartyProgramMasterRoutingModule
+    PartyProgramMasterRoutingModule,
+    NgxSelectModule
   ]
 })
 export class PartyProgramMasterModule { }
