@@ -590,5 +590,25 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  redirectCountingPage(status:any){
+    if(status=='executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers!==0){
+      this.router.navigate(['/members/executive-members'], {relativeTo:this.route})
+     } else if(status=='YouthMembers' && this.dashboardCount1Array?.YouthMembers!==0){
+      this.router.navigate(['/members/view-members'], {relativeTo:this.route})
+     } else if(status=='activeMembers' && this.dashboardCount1Array?.ActiveMembers!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!");
+    } else if(status=='committeeWork' && this.dashboardCount1Array?.CommitteeWork!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!");
+     } else if(status=='memberWork' && this.dashboardCount1Array?.MemberWork!==0){
+      // this.router.navigate(['/dashboard'], {relativeTo:this.route})
+      this.toastrService.success("Page Not Avaliable...!!!!");
+    } else if(status=='socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork!==0){
+      this.router.navigate(['/social-media-messages'], {relativeTo:this.route})
+    } else{
+      this.toastrService.error("Data is not available.");
+    }   
+}
 
 }

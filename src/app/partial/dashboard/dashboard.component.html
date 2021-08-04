@@ -12,7 +12,7 @@
 
     <div class="row" id="dash-stats">
         <div class="col-sm-2">
-            <div class="card card-body bg-cyan">
+            <div class="card card-body bg-cyan" (click)="redirectCountingPage('executiveMember')">
                 <i class="fas fa-users"></i>
                 <p>Executive Member</p>
                 <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ExcecutiveMembers"></i></ng-container>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-green">
+            <div class="card card-body bg-green" (click)="redirectCountingPage('YouthMembers')">
                 <i class="fas fa-user"></i>
                 <p>Youth Members</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-blue">
+            <div class="card card-body bg-blue" (click)="redirectCountingPage('activeMembers')">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-gold">
+            <div class="card card-body bg-gold" (click)="redirectCountingPage('committeeWork')">
                 <i class="fas fa-people-arrows"></i>
                 <p>Committee Work</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-red">
+            <div class="card card-body bg-red" (click)="redirectCountingPage('memberWork')">
                 <i class="fas fa-user-cog"></i>
                 <p>Members Work</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-voilet">
+            <div class="card card-body bg-voilet" (click)="redirectCountingPage('socialMediaWork')">
                 <i class="far fa-thumbs-up"></i>
                 <p>Social Media Work</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.SocialMediaWork"></i></ng-container> -->

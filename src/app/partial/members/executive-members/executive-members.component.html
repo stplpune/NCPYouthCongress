@@ -56,7 +56,7 @@
                                 <img src="{{allMembers.ProfilePhoto}}" class="prophoto" />
                             </th>
                             <td>{{allMembers.PostDate}}</td>
-                            <td>{{allMembers.FullName | titlecase}}</td>
+                            <td><a routerLink="/members/member-profile">{{allMembers.FullName | titlecase}}</a></td>
                             <td>
                                 <p class="mb-0">{{allMembers.EmailId}}</p>
                                 <p class="mb-0">{{allMembers.ContactNo}}</p>
