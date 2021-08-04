@@ -201,6 +201,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 .ngx-pagination{
     padding:0 !important;
+    margin-top: 10px;
 }
 .ngx-pagination .current {
     padding:5px 15px !important;
