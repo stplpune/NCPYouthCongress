@@ -48,7 +48,7 @@ import { MatDialogModule, MatButtonModule } from '@angular/material';
     FormsModule,
     NgxPaginationModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 3000,
       closeButton: true,
       progressBar:true,
       preventDuplicates: true,

@@ -7,7 +7,7 @@ import { CommonService } from 'src/app/services/common.service';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4themes_kelly from "@amcharts/amcharts4/themes/kelly";
+import am4themes_material from "@amcharts/amcharts4/themes/material";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe,Location } from '@angular/common';
 
@@ -217,7 +217,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   WorkDoneByYuvak() {
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
-
+      am4core.useTheme(am4themes_material);
       let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
       chart.colors.step = 2;
 

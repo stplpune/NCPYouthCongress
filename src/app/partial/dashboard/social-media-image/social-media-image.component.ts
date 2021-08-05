@@ -229,6 +229,7 @@ export class SocialMediaImageComponent implements OnInit {
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "SrNo";
     categoryAxis.renderer.opposite = false;
+    categoryAxis.title.text = "X-Axis";
 
     // Create value axis
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());

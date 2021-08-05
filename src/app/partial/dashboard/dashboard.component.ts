@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
+    //this.asd();
   }
 
   getweekRage(dates: any) {
@@ -384,28 +385,6 @@ export class DashboardComponent implements OnInit {
     let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
 
     chart.data = this.newMemberInThisWeekArray;
-    // chart.data = [{
-    //   "country": "Mon",
-    //   "visits": 2025
-    // }, {
-    //   "country": "Tue",
-    //   "visits": 1882
-    // }, {
-    //   "country": "Wed",
-    //   "visits": 1809
-    // }, {
-    //   "country": "Thu",
-    //   "visits": 1322
-    // }, {
-    //   "country": "Fri",
-    //   "visits": 1122
-    // }, {
-    //   "country": "Sat",
-    //   "visits": 1114
-    // }, {
-    //   "country": "Sun",
-    //   "visits": 984
-    // }];
 
     chart.padding(5, 5, 5, 5);
 
@@ -423,6 +402,7 @@ export class DashboardComponent implements OnInit {
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
+    valueAxis.title.text = "Y-Axis";
     valueAxis.extraMax = 0.1;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
@@ -452,37 +432,66 @@ export class DashboardComponent implements OnInit {
       // chart.invalidateRawData();
     }, 2000)
 
-    // categoryAxis.sortBySeries = series;
-
   }
 
   pieChart() {
-    // Themes begin
-    am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
     // Themes end
-
+    
     // Create chart instance
-    var chart = am4core.create("pieChartdiv", am4charts.PieChart);
-
-    // Add data
-    chart.data = this.typesOfWorksArray;
-
-
-
+    let chart = am4core.create("pieChartdiv", am4charts.PieChart);
+    
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
+    
+    // Let's cut a hole in our Pie chart the size of 30% the radius
+    // chart.innerRadius = am4core.percent(30);
+    
+    // Put a thick white border around each Slice
     pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
-
-    // This creates initial animation
-    pieSeries.hiddenState.properties.opacity = 1;
-    pieSeries.hiddenState.properties.endAngle = -90;
-    pieSeries.hiddenState.properties.startAngle = -90;
-
-    chart.hiddenState.properties.radius = am4core.percent(0);
+    pieSeries.slices.template
+      // change the cursor on hover to make it apparent the object can be interacted with
+      .cursorOverStyle = [
+        {
+          "property": "cursor",
+          "value": "pointer"
+        }
+      ];
+    
+    pieSeries.alignLabels = false;
+    pieSeries.labels.template.bent = true;
+    pieSeries.labels.template.radius = 3;
+    pieSeries.labels.template.padding(0,0,0,0);
+    
+    pieSeries.ticks.template.disabled = true;
+    
+    // Create a base filter effect (as if it's not there) for the hover to return to
+    let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+    shadow.opacity = 0;
+    
+    // Create hover state
+    let hoverState:any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+    
+    // Slightly shift the shadow and make it more prominent on hover
+    let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+    hoverShadow.opacity = 0.7;
+    hoverShadow.blur = 5;
+    chart.radius = am4core.percent(100);
+    // Add a legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.maxWidth = 100;
+    chart.legend.position  = "right";
+    let markerTemplate = chart.legend.markers.template;
+    markerTemplate.width = 15;
+    markerTemplate.height = 15;
+     pieSeries.labels.template.disabled = true;
+    
+    chart.data=this.typesOfWorksArray;
+    
   }
 
   socialMediaChart() {
@@ -610,5 +619,6 @@ export class DashboardComponent implements OnInit {
       this.toastrService.error("Data is not available.");
     }
   }
+
 
 }

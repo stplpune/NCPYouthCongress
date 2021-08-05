@@ -16,14 +16,18 @@
                         <div class="card shadow-none border">
                             <div class="card-body" id="myprofile">
                                 <div class="mb-2 text-end">
-                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
                                         Edit Profile
                                     </button>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <img src="assets/images/executive-members/RavikantVarpe.jpg" class="rounded-circle mx-auto d-block">
+                                    <img src="assets/images/executive-members/RavikantVarpe.jpg"
+                                        class="rounded-circle mx-auto d-block">
                                     <h5>Mr. Anil Kambale</h5>
-                                    <p>Administrator</p>
+                                    <p class="mb-1">Administrator</p>
+                                    <p class="text-muted small mb-1">Address</p>
+                                    <p class="text-muted small">City/Village, Taluka, District</p>
                                     <div class="alert alert-secondary text-center py-2" role="alert">
                                         username
                                     </div>
@@ -67,15 +71,10 @@
                     <div class="col-sm-9">
                         <div class="form-container">
                             <div class="mb-3 row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <label for="txtFullName" class="form-label">Full Name</label>
                                     <input type="text" class="form-control" id="txtFullName" placeholder="Full Name">
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label for="txtUserName" class="form-label">User Name</label>
-                                    <input type="text" readonly class="form-control" id="txtUserName" placeholder="UserName">
-                                </div>
+                                </div>                                
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-sm-6">
@@ -87,19 +86,53 @@
                                     <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No">
                                 </div>
                             </div>
-                            <!-- <div class="mb-3 row">
-
+                            <div class="mb-2 row">
                                 <div class="col-sm-6">
-                                    <label for="txtRole" class="form-label">Role</label>
-                                    <input type="text" class="form-control" id="txtRole" placeholder="Role">
-                                  <label for="txtPassword" class="form-label">Password</label>
-                                    <input type="password" readonly class="form-control rounded border-right"
-                                        id="txtPassword" placeholder="Password"> 
+                                    <label for="txtEmailID" class="form-label">Gender</label>
+                                    <div class="d-block">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="rblGender" id="rbMale"
+                                                value="Male">
+                                            <label class="form-check-label" for="rbMale">Male</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="rblGender" id="rbFemale"
+                                                value="Female">
+                                            <label class="form-check-label" for="rbFemale">Female</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="rblGender" id="rbOther"
+                                                value="Other">
+                                            <label class="form-check-label" for="rbOther">Other</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div> -->
+                                <div class="col-sm-6">
+                                    <label for="txtUserName" class="form-label">User Name</label>
+                                    <input type="text" readonly class="form-control" id="txtUserName"
+                                        placeholder="UserName">
+                                </div>
+                            </div>
                             <div class="mb-3">
-                                <label for="txtRole" class="form-label">Address</label>
-                                <textarea class="form-control" id="txtRole" placeholder="Role"></textarea>
+                                <label for="txtAddress" class="form-label">Address</label>
+                                <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-sm-4">
+                                    <label for="ddlDistrict" class="form-label">District</label>
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="ddlTaluka" class="form-label">Taluka</label>
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="ddlCityVillage" class="form-label">City / Village</label>
+                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City / Village">
+                                    </ngx-select>
+                                </div>
                             </div>
                             <hr />
                             <div class="text-end">
