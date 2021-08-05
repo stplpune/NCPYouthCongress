@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
   defaultToDate = new Date();
-  defaultFromDate = new Date(Date.now() + -7 * 24 * 60 * 60 * 1000);
+  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
   maxDate: any = new Date();
   fromDate: any;
   toDate: any;
@@ -592,13 +592,13 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/members/view-members'], { relativeTo: this.route })
     } else if (status == 'activeMembers' && this.dashboardCount1Array?.ActiveMembers !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
-      this.toastrService.success("Page Not Avaliable...!!!");
+      this.toastrService.error("Page Not Avaliable...!!!");
     } else if (status == 'committeeWork' && this.dashboardCount1Array?.CommitteeWork !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
-      this.toastrService.success("Page Not Avaliable...!!!");
+      this.toastrService.error("Page Not Avaliable...!!!");
     } else if (status == 'memberWork' && this.dashboardCount1Array?.MemberWork !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
-      this.toastrService.success("Page Not Avaliable...!!!!");
+      this.toastrService.error("Page Not Avaliable...!!!!");
     } else if (status == 'socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork !== 0) {
       this.router.navigate(['/social-media-messages'], { relativeTo: this.route })
     } else {
