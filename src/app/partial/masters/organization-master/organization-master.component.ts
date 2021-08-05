@@ -56,7 +56,8 @@ export class OrganizationMasterComponent implements OnInit {
   redioBtnDisabled : boolean = true;
   addDesignation = "Assign";
   selectObj:any;
-
+  editRadioBtnClick:any;
+  
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -506,7 +507,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.AddDesignationForm.value['Id'] = id;
       this.allAssignedDesignations.forEach((ele:any)=>{
         if( ele.PostId == id){
-          console.log(ele);
+          this.editRadioBtnClick = ele.IsMultiple;
           this.AddDesignationForm.patchValue({
             BodyId: this.BodyOrgCellName,
             DesignationId: ele.DesignationId,

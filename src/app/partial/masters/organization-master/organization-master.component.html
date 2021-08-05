@@ -197,7 +197,7 @@
                             <label class="form-label d-block">Is Multiple</label>
 
                             <div class="form-check form-check-inline" *ngFor="let isMultiple of IsMultiple">
-                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == this.AddDesignationForm.value.isMultiple" value="{{isMultiple.id}}">
+                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
                                 <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
                             </div>
                             <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback">
