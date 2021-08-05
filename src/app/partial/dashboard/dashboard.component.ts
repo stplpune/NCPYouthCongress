@@ -412,7 +412,12 @@ export class DashboardComponent implements OnInit {
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = "DayName";
-    categoryAxis.renderer.minGridDistance = 60;
+    // categoryAxis.renderer.minGridDistance = 60;
+    // categoryAxis.renderer.labels.template.rotation = -45;
+    categoryAxis.renderer.minGridDistance = 20;
+    let label = categoryAxis.renderer.labels.template;
+    label.truncate = true;
+    label.maxWidth = 60;
     // categoryAxis.renderer.inversed = true;
     // categoryAxis.renderer.grid.template.disabled = true;
 
