@@ -17,7 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPaginationModule,
+    NgxPaginationModule
   ]
 })
 export class OrganizationMasterModule { }
