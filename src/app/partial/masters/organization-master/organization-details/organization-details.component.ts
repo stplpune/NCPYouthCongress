@@ -210,6 +210,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
         });
+        // this.
         // this.getPreDesMembersArray
       } else {
         this.spinner.hide();
@@ -228,7 +229,8 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.getPreDesMembersArray.push(res.data1)
+        this.getPreDesMembersArray.push(res.data1);
+        console.log(this.getPreDesMembersArray);
         // this.prevDesMembers = res.data1;
 
         // this.prevDesMembers.push(res.data1);
