@@ -13,8 +13,9 @@
                                 <thead>
                                     <tr>
                                         <th>Sr. No.</th>
-                                        <th>Designation</th>
                                         <th>Member Name</th>
+                                        <th>Designation</th>
+
                                         <th>Device</th>
                                         <th></th>
                                     </tr>
@@ -22,8 +23,9 @@
                                 <tbody>
                                     <tr *ngFor="let designatedMembers of allDesignatedMembers">
                                         <td>{{designatedMembers.SrNo}}</td>
-                                        <td>{{designatedMembers.DesignationName}}</td>
+
                                         <td>{{designatedMembers.MemberName}}</td>
+                                        <td>{{designatedMembers.DesignationName}}</td>
                                         <td>
                                             <!-- {{designatedMembers.DeviceType}} -->
                                             <ng-container *ngIf="designatedMembers.DeviceType == 1">
@@ -36,7 +38,7 @@
                                                 No Device
                                             </ng-container>
                                         </td>
-                                        <td>
+                                        <td style="    width: 68px;">
                                             <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i class="fas fa-pencil-alt"></i></button>
                                             <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
                                             <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>

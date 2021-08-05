@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Select District</label>
+                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select District</label>
                                 <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="DistrictId" [disabled]="disableFlagDist" (select)="getTaluka(this.orgMasterForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
                                     [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                 </ngx-select>
@@ -49,13 +49,13 @@
                             </div>
                             <div class="mb-2">
                                 <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
-                                    <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" [checked]="defultCategory == category.name" (change)='onRadioChangeCategory(category.name, false)'>
+                                    <input class="form-check-input" type="radio" [attr.disabled]="" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" [checked]="defultCategory == category.name" (change)='onRadioChangeCategory(category.name, false)'>
                                     <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                 </div>
                             </div>
                             <!-- -->
                             <div class="mb-2" *ngIf="this.orgMasterForm.value.IsRural != 0">
-                                <label class="form-label">Select Taluka</label>
+                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors }">Select Taluka</label>
                                 <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka" (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)"
                                     [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                 </ngx-select>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label class="form-label">Select {{villageCityLabel}}</label>
+                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select {{villageCityLabel}}</label>
                                 <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="disableFlagVill" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
