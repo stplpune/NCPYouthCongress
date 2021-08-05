@@ -641,12 +641,14 @@ let hoverState:any = pieSeries.slices.template.states.getKey("hover"); // normal
 let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
 hoverShadow.opacity = 0.7;
 hoverShadow.blur = 5;
-
+chart.radius = am4core.percent(100);
 // Add a legend
 chart.legend = new am4charts.Legend();
-chart.legend.maxWidth = 300;
-// chart.legend.position  = "right";
-
+chart.legend.maxWidth = 100;
+chart.legend.position  = "right";
+let markerTemplate = chart.legend.markers.template;
+markerTemplate.width = 15;
+markerTemplate.height = 15;
  pieSeries.labels.template.disabled = true;
 
 chart.data=this.typesOfWorksArray;
