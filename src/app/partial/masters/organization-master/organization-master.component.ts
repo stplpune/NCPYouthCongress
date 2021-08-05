@@ -54,6 +54,8 @@ export class OrganizationMasterComponent implements OnInit {
   disableFlagTal: boolean = true;
   disableFlagVill: boolean = true;
   redioBtnDisabled : boolean = true;
+  addDesignation = "Assign";
+  selectObj:any;
 
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
@@ -83,7 +85,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
-      this.redioBtnDisabled = false;
+      this.redioBtnDisabled = true;
     } else if (levelId == 5) {
       this.validationOncondition(levelId)
       this.disableFlagVill = false;
@@ -458,7 +460,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   defaultDesignationForm() {
     this.AddDesignationForm = this.fb.group({
-      Id: [0],
+      Id: [],
       BodyId: [],
       DesignationId: ['', Validators.required],
       IsMultiple: ['', Validators.required],
@@ -497,7 +499,28 @@ export class OrganizationMasterComponent implements OnInit {
 
   get d() { return this.AddDesignationForm.controls };
 
-  submitDesignationForm() {
+  submitDesignationForm(flag:any, id:any) {
+    debugger;
+    if (flag == 'Edit') {
+      this.addDesignation = 'Add';
+      this.AddDesignationForm.value['Id'] = id;
+      this.allAssignedDesignations.forEach((ele:any)=>{
+        if( ele.PostId == id){
+          console.log(ele);
+          this.AddDesignationForm.patchValue({
+            BodyId: this.BodyOrgCellName,
+            DesignationId: ele.DesignationId,
+            IsMultiple: ele.IsMultiple,
+            CreatedBy: [this.commonService.loggedInUserId()],
+          })
+        }
+      });
+      return
+    }
+    else {
+      this.addDesignation = 'Add', this.AddDesignationForm.value['Id'] = 0;
+    }
+
     this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
