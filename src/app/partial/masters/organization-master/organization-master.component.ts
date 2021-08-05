@@ -55,6 +55,7 @@ export class OrganizationMasterComponent implements OnInit {
   disableFlagVill: boolean = true;
   redioBtnDisabled : boolean = true;
 
+
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
@@ -76,6 +77,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
+      this.redioBtnDisabled = true;
     } else if (levelId == 4) {
       this.validationOncondition(levelId)
       this.disableFlagTal = false;
@@ -87,9 +89,13 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.disableFlagTal = false;
       this.disableFlagDist = false;
+      this.redioBtnDisabled = false;
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
+      this.redioBtnDisabled = true;
+      this.disableFlagVill = true;
+      this.disableFlagTal = true;
     }
     else {
       this.selectLevelClear();
