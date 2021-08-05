@@ -139,7 +139,7 @@
                             <!-- | filter:searchText -->
                             <tr *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="result.Id == HighlightRow">
                                 <td>{{result.SrNo}}</td>
-                                <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result.BodyOrgCellName}}</a></td>
+                                <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result.BodyOrgCellName | titlecase}}</a></td>
                                 <td>{{result.LevelName}}</td>
                                 <td>{{result.Area}}</td>
 

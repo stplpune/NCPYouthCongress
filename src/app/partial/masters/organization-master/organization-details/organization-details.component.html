@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pt-3">
-                    <h5>{{getCommitteeName}}</h5>
+                    <h5>{{getCommitteeName | titlecase}}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -24,7 +24,7 @@
                                     <tr *ngFor="let designatedMembers of allDesignatedMembers">
                                         <td>{{designatedMembers.SrNo}}</td>
 
-                                        <td>{{designatedMembers.MemberName}}</td>
+                                        <td>{{designatedMembers.MemberName | titlecase}}</td>
                                         <td>{{designatedMembers.DesignationName}}</td>
                                         <td>
                                             <!-- {{designatedMembers.DeviceType}} -->
