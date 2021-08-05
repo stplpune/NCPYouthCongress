@@ -139,7 +139,6 @@ export class DashboardComponent implements OnInit {
         })
         this.perceptionOnSocialMediaArray = addLogoParty
         this.pieChart();
-        this.asd();
         this.socialMediaChart();
       } else {
         if (res.data == 1) {
@@ -436,35 +435,63 @@ export class DashboardComponent implements OnInit {
   }
 
   pieChart() {
-    // Themes begin
-    am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
     // Themes end
-
+    
     // Create chart instance
-    var chart = am4core.create("pieChartdiv", am4charts.PieChart);
-
-    // Add data
-    chart.data = this.typesOfWorksArray;
-
+    let chart = am4core.create("pieChartdiv", am4charts.PieChart);
+    
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
+    
+    // Let's cut a hole in our Pie chart the size of 30% the radius
+    // chart.innerRadius = am4core.percent(30);
+    
+    // Put a thick white border around each Slice
     pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeOpacity = 1; 
-
-    chart.radius = am4core.percent(61);
-    // pieSeries.labels.template.disabled = false;
-    // pieSeries.ticks.template.disabled = false;
-
-    // This creates initial animation
-    pieSeries.hiddenState.properties.opacity = 1;
-    pieSeries.hiddenState.properties.endAngle = -90;
-    pieSeries.hiddenState.properties.startAngle = -90;
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.slices.template
+      // change the cursor on hover to make it apparent the object can be interacted with
+      .cursorOverStyle = [
+        {
+          "property": "cursor",
+          "value": "pointer"
+        }
+      ];
+    
     pieSeries.alignLabels = false;
-
-    chart.hiddenState.properties.radius = am4core.percent(0);
+    pieSeries.labels.template.bent = true;
+    pieSeries.labels.template.radius = 3;
+    pieSeries.labels.template.padding(0,0,0,0);
+    
+    pieSeries.ticks.template.disabled = true;
+    
+    // Create a base filter effect (as if it's not there) for the hover to return to
+    let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+    shadow.opacity = 0;
+    
+    // Create hover state
+    let hoverState:any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+    
+    // Slightly shift the shadow and make it more prominent on hover
+    let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+    hoverShadow.opacity = 0.7;
+    hoverShadow.blur = 5;
+    chart.radius = am4core.percent(100);
+    // Add a legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.maxWidth = 100;
+    chart.legend.position  = "right";
+    let markerTemplate = chart.legend.markers.template;
+    markerTemplate.width = 15;
+    markerTemplate.height = 15;
+     pieSeries.labels.template.disabled = true;
+    
+    chart.data=this.typesOfWorksArray;
+    
   }
 
   socialMediaChart() {
@@ -592,71 +619,6 @@ export class DashboardComponent implements OnInit {
       this.toastrService.error("Data is not available.");
     }
   }
-
-
-
-asd(){
-  am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-let chart = am4core.create("chartdiv", am4charts.PieChart);
-
-// Add and configure Series
-let pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "ActivityCount";
-pieSeries.dataFields.category = "Category";
-
-// Let's cut a hole in our Pie chart the size of 30% the radius
-// chart.innerRadius = am4core.percent(30);
-
-// Put a thick white border around each Slice
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-pieSeries.slices.template
-  // change the cursor on hover to make it apparent the object can be interacted with
-  .cursorOverStyle = [
-    {
-      "property": "cursor",
-      "value": "pointer"
-    }
-  ];
-
-pieSeries.alignLabels = false;
-pieSeries.labels.template.bent = true;
-pieSeries.labels.template.radius = 3;
-pieSeries.labels.template.padding(0,0,0,0);
-
-pieSeries.ticks.template.disabled = true;
-
-// Create a base filter effect (as if it's not there) for the hover to return to
-let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-shadow.opacity = 0;
-
-// Create hover state
-let hoverState:any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-// Slightly shift the shadow and make it more prominent on hover
-let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-hoverShadow.opacity = 0.7;
-hoverShadow.blur = 5;
-chart.radius = am4core.percent(100);
-// Add a legend
-chart.legend = new am4charts.Legend();
-chart.legend.maxWidth = 100;
-chart.legend.position  = "right";
-let markerTemplate = chart.legend.markers.template;
-markerTemplate.width = 15;
-markerTemplate.height = 15;
- pieSeries.labels.template.disabled = true;
-
-chart.data=this.typesOfWorksArray;
-
-}
-
-
-
 
 
 }
