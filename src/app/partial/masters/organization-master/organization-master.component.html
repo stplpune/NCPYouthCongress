@@ -49,7 +49,7 @@
                             </div>
                             <div class="mb-2">
                                 <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
-                                    <input class="form-check-input" type="radio" [attr.disabled]="" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" [checked]="defultCategory == category.name" (change)='onRadioChangeCategory(category.name, false)'>
+                                    <input class="form-check-input" type="radio" [attr.disabled]="redioBtnDisabled ? true : null" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" [checked]="defultCategory == category.name" (change)='onRadioChangeCategory(category.name, false)'>
                                     <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                 </div>
                             </div>
@@ -117,7 +117,6 @@
                                     Clear </button>
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -175,7 +174,7 @@
 <div class="modal fade" id="AddDesignationModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form [formGroup]="AddDesignationForm" (ngSubmit)="submitDesignationForm()">
+            <form [formGroup]="AddDesignationForm">
                 <div class="modal-header">
                     <p class="modal-title" id="AddDesignationModalLabel">Add Designation</p>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModalAddDesignation (click)="clearAddDesignationForm()" aria-label="Close"></button>
@@ -198,7 +197,7 @@
                             <label class="form-label d-block">Is Multiple</label>
 
                             <div class="form-check form-check-inline" *ngFor="let isMultiple of IsMultiple">
-                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" value="{{isMultiple.id}}">
+                                <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
                                 <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
                             </div>
                             <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback">
@@ -214,6 +213,7 @@
                                 <th>Sr. No.</th>
                                 <th>Designation</th>
                                 <th>Person(s) Assigned</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -221,20 +221,22 @@
                                 <td>{{resOfAssignedDesignations.SrNo}}</td>
                                 <td>{{resOfAssignedDesignations.DesignationName}}</td>
                                 <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light ng-star-inserted" [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) "><i  class="fas fa-pencil-alt "></i></button></td>
                             </tr>
-                            <tr *ngIf="allAssignedDesignations?.length == 0">
-                                <td colspan="3">
-                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                            <tr *ngIf="allAssignedDesignations?.length==0 ">
+                                <td colspan="3 ">
+                                    <div class="alert alert-danger text-center py-2 ">No Data Found..!</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer ">
 
-                    <button class="btn btn-secondary btn-main ml-2" type="button" [disabled]="!this.AddDesignationForm.value.DesignationId && !this.AddDesignationForm.value.IsMultiple" (click)="clearAddDesignationForm()">
+                    <button class="btn btn-secondary btn-main ml-2 " type="button " [disabled]="!this.AddDesignationForm.value.DesignationId && !this.AddDesignationForm.value.IsMultiple " (click)="clearAddDesignationForm() ">
                     Clear </button>
-                    <button type="submit" class="btn btn-main">Assign Designation</button>
+                    <button type="submit " class="btn btn-main " (click)="submitDesignationForm( 'Add',0) ">{{addDesignation}} Designation</button>
                 </div>
             </form>
         </div>

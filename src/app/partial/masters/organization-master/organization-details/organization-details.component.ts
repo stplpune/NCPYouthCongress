@@ -207,11 +207,10 @@ export class OrganizationDetailsComponent implements OnInit {
         console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
+        this.getPreDesMembersArray = [];
         this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
         });
-        // this.
-        // this.getPreDesMembersArray
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -230,7 +229,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1);
-        console.log(this.getPreDesMembersArray);
+      
         // this.prevDesMembers = res.data1;
 
         // this.prevDesMembers.push(res.data1);

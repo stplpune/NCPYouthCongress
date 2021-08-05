@@ -18,7 +18,7 @@ import { AgmCoreModule } from '@agm/core';
     NgxSelectModule,
     NgxPaginationModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
+      apiKey: 'AIzaSyA2AB0fKeqVHUUmRB1pvcaFRiDFTj8dSfM',
       language: 'en',
       libraries: ['places']
     }),

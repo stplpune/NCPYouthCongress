@@ -54,6 +54,10 @@ export class OrganizationMasterComponent implements OnInit {
   disableFlagTal: boolean = true;
   disableFlagVill: boolean = true;
   redioBtnDisabled : boolean = true;
+  addDesignation = "Assign";
+  selectObj:any;
+  editRadioBtnClick:any;
+  
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -76,20 +80,25 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
+      this.redioBtnDisabled = true;
     } else if (levelId == 4) {
       this.validationOncondition(levelId)
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
-      this.redioBtnDisabled = false;
+      this.redioBtnDisabled = true;
     } else if (levelId == 5) {
       this.validationOncondition(levelId)
       this.disableFlagVill = false;
       this.disableFlagTal = false;
       this.disableFlagDist = false;
+      this.redioBtnDisabled = false;
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
+      this.redioBtnDisabled = true;
+      this.disableFlagVill = true;
+      this.disableFlagTal = true;
     }
     else {
       this.selectLevelClear();
@@ -452,7 +461,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   defaultDesignationForm() {
     this.AddDesignationForm = this.fb.group({
-      Id: [0],
+      Id: [],
       BodyId: [],
       DesignationId: ['', Validators.required],
       IsMultiple: ['', Validators.required],
@@ -491,7 +500,28 @@ export class OrganizationMasterComponent implements OnInit {
 
   get d() { return this.AddDesignationForm.controls };
 
-  submitDesignationForm() {
+  submitDesignationForm(flag:any, id:any) {
+    debugger;
+    if (flag == 'Edit') {
+      this.addDesignation = 'Add';
+      this.AddDesignationForm.value['Id'] = id;
+      this.allAssignedDesignations.forEach((ele:any)=>{
+        if( ele.PostId == id){
+          this.editRadioBtnClick = ele.IsMultiple;
+          this.AddDesignationForm.patchValue({
+            BodyId: this.BodyOrgCellName,
+            DesignationId: ele.DesignationId,
+            IsMultiple: ele.IsMultiple,
+            CreatedBy: [this.commonService.loggedInUserId()],
+          })
+        }
+      });
+      return
+    }
+    else {
+      this.addDesignation = 'Add', this.AddDesignationForm.value['Id'] = 0;
+    }
+
     this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
