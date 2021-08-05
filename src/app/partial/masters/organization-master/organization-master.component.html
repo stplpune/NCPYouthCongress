@@ -16,10 +16,10 @@
                     <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="mb-2">
-                                <label for="txtBodyName" class="form-label required-field">Body Name</label>
-                                <input type="text" class="form-control" id="txtBodyName" placeholder="Body Name" formControlName="BodyOrgCellName" [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
+                                <label for="txtBodyName" class="form-label required-field">Member Name</label>
+                                <input type="text" class="form-control" id="txtBodyName" placeholder="Member Name" formControlName="BodyOrgCellName" [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
                                 <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.BodyOrgCellName.errors.required">Body name is required</div>
+                                    <div *ngIf="f.BodyOrgCellName.errors.required">Member name is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -126,7 +126,7 @@
                         <thead>
                             <tr>
                                 <th>#ID</th>
-                                <th>Body Name</th>
+                                <th>Member Name</th>
                                 <th>Level</th>
                                 <th>Area</th>
                                 <th>Designations Assigned</th>
@@ -183,7 +183,7 @@
                 <div class="modal-body">
                     <div class="form-container">
                         <div class="mb-3">
-                            <label for="txtBodyName" class="form-label">Body Name</label>
+                            <label for="txtBodyName" class="form-label">Member Name</label>
                             <input type="text" class="form-control" readonly formControlName="BodyId" />
                         </div>
                         <div class="mb-3">

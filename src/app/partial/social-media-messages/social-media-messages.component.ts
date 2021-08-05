@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-
 @Component({
   selector: 'app-social-media-messages',
   templateUrl: './social-media-messages.component.html',

@@ -53,8 +53,8 @@
                             <td>{{politicalWork.ActivityDate}}</td>
                             <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
-                            <td>{{politicalWork.Title}}</td>
-                            <td>{{politicalWork.Description}}</td>
+                            <td>{{politicalWork.Title | titlecase}}</td>
+                            <td>{{politicalWork.Description | titlecase}}</td>
                             <th scope="row">
                                 <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">
                                     <img src="{{img}}">

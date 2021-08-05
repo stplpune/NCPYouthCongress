@@ -384,40 +384,20 @@ export class DashboardComponent implements OnInit {
     let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
 
     chart.data = this.newMemberInThisWeekArray;
-    // chart.data = [{
-    //   "country": "Mon",
-    //   "visits": 2025
-    // }, {
-    //   "country": "Tue",
-    //   "visits": 1882
-    // }, {
-    //   "country": "Wed",
-    //   "visits": 1809
-    // }, {
-    //   "country": "Thu",
-    //   "visits": 1322
-    // }, {
-    //   "country": "Fri",
-    //   "visits": 1122
-    // }, {
-    //   "country": "Sat",
-    //   "visits": 1114
-    // }, {
-    //   "country": "Sun",
-    //   "visits": 984
-    // }];
 
     chart.padding(5, 5, 5, 5);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = "DayName";
+    categoryAxis.title.text = "X-Axis";
     categoryAxis.renderer.minGridDistance = 60;
     // categoryAxis.renderer.inversed = true;
     // categoryAxis.renderer.grid.template.disabled = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
+    valueAxis.title.text = "Y-Axis";
     valueAxis.extraMax = 0.1;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
@@ -447,8 +427,6 @@ export class DashboardComponent implements OnInit {
       // chart.invalidateRawData();
     }, 2000)
 
-    // categoryAxis.sortBySeries = series;
-
   }
 
   pieChart() {
@@ -463,19 +441,22 @@ export class DashboardComponent implements OnInit {
     // Add data
     chart.data = this.typesOfWorksArray;
 
-
-
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
     pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.slices.template.strokeOpacity = 1; 
+
+    chart.radius = am4core.percent(61);
+    // pieSeries.labels.template.disabled = false;
+    // pieSeries.ticks.template.disabled = false;
 
     // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
     pieSeries.hiddenState.properties.endAngle = -90;
     pieSeries.hiddenState.properties.startAngle = -90;
+    pieSeries.alignLabels = false;
 
     chart.hiddenState.properties.radius = am4core.percent(0);
   }
