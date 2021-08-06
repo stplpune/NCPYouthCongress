@@ -103,6 +103,7 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
+        this.getTaluka(this.editProfileForm.value.DistrictId) 
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -120,6 +121,9 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
+        this.editProfileForm.patchValue({
+          TalukaId:this.editProfileForm.value.TalukaId,
+        })
       } else {
         this.spinner.hide();
         if (res.data == 1) {
