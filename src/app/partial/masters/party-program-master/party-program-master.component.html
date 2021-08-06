@@ -35,11 +35,11 @@
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
                         </ngx-select>
                     </div> -->
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                         </ngx-select>
-                    </div>
+                    </div> -->
                     <!-- <div class="mb-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
@@ -72,12 +72,12 @@
         <div class="col-sm-9">
             <div class="card">
                 <div class="card-header">
-                    <div class="row g-2">
-                        <div class="col-sm">
+                    <div class="row g-2 ">
+                        <div class="col-sm-3 offset-sm-6">
                             <ngx-select [allowClear]="true" [items]="items" placeholder="Select Status">
                             </ngx-select>
                         </div>
-                        <div class="col-sm">
+                        <!-- <div class="col-sm">
                             <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                             </ngx-select>
                         </div>
@@ -88,8 +88,8 @@
                         <div class="col-sm">
                             <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
                             </ngx-select>
-                        </div>
-                        <div class="col-sm">
+                        </div> -->
+                        <div class="col-sm-3">
                             <input type="text" class="form-control" placeholder="From To">
                         </div>
                     </div>
@@ -113,8 +113,10 @@
                                 <td>
                                     01-02-2021 - 01-02-2021
                                 </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-info">Upcoming</span></h6></td>
-                                
+                                <td>
+                                    <h6 class="mb-0"><span class="badge rounded-pill bg-info">Upcoming</span></h6>
+                                </td>
+
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -130,17 +132,19 @@
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                         <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><a routerLink="../../masters/party-program-details">Fees vadi viruddha Andholan</a></td>
                                 <td>District</td>
                                 <td>
-                                    01-02-2021 - 01-02-2021 
+                                    01-02-2021 - 01-02-2021
                                 </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-success">Completed</span></h6></td>
-                                
+                                <td>
+                                    <h6 class="mb-0"><span class="badge rounded-pill bg-success">Completed</span></h6>
+                                </td>
+
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -156,17 +160,19 @@
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                         <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><a routerLink="../../masters/party-program-details">Pariksha viruddha Andholan</a></td>
                                 <td>District</td>
                                 <td>
-                                    01-02-2021 - 01-02-2021 
+                                    01-02-2021 - 01-02-2021
                                 </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-danger">Cancelled</span></h6></td>
-                               
+                                <td>
+                                    <h6 class="mb-0"><span class="badge rounded-pill bg-danger">Cancelled</span></h6>
+                                </td>
+
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -182,7 +188,7 @@
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                         <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -198,46 +204,47 @@
 <!-- View details modal -->
 <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewDetailsModal" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-container">
-                <div class="mb-3">
-                    <label class="form-label">Program Title</label>
-                    <p class="form-data">Indhan vadi viruddha Andholan</p>
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label class="form-label">Program Title</label>
+                        <p class="form-data">Indhan vadi viruddha Andholan</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Description</label>
+                        <p class="form-data">
+                            Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed. Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently
+                            changed.
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Duration</label>
+                        <p class="form-data">01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Level</label>
+                        <p class="form-data">Village</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Location</label>
+                        <p class="form-data">Mahad, Malshiras, Pune</p>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Description</label>
-                    <p class="form-data">
-                        Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed. Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed.
-                    </p>
+                <hr>
+                <div class="float-start">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Duration</label>
-                    <p class="form-data">01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM</p>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Level</label>
-                    <p class="form-data">Village</p>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Location</label>
-                    <p class="form-data">Mahad, Malshiras, Pune</p>
+                <div class="float-end">
+                    <button type="button" class="btn btn-warning btn-sm me-2">Edit Program</button>
+                    <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
                 </div>
             </div>
-          <hr>
-          <div class="float-start">
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-          </div>
-          <div class="float-end">
-            <button type="button" class="btn btn-warning btn-sm me-2">Edit Program</button>
-            <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
-          </div>
+
         </div>
-        
-      </div>
     </div>
-  </div>
+</div>
