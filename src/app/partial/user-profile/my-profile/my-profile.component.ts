@@ -15,6 +15,7 @@ export class MyProfileComponent implements OnInit {
   resProfileData: any;
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
+  GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }, { id: 3, name: "Other" }];
   resultVillageOrCity:any;
   getTalkaByDistrict:any;
   allDistrict:any;
@@ -23,7 +24,8 @@ export class MyProfileComponent implements OnInit {
   setVillOrcityName = "VillageName";
   setVillOrCityId = "VillageId";
   villageCityLabel = "Village";
-  
+  selGender:any;
+
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -33,10 +35,9 @@ export class MyProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.myProfileForm();
     this.getDistrict();
     this.getProfileData();
-    this.myProfileForm();
-
   }
 
   getProfileData() {
@@ -46,6 +47,7 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
+        this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -73,6 +75,24 @@ export class MyProfileComponent implements OnInit {
       EmailId: [''],
       ProfilePhoto: [''],
       Address: [''],
+    })
+  }
+
+  profileFormPathValue(data:any){
+    this.selGender = data.Gender;
+    console.log(data)
+    this.editProfileForm.patchValue({
+      FName:data.FName,
+      MName:data.MName,
+      LName:data.LName,
+      IsRural:data.IsRural,
+      Gender:data.Gender,
+      EmailId:data.Emailid,
+      ProfilePhoto:data.ProfilePhoto,
+      Address:data.Address,
+      DistrictId:data.DistrictId,
+      TalukaId:data.TalukaId,
+      VillageId:data.VillageId,
     })
   }
 
