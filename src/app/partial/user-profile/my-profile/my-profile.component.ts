@@ -30,8 +30,8 @@ export class MyProfileComponent implements OnInit {
   imgName: any;
   ImgUrl: any;
   selectedFile!: File;
-  @ViewChild('closeModal') closeModal:any;
-  
+  @ViewChild('closeModal') closeModal: any;
+
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -52,7 +52,6 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
-
         this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
@@ -176,9 +175,7 @@ export class MyProfileComponent implements OnInit {
       return;
     }
     else {
-      this.editProfileForm.value['Name'] = this.editProfileForm.value.FName +   this.editProfileForm.value.MName +   this.editProfileForm.value.LName
-      console.log(this.editProfileForm.value);
-      return
+      this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
@@ -188,16 +185,16 @@ export class MyProfileComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.submitted = false;
           let modalClosed = this.closeModal.nativeElement;
           modalClosed.click();
           this.spinner.hide();
-          let result  = res.data1[0];
+          let result = res.data1[0];
           this.toastrService.success(result.Msg);
           this.getProfileData();
         } else {
           this.spinner.hide();
           if (res.data == 1) {
-            // this.toastrService.error("Data is not available");
           } else {
             this.toastrService.error("Please try again something went wrong");
           }
@@ -209,20 +206,33 @@ export class MyProfileComponent implements OnInit {
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
       this.villageCityLabel = "Village";
-      this.getVillageOrCity(this.editProfileForm.value.TalukaId, 'Village')
+      this.editProfileForm.controls['VillageId'].setValue(this.editProfileForm.value.VillageId);
+
+      this.editProfileForm.controls['DistrictId'].setValue(null);
+      this.editProfileForm.controls['TalukaId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(null);
     } else {
       this.villageCityLabel = "City";
-      this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
+      this.editProfileForm.controls['VillageId'].setValue(null);
+
+      this.editProfileForm.controls['DistrictId'].setValue(null);
+      this.editProfileForm.controls['TalukaId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
   districtClear(text: any) {
     if (text == 'district') {
+      this.editProfileForm.controls['DistrictId'].setValue(null);
+      this.editProfileForm.controls['TalukaId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'taluka') {
+      this.editProfileForm.controls['TalukaId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'village') {
-
+      this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
@@ -251,12 +261,10 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  clear() {
-    this.ImgUrl = null;
-  }
-
-  spaceNotAllow(){
+  close() {
     alert('ok')
+    // this.editProfileForm.reset();
+    // this. profileFormPathValue(this.resProfileData);
   }
 
 }
