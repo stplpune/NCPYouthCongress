@@ -28,7 +28,13 @@
     box-shadow: none !important;
     outline: none !important;
 }
-
+.chartHeight {
+    height: 300px;
+    font-size: 0.75rem;
+}
+.chartfont{
+    font-size: 0.75rem;
+}
 .chartbox .card {
     border: none;
     border-radius: 10px;
@@ -49,11 +55,14 @@
 }
 
 .chartbox .card .card-header .form-control,
-.chartbox .card .card-header .form-select {
+.chartbox .card .card-header .form-select,
+.chartbox .card .card-body .list-group-item {
     font-size: 0.85rem;
     box-shadow: none;
 }
-
+.chartbox .card .card-header .form-check-input[type=radio]{
+    margin-top: 10px;
+}
 .chartbox .activity-item {
     margin-bottom: 5px;
     border-radius: 5px;
