@@ -63,14 +63,14 @@ export class ChangePasswordComponent implements OnInit {
         this.callAPIService.setHttp('get','Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           console.log(res)
-          if (res.data == 0) {
+          if (res.data1[0].Id!== 0) {
            this.toastrService.success(res.data1[0].Msg)
             this.spinner.hide();
             this.clearForm();
           }
           else {
             this.spinner.hide();
-          //  this.toastrService.error("adsfsf")
+           this.toastrService.error(res.data1[0].Msg)
           }
         })
         this.spinner.hide();

@@ -34,7 +34,7 @@ export class SocialMediaImageComponent implements OnInit {
     private commonService: CommonService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-  ) { }
+  ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
     this.getMostLikeHatedPerson();
