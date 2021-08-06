@@ -54,20 +54,10 @@
     background-color: #fff;
 }
 
-/* #captcha {
-    margin-left: -25px;
-    margin-top: 2px;
-    background-image: url(../../../assets/images/captcha-bg.6eb238f8a698366845e7.jpg);
-    padding-left: 3px;
-    height: 34px;
-} */
-
-
 #loginbox{
     position: fixed;
   top: 50%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
     background-color: #fff;
     max-width: 800px;

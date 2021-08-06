@@ -25,7 +25,7 @@
                         <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
                         <input type="text" class="form-control" id="txtProgramDuration" placeholder="From - To" />
                     </div>
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <label for="ddlProgramLevel" class="form-label">Program Level <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select Program Level">
                         </ngx-select>
@@ -34,13 +34,13 @@
                         <label for="ddlState" class="form-label">Select State <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
                         </ngx-select>
-                    </div>
-                    <div class="mb-2">
+                    </div> -->
+                    <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                         </ngx-select>
                     </div>
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
                             <label class="form-check-label" for="rblAreaRural">Rural</label>
@@ -59,7 +59,7 @@
                         <label for="ddlCityVillage" class="form-label">Select City/Village <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
                         </ngx-select>
-                    </div>
+                    </div> -->
                     <div class="mb-2">
                         <button type="button" class="btn btn-secondary btn-sm">Clear</button>
                         <span class="float-end">
@@ -99,9 +99,9 @@
                         <thead>
                             <tr>
                                 <th>Program Title</th>
-                                <th>Level</th>
-                                <th>Area</th>
+                                <th>District</th>
                                 <th>Program Duration</th>
+                                <th>End Program</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -109,12 +109,12 @@
                         <tbody>
                             <tr>
                                 <td><a routerLink="../../masters/party-program-details">Indhan vadi viruddha Andholan</a></td>
-                                <td>State</td>
-                                <td>Maharashtra</td>
+                                <td>District</td>
                                 <td>
-                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                    01-02-2021 - 01-02-2021
                                 </td>
                                 <td><h6 class="mb-0"><span class="badge rounded-pill bg-info">Upcoming</span></h6></td>
+                                
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -125,16 +125,22 @@
                                     <button class="btn btn-sm btn-danger" title="Cancel Program">
                                         <i class="fas fa-ban"></i>
                                     </button>
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
+                                      </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><a routerLink="../../masters/party-program-details">Fees vadi viruddha Andholan</a></td>
-                                <td>State</td>
-                                <td>Maharashtra</td>
+                                <td>District</td>
                                 <td>
-                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                    01-02-2021 - 01-02-2021 
                                 </td>
                                 <td><h6 class="mb-0"><span class="badge rounded-pill bg-success">Completed</span></h6></td>
+                                
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -145,16 +151,22 @@
                                     <button class="btn btn-sm btn-danger" title="Cancel Program">
                                         <i class="fas fa-ban"></i>
                                     </button>
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
+                                      </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><a routerLink="../../masters/party-program-details">Pariksha viruddha Andholan</a></td>
-                                <td>State</td>
-                                <td>Maharashtra</td>
+                                <td>District</td>
                                 <td>
-                                    01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM 
+                                    01-02-2021 - 01-02-2021 
                                 </td>
                                 <td><h6 class="mb-0"><span class="badge rounded-pill bg-danger">Cancelled</span></h6></td>
+                               
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
@@ -165,6 +177,12 @@
                                     <button class="btn btn-sm btn-danger" title="Cancel Program">
                                         <i class="fas fa-ban"></i>
                                     </button>
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
+                                      </div>
                                 </td>
                             </tr>
                         </tbody>
