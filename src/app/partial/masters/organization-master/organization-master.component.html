@@ -55,7 +55,7 @@
                             </div>
                             <!-- -->
                             <div class="mb-2" *ngIf="this.orgMasterForm.value.IsRural != 0">
-                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors }">Select Taluka</label>
+                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors}">Select Taluka</label>
                                 <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka" (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)"
                                     [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                 </ngx-select>
@@ -148,7 +148,7 @@
                                 </button> </td>
                                 <td>{{result.AllottedDesignation}}</td>
                                 <td>
-                                    <button type="button" title="Edit Organization" class="btn btn-warning btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Edit Organization" class="btn btn-secondary btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="organizationRes?.length == 0">
@@ -166,9 +166,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
 
 <!-- Modal for Add Designation -->
 <div class="modal fade" id="AddDesignationModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel" aria-hidden="true">
@@ -224,7 +222,7 @@
                                 <td>
                                     <button class="btn btn-sm btn-light ng-star-inserted" [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) "><i  class="fas fa-pencil-alt "></i></button></td>
                             </tr>
-                            <tr *ngIf="allAssignedDesignations?.length==0 ">
+                            <tr *ngIf="allAssignedDesignations?.length==0">
                                 <td colspan="3 ">
                                     <div class="alert alert-danger text-center py-2 ">No Data Found..!</div>
                                 </td>
