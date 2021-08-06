@@ -1,7 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LogoutComponent } from '../../modals/logout/logout.component';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +10,7 @@ export class HeaderComponent implements OnInit {
  isShowMenu:boolean=false;
   @Output() onShowMenu: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router:Router, private route:ActivatedRoute, public dialog: MatDialog) { }
+  constructor(private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -28,8 +26,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'], {relativeTo:this.route})
   }
 
-  openDialog() {
-    this.dialog.open(LogoutComponent, {});
-  }
+ 
 
 }

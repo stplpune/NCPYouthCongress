@@ -1,5 +1,4 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f3f3;

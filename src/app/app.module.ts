@@ -22,8 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { AgmCoreModule } from '@agm/core';
 
-import { LogoutComponent } from './partial/modals/logout/logout.component';
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { MatDialogModule, MatButtonModule } from '@angular/material';
     PartialComponent,
     WebHeaderComponent,
     WebFooterComponent,
-    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,10 +57,8 @@ import { MatDialogModule, MatButtonModule } from '@angular/material';
       language: 'en',
       libraries: ['places']
     }),
-    MatDialogModule,
-    MatButtonModule
   ],
-  entryComponents:[LogoutComponent],
+  entryComponents:[],
   providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
