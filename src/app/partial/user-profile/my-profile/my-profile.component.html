@@ -16,30 +16,28 @@
                         <div class="card shadow-none border">
                             <div class="card-body" id="myprofile">
                                 <div class="mb-2 text-end">
-                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Edit Profile
                                     </button>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <img src="assets/images/executive-members/RavikantVarpe.jpg"
-                                        class="rounded-circle mx-auto d-block">
-                                    <h5>Mr. Anil Kambale</h5>
-                                    <p class="mb-1">Administrator</p>
+                                    <img src="{{resProfileData?.ProfilePhoto1}}" class="rounded-circle mx-auto d-block">
+                                    <h5>{{resProfileData?.FullName}}</h5>
+                                    <p class="mb-1">{{resProfileData?.Designation}}</p>
                                     <p class="text-muted small mb-1">Address</p>
-                                    <p class="text-muted small">City/Village, Taluka, District</p>
+                                    <p class="text-muted small">{{resProfileData?.Address}}</p>
                                     <div class="alert alert-secondary text-center py-2" role="alert">
-                                        username
+                                        {{resProfileData?.UserName}}
                                     </div>
                                 </div>
                                 <div class="row mb-1 text-center">
                                     <div class="col-sm-6 border-end border-2 py-2">
                                         <i class="far fa-envelope text-muted mb-2"></i>
-                                        <p class="mb-0">ravikant.varpe@outlook.com</p>
+                                        <p class="mb-0">{{resProfileData?.Emailid}}</p>
                                     </div>
                                     <div class="col-sm-6 py-2">
                                         <i class="fas fa-phone-alt text-muted mb-2"></i>
-                                        <p class="mb-0">+91-9876543210</p>
+                                        <p class="mb-0">+91-{{resProfileData?.MobileNo}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -60,87 +58,112 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <a href="#" class="update-photo">
-                            <i class="fas fa-camera"></i>
-                        </a>
-                        <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid">
+                <form [formGroup]="editProfileForm">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="#" class="update-photo">
+                                <i class="fas fa-camera"></i>
+                            </a>
+                            <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid">
 
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="form-container">
-                            <div class="mb-3 row">
-                                <div class="col-sm-12">
-                                    <label for="txtFullName" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="txtFullName" placeholder="Full Name">
-                                </div>                                
-                            </div>
-                            <div class="mb-3 row">
-                                <div class="col-sm-6">
-                                    <label for="txtEmailID" class="form-label">Email ID</label>
-                                    <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-container">
+                                <div class="mb-3 row">
+                                    <div class="col-sm-4">
+                                        <label for="txtFullName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="txtFullName" class="form-label">Middle Name</label>
+                                        <input type="text" class="form-control" id="txtFullName" formControlName="MName" placeholder="Middle Name">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="txtFullName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="txtFullName" formControlName="LName" placeholder="Last Name">
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="txtContactNo" class="form-label">Contact No</label>
-                                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No">
+                                <div class="mb-3 row">
+                                    <div class="col-sm-6">
+                                        <label for="txtEmailID" class="form-label">Email ID</label>
+                                        <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="txtContactNo" class="form-label">Contact No</label>
+                                        <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" disabled value="{{resProfileData?.MobileNo}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-2 row">
-                                <div class="col-sm-6">
-                                    <label for="txtEmailID" class="form-label">Gender</label>
-                                    <div class="d-block">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="rblGender" id="rbMale"
-                                                value="Male">
-                                            <label class="form-check-label" for="rbMale">Male</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="rblGender" id="rbFemale"
-                                                value="Female">
-                                            <label class="form-check-label" for="rbFemale">Female</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="rblGender" id="rbOther"
-                                                value="Other">
-                                            <label class="form-check-label" for="rbOther">Other</label>
+
+                                <div class="mb-2 row">
+                                    <div class="col-sm-6">
+                                        <label for="txtContactNo" class="form-label">User Name</label>
+                                        <input type="text" class="form-control" placeholder="User Name" disabled value="{{resProfileData?.UserName}}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="txtEmailID" class="form-label">Gender</label>
+                                        <div class="d-block">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rblGender" id="rbMale" value="Male">
+                                                <label class="form-check-label" for="rbMale">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rblGender" id="rbFemale" value="Female">
+                                                <label class="form-check-label" for="rbFemale">Female</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rblGender" id="rbOther" value="Other">
+                                                <label class="form-check-label" for="rbOther">Other</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="txtUserName" class="form-label">User Name</label>
-                                    <input type="text" readonly class="form-control" id="txtUserName"
-                                        placeholder="UserName">
+                                <div class="mb-3">
+                                    <label for="txtAddress" class="form-label">Address</label>
+                                    <textarea class="form-control" id="txtAddress" placeholder="Address" formControlName="EmailId"></textarea>
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="txtAddress" class="form-label">Address</label>
-                                <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
-                            </div>
-                            <div class="mb-3 row">
-                                <div class="col-sm-4">
-                                    <label for="ddlDistrict" class="form-label">District</label>
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                                    </ngx-select>
+                                <div class="mb-2">
+                                    <!-- [checked]="defultCategory == category.name" -->
+                                    <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
+                                        <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" (change)='onRadioChangeCategory(category.name)'>
+                                        <label class="form-check-label" for="rblRural">{{category.name}}</label>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <label for="ddlTaluka" class="form-label">Taluka</label>
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                                    </ngx-select>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-4">
+                                        <label for="ddlDistrict" class="form-label">District</label>
+                                        <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                                        </ngx-select>
+                                        <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                            <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="ddlTaluka" class="form-label">Taluka</label>
+                                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka" (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)"
+                                            [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                        </ngx-select>
+                                        <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
+                                            <div *ngIf="f.TalukaId.errors.required">Taluka is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="ddlCityVillage" class="form-label">City / Village</label>
+                                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="this.editProfileForm.value.TalukaId"
+                                            [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                        </ngx-select>
+                                        <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
+                                            <div *ngIf="f.VillageId.errors.required">{{villageCityLabel}} is required</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <label for="ddlCityVillage" class="form-label">City / Village</label>
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City / Village">
-                                    </ngx-select>
+                                <hr />
+                                <div class="text-end">
+                                    <button type="button" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="text-end">
-                                <button type="button" class="btn btn-main btn-sm">Update Profile</button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
