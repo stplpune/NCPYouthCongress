@@ -63,14 +63,14 @@ export class ChangePasswordComponent implements OnInit {
         this.callAPIService.setHttp('get','Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           console.log(res)
-          if (res.data == 0) {
+          if (res.data1[0].Id!== 0) {
            this.toastrService.success(res.data1[0].Msg)
             this.spinner.hide();
             this.clearForm();
           }
           else {
             this.spinner.hide();
-           this.toastrService.error("adsfsf")
+           this.toastrService.error(res.data1[0].Msg)
           }
         })
         this.spinner.hide();
@@ -110,7 +110,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   passwordValid(controls:any) {
-    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{6,}$/);
+    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
     if (regExp.test(controls.value)) {
       return null;
     } else {
