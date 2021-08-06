@@ -55,16 +55,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <p class="modal-title mb-0" id="exampleModalLabel">Edit Profile</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeModal></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="editProfileForm">
+                <form [formGroup]="editProfileForm" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-3">
-                            <a href="#" class="update-photo">
+                            <a class="update-photo" (click)="choosePhoto()">
                                 <i class="fas fa-camera"></i>
                             </a>
-                            <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid">
+                            <!-- <a class="update-photo" *ngIf="ImgUrl" (click)="clear()">
+                                <i class="fas fa-times"></i>
+                            </a> -->
+                            <input type="file" id="my_file" class="d-none" (change)="readUrl($event)">
+                            <img src="assets/images/executive-members/MehabubShaikh.jpg" *ngIf="!ImgUrl" class="img-fluid">
+                            <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
 
                         </div>
                         <div class="col-sm-9">
@@ -72,7 +77,7 @@
                                 <div class="mb-3 row">
                                     <div class="col-sm-4">
                                         <label for="txtFullName" class="form-label required-field">First Name</label>
-                                        <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                        <input type="text" class="form-control" id="txtFullName" (keyup.space)="spaceNotAllow()" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
                                         <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
                                             <div *ngIf="f.FName.errors.required">First name is required</div>
                                         </div>
