@@ -59,11 +59,6 @@
     color: #510051;
 }
 
-.chartHeight {
-    height: 300px;
-    font-size: 0.75rem;
-}
-
 
 .bounce {
     animation: bounce 3s infinite;
