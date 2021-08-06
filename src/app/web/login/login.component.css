@@ -1,18 +1,38 @@
 #login-box {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 1px 2px 5px #aaa;
+    background-color: transparent;
+    border-top-right-radius: 15px;
 }
-
+#login-box .login-logo{
+    width: 100px;
+    margin:0 auto;
+    display:block;
+    margin-bottom: 10px;
+}
+#loginbox .login-img{    
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+#login-box h5{
+    color: var(--main-color);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Yatra One';
+}
 #login-box h3 {
     color: var(--main-color);
     margin-bottom: 20px;
     text-transform: uppercase;
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-size: 1.1rem;
+    font-weight: 600;
     letter-spacing: 1px;
 }
-
+#login-box .form-control{
+    border:none;
+    border-radius: 0;
+    border-bottom: solid 1px rgba(0,0,0,0.125);
+}
 #login-box .form-control,
 #login-box .btn {
     font-size: 0.85rem;
@@ -29,15 +49,18 @@
 }
 
 #login-box .input-group .btn {
-    border: 1px solid #ced4da;
-    border-left: 0;
-    background-color: none;
+    border: 0;
+    border-bottom: solid 1px rgba(0,0,0,0.125);
+    background-color: #fff;
 }
 
-/* #captcha {
-    margin-left: -25px;
-    margin-top: 2px;
-    background-image: url(../../../assets/images/captcha-bg.6eb238f8a698366845e7.jpg);
-    padding-left: 3px;
-    height: 34px;
-} */
+#loginbox{
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    background-color: #fff;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 16px 0px #bbb;;
+}

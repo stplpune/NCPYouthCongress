@@ -128,7 +128,10 @@
                                     </div>
                                 </div>
                             </form>
-                            <table class="table table-hover">
+                            <div class="clearfix"></div>
+                            <p>Individual Members Progress</p>
+                            <div class="h-400 membersProBarChart"></div>
+                            <table class="table table-hover mt-3">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -169,11 +172,7 @@
                                 <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                             </div>
-                            <div class="clearfix"></div>
-                            <p>Individual Members Progress</p>
-                            <div class="h-400 membersProBarChart">
-
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

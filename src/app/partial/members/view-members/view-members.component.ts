@@ -21,7 +21,8 @@ export class ViewMembersComponent implements OnInit {
   paginationNo: number = 1;
   total: any;
   pageSize: number = 10;
-  
+  memberCountData:any;
+
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   filterForm!: FormGroup;
 
@@ -122,6 +123,8 @@ export class ViewMembersComponent implements OnInit {
         this.spinner.hide();
         this.resultAllViewMembers = res.data1;
         this.total = res.data2[0].TotalCount;
+        this.memberCountData = res.data3;
+     
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -162,6 +165,10 @@ export class ViewMembersComponent implements OnInit {
   }
 
   searchFilter(){
+    if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+      this.toastrService.error("Please search and try again");
+      return
+    }
     this.viewMembersObj.SearchText = this.filterForm.value.searchText
     this.getViewMembers(this.viewMembersObj)
   }

@@ -1,4 +1,4 @@
-<div id="login">
+<!-- <div id="login">
     <div class="container mt-5">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-4 mt-5">
@@ -42,36 +42,80 @@
                                             <div id="captcha" class="form-control py-0"></div>
                                             <button class="btn sync" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
                                         </div>
-                                        <!-- <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
-                                            <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
-                                        </div> -->
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-12">
-                                    <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
-                                        <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
-                                    </div>
-                                </div> -->
                             </div>
-                            
-                            
-                            <!-- <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="remeber-me">
-                                    <label class="form-check-label" for="remeber-me">
-                                      Remember Me
-                                    </label>
-                                </div>
-                            </div> -->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-main">Submit</button>
                             </div>
-                            <!-- <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
-                            </div> -->
                         </form>
-                    </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container p-0" id="loginbox">
+    <div class="row g-0">
+        <div class="col-sm-6 p-0 d-none d-sm-block">
+            <img src="assets/images/Loginimg.svg" class="img-fluid login-img">
+        </div>
+        <div class="col-sm-6 p-0">
+            <div id="login-box" class="col-md-12">
+                <div class="card-body p-5">
+                    <img src="assets/images/NCP-logo.svg" class="login-logo">
                     
+                    <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+                        <h5 class="text-center">राष्ट्रवादी युवक कॉंग्रेस</h5>
+                        <h3 class="text-center">Admin Login</h3>
+                        <div class="mb-3">
+                            <input type="text" placeholder="UserName" name="username" class="form-control"
+                                formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
+                            <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
+                                <div *ngIf="f.UserName.errors.required">UserName is required</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input autocomplete="off" [type]="show_button ? 'text' : 'password'"
+                                    class="form-control" placeholder="Password" formControlName="Password"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                                <button type="button" class="btn">
+                                    <i class="eye-icon-pos" [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'"
+                                        (click)="showPassword()"> </i>
+                                </button>
+                            </div>
+                            <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                                <div *ngIf="f.Password.errors.required">Password is required</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-7">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Captcha"
+                                        formControlName="recaptchaReactive"
+                                        [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }">
+                                    <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
+                                        <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <div id="captcha" class="form-control py-0"></div>
+                                        <button class="btn sync" type="button" (click)="reCaptcha()"><i
+                                                class="fa fa-sync"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-main">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

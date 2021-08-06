@@ -1,17 +1,48 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mx-1 px-0" id="pageheader">
+        <div class="col-sm-3">
+            <span class="page-name">View Members</span>
+        </div>
+        <div class="col-sm-9">
+                <div class="row g-1 d-flex justify-content-end">
+                    <div class="col-sm-3">
+                        <select class="form-select">
+                            <option value="">Select Political Work Type</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control rounded me-2" type="text" placeholder="From To" />
+                    </div>
+                    <div class="col-sm-auto">
+                        <button type="button" class="btn btn-secondary rounded btn-sm"
+                            (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- <div class="row">
         <div class="col-sm-12 ">
             <div id="pageheader" class="clearfix">
-                <div  class="float-start">
+                <div class="float-start">
                     <span class="page-name">Work This Week</span>
                 </div>
                 <div class="float-end">
-                    <button type="button" class="btn btn-secondary btn-sm" (click)="location.back();"><i  class="fas fa-arrow-left"></i></button>
+                    <div class="input-group">
+                        <input class="form-control rounded me-2" type="text" placeholder="From To" />
+                        <ngx-select [allowClear]="true" [items]="allDistrict"
+                                    (select)="getTaluka(this.filterBestPer.value.DistrictId)"
+                                    (remove)="districtClear('district')" formControlName="DistrictId"
+                                    optionValueField="DistrictId" optionTextField="DistrictName"
+                                    placeholder="Select District">
+                                </ngx-select>
+                        <button type="button" class="btn btn-secondary rounded ms-2 btn-sm"
+                            (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
+                    </div>
                 </div>
             </div>
-            
+
         </div>
-    </div>
+    </div> -->
 
     <div class="row mb-3">
         <div class="col-sm-5 chartbox">
@@ -20,22 +51,53 @@
                 <div class="card-body">
                     <img src="assets/images/mahamap.svg" class="img-fluid mb-4" />
 
-                    <p class="text-success font-weight-bold mb-1">Top Performance</p>
-                    <ul class="list-group list-group-horizontal mb-3" >
-                        <li class="list-group-item list-group-item-success" *ngFor="let topPerformance of WorkDoneByYuvakTP">{{topPerformance.DistrictName}}</li>
-                       
-                    </ul>
-                    <p class="text-danger font-weight-bold mb-1">Bottom Performance</p>
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item list-group-item-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">{{bottomPerformance.DistrictName}}</li>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="text-success font-weight-bold mb-1">Top Performance</p>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item list-group-item-success"
+                                    *ngFor="let topPerformance of WorkDoneByYuvakTP">
+                                    <i class="fas fa-arrow-up me-2"></i>{{topPerformance.DistrictName}}
+                                </li>
 
-                    </ul>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="text-danger font-weight-bold mb-1">Bottom Performance</p>
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-danger"
+                                    *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
+                                    <i class="fas fa-arrow-down me-2"></i>
+                                    {{bottomPerformance.DistrictName}}
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">Best Performed Karyakarini Member</div>
+                <div class="card-header">Best Performed Organization Body</div>
                 <div class="card-body">
                     <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Organization Name</th>
+                                <th>Location</th>
+                                <th>Work Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a routerLink="#">Maharashtra Rajya Committee</a></td>
+                                <td>City, Taluka, District</td>
+                                <td>2541</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -53,73 +115,108 @@
                                 <td>{{result.MobileNo}}</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
             </div>
         </div>
         <div class="col-sm-7 chartbox">
             <div class="card mb-3">
-                <div class="card-header">Work done by Yuvak</div>
-                <div class="card-body p-2 WorkDoneByYuvak h-400">
+                <div class="card-header pb-0">Work done by Yuvak</div>
+                <div class="card-body p-2 pt-0 WorkDoneByYuvak chartfont h-400">
                 </div>
             </div>
             <div class="card">
                 <div class="card-header">
                     <form [formGroup]="filterBestPer">
-                    <div class="row">
-                        <div class="col-md-3">
-                            Best Performance
+                        <div class="row g-2">
+                            <div class="col-sm-6">
+                                Best Performance
+                            </div>
+                            <div class="col-sm-6 text-end">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblWise" id="rbCommittee" value="Committee">
+                                    <label class="form-check-label" for="rbCommittee">Committee</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblWise" id="rbLocation" value="Location">
+                                    <label class="form-check-label" for="rbLocation">Location</label>
+                                  </div>
+                            </div>
                         </div>
-                            <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="allDistrict"
-                                        (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear('district')"  formControlName="DistrictId"
-                                        optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
-                                    </ngx-select>
-                    
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <ngx-select [allowClear]="true" [items]="allDistrict"
+                                    (select)="getTaluka(this.filterBestPer.value.DistrictId)"
+                                    (remove)="districtClear('district')" formControlName="DistrictId"
+                                    optionValueField="DistrictId" optionTextField="DistrictName"
+                                    placeholder="Select District">
+                                </ngx-select>
                             </div>
-                            <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"  (remove)="districtClear('taluka')" optionValueField="TalukaId"
-                                        optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
-                                        (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)" [disabled]="!this.filterBestPer.value.DistrictId">
-                                    </ngx-select>
+                            <div class="col-md-4">
+                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
+                                    (remove)="districtClear('taluka')" optionValueField="TalukaId"
+                                    optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
+                                    (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)"
+                                    [disabled]="!this.filterBestPer.value.DistrictId">
+                                </ngx-select>
                             </div>
-                            <div class="col-md-3">
-                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity"  (remove)="districtClear('village')" placeholder="Select village"
-                                        optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId"
-                                        [disabled]="!this.filterBestPer.value.TalukaId" (select)="getVillByTaluka(this.filterBestPer.value.VillageId)" >
-                                    </ngx-select>
+                            <div class="col-md-4">
+                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity"
+                                    (remove)="districtClear('village')" placeholder="Select village"
+                                    optionValueField="VillageId" optionTextField="VillageName"
+                                    formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
+                                    (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
+                                </ngx-select>
                             </div>
-                        
-                    </div>
-                </form>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md-6 offset-6">
+                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity"
+                                    (remove)="districtClear('village')" placeholder="Select Committee Name"
+                                    optionValueField="VillageId" optionTextField="VillageName"
+                                    formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
+                                    (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
+                                </ngx-select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Karyakarta Name</th>
-                                    <th>Email ID</th>
-                                    <th>Contact No</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let result of resBestPerMember; let i = index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{result.FullName}}</td>
-                                    <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
-                                    <td>{{result.MobileNo}}</td>
-                                </tr>
-                                <tr *ngIf="resBestPerMember?.length == 0">
-                                    <td colspan="4">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Member Name</th>
+                                <th>Political Work</th>
+                                <th>News</th>
+                                <th>Social Media Help</th>
+                                <th>Personal Help</th>
+                                <th>Party Program</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a routerLink="">Anil Kambale</a>
+                                </td>
+                                <td>23</td>
+                                <td>213</td>
+                                <td>233</td>
+                                <td>243</td>
+                                <td>523</td>
+                            </tr>
+                            <!-- <tr *ngFor="let result of resBestPerMember; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{result.FullName}}</td>
+                                <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
+                                <td>{{result.MobileNo}}</td>
+                            </tr>
+                            <tr *ngIf="resBestPerMember?.length == 0">
+                                <td colspan="4">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
