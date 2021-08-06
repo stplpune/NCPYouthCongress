@@ -3,7 +3,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../../services/common.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-my-profile',
@@ -16,15 +16,16 @@ export class MyProfileComponent implements OnInit {
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
   GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }, { id: 3, name: "Other" }];
-  resultVillageOrCity:any;
-  getTalkaByDistrict:any;
-  allDistrict:any;
-  globalDistrictId:any;
-  submitted  = false;
+  resultVillageOrCity: any;
+  getTalkaByDistrict: any;
+  allDistrict: any;
+  globalDistrictId: any;
+  submitted = false;
   setVillOrcityName = "VillageName";
   setVillOrCityId = "VillageId";
   villageCityLabel = "Village";
-  selGender:any;
+  selGender: any;
+  editFlag: boolean = true;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -36,7 +37,6 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.myProfileForm();
-    this.getDistrict();
     this.getProfileData();
   }
 
@@ -47,6 +47,7 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
+
         this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
@@ -61,39 +62,40 @@ export class MyProfileComponent implements OnInit {
 
   myProfileForm() {
     this.editProfileForm = this.fb.group({
-      UserId:[''],
-      StateId:[''],
-      DistrictId:[''],
-      TalukaId:[''],
-      VillageId:[''],
-      FName: [''],
-      MName: [''],
-      LName: [''],
+      UserId: [this.commonService.loggedInUserId()],
+      StateId: [1],
+      DistrictId: ['', [Validators.required]],
+      TalukaId: ['', [Validators.required]],
+      VillageId: ['', [Validators.required]],
+      FName: ['', [Validators.required]],
+      MName: ['', [Validators.required]],
+      LName: ['', [Validators.required]],
       IsRural: [],
       ConstituencyNo: [''],
       Gender: [''],
-      EmailId: [''],
+      EmailId: ['', [Validators.required, Validators.email]],
       ProfilePhoto: [''],
-      Address: [''],
+      Address: ['', [Validators.email]],
     })
   }
 
-  profileFormPathValue(data:any){
+  profileFormPathValue(data: any) {
     this.selGender = data.Gender;
-    console.log(data)
+    this.getDistrict();
+    // this.getTaluka(data.DistrictId)
     this.editProfileForm.patchValue({
-      FName:data.FName,
-      MName:data.MName,
-      LName:data.LName,
-      IsRural:data.IsRural,
-      Gender:data.Gender,
-      EmailId:data.Emailid,
-      ProfilePhoto:data.ProfilePhoto,
-      Address:data.Address,
-      DistrictId:data.DistrictId,
-      TalukaId:data.TalukaId,
-      VillageId:data.VillageId,
-    })
+      FName: data.FName,
+      MName: data.MName,
+      LName: data.LName,
+      IsRural: data.IsRural,
+      Gender: data.Gender,
+      EmailId: data.Emailid,
+      ProfilePhoto: data.ProfilePhoto,
+      Address: data.Address,
+      DistrictId: data.DistrictId,
+      TalukaId: data.TalukaId,
+      VillageId: data.VillageId,
+    });
   }
 
   getDistrict() {
@@ -103,7 +105,9 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        this.getTaluka(this.editProfileForm.value.DistrictId) 
+        if (this.editFlag) {
+          this.getTaluka(this.editProfileForm.value.DistrictId)
+        }
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -121,9 +125,12 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        this.editProfileForm.patchValue({
-          TalukaId:this.editProfileForm.value.TalukaId,
-        })
+        if (this.editFlag) {
+          this.editProfileForm.patchValue({
+            TalukaId: this.editProfileForm.value.TalukaId,
+          })
+          this.getVillageOrCity(this.editProfileForm.value.TalukaId, 'Village')
+        }
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -136,7 +143,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
     // this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
@@ -158,19 +164,32 @@ export class MyProfileComponent implements OnInit {
 
   get f() { return this.editProfileForm.controls };
 
-  updateProfile(){
+  updateProfile() {
     this.submitted = true;
     if (this.editProfileForm.invalid) {
       this.spinner.hide();
       return;
     }
     else {
-    console.log(this.editProfileForm.value);
+      console.log(this.editProfileForm.value);
     }
   }
 
-  onRadioChangeCategory(flag:any){
-
+  onRadioChangeCategory(category: any) {
+    if (category == "Rural") {
+      this.villageCityLabel = "Village";
+    } else {
+      this.villageCityLabel = "City";
+    }
   }
 
+  districtClear(text: any) {
+    if (text == 'district') {
+
+    } else if (text == 'taluka') {
+
+    } else if (text == 'village') {
+
+    }
+  }
 }

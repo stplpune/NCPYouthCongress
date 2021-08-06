@@ -25,6 +25,9 @@ export class ExecutiveMembersComponent implements OnInit {
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   filterForm!: FormGroup;
   memberNameArray:any;
+  memberCountData:any;
+
+
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -140,10 +143,13 @@ export class ExecutiveMembersComponent implements OnInit {
     this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=0&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo+'&BodyId='+this.globalBodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        console.log(res);
         this.spinner.hide();
         this.resultAllExeMembers = res.data1;
         console.log(this.resultAllExeMembers)
         this.total = res.data2[0].TotalCount;
+        this.memberCountData = res.data3;
+        console.log(this.memberCountData)
       } else {
         this.spinner.hide();
         if (res.data == 1) {
