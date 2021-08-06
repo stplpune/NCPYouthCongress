@@ -32,7 +32,50 @@
             </form>
         </div>
     </div>
-
+    <div class="row" id="dash-stats">
+        <div class="col-sm-2">
+            <div class="card card-body bg-cyan">
+                <i class="fas fa-users"></i>
+                <p>Total Committees</p>
+                <h3>{{memberCountData?.TotalMember}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-body bg-green">
+                <i class="fas fa-user"></i>
+                <p>Executive Members</p>
+                <h3>{{memberCountData?.ExcutiveMember}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-body bg-gold">
+                <i class="fas fa-people-arrows"></i>
+                <p>Active Members</p>
+                <h3>{{memberCountData?.ActiveMember}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-body bg-red">
+                <i class="fas fa-user-alt-slash"></i>
+                <p>Non Active Members</p>
+                <h3>{{memberCountData?.InActiveMember}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-body bg-blue">
+                <i class="fab fa-apple"></i>
+                <p>iOS Users</p>
+                <h3>{{memberCountData?.iOS}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-body bg-voilet">
+                <i class="fas fa-robot"></i>
+                <p>Andriod Users</p>
+                <h3>{{memberCountData?.Android}}</h3>
+            </div>
+        </div>
+    </div>
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card card-body">
@@ -102,7 +145,7 @@
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

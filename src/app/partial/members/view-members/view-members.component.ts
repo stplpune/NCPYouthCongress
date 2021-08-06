@@ -123,13 +123,13 @@ export class ViewMembersComponent implements OnInit {
         this.spinner.hide();
         this.resultAllViewMembers = res.data1;
         this.total = res.data2[0].TotalCount;
-        this.memberCountData = res.data3;
+        this.memberCountData = res.data3[0];
      
       } else {
         this.spinner.hide();
         if (res.data == 1) {
           this.resultAllViewMembers = [];
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

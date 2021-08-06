@@ -146,7 +146,7 @@
                                             <div *ngIf="f.DistrictId.errors.required">District is required</div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4" *ngIf="this.editProfileForm.value.IsRural == 1">
                                         <label for="ddlTaluka" class="form-label required-field">Taluka</label>
                                         <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
                                             (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">

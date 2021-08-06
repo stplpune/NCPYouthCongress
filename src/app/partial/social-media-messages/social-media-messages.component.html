@@ -26,6 +26,48 @@
     </form>
     </div>
 
+    <div class="row" id="dash-stats">
+        <div class="col-sm">
+            <div class="card card-body bg-gold">
+                <i class="fas fa-comments"></i>
+                <p>Total Messages</p>
+                <h3>2</h3>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card card-body bg-blue">
+                <i class="fab fa-facebook"></i>
+                <p>Facebook Count</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
+                <h3>34</h3>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card card-body bg-green">
+                <i class="fab fa-whatsapp"></i>
+                <p>WhtasApp Count</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
+                <h3>43</h3>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card card-body bg-cyan" >
+                <i class="fab fa-twitter"></i>
+                <p>Twitter Count</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
+                <h3>345</h3>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card card-body bg-red">
+                <i class="fas fa-hashtag"></i>
+                <p>Other Count</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
+                <h3>343</h3>
+            </div>
+        </div>
+    </div>
+
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card card-body">
@@ -36,6 +78,7 @@
                             <th scope="col">Post Date</th>
                             <th scope="col">Social Media</th>
                             <th scope="col">Members Name</th>
+                            <th scope="col">Person's Name</th>
                             <th scope="col">Mobile No.</th>
                             <th scope="col">Message in Favour</th>
                             <th scope="col">Message in Oppose</th>
@@ -60,6 +103,7 @@
 
 
                             <td><a routerLink="/members/member-profile">{{socialMediaMessages.MemberName}}</a></td>
+                            <td><a routerLink="/social-media-person">{{socialMediaMessages.MemberName}}</a></td>
                             <td>{{socialMediaMessages.MemberMobileNo}}</td>
                             <td>{{socialMediaMessages.InFavorOf}}</td>
                             <td>{{socialMediaMessages.InOppositionOf}}</td>
