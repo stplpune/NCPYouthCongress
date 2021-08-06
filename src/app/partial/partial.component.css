@@ -1,122 +1,124 @@
 .main-content {
-    margin-left: 69px;
+    margin-left: 69px
 }
 
 #pageheader {
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 15px;
-    /* box-shadow: 1px 1px 4px #dfdfdf; */
-    padding: 5px 10px;
+    padding: 5px 10px
 }
 
 #pageheader span {
-    line-height: 34px;
+    line-height: 34px
 }
 
 #pageheader .page-name {
     font-weight: 500;
     color: var(--main-color);
-    font-size: 0.85rem;
+    font-size: .85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1px
 }
 
 #pageheader .form-control,
 #pageheader .form-select {
-    font-size: 0.85rem;
-    box-shadow: none !important;
-    outline: none !important;
+    font-size: .85rem;
+    box-shadow: none!important;
+    outline: none!important
 }
+
 .chartHeight {
     height: 300px;
-    font-size: 0.75rem;
+    font-size: .75rem
 }
-.chartfont{
-    font-size: 0.75rem;
+
+.chartfont {
+    font-size: .75rem
 }
+
 .chartbox .card {
     border: none;
     border-radius: 10px;
-    box-shadow: 1px 1px 4px #dfdfdf;
+    box-shadow: 1px 1px 4px #dfdfdf
 }
 
 .chartbox .card .card-header {
     background-color: transparent;
     border-bottom: none;
-    font-size: 0.85rem;
+    font-size: .85rem;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 34px
 }
 
 .chartbox .card .card-header a {
     color: var(--main-color);
-    margin-left: 5px;
+    margin-left: 5px
 }
 
 .chartbox .card .card-header .form-control,
 .chartbox .card .card-header .form-select,
 .chartbox .card .card-body .list-group-item {
-    font-size: 0.85rem;
-    box-shadow: none;
+    font-size: .85rem;
+    box-shadow: none
 }
-.chartbox .card .card-header .form-check-input[type=radio]{
-    margin-top: 10px;
+
+.chartbox .card .card-header .form-check-input[type=radio] {
+    margin-top: 10px
 }
+
 .chartbox .activity-item {
     margin-bottom: 5px;
     border-radius: 5px;
     padding: 8px 10px;
-    font-size: 0.85rem;
+    font-size: .85rem;
     transition: all .25s ease-in;
     display: block;
     text-decoration: none;
-    color: #000;
+    color: #000
 }
 
 .chartbox .bg-high:hover {
     background-color: #dbffd2;
     transition: all .25s ease-in;
-    /* box-shadow: 0px 0px 4px 3px #eee; */
-    color: rgb(0, 146, 0);
+    color: #009200
 }
 
 .chartbox .bg-low:hover {
     background-color: #ffdfdf;
     transition: all .25s ease-in;
-    /* box-shadow: 0px 0px 4px 3px #eee; */
-    color: rgb(146, 0, 0);
+    color: #920000
 }
 
 .chartbox .table {
-    font-size: 0.8rem;
+    font-size: .8rem
 }
 
 .chartbox .table thead th {
     background-color: #f5f5f5;
     border-bottom: solid 1px #aaa;
     border-top: solid 1px #eee;
-    font-weight: 500;
+    font-weight: 500
 }
 
 .chartbox .table th,
 .chartbox .table td {
-    vertical-align: middle;
+    vertical-align: middle
 }
 
 .chartbox .table td .btn {
-    font-size: 0.65rem;
+    font-size: .65rem;
     box-shadow: none;
     outline: none;
-    padding: 5px 7px;
+    padding: 5px 7px
 }
 
 .chartbox .table td a {
-    text-decoration: none;
+    text-decoration: none
 }
 
 .chartbox .table td a:hover {
-    text-decoration: underline;
+    text-decoration: underline
 }
 
 .chartbox .table img {
@@ -126,7 +128,7 @@
     border: solid 1px #aaa;
     margin-right: 2px;
     padding: 2px;
-    object-fit: contain;
+    object-fit: contain
 }
 
 .chartbox .table .prophoto {
@@ -134,79 +136,79 @@
     height: 50px;
     border-radius: 3px;
     border: none;
-    padding: 0;
+    padding: 0
 }
 
 .btn-main {
     background-color: var(--main-color);
     color: #fff;
-    font-size: 0.85rem;
+    font-size: .85rem
 }
 
 .btn-outline-main {
     color: var(--main-color);
     border: solid 1px var(--main-color);
-    font-size: 0.85rem;
+    font-size: .85rem
 }
 
 .btn-outline-main:hover {
     background-color: var(--main-color);
-    color: #fff;
+    color: #fff
 }
 
 .modal .modal-header {
     background-color: var(--main-color);
-    color: #fff;
+    color: #fff
 }
 
 .modal .modal-content {
-    border: none;
+    border: none
 }
 
 .modal p {
-    font-size: 0.85rem;
+    font-size: .85rem
 }
 
 .modal .table {
-    font-size: 0.8rem;
+    font-size: .8rem
 }
 
 .modal .table thead th {
     background-color: #f5f5f5;
     border-bottom: solid 1px #aaa;
-    border-top: solid 1px #eee;
+    border-top: solid 1px #eee
 }
 
 .modal button.btn-close {
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 50%
 }
 
 .form-container .form-label {
-    font-size: 0.75rem;
+    font-size: .75rem;
     margin-bottom: 5px;
-    color: #757575;
+    color: #757575
 }
 
 .form-container .form-select,
 .form-container .form-control,
 .form-container .form-data,
 .form-container .form-check-label {
-    font-size: 0.85rem;
+    font-size: .85rem;
     outline: none;
-    box-shadow: none;
+    box-shadow: none
 }
 
 .form-container .form-data {
-    font-weight: 500;
+    font-weight: 500
 }
 
 .form-container .partylogo {
-    width: 60px;
+    width: 60px
 }
 
 .form-container .btn {
-    font-size: 0.85rem;
+    font-size: .85rem
 }
 
 #email-container .list-group .active {
@@ -214,114 +216,115 @@
     border-bottom: none;
     border-top: none;
     background-color: #f5f5f5;
-    color: #000;
+    color: #000
 }
 
 #email-container .list-group-item {
     border-left: solid 4px #fff;
     border-bottom: none;
-    border-top: none;
+    border-top: none
 }
 
 #email-container .membername {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: .95rem;
+    font-weight: 500
 }
 
 #email-container .feeddate {
-    font-size: 0.7rem;
+    font-size: .7rem
 }
 
 #email-container .comment {
-    font-size: 0.75rem;
-    line-height: 18px;
+    font-size: .75rem;
+    line-height: 18px
 }
 
 #email-container .emailname {
-    font-size: 1.1rem;
+    font-size: 1.1rem
 }
 
 #email-container .emaildate,
 #email-container .emailcontact,
 #email-container .lblfeedback,
 #email-container .form-floating label {
-    font-size: 0.85rem;
-    color: #888;
+    font-size: .85rem;
+    color: #888
 }
 
 #email-container .feedback {
-    font-size: 0.85rem;
+    font-size: .85rem
 }
 
 #email-container .form-control {
-    font-size: 0.85rem;
+    font-size: .85rem;
     height: 100px;
     outline: none;
-    box-shadow: none;
+    box-shadow: none
 }
 
 #email-container .btn {
-    font-size: 0.85rem;
+    font-size: .85rem;
     box-shadow: none;
-    outline: none;
+    outline: none
 }
+
 #dash-stats {
-    margin-bottom: 15px;
+    margin-bottom: 15px
 }
 
 #dash-stats .card {
     border: none;
     border-radius: 15px;
-    box-shadow: 1px 1px 4px #dfdfdf;
+    box-shadow: 1px 1px 4px #dfdfdf
 }
 
 #dash-stats .card i {
     font-size: 4.4rem;
     margin-bottom: 5px;
     position: absolute;
-    opacity: 0.1;
+    opacity: .1;
     bottom: 0;
-    left: 10px;
+    left: 10px
 }
 
 #dash-stats .card p {
-    font-size: 0.85rem;
+    font-size: .85rem;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 10px
 }
 
 #dash-stats .card h3 {
     font-weight: 400;
     text-align: right;
-    margin-bottom: 0;
+    margin-bottom: 0
 }
 
 #dash-stats .bg-cyan {
     background-color: #b7e7e9;
-    color: #2d7678;
+    color: #2d7678
 }
 
 #dash-stats .bg-green {
     background-color: #e0f3be;
-    color: #61743e;
+    color: #61743e
 }
 
 #dash-stats .bg-blue {
     background-color: #d4e0ff;
-    color: #22408d;
+    color: #22408d
 }
 
 #dash-stats .bg-gold {
     background-color: #f0e4bf;
-    color: #7c6319;
+    color: #7c6319
 }
 
 #dash-stats .bg-red {
     background-color: #ffdada;
-    color: #b20000;
+    color: #b20000
 }
 
 #dash-stats .bg-voilet {
     background-color: #eed3ee;
-    color: #510051;
+    color: #510051
 }
