@@ -208,31 +208,31 @@ export class MyProfileComponent implements OnInit {
       this.villageCityLabel = "Village";
       this.editProfileForm.controls['VillageId'].setValue(this.editProfileForm.value.VillageId);
 
-      this.editProfileForm.controls['DistrictId'].setValue(null);
-      this.editProfileForm.controls['TalukaId'].setValue(null);
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      // this.editProfileForm.controls['DistrictId'].setValue(null);
+      // this.editProfileForm.controls['TalukaId'].setValue(null);
+      // this.editProfileForm.controls['VillageId'].setValue(null);
     } else {
       this.villageCityLabel = "City";
       this.editProfileForm.controls['VillageId'].setValue(null);
 
-      this.editProfileForm.controls['DistrictId'].setValue(null);
-      this.editProfileForm.controls['TalukaId'].setValue(null);
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      // this.editProfileForm.controls['DistrictId'].setValue(null);
+      // this.editProfileForm.controls['TalukaId'].setValue(null);
+      // this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
   districtClear(text: any) {
     if (text == 'district') {
-      this.editProfileForm.controls['DistrictId'].setValue(null);
-      this.editProfileForm.controls['TalukaId'].setValue(null);
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      // this.editProfileForm.controls['DistrictId'].setValue(null);
+      // this.editProfileForm.controls['TalukaId'].setValue(null);
+      // this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'taluka') {
-      this.editProfileForm.controls['TalukaId'].setValue(null);
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      // this.editProfileForm.controls['TalukaId'].setValue(null);
+      // this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'village') {
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      // this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
@@ -262,7 +262,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   close() {
-    alert('ok')
+    // alert('ok')
     // this.editProfileForm.reset();
     // this. profileFormPathValue(this.resProfileData);
   }

@@ -126,7 +126,7 @@
                                         <div class="d-block">
                                             <!-- [checked]="defultCategory == category.name" -->
                                             <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                                <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" name="Gender" id="rgender">
+                                                <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender" id="rgender">
                                                 <label class="form-check-label" for="rgender">{{gender.name}}</label>
                                             </div>
                                         </div>
