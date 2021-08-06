@@ -265,3 +265,63 @@
     box-shadow: none;
     outline: none;
 }
+#dash-stats {
+    margin-bottom: 15px;
+}
+
+#dash-stats .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 1px 1px 4px #dfdfdf;
+}
+
+#dash-stats .card i {
+    font-size: 4.4rem;
+    margin-bottom: 5px;
+    position: absolute;
+    opacity: 0.1;
+    bottom: 0;
+    left: 10px;
+}
+
+#dash-stats .card p {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#dash-stats .card h3 {
+    font-weight: 400;
+    text-align: right;
+    margin-bottom: 0;
+}
+
+#dash-stats .bg-cyan {
+    background-color: #b7e7e9;
+    color: #2d7678;
+}
+
+#dash-stats .bg-green {
+    background-color: #e0f3be;
+    color: #61743e;
+}
+
+#dash-stats .bg-blue {
+    background-color: #d4e0ff;
+    color: #22408d;
+}
+
+#dash-stats .bg-gold {
+    background-color: #f0e4bf;
+    color: #7c6319;
+}
+
+#dash-stats .bg-red {
+    background-color: #ffdada;
+    color: #b20000;
+}
+
+#dash-stats .bg-voilet {
+    background-color: #eed3ee;
+    color: #510051;
+}

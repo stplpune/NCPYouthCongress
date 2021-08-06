@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row mx-1 px-0" id="pageheader">
+    <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-3">
             <span class="page-name">View Members</span>
         </div>
@@ -67,8 +67,8 @@
                             <td>{{allMembers.Location}}</td>
                             <td>{{allMembers.Designation}}</td>
                             <td>
-                                <ng-container *ngIf="allMembers.UserStatus == 0"><i class="fas  fa-times-circle fa-2x  text-danger"></i></ng-container>
-                                <ng-container *ngIf="allMembers.UserStatus != 0"><i class="fas fa-shield-alt fa-2x text-success"></i></ng-container>
+                                <ng-container *ngIf="allMembers.UserStatus == 0"><i class="fas  fa-times-circle text-danger"></i></ng-container>
+                                <ng-container *ngIf="allMembers.UserStatus != 0"><i class="fas fa-shield-alt text-success"></i></ng-container>
                             </td>
                             <!-- <ng-container *ngIf="designatedMembers.DeviceType == 1">
                                 <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
@@ -96,15 +96,18 @@
                     </tbody>
                 </table>
                 <div class="clearfix"></div>
-                <div class="mt-2  text-right float-lg-end" *ngIf="resultAllViewMembers?.length != 0">
-                    <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
-                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                <div class="text-end">
+                    <div class="mt-2" *ngIf="resultAllViewMembers?.length != 0">
+                        <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
 </div>
-
+<!-- 
 
 <div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -121,4 +124,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
