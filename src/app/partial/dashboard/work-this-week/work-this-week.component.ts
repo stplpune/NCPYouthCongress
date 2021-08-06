@@ -32,6 +32,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   filterBestPer!: FormGroup;
   toDate: any;
   fromDate: any;
+  catValue:any;
+  bestPerCat = ["Committee", "Location"];
+  
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
@@ -300,6 +303,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     });
   }
 
+  catChange(value:any){
+    this.catValue = value
+  }
   ngOnDestroy() {
     localStorage.removeItem('weekRange');
   }

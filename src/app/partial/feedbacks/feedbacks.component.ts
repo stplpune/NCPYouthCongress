@@ -181,8 +181,6 @@ export class FeedbacksComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
-    debugger;
-    console.log(pageNo);
     this.paginationNo = pageNo;
     this.getFeedBackData(this.FeedbackObj)
   }

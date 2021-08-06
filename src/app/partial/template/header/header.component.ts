@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,9 +10,15 @@ export class HeaderComponent implements OnInit {
  isShowMenu:boolean=false;
   @Output() onShowMenu: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router:Router, private route:ActivatedRoute) { }
+userName=this.commonService.loggedInUserName();
+
+  constructor(private router:Router, 
+    private route:ActivatedRoute,
+    private commonService: CommonService
+    ) { }
 
   ngOnInit(): void {
+    
   }
 
   showMenu(){

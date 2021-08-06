@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   
   constructor(private callAPIService: CallAPIService, private fb: FormBuilder,
     private spinner:NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute, private commonService: CommonService) { }
+    private toastrService: ToastrService, private router: Router,
+     private route: ActivatedRoute, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.reCaptcha();
@@ -66,6 +67,7 @@ export class LoginComponent implements OnInit {
         }
       })
     }
+    this.reCaptcha();
   }
 
   reCaptcha(){

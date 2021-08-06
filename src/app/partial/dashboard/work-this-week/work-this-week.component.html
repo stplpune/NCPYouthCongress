@@ -4,20 +4,19 @@
             <span class="page-name">View Members</span>
         </div>
         <div class="col-sm-9">
-                <div class="row g-1 d-flex justify-content-end">
-                    <div class="col-sm-3">
-                        <select class="form-select">
+            <div class="row g-1 d-flex justify-content-end">
+                <div class="col-sm-3">
+                    <select class="form-select">
                             <option value="">Select Political Work Type</option>
                         </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input class="form-control rounded me-2" type="text" placeholder="From To" />
-                    </div>
-                    <div class="col-sm-auto">
-                        <button type="button" class="btn btn-secondary rounded btn-sm"
-                            (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
-                    </div>
                 </div>
+                <div class="col-sm-3">
+                    <input class="form-control rounded me-2" type="text" placeholder="From To" />
+                </div>
+                <div class="col-sm-auto">
+                    <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
         </div>
     </div>
     <!-- <div class="row">
@@ -55,8 +54,7 @@
                         <div class="col-sm-6">
                             <p class="text-success font-weight-bold mb-1">Top Performance</p>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item list-group-item-success"
-                                    *ngFor="let topPerformance of WorkDoneByYuvakTP">
+                                <li class="list-group-item list-group-item-success" *ngFor="let topPerformance of WorkDoneByYuvakTP">
                                     <i class="fas fa-arrow-up me-2"></i>{{topPerformance.DistrictName}}
                                 </li>
 
@@ -65,10 +63,8 @@
                         <div class="col-sm-6">
                             <p class="text-danger font-weight-bold mb-1">Bottom Performance</p>
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-danger"
-                                    *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
-                                    <i class="fas fa-arrow-down me-2"></i>
-                                    {{bottomPerformance.DistrictName}}
+                                <li class="list-group-item list-group-item-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
+                                    <i class="fas fa-arrow-down me-2"></i> {{bottomPerformance.DistrictName}}
                                 </li>
 
                             </ul>
@@ -133,48 +129,39 @@
                                 Best Performance
                             </div>
                             <div class="col-sm-6 text-end">
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline" *ngFor="let PerformanceCat of bestPerCat">
+                                    <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" [checked]="PerformanceCat == 'Location'" (change)="catChange(PerformanceCat)">
+                                    <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat}}</label>
+                                </div>
+                                <!-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="rblWise" id="rbCommittee" value="Committee">
                                     <label class="form-check-label" for="rbCommittee">Committee</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
+                                </div>
+                                <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="rblWise" id="rbLocation" value="Location">
                                     <label class="form-check-label" for="rbLocation">Location</label>
-                                  </div>
+                                </div> -->
                             </div>
                         </div>
-                        <div class="row g-2">
+                        <div class="row g-2" *ngIf="catValue != 'Committee'">
                             <div class="col-md-4">
-                                <ngx-select [allowClear]="true" [items]="allDistrict"
-                                    (select)="getTaluka(this.filterBestPer.value.DistrictId)"
-                                    (remove)="districtClear('district')" formControlName="DistrictId"
-                                    optionValueField="DistrictId" optionTextField="DistrictName"
-                                    placeholder="Select District">
+                                <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                             </div>
                             <div class="col-md-4">
-                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
-                                    (remove)="districtClear('taluka')" optionValueField="TalukaId"
-                                    optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka"
-                                    (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)"
+                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="districtClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)"
                                     [disabled]="!this.filterBestPer.value.DistrictId">
                                 </ngx-select>
                             </div>
                             <div class="col-md-4">
-                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity"
-                                    (remove)="districtClear('village')" placeholder="Select village"
-                                    optionValueField="VillageId" optionTextField="VillageName"
-                                    formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
+                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select village" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
                                     (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
                                 </ngx-select>
                             </div>
                         </div>
-                        <div class="row g-2">
+                        <div class="row g-2" *ngIf="catValue == 'Committee'">
                             <div class="col-md-6 offset-6">
-                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity"
-                                    (remove)="districtClear('village')" placeholder="Select Committee Name"
-                                    optionValueField="VillageId" optionTextField="VillageName"
-                                    formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
+                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select Committee Name" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
                                     (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
                                 </ngx-select>
                             </div>

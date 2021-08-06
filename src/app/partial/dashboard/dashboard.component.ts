@@ -7,7 +7,6 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,12 +43,11 @@ export class DashboardComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
     private commonService: CommonService,
-    private fb: FormBuilder,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+  ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
     this.workLineChart();
