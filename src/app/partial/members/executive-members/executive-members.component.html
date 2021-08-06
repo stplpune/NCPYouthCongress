@@ -1,116 +1,109 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="pageheader">
-                <span class="page-name">Executive Members</span>
-            </div>
+    <div class="row mx-1 px-0" id="pageheader">
+        <div class="col-sm-3">
+            <span class="page-name">Executive Members</span>
         </div>
-        <!-- <div class="col-sm-6 text-end">
-            <input type="date" class="form-control" placeholder="Select Date" />
-        </div> -->
+        <div class="col-sm-9">
+            <form [formGroup]="filterForm">
+                <div class="row g-1">
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" optionTextField="BodyOrgCellName" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="districtClear('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (remove)="districtClear('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
+                            optionValueField="TalukaId" optionTextField="TalukaName">
+                        </ngx-select>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
+                            optionTextField="VillageName" placeholder="Select City/Village">
+                        </ngx-select>
+                    </div> -->
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" />
+                            <button type="button" class="btn btn-light border btn-sm" (click)="districtClear('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                            <button type="button" (click)="searchFilter()" class="btn btn-sm btn-main"><i class="fas fa-search"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <form [formGroup]="filterForm">
+                    <!-- <form [formGroup]="filterForm">
                         <div class="row g-1">
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="allDistrict" optionValueField="DistrictId"
-                                    optionTextField="DistrictName" (remove)="districtClear('district')"
-                                    placeholder="Select Executive Committee"
-                                    (select)="getTaluka(this.filterForm.value.DistrictId)">
+                            <div class="col-sm-2 offset-sm-3">
+                                <ngx-select [allowClear]="true" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="districtClear('district')" placeholder="Select Executive Committee" (select)="getTaluka(this.filterForm.value.DistrictId)">
                                 </ngx-select>
                             </div>
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
-                                    optionValueField="DistrictId" optionTextField="DistrictName"
-                                    (remove)="districtClear('district')" placeholder="Select District"
-                                    (select)="getTaluka(this.filterForm.value.DistrictId)">
+                            <div class="col-sm-2">
+                                <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="districtClear('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
                                 </ngx-select>
                             </div>
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
-                                    [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId"
-                                    (remove)="districtClear('taluka')"
-                                    (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
-                                    placeholder="Select Taluka" optionValueField="TalukaId"
-                                    optionTextField="TalukaName">
+                            <div class="col-sm-2">
+                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (remove)="districtClear('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
+                                    optionValueField="TalukaId" optionTextField="TalukaName">
                                 </ngx-select>
                             </div>
-                            <div class="col-sm">
+                           <div class="col-sm">
                                 <ngx-select [allowClear]="true" [items]="resultVillageOrCity"
                                     [disabled]="!filterForm.value.TalukaId" formControlName="VillageId"
                                     (remove)="districtClear('village')" optionValueField="VillageId"
                                     (select)="filterVillage(this.filterForm.value.VillageId)"
                                     optionTextField="VillageName" placeholder="Select City/Village">
                                 </ngx-select>
-                            </div>
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Search Member"
-                                        formControlName="searchText" />
-                                    <button type="button" class="btn btn-light border btn-sm"
-                                        (click)="districtClear('search')"><i _ngcontent-tbl-c102=""
+                            </div> 
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" />
+                            <button type="button" class="btn btn-light border btn-sm" (click)="districtClear('search')"><i _ngcontent-tbl-c102=""
                                             class="fas fa-times"></i></button>
-                                    <button type="button" (click)="searchFilter()" class="btn btn-sm btn-main"><i
+                            <button type="button" (click)="searchFilter()" class="btn btn-sm btn-main"><i
                                             class="fas fa-search"></i></button>
-                                </div>
-                            </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                </form> -->
                 </div>
                 <div class="card-body" id="exe-memcards">
-                    <a class="card card-body">
+                    <a class="card card-body" *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                         <div class="row d-flex align-items-center">
                             <div class="col-sm-auto">
-                                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prophoto" />
+                                <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
+                                <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
                             </div>
                             <div class="col-sm">
-                                Ravikant Varpe
+                                {{resultExeMember.FullName | titlecase}}
                             </div>
                             <div class="col-sm">
-                                <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> ravikantvarpe@gmail.com</p>
-                                <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> +91-9876543210</p>
+                                <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.ContactNo ? (resultExeMember.ContactNo | titlecase) : 'NA'}}</p>
                             </div>
                             <div class="col-sm">
                                 <p class="mb-1">City/Village,</p>
                                 <p class="mb-0">Taluka, District</p>
                             </div>
                             <div class="col-sm">
-                                <p class="mb-1">Pradesh Adhyaksha</p>
-                                <p class="mb-0 text-muted small">Maharashtra State Pradesh Adhyaksha</p>
+                                <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
+                                <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
                             </div>
                             <div class="col-sm-auto">
                                 <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo" />
                             </div>
                         </div>
                     </a>
-                    <a class="card card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-auto">
-                                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prophoto" />
-                            </div>
-                            <div class="col-sm">
-                                Ravikant Varpe
-                            </div>
-                            <div class="col-sm">
-                                <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> ravikantvarpe@gmail.com</p>
-                                <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> +91-9876543210</p>
-                            </div>
-                            <div class="col-sm">
-                                <p class="mb-1">City/Village,</p>
-                                <p class="mb-0">Taluka, District</p>
-                            </div>
-                            <div class="col-sm">
-                                <p class="mb-1">Pradesh Adhyaksha</p>
-                                <p class="mb-0 text-muted small">Maharashtra State Pradesh Adhyaksha</p>
-                            </div>
-                            <div class="col-sm-auto">
-                                <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo" />
-                            </div>
-                        </div>
-                    </a>
+
                     <!-- <table class="table table-hover">
                         <thead>
                             <tr>
@@ -153,9 +146,8 @@
                             </tr>
                         </tbody>
                     </table> -->
-                    <div class="mt-2 float-lg-end" *ngIf="resultAllViewMembers?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    <div class="mt-2 float-lg-end" *ngIf="resultAllExeMembers?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
             </div>
@@ -164,8 +156,7 @@
 </div>
 
 
-<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

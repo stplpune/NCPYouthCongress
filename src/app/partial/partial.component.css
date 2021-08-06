@@ -126,6 +126,7 @@
     border: solid 1px #aaa;
     margin-right: 2px;
     padding: 2px;
+    object-fit: contain;
 }
 
 .chartbox .table .prophoto {

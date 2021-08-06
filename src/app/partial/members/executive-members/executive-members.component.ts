@@ -17,12 +17,14 @@ export class ExecutiveMembersComponent implements OnInit {
   allDistrict: any;
   getTalkaByDistrict: any;
   resultVillageOrCity: any;
-  resultAllViewMembers: any;
+  resultAllExeMembers: any;
   paginationNo: number = 1;
   total: any;
   pageSize: number = 10;
+  globalBodyId: number = 0;
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   filterForm!: FormGroup;
+  memberNameArray:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -30,6 +32,7 @@ export class ExecutiveMembersComponent implements OnInit {
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
+    this.getMemberName();
     this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
@@ -39,7 +42,7 @@ export class ExecutiveMembersComponent implements OnInit {
     this.filterForm = this.fb.group({
       DistrictId: [''],
       TalukaId: [''],
-      VillageId: [''],
+      memberName: [''],
       searchText:['']
     })
   }
@@ -72,12 +75,31 @@ export class ExecutiveMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        console.log(this.getTalkaByDistrict)
       } else {
         this.spinner.hide();
         if (res.data == 1) {
           this.toastrService.error("Data is not available");
         } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  
+  getMemberName() {
+    this.spinner.show();    
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0?', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.memberNameArray = res.data1;
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
         }
       }
@@ -115,16 +137,17 @@ export class ExecutiveMembersComponent implements OnInit {
     (viewMembersObj.Talukaid == undefined || viewMembersObj.DistrictId  == null) ? viewMembersObj.Talukaid = 0 :   viewMembersObj.Talukaid;  
     (viewMembersObj.villageid == undefined || viewMembersObj.DistrictId  == null) ? viewMembersObj.villageid = 0 :   viewMembersObj.villageid;  
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=' + viewMembersObj.villageid + '&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=0&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo+'&BodyId='+this.globalBodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.resultAllViewMembers = res.data1;
+        this.resultAllExeMembers = res.data1;
+        console.log(this.resultAllExeMembers)
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.resultAllViewMembers = [];
+          this.resultAllExeMembers = [];
           this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
@@ -159,6 +182,10 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   searchFilter(){
+    if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+      this.toastrService.error("Please search and try again");
+      return
+    }
     this.viewMembersObj.SearchText = this.filterForm.value.searchText
     this.getViewMembers(this.viewMembersObj)
   }
