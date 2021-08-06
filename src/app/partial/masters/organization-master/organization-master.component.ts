@@ -291,8 +291,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
-    // this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -317,7 +315,6 @@ export class OrganizationMasterComponent implements OnInit {
 
 
   onRadioChangeCategory(category: any, flag: any) {
-    // debugger;
     if (category == "Rural") {
       this.villageCityLabel = "Village";
       if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
@@ -501,7 +498,6 @@ export class OrganizationMasterComponent implements OnInit {
   get d() { return this.AddDesignationForm.controls };
 
   submitDesignationForm(flag:any, id:any) {
-    debugger;
     if (flag == 'Edit') {
       this.addDesignation = 'Add';
       this.AddDesignationForm.value['Id'] = id;

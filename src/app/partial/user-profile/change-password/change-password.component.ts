@@ -70,7 +70,7 @@ export class ChangePasswordComponent implements OnInit {
           }
           else {
             this.spinner.hide();
-           this.toastrService.error("adsfsf")
+          //  this.toastrService.error("adsfsf")
           }
         })
         this.spinner.hide();
@@ -110,7 +110,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   passwordValid(controls:any) {
-    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{6,}$/);
+    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
     if (regExp.test(controls.value)) {
       return null;
     } else {
