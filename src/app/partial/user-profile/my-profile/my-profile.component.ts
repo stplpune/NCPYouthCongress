@@ -178,8 +178,10 @@ export class MyProfileComponent implements OnInit {
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
       this.villageCityLabel = "Village";
+      this.getVillageOrCity(this.editProfileForm.value.TalukaId, 'Village')
     } else {
       this.villageCityLabel = "City";
+      this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
     }
   }
 
