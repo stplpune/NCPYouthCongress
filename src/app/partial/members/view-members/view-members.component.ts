@@ -162,6 +162,10 @@ export class ViewMembersComponent implements OnInit {
   }
 
   searchFilter(){
+    if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+      this.toastrService.error("Please search and try again");
+      return
+    }
     this.viewMembersObj.SearchText = this.filterForm.value.searchText
     this.getViewMembers(this.viewMembersObj)
   }
