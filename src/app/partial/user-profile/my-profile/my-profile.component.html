@@ -16,7 +16,7 @@
                         <div class="card shadow-none border">
                             <div class="card-body" id="myprofile">
                                 <div class="mb-2 text-end">
-                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="updateProfileDate()">
                                         Edit Profile
                                     </button>
                                 </div>
@@ -52,15 +52,15 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <p class="modal-title mb-0" id="exampleModalLabel">Edit Profile</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()" #closeModal></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="getProfileData()" #closeModal></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="editProfileForm" enctype="multipart/form-data">
+                <form [formGroup]="editProfileForm" enctype="multipart/form-data" (ngSubmit)="updateProfile()">
                     <div class="row">
                         <div class="col-sm-3">
                             <a class="update-photo" (click)="choosePhoto()">
@@ -177,7 +177,7 @@
                                 </div>
                                 <hr />
                                 <div class="text-end">
-                                    <button type="button" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
+                                    <button type="submit" class="btn btn-main btn-sm">Update Profile</button>
                                 </div>
                             </div>
                         </div>

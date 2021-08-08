@@ -21,15 +21,16 @@ export class MyProfileComponent implements OnInit {
   allDistrict: any;
   globalDistrictId: any;
   submitted = false;
-  setVillOrcityName = "VillageName";
-  setVillOrCityId = "VillageId";
-  villageCityLabel = "Village";
+  setVillOrcityName: any;
+  setVillOrCityId: any;
+  villageCityLabel: any;
   selGender: any;
   editFlag: boolean = true;
   getImgExt: any;
   imgName: any;
   ImgUrl: any;
   selectedFile!: File;
+  globalVillageOrCityId: any;
   @ViewChild('closeModal') closeModal: any;
 
   constructor(
@@ -52,7 +53,6 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
-        this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -79,14 +79,18 @@ export class MyProfileComponent implements OnInit {
       Gender: [''],
       EmailId: ['', [Validators.required, Validators.email]],
       ProfilePhoto: [''],
-      Address: ['', [Validators.email]],
+      Address: [''],
     })
+  }
+
+  updateProfileDate(){
+    this.profileFormPathValue(this.resProfileData);
   }
 
   profileFormPathValue(data: any) {
     this.selGender = data.Gender;
+    data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getDistrict();
-    // this.getTaluka(data.DistrictId)
     this.ImgUrl = data.ProfilePhoto;
     this.editProfileForm.patchValue({
       FName: data.FName,
@@ -99,6 +103,7 @@ export class MyProfileComponent implements OnInit {
       DistrictId: data.DistrictId,
       TalukaId: data.TalukaId,
       VillageId: data.VillageId,
+      ProfilePhoto:data.ProfilePhoto
     });
   }
 
@@ -132,8 +137,10 @@ export class MyProfileComponent implements OnInit {
         if (this.editFlag) {
           this.editProfileForm.patchValue({
             TalukaId: this.editProfileForm.value.TalukaId,
-          })
-          this.getVillageOrCity(this.editProfileForm.value.TalukaId, 'Village')
+          });
+          let selValueCityOrVillage: any = "";
+          this.editProfileForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
+          this.getVillageOrCity(this.editProfileForm.value.TalukaId, selValueCityOrVillage)
         }
       } else {
         this.spinner.hide();
@@ -147,9 +154,9 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    // this.spinner.show();
+    this.spinner.show();
     let appendString = "";
-    selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
+    selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.editProfileForm.value.DistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -175,13 +182,17 @@ export class MyProfileComponent implements OnInit {
       return;
     }
     else {
+
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
-      })
-      fromData.append('ProfilePhoto', this.selectedFile);
+      });
+      debugger;
+      let profilePhoto:any = this.editProfileForm.value.ProfilePhoto ? '' : this.selectedFile
+      fromData.append('ProfilePhoto', profilePhoto);
+      
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
@@ -205,34 +216,26 @@ export class MyProfileComponent implements OnInit {
 
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
-      this.villageCityLabel = "Village";
-      this.editProfileForm.controls['VillageId'].setValue(this.editProfileForm.value.VillageId);
-
-      // this.editProfileForm.controls['DistrictId'].setValue(null);
-      // this.editProfileForm.controls['TalukaId'].setValue(null);
-      // this.editProfileForm.controls['VillageId'].setValue(null);
+      this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName"
+      this.getTaluka(this.editProfileForm.value.DistrictId);
+      this.editProfileForm.controls['VillageId'].setValue(this.globalVillageOrCityId);
     } else {
-      this.villageCityLabel = "City";
+      this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
+      this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
       this.editProfileForm.controls['VillageId'].setValue(null);
-
-      // this.editProfileForm.controls['DistrictId'].setValue(null);
-      // this.editProfileForm.controls['TalukaId'].setValue(null);
-      // this.editProfileForm.controls['VillageId'].setValue(null);
     }
+    this.getDistrict()
   }
 
   districtClear(text: any) {
     if (text == 'district') {
-      // this.editProfileForm.controls['DistrictId'].setValue(null);
-      // this.editProfileForm.controls['TalukaId'].setValue(null);
-      // this.editProfileForm.controls['VillageId'].setValue(null);
+      this.editProfileForm.controls['DistrictId'].setValue(null), this.editProfileForm.controls['TalukaId'].setValue(null), this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'taluka') {
-      // this.editProfileForm.controls['TalukaId'].setValue(null);
-      // this.editProfileForm.controls['VillageId'].setValue(null);
+      this.editProfileForm.controls['TalukaId'].setValue(null), this.editProfileForm.controls['VillageId'].setValue(null);
 
     } else if (text == 'village') {
-      // this.editProfileForm.controls['VillageId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
@@ -260,11 +263,4 @@ export class MyProfileComponent implements OnInit {
       this.toastrService.error("Profile image allowed only jpg or png format");
     }
   }
-
-  close() {
-    // alert('ok')
-    // this.editProfileForm.reset();
-    // this. profileFormPathValue(this.resProfileData);
-  }
-
 }
