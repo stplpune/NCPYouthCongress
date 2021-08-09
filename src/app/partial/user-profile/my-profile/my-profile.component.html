@@ -21,9 +21,9 @@
                                     </button>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <img src="" *ngIf="!ImgUrl" class="img-fluid">
+                                    <!-- <img src="" *ngIf="!ImgUrl" class="img-fluid"> -->
                                     <img *ngIf="resProfileData?.ProfilePhoto1" src="{{resProfileData?.ProfilePhoto1}}" class="rounded-circle mx-auto d-block">
-                                    <img *ngIf="!resProfileData?.ProfilePhoto1" src="assets/images/dashboard-images/ncplogo.png" class="rounded-circle mx-auto d-block">
+                                    <img *ngIf="!resProfileData?.ProfilePhoto1" src="assets/images/NCP-logo.svg" class="rounded-circle mx-auto d-block">
                                     <h5>{{resProfileData?.FullName}}</h5>
                                     <p class="mb-1">{{resProfileData?.Designation}}</p>
                                     <p class="text-muted small mb-1">Address</p>
@@ -66,9 +66,9 @@
                             <a class="update-photo" (click)="choosePhoto()">
                                 <i class="fas fa-camera"></i>
                             </a>
-                            <!-- <a class="update-photo" *ngIf="ImgUrl" (click)="clear()">
+                            <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
                                 <i class="fas fa-times"></i>
-                            </a> -->
+                            </a>
                             <input type="file" id="my_file" class="d-none" (change)="readUrl($event)">
                             <img src="/assets/images/dashboard-images/ncplogo.png" *ngIf="!ImgUrl" class="img-fluid">
                             <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
@@ -107,7 +107,8 @@
                                         <label for="txtEmailID" class="form-label required-field">Email ID</label>
                                         <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
                                         <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
-                                            <div *ngIf="f.EmailId.errors.email">Email is required</div>
+                                            <div *ngIf="f.EmailId.errors.required">Email is required</div>
+                                            <div *ngIf="f.EmailId.errors.email">Enter Valid email id</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
