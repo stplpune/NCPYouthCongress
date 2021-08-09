@@ -206,6 +206,7 @@ export class ExecutiveMembersComponent implements OnInit {
     }
     this.getViewMembers(this.viewMembersObj)
   }
+  
 
   searchFilter() {
     if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
