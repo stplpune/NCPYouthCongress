@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -43,8 +43,8 @@ export class FeedbacksComponent implements OnInit {
     this.getDistrict();
     this.defaultFilterForm();
     this.getMemberName();
-    console.log(this.defaultFromDate)
   }
+
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
@@ -165,6 +165,7 @@ export class FeedbacksComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
+    
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
