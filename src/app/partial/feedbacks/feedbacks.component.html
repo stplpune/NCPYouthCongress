@@ -54,11 +54,12 @@
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
                             <a *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}" class="list-group-item list-group-item-action" (click)="details(result)" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home"
                                 [ngClass]="{'text-muted':result.FeedbackStatus == 1, 'unread':result.FeedbackStatus == 0, 'replay':result.FeedbackStatus==2, 'ignored':result.FeedbackStatus==3}">
+
                                 <!-- <div class="d-flex w-100 justify-content-between"> -->
                                 <div>
 
                                     <p class="mb-0 text-end "> <small class="feeddate ">{{result.FeedbackDate}} - {{result.FeedbackTime}}</small></p>
-                                    <p class="membername mb-2 fw-bold"> {{result.FullName | titlecase}}</p>
+                                    <p class="membername mb-2 fw-bolder"> {{result.FullName | titlecase}}</p>
                                 </div>
                                 <!--  [class.active]="result.SrNo == HighlightRow"     
                                 [ngClass]="{'fw-light':result.FeedbackStatus == 1, 'text-info':result.FeedbackStatus==2, 'text-danger':result.FeedbackStatus==3}"
@@ -102,7 +103,7 @@
                                         </div>
                                     </div>
                                     <div class="text-start">
-                                        <button (click)="hideDiv()" type="button" class="btn btn-secondary float-lg-start">Clear</button>
+                                        <button (click)="feedBackDataResult('New'); defualtHideFeedback = false" type="button" class="btn btn-secondary float-lg-start">Clear</button>
                                     </div>
                                     <div class="text-end ">
 
