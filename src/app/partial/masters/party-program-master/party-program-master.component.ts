@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-party-program-master',
@@ -32,7 +33,8 @@ export class PartyProgramMasterComponent implements OnInit {
   disabledAction:boolean = true;
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
-    public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService
+    public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -202,4 +204,10 @@ export class PartyProgramMasterComponent implements OnInit {
   selprogramStatus(value:any){
     console.log(value.target.value)
   }
+
+  partyProgramDetails(programListId:any){
+    localStorage.setItem('programListIdKey', JSON.stringify(programListId));
+      this.router.navigate(['../party-program-details'], { relativeTo: this.route });
+  }
+
 }
