@@ -14,38 +14,37 @@
                 <div class="card-header">Create Program</div>
                 <div class="card-body pt-0 form-container">
                     <form [formGroup]="createProgram" (ngSubmit)="onSubmitProgramForm()">
-                    <div class="mb-2">
-                        <label for="txtProgramTitle" class="form-label">Program Title <span class="text-danger">*</span> </label>
-                        <input type="text" class="form-control" formControlName="ProgramTitle"  placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }"  />
-                        <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
-                            <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
+                        <div class="mb-2">
+                            <label for="txtProgramTitle" class="form-label">Program Title <span class="text-danger">*</span> </label>
+                            <input type="text" class="form-control" formControlName="ProgramTitle" placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }" />
+                            <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
+                                <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="txtProgramDescription" class="form-label">Program Description <span class="text-danger">*</span> </label>
-                        <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
-                        <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
-                            <div *ngIf="f.ProgramDescription.errors.required">Program Description is required</div>
+                        <div class="mb-2">
+                            <label for="txtProgramDescription" class="form-label">Program Description <span class="text-danger">*</span> </label>
+                            <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
+                            <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
+                                <div *ngIf="f.ProgramDescription.errors.required">Program Description is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
-                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramStartDate" class="form-control input-group-addon"
-                       placeholder="From Date" [min]="minDate"  [ngClass]="{ 'is-invalid': submitted && f.ProgramStartDate.errors }" />
-                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
-                        <div *ngIf="submitted && f.ProgramStartDate.errors" class="invalid-feedback">
-                            <div *ngIf="f.ProgramStartDate.errors.required">Program date is required</div>
-                        </div>
-                        <!-- <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="form-control input-group-addon mt-2"
+                        <div class="mb-4">
+                            <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
+                            <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramStartDate" class="form-control input-group-addon" placeholder="From Date" [min]="minDate" [ngClass]="{ 'is-invalid': submitted && f.ProgramStartDate.errors }" />
+                            <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                            <div *ngIf="submitted && f.ProgramStartDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.ProgramStartDate.errors.required">Program date is required</div>
+                            </div>
+                            <!-- <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="form-control input-group-addon mt-2"
                        placeholder="To Date" [min]="minDate" />
                         <owl-date-time #dt2 [pickerType]="'calendar'" ></owl-date-time> -->
-                      
-                    </div>
-                    <!-- <div class="mb-2">
+
+                        </div>
+                        <!-- <div class="mb-2">
                         <label for="txtProgramDuration" class="form-label"> <span class="text-danger">*</span> </label>
                         <input type="text" class="form-control" id="txtProgramDuration" placeholder="To Date" />
                     </div> -->
-                    <!-- <div class="mb-2">
+                        <!-- <div class="mb-2">
                         <label for="ddlProgramLevel" class="form-label">Program Level <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select Program Level">
                         </ngx-select>
@@ -55,12 +54,12 @@
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
                         </ngx-select>
                     </div> -->
-                    <!-- <div class="mb-3">
+                        <!-- <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                         </ngx-select>
                     </div> -->
-                    <!-- <div class="mb-2">
+                        <!-- <div class="mb-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
                             <label class="form-check-label" for="rblAreaRural">Rural</label>
@@ -80,12 +79,12 @@
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
                         </ngx-select>
                     </div> -->
-                    <div class="mb-2">
-                        <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
-                        <span class="float-end">
+                        <div class="mb-2">
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
+                            <span class="float-end">
                             <button type="submit" class="btn btn-main btn-sm">Create Party Program</button>
                         </span>
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -94,23 +93,27 @@
             <div class="card">
                 <div class="card-header">
                     <form [formGroup]="topFilter">
-                    <div class="row g-2 ">
-                        <div class="col-sm-3 offset-sm-6">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Status">
-                            </ngx-select>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                            <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'"  (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)"  class="form-control form-control-sm"   [owlDateTimeTrigger]="dt3" placeholder="Select date range">
-                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                        <div class="row g-2 ">
+                            <div class="col-sm-3 offset-sm-6">
+                                <select class="form-control" (change)="selprogramStatus($event)">
+                                    <option disabled selected>Select status</option>
+                                <option   *ngFor="let programStatus of programStatusArray" [value]="programStatus.id" [ngClass]="{'bg-success':programStatus.id == 1, 'bg-warning': programStatus.id == 2, 'bg-info':programStatus.id == 3, 'bg-danger':programStatus.id ==  4}"> 
+                                    {{programStatus.programStatus}}
+                                </option>
+                           </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)" class="form-control form-control-sm" [owlDateTimeTrigger]="dt3" placeholder="Select date range">
+                                    <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar"></i></button>
-                                <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                                    <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
                                 <i class="fas fa-times"></i></button>
                                 </div>
-                            <owl-date-time #dt3 [pickerType]="'calendar'" ></owl-date-time>
+                                <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -118,40 +121,53 @@
                             <tr>
                                 <th>Sr NO.</th>
                                 <th>Program Title</th>
-                                <th>District</th>
+                                <!-- <th>District</th> -->
                                 <th>Program Duration</th>
-                                <th>End Program</th>
                                 <th>Status</th>
-                                <th>Program Status</th>
+                                <th>Actions</th>
+                                <th>End Program</th>
                             </tr>
                         </thead>
                         <tbody>
-                          
+
                             <tr *ngFor="let programList of resultProgramList  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="programList.Id == HighlightRow">
                                 <td>{{programList.SrNo}}</td>
                                 <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td>
-                                <td>{{programList?.ProgramDescription}}</td>
+                                <!-- <td>{{programList?.ProgramDescription}}</td> -->
                                 <td>
-                                    {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate}}
+                                    {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate ? programList?.ProgramEndDate : 'NA'}}
                                 </td>
                                 <td>
-                                    <h6 class="mb-0"><span class="badge rounded-pill bg-danger"> {{programList?.ProgramStatus}} </span></h6>
+                                    <!--  -->
+                                    <h6 class="mb-0">
+                                        <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}"> 
+                                        <!-- <ng-container *ngIf="programList.ProgramStatus == 1; then first; programList.ProgramStatus == 2; then second; programList.ProgramStatus == 3; then third else fourth"></ng-container>
+                                        <ng-template #first class="bg-success">Upcomimg</ng-template>
+                                        <ng-template #second class="bg-warning">Second</ng-template>
+                                        <ng-template #third class="bg-danger">Third</ng-template>
+                                        <ng-template #fourth class="bg-info">Third</ng-template> -->
+                                        <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">Upcomimg</ng-container>
+                                        <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">Ongoing</ng-container>
+                                        <ng-container class="bg-info" *ngIf="programList.ProgramStatus == 3">Completed</ng-container>
+                                        <ng-container class="bg-danger" *ngIf="programList.ProgramStatus == 4">Cancelled</ng-container>
+
+                                    </span></h6>
                                 </td>
 
                                 <td>
                                     <button class="btn btn-sm btn-light" title="View Program Details" (click)="ViewProgramList(programList)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program" (click)="editrogramList(programList)">
+                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="editrogramList(programList)">
                                         <i class="far fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="cancelProgramList(programList)">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" (change)="endProgramList(programList, programList?.ProgramStatus)"  [checked]="programList?.ProgramStatus == 1"> 
+                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" (change)="endProgramList(programList)" [checked]="programList?.ProgramStatus == 1">
                                         <!-- ProgramStatus -->
                                         <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
                                     </div>
@@ -205,13 +221,13 @@
                     </div> -->
                 </div>
                 <hr>
-                <div class="float-start">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                </div>
                 <div class="float-end">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="clearForm()">Close</button>
+                </div>
+                <!-- <div class="float-end">
                     <button type="button" class="btn btn-warning btn-sm me-2" (click)="editrogramList(programDetails)" data-bs-dismiss="modal">Edit Program</button>
                     <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
-                </div>
+                </div> -->
             </div>
 
         </div>

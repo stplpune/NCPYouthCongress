@@ -13,6 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
   providers: [DatePipe]
 })
 export class PartyProgramMasterComponent implements OnInit {
+  programStatusArray = [{id:1, programStatus:'Upcomimg'},{id:2, programStatus:'Ongoing'},{id:3, programStatus:'Completed'},{id:'4', programStatus:'Cancelled'}]
   public items: string[] = [];
   resultProgramList: any;
   defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
@@ -28,6 +29,7 @@ export class PartyProgramMasterComponent implements OnInit {
   topFilter!:FormGroup;
   defaultCloseBtn:boolean = false;
   pageSize: number = 10;
+  disabledAction:boolean = true;
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
     public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService
@@ -150,10 +152,31 @@ export class PartyProgramMasterComponent implements OnInit {
     this.getProgramList();
   }
 
-  endProgramList(data:any,status:any) {
+  endProgramList(data:any) {
     this.spinner.show();
-    let proStatus:any ="";
-    status == 1 ?  proStatus = 0 : proStatus = 1; 
+    let proStatus  =  3;
+    // status == 1 ?  proStatus = 0 : proStatus = 1; 
+    this.callAPIService.setHttp('get', 'Web_End_PartyProgram?ProgramId=' + data.Id + '&StatusId=' + proStatus + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getProgramList();
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          // this.toastrService.error("Data is not available 1");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  cancelProgramList(data:any) {
+    this.spinner.show();
+    let proStatus  =  4;
+    // status == 1 ?  proStatus = 0 : proStatus = 1; 
     this.callAPIService.setHttp('get', 'Web_End_PartyProgram?ProgramId=' + data.Id + '&StatusId=' + proStatus + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -174,5 +197,9 @@ export class PartyProgramMasterComponent implements OnInit {
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
     this.getProgramList()
+  }
+
+  selprogramStatus(value:any){
+    console.log(value.target.value)
   }
 }
