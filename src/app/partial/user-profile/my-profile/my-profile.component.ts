@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
@@ -32,6 +32,7 @@ export class MyProfileComponent implements OnInit {
   selectedFile!: File;
   globalVillageOrCityId: any;
   @ViewChild('closeModal') closeModal: any;
+  @ViewChild('myInput') myInputVariable!: ElementRef;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -180,24 +181,23 @@ export class MyProfileComponent implements OnInit {
       return;
     }
     else {
-
+      debugger;
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
       });
-      let profilePhoto:any = this.editProfileForm.value.ProfilePhoto ? '' : this.selectedFile;
-      fromData.append('ProfilePhoto', profilePhoto);
+      fromData.append('ProfilePhoto', this.selectedFile == undefined  ? '' : this.selectedFile);
       let profilePhotoChange:any; 
       this.selectedFile ?  profilePhotoChange = 1 : profilePhotoChange = 0;
-
       fromData.append('IsPhotoChange', profilePhotoChange);
-      
+
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
+          this.resetFile()
           let modalClosed = this.closeModal.nativeElement;
           modalClosed.click();
           this.spinner.hide();
@@ -214,6 +214,10 @@ export class MyProfileComponent implements OnInit {
       })
     }
   }
+
+  resetFile() {
+    this.myInputVariable.nativeElement.value = '';
+}
 
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {

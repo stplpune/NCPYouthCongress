@@ -69,8 +69,8 @@
                             <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
                                 <i class="fas fa-times"></i>
                             </a>
-                            <input type="file" id="my_file" class="d-none" (change)="readUrl($event)">
-                            <img src="/assets/images/dashboard-images/ncplogo.png" *ngIf="!ImgUrl" class="img-fluid">
+                            <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)">
+                            <img src="assets/images/NCP-logo.svg" *ngIf="!ImgUrl" class="img-fluid">
                             <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
 
                         </div>
