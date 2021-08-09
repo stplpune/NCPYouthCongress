@@ -1,14 +1,30 @@
 <div class="container-fluid">
-    <div class="row  col-sm-12 " id="pageheader">
-        <div class="col-sm-10">
-            <span class="page-name">Perception on Social Media
-                </span>
+    <div class="row mx-0 px-0" id="pageheader">
+        <div class="col-sm-3">
+            <span class="page-name">Perception on Social Media</span>
         </div>
-        <div class="col-sm-2">
-            <span>
-                    <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" [(ngModel)]="dateRange" class="form-control form-control-sm"  [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
-                    <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
-                </span>
+        <div class="col-sm-9">
+            <div class="row g-1 d-flex justify-content-end">
+                <div class="col-sm-3">
+                    <select class="form-select">
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-select">
+                        <option value="">Select Taluka</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" [(ngModel)]="dateRange"
+                            class="form-control form-control-sm" [max]="maxDate" [selectMode]="'range'"
+                            [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                        <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

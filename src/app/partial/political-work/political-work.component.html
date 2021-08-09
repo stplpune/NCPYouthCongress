@@ -86,8 +86,8 @@
                             <th scope="col">Member Name</th>
                             <th scope="col">Work Type</th>
                             <th scope="col">Title</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Photos</th>
+                            <!-- <th scope="col">Description</th> -->
+                            <!-- <th scope="col">Photos</th> -->
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -99,12 +99,12 @@
                             <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
                             <td>{{politicalWork.Title | titlecase}}</td>
-                            <td>{{politicalWork.Description | titlecase}}</td>
-                            <th scope="row">
+                            <!-- <td>{{politicalWork.Description | titlecase}}</td> -->
+                            <!-- <th scope="row">
                                 <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">
                                     <img src="{{img}}">
                                 </ng-container>
-                            </th>
+                            </th> -->
                             <td>
                                 <button class="btn btn-sm btn-light" data-bs-toggle="modal"
                                     data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>

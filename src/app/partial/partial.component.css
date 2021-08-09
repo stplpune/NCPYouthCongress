@@ -27,7 +27,26 @@
     box-shadow: none!important;
     outline: none!important
 }
-
+#pageheader .input-group .form-control
+{
+    border-right: none;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+#pageheader .input-group .btn
+{
+    background-color:transparent;
+    border: 1px solid #ced4da;
+    border-left: none;
+    box-shadow: none;
+    outline:none;
+}
+#pageheader .btn{
+    width: 34px;
+    height:34px;
+    box-shadow: none;
+    outline:none;
+}
 .chartHeight {
     height: 300px;
     font-size: .75rem

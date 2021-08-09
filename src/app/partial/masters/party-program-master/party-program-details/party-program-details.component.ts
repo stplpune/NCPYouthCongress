@@ -28,7 +28,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     }
 
   GetProgramDetails() {
-    this.spinner.show();
+    // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_1_0?ProgramId=' + this.programListId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

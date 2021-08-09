@@ -11,7 +11,10 @@
                         </select>
                 </div>
                 <div class="col-sm-3">
-                    <input class="form-control rounded me-2" type="text" placeholder="From To" />
+                    <div class="input-group">
+                        <input class="form-control rounded" type="text" placeholder="From To" />
+                        <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
+                    </div>
                 </div>
                 <div class="col-sm-auto">
                     <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
@@ -144,7 +147,7 @@
                             </div>
                         </div>
                         <div class="row g-2" *ngIf="catValue != 'Committee'">
-                            <div class="col-md-4">
+                            <div class="col-md-4 offset-4">
                                 <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                             </div>
@@ -153,11 +156,11 @@
                                     [disabled]="!this.filterBestPer.value.DistrictId">
                                 </ngx-select>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select village" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
                                     (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
                                 </ngx-select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row g-2" *ngIf="catValue == 'Committee'">
                             <div class="col-md-6 offset-6">
