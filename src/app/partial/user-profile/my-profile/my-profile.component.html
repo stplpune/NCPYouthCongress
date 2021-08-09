@@ -107,7 +107,8 @@
                                         <label for="txtEmailID" class="form-label required-field">Email ID</label>
                                         <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
                                         <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
-                                            <div *ngIf="f.EmailId.errors.email">Email is required</div>
+                                            <div *ngIf="f.EmailId.errors.required">Email is required</div>
+                                            <div *ngIf="f.EmailId.errors.email">Enter Valid email id</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
