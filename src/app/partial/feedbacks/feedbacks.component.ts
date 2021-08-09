@@ -306,4 +306,10 @@ export class FeedbacksComponent implements OnInit {
       })
     }
   }
+
+  hideDiv(){
+    this.defualtHideFeedback = false; 
+    this.HighlightRow = 1;
+    this.getFeedBackData(false)
+  }
 }
