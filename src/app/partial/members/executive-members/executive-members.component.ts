@@ -41,7 +41,7 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
-    this.searchFilter();
+    this.searchFilter('false');
   }
 
 
@@ -210,7 +210,13 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj)
   }
 
-  searchFilter() {
+  searchFilter(flag:any) {
+    if(flag == 'true'){
+      if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
     this.subject
       .pipe(debounceTime(500))
       .subscribe(() => {
