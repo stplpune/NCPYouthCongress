@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-executive-members',
@@ -27,7 +28,6 @@ export class ExecutiveMembersComponent implements OnInit {
   filterForm!: FormGroup;
   memberNameArray: any;
   memberCountData: any;
-
 
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -214,11 +214,16 @@ export class ExecutiveMembersComponent implements OnInit {
       return
     }
     this.viewMembersObj.SearchText = this.filterForm.value.searchText;
-    this.viewMembersObj.SearchText.pipe(
-      debounceTime(10000),
-      this.getViewMembers(this.viewMembersObj)
-    )
- 
-   
+    // this.getViewMembers(this.viewMembersObj)
+    this.getViewMembers(this.viewMembersObj)
+    // this.filterForm.value.searchText.valueChanges
+    //   .pipe(
+    //     debounceTime(400),
+    //     this.getViewMembers(this.viewMembersObj)
+    //   )
+    //   .subscribe((res:any)=> {
+    //     console.log(`debounced text input value ${res}`);
+    //   });
   }
+ 
 }
