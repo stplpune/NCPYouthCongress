@@ -264,4 +264,9 @@ export class MyProfileComponent implements OnInit {
       this.toastrService.error("Profile image allowed only jpg or png format");
     }
   }
+
+  removePhoto(){
+   
+    this.ImgUrl = null;
+  }
 }

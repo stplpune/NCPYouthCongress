@@ -233,6 +233,7 @@ export class FeedbacksComponent implements OnInit {
   details(data: any) {
     // this.HighlightRow = data.SrNo;
     this.detailsData = data;
+    console.log(this.detailsData);
     this.defualtHideFeedback = true;
     this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
     this.spinner.show();
