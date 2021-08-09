@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public location:Location,
+    
+  ) { }
 
   ngOnInit(): void {
   }
