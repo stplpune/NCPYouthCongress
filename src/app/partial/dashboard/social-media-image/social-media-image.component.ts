@@ -283,7 +283,6 @@ export class SocialMediaImageComponent implements OnInit {
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.behavior = "zoomY";
 
-
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
@@ -297,15 +296,16 @@ export class SocialMediaImageComponent implements OnInit {
     series3.segments.template.strokeWidth = 1;
 
     let hs4 = series4.segments.template.states.create("hover")
-    hs2.properties.strokeWidth = 5;
-    series2.segments.template.strokeWidth = 1;
+    hs4.properties.strokeWidth = 5;
+    series4.segments.template.strokeWidth = 1;
 
     let hs5 = series5.segments.template.states.create("hover")
-    hs3.properties.strokeWidth = 5;
-    series3.segments.template.strokeWidth = 1;
+    hs5.properties.strokeWidth = 5;
+    series5.segments.template.strokeWidth = 1;
 
     // Add legend
     chart.legend = new am4charts.Legend();
+    // chart.legend.paddingLeft = 80;
     chart.legend.itemContainers.template.events.on("over", function (event: any) {
       let segments = event.target.dataItem.dataContext.segments;
       segments.each(function (segment: any) {

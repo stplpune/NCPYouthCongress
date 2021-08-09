@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -28,6 +28,7 @@ export class ExecutiveMembersComponent implements OnInit {
   filterForm!: FormGroup;
   memberNameArray: any;
   memberCountData: any;
+  subject: Subject<any> = new Subject();
 
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -40,6 +41,7 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
+    this.searchFilter();
   }
 
   
@@ -208,22 +210,41 @@ export class ExecutiveMembersComponent implements OnInit {
   }
   
 
-  searchFilter() {
-    if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
-      this.toastrService.error("Please search and try again");
-      return
-    }
-    this.viewMembersObj.SearchText = this.filterForm.value.searchText;
-    // this.getViewMembers(this.viewMembersObj)
-    this.getViewMembers(this.viewMembersObj)
-    // this.filterForm.value.searchText.valueChanges
-    //   .pipe(
-    //     debounceTime(400),
-    //     this.getViewMembers(this.viewMembersObj)
-    //   )
-    //   .subscribe((res:any)=> {
-    //     console.log(`debounced text input value ${res}`);
-    //   });
+  // searchFilter() {
+  //   if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
+  //     this.toastrService.error("Please search and try again");
+  //     return
+  //   }
+  //   this.viewMembersObj.SearchText = this.filterForm.value.searchText;
+  //   // this.getViewMembers(this.viewMembersObj)
+  //   this.getViewMembers(this.viewMembersObj)
+  //   // this.filterForm.value.searchText.valueChanges
+  //   //   .pipe(
+  //   //     debounceTime(400),
+  //   //     this.getViewMembers(this.viewMembersObj)
+  //   //   )
+  //   //   .subscribe((res:any)=> {
+  //   //     console.log(`debounced text input value ${res}`);
+  //   //   });
+  // }
+
+  searchFilter(){
+    // if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
+    //   this.toastrService.error("Please search and try again");
+    //   return;
+    // }
+
+    this.subject
+    .pipe(debounceTime(600))
+    .subscribe(() => {
+      this.viewMembersObj.SearchText = this.filterForm.value.searchText;
+        this.getViewMembers(this.viewMembersObj)
+      }
+    );
   }
- 
+
+  onKeyUp(): void {
+    this.subject.next();
+  }
+
 }
