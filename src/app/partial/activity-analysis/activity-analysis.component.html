@@ -6,19 +6,20 @@
         <div class="col-sm-8">
             <div class="row g-1">
                 <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Political Activity">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
                     <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                     </ngx-select>
                 </div>
                 <div class="col-sm-3">
                     <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
                     </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Search Member" />
                 </div>
             </div>
         </div>
@@ -72,7 +73,22 @@
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card card-body">
-                asdf
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Activity Date</th>                            
+                            <th scope="col">Likes</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Shares</th>
+                            <th scope="col">Abuses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
