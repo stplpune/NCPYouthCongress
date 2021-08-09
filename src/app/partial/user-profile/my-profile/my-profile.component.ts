@@ -78,9 +78,7 @@ export class MyProfileComponent implements OnInit {
       ConstituencyNo: [''],
       Gender: [''],
       EmailId: ['', [Validators.required, Validators.email]],
-      ProfilePhoto: [''],
       Address: [''],
-      IsPhotoChange: [''],
     })
   }
 
@@ -103,8 +101,7 @@ export class MyProfileComponent implements OnInit {
       Address: data.Address,
       DistrictId: data.DistrictId,
       TalukaId: data.TalukaId,
-      VillageId: data.VillageId,
-      ProfilePhoto:data.ProfilePhoto
+      VillageId: data.VillageId
     });
   }
 
@@ -190,7 +187,6 @@ export class MyProfileComponent implements OnInit {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
       });
-      debugger;
       let profilePhoto:any = this.editProfileForm.value.ProfilePhoto ? '' : this.selectedFile;
       fromData.append('ProfilePhoto', profilePhoto);
       let profilePhotoChange:any; 
