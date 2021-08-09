@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   defaultLoginForm() {
     this.loginForm = this.fb.group({
       UserName: ['', Validators.required],
-      Password: ['', Validators.required],
+      Password: ['',  [this.passwordValid]],
       recaptchaReactive: ['', Validators.required],
     })
   }
@@ -79,4 +79,15 @@ export class LoginComponent implements OnInit {
     this.show_button = !this.show_button;
     this.show_eye = !this.show_eye;
   }
+
+  
+  passwordValid(controls:any) {
+    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { passwordValid: true }
+    }
+  }
+
 }

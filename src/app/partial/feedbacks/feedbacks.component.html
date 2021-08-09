@@ -6,23 +6,23 @@
         <div class="col-sm-8">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-md-3">
-                        <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterForm.value.DistrictId)" (remove)="districtClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                    <div class="col-md-3 offset-md-3">
+                        <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterForm.value.DistrictId)" (remove)="filterClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                         </ngx-select>
 
                     </div>
                     <div class="col-md-3">
-                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="districtClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="filterClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
                             [disabled]="!this.filterForm.value.DistrictId">
                         </ngx-select>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select village" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterForm.value.TalukaId"
                             (select)="getVillByTaluka(this.filterForm.value.VillageId)">
                         </ngx-select>
-                    </div>
+                    </div> -->
                     <div class="col-md-3">
-                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" optionTextField="FullName" placeholder="Select Member Name">
+                        <ngx-select [allowClear]="true" [items]="memberNameArray" (remove)="filterClear('member')" optionValueField="Id" formControlName="MemberId" optionTextField="FullName" placeholder="Select Member Name" (select)="selectMember($event)">
                         </ngx-select>
                     </div>
                 </div>

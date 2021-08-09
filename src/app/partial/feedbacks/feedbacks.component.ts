@@ -29,7 +29,7 @@ export class FeedbacksComponent implements OnInit {
   detailsData: any;
   defualtHideFeedback: boolean = false;
   globalFeedbackStatus: number = 0;
-  memberNameArray:any;
+  memberNameArray: any;
   defaultToDate = Date.now();
   defaultFromDate = new Date(Date.now() + - 30 * 24 * 60 * 60 * 1000);
 
@@ -42,14 +42,16 @@ export class FeedbacksComponent implements OnInit {
     this.getFeedBackData(this.FeedbackObj);
     this.getDistrict();
     this.defaultFilterForm();
+    this.getMemberName();
+    console.log(this.defaultFromDate)
   }
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       DistrictId: [''],
       TalukaId: [''],
-      VillageId: [''],
-      searchText: ['']
+      VillageId: [0],
+      MemberId: ['']
     })
   }
 
@@ -120,7 +122,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getMemberName() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -154,8 +156,10 @@ export class FeedbacksComponent implements OnInit {
       (FeedbackObj.Talukaid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.Talukaid = 0 : FeedbackObj.Talukaid = this.FeedbackObj.Talukaid;
       (FeedbackObj.villageid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.villageid = 0 : FeedbackObj.villageid = this.FeedbackObj.villageid;
     }
+    let statusId: any;
+    statusId = this.FeedbackObj.statusId == undefined || this.FeedbackObj.statusId == null ? statusId = 0 : statusId = this.FeedbackObj.statusId;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&MemberId=' + FeedbackObj.MemberId + '&PageNo=' + this.paginationNo + '&StatusId=' + this.FeedbackObj.statusId+'&FromDate='+fromDate+'&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&MemberId=' + FeedbackObj.MemberId + '&PageNo=' + this.paginationNo + '&StatusId=' + statusId + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -174,7 +178,6 @@ export class FeedbacksComponent implements OnInit {
   }
 
   feedBackDataResult(flag: any) {
-    debugger;
     if (flag == 'Ignored') {
       this.FeedbackObj.statusId = 3;
     } else if (flag == 'Replied') {
@@ -184,6 +187,7 @@ export class FeedbacksComponent implements OnInit {
     } else if (flag == 'Read') {
       this.FeedbackObj.statusId = 1;
     }
+
     this.getFeedBackData(this.FeedbackObj);
   }
 
@@ -192,7 +196,8 @@ export class FeedbacksComponent implements OnInit {
     this.getFeedBackData(this.FeedbackObj)
   }
 
-  districtClear(flag: any) {
+  filterClear(flag: any) {
+    debugger
     if (flag == 'district') {
       this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0 }
       this.filterForm.reset();
@@ -200,15 +205,21 @@ export class FeedbacksComponent implements OnInit {
       this.filterForm.reset({ DistrictId: this.FeedbackObj.DistrictId });
       this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: 0 }
     }
-    else if (flag == 'village') {
-      this.filterForm.reset({
-        VillageId: 0
-      });
-      this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
-    } else if (flag == 'search') {
+    // else if (flag == 'village') {
+    //   this.filterForm.reset({
+    //     VillageId: 0
+    //   });
+    //   this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
+    // } 
+
+    else if (flag == 'member') {
       this.FeedbackObj.MemberId = 0;
-      this.filterForm.controls['searchText'].setValue('');
     }
+    this.getFeedBackData(this.FeedbackObj)
+  }
+
+  selectMember(memberId: any) {
+    this.FeedbackObj.MemberId = memberId;
     this.getFeedBackData(this.FeedbackObj)
   }
 
@@ -260,37 +271,37 @@ export class FeedbacksComponent implements OnInit {
         }
       })
     }
-}
+  }
 
-  insertFeebackReply(data: any, flag: any, id: any, fStatus:any) {
-      if ((data == "" || data == null) && flag != 'read') {
-        this.toastrService.error("Action taken field is required");
-      } else {
-        if (flag == 'read') {
-          this.globalFeedbackStatus = 1
-        } else if (flag == 'Ignore') {
-          this.globalFeedbackStatus = 3
-        } else if (flag == 'Reply') {
-          this.globalFeedbackStatus = 2
-        }
-        this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + id + '&Replymessage=' + data + '&FeedbackStatus=' + this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
-        this.callAPIService.getHttp().subscribe((res: any) => {
-          if (res.data == 0) {
-            this.defualtHideFeedback = true;
-            this.spinner.hide();
-            this.toastrService.success(res.data1[0].Msg)
-            this.getFeedBackData(this.FeedbackObj)
-            this.defualtHideFeedback = false;
-          } else {
-            this.defualtHideFeedback = false;
-            this.spinner.hide();
-            if (res.data == 1) {
-              this.toastrService.error("Data is not available");
-            } else {
-              this.toastrService.error("Please try again something went wrong");
-            }
-          }
-        })
+  insertFeebackReply(data: any, flag: any, id: any, fStatus: any) {
+    if ((data == "" || data == null) && flag != 'read') {
+      this.toastrService.error("Action taken field is required");
+    } else {
+      if (flag == 'read') {
+        this.globalFeedbackStatus = 1
+      } else if (flag == 'Ignore') {
+        this.globalFeedbackStatus = 3
+      } else if (flag == 'Reply') {
+        this.globalFeedbackStatus = 2
       }
+      this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + id + '&Replymessage=' + data + '&FeedbackStatus=' + this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.defualtHideFeedback = true;
+          this.spinner.hide();
+          this.toastrService.success(res.data1[0].Msg)
+          this.getFeedBackData(this.FeedbackObj)
+          this.defualtHideFeedback = false;
+        } else {
+          this.defualtHideFeedback = false;
+          this.spinner.hide();
+          if (res.data == 1) {
+            this.toastrService.error("Data is not available");
+          } else {
+            this.toastrService.error("Please try again something went wrong");
+          }
+        }
+      })
+    }
   }
 }
