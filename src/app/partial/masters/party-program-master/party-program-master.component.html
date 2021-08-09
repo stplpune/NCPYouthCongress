@@ -97,7 +97,8 @@
                             <div class="col-sm-3 offset-sm-6">
                                 <select class="form-control" (change)="selprogramStatus($event)">
                                     <option disabled selected>Select status</option>
-                                <option   *ngFor="let programStatus of programStatusArray" [value]="programStatus.id" [ngClass]="{'bg-success':programStatus.id == 1, 'bg-warning': programStatus.id == 2, 'bg-info':programStatus.id == 3, 'bg-danger':programStatus.id ==  4}"> 
+                                <option   *ngFor="let programStatus of programStatusArray" [value]="programStatus.id" > 
+                                    <!-- [ngClass]="{'bg-success':programStatus.id == 1, 'bg-warning': programStatus.id == 2, 'bg-info':programStatus.id == 3, 'bg-danger':programStatus.id ==  4}" -->
                                     {{programStatus.programStatus}}
                                 </option>
                            </select>

@@ -52,7 +52,7 @@
 </div>
 
 
-<div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="txtAddress" class="form-label required-field">Address</label>
+                                    <label for="txtAddress" class="form-label">Address</label>
                                     <textarea class="form-control" id="txtAddress" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
                                     <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
                                         <div *ngIf="f.Address.errors.required">Address is required</div>
