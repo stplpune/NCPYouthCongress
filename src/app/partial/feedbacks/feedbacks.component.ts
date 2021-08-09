@@ -21,7 +21,7 @@ export class FeedbacksComponent implements OnInit {
   paginationNo: number = 1;
   total: any;
   pageSize: number = 10;
-  HighlightRow: number = 1;
+  HighlightRow: any = 1;
   resultAllFeedBackDetails: any;
   FeedbackObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0, statusId: 0 }
   filterForm!: FormGroup;
@@ -231,7 +231,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   details(data: any) {
-    this.HighlightRow = data.SrNo
+    // this.HighlightRow = data.SrNo;
     this.detailsData = data;
     this.defualtHideFeedback = true;
     this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
@@ -306,4 +306,5 @@ export class FeedbacksComponent implements OnInit {
       })
     }
   }
+
 }
