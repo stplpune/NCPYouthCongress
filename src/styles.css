@@ -461,16 +461,13 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 .replay {
-    border-left: none!important;
     background-color: rgb(13, 202, 240, 12%)!important;
 }
 
 .unread {
-    background-color: rgb(0, 0, 0, 8%)!important;
     border-left: none!important;
 }
 
 .ignored {
-    background-color: rgb(220, 53, 69, 12%) !important;
     border-left: none!important;
 }
