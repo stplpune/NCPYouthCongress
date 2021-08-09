@@ -133,13 +133,13 @@
 
                             <tr *ngFor="let programList of resultProgramList  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="programList.Id == HighlightRow">
                                 <td>{{programList.SrNo}}</td>
-                                <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td>
+                                <!-- <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td> -->
+                                <td><a (click)="partyProgramDetails(programList.Id)" class="text-primary">{{programList?.ProgramTitle}}</a></td>
                                 <!-- <td>{{programList?.ProgramDescription}}</td> -->
                                 <td>
                                     {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate ? programList?.ProgramEndDate : 'NA'}}
                                 </td>
                                 <td>
-                                    <!--  -->
                                     <h6 class="mb-0">
                                         <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}"> 
                                         <!-- <ng-container *ngIf="programList.ProgramStatus == 1; then first; programList.ProgramStatus == 2; then second; programList.ProgramStatus == 3; then third else fourth"></ng-container>
