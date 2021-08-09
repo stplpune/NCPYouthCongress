@@ -80,6 +80,7 @@ export class MyProfileComponent implements OnInit {
       EmailId: ['', [Validators.required, Validators.email]],
       ProfilePhoto: [''],
       Address: [''],
+      IsPhotoChange: [''],
     })
   }
 
@@ -190,8 +191,12 @@ export class MyProfileComponent implements OnInit {
         fromData.append(cr, value)
       });
       debugger;
-      let profilePhoto:any = this.editProfileForm.value.ProfilePhoto ? '' : this.selectedFile
+      let profilePhoto:any = this.editProfileForm.value.ProfilePhoto ? '' : this.selectedFile;
       fromData.append('ProfilePhoto', profilePhoto);
+      let profilePhotoChange:any; 
+      this.selectedFile ?  profilePhotoChange = 1 : profilePhotoChange = 0;
+
+      fromData.append('IsPhotoChange', profilePhotoChange);
       
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
