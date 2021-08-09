@@ -6,6 +6,7 @@ import { OrganizationMasterComponent } from './organization-master.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+
+    DragDropModule
   ]
 })
 export class OrganizationMasterModule { }
