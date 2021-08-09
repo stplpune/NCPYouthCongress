@@ -62,6 +62,7 @@ export class FeedbacksComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
+       
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -74,7 +75,8 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    this.FeedbackObj.DistrictId = districtId
+    this.FeedbackObj.DistrictId = districtId;
+    this.paginationNo = 1;
     this.getFeedBackData(this.FeedbackObj);
 
     this.spinner.show();
@@ -147,19 +149,18 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getFeedBackData(FeedbackObj: any) {
-    debugger;
     let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
 
     if (FeedbackObj != false) {
       (FeedbackObj.DistrictId == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.DistrictId = 0 : FeedbackObj.DistrictId = this.FeedbackObj.DistrictId;
       (FeedbackObj.Talukaid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.Talukaid = 0 : FeedbackObj.Talukaid = this.FeedbackObj.Talukaid;
-      (FeedbackObj.villageid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.villageid = 0 : FeedbackObj.villageid = this.FeedbackObj.villageid;
+      (FeedbackObj.MemberId == undefined || FeedbackObj.MemberId == null) ? FeedbackObj.MemberId = 0 : FeedbackObj.MemberId = this.FeedbackObj.MemberId;
     }
     let statusId: any;
     statusId = this.FeedbackObj.statusId == undefined || this.FeedbackObj.statusId == null ? statusId = 0 : statusId = this.FeedbackObj.statusId;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&MemberId=' + FeedbackObj.MemberId + '&PageNo=' + this.paginationNo + '&StatusId=' + statusId + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + 0 + '&MemberId=' + FeedbackObj.MemberId + '&PageNo=' + this.paginationNo + '&StatusId=' + statusId + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -187,7 +188,7 @@ export class FeedbacksComponent implements OnInit {
     } else if (flag == 'Read') {
       this.FeedbackObj.statusId = 1;
     }
-
+    this.paginationNo  = 1;
     this.getFeedBackData(this.FeedbackObj);
   }
 
@@ -197,13 +198,12 @@ export class FeedbacksComponent implements OnInit {
   }
 
   filterClear(flag: any) {
-    debugger
     if (flag == 'district') {
       this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0 }
       this.filterForm.reset();
     } else if (flag == 'taluka') {
       this.filterForm.reset({ DistrictId: this.FeedbackObj.DistrictId });
-      this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: 0 }
+      this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: this.filterForm.value.MemberId }
     }
     // else if (flag == 'village') {
     //   this.filterForm.reset({
@@ -215,6 +215,7 @@ export class FeedbacksComponent implements OnInit {
     else if (flag == 'member') {
       this.FeedbackObj.MemberId = 0;
     }
+    this.paginationNo = 1;
     this.getFeedBackData(this.FeedbackObj)
   }
 
