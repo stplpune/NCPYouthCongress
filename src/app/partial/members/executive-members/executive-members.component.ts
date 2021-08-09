@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -41,10 +41,10 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
-    this.searchFilter();
+    this.searchFilter('false');
   }
 
-  
+
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
@@ -183,18 +183,19 @@ export class ExecutiveMembersComponent implements OnInit {
     }
     else if (flag == 'district') {
       debugger;
-      this.viewMembersObj = {BodyId:this.viewMembersObj.BodyId, DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', }
+      this.viewMembersObj = { BodyId: this.viewMembersObj.BodyId, DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', }
       this.filterForm.reset({
         BodyId: this.viewMembersObj.BodyId,
-        DistrictId:0,
-        Talukaid:0,
-        VillageId:0
+        DistrictId: 0,
+        Talukaid: 0,
+        VillageId: 0
       });
     } else if (flag == 'taluka') {
-      this.filterForm.reset({ 
+      this.filterForm.reset({
         BodyId: this.viewMembersObj.BodyId,
-        DistrictId: this.viewMembersObj.DistrictId });
-      this.viewMembersObj = {BodyId:this.viewMembersObj.BodyId, 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
+        DistrictId: this.viewMembersObj.DistrictId
+      });
+      this.viewMembersObj = { BodyId: this.viewMembersObj.BodyId, 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
     }
     // else if (flag == 'village') {
     //   this.filterForm.reset({
@@ -208,42 +209,24 @@ export class ExecutiveMembersComponent implements OnInit {
     }
     this.getViewMembers(this.viewMembersObj)
   }
-  
 
-  // searchFilter() {
-  //   if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
-  //     this.toastrService.error("Please search and try again");
-  //     return
-  //   }
-  //   this.viewMembersObj.SearchText = this.filterForm.value.searchText;
-  //   // this.getViewMembers(this.viewMembersObj)
-  //   this.getViewMembers(this.viewMembersObj)
-  //   // this.filterForm.value.searchText.valueChanges
-  //   //   .pipe(
-  //   //     debounceTime(400),
-  //   //     this.getViewMembers(this.viewMembersObj)
-  //   //   )
-  //   //   .subscribe((res:any)=> {
-  //   //     console.log(`debounced text input value ${res}`);
-  //   //   });
-  // }
-
-  searchFilter(){
-    // if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
-    //   this.toastrService.error("Please search and try again");
-    //   return;
-    // }
-
+  searchFilter(flag:any) {
+    if(flag == 'true'){
+      if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
     this.subject
-    .pipe(debounceTime(600))
-    .subscribe(() => {
-      this.viewMembersObj.SearchText = this.filterForm.value.searchText;
+      .pipe(debounceTime(500))
+      .subscribe(() => {
+        this.viewMembersObj.SearchText = this.filterForm.value.searchText;
         this.getViewMembers(this.viewMembersObj)
       }
-    );
+      );
   }
 
-  onKeyUp(): void {
+  onKeyUpFilter(){
     this.subject.next();
   }
 
