@@ -6,19 +6,20 @@
         <div class="col-sm-8">
             <div class="row g-1">
                 <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Political Activity">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
+                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-3">
                     <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                     </ngx-select>
                 </div>
                 <div class="col-sm-3">
                     <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
                     </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Search Member" />
                 </div>
             </div>
         </div>
@@ -47,7 +48,7 @@
             </div>
         </div>
         <div class="col-sm">
-            <div class="card card-body bg-cyan" >
+            <div class="card card-body bg-cyan">
                 <i class="fas fa-envelope-open-text"></i>
                 <p>Social Media Help</p>
                 <h3>345</h3>
@@ -72,7 +73,277 @@
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card card-body">
-                asdf
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Activity Date</th>
+                            <th scope="col">Activity Type</th>
+                            <th scope="col">Activity Title</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Shares</th>
+                            <th scope="col">Abuses</th>
+                            <th scope="col">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prophoto">
+                            </td>
+                            <td>
+                                <a routerLink="">Ravikant Varpe</a>
+                            </td>
+                            <td>
+                                10-02-2021
+                            </td>
+                            <td>
+                                Political Work
+                            </td>
+                            <td>
+                                Shetkari Andolan
+                            </td>
+                            <td>
+                                <h6 class="mb-0"><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#LikesModal">1542</a></h6>
+                            </td>
+                            <td>
+                                <h6 class="mb-0"><a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#CommentModal">1342</a></h6>
+                            </td>
+                            <td>
+                                <h6 class="mb-0"><a href="#" class="text-info" data-bs-toggle="modal" data-bs-target="#ShareModal">342</a></h6>
+                            </td>
+                            <td>
+                                <h6 class="mb-0"><a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#AbuseModal">42</a></h6>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal for likes details -->
+<div class="modal fade" id="LikesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LikesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <p class="modal-title" id="LikesModalLabel">Liked By</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for comment details -->
+<div class="modal fade" id="CommentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <p class="modal-title" id="CommentModalLabel">Comments By</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">Anil Kambale</p>
+                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for share details -->
+<div class="modal fade" id="ShareModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <p class="modal-title" id="ShareModalLabel">Shared By</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for share details -->
+<div class="modal fade" id="AbuseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AbuseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <p class="modal-title" id="AbuseModalLabel">Abuse Reported By</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
+                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for view details -->
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Activity Details</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">1</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">01-12-2021</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Posted By</label>
+                            <div id="txtMembersName" class="form-data">
+                                Mr. Anil Kambale
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Work Type</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Title</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    Title of the program
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Program</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    Program Name
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Media</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    Medium of the program
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Post Description</label>
+                            <div id="txtDescription" class="form-data">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">URL Link</label>
+                                <div id="txtMessageFavour" class="form-data">
+                                    <a href="#">URL Link</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Contact Person Details</label>
+                                <div id="txtMessageOppse" class="form-data">
+                                    Contact Person Name<br> +91-9871354230
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Photos</label>
+                            <div class="row g-1">
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm">Mark As Abuse</button>
+                <button type="button" class="btn btn-main btn-sm">Mark as Not Abuse</button>
             </div>
         </div>
     </div>

@@ -32,6 +32,7 @@
     height: 300px;
     font-size: .75rem
 }
+
 .btn-main {
     background-color: var(--main-color);
     color: #fff;
@@ -57,7 +58,7 @@
 .modal .modal-content {
     border: none
 }
-
+.modal .modal-body,
 .modal p {
     font-size: .85rem
 }
@@ -106,15 +107,15 @@
 
 #email-container .list-group .active {
     border-left: solid 4px var(--main-color);
-    border-bottom: none;
+    border-bottom: solid 1px #fff !important;
     border-top: none;
     background-color: #f5f5f5;
     color: #000
-    
 }
 
 #email-container .list-group-item {
     border-left: solid 4px #fff;
+    border-bottom: solid 1px #fff !important;
     border-bottom: none;
     border-top: none
 }
