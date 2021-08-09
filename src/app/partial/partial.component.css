@@ -57,7 +57,7 @@
 .modal .modal-content {
     border: none
 }
-
+.modal .modal-body,
 .modal p {
     font-size: .85rem
 }
