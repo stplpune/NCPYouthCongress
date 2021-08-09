@@ -218,7 +218,7 @@ export class ExecutiveMembersComponent implements OnInit {
       }
     }
     this.subject
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(700))
       .subscribe(() => {
         this.viewMembersObj.SearchText = this.filterForm.value.searchText;
         this.getViewMembers(this.viewMembersObj)
