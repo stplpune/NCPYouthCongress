@@ -23,14 +23,16 @@ export class FeedbacksComponent implements OnInit {
   pageSize: number = 10;
   HighlightRow: number = 1;
   resultAllFeedBackDetails: any;
-  FeedbackObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', statusId: 0 }
+  FeedbackObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0, statusId: 0 }
   filterForm!: FormGroup;
   globalFullName: any;
   detailsData: any;
   defualtHideFeedback: boolean = false;
   globalFeedbackStatus: number = 0;
   memberNameArray:any;
-  
+  defaultToDate = Date.now();
+  defaultFromDate = new Date(Date.now() + - 30 * 24 * 60 * 60 * 1000);
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router,
@@ -143,13 +145,17 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getFeedBackData(FeedbackObj: any) {
+    debugger;
+    let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+    let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+
     if (FeedbackObj != false) {
       (FeedbackObj.DistrictId == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.DistrictId = 0 : FeedbackObj.DistrictId = this.FeedbackObj.DistrictId;
       (FeedbackObj.Talukaid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.Talukaid = 0 : FeedbackObj.Talukaid = this.FeedbackObj.Talukaid;
       (FeedbackObj.villageid == undefined || FeedbackObj.DistrictId == null) ? FeedbackObj.villageid = 0 : FeedbackObj.villageid = this.FeedbackObj.villageid;
     }
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&SearchText=' + FeedbackObj.SearchText + '&PageNo=' + this.paginationNo + '&StatusId=' + this.FeedbackObj.statusId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'FeedBackData_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + FeedbackObj.DistrictId + '&Talukaid=' + FeedbackObj.Talukaid + '&villageid=' + FeedbackObj.villageid + '&MemberId=' + FeedbackObj.MemberId + '&PageNo=' + this.paginationNo + '&StatusId=' + this.FeedbackObj.statusId+'&FromDate='+fromDate+'&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -168,6 +174,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   feedBackDataResult(flag: any) {
+    debugger;
     if (flag == 'Ignored') {
       this.FeedbackObj.statusId = 3;
     } else if (flag == 'Replied') {
@@ -187,11 +194,11 @@ export class FeedbacksComponent implements OnInit {
 
   districtClear(flag: any) {
     if (flag == 'district') {
-      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0 }
       this.filterForm.reset();
     } else if (flag == 'taluka') {
       this.filterForm.reset({ DistrictId: this.FeedbackObj.DistrictId });
-      this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
+      this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: 0 }
     }
     else if (flag == 'village') {
       this.filterForm.reset({
@@ -199,7 +206,7 @@ export class FeedbacksComponent implements OnInit {
       });
       this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
     } else if (flag == 'search') {
-      this.FeedbackObj.SearchText = "";
+      this.FeedbackObj.MemberId = 0;
       this.filterForm.controls['searchText'].setValue('');
     }
     this.getFeedBackData(this.FeedbackObj)
@@ -225,7 +232,7 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         if (res.data == 1) {
           this.resultAllFeedBackDetails = [];
-          this.toastrService.error("Feedback is not available");
+          // this.toastrService.error("Feedback is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

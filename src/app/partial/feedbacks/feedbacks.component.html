@@ -54,12 +54,13 @@
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
                             <a *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" class="list-group-item list-group-item-action active" id="list-home-list" (click)="details(result)" [class.active]="result.SrNo == HighlightRow"
                                 data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1 fw-bold" [ngClass]="{'fw-light':result.FeedbackStatus == 1, 'text-info':result.FeedbackStatus==2, 'text-danger':result.FeedbackStatus==3}"> {{result.FullName | titlecase}}</p>
-                                    <small class="feeddate ">{{result.FeedbackDate}} - {{result.FeedbackTime}}</small>
+                                <!-- <div class="d-flex w-100 justify-content-between"> -->
+                                <div>
+                                    <p class="membername mb-0 fw-bold" [ngClass]="{'fw-light':result.FeedbackStatus == 1, 'text-info':result.FeedbackStatus==2, 'text-danger':result.FeedbackStatus==3}"> {{result.FullName | titlecase}}</p>
+                                    <p class="mb-2 text-right"> <small class="feeddate ">{{result.FeedbackDate}} - {{result.FeedbackTime}}</small></p>
                                 </div>
                                 <!-- [ngClass]="{'text-success':result.FeedbackStatus == '1'}"  [ngClass]="{ 'text-info':result.FeedbackStatus==1 , 'text-warning': paymentStatus=='pending' , 'text-danger':paymentStatus=='failed' , 'text-danger1':paymentStatus=='failure' } " -->
-                                <small class="comment ">{{result.Feedback}}</small>
+                                <small class="comment text-ellipsis-250px">{{result.Feedback}}</small>
                             </a>
                             <div class="mt-2 text-right float-lg-end " *ngIf="resultAllFeedBackData?.length !=0 ">
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize=$ event)"> </pagination-controls> -->
