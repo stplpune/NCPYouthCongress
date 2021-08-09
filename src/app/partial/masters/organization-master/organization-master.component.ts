@@ -125,11 +125,18 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   clearValidatorsMF(levelId: any) {
-    // if (levelId == 5) {
+    if (levelId == 5) {
     this.orgMasterForm.controls['DistrictId'].clearValidators();
     this.orgMasterForm.controls['TalukaId'].clearValidators();
     this.orgMasterForm.controls['VillageId'].clearValidators();
-    // }
+    }
+  }
+  clearselOption(flag:any){
+    if(flag == 'state'){
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+    }
   }
 
   updateValueAndValidityMF(levelId: any) {
@@ -207,7 +214,7 @@ export class OrganizationMasterComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available 1");
+          // this.toastrService.error("Data is not available 1");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

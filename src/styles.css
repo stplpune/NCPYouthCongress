@@ -269,3 +269,16 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     color: #fff;
     box-shadow: none;
 }
+
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+    color: rgba(255,255,255,.85);
+    background-color: #3f51b5 !important;
+}
+
+.text-ellipsis-250px{
+    white-space: nowrap;
+    width: 250px !important;
+    display: block;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

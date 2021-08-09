@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-executive-members',
@@ -40,6 +41,8 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getDistrict();
     this.defaultFilterForm();
   }
+
+  
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
@@ -203,13 +206,19 @@ export class ExecutiveMembersComponent implements OnInit {
     }
     this.getViewMembers(this.viewMembersObj)
   }
+  
 
   searchFilter() {
     if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
       this.toastrService.error("Please search and try again");
       return
     }
-    this.viewMembersObj.SearchText = this.filterForm.value.searchText
-    this.getViewMembers(this.viewMembersObj)
+    this.viewMembersObj.SearchText = this.filterForm.value.searchText;
+    this.viewMembersObj.SearchText.pipe(
+      debounceTime(10000),
+      this.getViewMembers(this.viewMembersObj)
+    )
+ 
+   
   }
 }

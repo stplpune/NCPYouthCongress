@@ -16,12 +16,14 @@
                         <div class="card shadow-none border">
                             <div class="card-body" id="myprofile">
                                 <div class="mb-2 text-end">
-                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-ediprofile" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="updateProfileDate()">
                                         Edit Profile
                                     </button>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <img src="{{resProfileData?.ProfilePhoto1}}" class="rounded-circle mx-auto d-block">
+                                    <img src="" *ngIf="!ImgUrl" class="img-fluid">
+                                    <img *ngIf="resProfileData?.ProfilePhoto1" src="{{resProfileData?.ProfilePhoto1}}" class="rounded-circle mx-auto d-block">
+                                    <img *ngIf="!resProfileData?.ProfilePhoto1" src="assets/images/dashboard-images/ncplogo.png" class="rounded-circle mx-auto d-block">
                                     <h5>{{resProfileData?.FullName}}</h5>
                                     <p class="mb-1">{{resProfileData?.Designation}}</p>
                                     <p class="text-muted small mb-1">Address</p>
@@ -50,21 +52,26 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <p class="modal-title mb-0" id="exampleModalLabel">Edit Profile</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="getProfileData()" #closeModal></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="editProfileForm">
+                <form [formGroup]="editProfileForm" enctype="multipart/form-data" (ngSubmit)="updateProfile()">
                     <div class="row">
                         <div class="col-sm-3">
-                            <a href="#" class="update-photo">
+                            <a class="update-photo" (click)="choosePhoto()">
                                 <i class="fas fa-camera"></i>
                             </a>
-                            <img src="assets/images/executive-members/MehabubShaikh.jpg" class="img-fluid">
+                            <!-- <a class="update-photo" *ngIf="ImgUrl" (click)="clear()">
+                                <i class="fas fa-times"></i>
+                            </a> -->
+                            <input type="file" id="my_file" class="d-none" (change)="readUrl($event)">
+                            <img src="/assets/images/dashboard-images/ncplogo.png" *ngIf="!ImgUrl" class="img-fluid">
+                            <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
 
                         </div>
                         <div class="col-sm-9">
@@ -75,6 +82,7 @@
                                         <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
                                         <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
                                             <div *ngIf="f.FName.errors.required">First name is required</div>
+                                            <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -82,6 +90,7 @@
                                         <input type="text" class="form-control" id="txtFullName" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
                                         <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
                                             <div *ngIf="f.MName.errors.required">Middle name is required</div>
+                                            <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -89,6 +98,7 @@
                                         <input type="text" class="form-control" id="txtFullName" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
                                         <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
                                             <div *ngIf="f.LName.errors.required">Last name is required</div>
+                                            <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +126,7 @@
                                         <div class="d-block">
                                             <!-- [checked]="defultCategory == category.name" -->
                                             <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                                <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" name="Gender" id="rgender">
+                                                <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender" id="rgender">
                                                 <label class="form-check-label" for="rgender">{{gender.name}}</label>
                                             </div>
                                         </div>
@@ -167,7 +177,7 @@
                                 </div>
                                 <hr />
                                 <div class="text-end">
-                                    <button type="button" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
+                                    <button type="submit" class="btn btn-main btn-sm">Update Profile</button>
                                 </div>
                             </div>
                         </div>

@@ -6,16 +6,18 @@
     color: var(--main-color);
 }
 
-#profile-left .card {
-    padding: 15px;
+#profile-left .card-body {
+    padding: 20px;
 }
-
-#profile-left .card .card-img-top {
-    border-radius: 10px;
+#profile-left .card .card-header{
+    background-color:transparent;
+    border-bottom: none;
+    text-transform: uppercase !important;
+    font-size: 0.85rem !important;
+    font-weight: 600;
 }
-
 #profile-left .card-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -32,7 +34,7 @@
 
 #profile-left .card,
 #profile-right .card {
-    border-radius: 10px;
+    border-radius: 10px !important;
     border: none;
 }
 

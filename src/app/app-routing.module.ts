@@ -42,14 +42,9 @@ const routes: Routes = [
       { path: 'forward-activity-tracker', loadChildren: () => import('./partial/forward-activity-tracker/forward-activity-tracker.module').then(m => m.ForwardActivityTrackerModule) },
       { path: 'user/my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule) },
       { path: 'user/change-password', loadChildren: () => import('./partial/user-profile/change-password/change-password.module').then(m => m.ChangePasswordModule) },
+      { path: 'activity-analysis', loadChildren: () => import('./partial/activity-analysis/activity-analysis.module').then(m => m.ActivityAnalysisModule) },
     ]
   },
-  
-  
-  
-  
-  
-
   { path: '**', component: PageNotFoundComponent }
 ];
 

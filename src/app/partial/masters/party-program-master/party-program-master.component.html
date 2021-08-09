@@ -13,18 +13,38 @@
             <div class="card">
                 <div class="card-header">Create Program</div>
                 <div class="card-body pt-0 form-container">
+                    <form [formGroup]="createProgram" (ngSubmit)="onSubmitProgramForm()">
                     <div class="mb-2">
                         <label for="txtProgramTitle" class="form-label">Program Title <span class="text-danger">*</span> </label>
-                        <input type="text" class="form-control" id="txtProgramTitle" placeholder="Program Title" />
+                        <input type="text" class="form-control" formControlName="ProgramTitle"  placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }"  />
+                        <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
+                            <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
+                        </div>
                     </div>
                     <div class="mb-2">
                         <label for="txtProgramDescription" class="form-label">Program Description <span class="text-danger">*</span> </label>
-                        <textarea rows="5" class="form-control" id="txtProgramDescription" placeholder="Program Description"></textarea>
+                        <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
+                        <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
+                            <div *ngIf="f.ProgramDescription.errors.required">Program Description is required</div>
+                        </div>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-4">
                         <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
-                        <input type="text" class="form-control" id="txtProgramDuration" placeholder="From - To" />
+                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramStartDate" class="form-control input-group-addon"
+                       placeholder="From Date" [min]="minDate"  [ngClass]="{ 'is-invalid': submitted && f.ProgramStartDate.errors }" />
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                        <div *ngIf="submitted && f.ProgramStartDate.errors" class="invalid-feedback">
+                            <div *ngIf="f.ProgramStartDate.errors.required">Program date is required</div>
+                        </div>
+                        <!-- <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="form-control input-group-addon mt-2"
+                       placeholder="To Date" [min]="minDate" />
+                        <owl-date-time #dt2 [pickerType]="'calendar'" ></owl-date-time> -->
+                      
                     </div>
+                    <!-- <div class="mb-2">
+                        <label for="txtProgramDuration" class="form-label"> <span class="text-danger">*</span> </label>
+                        <input type="text" class="form-control" id="txtProgramDuration" placeholder="To Date" />
+                    </div> -->
                     <!-- <div class="mb-2">
                         <label for="ddlProgramLevel" class="form-label">Program Level <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select Program Level">
@@ -35,11 +55,11 @@
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
                         </ngx-select>
                     </div> -->
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
                         <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
                         </ngx-select>
-                    </div>
+                    </div> -->
                     <!-- <div class="mb-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
@@ -61,65 +81,68 @@
                         </ngx-select>
                     </div> -->
                     <div class="mb-2">
-                        <button type="button" class="btn btn-secondary btn-sm">Clear</button>
+                        <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
                         <span class="float-end">
-                            <button type="button" class="btn btn-main btn-sm">Create Party Program</button>
+                            <button type="submit" class="btn btn-main btn-sm">Create Party Program</button>
                         </span>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
             <div class="card">
                 <div class="card-header">
-                    <div class="row g-2">
-                        <div class="col-sm">
+                    <form [formGroup]="topFilter">
+                    <div class="row g-2 ">
+                        <div class="col-sm-3 offset-sm-6">
                             <ngx-select [allowClear]="true" [items]="items" placeholder="Select Status">
                             </ngx-select>
                         </div>
-                        <div class="col-sm">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                            </ngx-select>
-                        </div>
-                        <div class="col-sm">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                            </ngx-select>
-                        </div>
-                        <div class="col-sm">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                            </ngx-select>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="From To">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                            <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'"  (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)"  class="form-control form-control-sm"   [owlDateTimeTrigger]="dt3" placeholder="Select date range">
+                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                <i class="fas fa-calendar"></i></button>
+                                <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                                <i class="fas fa-times"></i></button>
+                                </div>
+                            <owl-date-time #dt3 [pickerType]="'calendar'" ></owl-date-time>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Sr NO.</th>
                                 <th>Program Title</th>
                                 <th>District</th>
                                 <th>Program Duration</th>
                                 <th>End Program</th>
                                 <th>Status</th>
-                                <th></th>
+                                <th>Program Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a routerLink="../../masters/party-program-details">Indhan vadi viruddha Andholan</a></td>
-                                <td>District</td>
+                          
+                            <tr *ngFor="let programList of resultProgramList  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="programList.Id == HighlightRow">
+                                <td>{{programList.SrNo}}</td>
+                                <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td>
+                                <td>{{programList?.ProgramDescription}}</td>
                                 <td>
-                                    01-02-2021 - 01-02-2021
+                                    {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate}}
                                 </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-info">Upcoming</span></h6></td>
-                                
                                 <td>
-                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
+                                    <h6 class="mb-0"><span class="badge rounded-pill bg-danger"> {{programList?.ProgramStatus}} </span></h6>
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-sm btn-light" title="View Program Details" (click)="ViewProgramList(programList)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
+                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program" (click)="editrogramList(programList)">
                                         <i class="far fa-edit"></i>
                                     </button>
                                     <button class="btn btn-sm btn-danger" title="Cancel Program">
@@ -128,65 +151,18 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a routerLink="../../masters/party-program-details">Fees vadi viruddha Andholan</a></td>
-                                <td>District</td>
-                                <td>
-                                    01-02-2021 - 01-02-2021 
-                                </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-success">Completed</span></h6></td>
-                                
-                                <td>
-                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a routerLink="../../masters/party-program-details">Pariksha viruddha Andholan</a></td>
-                                <td>District</td>
-                                <td>
-                                    01-02-2021 - 01-02-2021 
-                                </td>
-                                <td><h6 class="mb-0"><span class="badge rounded-pill bg-danger">Cancelled</span></h6></td>
-                               
-                                <td>
-                                    <button class="btn btn-sm btn-light" title="View Program Details" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label>
-                                      </div>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" (change)="endProgramList(programList, programList?.ProgramStatus)"  [checked]="programList?.ProgramStatus == 1"> 
+                                        <!-- ProgramStatus -->
+                                        <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="mt-2 text-right float-lg-end" *ngIf="resultProgramList?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -198,46 +174,46 @@
 <!-- View details modal -->
 <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewDetailsModal" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-container">
-                <div class="mb-3">
-                    <label class="form-label">Program Title</label>
-                    <p class="form-data">Indhan vadi viruddha Andholan</p>
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="programDetails">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label class="form-label">Program Title</label>
+                        <p class="form-data">{{programDetails.ProgramTitle}}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Description</label>
+                        <p class="form-data">
+                            {{programDetails.ProgramDescription}}
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Duration</label>
+                        <p class="form-data"> {{programDetails?.ProgramStartDate}} ~ {{programDetails?.ProgramEndDate}}</p>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label class="form-label">Program Level</label>
+                        <p class="form-data">Village</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Location</label>
+                        <p class="form-data">Mahad, Malshiras, Pune</p>
+                    </div> -->
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Description</label>
-                    <p class="form-data">
-                        Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed. Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed.
-                    </p>
+                <hr>
+                <div class="float-start">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Duration</label>
-                    <p class="form-data">01-02-2021, 11:00 AM - 01-02-2021, 06:00 PM</p>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Level</label>
-                    <p class="form-data">Village</p>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Program Location</label>
-                    <p class="form-data">Mahad, Malshiras, Pune</p>
+                <div class="float-end">
+                    <button type="button" class="btn btn-warning btn-sm me-2" (click)="editrogramList(programDetails)" data-bs-dismiss="modal">Edit Program</button>
+                    <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
                 </div>
             </div>
-          <hr>
-          <div class="float-start">
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-          </div>
-          <div class="float-end">
-            <button type="button" class="btn btn-warning btn-sm me-2">Edit Program</button>
-            <button type="button" class="btn btn-danger btn-sm">Cancel Program</button>
-          </div>
+
         </div>
-        
-      </div>
     </div>
-  </div>
+</div>
