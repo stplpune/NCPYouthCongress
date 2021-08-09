@@ -6,6 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-members',
@@ -25,6 +27,7 @@ export class ViewMembersComponent implements OnInit {
 
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   filterForm!: FormGroup;
+  subject: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -35,6 +38,7 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
+    this.searchFilter('false');
   }
 
   defaultFilterForm() {
@@ -163,12 +167,34 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj)
   }
 
-  searchFilter(){
-    if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
-      this.toastrService.error("Please search and try again");
-      return
+  // searchFilter(){
+  //   if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+  //     this.toastrService.error("Please search and try again");
+  //     return
+  //   }
+  //   this.viewMembersObj.SearchText = this.filterForm.value.searchText
+  //   this.getViewMembers(this.viewMembersObj)
+  // }
+
+  searchFilter(flag:any) {
+    if(flag == 'true'){
+      if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+        this.toastrService.error("Please search and try again");
+        return
+      }
     }
-    this.viewMembersObj.SearchText = this.filterForm.value.searchText
-    this.getViewMembers(this.viewMembersObj)
+    this.subject
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+        this.viewMembersObj.SearchText = this.filterForm.value.searchText;
+        this.getViewMembers(this.viewMembersObj)
+      }
+      );
   }
+
+  onKeyUpFilter(){
+    this.subject.next();
+  }
+
+
 }
