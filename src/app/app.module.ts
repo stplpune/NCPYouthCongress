@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { AgmCoreModule } from '@agm/core';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 
 
@@ -36,6 +37,7 @@ import { AgmCoreModule } from '@agm/core';
     PartialComponent,
     WebHeaderComponent,
     WebFooterComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,

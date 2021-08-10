@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthorizationGuard } from './auth/authorization.guard';
 import { LoggedInAuthGuard } from './auth/logged-in-auth.guard';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { PartialComponent } from './partial/partial.component';
 import { WebComponent } from './web/web.component';
 
@@ -45,7 +46,8 @@ const routes: Routes = [
       { path: 'activity-analysis', loadChildren: () => import('./partial/activity-analysis/activity-analysis.module').then(m => m.ActivityAnalysisModule) },
     ]
   },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '500', component: ServerErrorComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

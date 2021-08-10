@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -38,7 +38,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
-    public datepipe: DatePipe,
+    public datepipe: DatePipe, private route:ActivatedRoute,
     public location:Location
     ) {
     if (localStorage.getItem('weekRange')) {
@@ -68,12 +68,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+      }
+    },(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
