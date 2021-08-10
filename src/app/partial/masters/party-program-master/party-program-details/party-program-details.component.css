@@ -9,13 +9,15 @@
 #profile-left .card-body {
     padding: 20px;
 }
-#profile-left .card .card-header{
-    background-color:transparent;
+
+#profile-left .card .card-header {
+    background-color: transparent;
     border-bottom: none;
     text-transform: uppercase !important;
     font-size: 0.85rem !important;
     font-weight: 600;
 }
+
 #profile-left .card-text {
     font-size: 0.95rem;
     text-align: center;
@@ -61,14 +63,16 @@
     margin: 5px 0;
     font-size: 0.75rem;
 }
-#profile-right #overview .card a{
+
+#profile-right #overview .card a {
     width: 100%;
     border-radius: 2px;
     background-color: #f5f5f5;
-    border-bottom:solid 3px #f5f5f5;
+    border-bottom: solid 3px #f5f5f5;
 }
-#profile-right #overview .card a:hover{
-    border-bottom:solid 3px var(--main-color);
+
+#profile-right #overview .card a:hover {
+    border-bottom: solid 3px var(--main-color);
 }
 
 #profile-right #overview .card h3 {
@@ -79,4 +83,12 @@
 
 agm-map {
     height: 300px;
+}
+
+.border-add {
+    border-bottom: solid 3px #f5f5f5
+}
+
+.border-add.active {
+    border-bottom: solid 3px var(--main-color)!important;
 }
