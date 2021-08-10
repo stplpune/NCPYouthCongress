@@ -83,7 +83,51 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="exe-memcards">
-                    <a class="card card-body" *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                    <table class="table table-hover table-borderless">
+                        <tbody>
+                            <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                <td>
+                                    <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
+                                    <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
+                                </td>
+                                <td>
+                                    <a routerLink="#">{{resultExeMember.FullName | titlecase}}</a>
+                                </td>
+                                <td>
+                                    <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.ContactNo ? (resultExeMember.ContactNo | titlecase) : 'NA'}}</p>
+                                </td>
+                                <td>
+                                    <p class="mb-1">{{resultExeMember?.Location}}</p>
+                                </td>
+                                <td>
+                                    <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
+                                <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="resultExeMember.UserStatus == 0">
+                                        No Device
+                                    </ng-container>
+                                    <ng-container *ngIf="resultExeMember.UserStatus == 1">
+                                        <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo">
+                                    </ng-container>
+                                    <ng-container *ngIf="resultExeMember.UserStatus == 2">
+                                        <img src="assets/images/dashboard-images/Apple_logo.svg" class="devicelogo">
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus == 1; else elseStatus"></i>
+                                <ng-template #elseStatus>
+                                    <i class="fas fa-ban text-danger"></i>
+                                </ng-template>
+                                </td>
+                            </tr>
+                            <tr *ngIf="resultAllExeMembers?.length == 0">
+                                <td colspan="7" class="alert alert-danger text-center py-2">No Data Found..!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <a class="card card-body" *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                         <div class="row d-flex align-items-center">
                             <div class="col-sm-auto">
                                 <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
@@ -98,7 +142,6 @@
                             </div>
                             <div class="col-sm">
                                 <p class="mb-1">{{resultExeMember?.Location}}</p>
-                                <!-- <p class="mb-0">Taluka, District</p> -->
                             </div>
                             <div class="col-sm">
                                 <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
@@ -114,7 +157,6 @@
                                 <ng-container *ngIf="resultExeMember.UserStatus == 2">
                                     <img src="assets/images/dashboard-images/Apple_logo.svg" class="devicelogo">
                                 </ng-container>
-                                <!-- <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo" /> -->
                             </div>
                             <div class="col-sm-auto">
                                 <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus == 1; else elseStatus"></i>
@@ -126,10 +168,8 @@
                         </div>
                     </a>
                     <div *ngIf="resultAllExeMembers?.length == 0">
-
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-
-                    </div>
+                    </div> -->
                     <!-- <table class="table table-hover">
                         <thead>
                             <tr>
