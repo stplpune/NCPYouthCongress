@@ -17,11 +17,11 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <label class="form-label">From</label>
-                            <p class="form-data mb-0">{{programDetailsArray?.ProgramStartDate | date:'dd-MM-yyyy hh:mm a'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ?  (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
                         </li>
                         <li class="list-group-item">
                             <label class="form-label">To</label>
-                            <p class="form-data mb-0">{{programDetailsArray?.ProgramEndDate | date:'dd-MM-yyyy hh:mm a'}}</p>  
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ?  (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>  
                         </li>
                        
                         <li class="list-group-item">
@@ -40,17 +40,8 @@
                 </div>
                 <div class="card-body">
                     <div class="row g-2">
-                        <div class="col-sm-6">
-                            <img src="assets/images/error.jpg" class="img-fluid img-thumbnail" />
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/error.jpg" class="img-fluid img-thumbnail" />
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/error.jpg" class="img-fluid img-thumbnail" />
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/error.jpg" class="img-fluid img-thumbnail" />
+                        <div class="col-sm-6" *ngFor="let img of programDetailsImagesArray">
+                            <img src="{{img.ImagePath}}" class="img-fluid img-thumbnail" />
                         </div>
                     </div>
                 </div>
@@ -70,7 +61,7 @@
                                 <h5>Members</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a href="#" class="btn btn-light py-2 px-3">
+                                        <a class="btn btn-light py-2 px-3" (click)="getMembersData(); paginationNo = 1">
                                             <p class="small mb-1">Participants</p>
                                             <h3 class="mb-0">{{overviewArray?.ParticipatedMember}}</h3>
                                         </a>
@@ -88,7 +79,7 @@
                                 <h5>Committees</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a href="#" class="btn btn-light py-2 px-3">
+                                        <a class="btn btn-light py-2 px-3" (click)="getCommitteesData()">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -107,7 +98,7 @@
                                 <h5>Non-Participants</h5>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a href="#" class="btn btn-light py-2 px-3">
+                                        <a class="btn btn-light py-2 px-3" (click)="getNonParticipantsData(); paginationNo = 1">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -122,54 +113,63 @@
                 <div class="card-header">
                     Actual Participants
                 </div>
-                <div class="card-body chartbox">
+
+                <div class="card-body chartbox" *ngIf="membersAndNonParticipantsDiv">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">SrNo</th>
                                 <th scope="col">Participants Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a routerLink="../../members/member-profile">Anil Kambale</a></td>
-                                <td>+91-9876543210</td>
-                                <td>Youth Member</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a routerLink="../../members/member-profile">Anil Kambale</a></td>
-                                <td>+91-9876543210</td>
-                                <td>Youth Member</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a routerLink="../../members/member-profile">Anil Kambale</a></td>
-                                <td>+91-9876543210</td>
-                                <td>Youth Member</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a routerLink="../../members/member-profile">Anil Kambale</a></td>
-                                <td>+91-9876543210</td>
-                                <td>Youth Member</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><a routerLink="../../members/member-profile">Anil Kambale</a></td>
-                                <td>+91-9876543210</td>
-                                <td>Youth Member</td>
+                            <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                                <td>{{membersData.SrNo}}</td>
+                                <td><a routerLink="../../members/member-profile">{{membersData.FullName}}</a></td>
+                                <td>{{membersData.MobileNo}}</td>
+                                <td>{{membersData.Designation}}</td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <div class="card-body border">
-                        Chart : actual members in this region against participients
+                    <div class="mt-2 text-right float-lg-end" *ngIf="membersDataNonParticipantsArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event, defaultPartiNonParti)"> </pagination-controls>
                     </div>
+                </div>
 
+                <div class="card-body chartbox" *ngIf="committeeTableDiv">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">SrNo</th>
+                                <th scope="col">Committee Name</th>
+                                <th scope="col">District Name</th>
+                                <th scope="col">Taluka Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
+                                <td>{{committeesData.SrNo}}</td>
+                                <td><a routerLink="../../members/member-profile">{{committeesData.BodyOrgCellName}}</a></td>
+                                <td>{{committeesData.districtName}}</td>
+                                <td>{{committeesData.TalukaName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-2 text-right float-lg-end" *ngIf="committeesDataArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
+                    </div>
+                </div>
+
+                <div class="card-body border">
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
+                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" 
+                            [longitude]="latlongData.Longitude"></agm-marker>
+                        </agm-map>
+                    </div>
                 </div>
             </div>
         </div>

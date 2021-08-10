@@ -596,6 +596,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+  
 
   redirectCountingPage(status: any) {
     if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
