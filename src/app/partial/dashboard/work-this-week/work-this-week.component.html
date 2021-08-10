@@ -6,9 +6,8 @@
         <div class="col-sm-9">
             <div class="row g-1 d-flex justify-content-end">
                 <div class="col-sm-3">
-                    <select class="form-select">
-                            <option value="">Select Political Work Type</option>
-                        </select>
+                        <ngx-select [allowClear]="true" [items]="ddlpoliticalWork" placeholder="Select Political Work">
+                        </ngx-select>
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group">

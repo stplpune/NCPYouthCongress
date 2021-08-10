@@ -4,20 +4,22 @@
             <span class="page-name">Perception on Social Media</span>
         </div>
         <div class="col-sm-9">
+            <form [formGroup]="filterForm">
             <div class="row g-1 d-flex justify-content-end">
                 <div class="col-sm-3">
-                    <select class="form-select">
-                        <option value="">Select District</option>
-                    </select>
+                    <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" 
+                    placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
+                    </ngx-select>
                 </div>
                 <div class="col-sm-3">
-                    <select class="form-select">
-                        <option value="">Select Taluka</option>
-                    </select>
+                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId"  placeholder="Select Taluka"
+                    optionValueField="TalukaId" optionTextField="TalukaName">
+                </ngx-select>
                 </div>
+
                 <div class="col-sm-3">
                     <div class="input-group">
-                        <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" [(ngModel)]="dateRange"
+                        <input [owlDateTime]="dt1" formControlName="fromTo" (dateTimeChange)="getweekRage($event)" [(ngModel)]="dateRange"
                             class="form-control form-control-sm" [max]="maxDate" [selectMode]="'range'"
                             [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
@@ -25,6 +27,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 

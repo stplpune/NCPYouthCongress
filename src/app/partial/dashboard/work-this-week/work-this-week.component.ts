@@ -34,6 +34,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   fromDate: any;
   catValue:any;
   bestPerCat = ["Committee", "Location"];
+  public ddlpoliticalWork: string[] = ['Political Work', 'News Letters', 'Social Media Help', 'Personal Help',
+  'Party Programs', 'Help Me'];
+
   
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
@@ -118,6 +121,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     }
     this.getBestPerMember(this.selweekRange)
   }
+
 
   getVillageOrCity(talukaID: any) {
     this.filterObj.globalTalukId = talukaID;
