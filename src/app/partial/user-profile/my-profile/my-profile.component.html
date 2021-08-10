@@ -23,7 +23,7 @@
                                 <div class="mb-4 text-center">
                                     <!-- <img src="" *ngIf="!ImgUrl" class="img-fluid"> -->
                                     <img *ngIf="resProfileData?.ProfilePhoto1" src="{{resProfileData?.ProfilePhoto1}}" class="rounded-circle mx-auto d-block">
-                                    <img *ngIf="!resProfileData?.ProfilePhoto1" src="assets/images/NCP-logo.svg" class="rounded-circle mx-auto d-block">
+                                    <img *ngIf="!resProfileData?.ProfilePhoto1" src="assets/images/dashboard-images/ncp-default.png" class="rounded-circle mx-auto d-block">
                                     <h5>{{resProfileData?.FullName}}</h5>
                                     <p class="mb-1">{{resProfileData?.Designation}}</p>
                                     <p class="text-muted small mb-1">Address</p>
@@ -70,7 +70,7 @@
                                 <i class="fas fa-times"></i>
                             </a>
                             <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)">
-                            <img src="assets/images/NCP-logo.svg" *ngIf="!ImgUrl" class="img-fluid">
+                            <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid">
                             <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
 
                         </div>

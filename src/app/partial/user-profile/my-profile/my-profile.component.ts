@@ -31,6 +31,7 @@ export class MyProfileComponent implements OnInit {
   ImgUrl: any;
   selectedFile!: File;
   globalVillageOrCityId: any;
+  profilePhotoChange:any;
   @ViewChild('closeModal') closeModal: any;
   @ViewChild('myInput') myInputVariable!: ElementRef;
 
@@ -189,13 +190,15 @@ export class MyProfileComponent implements OnInit {
         fromData.append(cr, value)
       });
       fromData.append('ProfilePhoto', this.selectedFile == undefined  ? '' : this.selectedFile);
-      let profilePhotoChange:any; 
-      this.selectedFile ?  profilePhotoChange = 1 : profilePhotoChange = 0;
-      fromData.append('IsPhotoChange', profilePhotoChange);
+      if(this.profilePhotoChange != 2 ){
+        this.selectedFile ?  this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
+      }
+      fromData.append('IsPhotoChange', this.profilePhotoChange);
 
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.profilePhotoChange = null;
           this.submitted = false;
           this.resetFile()
           let modalClosed = this.closeModal.nativeElement;
@@ -270,7 +273,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   removePhoto(){
-   
+   this.profilePhotoChange = 2;
     this.ImgUrl = null;
   }
 }

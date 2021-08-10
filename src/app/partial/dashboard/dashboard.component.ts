@@ -491,7 +491,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e2651e0789af0b823dc68b66fd6678c75519df1f
   socialMediaChart() {
     am4core.useTheme(am4themes_animated);
     // Themes end

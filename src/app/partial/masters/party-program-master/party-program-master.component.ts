@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-party-program-master',
@@ -34,10 +35,11 @@ export class PartyProgramMasterComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
     public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router,   public dateTimeAdapter: DateTimeAdapter<any>,
+  ) {{ dateTimeAdapter.setLocale('en-IN')}}
 
   ngOnInit(): void {
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.defaultProgramForm();
     this.defaultFilterForm();
     this.getProgramList();
@@ -95,7 +97,6 @@ export class PartyProgramMasterComponent implements OnInit {
   get f() { return this.createProgram.controls };
 
   onSubmitProgramForm() {
-    console.log(this.createProgram.value);
     this.submitted = true;
     if (this.createProgram.invalid) {
       this.spinner.hide();
@@ -103,9 +104,16 @@ export class PartyProgramMasterComponent implements OnInit {
     }
     else {
       let getObj = this.createProgram.value;
-      let fromDate: any = this.datepipe.transform(this.createProgram.value.ProgramStartDate, 'dd/MM/yyyy');
-      this.spinner.show();
-      this.callAPIService.setHttp('get', 'Web_Insert_PartyProgram?Id=' + getObj.Id + '&ProgramTitle=' + getObj.ProgramTitle + '&ProgramDescription=' + getObj.ProgramDescription + '&ProgramStartDate=' + fromDate + '&CreatedBy=' + getObj.CreatedBy, false, false, false, 'ncpServiceForWeb');
+      this.createProgram.value['ProgramStartDate'] = this.datepipe.transform(this.createProgram.value.ProgramStartDate, 'dd/MM/yyyy');
+      let fromData: any = new FormData();
+
+      Object.keys(this.createProgram.value).forEach((cr: any, ind: any) => {
+        let value = Object.values(this.createProgram.value)[ind] != null ? Object.values(this.createProgram.value)[ind] : 0;
+        fromData.append(cr, value)
+      })
+
+      // this.callAPIService.setHttp('get', 'Web_Insert_PartyProgram?Id=' + getObj.Id + '&ProgramTitle=' + getObj.ProgramTitle + '&ProgramDescription=' + getObj.ProgramDescription + '&ProgramStartDate=' +  + '&CreatedBy=' + getObj.CreatedBy, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.setHttp('Post', 'Web_Insert_PartyProgram_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
