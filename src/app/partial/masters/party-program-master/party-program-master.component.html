@@ -122,7 +122,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Sr NO.</th>
+                                <th>Sr.No </th>
                                 <th>Program Title</th>
                                 <!-- <th>District</th> -->
                                 <th>Program Duration</th>
@@ -170,7 +170,8 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" (change)="endProgramList(programList)" [checked]="programList?.ProgramStatus == 1">
+                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 1 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" (change)="endProgramList(programList)"
+                                            [checked]="programList?.ProgramStatus == 1">
                                         <!-- ProgramStatus -->
                                         <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
                                     </div>
