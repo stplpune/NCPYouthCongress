@@ -55,7 +55,6 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   getProgramList() {
-    debugger;
     let fromDate: any;
     let toDate: any;
 
