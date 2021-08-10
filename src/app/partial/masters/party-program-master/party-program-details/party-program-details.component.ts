@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-party-program-details',
   templateUrl: './party-program-details.component.html',
@@ -18,36 +19,38 @@ export class PartyProgramDetailsComponent implements OnInit {
   lng: any = 75.71630325927731;
   zoom: any = 5;
   membersDataNonParticipantsArray: any;
-  defaultPartiNonParti:boolean = true;
-  activeFlag:boolean = true;
+  defaultPartiNonParti: boolean = true;
+  activeFlag: boolean = true;
   total: any;
   paginationNo: number = 1;
   pageSize: number = 10;
   committeesDataArray: any;
-  committeeTableDiv:boolean=false;
-  membersAndNonParticipantsDiv:boolean=true;
-  ParticipantsText:string = "Members";
+  committeeTableDiv: boolean = false;
+  membersAndNonParticipantsDiv: boolean = true;
+  ParticipantsText: string = "Members";
   total1: any;
   paginationNo1: number = 1;
   pageSize1: number = 10;
-  programTile:any;
+  programTile: any;
 
   constructor(
-    public location:Location,
+    public location: Location,
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
-    ) {
-      let getLocalStorageData:any = localStorage.getItem('programListIdKey');
-      let programListId = JSON.parse(getLocalStorageData);
-      this.programListId = programListId.programListId;
-      this.programTile = programListId.programList;
-     }
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    let getLocalStorageData: any = localStorage.getItem('programListIdKey');
+    let programListId = JSON.parse(getLocalStorageData);
+    this.programListId = programListId.programListId;
+    this.programTile = programListId.programList;
+  }
 
   ngOnInit(): void {
     this.GetProgramDetails();
     this.getMembersData();
-    }
+  }
 
   GetProgramDetails() {
     this.spinner.show();
@@ -56,11 +59,11 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
-        let programDetailsImagesArray=res.data2;
-        this.programDetailsImagesArray=programDetailsImagesArray.slice(0, 4);
-        this.programDetailsLatLongArray=res.data3;
-        this.overviewArray=res.data4[0];
-       
+        let programDetailsImagesArray = res.data2;
+        this.programDetailsImagesArray = programDetailsImagesArray.slice(0, 4);
+        this.programDetailsLatLongArray = res.data3;
+        this.overviewArray = res.data4[0];
+
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -74,15 +77,16 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
-    this.membersDataNonParticipantsArray=[];
-    this.membersAndNonParticipantsDiv=true;
-    this.committeeTableDiv=false;
+    this.membersDataNonParticipantsArray = [];
+    this.membersAndNonParticipantsDiv = true;
+    this.committeeTableDiv = false;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
+        console.log(this.membersDataNonParticipantsArray);
         this.total = res.data2[0].TotalCount;
       } else {
         if (res.data == 1) {
@@ -97,11 +101,11 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getNonParticipantsData() {
-    this.committeeTableDiv=false;
-    this.membersDataNonParticipantsArray=[];
-    this.membersAndNonParticipantsDiv=true;
+    this.committeeTableDiv = false;
+    this.membersDataNonParticipantsArray = [];
+    this.membersAndNonParticipantsDiv = true;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -121,10 +125,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
-    this.membersAndNonParticipantsDiv=false;
-    this.committeeTableDiv=true;
+    this.membersAndNonParticipantsDiv = false;
+    this.committeeTableDiv = true;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -146,7 +150,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     if (defaultPartiNonParti) {
       this.paginationNo = pageNo;
       this.getMembersData();
-    }else{
+    } else {
       this.paginationNo = pageNo;
       this.getNonParticipantsData();
     }
@@ -154,12 +158,16 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   onClickPagintion1(pageNo: number) {
-      this.paginationNo1 = pageNo;
-      this.getCommitteesData();
+    this.paginationNo1 = pageNo;
+    this.getCommitteesData();
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('programListIdKey');
+    this.router.url != '/members/member-profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
+  redToMemberProfile(memberId: any) {
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../../members/member-profile'], { relativeTo: this.route })
+  }
 }

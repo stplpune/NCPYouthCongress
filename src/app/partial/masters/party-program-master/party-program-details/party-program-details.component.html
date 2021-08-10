@@ -61,7 +61,7 @@
                                 <h5>Members</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="getMembersData(); paginationNo = 1; ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
                                             <p class="small mb-1">Participants</p>
                                             <h3 class="mb-0">{{overviewArray?.ParticipatedMember}}</h3>
                                         </a>
@@ -79,7 +79,7 @@
                                 <h5>Committees</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="getCommitteesData();paginationNo = 1; ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -98,7 +98,7 @@
                                 <h5>Non-Participants</h5>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="getNonParticipantsData(); paginationNo = 1;  ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -127,7 +127,7 @@
                         <tbody>
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a routerLink="../../members/member-profile">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData.ID)">{{membersData.FullName}}</a></td>
                                 <td>{{membersData.MobileNo}}</td>
                                 <td>{{membersData.Designation}}</td>
                             </tr>
