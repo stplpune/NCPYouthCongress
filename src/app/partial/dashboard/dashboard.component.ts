@@ -472,11 +472,11 @@ export class DashboardComponent implements OnInit {
     let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
     hoverShadow.opacity = 0.7;
     hoverShadow.blur = 5;
-    chart.radius = am4core.percent(80);
+    chart.radius = am4core.percent(60);
     // Add a legend
     chart.legend = new am4charts.Legend();
-    chart.legend.maxWidth = 10;
-    chart.legend.fontSize=8;
+    chart.legend.maxWidth = 100;
+    chart.legend.fontSize=9;
     chart.legend.scrollable = true;
     chart.legend.position  = "bottom";
     chart.legend.contentAlign = "left";
