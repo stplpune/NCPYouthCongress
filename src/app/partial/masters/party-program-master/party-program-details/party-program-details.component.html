@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row" id="membername">
-        <div class="col-sm-6">
-            Indhan vadi viruddha Andholan
+        <div class="col-sm-11">
+            {{programTile}}
         </div>
-        <div class="col-sm-6 text-end">
+        <div class="col-sm-1 text-end">
             <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
                 <i class="fas fa-arrow-left"></i>
             </button>
@@ -17,20 +17,20 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <label class="form-label">From</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ?  (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ? (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
                         </li>
                         <li class="list-group-item">
                             <label class="form-label">To</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ?  (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>  
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ? (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>
                         </li>
-                       
+
                         <li class="list-group-item">
                             <label class="form-label">Description</label>
                             <p class="form-data mb-0">
-                             {{programDetailsArray?.ProgramDescription}}
+                                {{programDetailsArray?.ProgramDescription}}
                             </p>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                                 <h5>Members</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3" (click)="getMembersData(); paginationNo = 1">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
                                             <p class="small mb-1">Participants</p>
                                             <h3 class="mb-0">{{overviewArray?.ParticipatedMember}}</h3>
                                         </a>
@@ -79,7 +79,7 @@
                                 <h5>Committees</h5>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3" (click)="getCommitteesData()">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -98,7 +98,7 @@
                                 <h5>Non-Participants</h5>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-light py-2 px-3" (click)="getNonParticipantsData(); paginationNo = 1">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -111,7 +111,7 @@
             </div>
             <div class="card mb-3">
                 <div class="card-header">
-                    Actual Participants
+                    {{ParticipantsText}} Participants
                 </div>
 
                 <div class="card-body chartbox" *ngIf="membersAndNonParticipantsDiv">
@@ -127,7 +127,7 @@
                         <tbody>
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a routerLink="../../members/member-profile">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData.ID)">{{membersData.FullName}}</a></td>
                                 <td>{{membersData.MobileNo}}</td>
                                 <td>{{membersData.Designation}}</td>
                             </tr>
@@ -165,9 +165,8 @@
                 <div class="card-body border">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
-                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" 
-                            [longitude]="latlongData.Longitude"></agm-marker>
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude"></agm-marker>
                         </agm-map>
                     </div>
                 </div>

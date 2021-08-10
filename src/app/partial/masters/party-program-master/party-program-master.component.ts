@@ -219,8 +219,9 @@ export class PartyProgramMasterComponent implements OnInit {
     this.getProgramList();
   }
 
-  partyProgramDetails(programListId: any) {
-    localStorage.setItem('programListIdKey', JSON.stringify(programListId));
+  partyProgramDetails(programListId: any, ProgramTitle:any) {
+    let obj = {'programListId':programListId, 'programList':ProgramTitle}
+    localStorage.setItem('programListIdKey', JSON.stringify(obj));
     this.router.navigate(['../party-program-details'], { relativeTo: this.route });
   }
 
