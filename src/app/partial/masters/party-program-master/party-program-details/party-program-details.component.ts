@@ -41,10 +41,17 @@ export class PartyProgramDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    let getLocalStorageData: any = localStorage.getItem('programListIdKey');
-    let programListId = JSON.parse(getLocalStorageData);
-    this.programListId = programListId.programListId;
-    this.programTile = programListId.programList;
+    if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
+      this.toastrService.error("Please select Program Title  and try again");
+      this.router.navigate(['../party-program-master'], { relativeTo: this.route });
+      return
+    }else{
+      let getLocalStorageData: any = localStorage.getItem('programListIdKey');
+      let programListId = JSON.parse(getLocalStorageData);
+      this.programListId = programListId.programListId;
+      this.programTile = programListId.programList;
+    }
+    
   }
 
   ngOnInit(): void {
