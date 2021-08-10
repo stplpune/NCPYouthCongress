@@ -461,14 +461,6 @@ export class DashboardComponent implements OnInit {
         }
       ];
     
-    // pieSeries.alignLabels = true;
-    // pieSeries.labels.template.bent = true;
-    // pieSeries.labels.template.radius = 3;
-    // pieSeries.labels.template.fontSize = 5;
-    // pieSeries.labels.template.padding(0,0,0,0);
-    
-    // pieSeries.ticks.template.disabled = false;
-    
     // Create a base filter effect (as if it's not there) for the hover to return to
     let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
     shadow.opacity = 0;
@@ -480,18 +472,18 @@ export class DashboardComponent implements OnInit {
     let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
     hoverShadow.opacity = 0.7;
     hoverShadow.blur = 5;
-    chart.radius = am4core.percent(100);
+    chart.radius = am4core.percent(80);
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 10;
-    chart.legend.fontSize=10;
+    chart.legend.fontSize=8;
     chart.legend.scrollable = true;
     chart.legend.position  = "bottom";
     chart.legend.contentAlign = "left";
 
     let markerTemplate = chart.legend.markers.template;
-    markerTemplate.width = 10;
-    markerTemplate.height = 10;
+    markerTemplate.width = 15;
+    markerTemplate.height = 15;
     pieSeries.labels.template.disabled = true;
  
     
