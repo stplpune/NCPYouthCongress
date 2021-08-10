@@ -136,7 +136,7 @@
                             <tr *ngFor="let programList of resultProgramList  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="programList.Id == HighlightRow">
                                 <td>{{programList.SrNo}}</td>
                                 <!-- <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td> -->
-                                <td><a (click)="partyProgramDetails(programList.Id)" class="text-primary">{{programList?.ProgramTitle}}</a></td>
+                                <td class="text-ellipsis-250px"><a (click)="partyProgramDetails(programList.Id,programList?.ProgramTitle)" class="text-primary">{{programList?.ProgramTitle}}</a></td>
                                 <!-- <td>{{programList?.ProgramDescription}}</td> -->
                                 <td>
                                     {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate ? programList?.ProgramEndDate : 'NA'}}

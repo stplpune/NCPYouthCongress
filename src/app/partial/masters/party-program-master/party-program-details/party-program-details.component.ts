@@ -30,6 +30,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   total1: any;
   paginationNo1: number = 1;
   pageSize1: number = 10;
+  programTile:any;
 
   constructor(
     public location:Location,
@@ -38,7 +39,9 @@ export class PartyProgramDetailsComponent implements OnInit {
     private toastrService: ToastrService,
     ) {
       let getLocalStorageData:any = localStorage.getItem('programListIdKey');
-      this.programListId = JSON.parse(getLocalStorageData);
+      let programListId = JSON.parse(getLocalStorageData);
+      this.programListId = programListId.programListId;
+      this.programTile = programListId.programList;
      }
 
   ngOnInit(): void {
@@ -61,7 +64,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -73,6 +76,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   getMembersData() {
     this.membersDataNonParticipantsArray=[];
     this.membersAndNonParticipantsDiv=true;
+    this.committeeTableDiv=false;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -83,7 +87,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -93,6 +97,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getNonParticipantsData() {
+    this.committeeTableDiv=false;
     this.membersDataNonParticipantsArray=[];
     this.membersAndNonParticipantsDiv=true;
     this.spinner.show();
@@ -106,7 +111,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -128,7 +133,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
