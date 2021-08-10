@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -32,7 +32,9 @@ export class ViewMembersComponent implements OnInit {
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router,
-    private commonService: CommonService, public datepipe: DatePipe,) { }
+    private commonService: CommonService, public datepipe: DatePipe,
+    private route:ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
     this.getViewMembers(this.viewMembersObj);
@@ -126,6 +128,7 @@ export class ViewMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultAllViewMembers = res.data1;
+        console.log(this.resultAllViewMembers);
         this.total = res.data2[0].TotalCount;
         this.memberCountData = res.data3[0];
      
@@ -196,5 +199,9 @@ export class ViewMembersComponent implements OnInit {
     this.subject.next();
   }
 
+  redToMemberProfile(memberId:any){
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../member-profile'], {relativeTo:this.route})
+  }
 
 }

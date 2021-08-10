@@ -95,13 +95,15 @@
                     <form [formGroup]="topFilter">
                         <div class="row g-2 ">
                             <div class="col-sm-3 offset-sm-6">
-                                <select class="form-control" (change)="selprogramStatus($event)">
+                                <ngx-select [allowClear]="true" (remove)="removeProgram()" (select)="selprogramStatus($event)" [items]="programStatusArray" optionValueField="id" optionTextField="programStatus" placeholder="Select Program Status">
+                                </ngx-select>
+                                <!-- <select class="form-control" (change)="selprogramStatus($event)">
                                     <option disabled selected>Select status</option>
                                 <option   *ngFor="let programStatus of programStatusArray" [value]="programStatus.id" > 
-                                    <!-- [ngClass]="{'bg-success':programStatus.id == 1, 'bg-warning': programStatus.id == 2, 'bg-info':programStatus.id == 3, 'bg-danger':programStatus.id ==  4}" -->
+                                    [ngClass]="{'bg-success':programStatus.id == 1, 'bg-warning': programStatus.id == 2, 'bg-info':programStatus.id == 3, 'bg-danger':programStatus.id ==  4}"
                                     {{programStatus.programStatus}}
                                 </option>
-                           </select>
+                           </select> -->
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -172,6 +174,11 @@
                                         <!-- ProgramStatus -->
                                         <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
                                     </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="resultProgramList?.length==0">
+                                <td colspan="6">
+                                    <div class="alert alert-danger text-center py-2 ">No Data Found..!</div>
                                 </td>
                             </tr>
                         </tbody>
