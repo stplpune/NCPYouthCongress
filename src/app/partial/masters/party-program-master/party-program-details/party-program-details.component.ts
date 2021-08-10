@@ -71,7 +71,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
-    // this.membersDataNonParticipantsArray=[];
+    this.membersDataNonParticipantsArray=[];
     this.membersAndNonParticipantsDiv=true;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
@@ -93,8 +93,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getNonParticipantsData() {
-    this.activeFlag = true;
-    // this.membersDataNonParticipantsArray=[];
+    this.membersDataNonParticipantsArray=[];
     this.membersAndNonParticipantsDiv=true;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
