@@ -19,14 +19,14 @@ export class PartyProgramDetailsComponent implements OnInit {
   zoom: any = 5;
   membersDataNonParticipantsArray: any;
   defaultPartiNonParti:boolean = true;
-
+  activeFlag:boolean = true;
   total: any;
   paginationNo: number = 1;
   pageSize: number = 10;
   committeesDataArray: any;
   committeeTableDiv:boolean=false;
   membersAndNonParticipantsDiv:boolean=true;
-
+  ParticipantsText:string = "Members";
   total1: any;
   paginationNo1: number = 1;
   pageSize1: number = 10;

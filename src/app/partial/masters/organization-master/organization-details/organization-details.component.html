@@ -40,19 +40,12 @@
                                         </td> -->
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Action Buttons">
-                                                <button *ngIf="designatedMembers.MemberName"
-                                                    (click)="addEditMember(designatedMembers,'Edit')"
-                                                    class="btn btn-sm btn-light"> <i
+                                                <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i
                                                         class="fas fa-pencil-alt"></i></button>
-                                                <button
-                                                    *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1"
-                                                    (click)="addEditMember(designatedMembers,'Add')"
-                                                    class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
-                                                <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#DeleteModal"> <i
+                                                <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
+                                                <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal"> <i
                                                         class="fas fa-trash-alt"></i></button>
-                                                <button data-bs-toggle="modal" data-bs-target="#AddMemberModal"
-                                                    #addMemberModal style="display: none;"></button>
+                                                <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -84,8 +77,7 @@
                                         <tbody>
                                             <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
                                                 <td><a>{{desMembers.MemberName}}</a></td>
-                                                <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ?
-                                                    'Till Date' : desMembers.PostToDate}}</td>
+                                                <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -121,31 +113,19 @@
                                 <div class="row mb-3 form-container">
 
                                     <div class="col-sm-3 offset-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')"
-                                            (select)="filterForm(this.filter.value.memberName, 'member')"
-                                            [items]="bodyMemberFilterDetails" optionValueField="ID"
-                                            optionTextField="FullName" formControlName="memberName"
-                                            placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')" (select)="filterForm(this.filter.value.memberName, 'member')" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')"
-                                            (select)="filterForm(this.filter.value.workType, 'workType')"
-                                            [items]="resWorkcategory" optionValueField="Id" optionTextField="Category"
-                                            formControlName="workType" placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')" (select)="filterForm(this.filter.value.workType, 'workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)"
-                                                class="form-control" [max]="maxDate" [selectMode]="'range'"
-                                                [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date"
-                                                formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button"
-                                                [owlDateTimeTrigger]="dt1">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date" formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1">
                                                 <i class="fas fa-calendar"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button"
-                                                (click)="clearValue()">
+                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearValue()">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -169,23 +149,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                    <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                         <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                         <td>{{bodyMemActivity.ActivityDate}}</td>
                                         <td>{{bodyMemActivity.FullName}}</td>
                                         <td>{{bodyMemActivity.Category}}</td>
                                         <td>{{bodyMemActivity.Title}}</td>
                                         <td>
-                                            <ng-container
-                                                *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)">
+                                            <ng-container *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)">
                                                 <img src="{{img}}">
                                             </ng-container>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-light"
-                                                (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"
-                                                data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
+                                            <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
                                                     class="far fa-eye"></i></button>
                                         </td>
                                     </tr>
@@ -198,8 +174,7 @@
                                 </tbody>
                             </table>
                             <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
-                                <pagination-controls previousLabel="" nextLabel=""
-                                    (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                             </div>
 
@@ -221,15 +196,13 @@
                 </div>
 
                 <!-- Modal for Add/Update/Delete Member for any Designation -->
-                <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+                <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <form [formGroup]="bodyMember">
                                 <div class="modal-header">
                                     <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" style="height: 305px">
                                     <div class="form-container">
@@ -237,12 +210,7 @@
 
                                             <label for="txtMemberName" class="form-label">Member Name</label>
                                             <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                            <ngx-select [allowClear]="true" [items]="resAllMember"
-                                                formControlName="bodyId" optionValueField="id"
-                                                optionTextField="fullname"
-                                                (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
-                                                placeholder="Select Member Name"
-                                                [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
+                                            <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
                                             <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
                                                 <div *ngIf="f.bodyId.errors.required">Body Member is required</div>
                                             </div>
@@ -260,9 +228,7 @@
                                                         {{bodyMemberDetails?.MobileNo}}</div>
                                                     <label class="form-label mb-0">Location</label>
                                                     <div class="form-control-plaintext py-0">
-                                                        {{bodyMemberDetails?.DistrictName}},
-                                                        {{bodyMemberDetails?.TalukaName}},
-                                                        {{bodyMemberDetails?.VillageName}}
+                                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,14 +245,12 @@
                 </div>
 
                 <!-- View Details Modal -->
-                <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row" *ngIf="resultBodyMemActDetails">
@@ -346,8 +310,7 @@
                                     <div class="col-sm-6 form-container">
                                         <div class="mb-3">
                                             <label class="form-label">Location</label>
-                                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                                                [mapTypeId]="'roadmap'">
+                                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                                             </agm-map>
                                             <!-- <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid"> -->
@@ -358,8 +321,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Photos</label>
                                             <div class="row">
-                                                <div class="col-sm-2 mb-3"
-                                                    *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
+                                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
                                                     <img src="{{img}}" class="img-thumbnail h-150">
                                                     <!-- <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" /> -->
                                                 </div>
@@ -374,14 +336,12 @@
 
 
                 <!-- Delete Confirmation modal pop up -->
-                <div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header bg-transparent border-bottom-0">
                                 <!-- <h5 class="modal-title" id="DeleteModalLabel">Modal title</h5> -->
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center pb-5">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
