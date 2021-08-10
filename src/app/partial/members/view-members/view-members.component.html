@@ -127,7 +127,7 @@
                                 </ng-container>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-light" routerLink="../../members/member-profile" type="button"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-sm btn-light" (click)="redToMemberProfile(allMembers.MemberId)" type="button"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="resultAllViewMembers?.length == 0">

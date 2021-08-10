@@ -13,30 +13,30 @@
     <div class="row">
         <div class="col-sm-3" id="profile-left">
             <div class="card">
-                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="card-img-top" alt="...">
+                <img src="{{allMemberprofile.ProfilePhoto}}" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
-                        Vice President of Yuvak Congress
+                        {{allMemberprofile.Designation1}}
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <i class="fas fa-fist-raised text-success"></i> Active Since : 01-02-2000
+                        <i class="fas fa-fist-raised text-success"></i> Active Since : {{allMemberprofile.RegtDate}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-map-marked-alt text-warning"></i> Haveli Constituency
+                        <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile.ConstituencyName}}
                     </li>
                     <li class="list-group-item">
-                        <i class="far fa-envelope text-info"></i> ravikant.varpe@gmail.com
+                        <i class="far fa-envelope text-info"></i> {{allMemberprofile.Emailid}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-phone-alt text-primary"></i> +91-9876543210
+                        <i class="fas fa-phone-alt text-primary"></i> {{allMemberprofile.MobileNo}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fab fa-whatsapp text-primary"></i> +91-9876543210
+                        <i class="fab fa-whatsapp text-primary"></i> {{allMemberprofile.MobileNo}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-map-marker-alt text-dark"></i> City/Village, Taluka, District
+                        <i class="fas fa-map-marker-alt text-dark"></i> {{allMemberprofile.Address}}
                     </li>
                 </ul>
                 <hr>
@@ -228,7 +228,7 @@
                     year range filter (current month to last 12 months)
                     <br>Bar Chart :<br> x-axis : Month name<br> y-axis : Count of likes in this month<br> y-axis : count of work done in this month <br>
                 </div> -->
-                <div class="card-body p-2 pt-0 recentActivityGraph chartfont h-400">
+                <div class="card-body pt-5 recentActivityGraph chartfont h-400">
                 </div>
             </div>
 
