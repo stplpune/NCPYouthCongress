@@ -499,109 +499,162 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  socialMediaChart() {
-    // Themes begin
+  // socialMediaChart() {
+  //   // Themes begin
+  //   am4core.useTheme(am4themes_animated);
+  //   // Themes end
+
+  //   /**
+  //    * Chart design taken from Samsung health app
+  //    */
+
+  //   let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
+  //   chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+  //   chart.paddingBottom = 10;
+
+  //   chart.data = this.perceptionOnSocialMediaArray;
+
+  //   let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
+  //   categoryAxis.dataFields.category = "PartyShortCode";
+  //   categoryAxis.renderer.grid.template.strokeOpacity = 0;
+  //   categoryAxis.renderer.minGridDistance = 10;
+  //   categoryAxis.renderer.labels.template.dy = 35;
+  //   categoryAxis.renderer.tooltip.dy = 35;
+
+  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  //   valueAxis.renderer.inside = true;
+  //   valueAxis.renderer.labels.template.fillOpacity = 0.3;
+  //   valueAxis.renderer.grid.template.strokeOpacity = 0;
+  //   valueAxis.min = 0;
+  //   valueAxis.cursorTooltipEnabled = false;
+  //   valueAxis.renderer.baseGrid.strokeOpacity = 0;
+
+  //   let series: any = chart.series.push(new am4charts.ColumnSeries);
+  //   series.dataFields.valueY = "ActivityCount";
+  //   series.dataFields.categoryX = "PartyShortCode";
+  //   series.tooltipText = "{valueY.value}";
+  //   series.tooltip.pointerOrientation = "vertical";
+  //   series.tooltip.dy = - 6;
+  //   series.columnsContainer.zIndex = 100;
+
+  //   let columnTemplate = series.columns.template;
+  //   columnTemplate.width = am4core.percent(50);
+  //   columnTemplate.maxWidth = 40;
+  //   columnTemplate.column.cornerRadius(60, 60, 10, 10);
+  //   columnTemplate.strokeOpacity = 0;
+
+  //   series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
+  //   series.mainContainer.mask = undefined;
+
+  //   let cursor = new am4charts.XYCursor();
+  //   chart.cursor = cursor;
+  //   cursor.lineX.disabled = true;
+  //   cursor.lineY.disabled = true;
+  //   cursor.behavior = "none";
+
+  //   let bullet: any = columnTemplate.createChild(am4charts.CircleBullet);
+  //   bullet.circle.radius = 30;
+  //   bullet.valign = "bottom";
+  //   bullet.align = "center";
+  //   bullet.isMeasured = true;
+  //   bullet.mouseEnabled = false;
+  //   bullet.verticalCenter = "bottom";
+  //   bullet.interactionsEnabled = false;
+
+  //   let hoverState = bullet.states.create("hover");
+  //   let outlineCircle = bullet.createChild(am4core.Circle);
+  //   outlineCircle.adapter.add("radius", function (radius: any, target: any) {
+  //     let circleBullet = target.parent;
+  //     return circleBullet.circle.pixelRadius + 0;
+  //   })
+
+  //   let image = bullet.createChild(am4core.Image);
+  //   image.width = 45;
+  //   image.height = 45;
+  //   image.horizontalCenter = "middle";
+  //   image.verticalCenter = "middle";
+  //   image.propertyFields.href = "href";
+
+  //   image.adapter.add("mask", function (mask: any, target: any) {
+  //     let circleBullet = target.parent;
+  //     return circleBullet.circle;
+  //   })
+
+  //   let previousBullet: any;
+  //   chart.cursor.events.on("cursorpositionchanged", function (event) {
+  //     let dataItem = series.tooltipDataItem;
+
+  //     if (dataItem.column) {
+  //       let bullet = dataItem.column.children.getIndex(1);
+
+  //       if (previousBullet && previousBullet != bullet) {
+  //         previousBullet.isHover = false;
+  //       }
+
+  //       if (previousBullet != bullet) {
+
+  //         let hs = bullet.states.getKey("hover");
+  //         hs.properties.dy = -bullet.parent.pixelHeight + 30;
+  //         bullet.isHover = true;
+
+  //         previousBullet = bullet;
+  //       }
+  //     }
+  //   })
+  // }
+
+  socialMediaChart(){
     am4core.useTheme(am4themes_animated);
-    // Themes end
+// Themes end
 
-    /**
-     * Chart design taken from Samsung health app
-     */
+let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+chart.data = this.perceptionOnSocialMediaArray;
 
-    chart.paddingBottom = 10;
+let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.dataFields.category = "PartyShortCode";
+categoryAxis.renderer.minGridDistance = 40;
+categoryAxis.fontSize = 11;
+categoryAxis.renderer.labels.template.dy = 5;
 
-    chart.data = this.perceptionOnSocialMediaArray;
 
-    let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "PartyShortCode";
-    categoryAxis.renderer.grid.template.strokeOpacity = 0;
-    categoryAxis.renderer.minGridDistance = 10;
-    categoryAxis.renderer.labels.template.dy = 35;
-    categoryAxis.renderer.tooltip.dy = 35;
 
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.renderer.inside = true;
-    valueAxis.renderer.labels.template.fillOpacity = 0.3;
-    valueAxis.renderer.grid.template.strokeOpacity = 0;
-    valueAxis.min = 0;
-    valueAxis.cursorTooltipEnabled = false;
-    valueAxis.renderer.baseGrid.strokeOpacity = 0;
+let image = new am4core.Image();
+image.horizontalCenter = "middle";
+image.width = 20;
+image.height = 20;
+image.verticalCenter = "middle";
+image.adapter.add("href", (href, target:any)=>{
+  let category = target.dataItem.category;
+  if(category){
+    return "https://www.amcharts.com/wp-content/uploads/flags/" + category.split(" ").join("-").toLowerCase() + ".svg";
+  }
+  return href;
+})
+categoryAxis.dataItems.template.bullet = image;
 
-    let series: any = chart.series.push(new am4charts.ColumnSeries);
-    series.dataFields.valueY = "ActivityCount";
-    series.dataFields.categoryX = "PartyShortCode";
-    series.tooltipText = "{valueY.value}";
-    series.tooltip.pointerOrientation = "vertical";
-    series.tooltip.dy = - 6;
-    series.columnsContainer.zIndex = 100;
 
-    let columnTemplate = series.columns.template;
-    columnTemplate.width = am4core.percent(50);
-    columnTemplate.maxWidth = 40;
-    columnTemplate.column.cornerRadius(60, 60, 10, 10);
-    columnTemplate.strokeOpacity = 0;
 
-    series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
-    series.mainContainer.mask = undefined;
+let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+valueAxis.renderer.minGridDistance = 30;
+valueAxis.renderer.baseGrid.disabled = true;
 
-    let cursor = new am4charts.XYCursor();
-    chart.cursor = cursor;
-    cursor.lineX.disabled = true;
-    cursor.lineY.disabled = true;
-    cursor.behavior = "none";
+let series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.categoryX = "PartyShortCode";
+series.dataFields.valueY = "ActivityCount";
+series.columns.template.tooltipText = "{valueY.value}";
+series.columns.template.tooltipY = 0;
+series.columns.template.strokeOpacity = 0;
 
-    let bullet: any = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
-    bullet.valign = "bottom";
-    bullet.align = "center";
-    bullet.isMeasured = true;
-    bullet.mouseEnabled = false;
-    bullet.verticalCenter = "bottom";
-    bullet.interactionsEnabled = false;
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target:any) {
+  return chart.colors.getIndex(target.dataItem.index);
+});
 
-    let hoverState = bullet.states.create("hover");
-    let outlineCircle = bullet.createChild(am4core.Circle);
-    outlineCircle.adapter.add("radius", function (radius: any, target: any) {
-      let circleBullet = target.parent;
-      return circleBullet.circle.pixelRadius + 0;
-    })
-
-    let image = bullet.createChild(am4core.Image);
-    image.width = 45;
-    image.height = 45;
-    image.horizontalCenter = "middle";
-    image.verticalCenter = "middle";
-    image.propertyFields.href = "href";
-
-    image.adapter.add("mask", function (mask: any, target: any) {
-      let circleBullet = target.parent;
-      return circleBullet.circle;
-    })
-
-    let previousBullet: any;
-    chart.cursor.events.on("cursorpositionchanged", function (event) {
-      let dataItem = series.tooltipDataItem;
-
-      if (dataItem.column) {
-        let bullet = dataItem.column.children.getIndex(1);
-
-        if (previousBullet && previousBullet != bullet) {
-          previousBullet.isHover = false;
-        }
-
-        if (previousBullet != bullet) {
-
-          let hs = bullet.states.getKey("hover");
-          hs.properties.dy = -bullet.parent.pixelHeight + 30;
-          bullet.isHover = true;
-
-          previousBullet = bullet;
-        }
-      }
-    })
   }
   
 
