@@ -35,7 +35,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
 
   getMemberprofile() {
-    // this.spinner.show();
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_1_0?MemberId=' + this.memberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

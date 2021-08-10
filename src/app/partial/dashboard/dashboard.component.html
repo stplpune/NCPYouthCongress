@@ -108,7 +108,7 @@
                         <div class="card-header">
                             Types of Works
                         </div>
-                        <div class="card-body chartHeight pieChartdiv">
+                        <div class="card-body pieChartdiv">
                         </div>
                     </div>
                 </div>
@@ -126,11 +126,10 @@
         </div>
         <div class="col-sm-4 chartbox">
             <div class="card mb-3">
-                <div class="card-header"><i class="fas fa-arrow-up bounce text-success me-2"></i>Highest Activity
-                    Districts</div>
+                <div class="card-header"><i class="fas fa-arrow-up bounce text-success me-2"></i>Highest Activity Districts
+                </div>
                 <div class="card-body pt-0 pb-1">
-                    <a class="activity-item bg-high"
-                        *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
+                    <a class="activity-item bg-high" *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
 
                         {{highestActivityDistricts.DistrictName}}
                         <span class="float-end"><span
@@ -140,8 +139,8 @@
                 </div>
             </div>
             <div class="card mb-3">
-                <div class="card-header "><i class="fas fa-arrow-down bounce text-danger me-2"></i>Lowest Activity
-                    Districts</div>
+                <div class="card-header "><i class="fas fa-arrow-down bounce text-danger me-2"></i>Lowest Activity Districts
+                </div>
                 <div class="card-body pt-0 pb-1" *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
                     <a class="activity-item bg-low">
 
