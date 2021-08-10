@@ -484,6 +484,7 @@ export class DashboardComponent implements OnInit {
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 10;
+    chart.legend.fontSize=10;
     chart.legend.scrollable = true;
     chart.legend.position  = "bottom";
     chart.legend.contentAlign = "left";
