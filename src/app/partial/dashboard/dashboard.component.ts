@@ -436,18 +436,18 @@ export class DashboardComponent implements OnInit {
   pieChart() {
     am4core.useTheme(am4themes_animated);
     // Themes end
-    
+
     // Create chart instance
     let chart = am4core.create("pieChartdiv", am4charts.PieChart);
-    
+
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
-    
+
     // Let's cut a hole in our Pie chart the size of 30% the radius
     // chart.innerRadius = am4core.percent(30);
-    
+
     // Put a thick white border around each Slice
     pieSeries.slices.template.stroke = am4core.color("#fff");
     pieSeries.slices.template.strokeWidth = 2;
@@ -460,14 +460,14 @@ export class DashboardComponent implements OnInit {
           "value": "pointer"
         }
       ];
-    
+
     // Create a base filter effect (as if it's not there) for the hover to return to
     let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
     shadow.opacity = 0;
-    
+
     // Create hover state
-    let hoverState:any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-    
+    let hoverState: any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
     // Slightly shift the shadow and make it more prominent on hover
     let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
     hoverShadow.opacity = 0.7;
@@ -476,19 +476,19 @@ export class DashboardComponent implements OnInit {
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 100;
-    chart.legend.fontSize=9;
+    chart.legend.fontSize = 9;
     chart.legend.scrollable = true;
-    chart.legend.position  = "bottom";
+    chart.legend.position = "bottom";
     chart.legend.contentAlign = "left";
 
     let markerTemplate = chart.legend.markers.template;
     markerTemplate.width = 15;
     markerTemplate.height = 15;
     pieSeries.labels.template.disabled = true;
- 
-    
-    chart.data=this.typesOfWorksArray;
-    
+
+
+    chart.data = this.typesOfWorksArray;
+
   }
 
   // socialMediaChart() {
@@ -596,59 +596,61 @@ export class DashboardComponent implements OnInit {
   //   })
   // }
 
-  socialMediaChart(){
+  socialMediaChart() {
     am4core.useTheme(am4themes_animated);
-// Themes end
+    // Themes end
 
-let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
-chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-chart.data = this.perceptionOnSocialMediaArray;
+    chart.data = this.perceptionOnSocialMediaArray;
 
-let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "PartyShortCode";
-categoryAxis.renderer.minGridDistance = 40;
-categoryAxis.fontSize = 11;
-categoryAxis.renderer.labels.template.dy = 5;
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "PartyShortCode";
+    categoryAxis.renderer.minGridDistance = 40;
+    categoryAxis.fontSize = 11;
+    categoryAxis.renderer.labels.template.dy = 5;
 
 
 
-let image = new am4core.Image();
-image.horizontalCenter = "middle";
-image.width = 20;
-image.height = 20;
-image.verticalCenter = "middle";
-image.adapter.add("href", (href, target:any)=>{
-  let category = target.dataItem.category;
-  if(category){
-    return "https://www.amcharts.com/wp-content/uploads/flags/" + category.split(" ").join("-").toLowerCase() + ".svg";
+    let image = new am4core.Image();
+    image.horizontalCenter = "middle";
+    image.width = 30;
+    image.height = 30;
+    image.verticalCenter = "middle";
+    image.adapter.add("href", (href, target: any) => {
+      let category = target.dataItem.category;
+      category
+      if (category) {
+        return "assets/images/logos/" + category.split(" ").join("-").toLowerCase() + ".png";
+      }
+      console.log(target);
+      return href;
+    })
+    categoryAxis.dataItems.template.bullet = image;
+
+
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.renderer.minGridDistance = 30;
+    valueAxis.renderer.baseGrid.disabled = true;
+
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "PartyShortCode";
+    series.dataFields.valueY = "ActivityCount";
+    series.columns.template.tooltipText = "{valueY.value}";
+    series.columns.template.tooltipY = 0;
+    series.columns.template.strokeOpacity = 0;
+
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function (fill, target: any) {
+      return chart.colors.getIndex(target.dataItem.index);
+    });
+
   }
-  return href;
-})
-categoryAxis.dataItems.template.bullet = image;
 
-
-
-let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.min = 0;
-valueAxis.renderer.minGridDistance = 30;
-valueAxis.renderer.baseGrid.disabled = true;
-
-let series = chart.series.push(new am4charts.ColumnSeries());
-series.dataFields.categoryX = "PartyShortCode";
-series.dataFields.valueY = "ActivityCount";
-series.columns.template.tooltipText = "{valueY.value}";
-series.columns.template.tooltipY = 0;
-series.columns.template.strokeOpacity = 0;
-
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function(fill, target:any) {
-  return chart.colors.getIndex(target.dataItem.index);
-});
-
-  }
-  
 
   redirectCountingPage(status: any) {
     if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
