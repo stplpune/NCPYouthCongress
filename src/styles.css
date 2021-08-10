@@ -1,5 +1,4 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f3f3;
@@ -284,6 +283,14 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     text-overflow: ellipsis;
 }
 
+.text-ellipsis-150px {
+    white-space: nowrap;
+    width: 150px !important;
+    display: block;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
 #dash-stats {
     margin-bottom: 15px
 }
@@ -374,15 +381,17 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     font-size: .85rem;
     box-shadow: none
 }
-.chartbox .card .card-header .input-group .form-control{
+
+.chartbox .card .card-header .input-group .form-control {
     border-right: none;
 }
-.chartbox .card .card-header .input-group .btn{
-    background-color:transparent;
+
+.chartbox .card .card-header .input-group .btn {
+    background-color: transparent;
     border: 1px solid #ced4da;
     border-left: none;
     box-shadow: none;
-    outline:none;
+    outline: none;
 }
 
 .chartbox .card .card-header .form-check-input[type=radio] {
