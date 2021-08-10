@@ -14,23 +14,23 @@ import { ActivatedRoute, Router } from '@angular/router';
   providers: [DatePipe]
 })
 export class PartyProgramMasterComponent implements OnInit {
-  programStatusArray = [{id:1, programStatus:'Upcomimg'},{id:2, programStatus:'Ongoing'},{id:3, programStatus:'Completed'},{id:'4', programStatus:'Cancelled'}]
+  programStatusArray = [{ id: 1, programStatus: 'Upcomimg' }, { id: 2, programStatus: 'Ongoing' }, { id: 3, programStatus: 'Completed' }, { id: '4', programStatus: 'Cancelled' }]
   public items: string[] = [];
   resultProgramList: any;
-  defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-  defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
+  defaultToDate: string = '';
+  defaultFromDate: string = '';
   globalStatusId: any = 0;
   paginationNo: number = 1;
   total: any;
   minDate = new Date();
   createProgram!: FormGroup;
   submitted = false;
-  programDetails:any;
+  programDetails: any;
   HighlightRow: any;
-  topFilter!:FormGroup;
-  defaultCloseBtn:boolean = false;
+  topFilter!: FormGroup;
+  defaultCloseBtn: boolean = false;
   pageSize: number = 10;
-  disabledAction:boolean = true;
+  disabledAction: boolean = true;
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
     public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute,
@@ -39,29 +39,9 @@ export class PartyProgramMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultProgramForm();
-    this.getProgramList();
     this.defaultFilterForm();
-  }
+    this.getProgramList();
 
-  getProgramList() {
-    let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
-    let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_1_0?StatusId=' + this.globalStatusId + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.resultProgramList = res.data1;
-        this.total = res.data2[0].TotalCount;
-      } else {
-        this.spinner.hide();
-        if (res.data == 1) {
-          // this.toastrService.error("Data is not available 1");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
-      }
-    })
   }
 
   defaultProgramForm() {
@@ -74,10 +54,44 @@ export class PartyProgramMasterComponent implements OnInit {
     })
   }
 
-  defaultFilterForm(){
+  getProgramList() {
+    debugger;
+    let fromDate: any;
+    let toDate: any;
+
+    if (this.topFilter.value.fromTo[0] != "" && this.topFilter.value.fromTo[1] != "" && this.topFilter.value.fromTo) {
+      fromDate = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
+      toDate = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    } else {
+      fromDate = '';
+      toDate = ''
+    }
+
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetProgram_1_0?StatusId=' + this.globalStatusId + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultProgramList = res.data1;
+        this.total = res.data2[0].TotalCount;
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.resultProgramList = [];
+          // this.toastrService.error("Data is not available 1");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+
+
+  defaultFilterForm() {
     this.topFilter = this.fb.group({
-      fromTo:[''],
-      selectStatus:['']
+      fromTo: [''],
+      selectStatus: ['']
     })
   }
 
@@ -114,35 +128,34 @@ export class PartyProgramMasterComponent implements OnInit {
     }
   }
 
-  selDateRangeByFilter(getDate:any){
+  selDateRangeByFilter(getDate: any) {
     this.defaultCloseBtn = true;
     this.defaultFromDate = getDate[0];
     this.defaultToDate = getDate[1];
     this.getProgramList();
   }
 
-  clearValue(){
+  clearValue() {
     this.defaultCloseBtn = false;
-    this.defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-    this.defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
+    // this.defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+    // this.defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
     this.topFilter.controls['fromTo'].setValue(['', '']);
-    console.log(this.topFilter);
     this.getProgramList();
 
   }
 
-  ViewProgramList(programDetails:any){
+  ViewProgramList(programDetails: any) {
     this.programDetails = programDetails;
   }
 
-  editrogramList(programDetails:any){
+  editrogramList(programDetails: any) {
     this.HighlightRow = programDetails.Id;
     this.createProgram.patchValue({
-      Id:programDetails.Id,
-      ProgramTitle:programDetails.ProgramTitle,
-      ProgramDescription:programDetails.ProgramDescription,
-      ProgramStartDate:new Date(programDetails.ProgramStartDate),
-      CreatedBy:this.commonService.loggedInUserId(),
+      Id: programDetails.Id,
+      ProgramTitle: programDetails.ProgramTitle,
+      ProgramDescription: programDetails.ProgramDescription,
+      ProgramStartDate: new Date(programDetails.ProgramStartDate),
+      CreatedBy: this.commonService.loggedInUserId(),
     });
   }
 
@@ -154,9 +167,9 @@ export class PartyProgramMasterComponent implements OnInit {
     this.getProgramList();
   }
 
-  endProgramList(data:any) {
+  endProgramList(data: any) {
     this.spinner.show();
-    let proStatus  =  3;
+    let proStatus = 3;
     // status == 1 ?  proStatus = 0 : proStatus = 1; 
     this.callAPIService.setHttp('get', 'Web_End_PartyProgram?ProgramId=' + data.Id + '&StatusId=' + proStatus + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -175,9 +188,9 @@ export class PartyProgramMasterComponent implements OnInit {
     })
   }
 
-  cancelProgramList(data:any) {
+  cancelProgramList(data: any) {
     this.spinner.show();
-    let proStatus  =  4;
+    let proStatus = 4;
     // status == 1 ?  proStatus = 0 : proStatus = 1; 
     this.callAPIService.setHttp('get', 'Web_End_PartyProgram?ProgramId=' + data.Id + '&StatusId=' + proStatus + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -201,13 +214,19 @@ export class PartyProgramMasterComponent implements OnInit {
     this.getProgramList()
   }
 
-  selprogramStatus(value:any){
-    console.log(value.target.value)
+  selprogramStatus(value: any) {
+    this.globalStatusId = value;
+    this.getProgramList();
   }
 
-  partyProgramDetails(programListId:any){
+  partyProgramDetails(programListId: any) {
     localStorage.setItem('programListIdKey', JSON.stringify(programListId));
-      this.router.navigate(['../party-program-details'], { relativeTo: this.route });
+    this.router.navigate(['../party-program-details'], { relativeTo: this.route });
+  }
+
+  removeProgram() {
+    this.globalStatusId = 0;
+    this.getProgramList();
   }
 
 }

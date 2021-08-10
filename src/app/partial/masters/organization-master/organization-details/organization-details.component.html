@@ -14,20 +14,20 @@
                                     <tr>
                                         <th>Sr. No.</th>
                                         <th>Member Name</th>
-                                        <th>Designation</th>
+                                        <th>Designation {{this.allDesignatedMembers.length - 1}}</th>
 
-                                        <th>Device</th>
+                                        <!-- <th>Device</th> -->
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let designatedMembers of allDesignatedMembers">
+                                    <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
                                         <td>{{designatedMembers.SrNo}}</td>
 
                                         <td>{{designatedMembers.MemberName | titlecase}}</td>
                                         <td>{{designatedMembers.DesignationName}}</td>
-                                        <td>
-                                            <!-- {{designatedMembers.DeviceType}} -->
+                                        <!-- <td>
+                                          
                                             <ng-container *ngIf="designatedMembers.DeviceType == 1">
                                                 <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
                                             </ng-container>
@@ -37,10 +37,11 @@
                                             <ng-container *ngIf="designatedMembers.DeviceType != 2 && designatedMembers.DeviceType != 1">
                                                 No Device
                                             </ng-container>
-                                        </td>
-                                        <td style="    width: 68px;">
+                                        </td> -->
+                                        <td style="width: 68px;">
                                             <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i class="fas fa-pencil-alt"></i></button>
-                                            <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
+                                            <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
+                                            <button class="btn btn-sm btn-light text-danger"> <i class="fas fa-trash-alt"></i></button>
                                             <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                         </td>
                                     </tr>
@@ -172,7 +173,7 @@
                                 <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                             </div>
-                            
+
 
                             <div class="card shadow-none border">
                                 <div class="card-header">Work in a Year
@@ -183,9 +184,7 @@
                                     </span>
                                 </div>
                                 <div class="card-body">
-                                    periodic chart<br>
-                                x-axis : Month<br>
-                                y-axis : count of works
+                                    periodic chart<br> x-axis : Month<br> y-axis : count of works
                                 </div>
                             </div>
                         </div>

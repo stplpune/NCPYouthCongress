@@ -10,6 +10,9 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./political-work.component.css', '../partial.component.css']
 })
 export class PoliticalWorkComponent implements OnInit {
+  public ddlpoliticalWork: string[] = ['Political Work', 'News Letters', 'Social Media Help', 'Personal Help',
+  'Party Programs', 'Help Me'];
+  memberNameArray: any;
   politicalWorkArray: any;
   paginationNo: number = 1;
   total: any;
@@ -28,6 +31,7 @@ export class PoliticalWorkComponent implements OnInit {
   ngOnInit(): void {
     this.defaultFilterForm();
     this.getPoliticalWork();
+    this.getMemberName();
   }
 
   defaultFilterForm() {
@@ -60,6 +64,25 @@ export class PoliticalWorkComponent implements OnInit {
     })
   }
   
+  getMemberName() {
+    this.spinner.show();    
+    this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.memberNameArray = res.data1;
+      } else {
+        if (res.data == 1) {
+          this.spinner.hide();
+          this.toastrService.error("Data is not available");
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
   getPoliticalWorkById() {
     this.paginationNo = 1;
     this.getPoliticalWork()

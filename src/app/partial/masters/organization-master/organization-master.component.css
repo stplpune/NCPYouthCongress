@@ -1,0 +1,9 @@
+.example-list .example-box{
+    cursor: all-scroll;
+    border-radius: 7px;
+    transition:all .25s ease-in;
+}
+.example-list .example-box:hover{
+    box-shadow: 2px 1px 9px 0px #bbb;    
+    transition:all .25s ease-in;
+}
