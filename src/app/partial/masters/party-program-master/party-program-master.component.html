@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)" class="form-control form-control-sm" [owlDateTimeTrigger]="dt3" placeholder="Select date range">
+                                    <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select date range">
                                     <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar"></i></button>
                                     <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">

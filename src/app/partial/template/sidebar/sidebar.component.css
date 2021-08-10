@@ -16,16 +16,16 @@
 }
 
 .nav .nav-head {
-    padding: 15px;
-    display: flex;
+    padding: 15px 7px;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
     /* padding-bottom: 3rem; */
     overflow: hidden;
 }
 
 .nav .nav-head img {
-    width: 38px;
+    width: 235px;
 }
 
 .nav__container {
