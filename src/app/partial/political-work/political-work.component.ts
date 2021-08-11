@@ -12,7 +12,6 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
   styleUrls: ['./political-work.component.css', '../partial.component.css']
 })
 export class PoliticalWorkComponent implements OnInit {
- 
   memberNameArray: any;
   politicalWorkArray: any;
   paginationNo: number = 1;
