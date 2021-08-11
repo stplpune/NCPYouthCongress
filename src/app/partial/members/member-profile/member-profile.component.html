@@ -17,7 +17,7 @@
                 <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/NCP-logo.svg" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
-                        {{allMemberprofile?.Designation1}}
+                        {{allMemberprofile?.Designation}}
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -42,7 +42,7 @@
                 </ul>
                 <hr>
                 <div class="text-end">
-                    <button class="btn btn-danger btn-sm" type="button">Block Member</button>
+                    <button class="btn btn-danger btn-sm" type="button" (click)="blockUnblockUser(allMemberprofile.IsUserBlock)">{{checkUserBlock}} Member</button>
                 </div>
             </div>
         </div>
@@ -195,7 +195,8 @@
                                 </td>
                                 <td><span class="text-ellipsis-250px">{{resFeedbacks?.Feedback}}</span></td>
                                 <td><span class="text-ellipsis-250px">{{resFeedbacks?.Reply}}</span></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#ViewFeedbackModal" class="btn btn-sm btn-light"><i  class="far fa-eye"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#ViewFeedbackModal" class="btn btn-sm btn-light" (click)="viewFeedBackModalFN(resFeedbacks)"><i
+                                            class="far fa-eye"></i></button></td>
                             </tr>
 
                         </tbody>
@@ -298,6 +299,7 @@
 
 
 <!-- View Feedback details modal -->
+<!-- <ng-container *ngIf="defaultResultFeedBack"> -->
 <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewFeedbackModal" tabindex="-1" aria-labelledby="ViewFeedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -310,19 +312,19 @@
                     <div class="mb-3">
                         <label class="form-label">Feedback Date</label>
                         <p class="form-data">
-                            asdf
+                            {{resultFeedBack?.FeedDate}}
                         </p>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Feedback Message</label>
                         <p class="form-data">
-                           asdf
+                            {{resultFeedBack?.Feedback}}
                         </p>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Action Taken</label>
                         <p class="form-data">
-                            asdf
+                            {{resultFeedBack?.Reply}}
                         </p>
                     </div>
                 </div>
@@ -335,3 +337,4 @@
         </div>
     </div>
 </div>
+<!-- </ng-container> -->
