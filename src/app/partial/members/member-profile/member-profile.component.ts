@@ -194,7 +194,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
             }
         }    
         
-        data.push({ date: new Date(thisYear, 0,  i + 1), value: this.periodicChart[i]['Totalwork'] });
+        data.push({ date: new Date(thisYear, 0,  i + 1), value: this.periodicChart['Totalwork'] });
         previousValue = visits;
     }
     console.log(data);
