@@ -91,13 +91,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -114,13 +108,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.allDistrictArray = res.data1;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -137,13 +125,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -164,13 +146,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.lat = socialMediaDetailsLatLongArray.Latitude;
        this.lng = socialMediaDetailsLatLongArray.Longitude;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
