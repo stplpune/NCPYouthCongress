@@ -106,8 +106,8 @@
                             </td>
                             <!-- <td>City(Village)<br/>Taluka, District</td> -->
                             <!-- <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td> -->
-                            <td>{{allMembers.Location}}</td>
-                            <td>{{allMembers.Designation}}</td>
+                            <td><span class="text-ellipsis-150px">{{allMembers.Location}}</span></td>
+                            <td><span class="text-ellipsis-150px">{{allMembers.Designation}}</span></td>
                             <td>
                                 <ng-container *ngIf="allMembers.UserStatus == 0"><i class="fas  fa-times-circle text-danger"></i></ng-container>
                                 <ng-container *ngIf="allMembers.UserStatus != 0"><i class="fas fa-shield-alt text-success"></i></ng-container>
