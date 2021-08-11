@@ -19,7 +19,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MemberProfileComponent implements OnInit, OnDestroy {
   recentActivityGraph:any;
   allMemberprofile:any;
-  memberId:any
+  memberId:any;
+  globalFromDate:any = "";
+  globalToDate:any = "";
+  membersOverview:any;
+  membersActivity:any;
+
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
@@ -30,6 +35,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.memberId = localStorage.getItem('memberId')
     this.getMemberprofile();
     this.WorkDoneByYuvak();
+    this.getMemberprofileDetails();
   }
 
 
@@ -55,6 +61,26 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
+  getMemberprofileDetails() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetMemberprofile_details_1_0?MemberId=' + this.memberId+'&FromDate='+this.globalFromDate+'&ToDate='+this.globalToDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.membersOverview = res.data1[0];
+        this.membersActivity = res.data2;
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          // this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  // 
 
 
   WorkDoneByYuvak() {
