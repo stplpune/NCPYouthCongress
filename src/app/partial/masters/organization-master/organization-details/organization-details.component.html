@@ -153,8 +153,8 @@
                                         <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                         <td>{{bodyMemActivity.ActivityDate}}</td>
                                         <td>{{bodyMemActivity.FullName}}</td>
-                                        <td>{{bodyMemActivity.Category}}</td>
-                                        <td>{{bodyMemActivity.Title}}</td>
+                                        <td><span class="text-ellipsis-150px">{{bodyMemActivity.Category}}</span></td>
+                                        <td><span class="text-ellipsis-150px">{{bodyMemActivity.Title}}</span></td>
                                         <td>
                                             <ng-container *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)">
                                                 <img src="{{img}}">

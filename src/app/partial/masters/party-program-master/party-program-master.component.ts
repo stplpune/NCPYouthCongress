@@ -84,6 +84,10 @@ export class PartyProgramMasterComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -128,6 +132,10 @@ export class PartyProgramMasterComponent implements OnInit {
           } else {
             this.toastrService.error("Please try again something went wrong");
           }
+        }
+      } ,(error:any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../../500'], { relativeTo: this.route });
         }
       })
     }
@@ -190,6 +198,10 @@ export class PartyProgramMasterComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -210,6 +222,10 @@ export class PartyProgramMasterComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }

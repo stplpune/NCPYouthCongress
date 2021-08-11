@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -10,6 +9,7 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { CommonService } from 'src/app/services/common.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-organization-details',
@@ -63,8 +63,9 @@ export class OrganizationDetailsComponent implements OnInit {
 
   
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
+    private router: Router,private route: ActivatedRoute,
     private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
-    private toastrService: ToastrService, private router: Router, 
+    private toastrService: ToastrService,
     private commonService: CommonService , public datepipe: DatePipe,) { 
       let getLocalStorageData:any = localStorage.getItem('bodyId') ;
       getLocalStorageData = JSON.parse(getLocalStorageData);
@@ -140,6 +141,10 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -157,6 +162,10 @@ export class OrganizationDetailsComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -176,6 +185,10 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -193,6 +206,10 @@ export class OrganizationDetailsComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -219,6 +236,10 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -236,10 +257,14 @@ export class OrganizationDetailsComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Member is not available");
+         // this.toastrService.error("Member is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -261,6 +286,10 @@ export class OrganizationDetailsComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -288,6 +317,10 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -309,6 +342,10 @@ export class OrganizationDetailsComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -453,6 +490,10 @@ export class OrganizationDetailsComponent implements OnInit {
           } else {
             this.toastrService.error("Please try again something went wrong");
           }
+        }
+      } ,(error:any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../../../500'], { relativeTo: this.route });
         }
       })
     }
