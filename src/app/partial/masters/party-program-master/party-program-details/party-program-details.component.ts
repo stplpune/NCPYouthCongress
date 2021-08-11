@@ -72,13 +72,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.overviewArray = res.data4[0];
 
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           // this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -154,13 +148,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           // this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {

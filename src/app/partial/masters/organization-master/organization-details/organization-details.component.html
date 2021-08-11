@@ -151,7 +151,7 @@
                                         <th scope="col">Member Name</th>
                                         <th scope="col">Work Type</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Photos</th>
+                                        <!-- <th scope="col">Photos</th> -->
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -162,11 +162,11 @@
                                         <td>{{bodyMemActivity.FullName}}</td>
                                         <td><span class="text-ellipsis-150px">{{bodyMemActivity.Category}}</span></td>
                                         <td><span class="text-ellipsis-150px">{{bodyMemActivity.Title}}</span></td>
-                                        <td>
+                                        <!-- <td>
                                             <ng-container *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)">
                                                 <img src="{{img}}">
                                             </ng-container>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
                                                     class="far fa-eye"></i></button>

@@ -136,12 +136,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resAllMember = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Body member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -158,12 +153,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberDetails = res.data1[0];
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -180,12 +170,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberFilterDetails = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -202,12 +187,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -231,12 +211,12 @@ export class OrganizationDetailsComponent implements OnInit {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
         });
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
+        // this.spinner.hide();
+        // if (res.data == 1) {
           this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+        // } else {
+        //   this.toastrService.error("Please try again something went wrong");
+        // }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -257,12 +237,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
         // this.prevDesMembers.push(res.data1);
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
          // this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -284,7 +259,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         if (res.data == 1) {
           this.resBodyMemAct = [];
-          this.toastrService.error("Member is not available");
+          //this.toastrService.error("Member is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -312,12 +287,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.resultBodyMemActGraph = res.data1;
         this.bodyMemeberChartGraph(this.resultBodyMemActGraph);
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -338,12 +308,7 @@ export class OrganizationDetailsComponent implements OnInit {
        this.lng = Number(latLong[1]);
         
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -486,12 +451,7 @@ export class OrganizationDetailsComponent implements OnInit {
           
           this.addMemberFlag = null
         } else {
-          this.spinner.hide();
-          if (res.data == 1) {
             this.toastrService.error("Member is not available");
-          } else {
-            this.toastrService.error("Please try again something went wrong");
-          }
         }
       } ,(error:any) => {
         if (error.status == 500) {
