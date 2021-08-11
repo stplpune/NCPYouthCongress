@@ -542,3 +542,36 @@ svg {
       stroke-dashoffset: 900;
     }
   }
+
+  #gallery img{
+    width: 145px;
+    max-width: 145px;
+    height:145px;
+    max-height: 145px;
+    object-fit: cover;
+}
+#gallery img:hover{
+    cursor: pointer;
+    border-color: var(--main-color);
+}
+#GalleryModal .modal-header{
+    background-color:transparent;
+}
+#GalleryModal .btn-close{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    z-index: 999;
+}
+#GalleryModal .modal-body,
+#GalleryModal .modal-content{
+    padding:0;
+    text-align: center;
+    background-color:transparent
+}
+#GalleryModal .carousel-item img{
+    height:92vh;
+}
