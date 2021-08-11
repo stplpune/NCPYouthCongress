@@ -79,6 +79,7 @@
     margin: 0;
     font-weight: 600;
     color: var(--main-color);
+    font-size: 1.3rem;
 }
 
 agm-map {
