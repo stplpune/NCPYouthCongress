@@ -32,6 +32,7 @@ export class PartyProgramMasterComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   pageSize: number = 10;
   disabledAction: boolean = true;
+  programTitle:string = "Create";
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
     public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute,
@@ -137,6 +138,7 @@ export class PartyProgramMasterComponent implements OnInit {
     this.defaultCloseBtn = true;
     this.defaultFromDate = getDate[0];
     this.defaultToDate = getDate[1];
+    this.paginationNo = 1 ; 
     this.getProgramList();
   }
 
@@ -145,6 +147,7 @@ export class PartyProgramMasterComponent implements OnInit {
     // this.defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
     // this.defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
     this.topFilter.controls['fromTo'].setValue(['', '']);
+    this.paginationNo = 1 ; 
     this.getProgramList();
 
   }
@@ -154,18 +157,21 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   editrogramList(programDetails: any) {
+    this.programTitle = "Update"
     this.HighlightRow = programDetails.Id;
     this.createProgram.patchValue({
       Id: programDetails.Id,
       ProgramTitle: programDetails.ProgramTitle,
       ProgramDescription: programDetails.ProgramDescription,
-      ProgramStartDate: new Date(programDetails.ProgramStartDate),
+      ProgramStartDate: this.commonService.dateFormatChange( programDetails.ProgramStartDate),
       CreatedBy: this.commonService.loggedInUserId(),
     });
   }
 
+
   // 
   clearForm() {
+    this.programTitle = "Create"
     this.HighlightRow = null;
     this.submitted = false;
     this.createProgram.reset();
@@ -215,6 +221,8 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
+    this.programTitle = "Create";
+    this.createProgram.reset();
     this.paginationNo = pageNo;
     this.getProgramList()
   }
@@ -224,15 +232,25 @@ export class PartyProgramMasterComponent implements OnInit {
     this.getProgramList();
   }
 
-  partyProgramDetails(programListId: any, ProgramTitle:any) {
-    let obj = {'programListId':programListId, 'programList':ProgramTitle}
-    localStorage.setItem('programListIdKey', JSON.stringify(obj));
-    this.router.navigate(['../party-program-details'], { relativeTo: this.route });
+  partyProgramDetails(programListId: any, ProgramTitle:any,ProgramStatus:any) {
+    if(ProgramStatus == 1){
+      this.toastrService.info("Program is Upcomimg");
+      return;
+    }else if(ProgramStatus == 4){
+      this.toastrService.info("Program is Cancelled");
+      return;
+    }else{
+      let obj = {'programListId':programListId, 'programList':ProgramTitle}
+      localStorage.setItem('programListIdKey', JSON.stringify(obj));
+      this.router.navigate(['../party-program-details'], { relativeTo: this.route });
+    }
   }
 
   removeProgram() {
     this.globalStatusId = 0;
     this.getProgramList();
   }
-
+  
 }
+
+

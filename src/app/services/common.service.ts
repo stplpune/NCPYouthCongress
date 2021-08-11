@@ -27,6 +27,15 @@ export class CommonService {
     return Username.Username;
   }
   
+  dateFormatChange(date_string:any) {
+    var date_components = date_string.split("/");
+    var day = date_components[0];
+    var month = date_components[1];
+    var year = date_components[2];
+    return new Date(year, month, day);
+  }
+
+  
   codecareerPage:any;
   createCaptchaCarrerPage() {
     //clear the contents of captcha div first

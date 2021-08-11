@@ -11,7 +11,7 @@
     <div class="row chartbox mb-3">
         <div class="col-sm-3">
             <div class="card">
-                <div class="card-header">Create Program</div>
+                <div class="card-header">{{programTitle}} Program</div>
                 <div class="card-body pt-0 form-container">
                     <form [formGroup]="createProgram" (ngSubmit)="onSubmitProgramForm()">
                         <div class="mb-2">
@@ -85,7 +85,7 @@
                         <div class="mb-2">
                             <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
                             <span class="float-end">
-                                <button type="submit" class="btn btn-main btn-sm">Create Party Program</button>
+                                <button type="submit" class="btn btn-main btn-sm">{{programTitle}} Party Program</button>
                             </span>
                         </div>
                     </form>
@@ -139,7 +139,7 @@
                             <tr *ngFor="let programList of resultProgramList  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="programList.Id == HighlightRow">
                                 <td>{{programList.SrNo}}</td>
                                 <!-- class="text-ellipsis-250px" <td><a routerLink="../../masters/party-program-details">{{programList?.ProgramTitle}}</a></td> -->
-                                <td><a (click)="partyProgramDetails(programList.Id,programList?.ProgramTitle)" class="text-ellipsis-250px text-primary">{{programList?.ProgramTitle}}</a></td>
+                                <td><a (click)="partyProgramDetails(programList.Id,programList?.ProgramTitle,programList.ProgramStatus)" class="text-ellipsis-250px text-primary">{{programList?.ProgramTitle | titlecase}}</a></td>
                                 <!-- <td>{{programList?.ProgramDescription}}</td> -->
                                 <td>
                                     {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate ? programList?.ProgramEndDate : 'NA'}}
@@ -152,7 +152,7 @@
                                         <ng-template #second class="bg-warning">Second</ng-template>
                                         <ng-template #third class="bg-danger">Third</ng-template>
                                         <ng-template #fourth class="bg-info">Third</ng-template> -->
-                                            <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">
+                                            <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">commi
                                                 Upcomimg</ng-container>
                                             <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">
                                                 Ongoing</ng-container>
