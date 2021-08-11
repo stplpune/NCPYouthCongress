@@ -60,12 +60,7 @@ export class ViewMembersComponent implements OnInit {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available 2");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -86,12 +81,7 @@ export class ViewMembersComponent implements OnInit {
         this.getTalkaByDistrict = res.data1;
         console.log(this.getTalkaByDistrict)
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -111,12 +101,7 @@ export class ViewMembersComponent implements OnInit {
         this.resultVillageOrCity = res.data1;
 
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available1");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
