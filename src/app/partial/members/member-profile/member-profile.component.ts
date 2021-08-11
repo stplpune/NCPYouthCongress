@@ -5,11 +5,11 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-profile',
@@ -28,8 +28,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
-    public datepipe: DatePipe,
-    public location:Location
+    public datepipe: DatePipe, public location:Location ,private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +53,10 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
