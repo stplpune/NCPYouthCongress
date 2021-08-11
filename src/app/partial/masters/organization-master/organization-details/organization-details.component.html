@@ -2,8 +2,15 @@
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header pt-3">
-                    <h5>{{getCommitteeName | titlecase}}</h5>
+                <div class="row card-header pt-3" id="membername">
+                    <div class="col-sm-11">
+                        <h5>{{getCommitteeName | titlecase}}</h5>
+                    </div>
+                    <div class="col-sm-1 text-end">
+                        <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">

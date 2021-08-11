@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-organization-details',
@@ -66,6 +67,7 @@ export class OrganizationDetailsComponent implements OnInit {
     private router: Router,private route: ActivatedRoute,
     private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
+    public location: Location,
     private commonService: CommonService , public datepipe: DatePipe,) { 
       let getLocalStorageData:any = localStorage.getItem('bodyId') ;
       getLocalStorageData = JSON.parse(getLocalStorageData);

@@ -104,9 +104,9 @@
 
                             <td><a routerLink="/members/member-profile">{{socialMediaMessages.MemberName}}</a></td>
                             <td><a routerLink="/social-media-person">{{socialMediaMessages.MemberName}}</a></td>
-                            <td>{{socialMediaMessages.MemberMobileNo}}</td>
-                            <td>{{socialMediaMessages.InFavorOf}}</td>
-                            <td>{{socialMediaMessages.InOppositionOf}}</td>
+                            <td> <a href="tel:{{socialMediaMessages.MemberMobileNo}}">{{socialMediaMessages.MemberMobileNo}}</a></td>
+                            <td><span class="text-ellipsis-150px">{{socialMediaMessages.InFavorOf}}</span></td>
+                            <td><span class="text-ellipsis-150px">{{socialMediaMessages.InOppositionOf}}</span></td>
                             <td>
                                 <img src="{{socialMediaMessages.PartyIconImage}}"> {{socialMediaMessages.PartyInSupport}}
                             </td>
