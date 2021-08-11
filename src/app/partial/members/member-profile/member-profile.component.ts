@@ -171,13 +171,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   WorkDoneByYuvak() {
     this.periodicChart.map((ele:any)=>{
-      if(ele.MonthName == 'Jan'){
-        ele.MonthName = new Date (2021, 1, 1)
-      }
+      ele.StartDate  = new Date (this.commonService.dateFormatChange(ele.StartDate))
     })
-    console.log(this.periodicChart);
-    return 
-
+    console.log(this.periodicChart)
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     console.log(this.periodicChart);
     // Add data
@@ -192,7 +188,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
     lineSeries.dataFields.valueY = "Totalwork";
-    lineSeries.dataFields.dateX = "MonthName";
+    lineSeries.dataFields.dateX = "StartDate";
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
     lineSeries.strokeDasharray = "5,4";
