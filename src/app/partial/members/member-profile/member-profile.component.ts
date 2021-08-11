@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-member-profile',
@@ -45,8 +46,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
-    public datepipe: DatePipe, public location: Location, private route: ActivatedRoute
-  ) { }
+    public datepipe: DatePipe, public location: Location, private route: ActivatedRoute, public dateTimeAdapter: DateTimeAdapter<any>,
+  ) { { dateTimeAdapter.setLocale('en-IN'); }}
 
   ngOnInit(): void {
     this.memberId = localStorage.getItem('memberId')
@@ -107,6 +108,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.organizationRoles = res.data2;
         this.feedbacks = res.data3;
       } else {
+        this.membersOverview = null;
+        this.organizationRoles = [];
+        this.feedbacks = [];
         // this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
@@ -129,6 +133,10 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.WorkDoneByYuvak();
         this.workCountAgainstWorkType();
       } else {
+        this.resWorkList = [];
+        this.total = null;
+        this.barChartCategory = [];
+        this.periodicChart = [];
         // this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
@@ -273,12 +281,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
-          this.toastrService.error("Member is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+        this.resultBodyMemActDetails = [];
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -289,5 +293,12 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   viewFeedBackModalFN(feddback: any) {
     this.resultFeedBack = feddback;
+  }
+
+  getRage(value:any){
+    this.fromDateWorkdetails =  this.datepipe.transform(value.value[0], 'dd/MM/YYYY');
+    this.toDateWorkdetails = this.datepipe.transform(value.value[1], 'dd/MM/YYYY');
+    this.memberProfileWorkdetails();
+    this.getMemberprofileDetails();
   }
 }
