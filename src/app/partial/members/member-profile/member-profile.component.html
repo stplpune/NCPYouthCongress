@@ -7,11 +7,13 @@
             <div class="row">
                 <div class="offset-sm-7 col-sm-4">
                     <div class="input-group">
-                        <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                        <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
-                        <button class="btn btn-light btn-sm" type="button">
+                        <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1"  *ngIf="!defaultCloseBtn">
                             <i class="fas fa-calendar-alt"></i>
                         </button>
+                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                            <i class="fas fa-times"></i></button>
                     </div>
                 </div>
                 <div class="col-sm-auto">
@@ -57,7 +59,7 @@
                 </ul>
                 <hr>
                 <div class="text-end">
-                    <button class="btn btn-danger btn-sm" type="button" (click)="blockUnblockUser(allMemberprofile.IsUserBlock)">{{checkUserBlock}} Member</button>
+                    <button class="btn  btn-sm" [ngClass]="{'btn-danger':allMemberprofile?.IsUserBlock == 1, 'btn-main':allMemberprofile?.IsUserBlock == 0}" type="button" (click)="blockUnblockUser(allMemberprofile.IsUserBlock)">{{checkUserBlock}} Member</button>
                 </div>
             </div>
         </div>

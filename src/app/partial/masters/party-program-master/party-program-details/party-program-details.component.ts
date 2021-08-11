@@ -32,6 +32,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   paginationNo1: number = 1;
   pageSize1: number = 10;
   programTile: any;
+  allImages = [];    
 
   constructor(
     public location: Location,
@@ -67,6 +68,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
+        console.log(programDetailsImagesArray);
         this.programDetailsImagesArray = programDetailsImagesArray.slice(0, 4);
         this.programDetailsLatLongArray = res.data3;
         this.overviewArray = res.data4[0];

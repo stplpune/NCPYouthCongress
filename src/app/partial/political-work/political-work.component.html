@@ -7,11 +7,11 @@
             <form [formGroup]="filterForm">
                 <div class="row g-1">
                     <div class="col-sm-3 offset-3">
-                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" optionTextField="FullName"  placeholder="Select Member Name">
+                        <ngx-select [allowClear]="true"  (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName"  placeholder="Select Member Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" [items]="ddlpoliticalWork" placeholder="Select Political Work">
+                        <ngx-select [allowClear]="true"  (remove)="clearFilter('media')" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName"  placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -40,42 +40,42 @@
             <div class="card card-body bg-gold">
                 <i class="fas fa-network-wired"></i>
                 <p>Total Works</p>
-                <h3>2</h3>
+                <h3>{{TotalWorks}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-blue">
                 <i class="fas fa-award"></i>
                 <p>Political Works</p>
-                <h3>34</h3>
+                <h3>{{PoliticalWork}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-green">
                 <i class="far fa-newspaper"></i>
                 <p>News Letters</p>
-                <h3>43</h3>
+                <h3>{{newsLetters}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-cyan" >
                 <i class="fas fa-envelope-open-text"></i>
                 <p>Social Media Help</p>
-                <h3>345</h3>
+                <h3>{{socialMediaCount}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-red">
                 <i class="fas fa-hands-helping"></i>
                 <p>Personal Help</p>
-                <h3>343</h3>
+                <h3>{{PersonalHelp}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-voilet">
                 <i class="fas fa-hashtag"></i>
                 <p>Party Programs</p>
-                <h3>343</h3>
+                <h3>{{partyPrograms}}</h3>
             </div>
         </div>
     </div>

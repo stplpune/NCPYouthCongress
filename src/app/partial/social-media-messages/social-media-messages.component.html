@@ -8,15 +8,15 @@
                     <span class="float-end">
                     <div class="input-group">
                         <span class="float-end" style="width: 200px;">
-                            <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" optionTextField="FullName"  placeholder="Select Member Name">
+                            <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" optionTextField="FullName" (select)="filterData()"  placeholder="Select Member Name">
                             </ngx-select>
                         </span>
                     <span class="float-end mx-2" style="width: 200px;">
-                            <ngx-select [allowClear]="true" [items]="allDistrictArray" optionValueField="DistrictId" formControlName="district" optionTextField="DistrictName"  placeholder="Select District">
+                            <ngx-select [allowClear]="true" (remove)="clearFilter('district')" [items]="allDistrictArray" optionValueField="DistrictId" formControlName="district" (select)="filterData()"  optionTextField="DistrictName"  placeholder="Select District">
                             </ngx-select>
                         </span>
                     <span class="float-end" style="width: 200px;">
-                            <ngx-select [allowClear]="true" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName" formControlName="mediaSource" placeholder="Select Media Source">
+                            <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName" (select)="filterData()"  formControlName="mediaSource" placeholder="Select Media Source">
                             </ngx-select>
                         </span>
                 </div>
@@ -31,7 +31,7 @@
         <div class="card card-body bg-gold">
             <i class="fas fa-comments"></i>
             <p>Total Messages</p>
-            <h3>2</h3>
+            <h3>{{TotalMsg}}</h3>
         </div>
     </div>
     <div class="col-sm">
@@ -39,7 +39,7 @@
             <i class="fab fa-facebook"></i>
             <p>Facebook Count</p>
             <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
-            <h3>34</h3>
+            <h3>{{FacebookCount}}</h3>
         </div>
     </div>
     <div class="col-sm">
@@ -47,7 +47,7 @@
             <i class="fab fa-whatsapp"></i>
             <p>WhtasApp Count</p>
             <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
-            <h3>43</h3>
+            <h3>{{WhtasAppCount}}</h3>
         </div>
     </div>
     <div class="col-sm">
@@ -55,7 +55,7 @@
             <i class="fab fa-twitter"></i>
             <p>Twitter Count</p>
             <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
-            <h3>345</h3>
+            <h3>{{Twitter}}</h3>
         </div>
     </div>
     <div class="col-sm">
@@ -63,7 +63,7 @@
             <i class="fas fa-hashtag"></i>
             <p>Other Count</p>
             <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
-            <h3>343</h3>
+            <h3>{{socialMediaCount}}</h3>
         </div>
     </div>
 </div>
@@ -102,20 +102,21 @@
 
 
 
-                        <td><a routerLink="/members/member-profile">{{socialMediaMessages.MemberName}}</a></td>
+                        <td><a (click)="redToMemberProfile(socialMediaMessages.Id)" class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
                         <td><a routerLink="/social-media-person">{{socialMediaMessages.MemberName}}</a></td>
                         <td> <a href="tel:{{socialMediaMessages.MemberMobileNo}}">{{socialMediaMessages.MemberMobileNo}}</a></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InFavorOf}}</span></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InOppositionOf}}</span></td>
                         <td>
-                            <img src="{{socialMediaMessages.PartyIconImage}}"> {{socialMediaMessages.PartyInSupport}}
+                            <img src="{{socialMediaMessages.PartyIconImage}}">
+                             <!-- {{socialMediaMessages.PartyInSupport}} -->
                         </td>
                         <td>
                             <button class="btn btn-sm btn-light" (click)="getSocialMediaDetails(socialMediaMessages.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="socialMediaMessagesArray?.length == 0">
-                        <td colspan="9">
+                        <td colspan="10">
                             <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                         </td>
                     </tr>

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from '@angular/router';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 @Component({
   selector: 'app-social-media-messages',
   templateUrl: './social-media-messages.component.html',
@@ -28,6 +29,12 @@ export class SocialMediaMessagesComponent implements OnInit {
   socialMediaDetailsImageArray: any;
   defaultToDate: string = '';
   defaultFromDate: string = '';
+  TotalMsg:any; 
+  FacebookCount:any;
+   WhtasAppCount:any;  
+   socialMediaCount:any;
+   Twitter:any;
+
 
   constructor(
     private callAPIService: CallAPIService,
@@ -45,6 +52,7 @@ export class SocialMediaMessagesComponent implements OnInit {
     this.getMemberName();
     this.getSocialMedia();
     this.GetSocialMediaMessages();
+
     //this.getSocialMediaDetails();
   }
 
@@ -57,30 +65,51 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   GetSocialMediaMessages() {
-    this.spinner.show();  
-    let formData=this.filterForm.value;
-    let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo + 
-    '&MemberId=' + formData.memberName +'&FromDate='+this.defaultFromDate+'&ToDate='+this.defaultToDate
+    this.spinner.show();
+    let formData = this.filterForm.value;
+    let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo +
+      '&MemberId=' + formData.memberName + '&FromDate=' + this.defaultFromDate + '&ToDate=' + this.defaultToDate
     this.callAPIService.setHttp('get', 'GetSocialMediaMessages_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      res.data == 0 ? (this.TotalMsg = res.data3[4].TotalMsg) : this.TotalMsg = 0;
+      res.data == 0 ? (this.FacebookCount = res.data3[1].TotalMsg) : this.FacebookCount = 0;
+      res.data == 0 ? (this.WhtasAppCount = res.data3[0].TotalMsg) : this.WhtasAppCount = 0;
+      res.data == 0 ? (this.Twitter = res.data3[2].TotalMsg) : this.Twitter = 0;
+      res.data == 0 ? (this.socialMediaCount = res.data3[3].TotalMsg) : this.socialMediaCount = 0;
+
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaMessagesArray = res.data1;
+        console.log(this.socialMediaMessagesArray);
         this.total = res.data2[0].TotalCount;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
-          this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
+        this.spinner.hide();
+        this.socialMediaMessagesArray = [];
+        // this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+
+    }, (error:any) => {
+      this.spinner.hide();  
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  filterData(){
+    this.GetSocialMediaMessages()
+  }
+
+  clearFilter(flag: any) {
+    if (flag == 'member') {
+      this.filterForm.controls['memberName'].setValue(0);
+    } else if (flag == 'district') {
+      this.filterForm.controls['district'].setValue(0);
+    } else if (flag == 'media') {
+      this.filterForm.controls['mediaSource'].setValue(0);
+    }
+    this.paginationNo = 1;
+    this.GetSocialMediaMessages()
   }
 
   getMemberName() {
@@ -144,7 +173,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.socialMediaDetailsImageArray = res.data2;
         let socialMediaDetailsLatLongArray = res.data3[0];
         this.lat = socialMediaDetailsLatLongArray.Latitude;
-       this.lng = socialMediaDetailsLatLongArray.Longitude;
+        this.lng = socialMediaDetailsLatLongArray.Longitude;
       } else {
           this.toastrService.error("Data is not available");
       }
@@ -158,6 +187,11 @@ export class SocialMediaMessagesComponent implements OnInit {
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
     this.GetSocialMediaMessages()
+  }
+
+  redToMemberProfile(memberId:any){
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
   }
 
 }

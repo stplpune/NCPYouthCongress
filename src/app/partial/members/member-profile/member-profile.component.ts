@@ -4,7 +4,7 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -22,6 +22,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   recentActivityGraph: any;
   allMemberprofile: any;
   organizationRoles: any;
+  defaultCloseBtn: boolean = false;
   memberId: any;
   globalFromDate: any = "";
   globalToDate: any = "";
@@ -42,6 +43,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   zoom: any = 12;
   resultFeedBack: any;
   checkUserBlock!: string;
+  dateTime = new FormControl();
+
+
 
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
@@ -125,13 +129,14 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.fromDateWorkdetails + '&ToDate=' + this.toDateWorkdetails + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.spinner.hide();
+       
         this.resWorkList = res.data1;
         this.total = res.data2[0].TotalCount;
         this.barChartCategory = res.data3;
         this.periodicChart = res.data4;
         this.WorkDoneByYuvak();
         this.workCountAgainstWorkType();
+        this.spinner.hide();
       } else {
         this.resWorkList = [];
         this.total = null;
@@ -296,9 +301,23 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   getRage(value:any){
+    console.log(value);
+    // if(value == )
+    this.defaultCloseBtn = true;
     this.fromDateWorkdetails =  this.datepipe.transform(value.value[0], 'dd/MM/YYYY');
+    this.globalFromDate =  this.datepipe.transform(value.value[0], 'dd/MM/YYYY');
     this.toDateWorkdetails = this.datepipe.transform(value.value[1], 'dd/MM/YYYY');
+    this.globalToDate = this.datepipe.transform(value.value[1], 'dd/MM/YYYY');
     this.memberProfileWorkdetails();
     this.getMemberprofileDetails();
+  }
+
+  clearValue(){
+    this.defaultCloseBtn = false;
+    this.fromDateWorkdetails = "";
+    this.toDateWorkdetails  = "";
+    this.memberProfileWorkdetails();
+    this.getMemberprofileDetails();
+    this.dateTime.setValue(null);
   }
 }
