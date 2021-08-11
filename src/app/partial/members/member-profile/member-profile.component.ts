@@ -170,63 +170,55 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   WorkDoneByYuvak() {
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-    
-    let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
-    chart.paddingRight = 20;
-    
-    let data:any = [];
-    let visits = 11;
-    let previousValue:any;
-    let thisYear = new Date().getFullYear();
+    this.periodicChart.map((ele:any)=>{
+      if(ele.MonthName == 'Jan'){
+        ele.MonthName = new Date (2021, 1, 1)
+      }
+    })
     console.log(this.periodicChart);
-    for (var i = 0; i < this.periodicChart.length ; i++) {
-        visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+    return 
+
+    let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
+    console.log(this.periodicChart);
+    // Add data
+    chart.data = this.periodicChart;
     
-        if(i > 0){
-            // add color to previous data item depending on whether current value is less or more than previous value
-            if(previousValue <= visits){
-                data[i - 1].color = chart.colors.getIndex(0);
-            }
-            else{
-                data[i - 1].color = chart.colors.getIndex(5);
-            }
-        }    
-        
-        data.push({ date: new Date(thisYear, 0,  i + 1), value: this.periodicChart[i]['Totalwork'] });
-        previousValue = visits;
-    }
-    console.log(data);
-    chart.data = data;
-    
+    // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.grid.template.location = 0;
-    dateAxis.renderer.axisFills.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = true;
     
-    let valueAxis:any = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.minWidth = 35;
-    valueAxis.renderer.axisFills.template.disabled = true;
-    valueAxis.renderer.ticks.template.disabled = true;
+    // Create value axis
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     
-    let series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = "date";
-    series.dataFields.valueY = "value";
-    series.strokeWidth = 2;
-    series.tooltipText = "value: {valueY}, day change: {valueY.previousChange}";
+    // Create series
+    let lineSeries = chart.series.push(new am4charts.LineSeries());
+    lineSeries.dataFields.valueY = "Totalwork";
+    lineSeries.dataFields.dateX = "MonthName";
+    lineSeries.name = "Sales";
+    lineSeries.strokeWidth = 3;
+    lineSeries.strokeDasharray = "5,4";
     
-    // set stroke property field
-    series.propertyFields.stroke = "color";
+    // Add simple bullet
+    let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+    bullet.disabled = true;
+    bullet.propertyFields.disabled = "disabled";
     
-    chart.cursor = new am4charts.XYCursor();
+    let secondCircle = bullet.createChild(am4core.Circle);
+    secondCircle.radius = 6;
+    secondCircle.fill = chart.colors.getIndex(8);
     
-    // let scrollbarX = new am4core.Scrollbar();
-    // chart.scrollbarX = scrollbarX;
     
-    // dateAxis.start = 0.7;
-    // dateAxis.keepSelection = true;
+    bullet.events.on("inited", function(event){
+      animateBullet(event.target.circle);
+    })
+    
+    
+    function animateBullet(bullet:any) {
+        let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
+        animation.events.on("animationended", function(event:any){
+          animateBullet(event.target.object);
+        })
+    }
+    
     
   }
 
