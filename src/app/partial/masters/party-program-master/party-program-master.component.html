@@ -15,21 +15,24 @@
                 <div class="card-body pt-0 form-container">
                     <form [formGroup]="createProgram" (ngSubmit)="onSubmitProgramForm()">
                         <div class="mb-2">
-                            <label for="txtProgramTitle" class="form-label">Program Title <span class="text-danger">*</span> </label>
+                            <label for="txtProgramTitle" class="form-label">Program Title <span
+                                    class="text-danger">*</span> </label>
                             <input type="text" class="form-control" formControlName="ProgramTitle" placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }" />
                             <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
                                 <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label for="txtProgramDescription" class="form-label">Program Description <span class="text-danger">*</span> </label>
+                            <label for="txtProgramDescription" class="form-label">Program Description <span
+                                    class="text-danger">*</span> </label>
                             <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
                             <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
                                 <div *ngIf="f.ProgramDescription.errors.required">Program Description is required</div>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="txtProgramDuration" class="form-label">Program Duration <span class="text-danger">*</span> </label>
+                            <label for="txtProgramDuration" class="form-label">Program Duration <span
+                                    class="text-danger">*</span> </label>
                             <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramStartDate" class="form-control input-group-addon" placeholder="From Date" [min]="minDate" [ngClass]="{ 'is-invalid': submitted && f.ProgramStartDate.errors }" />
                             <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
                             <div *ngIf="submitted && f.ProgramStartDate.errors" class="invalid-feedback">
@@ -82,8 +85,8 @@
                         <div class="mb-2">
                             <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
                             <span class="float-end">
-                            <button type="submit" class="btn btn-main btn-sm">Create Party Program</button>
-                        </span>
+                                <button type="submit" class="btn btn-main btn-sm">Create Party Program</button>
+                            </span>
                         </div>
                     </form>
                 </div>
@@ -109,9 +112,9 @@
                                 <div class="input-group">
                                     <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.topFilter.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select date range">
                                     <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
-                                <i class="fas fa-calendar"></i></button>
+                                        <i class="fas fa-calendar"></i></button>
                                     <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
-                                <i class="fas fa-times"></i></button>
+                                        <i class="fas fa-times"></i></button>
                                 </div>
                                 <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
                             </div>
@@ -143,18 +146,23 @@
                                 </td>
                                 <td>
                                     <h6 class="mb-0">
-                                        <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}"> 
-                                        <!-- <ng-container *ngIf="programList.ProgramStatus == 1; then first; programList.ProgramStatus == 2; then second; programList.ProgramStatus == 3; then third else fourth"></ng-container>
+                                        <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}">
+                                            <!-- <ng-container *ngIf="programList.ProgramStatus == 1; then first; programList.ProgramStatus == 2; then second; programList.ProgramStatus == 3; then third else fourth"></ng-container>
                                         <ng-template #first class="bg-success">Upcomimg</ng-template>
                                         <ng-template #second class="bg-warning">Second</ng-template>
                                         <ng-template #third class="bg-danger">Third</ng-template>
                                         <ng-template #fourth class="bg-info">Third</ng-template> -->
-                                        <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">Upcomimg</ng-container>
-                                        <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">Ongoing</ng-container>
-                                        <ng-container class="bg-info" *ngIf="programList.ProgramStatus == 3">Completed</ng-container>
-                                        <ng-container class="bg-danger" *ngIf="programList.ProgramStatus == 4">Cancelled</ng-container>
+                                            <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">
+                                                Upcomimg</ng-container>
+                                            <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">
+                                                Ongoing</ng-container>
+                                            <ng-container class="bg-info" *ngIf="programList.ProgramStatus == 3">
+                                                Completed</ng-container>
+                                            <ng-container class="bg-danger" *ngIf="programList.ProgramStatus == 4">
+                                                Cancelled</ng-container>
 
-                                    </span></h6>
+                                        </span>
+                                    </h6>
                                 </td>
 
                                 <td>
@@ -164,7 +172,7 @@
                                     <button class="btn btn-sm btn-warning mx-2" title="Edit Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="editrogramList(programList)">
                                         <i class="far fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="cancelProgramList(programList)">
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="programList.ProgramStatus == 2 || (programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="cancelProgramList(programList)">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </td>
@@ -218,7 +226,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Program Duration</label>
-                        <p class="form-data"> {{programDetails?.ProgramStartDate}} ~ {{programDetails?.ProgramEndDate}}</p>
+                        <p class="form-data"> {{programDetails?.ProgramStartDate}} ~ {{programDetails?.ProgramEndDate}}
+                        </p>
                     </div>
                     <!-- <div class="mb-3">
                         <label class="form-label">Program Level</label>
