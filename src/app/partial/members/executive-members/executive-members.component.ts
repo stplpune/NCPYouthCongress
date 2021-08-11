@@ -251,4 +251,10 @@ export class ExecutiveMembersComponent implements OnInit {
     this.subject.next();
   }
 
+  
+  redToMemberProfile(memberId:any){
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../member-profile'], {relativeTo:this.route})
+  }
+
 }

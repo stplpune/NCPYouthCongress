@@ -91,18 +91,18 @@
                                     <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <a routerLink="#">{{resultExeMember.FullName | titlecase}}</a>
+                                    <a (click)="redToMemberProfile(resultExeMember.MemberId)" class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
                                 </td>
                                 <td>
                                     <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
-                                <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.ContactNo ? (resultExeMember.ContactNo | titlecase) : 'NA'}}</p>
+                                    <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.ContactNo ? (resultExeMember.ContactNo | titlecase) : 'NA'}}</p>
                                 </td>
                                 <td>
                                     <span class="mb-1 text-ellipsis-150px">{{resultExeMember?.Location}}</span>
                                 </td>
                                 <td>
                                     <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
-                                <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
+                                    <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
                                 </td>
                                 <td>
                                     <ng-container *ngIf="resultExeMember.UserStatus == 0">
@@ -117,9 +117,9 @@
                                 </td>
                                 <td>
                                     <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus == 1; else elseStatus"></i>
-                                <ng-template #elseStatus>
-                                    <i class="fas fa-ban text-danger"></i>
-                                </ng-template>
+                                    <ng-template #elseStatus>
+                                        <i class="fas fa-ban text-danger"></i>
+                                    </ng-template>
                                 </td>
                             </tr>
                             <tr *ngIf="resultAllExeMembers?.length == 0">
