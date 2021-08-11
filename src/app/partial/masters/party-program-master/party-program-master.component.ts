@@ -270,7 +270,7 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   ModalOpen(prgramStatus:any, programList:any){
-    prgramStatus == 'EndProgram' ?  (this.modalStatusMsg = "end this program",this.globalProgramData = programList) :  (this.modalStatusMsg = "status Change program", this.globalProgramData = programList);
+    prgramStatus == 'EndProgram' ?  (this.modalStatusMsg = "End The Program",this.globalProgramData = programList) :  (this.modalStatusMsg = "Cancel the Program", this.globalProgramData = programList);
   }
 
   programStatus(modalFlag:any){
