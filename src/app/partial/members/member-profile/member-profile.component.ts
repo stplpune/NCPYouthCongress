@@ -39,7 +39,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
   zoom: any = 12;
-
+  resultFeedBack:any;
+  checkUserBlock!:string;
+  
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -61,6 +63,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.allMemberprofile = res.data1[0];
+        this.allMemberprofile.IsUserBlock == 1 ? this.checkUserBlock ="Unblock" :  this.checkUserBlock ="Block";
       } else {
         // this.toastrService.error("Data is not available");
       }
@@ -70,6 +73,28 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  blockUnblockUser(blockStatus:any) {
+    console.log(blockStatus)
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + this.memberId+'&BlockStatus='+'&Createdby='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allMemberprofile = res.data1[0];
+       this.getMemberprofile();
+      } else {
+        // this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+
+  // 
 
   getMemberprofileDetails() {
     this.spinner.show();
@@ -97,12 +122,11 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resWorkList = res.data1;
-        console.log(this.resWorkList);
         this.total = res.data2[0].TotalCount;
         this.barChartCategory = res.data3;
         this.periodicChart = res.data4;
         this.WorkDoneByYuvak();
-        this. workCountAgainstWorkType();
+        this.workCountAgainstWorkType();
       } else {
         // this.toastrService.error("Data is not available");
       }
@@ -173,18 +197,17 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.periodicChart.map((ele:any)=>{
       ele.StartDate  = new Date (this.commonService.dateFormatChange(ele.StartDate))
     })
-    console.log(this.periodicChart)
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
-    console.log(this.periodicChart);
     // Add data
     chart.data = this.periodicChart;
-    
+
     // Create axes
-    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    
+    let dateAxis:any = chart.xAxes.push(new am4charts.DateAxis());
+
     // Create value axis
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    
+    let valueAxis:any = chart.yAxes.push(new am4charts.ValueAxis());
+
+
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
     lineSeries.dataFields.valueY = "Totalwork";
@@ -192,7 +215,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
     lineSeries.strokeDasharray = "5,4";
-    
+    lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
+
     // Add simple bullet
     let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
     bullet.disabled = true;
@@ -244,7 +268,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-        console.log(this.resultBodyMemActDetails)
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
@@ -263,5 +286,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-
+  viewFeedBackModalFN(feddback:any){
+    this.resultFeedBack = feddback;
+  }
 }
