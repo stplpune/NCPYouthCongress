@@ -13,31 +13,31 @@
     <div class="row">
         <div class="col-sm-3" id="profile-left">
             <div class="card">
-                <img *ngIf="allMemberprofile.ProfilePhoto" src="{{allMemberprofile?.ProfilePhoto}}" class="card-img-top" alt="...">
-                <img *ngIf="!allMemberprofile.ProfilePhoto" src="assets/images/NCP-logo.svg" class="card-img-top" alt="...">
+                <img *ngIf="allMemberprofile?.ProfilePhoto" src="{{allMemberprofile?.ProfilePhoto}}" class="card-img-top" alt="...">
+                <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/NCP-logo.svg" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
-                        {{allMemberprofile.Designation1}}
+                        {{allMemberprofile?.Designation1}}
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <i class="fas fa-fist-raised text-success"></i> Active Since : {{allMemberprofile.RegtDate}}
+                        <i class="fas fa-fist-raised text-success"></i> Active Since : {{allMemberprofile?.RegtDate}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile.ConstituencyName}}
+                        <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.ConstituencyName}}
                     </li>
                     <li class="list-group-item">
-                        <i class="far fa-envelope text-info"></i> {{allMemberprofile.Emailid}}
+                        <i class="far fa-envelope text-info"></i> {{allMemberprofile?.Emailid}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-phone-alt text-primary"></i> {{allMemberprofile.MobileNo}}
+                        <i class="fas fa-phone-alt text-primary"></i> {{allMemberprofile?.MobileNo}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fab fa-whatsapp text-primary"></i> {{allMemberprofile.MobileNo}}
+                        <i class="fab fa-whatsapp text-primary"></i> {{allMemberprofile?.MobileNo}}
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-map-marker-alt text-dark"></i> {{allMemberprofile.Address}}
+                        <i class="fas fa-map-marker-alt text-dark"></i> {{allMemberprofile?.Address}}
                     </li>
                 </ul>
                 <hr>
@@ -57,28 +57,28 @@
                             <div class="card card-body">
                                 <i class="fas fa-users"></i>
                                 <p>Committee Member</p>
-                                <h3>12</h3>
+                                <h3>{{membersOverview?.TotalCommittee}}</h3>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="card card-body">
                                 <i class="fas fa-network-wired"></i>
                                 <p>Political Works</p>
-                                <h3>132</h3>
+                                <h3>{{membersOverview?.TotalPoliticalWork}}</h3>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="card card-body">
                                 <i class="fas fa-hashtag"></i>
                                 <p>Social Media Messages</p>
-                                <h3>132</h3>
+                                <h3>{{membersOverview?.TotalSocialMediaWork}}</h3>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="card card-body">
                                 <i class="fas fa-people-arrows"></i>
                                 <p>Personal Help</p>
-                                <h3>12</h3>
+                                <h3>{{membersOverview?.TotalPersonalHelp}}</h3>
                             </div>
                         </div>
                     </div>
