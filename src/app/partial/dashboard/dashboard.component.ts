@@ -81,13 +81,7 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.allDistrictArray = res.data1;
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -95,6 +89,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
@@ -104,13 +99,7 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.dashboardCount1Array = res.data1[0];
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     }  ,(error:any) => {
       if (error.status == 500) {
@@ -147,13 +136,7 @@ export class DashboardComponent implements OnInit {
         this.pieChart();
         this.socialMediaChart();
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     }  ,(error:any) => {
       if (error.status == 500) {
@@ -176,13 +159,7 @@ export class DashboardComponent implements OnInit {
         console.log('workInThisWeekArray', this.workInThisWeekArray);
         console.log('newMemberInThisWeekArray', this.newMemberInThisWeekArray);
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     }  ,(error:any) => {
       if (error.status == 500) {
@@ -204,13 +181,7 @@ export class DashboardComponent implements OnInit {
         this.weeklyColumnChart();
         //console.log('getDistrictWiseMemberCount',this.districtWiseMemberCountArray);
       } else {
-        if (res.data == 1) {
-          this.spinner.hide();
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     }  ,(error:any) => {
       if (error.status == 500) {

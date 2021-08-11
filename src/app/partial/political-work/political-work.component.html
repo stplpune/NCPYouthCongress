@@ -14,19 +14,26 @@
                         <ngx-select [allowClear]="true" [items]="ddlpoliticalWork" placeholder="Select Political Work">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <!-- <div class="col-sm-3">
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="From To Date" />
                             <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
                         </div>
+                    </div> -->
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                <i class="fas fa-calendar"></i></button>
+                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                                <i class="fas fa-times"></i></button>
+                        </div>
+                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
                     </div>
                 </div>
             </form>
-            
         </div>
     </div>
-
-    
 
     <div class="row" id="dash-stats">
         <div class="col-sm">
@@ -96,7 +103,7 @@
                             <td>{{politicalWork.ActivityDate}}</td>
                             <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
-                            <td>{{politicalWork.Title | titlecase}}</td>
+                            <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td>
                             <!-- <td>{{politicalWork.Description | titlecase}}</td> -->
                             <!-- <th scope="row">
                                 <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">

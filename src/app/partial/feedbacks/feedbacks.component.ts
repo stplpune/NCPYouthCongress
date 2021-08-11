@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-feedbacks',
@@ -35,7 +35,7 @@ export class FeedbacksComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router,
+    private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
@@ -62,7 +62,6 @@ export class FeedbacksComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-       
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -71,7 +70,11 @@ export class FeedbacksComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    })
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    } )
   }
 
   getTaluka(districtId: any) {
@@ -94,6 +97,10 @@ export class FeedbacksComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -114,6 +121,10 @@ export class FeedbacksComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
@@ -138,6 +149,10 @@ export class FeedbacksComponent implements OnInit {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
@@ -175,6 +190,10 @@ export class FeedbacksComponent implements OnInit {
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
@@ -251,6 +270,10 @@ export class FeedbacksComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -271,6 +294,10 @@ export class FeedbacksComponent implements OnInit {
           } else {
             this.toastrService.error("Please try again something went wrong");
           }
+        }
+      } ,(error:any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
         }
       })
     }
@@ -303,6 +330,10 @@ export class FeedbacksComponent implements OnInit {
           } else {
             this.toastrService.error("Please try again something went wrong");
           }
+        }
+      } ,(error:any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
         }
       })
     }

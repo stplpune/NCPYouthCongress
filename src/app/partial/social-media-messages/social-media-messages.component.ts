@@ -57,7 +57,8 @@ export class SocialMediaMessagesComponent implements OnInit {
   GetSocialMediaMessages() {
     this.spinner.show();  
     let formData=this.filterForm.value;
-    let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName
+    let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo + 
+    '&MemberId=' + formData.memberName
     this.callAPIService.setHttp('get', 'GetSocialMediaMessages_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

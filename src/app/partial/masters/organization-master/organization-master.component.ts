@@ -266,12 +266,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allLevels = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           // this.toastrService.error("Data is not available 1");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -288,12 +283,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allStates = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -322,12 +312,7 @@ export class OrganizationMasterComponent implements OnInit {
 
         }
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available 2");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -354,12 +339,7 @@ export class OrganizationMasterComponent implements OnInit {
           // this.getVillageOrCity(this.selEditOrganization.TalukaId, selFlag)
         }
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -382,12 +362,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
         }
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available1");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -453,13 +428,7 @@ export class OrganizationMasterComponent implements OnInit {
           // this.getOrganizationList();
           this.clearForm();
         } else {
-          this.spinner.hide();
-          if (res.data == 1) {
             this.toastrService.error("Data is not available");
-          } else {
-            this.spinner.hide();
-            this.toastrService.error("Please try again something went wrong");
-          }
         }
       } ,(error:any) => {
         if (error.status == 500) {
@@ -512,13 +481,7 @@ export class OrganizationMasterComponent implements OnInit {
           CreatedBy: this.commonService.loggedInUserId()
         })
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -538,13 +501,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
         }
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -580,14 +537,8 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allAssignedDesignations = res.data1;
       } else {
-        this.spinner.hide();
-        if (res.data == 1) {
           // this.toastrService.error("Designations is  not available");
           this.allAssignedDesignations = [];
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -642,13 +593,7 @@ export class OrganizationMasterComponent implements OnInit {
           
           this.getOrganizationList();
         } else {
-          this.spinner.hide();
-          if (res.data == 1) {
-            this.toastrService.error("Members is not available");
-          } else {
-            this.spinner.hide();
-            this.toastrService.error("Please try again something went wrong");
-          }
+            this.toastrService.error("Members is not available"); 
         }
       } ,(error:any) => {
         if (error.status == 500) {
