@@ -195,7 +195,7 @@
                                 </td>
                                 <td><span class="text-ellipsis-250px">{{resFeedbacks?.Feedback}}</span></td>
                                 <td><span class="text-ellipsis-250px">{{resFeedbacks?.Reply}}</span></td>
-                                <td><button type="button" class="btn btn-sm btn-light"><i  class="far fa-eye"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#ViewFeedbackModal" class="btn btn-sm btn-light"><i  class="far fa-eye"></i></button></td>
                             </tr>
 
                         </tbody>
@@ -206,12 +206,12 @@
     </div>
 </div>
 
-<!-- View Details Modal -->
+<!-- View Activity Details Modal -->
 <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Activity Details</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -292,6 +292,46 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- View Feedback details modal -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewFeedbackModal" tabindex="-1" aria-labelledby="ViewFeedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewFeedbackModalLabel">Feedback Details</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label class="form-label">Feedback Date</label>
+                        <p class="form-data">
+                            asdf
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Feedback Message</label>
+                        <p class="form-data">
+                           asdf
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Action Taken</label>
+                        <p class="form-data">
+                            asdf
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="float-end">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
