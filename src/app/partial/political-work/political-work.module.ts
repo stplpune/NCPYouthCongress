@@ -5,6 +5,7 @@ import { PoliticalWorkComponent } from './political-work.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     FormsModule,
     NgxSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ]
 })
 export class PoliticalWorkModule { }

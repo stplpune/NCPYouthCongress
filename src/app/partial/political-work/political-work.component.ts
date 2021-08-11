@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ActivatedRoute, Router } from '@angular/router';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 @Component({
   selector: 'app-political-work',
   templateUrl: './political-work.component.html',
@@ -19,6 +21,10 @@ export class PoliticalWorkComponent implements OnInit {
   pageSize: number = 10;
   viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
   filterForm!: FormGroup;
+  defaultToDate: string = '';
+  defaultFromDate: string = '';
+  minDate = new Date();
+  defaultCloseBtn: boolean = false;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -26,9 +32,13 @@ export class PoliticalWorkComponent implements OnInit {
     private toastrService: ToastrService,
     private commonService: CommonService,
     private fb: FormBuilder,
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    ) {{ dateTimeAdapter.setLocale('en-IN')}}
 
   ngOnInit(): void {
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.defaultFilterForm();
     this.getPoliticalWork();
     this.getMemberName();
@@ -37,8 +47,28 @@ export class PoliticalWorkComponent implements OnInit {
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       memberName: [''],
+      fromTo: [''],
       workType: [1], //workType == categoryid
     })
+  }
+
+  selDateRangeByFilter(getDate: any) {
+    this.defaultCloseBtn = true;
+    this.defaultFromDate = getDate[0];
+    this.defaultToDate = getDate[1];
+    // this.paginationNo = 1 ; 
+    this.getPoliticalWork();
+  }
+
+
+  clearValue() {
+    this.defaultCloseBtn = false;
+    // this.defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+    // this.defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
+    this.filterForm.controls['fromTo'].setValue(['', '']);
+    this.paginationNo = 1 ; 
+    this.getPoliticalWork();
+
   }
 
   getPoliticalWork() {
@@ -61,6 +91,10 @@ export class PoliticalWorkComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
   }
   
@@ -80,6 +114,10 @@ export class PoliticalWorkComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -92,6 +130,11 @@ export class PoliticalWorkComponent implements OnInit {
     this.paginationNo = pageNo;
     this.getPoliticalWork()
   }
+
+  // redToMemberProfile(memberId:any){
+  //   localStorage.setItem('memberId', memberId)
+  //   this.router.navigate(['../master/member-profile'], {relativeTo:this.route})
+  // }
 
 
 }
