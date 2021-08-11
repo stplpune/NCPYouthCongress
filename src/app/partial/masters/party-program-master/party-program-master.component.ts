@@ -87,8 +87,6 @@ export class PartyProgramMasterComponent implements OnInit {
     })
   }
 
-
-
   defaultFilterForm() {
     this.topFilter = this.fb.group({
       fromTo: [''],

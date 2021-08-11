@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { CommonService } from 'src/app/services/common.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-social-media-image',
@@ -26,8 +27,12 @@ export class SocialMediaImageComponent implements OnInit {
   perceptionOnSocialMediaArray: any;
   trendOnSocialMediaArray: any;
   dateRange = [new Date(Date.now() + -7 * 24 * 60 * 60 * 1000), new Date()];
+  allDistrict: any;
+  getTalkaByDistrict: any;
+  filterForm!: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
@@ -39,7 +44,57 @@ export class SocialMediaImageComponent implements OnInit {
   ngOnInit(): void {
     this.getMostLikeHatedPerson();
     this.getLowHighSocialMTypesOfWorks();
+    this.getDistrict();
+    this.defaultFilterForm();
   }
+
+  
+  defaultFilterForm() {
+    this.filterForm = this.fb.group({
+      DistrictId: [''],
+      TalukaId: [''],
+      fromTo:['']
+    })
+  }
+
+  getDistrict() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrict = res.data1;
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available 2");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getTaluka(districtId: any) {
+
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.getTalkaByDistrict = res.data1;
+        console.log(this.getTalkaByDistrict)
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
 
   getweekRage(dates: any) {
     var Time = dates.value[1].getTime() - dates.value[0].getTime();
@@ -114,104 +169,58 @@ export class SocialMediaImageComponent implements OnInit {
   }
 
   socialMediaChart() {
-    // Themes begin
     am4core.useTheme(am4themes_animated);
     // Themes end
 
     let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    chart.paddingBottom = 30;
-
     chart.data = this.perceptionOnSocialMediaArray;
 
-    let categoryAxis: any = chart.xAxes.push(new am4charts.CategoryAxis());
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = "PartyShortCode";
-    categoryAxis.renderer.grid.template.strokeOpacity = 0;
-    categoryAxis.renderer.minGridDistance = 10;
-    categoryAxis.renderer.labels.template.dy = 35;
-    categoryAxis.renderer.tooltip.dy = 35;
+    categoryAxis.renderer.minGridDistance = 40;
+    categoryAxis.fontSize = 11;
+    categoryAxis.renderer.labels.template.dy = 5;
+
+
+
+    let image = new am4core.Image();
+    image.horizontalCenter = "middle";
+    image.width = 30;
+    image.height = 30;
+    image.verticalCenter = "middle";
+    image.adapter.add("href", (href, target: any) => {
+      let category = target.dataItem.category;
+      category
+      if (category) {
+        return "assets/images/logos/" + category.split(" ").join("-").toLowerCase() + ".png";
+      }
+      console.log(target);
+      return href;
+    })
+    categoryAxis.dataItems.template.bullet = image;
+
+
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.renderer.inside = true;
-    valueAxis.renderer.labels.template.fillOpacity = 0.3;
-    valueAxis.renderer.grid.template.strokeOpacity = 0;
     valueAxis.min = 0;
-    valueAxis.cursorTooltipEnabled = false;
-    valueAxis.renderer.baseGrid.strokeOpacity = 0;
+    valueAxis.renderer.minGridDistance = 30;
+    valueAxis.renderer.baseGrid.disabled = true;
 
-    let series: any = chart.series.push(new am4charts.ColumnSeries);
-    series.dataFields.valueY = "ActivityCount";
+    let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";
-    series.tooltipText = "{valueY.value}";
-    series.tooltip.pointerOrientation = "vertical";
-    series.tooltip.dy = - 6;
-    series.columnsContainer.zIndex = 100;
+    series.dataFields.valueY = "ActivityCount";
+    series.columns.template.tooltipText = "{valueY.value}";
+    series.columns.template.tooltipY = 0;
+    series.columns.template.strokeOpacity = 0;
 
-    let columnTemplate = series.columns.template;
-    columnTemplate.width = am4core.percent(50);
-    columnTemplate.maxWidth = 66;
-    columnTemplate.column.cornerRadius(60, 60, 10, 10);
-    columnTemplate.strokeOpacity = 0;
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function (fill, target: any) {
+      return chart.colors.getIndex(target.dataItem.index);
+    });
 
-    series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
-    series.mainContainer.mask = undefined;
-
-    let cursor = new am4charts.XYCursor();
-    chart.cursor = cursor;
-    cursor.lineX.disabled = true;
-    cursor.lineY.disabled = true;
-    cursor.behavior = "none";
-
-    let bullet: any = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
-    bullet.valign = "bottom";
-    bullet.align = "center";
-    bullet.isMeasured = true;
-    bullet.mouseEnabled = false;
-    bullet.verticalCenter = "bottom";
-    bullet.interactionsEnabled = false;
-
-    let hoverState = bullet.states.create("hover");
-    let outlineCircle = bullet.createChild(am4core.Circle);
-    outlineCircle.adapter.add("radius", function (radius: any, target: any) {
-      let circleBullet = target.parent;
-      return circleBullet.circle.pixelRadius + 10;
-    })
-
-    let image = bullet.createChild(am4core.Image);
-    image.width = 60;
-    image.height = 60;
-    image.horizontalCenter = "middle";
-    image.verticalCenter = "middle";
-    image.propertyFields.href = "href";
-
-    image.adapter.add("mask", function (mask: any, target: any) {
-      let circleBullet = target.parent;
-      return circleBullet.circle;
-    })
-
-    let previousBullet: any;
-    chart.cursor.events.on("cursorpositionchanged", function (event) {
-      let dataItem = series.tooltipDataItem;
-
-      if (dataItem.column) {
-        let bullet = dataItem.column.children.getIndex(1);
-
-        if (previousBullet && previousBullet != bullet) {
-          previousBullet.isHover = false;
-        }
-
-        if (previousBullet != bullet) {
-
-          let hs = bullet.states.getKey("hover");
-          hs.properties.dy = -bullet.parent.pixelHeight + 30;
-          bullet.isHover = true;
-
-          previousBullet = bullet;
-        }
-      }
-    })
   }
 
   trendSocialMediaLineChart() {
