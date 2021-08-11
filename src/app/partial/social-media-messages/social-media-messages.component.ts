@@ -26,6 +26,8 @@ export class SocialMediaMessagesComponent implements OnInit {
   lng: any = 75.71630325927731;
   zoom: any = 12;
   socialMediaDetailsImageArray: any;
+  defaultToDate: string = '';
+  defaultFromDate: string = '';
 
   constructor(
     private callAPIService: CallAPIService,
@@ -58,7 +60,7 @@ export class SocialMediaMessagesComponent implements OnInit {
     this.spinner.show();  
     let formData=this.filterForm.value;
     let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo + 
-    '&MemberId=' + formData.memberName
+    '&MemberId=' + formData.memberName +'&FromDate='+this.defaultFromDate+'&ToDate='+this.defaultToDate
     this.callAPIService.setHttp('get', 'GetSocialMediaMessages_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
