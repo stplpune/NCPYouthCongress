@@ -172,14 +172,15 @@
                                     <button class="btn btn-sm btn-warning mx-2" title="Edit Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="editrogramList(programList)">
                                         <i class="far fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="programList.ProgramStatus == 2 || (programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="cancelProgramList(programList)">
+                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="programList.ProgramStatus == 2 || (programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" data-bs-toggle="modal" data-bs-target="#ProgramStatusModal"
+                                        (click)="ModalOpen('cancelProgram', programList)">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 1 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" (change)="endProgramList(programList)"
-                                            [checked]="programList?.ProgramStatus == 1">
+                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 1 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" data-bs-toggle="modal" (click)="ModalOpen('EndProgram', programList)"
+                                            data-bs-target="#ProgramStatusModal" [checked]="programList?.ProgramStatus == 1">
                                         <!-- ProgramStatus -->
                                         <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
                                     </div>
@@ -248,6 +249,34 @@
                 </div> -->
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation modal pop up -->
+<div class="modal fade" id="ProgramStatusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProgramStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="ProgramStatusModalLabel">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                            <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8"
+                                y2="92.3" />
+                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4"
+                                y2="92.2" />
+                        </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to {{modalStatusMsg}}? This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="ModalOpenClose()">Cancel</button>
+                <button class="btn btn-danger" type="button" (click)="programStatus(modalStatusMsg)" data-bs-dismiss="modal" aria-label="Close">Delete</button>
+            </div>
         </div>
     </div>
 </div>

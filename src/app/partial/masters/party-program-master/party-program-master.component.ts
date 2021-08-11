@@ -33,6 +33,8 @@ export class PartyProgramMasterComponent implements OnInit {
   pageSize: number = 10;
   disabledAction: boolean = true;
   programTitle:string = "Create";
+  modalStatusMsg = "end this program";
+  globalProgramData:any;
 
   constructor(private spinner: NgxSpinnerService, private callAPIService: CallAPIService, private toastrService: ToastrService,
     public datepipe: DatePipe, private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute,
@@ -265,6 +267,18 @@ export class PartyProgramMasterComponent implements OnInit {
   removeProgram() {
     this.globalStatusId = 0;
     this.getProgramList();
+  }
+
+  ModalOpen(prgramStatus:any, programList:any){
+    prgramStatus == 'EndProgram' ?  (this.modalStatusMsg = "end this program",this.globalProgramData = programList) :  (this.modalStatusMsg = "status Change program", this.globalProgramData = programList);
+  }
+
+  programStatus(modalFlag:any){
+   modalFlag = "status Change program" ? this.cancelProgramList(this.globalProgramData) : this.endProgramList(this.globalProgramData);
+  }
+
+  ModalOpenClose(){
+    this.getProgramList()
   }
   
 }
