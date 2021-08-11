@@ -39,9 +39,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
   zoom: any = 12;
-  resultFeedBack:any;
-  checkUserBlock!:string;
-  
+  resultFeedBack: any;
+  checkUserBlock!: string;
+
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -63,7 +63,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.allMemberprofile = res.data1[0];
-        this.allMemberprofile.IsUserBlock == 1 ? this.checkUserBlock ="Unblock" :  this.checkUserBlock ="Block";
+        this.allMemberprofile.IsUserBlock == 1 ? this.checkUserBlock = "Unblock" : this.checkUserBlock = "Block";
       } else {
         // this.toastrService.error("Data is not available");
       }
@@ -74,15 +74,16 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  blockUnblockUser(blockStatus:any) {
-    console.log(blockStatus)
+  blockUnblockUser(blockStatus: any) {
+    let checkBlockStatus!:number;
+    blockStatus == 1 ? checkBlockStatus = 0 : checkBlockStatus = 1;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + this.memberId+'&BlockStatus='+'&Createdby='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + this.memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.allMemberprofile = res.data1[0];
-       this.getMemberprofile();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getMemberprofile();
       } else {
         // this.toastrService.error("Data is not available");
       }
@@ -145,7 +146,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
     chart.data = this.barChartCategory;
 
-    chart.padding(40, 40, 40, 40);
+    chart.padding(10, 0, 0, 0);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
@@ -194,18 +195,18 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   WorkDoneByYuvak() {
-    this.periodicChart.map((ele:any)=>{
-      ele.StartDate  = new Date (this.commonService.dateFormatChange(ele.StartDate))
+    this.periodicChart.map((ele: any) => {
+      ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
     })
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     // Add data
     chart.data = this.periodicChart;
 
     // Create axes
-    let dateAxis:any = chart.xAxes.push(new am4charts.DateAxis());
+    let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
 
     // Create value axis
-    let valueAxis:any = chart.yAxes.push(new am4charts.ValueAxis());
+    let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
 
 
     // Create series
@@ -221,25 +222,25 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
     bullet.disabled = true;
     bullet.propertyFields.disabled = "disabled";
-    
+
     let secondCircle = bullet.createChild(am4core.Circle);
     secondCircle.radius = 6;
     secondCircle.fill = chart.colors.getIndex(8);
-    
-    
-    bullet.events.on("inited", function(event){
+
+
+    bullet.events.on("inited", function (event) {
       animateBullet(event.target.circle);
     })
-    
-    
-    function animateBullet(bullet:any) {
-        let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
-        animation.events.on("animationended", function(event:any){
-          animateBullet(event.target.object);
-        })
+
+
+    function animateBullet(bullet: any) {
+      let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
+      animation.events.on("animationended", function (event: any) {
+        animateBullet(event.target.object);
+      })
     }
-    
-    
+
+
   }
 
   ngOnDestroy() {
@@ -286,7 +287,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  viewFeedBackModalFN(feddback:any){
+  viewFeedBackModalFN(feddback: any) {
     this.resultFeedBack = feddback;
   }
 }

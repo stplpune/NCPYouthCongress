@@ -14,7 +14,7 @@
         <div class="col-sm-3" id="profile-left">
             <div class="card">
                 <img *ngIf="allMemberprofile?.ProfilePhoto" src="{{allMemberprofile?.ProfilePhoto}}" class="card-img-top" alt="...">
-                <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/NCP-logo.svg" class="card-img-top" alt="...">
+                <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
                         {{allMemberprofile?.Designation}}
@@ -125,7 +125,7 @@
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                         <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                     </div>
-                    <div class="card-body border mt-3">
+                    <div class="card-body  mt-3">
                         <div class="workCountAgainstWork chartfont h-400"></div>
                     </div>
 
@@ -151,7 +151,7 @@
                                 <td>
                                     <a class="text-primary" (click)="redirectOrgDetails(roles.id,roles.Designation,roles.BodyOrgCellName)">{{roles?.BodyOrgCellName}}</a>
                                 </td>
-                                <td>{{roles?.PostFromDate}} {{roles?.PostFromDate}}</td>
+                                <td>{{roles?.PostFromDate}} ~ {{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}}</td>
                                 <td>{{roles?.Designation}}</td>
                             </tr>
 

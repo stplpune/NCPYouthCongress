@@ -25,6 +25,7 @@ export class PoliticalWorkComponent implements OnInit {
   defaultFromDate: string = '';
   minDate = new Date();
   defaultCloseBtn: boolean = false;
+  globalMemberId: number = 0;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -74,7 +75,7 @@ export class PoliticalWorkComponent implements OnInit {
   getPoliticalWork() {
     // console.log(this.filterForm.value)
     this.spinner.show();
-    let obj = 'categoryid=' + this.filterForm.value.workType + '&nopage=' + this.paginationNo
+    let obj = 'categoryid=' + this.filterForm.value.workType + '&nopage=' + this.paginationNo+'&MemberId='+this.globalMemberId+'&FromDate='+this.defaultFromDate+'&ToDate='+this.defaultToDate
     this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
