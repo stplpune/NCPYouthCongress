@@ -179,14 +179,15 @@
 <div class="modal fade" id="AddDesignationModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
-            <form [formGroup]="AddDesignationForm">
-                <div class="modal-header">
-                    <p class="modal-title" id="AddDesignationModalLabel">Add Designation</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModalAddDesignation (click)="clearAddDesignationForm()" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-5">
+
+            <div class="modal-header">
+                <p class="modal-title" id="AddDesignationModalLabel">Add Designation</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModalAddDesignation (click)="clearAddDesignationForm()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <form [formGroup]="AddDesignationForm">
                             <div class="form-container">
                                 <div class="mb-3">
                                     <label for="txtBodyName" class="form-label">Body Name</label>
@@ -211,35 +212,32 @@
                                         <div *ngIf="d.IsMultiple.errors.required">Is Multiple is required</div>
                                     </div>
                                 </div>
+                                <button class="btn btn-secondary me-2 " type="button " (click)="clearAddDesignationForm() ">
+                                    Clear </button>
+                                <button type="submit " class="btn btn-main ml-2" (click)="submitDesignationForm() ">{{addDesignation}} Designation</button>
+
                             </div>
-                        </div>
-                        <div class="col-sm-7">
-                            <p class="fw-bold">Already Assigned Designations</p>
-                            <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2">
-                                <div class="col-sm-1">
+                            <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2 mt-3">
+                                <div class="col-sm-2">
                                     Sr. No.
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-sm-9">
                                     Designation
                                 </div>
-                                <div class="col-sm-5">
-                                    Person(s) Assigned
-                                </div>
+
                                 <div class="col-sm-1"></div>
                             </div>
-                            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let resOfAssignedDesignations of allAssignedDesignations" cdkDrag>
-                                    <div class="col-sm-1">
-                                        {{resOfAssignedDesignations.SrNo}}
+                            <div cdkDropList class="example-list" (cdkDropListDropped)="swingDesignation($event)">
+                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag>
+                                    <div class="col-sm-2">
+                                        {{bodyAssignedDesignation.SrNo}}
                                     </div>
-                                    <div class="col-sm-5">
-                                        {{resOfAssignedDesignations.DesignationName}}
-                                    </div>
-                                    <div class="col-sm-5">
-                                        {{resOfAssignedDesignations.PersonAssigned | titlecase}}
+                                    <div class="col-sm-9">
+                                        {{bodyAssignedDesignation.DesignationName}}
                                     </div>
                                     <div class="col-sm-1">
-                                        <button class="btn btn-sm btn-light ng-star-inserted" [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) "><i
+                                        <!-- [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) " -->
+                                        <button class="btn btn-sm btn-light ng-star-inserted" (click)=" editDesignationForm(bodyAssignedDesignation) "><i
                                                 class="fas fa-pencil-alt "></i></button>
                                     </div>
                                 </div>
@@ -249,48 +247,49 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Sr. No.</th>
-                                        <th>Designation</th>
-                                        <th>Person(s) Assigned</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                                        <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations" cdkDrag
-                                            class="example-box">
-                                            <td>{{resOfAssignedDesignations.SrNo}}</td>
-                                            <td>{{resOfAssignedDesignations.DesignationName}}</td>
-                                            <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-light ng-star-inserted"
-                                                    [disabled]="resOfAssignedDesignations.PersonAssigned"
-                                                    (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) "><i
-                                                        class="fas fa-pencil-alt "></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="allAssignedDesignations?.length==0">
-                                            <td colspan="3 ">
-                                                <div class="alert alert-danger text-center py-2 ">No Data Found..!</div>
-                                            </td>
-                                        </tr>
-                                    </div>
-                                </tbody>
-                            </table> -->
-                        </div>
+
+                            <!-- <button class="btn btn-secondary btn-main ml-2 " type="button " [disabled]="!this.AddDesignationForm.value.DesignationId && !this.AddDesignationForm.value.IsMultiple " (click)="clearAddDesignationForm() ">
+                                Clear </button>
+                            <button type="submit " class="btn btn-main " (click)="submitDesignationForm( 'Add',0) ">{{addDesignation}} Designation</button> -->
+                        </form>
+                        <!-- form end -->
+
                     </div>
+                    <div class="col-sm-7">
+                        <p class="fw-bold">Already Assigned Designations</p>
+                        <!--  -->
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Designation</th>
+                                    <th>Person(s) Assigned</th>
 
-                </div>
-                <div class="modal-footer ">
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations" class="example-box">
+                                    <td>{{resOfAssignedDesignations.SrNo}}</td>
+                                    <td>{{resOfAssignedDesignations.DesignationName}}</td>
+                                    <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>
 
-                    <button class="btn btn-secondary btn-main ml-2 " type="button " [disabled]="!this.AddDesignationForm.value.DesignationId && !this.AddDesignationForm.value.IsMultiple " (click)="clearAddDesignationForm() ">
-                        Clear </button>
-                    <button type="submit " class="btn btn-main " (click)="submitDesignationForm( 'Add',0) ">{{addDesignation}} Designation</button>
+                                </tr>
+                                <tr *ngIf="allAssignedDesignations?.length==0">
+                                    <td colspan="3 ">
+                                        <div class="alert alert-danger text-center py-2 ">No Data Found..!</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </form>
+
+            </div>
+            <div class="modal-footer ">
+
+
+            </div>
+
             <!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
             </div> -->
