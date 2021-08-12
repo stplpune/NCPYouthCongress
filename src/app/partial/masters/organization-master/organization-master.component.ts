@@ -62,7 +62,7 @@ export class OrganizationMasterComponent implements OnInit {
   editRadioBtnClick:any;
   subject: Subject<any> = new Subject();
   globalLevelId:any;
-  
+  allBodyAssignedDesignation:any
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -78,6 +78,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.defaultDesignationForm();
     this.defultFilterForm();
     this.searchFilters('false');
+  
   }
 
   selectLevel(levelId: any) {
@@ -474,7 +475,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.HighlightRow = this.selEditOrganization.Id;
         this.getDistrict();
         this.globalDistrictId;
-        this.selectLevel(this.selEditOrganization.BodyLevel)
+        this.selectLevel(this.selEditOrganization.BodyLevel);
         this.orgMasterForm.patchValue({
           BodyOrgCellName: this.selEditOrganization.BodyOrgCellName,
           StateId: this.selEditOrganization.StateId,
@@ -525,6 +526,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   AddDesignation(BodyOrgCellName: any, bodyId: any) {
     this.desBodyId = bodyId;
+    this.getBodyAssignedDesignation();
     this.AlreadyAssignedDesignations(this.desBodyId)
     this.AddDesignationForm.patchValue({
       BodyId: BodyOrgCellName
@@ -552,27 +554,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   get d() { return this.AddDesignationForm.controls };
 
-  submitDesignationForm(flag:any, id:any) {
-    if (flag == 'Edit') {
-      this.addDesignation = 'Add';
-      this.AddDesignationForm.value['Id'] = id;
-      this.allAssignedDesignations.forEach((ele:any)=>{
-        if( ele.PostId == id){
-          this.editRadioBtnClick = ele.IsMultiple;
-          this.AddDesignationForm.patchValue({
-            BodyId: this.BodyOrgCellName,
-            DesignationId: ele.DesignationId,
-            IsMultiple: ele.IsMultiple,
-            CreatedBy: [this.commonService.loggedInUserId()],
-          })
-        }
-      });
-      return
-    }
-    else {
-      this.addDesignation = 'Add', this.AddDesignationForm.value['Id'] = 0;
-    }
-
+  submitDesignationForm() {
     this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
@@ -580,6 +562,7 @@ export class OrganizationMasterComponent implements OnInit {
       return;
     }
     else {
+      debugger;
       let fromData: any = new FormData();
       this.AddDesignationForm.value['BodyId'] = this.desBodyId;
       Object.keys(this.AddDesignationForm.value).forEach((cr: any, ind: any) => {
@@ -604,6 +587,19 @@ export class OrganizationMasterComponent implements OnInit {
         }
       })
     }
+  }
+
+  editDesignationForm(data: any){
+      this.editRadioBtnClick = data.IsMultiple;
+      this.addDesignation = 'Edit';
+      this.AddDesignationForm.patchValue({
+        Id:data.Id,
+        BodyId: this.AddDesignationForm.value.BodyId,
+        DesignationId: data.DesignationId,
+        IsMultiple: data.IsMultiple,
+        CreatedBy: this.commonService.loggedInUserId(),
+      })
+    console.log(this.AddDesignationForm.value);
   }
 
   clearAddDesignationForm() {
@@ -640,9 +636,6 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.allAssignedDesignations, event.previousIndex, event.currentIndex);
-  }
 
   onKeyUpFilter(){
     this.subject.next();
@@ -662,6 +655,51 @@ export class OrganizationMasterComponent implements OnInit {
         this.getOrganizationList()
       }
       );
+  }
+
+  getBodyAssignedDesignation(){
+    this.callAPIService.setHttp('get', 'Web_GetAssigned_Post_1_0?BodyId=' + this.desBodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allBodyAssignedDesignation = res.data1;
+      } else {
+        this.spinner.hide();
+          // this.toastrService.error("Designations is  not available");
+          this.allBodyAssignedDesignation = [];
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  
+  swingDesignation(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
+    let stringDesignation:any =  'oldChangeId='+this.allBodyAssignedDesignation[event.previousIndex].Id+'&oldChangesSortNo='+this.allBodyAssignedDesignation[event.previousIndex].SrNo
+    + '&NewChangeId='+this.allBodyAssignedDesignation[event.currentIndex].Id+'&NewChangesSortNo='+this.allBodyAssignedDesignation[event.currentIndex].SrNo+'&Createdby='+this.commonService.loggedInUserId();
+    
+    this.callAPIService.setHttp('get', 'Web_SetDesignationSort?'+stringDesignation, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getBodyAssignedDesignation();
+        this.AlreadyAssignedDesignations(this.desBodyId);
+      } else {
+        this.spinner.hide();
+          // this.toastrService.error("Designations is  not available");
+          this.allBodyAssignedDesignation = [];
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
   
 }
