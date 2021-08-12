@@ -428,7 +428,6 @@ export class OrganizationMasterComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
-          //alert(res.data1[0].Msg)
           // this.getOrganizationList();
           this.clearForm();
         } else {
@@ -516,7 +515,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   defaultDesignationForm() {
     this.AddDesignationForm = this.fb.group({
-      Id: [],
+      Id: [0],
       BodyId: [],
       DesignationId: ['', Validators.required],
       IsMultiple: ['', Validators.required],
@@ -555,6 +554,7 @@ export class OrganizationMasterComponent implements OnInit {
   get d() { return this.AddDesignationForm.controls };
 
   submitDesignationForm() {
+    debugger;
     this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
