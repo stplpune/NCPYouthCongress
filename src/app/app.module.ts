@@ -22,6 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { AgmCoreModule } from '@agm/core';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 
@@ -47,6 +48,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    NgxSelectModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
