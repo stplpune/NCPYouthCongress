@@ -3,7 +3,7 @@ header #topbar{
     padding:8px 0;
 }
 header #topbar a{
-    color: #fff !important;
+    color: var(--main-color);
     text-decoration: none;
 }
 header #topbar .btn{
@@ -29,23 +29,8 @@ header .navbar-nav .donate{
     color: #fff;
     text-transform: uppercase;
 }
-
-#home-carousel .carousel-item img{
-    position: relative;
-    height: 500px;
-    width: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
-}
-#home-carousel .carousel-caption{
-    top: 25%;
-}
-#home-carousel .carousel-caption .btn{
-    background:var(--clr-green);
-    color: #fff;
-    padding:15px 35px;
-    border-radius: 30px;
-    text-transform: uppercase;
+#home-carousel .carousel-item{
+    margin:20% auto;
 }
 #pres-msg{
     height:350px;
