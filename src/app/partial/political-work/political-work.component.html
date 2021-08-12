@@ -7,11 +7,11 @@
             <form [formGroup]="filterForm">
                 <div class="row g-1">
                     <div class="col-sm-3 offset-3">
-                        <ngx-select [allowClear]="true"  (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName"  placeholder="Select Member Name">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true"  (remove)="clearFilter('media')" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName"  placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -22,7 +22,7 @@
                     </div> -->
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                             <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar"></i></button>
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="col-sm">
-            <div class="card card-body bg-cyan" >
+            <div class="card card-body bg-cyan">
                 <i class="fas fa-envelope-open-text"></i>
                 <p>Social Media Help</p>
                 <h3>{{socialMediaCount}}</h3>
@@ -97,8 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                        <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <td>{{politicalWork.SrNo}}</td>
                             <td>{{politicalWork.ActivityDate}}</td>
                             <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
@@ -111,8 +110,7 @@
                                 </ng-container>
                             </th> -->
                             <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="politicalWorkArray?.length == 0">
@@ -123,8 +121,7 @@
                     </tbody>
                 </table>
                 <div class="mt-2 text-end" *ngIf="politicalWorkArray?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel=""
-                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                 </div>
             </div>
         </div>
@@ -133,8 +130,7 @@
 
 
 <!-- Modal for details -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -191,9 +187,7 @@
                         <div class="mb-3">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </div>
                         </div>
                         <div class="row mb-3">
