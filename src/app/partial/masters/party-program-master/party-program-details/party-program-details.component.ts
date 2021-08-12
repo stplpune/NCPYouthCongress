@@ -35,8 +35,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   programTile: any;
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
-  programGalleryLightBoxImg: any;
-  programGalleryImg1!: GalleryItem[];
 
   constructor(
     public location: Location,
@@ -73,16 +71,14 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
-        this.programGalleryImg = programDetailsImagesArray.slice(0, 6);
-        this.programGalleryLightBoxImg = programDetailsImagesArray;
+        this.programGalleryImg = programDetailsImagesArray;
         this.programDetailsLatLongArray = res.data3;
         this.overviewArray = res.data4[0];
-        this.programGalleryImg1 = programDetailsImagesArray.slice(0, 6);
+        // this.programGalleryImg1 = programDetailsImagesArray.slice(0, 6);
 
-        this.programGalleryImg1 = this.programGalleryImg.map((item:any) =>
+        this.programGalleryImg = this.programGalleryImg.map((item:any) =>
           new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
         );
-        console.log(this.programGalleryImg1);
         this.basicLightboxExample();
         // this.withCustomGalleryConfig();
       } else {
@@ -199,6 +195,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   basicLightboxExample() {
-    this.gallery.ref().load(this.programGalleryImg1);
+    this.gallery.ref().load(this.programGalleryImg);
   }
 }

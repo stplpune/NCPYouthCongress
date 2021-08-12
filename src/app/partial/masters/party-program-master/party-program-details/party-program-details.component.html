@@ -40,8 +40,8 @@
                 </div>
                 <div class="card-body">
                     <div class="row g-2">
-                        <div class="col-sm-6" *ngFor="let img of programGalleryImg1; index as i">
-                            <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                        <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
+                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                         </div>
                     </div>
                 </div>
