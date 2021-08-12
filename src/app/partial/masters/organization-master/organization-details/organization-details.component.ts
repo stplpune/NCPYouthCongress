@@ -77,6 +77,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.defaultFilterForm()
     this.defaultBodyMemForm();
     this.getAllBodyMember();
