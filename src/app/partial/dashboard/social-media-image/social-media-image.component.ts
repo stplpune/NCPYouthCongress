@@ -208,14 +208,15 @@ export class SocialMediaImageComponent implements OnInit {
       return href;
     })
     categoryAxis.dataItems.template.bullet = image;
-
+    categoryAxis.title.text = "Party Name";
 
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.renderer.minGridDistance = 30;
     valueAxis.renderer.baseGrid.disabled = true;
-
+    valueAxis.title.text = "Impressions on social media";
+    
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";
     series.dataFields.valueY = "ActivityCount";
@@ -250,7 +251,7 @@ export class SocialMediaImageComponent implements OnInit {
     // Create value axis
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inversed = false;
-    valueAxis.title.text = "% of followers in total recorded";
+    valueAxis.title.text = "% of followers";
     valueAxis.renderer.minLabelPosition = 0.01;
 
     // Create series

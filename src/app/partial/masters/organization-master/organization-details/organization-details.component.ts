@@ -121,7 +121,8 @@ export class OrganizationDetailsComponent implements OnInit {
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
-      bodyId: ['', Validators.required]
+      BodyName: [this.getCommitteeName, Validators.required],
+      bodyId: ['', Validators.required],
     })
   }
 

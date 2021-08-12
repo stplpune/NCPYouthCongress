@@ -521,7 +521,7 @@ export class DashboardComponent implements OnInit {
     categoryAxis.renderer.minGridDistance = 40;
     categoryAxis.fontSize = 11;
     categoryAxis.renderer.labels.template.dy = 5;
-
+    categoryAxis.title.text = "Party Name";
 
 
     let image = new am4core.Image();
@@ -546,6 +546,7 @@ export class DashboardComponent implements OnInit {
     valueAxis.min = 0;
     valueAxis.renderer.minGridDistance = 30;
     valueAxis.renderer.baseGrid.disabled = true;
+    valueAxis.title.text = "Impressions on social media";
 
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";
