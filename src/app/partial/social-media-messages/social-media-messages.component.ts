@@ -194,4 +194,10 @@ export class SocialMediaMessagesComponent implements OnInit {
     this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
   }
 
+  redToSocialMediaPerson(PersonName:any,MemberMobileNo:any){
+    let obj = {'PersonName':PersonName, 'MemberMobileNo':MemberMobileNo}
+    localStorage.setItem('SocialMediaDataPM', JSON.stringify(obj));
+    this.router.navigate(['../social-media-person'], { relativeTo: this.route });
+  }
+
 }

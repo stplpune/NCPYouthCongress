@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SocialMediaPersonRoutingModule } from './social-media-person-routing.module';
 import { SocialMediaPersonComponent } from './social-media-person.component';
-
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     SocialMediaPersonComponent
   ],
   imports: [
     CommonModule,
-    SocialMediaPersonRoutingModule
+    SocialMediaPersonRoutingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxPaginationModule,
   ]
 })
 export class SocialMediaPersonModule { }

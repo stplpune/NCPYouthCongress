@@ -45,8 +45,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   checkUserBlock!: string;
   dateTime = new FormControl();
 
-
-
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
