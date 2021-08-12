@@ -97,6 +97,7 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   filterData(){
+    this.paginationNo = 1;
     this.GetSocialMediaMessages()
   }
 

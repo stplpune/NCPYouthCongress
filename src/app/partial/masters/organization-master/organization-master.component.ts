@@ -69,6 +69,7 @@ export class OrganizationMasterComponent implements OnInit {
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.defultFilterForm();
     this.getOrganizationList();
     this.customForm();
     this.getLevel();
@@ -76,7 +77,6 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDistrict();
     this.getDesignation();
     this.defaultDesignationForm();
-    this.defultFilterForm();
     this.searchFilters('false');
   
   }
@@ -214,17 +214,9 @@ export class OrganizationMasterComponent implements OnInit {
 
   defultFilterForm() {
     this.filterForm = this.fb.group({
-      filterDistrict: [''],
+      filterDistrict: [0],
       searchText: ['']
     })
-  }
-
-  clearFilter() {
-    this.paginationNo = 1;
-    this.districtId = 0;
-    this.searchFilter = "";
-    this.filterForm.reset();
-    this.getOrganizationList();
   }
 
   clearSearchFilter(){
@@ -234,9 +226,11 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
   getOrganizationList() {
-    this.spinner.show();
-    let s = this.searchFilter == null ? '' : this.searchFilter;
-    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + this.districtId + '&Search=' + s + '&nopage=' + this.paginationNo;
+    // this.spinner.show();
+    let filterData = this.filterForm.value;
+    console.log(filterData);
+    // let s = this.searchFilter == null ? '' : this.searchFilter;
+    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo;
     this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0' + data, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -352,7 +346,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    this.disableFlagVill = false;
+    this.globalLevelId == 5 ? this.disableFlagVill = false :  this.disableFlagVill = true;
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -451,15 +445,22 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
 
-  selDistrict(event: any) {
-    this.districtId = event
-    this.getOrganizationList();
-  }
 
-  districtAllowClear() {
-    this.districtId = 0;
+  filterData(){
+    this.paginationNo = 1;
+     this.getOrganizationList();
+   }
+
+   clearFilter(flag: any) {
+     debugger;
+    if(flag == 'district'){
+      this.filterForm.controls['filterDistrict'].setValue(0);
+    }else if (flag == 'search'){
+      this.filterForm.controls['searchText'].setValue('');
+    }
+    this.paginationNo = 1;
     this.getOrganizationList();
-  }
+    }
 
   editOrganization(BodyId: any) {
     this.clearForm();
@@ -652,6 +653,7 @@ export class OrganizationMasterComponent implements OnInit {
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.filterForm.value.searchText;
+        this.paginationNo = 1;
         this.getOrganizationList()
       }
       );

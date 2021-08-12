@@ -121,19 +121,19 @@
                                 <div class="row mb-3 form-container">
 
                                     <div class="col-sm-3 offset-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')" (select)="filterForm(this.filter.value.memberName, 'member')" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')" (select)="filterForm(this.filter.value.workType, 'workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date" formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!this.filter.value.fromTodate">
                                                 <i class="fas fa-calendar"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearValue()">
+                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="this.filter.value.fromTodate">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -186,17 +186,19 @@
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                             </div>
 
-
-                            <div class="card shadow-none border">
+                            <div class="clearfix"></div>
+                            <div class="card shadow-none">
                                 <div class="card-header">Work in a Year
-                                    <span class="float-end">
+                                    <!-- <span class="float-end">
                                         <select class="form-select">
                                             <option>Month</option>
                                         </select>
-                                    </span>
+                                    </span> -->
                                 </div>
                                 <div class="card-body">
-                                    periodic chart<br> x-axis : Month<br> y-axis : count of works
+                                    <!-- periodic chart<br> x-axis : Month<br> y-axis : count of works -->
+                                    <div class="card-body recentActivityGraph chartfont h-400">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -239,10 +241,10 @@
                                                     <label for="txtMemberName" class="form-label">
                                                         Post From Date</label>
                                                     <div class="input-group">
-                                                        <input [owlDateTime]="dt3" formControlName="PostFromDate" [selectMode]="'range'" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-                                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostFromDate">
+                                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
                                                             <i class="fas fa-calendar"></i></button>
-                                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostFromDate" (click)="clearValueDatePicker()">
+                                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
                                                             <i class="fas fa-times"></i></button>
                                                     </div>
                                                     <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>

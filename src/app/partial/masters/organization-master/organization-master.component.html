@@ -104,7 +104,7 @@
                         <div class="row g-1">
 
                             <div class="col-sm-3 offset-6">
-                                <ngx-select [allowClear]="allowClearFlag" (remove)="districtAllowClear()" (select)="selDistrict($event)" formControlName="filterDistrict" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                                <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')" (select)="filterData()" formControlName="filterDistrict" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                                 <!-- <ngx-select [allowClear]="allowClearFlag" (remove)="districtAllowClear()" (select)="selDistrict($event)" [items]="allDistrict" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District" >
                             </ngx-select> -->
@@ -113,9 +113,9 @@
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <input type="text" class="form-control" formControlName="searchText" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                    <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="clearSearchFilter()"><i
-                                            _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
-                                    <button type="button" (click)="searchFilters('true')" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i
+                                    <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i
                                             class="fas fa-search"></i></button>
                                     <!-- <button class="btn btn-sm btn-main" type="button" (click)="filter(this.filterForm.value.searchText)">
 
