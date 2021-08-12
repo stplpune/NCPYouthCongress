@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     PoliticalWorkComponent
@@ -20,6 +20,16 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     NgxSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyA2AB0fKeqVHUUmRB1pvcaFRiDFTj8dSfM',
+    //   language: 'en',
+    //   libraries: ['places']
+    // }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAV0MsCXcScyVTpfgelNpIakmESv9W0E3c',
+      language: 'en',
+      libraries: ['geometry','places']
+    }),
   ]
 })
 export class PoliticalWorkModule { }

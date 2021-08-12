@@ -44,15 +44,21 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   resultFeedBack: any;
   checkUserBlock!: string;
   dateTime = new FormControl();
+  FullName: any;
 
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, public location: Location, private route: ActivatedRoute, public dateTimeAdapter: DateTimeAdapter<any>,
-  ) { { dateTimeAdapter.setLocale('en-IN'); }}
+  ) { { dateTimeAdapter.setLocale('en-IN'); }
+
+  let getLocalStorageData: any = localStorage.getItem('memberId');
+  let localStorageData = JSON.parse(getLocalStorageData);
+  this.memberId = localStorageData.memberId;
+  this.FullName = localStorageData.FullName;
+}
 
   ngOnInit(): void {
-    this.memberId = localStorage.getItem('memberId')
     this.getMemberprofile();
     this.getMemberprofileDetails();
     this.memberProfileWorkdetails();

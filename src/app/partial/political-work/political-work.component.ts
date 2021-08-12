@@ -33,6 +33,10 @@ export class PoliticalWorkComponent implements OnInit {
   socialMediaCount: any;
   socialMediaArray:any;
   categoryArray:any;
+  viewPoliticleWorkDetailsById: any;
+  lat: any = 19.75117687556874;
+  lng: any = 75.71630325927731;
+  zoom: any = 12;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -105,7 +109,6 @@ export class PoliticalWorkComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.politicalWorkArray = res.data1;
-        console.log(this.politicalWorkArray);
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -198,6 +201,9 @@ export class PoliticalWorkComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+  ViewPoliticleWorkDetails(index:any){
+     this.viewPoliticleWorkDetailsById=this.politicalWorkArray[index];
   }
 
 }
