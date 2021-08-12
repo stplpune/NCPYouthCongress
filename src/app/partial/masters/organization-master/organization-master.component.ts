@@ -61,7 +61,7 @@ export class OrganizationMasterComponent implements OnInit {
   selectObj:any;
   editRadioBtnClick:any;
   subject: Subject<any> = new Subject();
-
+  globalLevelId:any;
   
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
@@ -81,6 +81,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any) {
+    this.globalLevelId = levelId;
     if (levelId == 3) {
       this.validationOncondition(levelId)
       this.disableFlagDist = false;
@@ -322,7 +323,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    this.redioBtnDisabled = false;
+    this.globalLevelId == 5   ? this.redioBtnDisabled = false : this.redioBtnDisabled = true; 
+   
     this.spinner.show();
     this.globalDistrictId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
