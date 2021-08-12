@@ -431,7 +431,6 @@ export class DashboardComponent implements OnInit {
       })
       // chart.invalidateRawData();
     }, 2000)
-
   }
 
   pieChart() {
