@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -60,7 +60,7 @@ export class OrganizationDetailsComponent implements OnInit {
   zoom: any = 12;
   maxDate: any = new Date();
   addMemberFlag:any;
-
+  selUserpostbodyId:any;
 
   
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
@@ -121,6 +121,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
+      PostFromDate:['', Validators.required],
       BodyName: [this.getCommitteeName, Validators.required],
       bodyId: ['', Validators.required],
     })
@@ -128,6 +129,9 @@ export class OrganizationDetailsComponent implements OnInit {
 
   get f() { return this.bodyMember.controls };
 
+  clearValueDatePicker(){
+    this.bodyMember.controls['PostFromDate'].setValue(null)
+  }
 
   getAllBodyMember() {
     this.spinner.show();
@@ -204,7 +208,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
-        console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         this.getPreDesMembersArray = [];
@@ -226,6 +229,31 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
+  getUserPostBodyId(id:any){
+    this.selUserpostbodyId = id;
+  }
+
+  deleteMember() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_AssignMember_1_0?userpostbodyId=' + this.selUserpostbodyId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getCurrentDesignatedMembers(this.bodyId);
+
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
   getPreviousDesignatedMembers(id: any, DesignationId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
@@ -233,14 +261,12 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1);
-      
-        // this.prevDesMembers = res.data1;
-
-        // this.prevDesMembers.push(res.data1);
       } else {
+        this.spinner.hide();
          // this.toastrService.error("Member is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -447,7 +473,7 @@ export class OrganizationDetailsComponent implements OnInit {
           closeAddMemModal.click();
           this.resultBodyMemActDetails = res.data1[0];
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
-          this.bodyMember.reset();
+          this.bodyMember.reset({ BodyName: this.getCommitteeName});
          
           
           this.addMemberFlag = null
