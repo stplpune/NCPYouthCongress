@@ -99,7 +99,7 @@
                                 <img *ngIf="!allMembers.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
                             </th>
                             <td>{{allMembers.PostDate}}</td>
-                            <td><a class="text-primary" (click)="redToMemberProfile(allMembers.MemberId)">{{allMembers.FullName | titlecase}}</a></td>
+                            <td><a class="text-primary" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)">{{allMembers.FullName | titlecase}}</a></td>
                             <td>
                                 <p class="mb-0">{{allMembers.EmailId}}</p>
                                 <p class="mb-0">{{allMembers.ContactNo}}</p>
@@ -127,7 +127,7 @@
                                 </ng-container>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-light" (click)="redToMemberProfile(allMembers.MemberId)" type="button"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-sm btn-light" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)" type="button"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="resultAllViewMembers?.length == 0">
