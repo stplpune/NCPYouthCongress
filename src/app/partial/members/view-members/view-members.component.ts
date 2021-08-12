@@ -200,8 +200,9 @@ export class ViewMembersComponent implements OnInit {
     this.subject.next();
   }
 
-  redToMemberProfile(memberId:any){
-    localStorage.setItem('memberId', memberId)
+  redToMemberProfile(memberId:any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../member-profile'], {relativeTo:this.route})
   }
 
