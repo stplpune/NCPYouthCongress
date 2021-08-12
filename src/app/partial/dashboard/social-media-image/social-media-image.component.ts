@@ -176,6 +176,13 @@ export class SocialMediaImageComponent implements OnInit {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
     chart.data = this.perceptionOnSocialMediaArray;
+    chart.colors.list = [
+      am4core.color("#80DEEA"),
+      am4core.color("#FF8A65"),
+      am4core.color("#E57373"),
+      am4core.color("#7986CB"),
+      am4core.color("#4DB6AC"),
+    ];
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
