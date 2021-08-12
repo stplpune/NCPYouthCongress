@@ -212,16 +212,16 @@
                                         <div *ngIf="d.IsMultiple.errors.required">Is Multiple is required</div>
                                     </div>
                                 </div>
-                                <button class="btn btn-secondary   mr-2 " type="button " (click)="clearAddDesignationForm() ">
+                                <button class="btn btn-secondary me-2 " type="button " (click)="clearAddDesignationForm() ">
                                     Clear </button>
                                 <button type="submit " class="btn btn-main ml-2" (click)="submitDesignationForm() ">{{addDesignation}} Designation</button>
 
                             </div>
-                            <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2">
-                                <div class="col-sm-1">
+                            <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2 mt-3">
+                                <div class="col-sm-2">
                                     Sr. No.
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-sm-9">
                                     Designation
                                 </div>
 
@@ -229,10 +229,10 @@
                             </div>
                             <div cdkDropList class="example-list" (cdkDropListDropped)="swingDesignation($event)">
                                 <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         {{bodyAssignedDesignation.SrNo}}
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-9">
                                         {{bodyAssignedDesignation.DesignationName}}
                                     </div>
                                     <div class="col-sm-1">
