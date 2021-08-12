@@ -145,10 +145,10 @@ export class PoliticalWorkComponent implements OnInit {
     this.getPoliticalWork()
   }
 
-  // redToMemberProfile(memberId:any){
-  //   localStorage.setItem('memberId', memberId)
-  //   this.router.navigate(['../master/member-profile'], {relativeTo:this.route})
-  // }
+  redToMemberProfile(memberId:any){
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
+  }
 
   filterData(){
     this.getPoliticalWork()
