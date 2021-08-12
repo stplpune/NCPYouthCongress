@@ -425,6 +425,7 @@ export class OrganizationMasterComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
+          alert(res.data1[0].Msg)
           // this.getOrganizationList();
           this.clearForm();
         } else {

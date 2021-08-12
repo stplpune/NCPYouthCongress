@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-6 text-end">
             <div class="row">
-                <div class="offset-sm-7 col-sm-4">
+                <div class="offset-7 col-sm-5 d-flex">
                     <div class="input-group">
                         <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
@@ -15,12 +15,15 @@
                         <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
                             <i class="fas fa-times"></i></button>
                     </div>
-                </div>
-                <div class="col-sm-auto">
-                    <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                    <button type="button" class="btn btn-sm btn-secondary ms-2" (click)="location.back()">
                         <i class="fas fa-arrow-left"></i>
                     </button>
                 </div>
+                <!-- <div class="col-sm-auto">
+                    <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div> -->
             </div>
 
 
@@ -187,7 +190,7 @@
                     <br>Bar Chart :<br> x-axis : Month name<br> y-axis : Count of likes in this month<br> y-axis : count of work done in this month <br>
                 </div> -->
                 
-                <div class="card-body pt-5 recentActivityGraph chartfont h-400">
+                <div class="card-body recentActivityGraph chartfont h-400">
                 </div>
             </div>
 
