@@ -4,6 +4,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 @Component({
   selector: 'app-party-program-details',
   templateUrl: './party-program-details.component.html',
@@ -33,6 +34,9 @@ export class PartyProgramDetailsComponent implements OnInit {
   pageSize1: number = 10;
   programTile: any;
   allImages = [];    
+  programGalleryImg!: GalleryItem[]; 
+  programGalleryLightBoxImg: any;
+  programGalleryImg1!: GalleryItem[];
 
   constructor(
     public location: Location,
@@ -40,7 +44,8 @@ export class PartyProgramDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public gallery: Gallery
   ) {
     if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
       this.toastrService.error("Please select Program Title  and try again");
@@ -68,11 +73,18 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
-        console.log(programDetailsImagesArray);
-        this.programDetailsImagesArray = programDetailsImagesArray.slice(0, 4);
+        this.programGalleryImg = programDetailsImagesArray.slice(0, 6);
+        this.programGalleryLightBoxImg = programDetailsImagesArray;
         this.programDetailsLatLongArray = res.data3;
         this.overviewArray = res.data4[0];
+        this.programGalleryImg1 = programDetailsImagesArray.slice(0, 6);
 
+        this.programGalleryImg1 = this.programGalleryImg.map((item:any) =>
+          new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
+        );
+        console.log(this.programGalleryImg1);
+        this.basicLightboxExample();
+        // this.withCustomGalleryConfig();
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -82,6 +94,8 @@ export class PartyProgramDetailsComponent implements OnInit {
       }
     })
   }
+
+  
 
   getMembersData() {
     this.membersDataNonParticipantsArray = [];
@@ -182,5 +196,9 @@ export class PartyProgramDetailsComponent implements OnInit {
   redToMemberProfile(memberId: any) {
     localStorage.setItem('memberId', memberId)
     this.router.navigate(['../../members/member-profile'], { relativeTo: this.route })
+  }
+
+  basicLightboxExample() {
+    this.gallery.ref().load(this.programGalleryImg1);
   }
 }

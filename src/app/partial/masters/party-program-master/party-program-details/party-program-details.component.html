@@ -40,8 +40,8 @@
                 </div>
                 <div class="card-body">
                     <div class="row g-2">
-                        <div class="col-sm-6" *ngFor="let img of programDetailsImagesArray">
-                            <img src="{{img.ImagePath}}" class="img-fluid img-thumbnail" data-bs-toggle="modal" data-bs-target="#GalleryModal"/>
+                        <div class="col-sm-4" *ngFor="let img of programGalleryImg1; index as i">
+                            <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                         </div>
                     </div>
                 </div>
@@ -174,43 +174,3 @@
         </div>
     </div>
 </div>
-
-
-
-<!-- modal for gallery popup carousel -->
-<div class="modal fade" id="GalleryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="GalleryModalLabel" aria-hidden="true">
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content"> 
-        <div class="modal-body">            
-            <div id="carouselGallery" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselGallery" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselGallery" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselGallery" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item"  *ngFor="let img of programDetailsImagesArray">
-                        <img src="{{img.ImagePath}}"/>
-                  </div>
-                  <!-- <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                  </div> -->
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselGallery" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselGallery" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
-              </div>
-            <!-- <div *ngFor="let img of programDetailsImagesArray">
-                <img src="{{img.ImagePath}}" class="img-fluid"/>
-            </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
