@@ -30,6 +30,7 @@ export class SocialMediaPersonComponent implements OnInit {
   total: any;
   pageSize: number = 10;
   getDatabyPersonId: any;
+  chartArray:any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -82,7 +83,9 @@ export class SocialMediaPersonComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaMessagesPersonArray = res.data1;
+        this.chartArray = res.data4;
         this.total = res.data2[0].TotalCount;
+        this.workCountAgainstWorkType();
       } else {
         this.toastrService.error("Data is not available");
       }
@@ -99,13 +102,13 @@ export class SocialMediaPersonComponent implements OnInit {
 
     let chart = am4core.create("workCountAgainstWork", am4charts.XYChart);
 
-    // chart.data = this.barChartCategory;
-
+     chart.data = this.chartArray;
+    console.log(this.chartArray);
     chart.padding(10, 0, 0, 0);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "Category";
+    categoryAxis.dataFields.category = "SocialMediaName";
     categoryAxis.renderer.minGridDistance = 60;
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.grid.template.disabled = true;
@@ -117,8 +120,8 @@ export class SocialMediaPersonComponent implements OnInit {
     //valueAxis.rangeChangeDuration = 1500;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryX = "Category";
-    series.dataFields.valueY = "Totalwork";
+    series.dataFields.categoryX = "SocialMediaName";
+    series.dataFields.valueY = "TotalCount";
     series.tooltipText = "{valueY.value}"
     series.columns.template.strokeOpacity = 0;
     series.columns.template.column.cornerRadiusTopRight = 10;
