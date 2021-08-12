@@ -52,6 +52,7 @@
                                                 <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
                                                 <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal"> <i
                                                         class="fas fa-trash-alt"></i></button>
+
                                                 <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                             </div>
                                         </td>
