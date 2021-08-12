@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -54,27 +54,27 @@ export class OrganizationDetailsComponent implements OnInit {
   @ViewChild('closeAddMemberModal') closeAddMemberModal: any;
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
-  getCommitteeName:any;
-  toDate:any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
-  fromDate:any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
+  getCommitteeName: any;
+  toDate: any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
+  fromDate: any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
   zoom: any = 12;
   maxDate: any = new Date();
-  addMemberFlag:any;
+  addMemberFlag: any;
+  selUserpostbodyId: any;
+  periodicChart: any;
 
-
-  
-  constructor(private fb: FormBuilder, private callAPIService: CallAPIService, 
-    private router: Router,private route: ActivatedRoute,
-    private spinner: NgxSpinnerService,  public dateTimeAdapter: DateTimeAdapter<any>,
+  constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
+    private router: Router, private route: ActivatedRoute,
+    private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
-    public location: Location,
-    private commonService: CommonService , public datepipe: DatePipe,) { 
-      let getLocalStorageData:any = localStorage.getItem('bodyId') ;
-      getLocalStorageData = JSON.parse(getLocalStorageData);
-      this.bodyId = getLocalStorageData.bodyId;
-      this.getCommitteeName = getLocalStorageData.BodyOrgCellName;
-      { dateTimeAdapter.setLocale('en-IN')  }
-    }
+    public location: Location, private datePipe:DatePipe,
+    private commonService: CommonService, public datepipe: DatePipe,) {
+    let getLocalStorageData: any = localStorage.getItem('bodyId');
+    getLocalStorageData = JSON.parse(getLocalStorageData);
+    this.bodyId = getLocalStorageData.bodyId;
+    this.getCommitteeName = getLocalStorageData.BodyOrgCellName;
+    { dateTimeAdapter.setLocale('en-IN') }
+  }
 
   ngOnInit(): void {
     this.defaultFilterForm()
@@ -85,15 +85,14 @@ export class OrganizationDetailsComponent implements OnInit {
     this.getBodyMemeberActivities(this.bodyId);
     this.getBodyMemeberGraph(this.bodyId);
     this.getWorkcategoryFilterDetails(this.bodyId);
+    this.activitiesPerodicGraph(this.bodyId);
   }
 
   defaultFilterForm() {
     this.filter = this.fb.group({
-      memberName: ['', Validators.required],
-      workType: ['', Validators.required],
-      FromDate: [this.fromDate, Validators.required],
-      ToDate: [this.toDate, Validators.required],
-      fromTodate: [['Sun Aug 01 2021 00:00:00 GMT+0530 (India Standard Time), Mon Aug 02 2021 00:00:00 GMT+0530 (India Standard Time)'], Validators.required],
+      memberName: [''],
+      workType: [0],
+      fromTodate: [['','']],
     })
   }
 
@@ -107,26 +106,35 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
 
-  selectLevelClear(text: any) {
-    if (text == "member") {
-      this.globalMemberId = 0;
-      this.globalCategoryId = 0;
-      this.clearValue();
-      this.getBodyMemeberActivities(this.bodyId)
-    } else if (text == "workType") {
-      this.globalCategoryId = 0;
-      this.getBodyMemeberActivities(this.bodyId)
-    }
-  }
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
-      bodyId: ['', Validators.required]
+      PostfromDate: ['', Validators.required],
+      BodyName: [this.getCommitteeName, Validators.required],
+      bodyId: ['', Validators.required],
     })
   }
 
   get f() { return this.bodyMember.controls };
 
+  clearValueDatePicker() {
+    this.bodyMember.controls['PostFromDate'].setValue(null)
+  }
+
+  filterData() {
+    this.paginationNo = 1;
+    this.getBodyMemeberActivities(this.bodyId)
+  }
+
+  clearFilter(flag: any) {
+    if (flag == 'member') {
+      this.filter.controls['memberName'].setValue(0);
+    } else if (flag == 'workType') {
+      this.filter.controls['district'].setValue(0);
+    }
+    this.paginationNo = 1;
+    this.getBodyMemeberActivities(this.bodyId)
+  }
 
   getAllBodyMember() {
     this.spinner.show();
@@ -136,9 +144,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resAllMember = res.data1;
       } else {
-          this.toastrService.error("Body member is not available");
+        this.toastrService.error("Body member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -153,9 +161,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberDetails = res.data1[0];
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -170,9 +178,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberFilterDetails = res.data1;
       } else {
-          this.toastrService.error("Member is not available");
+        this.toastrService.error("Member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -187,9 +195,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
       } else {
-          this.toastrService.error("Member is not available");
+        this.toastrService.error("Member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -203,7 +211,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
-        console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         this.getPreDesMembersArray = [];
@@ -213,14 +220,39 @@ export class OrganizationDetailsComponent implements OnInit {
       } else {
         // this.spinner.hide();
         // if (res.data == 1) {
-          this.toastrService.error("Member is not available");
+        this.toastrService.error("Member is not available");
         // } else {
         //   this.toastrService.error("Please try again something went wrong");
         // }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getUserPostBodyId(id: any) {
+    this.selUserpostbodyId = id;
+  }
+
+  deleteMember() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_AssignMember_1_0?userpostbodyId=' + this.selUserpostbodyId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getCurrentDesignatedMembers(this.bodyId);
+
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -232,14 +264,12 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1);
-      
-        // this.prevDesMembers = res.data1;
-
-        // this.prevDesMembers.push(res.data1);
       } else {
-         // this.toastrService.error("Member is not available");
+        this.spinner.hide();
+        // this.toastrService.error("Member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -247,8 +277,14 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getBodyMemeberActivities(id: any) {
+    let filterData = this.filter.value;
+    let fromDate:any;
+    let toDate:any;
+    debugger;
+    this.filter.value.fromTodate[0] != "" ? (fromDate = this.datePipe.transform(this.filter.value.fromTodate[0], 'dd/MM/yyyy')) : fromDate = '';   
+    this.filter.value.fromTodate[1] != "" ? (toDate = this.datePipe.transform(this.filter.value.fromTodate[1], 'dd/MM/yyyy')) : toDate ='';   
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId+'&FromDate='+this.filter.value.FromDate+'&ToDate='+this.filter.value.ToDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + filterData.workType + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -264,10 +300,10 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../../500'], { relativeTo: this.route });
-      }
+    }, (error: any) => {
+      // if (error.status == 500) {
+      //   this.router.navigate(['../../../500'], { relativeTo: this.route });
+      // }
     })
   }
 
@@ -287,9 +323,9 @@ export class OrganizationDetailsComponent implements OnInit {
         this.resultBodyMemActGraph = res.data1;
         this.bodyMemeberChartGraph(this.resultBodyMemActGraph);
       } else {
-          this.toastrService.error("Member is not available");
+        this.toastrService.error("Member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -304,13 +340,13 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-       this.lat = Number(latLong[0]);
-       this.lng = Number(latLong[1]);
-        
+        this.lat = Number(latLong[0]);
+        this.lng = Number(latLong[1]);
+
       } else {
-          this.toastrService.error("Member is not available");
+        this.toastrService.error("Member is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
@@ -406,7 +442,7 @@ export class OrganizationDetailsComponent implements OnInit {
     localStorage.removeItem('bodyId');
   }
 
-  addEditMember(data: any, flag:any) {
+  addEditMember(data: any, flag: any) {
     this.addMemberFlag = flag;
     if (data.UserId == "" || data.UserId == "") {
       this.toastrService.error("Please select member and try again");
@@ -426,8 +462,8 @@ export class OrganizationDetailsComponent implements OnInit {
       return;
     }
     else {
-      let UserPostBodyId :any;
-      this.addMemberFlag == 'Add' ? UserPostBodyId = 0 :  UserPostBodyId = this.dataAddEditMember.userpostbodyId  ;
+      let UserPostBodyId: any;
+      this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
       let fromData = new FormData();
       fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
@@ -435,6 +471,7 @@ export class OrganizationDetailsComponent implements OnInit {
       fromData.append('UserId', this.bodyMember.value.bodyId);
       fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
+      fromData.append('PostfromDate', this.bodyMember.value.PostfromDate);
       this.spinner.show();
       this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
@@ -446,35 +483,97 @@ export class OrganizationDetailsComponent implements OnInit {
           closeAddMemModal.click();
           this.resultBodyMemActDetails = res.data1[0];
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
-          this.bodyMember.reset();
-         
-          
+          this.bodyMember.reset({ BodyName: this.getCommitteeName });
+
+
           this.addMemberFlag = null
         } else {
-            this.toastrService.error("Member is not available");
+          this.toastrService.error("Member is not available");
         }
-      } ,(error:any) => {
+      }, (error: any) => {
         if (error.status == 500) {
           this.router.navigate(['../../../500'], { relativeTo: this.route });
         }
       })
     }
   }
-  getweekRage(event:any){
+  getweekRage(event: any) {
     console.log(event);
     this.filter.patchValue({
-      FromDate:this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
-      ToDate:this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
+      FromDate: this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
+      ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
     })
     this.getBodyMemeberActivities(this.bodyId)
   }
 
-  clearValue() {
-    // this.filter.value.fromTodate = '';
-    this.filter.controls['fromTodate'].setValue([null, null]);
-    this.filter.controls['FromDate'].setValue(this.toDate);
-    this.filter.controls['FromDate'].setValue(this.fromDate);
-    this.getBodyMemeberActivities(this.bodyId)
-    // this.dateTime.setValue([null, null]);
+  activitiesPerodicGraph(id: any) {
+    let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.FromDate + '&ToDate=' + this.filter.value.ToDate;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities_PerodicGraph' + stringPerodicGraph, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.periodicChart = res.data1;
+        console.log(this.periodicChart)
+        this.WorkDoneRecentActivityGraph();
+      } else {
+        this.toastrService.error("Body member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
   }
+
+
+  WorkDoneRecentActivityGraph() {
+    this.periodicChart.map((ele: any) => {
+      ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
+    })
+    let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
+    // Add data
+    chart.data = this.periodicChart;
+
+    // Create axes
+    let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
+
+    // Create value axis
+    let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
+
+
+    // Create series
+    let lineSeries = chart.series.push(new am4charts.LineSeries());
+    lineSeries.dataFields.valueY = "Totalwork";
+    lineSeries.dataFields.dateX = "StartDate";
+    lineSeries.name = "Sales";
+    lineSeries.strokeWidth = 3;
+    lineSeries.strokeDasharray = "5,4";
+    lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
+
+    // Add simple bullet
+    let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+    bullet.disabled = true;
+    bullet.propertyFields.disabled = "disabled";
+
+    let secondCircle = bullet.createChild(am4core.Circle);
+    secondCircle.radius = 6;
+    secondCircle.fill = chart.colors.getIndex(8);
+
+
+    bullet.events.on("inited", function (event) {
+      animateBullet(event.target.circle);
+    })
+
+
+    function animateBullet(bullet: any) {
+      let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
+      animation.events.on("animationended", function (event: any) {
+        animateBullet(event.target.object);
+      })
+    }
+
+
+  }
+
 }

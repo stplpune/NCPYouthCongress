@@ -34,5 +34,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     npm i ngx-pagination
     npm i ng-pick-datetime@5.2.6
     npm install --save rxjs-compat 
-
+    npm i @ngx-gallery/lightbox 
+    npm i @ngx-gallery/core
  -->

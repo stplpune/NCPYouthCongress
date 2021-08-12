@@ -1,25 +1,42 @@
 <div class="container-fluid">
+
     <div class="row" id="membername">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             Mr. Ravikant Varpe
         </div>
+        <div class="col-sm-6 text-end">
+            <div class="row">
+                <div class="offset-7 col-sm-5 d-flex">
+                    <div class="input-group">
+                        <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                        <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1"  *ngIf="!defaultCloseBtn">
+                            <i class="fas fa-calendar-alt"></i>
+                        </button>
+                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                            <i class="fas fa-times"></i></button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-secondary ms-2" (click)="location.back()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+
 
     <div class="row">
         <div class="col-sm-3" id="profile-left">
             <div class="card">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <i class="fas fa-map-marked-alt text-warning"></i> Haveli Constituency
+                        <i class="fas fa-map-marked-alt text-warning"></i> {{PersonName}}
                     </li>
                     <li class="list-group-item">
-                        <i class="far fa-envelope text-info"></i> ravikant.varpe@gmail.com
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-phone-alt text-primary"></i> +91-9876543210
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-map-marker-alt text-dark"></i> City/Village, Taluka, District
+                        <i class="fas fa-phone-alt text-primary"></i> +91-{{MemberMobileNo}}
+
                     </li>
                 </ul>
             </div>
@@ -29,11 +46,12 @@
                 <div class="card-header">
                     Activities
                 </div>
+
                 <div class="card-body chartbox">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">SrNo</th>
                                 <th scope="col">Post Date</th>
                                 <th scope="col">Social Media</th>
                                 <th scope="col">Message in Favour</th>
@@ -43,77 +61,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>01-07-2021</td>
-                                <td>WhatsApp</td>
-                                <td>Ajay Pawar</td>
-                                <td>Rajaram Shinde</td>
+                            <tr *ngFor="let socialMediaMessagesPerson of socialMediaMessagesPersonArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                <td>{{socialMediaMessagesPerson.SrNo}}</td>
+                                <td>{{socialMediaMessagesPerson.PostDate}}</td>
+                                <td>{{socialMediaMessagesPerson.SocialMediaName}}</td>
+                                <td>{{socialMediaMessagesPerson.InFavorOf}}</td>
+                                <td>{{socialMediaMessagesPerson.InOppositionOf}}</td>
                                 <td>
-                                    <img src="assets/images/dashboard-images/logos/ncp-logo.png" />
+                                    <img src="{{socialMediaMessagesPerson.PartyIconImage}}" />
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>02-07-2021</td>
-                                <td>WhatsApp</td>
-                                <td>Ajay Pawar</td>
-                                <td>Rajaram Shinde</td>
-                                <td>
-                                    <img src="assets/images/dashboard-images/logos/ncp-logo.png" />
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light" (click)="getSocialMediaPersonDataById(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>03-07-2021</td>
-                                <td>WhatsApp</td>
-                                <td>Ajay Pawar</td>
-                                <td>Rajaram Shinde</td>
-                                <td>
-                                    <img src="assets/images/dashboard-images/logos/ncp-logo.png" />
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>04-07-2021</td>
-                                <td>WhatsApp</td>
-                                <td>Ajay Pawar</td>
-                                <td>Rajaram Shinde</td>
-                                <td>
-                                    <img src="assets/images/dashboard-images/logos/ncp-logo.png" />
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>05-07-2021</td>
-                                <td>WhatsApp</td>
-                                <td>Ajay Pawar</td>
-                                <td>Rajaram Shinde</td>
-                                <td>
-                                    <img src="assets/images/dashboard-images/logos/ncp-logo.png" />
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            <tr *ngIf="socialMediaMessagesPersonArray?.length == 0">
+                                <td colspan="9">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="mt-2 text-end" *ngIf="socialMediaMessagesPersonArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div>
 
-                    <div class="card-body border">
-                        date range filter
-                        <br>Chart : work count against work type
+                    <div class="card-body  mt-3">
+                        <div class="workCountAgainstWork chartfont h-400"></div>
                     </div>
 
                 </div>
@@ -135,26 +108,26 @@
                     <div class="col-sm-6 form-container">
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">1</div>
+                                <label class="form-label">#Id</label>
+                                <div id="txtID" class="form-data">{{getDatabyPersonId?.Id}}</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Post Date</label>
-                                <div id="txtPostDate" class="form-data">01-12-2021</div>
+                                <div id="txtPostDate" class="form-data">{{getDatabyPersonId?.PostDate}}</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-12">
                                 <label class="form-label">Social Media</label>
                                 <div id="txtWorkType" class="form-data">
-                                    WhatsApp
+                                    {{getDatabyPersonId?.SocialMediaName}}
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <div id="txtDescription" class="form-data">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                {{getDatabyPersonId?.Description}}
                             </div>
                         </div>
                         <div class="mb-3">
@@ -162,13 +135,13 @@
                                 <div class="col-sm-6">
                                     <label class="form-label">Message in Favour</label>
                                     <div class="form-data">
-                                        Ajay Pawar
-                                    </div>
-                                </div>
+                                        {{getDatabyPersonId?.InFavorOf}}
+                                    </div> 
+                            </div>
                                 <div class="col-sm-6">
                                     <label class="form-label">Message in Oppose</label>
                                     <div class="form-data">
-                                        Rajaram Shinde
+                                        {{getDatabyPersonId?.InOppositionOf}}
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +149,7 @@
                         <div class="mb-3">
                             <label class="form-label">Party in Support</label>
                             <div id="txtDescription" class="form-data">
-                                <img src="assets/images/dashboard-images/logos/ncp-logo.png" class="partylogo" />
+                                <img src="{{getDatabyPersonId?.PartyIconImage}}" class="partylogo" />
                             </div>
                         </div>
                     </div>
@@ -192,23 +165,9 @@
                     <label class="form-label">Photos</label>
                     <div class="row">
                         <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                            <img src="{{getDatabyPersonId?.ImagePath}}" class="img-thumbnail" />
                         </div>
-                        <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                        </div>
+                     
                     </div>
                 </div>
             </div>

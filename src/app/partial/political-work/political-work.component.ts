@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-political-work',
   templateUrl: './political-work.component.html',
@@ -19,8 +21,6 @@ export class PoliticalWorkComponent implements OnInit {
   pageSize: number = 10;
   viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
   filterForm!: FormGroup;
-  defaultToDate: string = '';
-  defaultFromDate: string = '';
   minDate = new Date();
   defaultCloseBtn: boolean = false;
   globalMemberId: number = 0;
@@ -32,6 +32,11 @@ export class PoliticalWorkComponent implements OnInit {
   TotalWorks:any; 
   socialMediaCount: any;
   socialMediaArray:any;
+  categoryArray:any;
+  viewPoliticleWorkDetailsById: any;
+  lat: any = 19.75117687556874;
+  lng: any = 75.71630325927731;
+  zoom: any = 12;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -42,6 +47,7 @@ export class PoliticalWorkComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dateTimeAdapter: DateTimeAdapter<any>,
+    private datePipe:DatePipe
   ) { { dateTimeAdapter.setLocale('en-IN') } }
 
   ngOnInit(): void {
@@ -50,21 +56,23 @@ export class PoliticalWorkComponent implements OnInit {
     this.getPoliticalWork();
     this.getMemberName();
     this.getSocialMedia();
+    this.getCategory();
   }
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       memberName: [0],
-      fromTo: [''],
-      workType: [0], //workType == categoryid
+      fromTo: [['','']],
+      workType: [0],
+      fromDate:[''],
+      toDate:[''],
     })
   }
 
   selDateRangeByFilter(getDate: any) {
     this.defaultCloseBtn = true;
-    this.defaultFromDate = getDate[0];
-    this.defaultToDate = getDate[1];
-    // this.paginationNo = 1 ; 
+    this.filterForm.value.fromDate  = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
+    this.filterForm.value.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
     this.getPoliticalWork();
   }
 
@@ -82,8 +90,12 @@ export class PoliticalWorkComponent implements OnInit {
   getPoliticalWork() {
     debugger;
     let formData = this.filterForm.value;
-    this.spinner.show();
-    let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + this.defaultFromDate + '&ToDate=' + this.defaultToDate
+    let fromDate:any;
+    let toDate:any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datePipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';   
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datePipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate ='';   
+
+    let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate='+toDate;
     this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       console.log(res);
@@ -97,7 +109,6 @@ export class PoliticalWorkComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.politicalWorkArray = res.data1;
-        console.log(this.politicalWorkArray);
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -137,10 +148,10 @@ export class PoliticalWorkComponent implements OnInit {
     this.getPoliticalWork()
   }
 
-  // redToMemberProfile(memberId:any){
-  //   localStorage.setItem('memberId', memberId)
-  //   this.router.navigate(['../master/member-profile'], {relativeTo:this.route})
-  // }
+  redToMemberProfile(memberId:any){
+    localStorage.setItem('memberId', memberId)
+    this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
+  }
 
   filterData(){
     this.getPoliticalWork()
@@ -149,8 +160,8 @@ export class PoliticalWorkComponent implements OnInit {
   clearFilter(flag: any) {
     if (flag == 'member') {
       this.filterForm.controls['memberName'].setValue(0);
-    } else if (flag == 'district') {
-      this.filterForm.controls['district'].setValue(0);
+    } else if (flag == 'dateRangePIcker') {
+      this.filterForm.controls['fromTo'].setValue(0);
     } else if (flag == 'media') {
       this.filterForm.controls['workType'].setValue(0);
     }
@@ -173,6 +184,26 @@ export class PoliticalWorkComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  getCategory() {
+    this.spinner.show();    
+    this.callAPIService.setHttp('get', 'Web_GetCategory?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.categoryArray = res.data1;
+      } else {
+          this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  ViewPoliticleWorkDetails(index:any){
+     this.viewPoliticleWorkDetailsById=this.politicalWorkArray[index];
   }
 
 }

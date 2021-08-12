@@ -176,6 +176,13 @@ export class SocialMediaImageComponent implements OnInit {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
     chart.data = this.perceptionOnSocialMediaArray;
+    chart.colors.list = [
+      am4core.color("#80DEEA"),
+      am4core.color("#FF8A65"),
+      am4core.color("#E57373"),
+      am4core.color("#7986CB"),
+      am4core.color("#4DB6AC"),
+    ];
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
@@ -201,14 +208,15 @@ export class SocialMediaImageComponent implements OnInit {
       return href;
     })
     categoryAxis.dataItems.template.bullet = image;
-
+    categoryAxis.title.text = "Party Name";
 
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.renderer.minGridDistance = 30;
     valueAxis.renderer.baseGrid.disabled = true;
-
+    valueAxis.title.text = "Impressions on social media";
+    
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";
     series.dataFields.valueY = "ActivityCount";
@@ -243,7 +251,7 @@ export class SocialMediaImageComponent implements OnInit {
     // Create value axis
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inversed = false;
-    valueAxis.title.text = "% of followers in total recorded";
+    valueAxis.title.text = "% of followers";
     valueAxis.renderer.minLabelPosition = 0.01;
 
     // Create series

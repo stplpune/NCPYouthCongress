@@ -97,6 +97,7 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   filterData(){
+    this.paginationNo = 1;
     this.GetSocialMediaMessages()
   }
 
@@ -192,6 +193,12 @@ export class SocialMediaMessagesComponent implements OnInit {
   redToMemberProfile(memberId:any){
     localStorage.setItem('memberId', memberId)
     this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
+  }
+
+  redToSocialMediaPerson(PersonName:any,MemberMobileNo:any){
+    let obj = {'PersonName':PersonName, 'MemberMobileNo':MemberMobileNo}
+    localStorage.setItem('SocialMediaDataPM', JSON.stringify(obj));
+    this.router.navigate(['../social-media-person'], { relativeTo: this.route });
   }
 
 }

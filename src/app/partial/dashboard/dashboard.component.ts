@@ -372,6 +372,15 @@ export class DashboardComponent implements OnInit {
     // Themes end
 
     let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
+    chart.colors.list = [
+      am4core.color("#F1948A"),
+      am4core.color("#E59866"),
+      am4core.color("#AED6F1"),
+      am4core.color("#ABEBC6"),
+      am4core.color("#80DEEA"),
+      am4core.color("#99A3A4"),
+      am4core.color("#D2B4DE")
+    ];
 
     chart.data = this.newMemberInThisWeekArray;
 
@@ -403,6 +412,7 @@ export class DashboardComponent implements OnInit {
     series.columns.template.column.cornerRadiusTopRight = 10;
     series.columns.template.column.cornerRadiusTopLeft = 10;
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    labelBullet.label.fill = am4core.color("#00000");
     labelBullet.label.verticalCenter = "bottom";
     labelBullet.label.dy = -10;
     labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
@@ -421,18 +431,25 @@ export class DashboardComponent implements OnInit {
       })
       // chart.invalidateRawData();
     }, 2000)
-
   }
 
   pieChart() {
     am4core.useTheme(am4themes_animated);
-    // Themes end
 
     // Create chart instance
     let chart = am4core.create("pieChartdiv", am4charts.PieChart);
 
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.colors.list = [
+      am4core.color("#CC9999"),
+      am4core.color("#4DB6AC"),
+      am4core.color("#FF6F91"),
+      am4core.color("#FF9671"),
+      am4core.color("#FFC75F"),
+      am4core.color("#9FA8DA"),
+    ];
+
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
 
@@ -490,6 +507,13 @@ export class DashboardComponent implements OnInit {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
     chart.data = this.perceptionOnSocialMediaArray;
+    chart.colors.list = [
+      am4core.color("#80DEEA"),
+      am4core.color("#FF8A65"),
+      am4core.color("#E57373"),
+      am4core.color("#7986CB"),
+      am4core.color("#4DB6AC"),
+    ];
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
@@ -497,7 +521,7 @@ export class DashboardComponent implements OnInit {
     categoryAxis.renderer.minGridDistance = 40;
     categoryAxis.fontSize = 11;
     categoryAxis.renderer.labels.template.dy = 5;
-
+    categoryAxis.title.text = "Party Name";
 
 
     let image = new am4core.Image();
@@ -522,6 +546,7 @@ export class DashboardComponent implements OnInit {
     valueAxis.min = 0;
     valueAxis.renderer.minGridDistance = 30;
     valueAxis.renderer.baseGrid.disabled = true;
+    valueAxis.title.text = "Impressions on social media";
 
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";

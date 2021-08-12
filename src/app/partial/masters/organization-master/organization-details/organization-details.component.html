@@ -21,7 +21,7 @@
                                     <tr>
                                         <th>Sr. No.</th>
                                         <th>Member Name</th>
-                                        <th>Designation {{this.allDesignatedMembers.length - 1}}</th>
+                                        <th>Designation</th>
 
                                         <!-- <th>Device</th> -->
                                         <th></th>
@@ -50,8 +50,9 @@
                                                 <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i
                                                         class="fas fa-pencil-alt"></i></button>
                                                 <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
-                                                <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal"> <i
+                                                <button class="btn btn-sm btn-light text-danger" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i
                                                         class="fas fa-trash-alt"></i></button>
+
                                                 <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                             </div>
                                         </td>
@@ -120,19 +121,19 @@
                                 <div class="row mb-3 form-container">
 
                                     <div class="col-sm-3 offset-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('member')" (select)="filterForm(this.filter.value.memberName, 'member')" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
-                                        <ngx-select [allowClear]="true" (remove)="selectLevelClear('workType')" (select)="filterForm(this.filter.value.workType, 'workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Weekly Date" formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!this.filter.value.fromTodate">
                                                 <i class="fas fa-calendar"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearValue()">
+                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="this.filter.value.fromTodate">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -185,17 +186,19 @@
                                 <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                             </div>
 
-
-                            <div class="card shadow-none border">
+                            <div class="clearfix"></div>
+                            <div class="card shadow-none">
                                 <div class="card-header">Work in a Year
-                                    <span class="float-end">
+                                    <!-- <span class="float-end">
                                         <select class="form-select">
                                             <option>Month</option>
                                         </select>
-                                    </span>
+                                    </span> -->
                                 </div>
                                 <div class="card-body">
-                                    periodic chart<br> x-axis : Month<br> y-axis : count of works
+                                    <!-- periodic chart<br> x-axis : Month<br> y-axis : count of works -->
+                                    <div class="card-body recentActivityGraph chartfont h-400">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -211,17 +214,42 @@
                                     <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body" style="height: 305px">
+                                <div class="modal-body" style="height: 341px">
                                     <div class="form-container">
                                         <div class="mb-3">
+                                            <label for="txtBodyName" class="form-label">Body Name</label>
+                                            <input type="text" class="form-control" readonly formControlName="BodyName" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
 
-                                            <label for="txtMemberName" class="form-label">Member Name</label>
-                                            <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                            <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"></ngx-select>
-                                            <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
-                                                <div *ngIf="f.bodyId.errors.required">Body Member is required</div>
+                                                    <label for="txtMemberName" class="form-label">Member Name</label>
+                                                    <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
+                                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
+                                                    </ngx-select>
+                                                    <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.bodyId.errors.required">Body Member is required
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
-
+                                            <div class="col-sm-6">
+                                                <div class="mb-3">
+                                                    <label for="txtMemberName" class="form-label">
+                                                        Post From Date</label>
+                                                    <div class="input-group">
+                                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
+                                                            <i class="fas fa-calendar"></i></button>
+                                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
+                                                            <i class="fas fa-times"></i></button>
+                                                    </div>
+                                                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
                                             <div class="card">
@@ -362,9 +390,10 @@
                                         y2="92.2" />
                                 </svg>
                                 <h3 class="my-3">Are You Sure?</h3>
-                                <p class="mb-4">Do you really want to delete this record? This process can not be undone.</p>
+                                <p class="mb-4">Do you really want to delete this record? This process can not be undone.
+                                </p>
                                 <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
-                                <button class="btn btn-danger" type="button">Delete</button>
+                                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal" type="button">Delete</button>
                             </div>
                         </div>
                     </div>

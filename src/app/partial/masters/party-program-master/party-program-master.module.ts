@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+
 @NgModule({
   declarations: [
     PartyProgramMasterComponent

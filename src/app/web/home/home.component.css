@@ -1,3 +1,86 @@
 header #topbar{
     font-size: 0.85rem;
+    padding:8px 0;
 }
+header #topbar a{
+    color: var(--main-color);
+    text-decoration: none;
+}
+header #topbar .btn{
+    font-size: 0.7rem;
+    box-shadow: none !important;
+    padding:2px 5px
+}
+header .navbar-brand img{
+    width: 250px;
+}
+header .navbar-nav .nav-link{
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+header .navbar-nav .nav-link:hover{
+    background:var(--clr-green);
+    color: #fff;
+}
+header .navbar-nav .donate{
+    background:var(--clr-green);
+    color: #fff;
+    text-transform: uppercase;
+}
+#home-carousel .carousel-item{
+    margin:20% auto;
+}
+#pres-msg{
+    height:350px;
+    display: block;
+  position: relative;
+}
+#pres-msg::after {
+    content: "";
+    background-image: url('src/assets/images/ncp-default.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+  #pres-msg .pres-photo{
+      width: 259px;
+  }
+  #pres-msg p{
+      font-size: 1rem;
+      line-height: 28px;
+      color: #555;
+  }
+  h3.section-head{
+      font-weight: 300;
+      margin: 0;
+  padding-bottom: 7px;
+  position: relative;
+  border-bottom: 4px solid var(--clr-orange);
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  }
+  h3.section-head:before {
+    position: absolute;
+    background: var(--clr-green);
+    height: 4px;
+    content: '';
+    width: 80px;
+    bottom: -4px;
+    left: 0;
+  }
+  h6.sub-head{
+      font-size: 0.9rem;
+      color: var(--clr-orange);
+  }
+  .section{
+      margin-top: 50px;
+  }

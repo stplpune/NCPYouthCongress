@@ -7,11 +7,11 @@
             <form [formGroup]="filterForm">
                 <div class="row g-1">
                     <div class="col-sm-3 offset-3">
-                        <ngx-select [allowClear]="true"  (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName"  placeholder="Select Member Name">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true"  (remove)="clearFilter('media')" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName"  placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -22,7 +22,7 @@
                     </div> -->
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input [owlDateTime]="dt3" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                             <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar"></i></button>
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="col-sm">
-            <div class="card card-body bg-cyan" >
+            <div class="card card-body bg-cyan">
                 <i class="fas fa-envelope-open-text"></i>
                 <p>Social Media Help</p>
                 <h3>{{socialMediaCount}}</h3>
@@ -97,22 +97,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                        <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <td>{{politicalWork.SrNo}}</td>
                             <td>{{politicalWork.ActivityDate}}</td>
-                            <td><a routerLink="/members/member-profile">{{politicalWork.FullName}}</a></td>
+                            <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.Id)">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
                             <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td>
-                            <!-- <td>{{politicalWork.Description | titlecase}}</td> -->
-                            <!-- <th scope="row">
-                                <ng-container *ngFor="let img of politicalWork.Images.split(',').splice(0,2)">
-                                    <img src="{{img}}">
-                                </ng-container>
-                            </th> -->
                             <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-sm btn-light" (click)="ViewPoliticleWorkDetails(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="politicalWorkArray?.length == 0">
@@ -123,8 +115,7 @@
                     </tbody>
                 </table>
                 <div class="mt-2 text-end" *ngIf="politicalWorkArray?.length != 0">
-                    <pagination-controls previousLabel="" nextLabel=""
-                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                 </div>
             </div>
         </div>
@@ -133,8 +124,7 @@
 
 
 <!-- Modal for details -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -147,30 +137,24 @@
                         <div class="row mb-3">
                             <div class="col-sm-6">
                                 <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">1</div>
+                                <div id="txtID" class="form-data">{{viewPoliticleWorkDetailsById?.Id}}</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Post Date</label>
-                                <div id="txtPostDate" class="form-data">01-12-2021</div>
+                                <div id="txtPostDate" class="form-data">{{viewPoliticleWorkDetailsById?.ActivityDate}}</div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Members Name</label>
                             <div id="txtMembersName" class="form-data">
-                                Mr. Anil Kambale
+                                {{viewPoliticleWorkDetailsById?.FullName}}
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label">Work Type</label>
-                                <div id="txtSocialMediaSource" class="form-data">
-                                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
                                 <label class="form-label">Title</label>
                                 <div id="txtMobileNo" class="form-data">
-                                    Title of the program
+                                    {{viewPoliticleWorkDetailsById?.Title}}
                                 </div>
                             </div>
                         </div>
@@ -178,35 +162,33 @@
                             <div class="col-sm-6">
                                 <label class="form-label">Program</label>
                                 <div id="txtSocialMediaSource" class="form-data">
-                                    Program Name
+                                    {{viewPoliticleWorkDetailsById?.ProgramTitle}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Media</label>
                                 <div id="txtMobileNo" class="form-data">
-                                    Medium of the program
+                                    {{viewPoliticleWorkDetailsById?.CategoryName}}
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                {{viewPoliticleWorkDetailsById?.Description}}
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-6">
                                 <label class="form-label">URL Link</label>
                                 <div id="txtMessageFavour" class="form-data">
-                                    <a href="#">URL Link</a>>
+                                    <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Contact Person Details</label>
                                 <div id="txtMessageOppse" class="form-data">
-                                    Contact Person Name<br> +91-9871354230
+                                    Contact Person Name<br>{{viewPoliticleWorkDetailsById?.PersonContactDetails}}
                                 </div>
                             </div>
                         </div>
@@ -214,29 +196,16 @@
                     <div class="col-sm-6 form-container">
                         <div class="mb-3">
                             <label class="form-label">Location</label>
-                            <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid">
+                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
                         </div>
                     </div>
                     <div class="mb-3 col-sm-12 form-container">
                         <label class="form-label">Photos</label>
                         <div class="row">
                             <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                            </div>
-                            <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                            </div>
-                            <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                            </div>
-                            <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                            </div>
-                            <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
-                            </div>
-                            <div class="col-sm-2 mb-3">
-                                <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" />
+                                <img src="{{viewPoliticleWorkDetailsById?.Images}}" class="img-thumbnail" />
                             </div>
                         </div>
                     </div>
