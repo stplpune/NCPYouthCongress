@@ -7,6 +7,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 @Component({
   selector: 'app-social-media-person',
   templateUrl: './social-media-person.component.html',
@@ -88,6 +91,62 @@ export class SocialMediaPersonComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  workCountAgainstWorkType() {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    let chart = am4core.create("workCountAgainstWork", am4charts.XYChart);
+
+    // chart.data = this.barChartCategory;
+
+    chart.padding(10, 0, 0, 0);
+
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "Category";
+    categoryAxis.renderer.minGridDistance = 60;
+    categoryAxis.renderer.inversed = true;
+    categoryAxis.renderer.grid.template.disabled = true;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.extraMax = 0.1;
+    //valueAxis.rangeChangeEasing = am4core.ease.linear;
+    //valueAxis.rangeChangeDuration = 1500;
+
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "Category";
+    series.dataFields.valueY = "Totalwork";
+    series.tooltipText = "{valueY.value}"
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.column.cornerRadiusTopRight = 10;
+    series.columns.template.column.cornerRadiusTopLeft = 10;
+    //series.interpolationDuration = 1500;
+    //series.interpolationEasing = am4core.ease.linear;
+    let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    labelBullet.label.verticalCenter = "bottom";
+    labelBullet.label.dy = -10;
+    labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+
+    chart.zoomOutButton.disabled = true;
+
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function (fill: any, target: any) {
+      return chart.colors.getIndex(target.dataItem.index);
+    });
+
+    setInterval(function () {
+      am4core.array.each(chart.data, function (item) {
+        item.visits += Math.round(Math.random() * 200 - 100);
+        item.visits = Math.abs(item.visits);
+      })
+      chart.invalidateRawData();
+    }, 2000)
+
+    categoryAxis.sortBySeries = series;
+
   }
 
   getSocialMediaPersonDataById(index:any) {

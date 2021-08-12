@@ -1,14 +1,31 @@
 <div class="container-fluid">
+
     <div class="row" id="membername">
-        <div class="col-sm-11">
+        <div class="col-sm-6">
             Mr. Ravikant Varpe
         </div>
-        <div class="col-sm-1 text-end">
-            <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+        <div class="col-sm-6 text-end">
+            <div class="row">
+                <div class="offset-7 col-sm-5 d-flex">
+                    <div class="input-group">
+                        <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                        <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1"  *ngIf="!defaultCloseBtn">
+                            <i class="fas fa-calendar-alt"></i>
+                        </button>
+                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                            <i class="fas fa-times"></i></button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-secondary ms-2" (click)="location.back()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
 
     <div class="row">
         <div class="col-sm-3" id="profile-left">
@@ -29,17 +46,6 @@
                 <div class="card-header">
                     Activities
                 </div>
-                         <div class="offset-sm-8 col-sm-3 pt-3">
-                            <div class="input-group">
-                                <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
-                                <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
-                                <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1"  *ngIf="!defaultCloseBtn">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </button>
-                                <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
-                                    <i class="fas fa-times"></i></button>
-                            </div>
-                       </div>
 
                 <div class="card-body chartbox">
                     <table class="table table-hover">
@@ -79,9 +85,8 @@
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
 
-                    <div class="card-body border">
-                        date range filter
-                        <br>Chart : work count against work type
+                    <div class="card-body  mt-3">
+                        <div class="workCountAgainstWork chartfont h-400"></div>
                     </div>
 
                 </div>
@@ -103,8 +108,8 @@
                     <div class="col-sm-6 form-container">
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label">{{getDatabyPersonId?.Id}}</label>
-                                <div id="txtID" class="form-data">1</div>
+                                <label class="form-label">#Id</label>
+                                <div id="txtID" class="form-data">{{getDatabyPersonId?.Id}}</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Post Date</label>
