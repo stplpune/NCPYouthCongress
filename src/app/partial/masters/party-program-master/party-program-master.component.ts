@@ -172,8 +172,7 @@ export class PartyProgramMasterComponent implements OnInit {
       CreatedBy: this.commonService.loggedInUserId(),
     });
   }
-
-
+  
   // 
   clearForm() {
     this.programTitle = "Create"

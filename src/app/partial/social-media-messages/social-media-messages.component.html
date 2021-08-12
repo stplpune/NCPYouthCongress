@@ -103,7 +103,7 @@
 
 
                         <td><a (click)="redToMemberProfile(socialMediaMessages.Id)" class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
-                        <td><a routerLink="/social-media-person">{{socialMediaMessages.PersonName}}</a></td>
+                        <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.MemberMobileNo)" class="text-primary">{{socialMediaMessages.PersonName}}</a></td>
                         <td> <a href="tel:{{socialMediaMessages.MemberMobileNo}}">{{socialMediaMessages.MemberMobileNo}}</a></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InFavorOf}}</span></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InOppositionOf}}</span></td>

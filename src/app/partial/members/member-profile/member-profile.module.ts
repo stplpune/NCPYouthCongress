@@ -9,7 +9,6 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { AgmCoreModule } from '@agm/core';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
-
 @NgModule({
   declarations: [
     MemberProfileComponent
