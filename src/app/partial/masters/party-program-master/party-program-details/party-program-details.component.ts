@@ -186,7 +186,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.router.url != '/members/member-profile' ? localStorage.removeItem('programListIdKey') : '';
+    // this.router.url != '/members/member-profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
   redToMemberProfile(memberId: any) {

@@ -310,7 +310,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     this.catValue = value
   }
   ngOnDestroy() {
-    localStorage.removeItem('weekRange');
+    // localStorage.removeItem('weekRange');
   }
 }
 

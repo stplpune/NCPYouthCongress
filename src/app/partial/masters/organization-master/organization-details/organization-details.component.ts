@@ -439,7 +439,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('bodyId');
+    // localStorage.removeItem('bodyId');
   }
 
   addEditMember(data: any, flag: any) {

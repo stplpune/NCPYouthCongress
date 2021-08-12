@@ -261,7 +261,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('memberId');
+    // localStorage.removeItem('memberId');
   }
 
   redirectOrgDetails(bodyId: any, officeBearers: any, BodyOrgCellName: any) {

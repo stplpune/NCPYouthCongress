@@ -87,8 +87,13 @@ export class PoliticalWorkComponent implements OnInit {
 
   }
 
+  filterData(){
+    this.paginationNo = 1;
+    this.getPoliticalWork()
+  }
+
   getPoliticalWork() {
-    debugger;
+    this.spinner.show();
     let formData = this.filterForm.value;
     let fromDate:any;
     let toDate:any;
@@ -153,9 +158,7 @@ export class PoliticalWorkComponent implements OnInit {
     this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
   }
 
-  filterData(){
-    this.getPoliticalWork()
-  }
+
 
   clearFilter(flag: any) {
     if (flag == 'member') {

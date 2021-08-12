@@ -13,7 +13,7 @@
                         <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1"  *ngIf="!defaultCloseBtn">
                             <i class="fas fa-calendar-alt"></i>
                         </button>
-                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter()" >
                             <i class="fas fa-times"></i></button>
                     </div>
                     <button type="button" class="btn btn-sm btn-secondary ms-2" (click)="location.back()">
@@ -36,7 +36,15 @@
                     </li>
                     <li class="list-group-item">
                         <i class="fas fa-phone-alt text-primary"></i> +91-{{MemberMobileNo}}
-
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-phone-alt text-primary"></i> +91-{{MemberMobileNo}}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-phone-alt text-primary"></i> Most Opposite-{{MostOpposite?.PersonName | titlecase }} ({{MostOpposite?.cnt}})
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-phone-alt text-primary"></i> Most Favouerd-{{mostFavouerd?.PersonName | titlecase }} ({{mostFavouerd?.cnt}})
                     </li>
                 </ul>
             </div>
