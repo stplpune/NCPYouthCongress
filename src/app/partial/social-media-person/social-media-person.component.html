@@ -40,12 +40,6 @@
                     <li class="list-group-item">
                         <i class="fas fa-phone-alt text-primary"></i> +91-{{MemberMobileNo}}
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-phone-alt text-primary"></i> Most Opposite-{{MostOpposite?.PersonName | titlecase }} ({{MostOpposite?.cnt}})
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-phone-alt text-primary"></i> Most Favouerd-{{mostFavouerd?.PersonName | titlecase }} ({{mostFavouerd?.cnt}})
-                    </li>
                 </ul>
             </div>
             <div class="card mb-3">
@@ -53,14 +47,8 @@
                     Highest Favoured Person/Party
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        sdfghjk
-                    </li>
-                    <li class="list-group-item">
-                        sdfghjk
-                    </li>
-                    <li class="list-group-item">
-                        sdfghjk
+                    <li class="list-group-item" *ngFor="let most_Favouerd of mostFavouerd">
+                        {{most_Favouerd?.PersonName | titlecase }}
                     </li>
                 </ul>
             </div>
@@ -69,14 +57,8 @@
                     Least Favoured Person/Party
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        sdfghjk
-                    </li>
-                    <li class="list-group-item">
-                        sdfghjk
-                    </li>
-                    <li class="list-group-item">
-                        sdfghjk
+                    <li class="list-group-item" *ngFor="let Most_Opposite of MostOpposite">
+                        {{Most_Opposite?.PersonName | titlecase }}
                     </li>
                 </ul>
             </div>
