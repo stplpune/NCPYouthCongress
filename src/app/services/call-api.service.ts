@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 
 export class CallAPIService {
-
+  
   UserLoginDetails: any;
   userObj: any;
   tokanExpiredFlag: boolean = false;

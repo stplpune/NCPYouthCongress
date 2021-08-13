@@ -502,6 +502,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 svg {
     width: 100px;
+    /* width: 454px; */
     display: block;
     margin: 0px auto;
 }
@@ -600,6 +601,7 @@ svg {
 .cdk-overlay-container {
     z-index: 99999 !important;
 }
+
 .form-container .form-label {
     font-size: .75rem;
     margin-bottom: 5px;
@@ -626,6 +628,7 @@ svg {
 .form-container .btn {
     font-size: .85rem
 }
+
 .modal .modal-header {
     background-color: var(--main-color);
     color: #fff
@@ -634,6 +637,7 @@ svg {
 .modal .modal-content {
     border: none
 }
+
 .modal .modal-body,
 .modal p {
     font-size: .85rem
