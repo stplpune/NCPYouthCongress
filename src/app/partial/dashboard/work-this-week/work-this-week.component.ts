@@ -232,14 +232,16 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
       chart.legend.paddingBottom = 10
       chart.legend.labels.template.maxWidth = 20
 
+      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis.min = 0;
+      valueAxis.title.text = "Committes Work Done Count";
+
       let xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
       xAxis.dataFields.category = 'DistrictName'
+      xAxis.title.text = "District Name";
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-
-      let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      yAxis.min = 0;
 
       function createSeries(value: string | undefined, name: string) {
         let series = chart.series.push(new am4charts.ColumnSeries())
