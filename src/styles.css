@@ -506,7 +506,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     margin: 0px auto;
 }
 
-svg {
+mapsvg-layers-wrap+svg {
     width: 454px !important;
     display: block;
     margin: 0px auto;

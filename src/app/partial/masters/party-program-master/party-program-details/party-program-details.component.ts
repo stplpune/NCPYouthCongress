@@ -35,6 +35,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   programTile: any;
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
+  ParpantsProMemImge!: GalleryItem[]; 
 
   constructor(
     public location: Location,
@@ -197,5 +198,23 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   basicLightboxExample() {
     this.gallery.ref().load(this.programGalleryImg);
+  }
+
+  showLightBox(MemberId:any){
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.ParpantsProMemImge = res.data1;
+        console.log(this.ParpantsProMemImge);
+      } else {
+          // this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }
