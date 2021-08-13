@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,8 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DatePipe,Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
+declare var $: any
 
 @Component({
   selector: 'app-work-this-week',
@@ -17,7 +18,7 @@ import { DatePipe,Location } from '@angular/common';
   styleUrls: ['./work-this-week.component.css', '../../partial.component.css'],
   providers: [DatePipe]
 })
-export class WorkThisWeekComponent implements OnInit, OnDestroy {
+export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   WorkDoneByYuvakTP: any;
   WorkDoneByYuvakBP: any;
   selweekRange: any
@@ -32,25 +33,25 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
   filterBestPer!: FormGroup;
   toDate: any;
   fromDate: any;
-  catValue:any;
+  catValue: any;
   bestPerCat = ["Committee", "Location"];
   public ddlpoliticalWork: string[] = ['Political Work', 'News Letters', 'Social Media Help', 'Personal Help',
-  'Party Programs', 'Help Me'];
+    'Party Programs', 'Help Me'];
 
-  
+
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder, 
-    public datepipe: DatePipe, private route:ActivatedRoute,
-    public location:Location
-    ) {
+    private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
+    public datepipe: DatePipe, private route: ActivatedRoute,
+    public location: Location
+  ) {
     if (localStorage.getItem('weekRange')) {
-      let data:any = localStorage.getItem('weekRange');
+      let data: any = localStorage.getItem('weekRange');
       this.selweekRange = JSON.parse(data);
     } else {
       this.toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
       this.fromDate = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
-      this.selweekRange = {fromDate:this.fromDate, toDate:this.toDate}
+      this.selweekRange = { fromDate: this.fromDate, toDate: this.toDate }
     }
     this.geWeekReport(this.selweekRange)
     this.getBestPerKaryMember(this.selweekRange);
@@ -63,6 +64,94 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     this.defaultFilterBestPer();
   }
 
+  ngAfterViewInit(){
+    setTimeout(() => {
+      this.showSvgMap()
+    }, 1000);
+  }
+
+  showSvgMap() {
+    $(document).ready(function () {
+      $("#mapsvg").mapSvg({
+        width: 763.614,
+        height: 599.92,
+        colors: {
+          baseDefault: "#bfddff",
+          background: "#fff",
+          selected: "#436d9a",
+          hover: "#bfddff",
+          directory: "#bfddff",
+          status: {}
+        },
+         regions: ['Pune','Mumbai'],
+        viewBox: [0, 0, 763.614, 599.92],
+        cursor: "pointer",
+        zoom: {
+          on: false,
+          limit: [0, 50],
+          delta: 2,
+          buttons: {
+            on: true,
+            location: "left"
+          },
+          mousewheel: true
+        },
+        tooltips: {
+          mode: "title",
+          off: false,
+          priority: "local",
+          position: "top"
+        },
+        popovers: {
+          mode: "off",
+          on: false,
+          priority: "local",
+          position: "top",
+          centerOn: false,
+          width: 300,
+          maxWidth: 50,
+          maxHeight: 50,
+          resetViewboxOnClose: false,
+          mobileFullscreen: false
+        },
+        gauge: {
+          on: false,
+          labels: {
+            low: "low",
+            high: "high"
+          },
+          colors: {
+            lowRGB: {
+              r: 211,
+              g: 227,
+              b: 245,
+              a: 1
+            },
+            highRGB: {
+              r: 67,
+              g: 109,
+              b: 154,
+              a: 1
+            },
+            low: "#d3e3f5",
+            high: "#436d9a",
+            diffRGB: {
+              r: -144,
+              g: -118,
+              b: -91,
+              a: 0
+            }
+          },
+          min: 0,
+          max: false
+        },
+        source: "assets/images/map_maha_m.svg",
+        title: "Maharashtra-bg_o",
+        responsive: true
+      });
+    });
+  }
+
   getDistrict() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
@@ -71,9 +160,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    },(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -308,7 +397,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy {
     });
   }
 
-  catChange(value:any){
+  catChange(value: any) {
     this.catValue = value
   }
   ngOnDestroy() {
