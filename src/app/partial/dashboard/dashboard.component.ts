@@ -523,7 +523,6 @@ export class DashboardComponent implements OnInit {
     categoryAxis.renderer.labels.template.dy = 5;
     categoryAxis.title.text = "Party Name";
 
-
     let image = new am4core.Image();
     image.horizontalCenter = "middle";
     image.width = 30;

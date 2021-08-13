@@ -170,9 +170,11 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     categoryAxis.dataFields.category = "Category";
     categoryAxis.renderer.minGridDistance = 60;
     categoryAxis.renderer.inversed = true;
+    categoryAxis.title.text = "Political Work";
     categoryAxis.renderer.grid.template.disabled = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Political Work Count";
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
     //valueAxis.rangeChangeEasing = am4core.ease.linear;
@@ -216,14 +218,26 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
     })
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
+    chart.colors.list = [
+      am4core.color("#F1948A"),
+      am4core.color("#E59866"),
+      am4core.color("#AED6F1"),
+      am4core.color("#ABEBC6"),
+      am4core.color("#80DEEA"),
+      am4core.color("#99A3A4"),
+    ];
+
+
     // Add data
     chart.data = this.periodicChart;
 
     // Create axes
     let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.title.text = "Monthly Work";
 
     // Create value axis
     let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Political Work Monhtly Count";
 
 
     // Create series
@@ -243,7 +257,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     let secondCircle = bullet.createChild(am4core.Circle);
     secondCircle.radius = 6;
     secondCircle.fill = chart.colors.getIndex(8);
-
 
     bullet.events.on("inited", function (event) {
       animateBullet(event.target.circle);
