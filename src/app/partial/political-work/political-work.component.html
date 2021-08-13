@@ -100,7 +100,7 @@
                         <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <td>{{politicalWork.SrNo}}</td>
                             <td>{{politicalWork.ActivityDate}}</td>
-                            <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.Id)">{{politicalWork.FullName}}</a></td>
+                            <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.MemberId, politicalWork.FullName)">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
                             <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td>
                             <td>

@@ -24,15 +24,15 @@ export class PoliticalWorkComponent implements OnInit {
   minDate = new Date();
   defaultCloseBtn: boolean = false;
   globalMemberId: number = 0;
-  PoliticalWork:any; 
-  newsLetters:any; 
-  PersonalHelp:any; 
-  partyPrograms:any; 
-  Helpme:any; 
-  TotalWorks:any; 
+  PoliticalWork: any;
+  newsLetters: any;
+  PersonalHelp: any;
+  partyPrograms: any;
+  Helpme: any;
+  TotalWorks: any;
   socialMediaCount: any;
-  socialMediaArray:any;
-  categoryArray:any;
+  socialMediaArray: any;
+  categoryArray: any;
   viewPoliticleWorkDetailsById: any;
   lat: any;
   lng: any;
@@ -47,7 +47,7 @@ export class PoliticalWorkComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dateTimeAdapter: DateTimeAdapter<any>,
-    private datePipe:DatePipe
+    private datePipe: DatePipe
   ) { { dateTimeAdapter.setLocale('en-IN') } }
 
   ngOnInit(): void {
@@ -62,16 +62,16 @@ export class PoliticalWorkComponent implements OnInit {
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       memberName: [0],
-      fromTo: [['','']],
+      fromTo: [['', '']],
       workType: [0],
-      fromDate:[''],
-      toDate:[''],
+      fromDate: [''],
+      toDate: [''],
     })
   }
 
   selDateRangeByFilter(getDate: any) {
     this.defaultCloseBtn = true;
-    this.filterForm.value.fromDate  = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
+    this.filterForm.value.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
     this.filterForm.value.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
     this.getPoliticalWork();
   }
@@ -87,7 +87,7 @@ export class PoliticalWorkComponent implements OnInit {
 
   }
 
-  filterData(){
+  filterData() {
     this.paginationNo = 1;
     this.getPoliticalWork()
   }
@@ -95,12 +95,12 @@ export class PoliticalWorkComponent implements OnInit {
   getPoliticalWork() {
     this.spinner.show();
     let formData = this.filterForm.value;
-    let fromDate:any;
-    let toDate:any;
-    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datePipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';   
-    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datePipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate ='';   
+    let fromDate: any;
+    let toDate: any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datePipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datePipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
 
-    let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate='+toDate;
+    let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate;
     this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       console.log(res);
@@ -153,11 +153,11 @@ export class PoliticalWorkComponent implements OnInit {
     this.getPoliticalWork()
   }
 
-  redToMemberProfile(memberId:any){
-    localStorage.setItem('memberId', memberId)
+  redToMemberProfile(memberId:any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
   }
-
 
 
   clearFilter(flag: any) {
@@ -173,16 +173,16 @@ export class PoliticalWorkComponent implements OnInit {
   }
 
   getSocialMedia() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'GetSocialMediaddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -190,34 +190,34 @@ export class PoliticalWorkComponent implements OnInit {
   }
 
   getCategory() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCategory?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.categoryArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
-  ViewPoliticleWorkDetails(index:any){
+  ViewPoliticleWorkDetails(index: any) {
     debugger;
     this.viewPoliticleWorkDetailsById = null;
-     this.viewPoliticleWorkDetailsById =this.politicalWorkArray[index];
-     let latLong = (this.viewPoliticleWorkDetailsById.ActivityLocation.split(','));
-     if(latLong != "" || latLong != undefined || latLong != null){
-      this.lat = Number(latLong[0]);
-      this.lng = Number(latLong[1]);
-     }else{
+    this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+    let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
+    if (latLong != "" && latLong != undefined && latLong != null) {
+      let getLatLong = latLong.split(',');
+      this.lat = Number(getLatLong[0]);
+      this.lng = Number(getLatLong[1]);
+    } else {
       this.lat = 19.663280;
-      this.lng  = 75.300293;
-     }
- 
+      this.lng = 75.300293;
+    }
   }
 
 }
