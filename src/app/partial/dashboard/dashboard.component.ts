@@ -565,9 +565,9 @@ export class DashboardComponent implements OnInit {
 
   redirectCountingPage(status: any) {
     if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
-      this.router.navigate(['/members/executive-members'], { relativeTo: this.route })
+      this.router.navigate(['/member/executive'], { relativeTo: this.route })
     } else if (status == 'YouthMembers' && this.dashboardCount1Array?.YouthMembers !== 0) {
-      this.router.navigate(['/members/view-members'], { relativeTo: this.route })
+      this.router.navigate(['/member/all'], { relativeTo: this.route })
     } else if (status == 'activeMembers' && this.dashboardCount1Array?.ActiveMembers !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.error("Page Not Avaliable...!!!");
@@ -578,7 +578,7 @@ export class DashboardComponent implements OnInit {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.error("Page Not Avaliable...!!!!");
     } else if (status == 'socialMediaWork' && this.dashboardCount1Array?.SocialMediaWork !== 0) {
-      this.router.navigate(['/social-media-messages'], { relativeTo: this.route })
+      this.router.navigate(['/social-media'], { relativeTo: this.route })
     } else {
       this.toastrService.error("Data is not available.");
     }

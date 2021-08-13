@@ -193,13 +193,13 @@ export class SocialMediaMessagesComponent implements OnInit {
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../members/member-profile'])
+    this.router.navigate(['../member/profile'])
   }
 
   redToSocialMediaPerson(PersonName:any,MemberMobileNo:any){
     let obj = {'PersonName':PersonName, 'MemberMobileNo':MemberMobileNo}
     localStorage.setItem('SocialMediaDataPM', JSON.stringify(obj));
-    this.router.navigate(['../social-media-person'], { relativeTo: this.route });
+    this.router.navigate(['../social-media/person-profile'], { relativeTo: this.route });
   }
 
 }

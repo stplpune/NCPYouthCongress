@@ -160,7 +160,7 @@
                         <tbody>
                             <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a routerLink="../../members/member-profile">{{committeesData.BodyOrgCellName}}</a></td>
+                                <td><a routerLink="../../member/profile">{{committeesData.BodyOrgCellName}}</a></td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>Head of Committee</td>

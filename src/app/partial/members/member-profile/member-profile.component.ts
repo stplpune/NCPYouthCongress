@@ -283,7 +283,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../masters/organization-master/organization-details'], { relativeTo: this.route })
+      this.router.navigate(['../../master/organization/organization-details'], { relativeTo: this.route })
     }
   }
 

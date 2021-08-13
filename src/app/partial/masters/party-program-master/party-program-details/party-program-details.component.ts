@@ -47,7 +47,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   ) {
     if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
       this.toastrService.error("Please select Program Title  and try again");
-      this.router.navigate(['../party-program-master'], { relativeTo: this.route });
+      this.router.navigate(['../party-program'], { relativeTo: this.route });
       return
     }else{
       let getLocalStorageData: any = localStorage.getItem('programListIdKey');
@@ -186,13 +186,13 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // this.router.url != '/members/member-profile' ? localStorage.removeItem('programListIdKey') : '';
+    // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
   redToMemberProfile(memberId: any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../members/member-profile'], {relativeTo:this.route})
+    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 
   basicLightboxExample() {

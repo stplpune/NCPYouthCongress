@@ -156,7 +156,7 @@ export class PoliticalWorkComponent implements OnInit {
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../members/member-profile'], {relativeTo:this.route})
+    this.router.navigate(['../member/profile'], {relativeTo:this.route})
   }
 
 
