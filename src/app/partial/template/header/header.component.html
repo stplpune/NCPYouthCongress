@@ -59,7 +59,7 @@
                 <span class="text-end">
                     <button  class="btn btn-main btn-sm" [disabled]="!disabledEditForm"  (click)="this.disabledEditForm = false">Edit</button>
                 </span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  #closeModal></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="DisabledAllForm()"  #closeModal></button>
             </div>
             <div class="modal-body">
                 <!--  -->
