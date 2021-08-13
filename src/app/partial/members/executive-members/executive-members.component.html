@@ -91,7 +91,7 @@
                                     <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <a (click)="redToMemberProfile(resultExeMember.MemberId)" class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
+                                    <a (click)="redToMemberProfile(resultExeMember.MemberId,resultExeMember.FullName)" class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
                                 </td>
                                 <td>
                                     <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
@@ -123,7 +123,9 @@
                                 </td>
                             </tr>
                             <tr *ngIf="resultAllExeMembers?.length == 0">
-                                <td colspan="7"><div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div></td>
+                                <td colspan="7">
+                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
