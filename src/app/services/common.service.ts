@@ -60,7 +60,7 @@ export class CommonService {
     canv.height = 28;
     //var ctx:any = canv.getContext("2d");
     var ctx:any = canv.getContext("2d");
-    ctx.font = "16px Arial";
+    ctx.font = "18px Georgia";
     ctx.fillText(captcha.join(""), 0, 23);
     // ctx.strokeText(captcha.join(""), 0, 30);
     //storing captcha so that can validate you can save it somewhere else according to your specific requirements
