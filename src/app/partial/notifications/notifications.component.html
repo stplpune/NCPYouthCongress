@@ -29,43 +29,66 @@
             <div class="card card-body">
                 <div class="row">
                     <div class="col-3">
+                        <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="mb-2">
                                 <label for="txtTitleName" class="form-label">Title Name</label>
-                                <input type="text" class="form-control" id="txtTitleName" placeholder="Title Name">
+                                <input type="text" class="form-control" id="txtTitleName" formControlName="titleName" placeholder="Title Name">
+                                <div *ngIf="submitted && f.titleName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.titleName.errors.required">Title name is required</div>
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <label for="txtBody" class="form-label">Notification Body</label>
-                                <textarea type="text" rows="4" class="form-control" id="txtBody" placeholder="Notification Body"></textarea>
+                                <textarea type="text" rows="4" class="form-control" formControlName="notifi_Body" id="txtBody" placeholder="Notification Body"></textarea>
+                                <div *ngIf="submitted && f.notifi_Body.errors" class="invalid-feedback">
+                                    <div *ngIf="f.notifi_Body.errors.required">Notification Body is required</div>
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <label for="fuPhoto" class="form-label">Photo</label>
-                                <input class="form-control form-control-sm" id="fuPhoto" type="file">
+                                <input class="form-control form-control-sm" formControlName="Photo" id="fuPhoto" type="file">
+                                <div *ngIf="submitted && f.Photo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Photo.errors.required">Photo is required</div>
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <label for="txtLinkURL" class="form-label">Link</label>
-                                <input type="url" class="form-control" id="txtLinkURL" placeholder="http://www.example.com">
+                                <input type="url" class="form-control" formControlName="link" id="txtLinkURL" placeholder="http://www.example.com">
+                                <div *ngIf="submitted && f.link.errors" class="invalid-feedback">
+                                    <div *ngIf="f.link.errors.required">Link is required</div>
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <label for="fuAttachments" class="form-label">Attachment(s)</label>
-                                <input class="form-control form-control-sm" id="fuAttachments" type="file" multiple>
+                                <input class="form-control form-control-sm" formControlName="attachment" id="fuAttachments" type="file" multiple>
+                                <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
+                                    <div *ngIf="f.attachment.errors.required">Attachment is required</div>
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <label for="ddlScope" class="form-label">Scope of Notification</label>
-                                <ngx-select [allowClear]="true" [items]="items" placeholder="Select Scope">
+                                <ngx-select [allowClear]="true" [items]="allLevels" formControlName="scopeOf_Notifi" placeholder="Scope of Notification" optionValueField="Id" optionTextField="LevelName" >
                                 </ngx-select>
+                                <div *ngIf="submitted && f.scopeOf_Notifi.errors" class="invalid-feedback">
+                                    <div *ngIf="f.scopeOf_Notifi.errors.required">Scope of Notification is required</div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="ddlMembers" class="form-label">Select Members</label>
-                                <ngx-select [allowClear]="true" [multiple]="true" [items]="items" placeholder="Select Members">
+                                <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="members" optionTextField="FullName" placeholder="Select Member Name">
                                 </ngx-select>
+                                <div *ngIf="submitted && f.members.errors" class="invalid-feedback">
+                                    <div *ngIf="f.members.errors.required">Select Members is required</div>
+                                </div>
                             </div>
                             <div class="mb-2 text-end">
-                                <button type="button" class="btn btn-main">Push Notification</button>
+                                <button type="submit" class="btn btn-main">Push Notification</button>
                                 <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
                                 <button type="button" class="btn btn-danger">Delete</button> -->
                             </div>
                         </div>
+                    </form>
                     </div>
                     <div class="col-9 border-start" id="notifications">
                         <div class="text-end">

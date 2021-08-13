@@ -508,11 +508,11 @@ export class DashboardComponent implements OnInit {
 
     chart.data = this.perceptionOnSocialMediaArray;
     chart.colors.list = [
-      am4core.color("#80DEEA"),
-      am4core.color("#FF8A65"),
-      am4core.color("#E57373"),
-      am4core.color("#7986CB"),
-      am4core.color("#4DB6AC"),
+      am4core.color("#99C6F9"),
+      am4core.color("#FFB888"),
+      am4core.color("#A7D89C"),
+      am4core.color("#A0A7E3"),
+      am4core.color("#F8BFBF"),
     ];
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

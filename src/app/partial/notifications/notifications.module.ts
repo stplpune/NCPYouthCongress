@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NotificationsRoutingModule } from './notifications-routing.module';
 import { NotificationsComponent } from './notifications.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
   imports: [
     CommonModule,
     NotificationsRoutingModule,
-    NgxSelectModule
+    NgxSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class NotificationsModule { }

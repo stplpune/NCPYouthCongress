@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ForwardActivitiesRoutingModule } from './forward-activities-routing.module';
 import { ForwardActivitiesComponent } from './forward-activities.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
   imports: [
     CommonModule,
     ForwardActivitiesRoutingModule,
-    NgxSelectModule
+    NgxSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ForwardActivitiesModule { }
