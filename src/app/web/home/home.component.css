@@ -76,7 +76,7 @@ header .navbar-nav .donate{
   }
   #pres-msg .pres-photo{
       width: 259px;
-      box-shadow: -10px -10px 0 green;
+      box-shadow: -10px -10px 0 var(--clr-green);
   }
  
   h3.section-head{
@@ -169,13 +169,12 @@ header .navbar-nav .donate{
 }
 
 #home-statistics{
-    background-color:var(--clr-green);
     padding-block: 30px;
 }
 #home-statistics .card{
     background-color:transparent;
     border: solid 1px #aaa;
-    color: #fff;
+    color: #000;
     text-align: center;
     border-radius: 15px;
 }
@@ -212,4 +211,29 @@ header .navbar-nav .donate{
     padding: 10px 13px;
     background-color:#eee;
     border-radius: 5px;
+}
+#footer{
+    background-color:#fff;
+    padding-block: 15px;
+}
+#footer .social-link i{
+    color: var(--clr-orange);
+    margin-right: 5px;
+}
+#footer .social-link{
+    text-decoration: none;
+    color: var(--clr-green);
+    font-size:0.85rem
+}
+#footer .social-link:hover{
+    color: var(--clr-orange);
+}
+#footer #bottom{
+    font-size: 0.8rem;
+}
+#footer #bottom a{
+    text-decoration: none;
+}
+#footer #bottom a img{
+    height:25px;
 }
