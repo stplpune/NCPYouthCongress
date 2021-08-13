@@ -38,8 +38,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   public ddlpoliticalWork: string[] = ['Political Work', 'News Letters', 'Social Media Help', 'Personal Help',
     'Party Programs', 'Help Me'];
 
-
-
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, private route: ActivatedRoute,
