@@ -28,8 +28,8 @@
 
 
     <div class="row">
-        <div class="col-sm-3" id="profile-left">
-            <div class="card">
+        <div class="col-sm-3 chartbox" id="profile-left">
+            <div class="card mb-3">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{PersonName}}
@@ -45,6 +45,38 @@
                     </li>
                     <li class="list-group-item">
                         <i class="fas fa-phone-alt text-primary"></i> Most Favouerd-{{mostFavouerd?.PersonName | titlecase }} ({{mostFavouerd?.cnt}})
+                    </li>
+                </ul>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header text-success">
+                    Highest Favoured Person/Party
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        sdfghjk
+                    </li>
+                    <li class="list-group-item">
+                        sdfghjk
+                    </li>
+                    <li class="list-group-item">
+                        sdfghjk
+                    </li>
+                </ul>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header text-danger">
+                    Least Favoured Person/Party
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        sdfghjk
+                    </li>
+                    <li class="list-group-item">
+                        sdfghjk
+                    </li>
+                    <li class="list-group-item">
+                        sdfghjk
                     </li>
                 </ul>
             </div>
@@ -93,7 +125,7 @@
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
 
-                    <div class="card-body  mt-3">
+                    <div class="card-body border mt-3">
                         <div class="workCountAgainstWork chartfont h-400"></div>
                     </div>
 
