@@ -480,7 +480,7 @@ export class DashboardComponent implements OnInit {
     let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
     hoverShadow.opacity = 0.7;
     hoverShadow.blur = 5;
-    chart.radius = am4core.percent(60);
+    chart.radius = am4core.percent(80);
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 100;
@@ -522,6 +522,7 @@ export class DashboardComponent implements OnInit {
     categoryAxis.fontSize = 11;
     categoryAxis.renderer.labels.template.dy = 5;
     categoryAxis.title.text = "Party Name";
+
 
     let image = new am4core.Image();
     image.horizontalCenter = "middle";
