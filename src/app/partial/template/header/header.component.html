@@ -54,8 +54,11 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="modal-title mb-0" id="editProfileModalLabel">Edit Profile</p>
-                <button  class="btn btn-main btn-sm" [disabled]="!disabledEditForm"  (click)="this.disabledEditForm = false">Edit</button>
+                <p class="modal-title mb-0" id="editProfileModalLabel">Edit Profile</p>               
+                
+                <span class="text-end">
+                    <button  class="btn btn-main btn-sm" [disabled]="!disabledEditForm"  (click)="this.disabledEditForm = false">Edit</button>
+                </span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  #closeModal></button>
             </div>
             <div class="modal-body">
@@ -203,7 +206,7 @@
                 <p class="modal-title mb-0" id="changePasswordModalLabel">Change Password </p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  #closeChangePasswordModal></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body form-container">
                 <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" autocomplete="off">
                     <div class="card-body">
                         <div class="mb-3">
@@ -248,18 +251,20 @@
                     </div>
                 </form>
                 <div class="clearfix"></div>
-                <div class="card shadow-none">
-                    <div class="card-header">Note :</div>
-                    <div class="card-body">
-                        <ul class="small">
-                            <li>Have at least one Lower Case character</li>
-                            <li>Have at lease one Upper Case character</li>
-                            <li>Have at least one Number</li>
-                            <li>Have at least one Special Character</li>
-                            <li>Password must be between 8 and 20 characters</li>
-                        </ul>
-                    </div>
-                    </div>
+                <div class="chartbox mt-3">
+                    <div class="card border">
+                        <div class="card-header">Note :</div>
+                        <div class="card-body">
+                            <ul class="small">
+                                <li>Have at least one Lower Case character</li>
+                                <li>Have at lease one Upper Case character</li>
+                                <li>Have at least one Number</li>
+                                <li>Have at least one Special Character</li>
+                                <li>Password must be between 8 and 20 characters</li>
+                            </ul>
+                        </div>
+                        </div>
+                </div>
             </div>
         </div>
     </div>

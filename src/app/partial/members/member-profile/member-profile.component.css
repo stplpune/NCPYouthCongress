@@ -1,30 +1,4 @@
-#membername {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: solid 2px #ddd;
-    color: var(--main-color);
-}
-#membername .input-group .form-control{
-    box-shadow: none;
-    outline: none;
-    font-size: 0.85rem;
-    border-right: 0;
-}
-#membername .input-group .form-control:focus{
-    outline: none !important;
-    box-shadow: none !important;
-}
-#membername .input-group .btn-light{
-    box-shadow: none;
-    outline: none;
-    background-color:#fff !important;
-    font-size: 0.85rem;
-    border: 1px solid #ced4da;
-    border-left: 0 !important;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
+
 #profile-left .card {
     padding: 15px;
 }
