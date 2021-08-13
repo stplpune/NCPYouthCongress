@@ -132,7 +132,11 @@
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
-                                    <img src="{{membersData.ImagePath}}" (click)="showLightBox(membersData.MemberId)" />
+
+                                    <ng-container *ngFor="let img of membersData.ImagePath?.split(',',1); let i = index">
+                                        <img [lightbox]="i" [src]="img?.data?.thumb" (click)="showLightBox(membersData.MemberId)" />
+                                        <!-- <img src="{{img}}" (click)="showLightBox(membersData.MemberId); imgLightBox = true" *ngIf="!imgLightBox" /> -->
+                                    </ng-container>
                                 </td>
                             </tr>
                         </tbody>
@@ -162,7 +166,10 @@
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
                                 <td>
-                                    <img src="{{committeesData.ImagePath}}" />
+                                    <img src="{{committeesData.ImagePath}}" *ngIf="committeesData.ImagePath; else noImg" />
+                                    <ng-template #noImg>
+                                        <img src="assets/images/dashboard-images/ncp-default.png">
+                                    </ng-template>
                                 </td>
                             </tr>
                         </tbody>

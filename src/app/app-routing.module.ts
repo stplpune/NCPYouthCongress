@@ -9,7 +9,7 @@ import { PartialComponent } from './partial/partial.component';
 import { WebComponent } from './web/web.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '', component: WebComponent, children: [
       { path: 'home', loadChildren: () => import('./web/home/home.module').then(m => m.HomeModule), data: { title: 'Home' } },
