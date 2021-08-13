@@ -189,9 +189,10 @@ export class PartyProgramDetailsComponent implements OnInit {
     // this.router.url != '/members/member-profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
-  redToMemberProfile(memberId: any) {
-    localStorage.setItem('memberId', memberId)
-    this.router.navigate(['../../members/member-profile'], { relativeTo: this.route })
+  redToMemberProfile(memberId: any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../members/member-profile'], {relativeTo:this.route})
   }
 
   basicLightboxExample() {

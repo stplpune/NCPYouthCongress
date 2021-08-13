@@ -128,7 +128,7 @@
                         <tbody>
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a (click)="redToMemberProfile(membersData.ID)" class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData..MemberId, bodyMemActivity.FullName)" class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
