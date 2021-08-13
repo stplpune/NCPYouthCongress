@@ -20,13 +20,9 @@ import { AgmCoreModule } from '@agm/core';
     NgxSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyA2AB0fKeqVHUUmRB1pvcaFRiDFTj8dSfM',
-    //   language: 'en',
-    //   libraries: ['places']
-    // }),
+
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAV0MsCXcScyVTpfgelNpIakmESv9W0E3c',
+      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
       language: 'en',
       libraries: ['geometry','places']
     }),

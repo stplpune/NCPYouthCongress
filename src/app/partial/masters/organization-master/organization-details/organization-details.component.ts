@@ -62,6 +62,7 @@ export class OrganizationDetailsComponent implements OnInit {
   addMemberFlag: any;
   selUserpostbodyId: any;
   periodicChart: any;
+  defaultCloseBtn: boolean = false;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -77,7 +78,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     this.defaultFilterForm()
     this.defaultBodyMemForm();
     this.getAllBodyMember();
@@ -91,7 +91,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   defaultFilterForm() {
     this.filter = this.fb.group({
-      memberName: [''],
+      memberName: [0],
       workType: [0],
       fromTodate: [['','']],
     })
@@ -128,10 +128,14 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   clearFilter(flag: any) {
+    debugger;
     if (flag == 'member') {
       this.filter.controls['memberName'].setValue(0);
     } else if (flag == 'workType') {
-      this.filter.controls['district'].setValue(0);
+      this.filter.controls['workType'].setValue(0);
+    } else if (flag == 'datepicker') {
+      this.defaultCloseBtn = false;
+      this.filter.controls['fromTodate'].setValue(['','']);
     }
     this.paginationNo = 1;
     this.getBodyMemeberActivities(this.bodyId)
@@ -278,19 +282,18 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getBodyMemeberActivities(id: any) {
-    let filterData = this.filter.value;
-    let fromDate:any;
-    let toDate:any;
     debugger;
+    let filterData = this.filter.value;
+    let fromDate:any ="";
+    let toDate:any ="";
     this.filter.value.fromTodate[0] != "" ? (fromDate = this.datePipe.transform(this.filter.value.fromTodate[0], 'dd/MM/yyyy')) : fromDate = '';   
     this.filter.value.fromTodate[1] != "" ? (toDate = this.datePipe.transform(this.filter.value.fromTodate[1], 'dd/MM/yyyy')) : toDate ='';   
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + filterData.workType + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + filterData.memberName + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + filterData.workType + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.resBodyMemAct = res.data1;
-        console.log(this.resBodyMemAct)
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -302,9 +305,9 @@ export class OrganizationDetailsComponent implements OnInit {
         }
       }
     }, (error: any) => {
-      // if (error.status == 500) {
-      //   this.router.navigate(['../../../500'], { relativeTo: this.route });
-      // }
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -499,7 +502,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   getweekRage(event: any) {
-    console.log(event);
+  this.defaultCloseBtn = true;
     this.filter.patchValue({
       FromDate: this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
       ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
@@ -508,14 +511,13 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   activitiesPerodicGraph(id: any) {
-    let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.FromDate + '&ToDate=' + this.filter.value.ToDate;
+    let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.FromDate[0] + '&ToDate=' + this.filter.value.ToDate[1];
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities_PerodicGraph' + stringPerodicGraph, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
-        console.log(this.periodicChart)
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");
@@ -573,8 +575,12 @@ export class OrganizationDetailsComponent implements OnInit {
         animateBullet(event.target.object);
       })
     }
+  }
 
-
+  redToMemberProfile(memberId:any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../../members/member-profile'])
   }
 
 }
