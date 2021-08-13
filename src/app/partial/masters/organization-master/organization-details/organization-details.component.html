@@ -120,7 +120,7 @@
                             <form [formGroup]="filter">
                                 <div class="row mb-3 form-container">
 
-                                    <div class="col-sm-3 offset-3">
+                                    <div class="col-sm-3 offset-2">
                                         <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
@@ -128,12 +128,12 @@
                                         <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="input-group">
                                             <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!this.filter.value.fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="this.filter.value.fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -160,7 +160,8 @@
                                     <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                         <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                         <td>{{bodyMemActivity.ActivityDate}}</td>
-                                        <td>{{bodyMemActivity.FullName}}</td>
+                                        <td>
+                                            <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)" class="text-primary">{{bodyMemActivity.FullName}}</a></td>
                                         <td><span class="text-ellipsis-150px">{{bodyMemActivity.Category}}</span></td>
                                         <td><span class="text-ellipsis-150px">{{bodyMemActivity.Title}}</span></td>
                                         <!-- <td>
@@ -224,7 +225,7 @@
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
 
-                                                    <label for="txtMemberName" class="form-label">Member Name</label>
+                                                    <label for="txtMemberName" class="form-label required-field">Member Name</label>
                                                     <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
                                                     <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
                                                     </ngx-select>
@@ -238,16 +239,21 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="txtMemberName" class="form-label">
+                                                    <label for="txtMemberName" class="form-label required-field">
                                                         Post From Date</label>
-                                                    <div class="input-group">
+                                                    <div class="input-group" [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
                                                         <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                                                         <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
                                                             <i class="fas fa-calendar"></i></button>
                                                         <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
                                                             <i class="fas fa-times"></i></button>
+
                                                     </div>
                                                     <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                                    <div *ngIf="submitted && f.PostfromDate.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.PostfromDate.errors.required">Post date is required
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

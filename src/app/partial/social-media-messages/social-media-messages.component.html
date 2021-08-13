@@ -102,9 +102,9 @@
 
 
 
-                        <td><a (click)="redToMemberProfile(socialMediaMessages.Id)" class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
-                        <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.MemberMobileNo)" class="text-primary">{{socialMediaMessages.PersonName}}</a></td>
-                        <td> <a href="tel:{{socialMediaMessages.MemberMobileNo}}">{{socialMediaMessages.MemberMobileNo}}</a></td>
+                        <td><a (click)="redToMemberProfile(socialMediaMessages.MemberId, socialMediaMessages.MemberName)" class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
+                        <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.PersonMobileNo)" class="text-primary">{{socialMediaMessages.PersonName}} </a></td>
+                        <td> <a href="tel:{{socialMediaMessages.PersonMobileNo}}">{{socialMediaMessages.PersonMobileNo}}</a></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InFavorOf}}</span></td>
                         <td><span class="text-ellipsis-150px">{{socialMediaMessages.InOppositionOf}}</span></td>
                         <td>
