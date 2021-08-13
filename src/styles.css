@@ -315,7 +315,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     position: absolute;
     opacity: .1;
     bottom: 0;
-    left: 10px
+    right: 10px
 }
 
 #dash-stats .card p {
@@ -326,7 +326,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 #dash-stats .card h3 {
     font-weight: 400;
-    text-align: right;
+    text-align: left;
     margin-bottom: 0
 }
 
