@@ -146,3 +146,10 @@
     right: 20px;
     top: 40px;
 }
+
+.edit-button{
+    position:absolute;
+    top: 260px;
+    left: 75px;
+    z-index: 9999;
+}

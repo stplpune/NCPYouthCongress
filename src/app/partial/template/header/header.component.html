@@ -56,8 +56,8 @@
             <div class="modal-header">
                 <p class="modal-title mb-0" id="editProfileModalLabel">Edit Profile</p>               
                 
-                <span class="text-end">
-                    <button  class="btn btn-main btn-sm" [disabled]="!disabledEditForm"  (click)="this.disabledEditForm = false">Edit</button>
+                <span class="edit-button">
+                    <button  class="badge bg-light rounded-pill text-secondary border" [disabled]="!disabledEditForm"  (click)="this.disabledEditForm = false">Edit Profile</button>
                 </span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="DisabledAllForm()"  #closeModal></button>
             </div>
