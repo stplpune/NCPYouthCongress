@@ -1,139 +1,144 @@
 <div class="container-fluid">
+    <div class="row" id="membername">
+        <div class="col-sm-6">
+            {{getCommitteeName | titlecase}}
+        </div>
+        <div class="col-sm-6 text-end">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+
     <div class="row chartbox">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="row card-header pt-3" id="membername">
-                    <div class="col-sm-11">
-                        <h5>{{getCommitteeName | titlecase}}</h5>
-                    </div>
-                    <div class="col-sm-1 text-end">
-                        <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                    </div>
+        <div class="col-sm-4">
+            <div class="card mb-3">
+                <div class="card-header pb-0">
+                    Current Designated Members
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-4 border-end">
-                            <p>Current Designated Members</p>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Sr. No.</th>
-                                        <th>Member Name</th>
-                                        <th>Designation</th>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Member Name</th>
+                                <th>Designation</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
+                                <td>{{designatedMembers.SrNo}}</td>
 
-                                        <!-- <th>Device</th> -->
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
-                                        <td>{{designatedMembers.SrNo}}</td>
+                                <td>{{designatedMembers.MemberName | titlecase}}</td>
+                                <td>{{designatedMembers.DesignationName}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Action Buttons">
+                                        <button *ngIf="designatedMembers.MemberName"
+                                            (click)="addEditMember(designatedMembers,'Edit')"
+                                            class="btn btn-sm btn-light"> <i class="fas fa-pencil-alt"></i></button>
+                                        <button
+                                            *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1"
+                                            (click)="addEditMember(designatedMembers,'Add')"
+                                            class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-sm btn-light text-danger"
+                                            *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
+                                            (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
+                                            data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
 
-                                        <td>{{designatedMembers.MemberName | titlecase}}</td>
-                                        <td>{{designatedMembers.DesignationName}}</td>
-                                        <!-- <td>
-                                          
-                                            <ng-container *ngIf="designatedMembers.DeviceType == 1">
-                                                <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
-                                            </ng-container>
-                                            <ng-container *ngIf="designatedMembers.DeviceType == 2">
-                                                <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0">
-                                            </ng-container>
-                                            <ng-container *ngIf="designatedMembers.DeviceType != 2 && designatedMembers.DeviceType != 1">
-                                                No Device
-                                            </ng-container>
-                                        </td> -->
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="Action Buttons">
-                                                <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light"> <i
-                                                        class="fas fa-pencil-alt"></i></button>
-                                                <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="btn btn-sm btn-light"> <i class="fas fa-plus"></i></button>
-                                                <button class="btn btn-sm btn-light text-danger" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i
-                                                        class="fas fa-trash-alt"></i></button>
-
-                                                <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <hr />
-                            <p>Previous Designated Members
-                                <!-- {{this.getPreviousDesignatedMembers(bodyId, designationName.DesignationId)}} -->
-
-                            </p>
-                            <!-- <table class="table">
-                                <tbody>
-                                    <tr *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
-                                        <th colspan="2" class="text-center bg-light">{{designationName.DesignationName}}</th>
-
-                                        <div *ngFor="let desMembers of getPreDesMembersArray[i]">
-                                            <td><a>{{desMembers.MemberName}}</a></td>
-                                            <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                        </div>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-                            <div class="chartbox">
-                                <div *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
-                                    <div class="text-center bg-light py-2 fw-bold border-bottom">
-                                        {{designationName.DesignationName}}
+                                        <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal
+                                            style="display: none;"></button>
                                     </div>
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
-                                                <td><a>{{desMembers.MemberName}}</a></td>
-                                                <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header pb-0">
+                    Previous Designated Members
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
+                        <div class="text-center bg-light py-2 fw-bold border-bottom">
+                            {{designationName.DesignationName}}
                         </div>
-                        <div class="col-sm-8">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
+                                    <td><a>{{desMembers.MemberName}}</a></td>
+                                    <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' :
+                                        desMembers.PostToDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="row" id="dash-stats">
-                                <div class="col-sm-3">
-                                    <div class="card card-body bg-cyan">
-                                        <i class="fas fa-network-wired"></i>
-                                        <p>Work Done</p>
-                                        <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="card card-body bg-green">
-                                        <i class="fab fa-apple"></i>
-                                        <p>iOS Downloads</p>
-                                        <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="card card-body bg-blue">
-                                        <i class="fab fa-android"></i>
-                                        <p>Android Downloads</p>
-                                        <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
-                                    </div>
-                                </div>
-                            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="row" id="dash-stats">
+                <div class="col-sm-3">
+                    <div class="card card-body bg-cyan">
+                        <i class="fas fa-network-wired"></i>
+                        <p>Work Done</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card card-body bg-green">
+                        <i class="fab fa-apple"></i>
+                        <p>iOS Downloads</p>
+                        <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card card-body bg-blue">
+                        <i class="fab fa-android"></i>
+                        <p>Android Downloads</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Individual Members Progress
+                        </div>
+                        <div class="col-sm-9">
                             <form [formGroup]="filter">
-                                <div class="row mb-3 form-container">
-
-                                    <div class="col-sm-3 offset-2">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
+                                <div class="row g-2 form-container">
+                                    <div class="col-sm-4">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')"
+                                            (select)="filterData()" [items]="bodyMemberFilterDetails"
+                                            optionValueField="ID" optionTextField="FullName"
+                                            formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
+                                    <div class="col-sm-4">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')"
+                                            (select)="filterData()" [items]="resWorkcategory" optionValueField="Id"
+                                            optionTextField="Category" formControlName="workType"
+                                            placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)"
+                                                class="form-control" [max]="maxDate" [selectMode]="'range'"
+                                                [owlDateTimeTrigger]="dt1" placeholder="Select range"
+                                                formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -141,266 +146,274 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="clearfix"></div>
-                            <p>Individual Members Progress</p>
-                            <div class="h-400 membersProBarChart"></div>
-                            <table class="table table-hover mt-3">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Work Date</th>
-                                        <th scope="col">Member Name</th>
-                                        <th scope="col">Work Type</th>
-                                        <th scope="col">Title</th>
-                                        <!-- <th scope="col">Photos</th> -->
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-                                        <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
-                                        <td>{{bodyMemActivity.ActivityDate}}</td>
-                                        <td>
-                                            <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)" class="text-primary">{{bodyMemActivity.FullName}}</a></td>
-                                        <td><span class="text-ellipsis-150px">{{bodyMemActivity.Category}}</span></td>
-                                        <td><span class="text-ellipsis-150px">{{bodyMemActivity.Title}}</span></td>
-                                        <!-- <td>
-                                            <ng-container *ngFor="let img of bodyMemActivity.ImagePath.split(',').splice(0,2)">
-                                                <img src="{{img}}">
-                                            </ng-container>
-                                        </td> -->
-                                        <td>
-                                            <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
-                                                    class="far fa-eye"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="resBodyMemAct?.length == 0">
-                                        <td colspan="7">
-                                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                                        </td>
-                                    </tr>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="h-400 membersProBarChart"></div>
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Work Date</th>
+                                <th scope="col">Member Name</th>
+                                <th scope="col">Work Type</th>
+                                <th scope="col">Title</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
+                                <td>{{bodyMemActivity.ActivityDate}}</td>
+                                <td>
+                                    <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)"
+                                        class="text-primary">{{bodyMemActivity.FullName}}</a>
+                                </td>
+                                <td><span class="text-ellipsis-150px">{{bodyMemActivity.Category}}</span></td>
+                                <td><span class="text-ellipsis-150px">{{bodyMemActivity.Title}}</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light"
+                                        (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"
+                                        data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
+                                            class="far fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="resBodyMemAct?.length == 0">
+                                <td colspan="7">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
+                            </tr>
 
-                                </tbody>
-                            </table>
-                            <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
-                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
-                                <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
-                            </div>
+                        </tbody>
+                    </table>
+                    <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="clearfix"></div>
-                            <div class="card shadow-none">
-                                <div class="card-header">Work in a Year
-                                    <!-- <span class="float-end">
-                                        <select class="form-select">
-                                            <option>Month</option>
-                                        </select>
-                                    </span> -->
+            <div class="card mb-3">
+                <div class="card-header">Work in a Year</div>
+                <div class="card-body">
+                    <div class="card-body recentActivityGraph chartfont h-400">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Add/Update/Delete Member for any Designation -->
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form [formGroup]="bodyMember">
+                <div class="modal-header">
+                    <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 341px">
+                    <div class="form-container">
+                        <div class="mb-3">
+                            <label for="txtBodyName" class="form-label">Body Name</label>
+                            <input type="text" class="form-control" readonly formControlName="BodyName" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+
+                                    <label for="txtMemberName" class="form-label required-field">Member Name</label>
+                                    <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
+                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId"
+                                        optionValueField="id" optionTextField="fullname"
+                                        (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
+                                        placeholder="Select Member Name"
+                                        [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.bodyId.errors.required">Body Member is required
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="card-body">
-                                    <!-- periodic chart<br> x-axis : Month<br> y-axis : count of works -->
-                                    <div class="card-body recentActivityGraph chartfont h-400">
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="txtMemberName" class="form-label required-field">
+                                        Post From Date</label>
+                                    <div class="input-group"
+                                        [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
+                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control"
+                                            [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                        <button class="btn btn-light border btn-sm" type="button"
+                                            [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
+                                            <i class="fas fa-calendar"></i></button>
+                                        <button class="btn btn-light border btn-sm" type="button"
+                                            *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
+                                            <i class="fas fa-times"></i></button>
+
+                                    </div>
+                                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                    <div *ngIf="submitted && f.PostfromDate.errors" class="invalid-feedback">
+                                        <div *ngIf="f.PostfromDate.errors.required">Post date is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
+                            <div class="card">
+                                <div class="card-header pb-0">Member Details</div>
+                                <div class="card-body pt-0">
+                                    <label class="form-label mb-0">Email ID</label>
+                                    <div class="form-control-plaintext py-0">
+                                        {{bodyMemberDetails?.Emailid}}</div>
+                                    <label class="form-label mb-0">Contact No.</label>
+                                    <div class="form-control-plaintext py-0">
+                                        {{bodyMemberDetails?.MobileNo}}</div>
+                                    <label class="form-label mb-0">Location</label>
+                                    <div class="form-control-plaintext py-0">
+                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
+                                        {{bodyMemberDetails?.VillageName}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
+                        Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-                <!-- Modal for Add/Update/Delete Member for any Designation -->
-                <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <form [formGroup]="bodyMember">
-                                <div class="modal-header">
-                                    <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
+<!-- View Details Modal -->
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngIf="resultBodyMemActDetails">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">{{resultBodyMemActDetails.Id}}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">
+                                    {{resultBodyMemActDetails.ActivityDate}}</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Members FullName</label>
+                            <div id="txtMembersName" class="form-data">
+                                {{resultBodyMemActDetails.FullName}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label">Work Type</label>
+                                <div id="txtWorkType" class="form-data">
+                                    {{resultBodyMemActDetails.CategoryName}}
                                 </div>
-                                <div class="modal-body" style="height: 341px">
-                                    <div class="form-container">
-                                        <div class="mb-3">
-                                            <label for="txtBodyName" class="form-label">Body Name</label>
-                                            <input type="text" class="form-control" readonly formControlName="BodyName" />
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-
-                                                    <label for="txtMemberName" class="form-label required-field">Member Name</label>
-                                                    <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
-                                                    </ngx-select>
-                                                    <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.bodyId.errors.required">Body Member is required
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="txtMemberName" class="form-label required-field">
-                                                        Post From Date</label>
-                                                    <div class="input-group" [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
-                                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-                                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
-                                                            <i class="fas fa-calendar"></i></button>
-                                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
-                                                            <i class="fas fa-times"></i></button>
-
-                                                    </div>
-                                                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
-                                                    <div *ngIf="submitted && f.PostfromDate.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.PostfromDate.errors.required">Post date is required
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
-                                            <div class="card">
-                                                <div class="card-header pb-0">Member Details</div>
-                                                <div class="card-body pt-0">
-                                                    <label class="form-label mb-0">Email ID</label>
-                                                    <div class="form-control-plaintext py-0">
-                                                        {{bodyMemberDetails?.Emailid}}</div>
-                                                    <label class="form-label mb-0">Contact No.</label>
-                                                    <div class="form-control-plaintext py-0">
-                                                        {{bodyMemberDetails?.MobileNo}}</div>
-                                                    <label class="form-label mb-0">Location</label>
-                                                    <div class="form-control-plaintext py-0">
-                                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Title</label>
+                                <div id="txtTitle" class="form-data">
+                                    {{resultBodyMemActDetails.Title | titlecase}}
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
-                                        Member</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Program</label>
+                                <div id="txtProgram" class="form-data">
+                                    {{resultBodyMemActDetails. ProgramTitle | titlecase}}
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <div id="txtDescription" class="form-data">
+                                {{resultBodyMemActDetails.Description | titlecase}}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link URL</label>
+                            <div class="form-data">
+                                <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
+                                    {{resultBodyMemActDetails.Link}}
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-sm-6 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+                            <!-- <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid"> -->
+                        </div>
 
-                <!-- View Details Modal -->
-                <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row" *ngIf="resultBodyMemActDetails">
-                                    <div class="col-sm-6 form-container">
-                                        <div class="row mb-3">
-                                            <div class="col-sm-6">
-                                                <label class="form-label">#ID</label>
-                                                <div id="txtID" class="form-data">{{resultBodyMemActDetails.Id}}</div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label class="form-label">Post Date</label>
-                                                <div id="txtPostDate" class="form-data">
-                                                    {{resultBodyMemActDetails.ActivityDate}}</div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Members FullName</label>
-                                            <div id="txtMembersName" class="form-data">
-                                                {{resultBodyMemActDetails.FullName}}
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-sm-4">
-                                                <label class="form-label">Work Type</label>
-                                                <div id="txtWorkType" class="form-data">
-                                                    {{resultBodyMemActDetails.CategoryName}}
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label class="form-label">Title</label>
-                                                <div id="txtTitle" class="form-data">
-                                                    {{resultBodyMemActDetails.Title | titlecase}}
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label class="form-label">Program</label>
-                                                <div id="txtProgram" class="form-data">
-                                                    {{resultBodyMemActDetails. ProgramTitle | titlecase}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Description</label>
-                                            <div id="txtDescription" class="form-data">
-                                                {{resultBodyMemActDetails.Description | titlecase}}
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Link URL</label>
-                                            <div class="form-data">
-                                                <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
-                                                    {{resultBodyMemActDetails.Link}}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 form-container">
-                                        <div class="mb-3">
-                                            <label class="form-label">Location</label>
-                                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                                            </agm-map>
-                                            <!-- <img src="https://images.indianexpress.com/2017/05/google-maps-759.jpg" class="img-fluid"> -->
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-12 form-container">
-                                        <div class="mb-3">
-                                            <label class="form-label">Photos</label>
-                                            <div class="row">
-                                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
-                                                    <img src="{{img}}" class="img-thumbnail h-150">
-                                                    <!-- <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" /> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    </div>
+                    <div class="col-sm-12 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Photos</label>
+                            <div class="row">
+                                <div class="col-sm-2 mb-3"
+                                    *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
+                                    <img src="{{img}}" class="img-thumbnail h-150">
+                                    <!-- <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" /> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-                <!-- Delete Confirmation modal pop up -->
-                <div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-transparent border-bottom-0">
-                                <!-- <h5 class="modal-title" id="DeleteModalLabel">Modal title</h5> -->
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center pb-5">
-                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6"
-                                        stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
-                                        stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8"
-                                        y2="92.3" />
-                                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
-                                        stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4"
-                                        y2="92.2" />
-                                </svg>
-                                <h3 class="my-3">Are You Sure?</h3>
-                                <p class="mb-4">Do you really want to delete this record? This process can not be undone.
-                                </p>
-                                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
-                                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal" type="button">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Delete Confirmation modal pop up -->
+<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="DeleteModalLabel">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to delete this record? This process can not be undone.
+                </p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
+                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal"
+                    type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
