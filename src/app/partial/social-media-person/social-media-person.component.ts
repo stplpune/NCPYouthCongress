@@ -88,8 +88,7 @@ export class SocialMediaPersonComponent implements OnInit {
 
   getSocialMediaMessagesPerson() {
     this.spinner.show();
-    let mob='';
-    let obj = 'MobileNo=' + mob + '&nopage=' + this.paginationNo + '&FromDate=' + this.globalFromDate + '&ToDate=' + this.globalToDate
+    let obj = 'MobileNo=' + this.MemberMobileNo + '&nopage=' + this.paginationNo + '&FromDate=' + this.globalFromDate + '&ToDate=' + this.globalToDate
     this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Person_Profile?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -113,7 +112,7 @@ export class SocialMediaPersonComponent implements OnInit {
 
   getPersonData() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Person_ProfileGraph?MobileNo=8208112735' , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Person_ProfileGraph?MobileNo='+this.MemberMobileNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
