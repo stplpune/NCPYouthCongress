@@ -232,7 +232,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     lineSeries.dataFields.dateX = "StartDate";
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
-    lineSeries.strokeDasharray = "5,4";
+    // lineSeries.strokeDasharray = "5,4";
     lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
 
     // Add simple bullet
