@@ -500,9 +500,14 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     background-color: rgb(220, 53, 69, 12%) !important;
 }
 
+.modal svg {
+    width: 100px !important;
+    display: block;
+    margin: 0px auto;
+}
+
 svg {
-    width: 100px;
-    /* width: 454px; */
+    width: 454px !important;
     display: block;
     margin: 0px auto;
 }
