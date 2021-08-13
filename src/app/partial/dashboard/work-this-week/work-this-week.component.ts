@@ -78,8 +78,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         colors: {
           baseDefault: "#bfddff",
           background: "#fff",
-          selected: "#436d9a",
-          hover: "#bfddff",
+          selected: "#6365AE",
+          hover: "#6365AE",
           directory: "#bfddff",
           status: {}
         },

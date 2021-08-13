@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'about', loadChildren: () => import('./web/about/about.module').then(m => m.AboutModule), data: { title: 'About' } },
       { path: 'register', loadChildren: () => import('./web/register/register.module').then(m => m.RegisterModule), data: { title: 'Register' } },
       { path: 'login', loadChildren: () => import('./web/login/login.module').then(m => m.LoginModule), data: { title: 'Login' }, canActivate: [LoggedInAuthGuard] },
+      { path: 'privacy-policy', loadChildren: () => import('./web/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule) },
     ]
   },
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 
