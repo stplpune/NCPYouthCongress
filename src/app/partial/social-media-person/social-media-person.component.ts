@@ -116,8 +116,8 @@ export class SocialMediaPersonComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.MostOpposite  = res.data3[0];
-        this.mostFavouerd = res.data2[0];
+        this.MostOpposite  = res.data3;
+        this.mostFavouerd = res.data2;
         this.chartArray = res.data1;
        
         this.workCountAgainstWorkType();
