@@ -391,4 +391,8 @@ export class HeaderComponent implements OnInit {
       return { passwordValid: true }
     }
   }
+
+  DisabledAllForm(){//Disabled hole Form When Click model Close Button
+    this.disabledEditForm = true;
+  }
 }

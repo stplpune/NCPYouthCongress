@@ -314,6 +314,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       am4core.useTheme(am4themes_animated);
       am4core.useTheme(am4themes_material);
       let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
+      chart.colors.list = [
+        am4core.color("#85C1E9"),
+        am4core.color("#85C1E9"),
+        am4core.color("#cbccf6"),
+        am4core.color("#cbccf6"),
+      ];
       chart.colors.step = 2;
 
       chart.legend = new am4charts.Legend()
