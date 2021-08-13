@@ -34,8 +34,8 @@ export class PoliticalWorkComponent implements OnInit {
   socialMediaArray:any;
   categoryArray:any;
   viewPoliticleWorkDetailsById: any;
-  lat: any = 19.75117687556874;
-  lng: any = 75.71630325927731;
+  lat: any;
+  lng: any;
   zoom: any = 12;
 
   constructor(
@@ -206,7 +206,18 @@ export class PoliticalWorkComponent implements OnInit {
     })
   }
   ViewPoliticleWorkDetails(index:any){
-     this.viewPoliticleWorkDetailsById=this.politicalWorkArray[index];
+    debugger;
+    this.viewPoliticleWorkDetailsById = null;
+     this.viewPoliticleWorkDetailsById =this.politicalWorkArray[index];
+     let latLong = (this.viewPoliticleWorkDetailsById.ActivityLocation.split(','));
+     if(latLong != "" || latLong != undefined || latLong != null){
+      this.lat = Number(latLong[0]);
+      this.lng = Number(latLong[1]);
+     }else{
+      this.lat = 19.663280;
+      this.lng  = 75.300293;
+     }
+ 
   }
 
 }
