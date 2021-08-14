@@ -40,6 +40,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   defultCategoryName:any = 0;
   resWorkcategory:any;
   dateRange:any;
+  dateRange1:any;
   defaultCloseBtn: boolean = false;
   resultBestPerKaryMember:any;
   memberNameArray:any;
@@ -51,6 +52,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
    {dateTimeAdapter.setLocale('en-IN');} 
     let data: any = localStorage.getItem('weekRange');
     this.selweekRange = JSON.parse(data);
+    this.dateRange1 = [this.selweekRange.fromDate, this.selweekRange.toDate];
     this.dateRange = [this.selweekRange.fromDate, this.selweekRange.toDate];
   }
 
@@ -158,6 +160,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   filterData(flag:any){
     if (flag == 'district') {
       this.getTaluka(this.filterBestPer.value.DistrictId)
+    }else if (flag == 'workType'){
+      // this.bestPerformance();
+      this.getBestPerKaryMember();
+      this.geWeekReport();
     }
     // district talka committee
     this.bestPerformance();
@@ -166,6 +172,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   getweekRage(event:any){
     this.defaultCloseBtn = true;
     this.bestPerformance();
+    this.getBestPerKaryMember();
+    this.geWeekReport();
   }
 
   getDistrict() {
@@ -242,15 +250,21 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   clearFilter(flag:any){
     if (flag == 'workType') {
       this.topFilterForm.controls['category'].setValue(0);
+      this.getBestPerKaryMember();
+      this.geWeekReport();
     } else if (flag == 'dateValue') {
-      this.topFilterForm.controls['fromTo'].setValue(this.selweekRange.fromDate, this.selweekRange.toDate);
+      this.defaultCloseBtn = false;
+      this.topFilterForm.controls['fromTo'].setValue(this.dateRange1);
+      this.getBestPerKaryMember();
+      this.geWeekReport();
     }  else if (flag == 'district') {
       this.filterBestPer.controls['DistrictId'].setValue(0);
       this.filterBestPer.controls['TalukaId'].setValue(0);
     } else if (flag == 'taluka') {
       this.filterBestPer.controls['TalukaId'].setValue(0);
     }  else if (flag == 'committee') {
-      this.filterBestPer.controls['BodyId'].setValue(1);
+      this.filterBestPer.controls['BodyId'].setValue(0);
+      this.filterBestPer.controls['IsBody'].setValue(1);
     } 
     this.bestPerformance();
   }
@@ -260,14 +274,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getBestPerKaryMember() {
-    debugger;
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
-    // let fromDate: any;
-    // let toDate: any;
-    // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
-    // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
-
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -305,6 +313,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
+        this.WorkDoneByYuvakTP = [];
+        this.WorkDoneByYuvakBP = [];
+        this.WorkDoneByYuvakBarchart = [];
+        this.WorkDoneByYuvak();
         this.spinner.hide();
         if (res.data == 1) {
           this.toastrService.error("Data is not available");
@@ -318,14 +330,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   bestPerformance() {
     this.spinner.show();
-    debugger;
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
     // let fromDate: any;
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.BodyId , false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -442,8 +453,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   catChange(value: any) {
     this.catValue = value.name;
     if(this.catValue == 'Committee'){
+      this.filterBestPer.controls['DistrictId'].setValue(0);
+      this.filterBestPer.controls['TalukaId'].setValue(0);
       this.getMemberName();
+    }else{
+      this.filterBestPer.controls['BodyId'].setValue(0);
+      this.filterBestPer.controls['IsBody'].setValue(0);
     }
+    this.bestPerformance();
   }
   ngOnDestroy() {
     // localStorage.removeItem('weekRange');
@@ -468,6 +485,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
+        console.log(this.memberNameArray)
       } else {
           this.toastrService.error("Data is not available");
       }

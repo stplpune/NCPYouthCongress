@@ -110,7 +110,7 @@
                                 <td>{{result.Area}}</td>
                                 <td>{{result.Totalwork}}</td>
                             </tr>
-                            <tr *ngIf="resBestPerKaryMember?.length == 8">
+                            <tr *ngIf="resBestPerKaryMember?.length == 0">
                                 <td colspan="4">
                                     <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                 </td>
@@ -198,8 +198,8 @@
                                 <td>{{result.HelpCount}}</td>
                                 <td>{{result.PartyProgramCount}}</td>
                             </tr>
-                            <tr *ngIf="resultBestPerKaryMember?.length == 8">
-                                <td colspan="4">
+                            <tr *ngIf="resultBestPerKaryMember?.length == 0">
+                                <td colspan="7">
                                     <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                 </td>
                             </tr>
