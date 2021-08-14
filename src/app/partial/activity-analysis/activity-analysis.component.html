@@ -1,27 +1,37 @@
 <div class="container-fluid">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-4">
-            <span class="page-name">Activity Analysis</span>
+            <span class="page-name">Political Works</span>
         </div>
         <div class="col-sm-8">
-            <div class="row g-1">
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Political Activity">
-                    </ngx-select>
+            <form [formGroup]="filterForm">
+                <div class="row g-1">
+                    <div class="col-sm-3 offset-3">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
+                        </ngx-select>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="From To Date" />
+                            <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                <i class="fas fa-calendar"></i></button>
+                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
+                                <i class="fas fa-times"></i></button>
+                        </div>
+                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Member Name">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                    </ngx-select>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -29,43 +39,43 @@
         <div class="col-sm">
             <div class="card card-body bg-gold">
                 <i class="fas fa-network-wired"></i>
-                <p>Total Posts</p>
-                <h3>2</h3>
+                <p>Total Works</p>
+                <h3>{{TotalWorks}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-blue">
                 <i class="fas fa-award"></i>
                 <p>Political Works</p>
-                <h3>34</h3>
+                <h3>{{PoliticalWork}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-green">
                 <i class="far fa-newspaper"></i>
                 <p>News Letters</p>
-                <h3>43</h3>
+                <h3>{{newsLetters}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-cyan">
                 <i class="fas fa-envelope-open-text"></i>
                 <p>Social Media Help</p>
-                <h3>345</h3>
+                <h3>{{socialMediaCount}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-red">
                 <i class="fas fa-hands-helping"></i>
                 <p>Personal Help</p>
-                <h3>343</h3>
+                <h3>{{PersonalHelp}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-voilet">
                 <i class="fas fa-hashtag"></i>
                 <p>Party Programs</p>
-                <h3>343</h3>
+                <h3>{{partyPrograms}}</h3>
             </div>
         </div>
     </div>
@@ -76,10 +86,11 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Photo</th>
+                            <!-- <th scope="col">Photo</th> -->
+                            <th scope="col">Sr.No.</th>
                             <th scope="col">Full Name</th>
                             <th scope="col">Activity Date</th>
-                            <th scope="col">Activity Type</th>
+                            <!-- <th scope="col">Activity Type</th> -->
                             <th scope="col">Activity Title</th>
                             <th scope="col">Likes</th>
                             <th scope="col">Comments</th>
@@ -89,44 +100,139 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <td>{{politicalWork.SrNo}}</td>
+                         
+                            <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.MemberId, politicalWork.FullName)">{{politicalWork.FullName | titlecase}}</a></td>
+                            <td>{{politicalWork.ActivityDate}}</td>
+                            <td>{{politicalWork.Title | titlecase}}</td>
+                            <!-- <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td> -->
                             <td>
-                                <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prophoto">
+                                <h6 class="mb-0"><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#LikesModal">{{politicalWork.TotalLikes}}</a></h6>
                             </td>
                             <td>
-                                <a routerLink="">Ravikant Varpe</a>
+                                <h6 class="mb-0"><a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
                             </td>
                             <td>
-                                10-02-2021
+                                <h6 class="mb-0"><a href="#" class="text-info" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
                             </td>
                             <td>
-                                Political Work
+                                <h6 class="mb-0"><a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
                             </td>
+                          
                             <td>
-                                Shetkari Andolan
+                                <button class="btn btn-sm btn-light" (click)="ViewPoliticleWorkDetails(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
-                            <td>
-                                <h6 class="mb-0"><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#LikesModal">1542</a></h6>
-                            </td>
-                            <td>
-                                <h6 class="mb-0"><a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#CommentModal">1342</a></h6>
-                            </td>
-                            <td>
-                                <h6 class="mb-0"><a href="#" class="text-info" data-bs-toggle="modal" data-bs-target="#ShareModal">342</a></h6>
-                            </td>
-                            <td>
-                                <h6 class="mb-0"><a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#AbuseModal">42</a></h6>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                        </tr>
+                        <tr *ngIf="politicalWorkArray?.length == 0">
+                            <td colspan="9">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="mt-2 text-end" *ngIf="politicalWorkArray?.length != 0">
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Modal for details -->
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">{{viewPoliticleWorkDetailsById?.SrNo}}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">{{viewPoliticleWorkDetailsById?.ActivityDate}}</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Members Name</label>
+                            <div id="txtMembersName" class="form-data">
+                                {{viewPoliticleWorkDetailsById?.FullName}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Title</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    {{viewPoliticleWorkDetailsById?.Title}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Program</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    {{viewPoliticleWorkDetailsById?.ProgramTitle}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Media</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    {{viewPoliticleWorkDetailsById?.CategoryName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Post Description</label>
+                            <div id="txtDescription" class="form-data">
+                                {{viewPoliticleWorkDetailsById?.Description}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">URL Link</label>
+                                <div id="txtMessageFavour" class="form-data">
+                                    <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Contact Person Details</label>
+                                <div id="txtMessageOppse" class="form-data">
+                                    Contact Person Name<br>{{viewPoliticleWorkDetailsById?.PersonContactDetails}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-container">
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-12 form-container">
+                        <label class="form-label">Photos</label>
+                        <div class="row">
+                            <div class="col-sm-2 mb-3">
+                                <img src="{{viewPoliticleWorkDetailsById?.Images}}" class="img-thumbnail" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- modal for likes details -->

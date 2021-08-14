@@ -94,16 +94,27 @@ export class NotificationsComponent implements OnInit {
       return;
     }
     else {
-    let fromData = new FormData();
-      Object.keys(this.notificationForm.value).forEach((cr: any, ind: any) => {
-        let value: any = Object.values(this.notificationForm.value)[ind] != null ? Object.values(this.notificationForm.value)[ind] : 0;
-        fromData.append(cr, value)
-      });
+
+      let fromData = new FormData();
+
       let notStatus:any;
-      this.selectedFile ? notStatus = 2 : notStatus = 1;
-      // this.selectedFile ? notStatus = 2 : notStatus = 1;
+      let ImageChangeFlag:any;
+      this.selectedFile ? ( notStatus = 2, ImageChangeFlag = 1 ): (notStatus = 1, ImageChangeFlag = 0);
+
+      let getObj:any = this.notificationForm.value;
+      fromData.append('Id', getObj.Id);
+      fromData.append('CreatedBy', getObj.CreatedBy);
+      fromData.append('ScopeId', getObj.ScopeId);
+      fromData.append('Title', getObj.Title);
+      fromData.append('Description', getObj.Description);
+      fromData.append('ImageUrl', getObj.ImageUrl);
+      fromData.append('Link', getObj.Link);
+      fromData.append('MemberStr', getObj.MemberStr.toString());
+
+
       fromData.append('AttchmentStr', this.selectedFile);
       fromData.append('NotificationType', notStatus);
+      fromData.append('IsChangeImage', notStatus);
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
@@ -183,11 +194,11 @@ export class NotificationsComponent implements OnInit {
     debugger;
     this.callAPIService.setHttp('get', 'Push_SendNotification_1_0?UserId='+this.commonService.loggedInUserId()+'&NotificationId='+this.NotificationId+'&ScopeId='+this.ScopeId, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.toastrService.success(res.data1[0].Msg)
+      if (res.success == 1) {
+        this.toastrService.success('Notification send successfully');
         this.getNotificationData();
       } else {
-        // this.toastrService.error(res.data1[0].Msg)
+        this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
       }
     } ,(error:any) => {
@@ -222,6 +233,7 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
+        console.log(this.memberNameArray);
       } else {
           this.toastrService.error("Data is not available");
       }
