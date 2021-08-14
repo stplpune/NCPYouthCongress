@@ -56,19 +56,17 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
-    console.log(this.dateRange);
     this.getweekRage(this.dateRange)
   }
 
   getweekRage(dates: any) {
-    console.log(dates);
     var Time = dates[1].getTime() - dates[0].getTime();
     var Days = Time / (1000 * 3600 * 24);
 
     if (Days <= 7) {
-      let fromDate: any = this.datepipe.transform(dates[0], 'dd/MM/yyyy');
-      let toDate: any = this.datepipe.transform(dates[1], 'dd/MM/yyyy');
-      this.weekRangeObj = { 'fromDate': fromDate, 'toDate': toDate };
+      // let fromDate: any = this.datepipe.transform(dates[0], 'dd/MM/yyyy');
+      // let toDate: any = this.datepipe.transform(dates[1], 'dd/MM/yyyy');
+      this.weekRangeObj = { 'fromDate': dates[0], 'toDate': dates[1] };
       localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
@@ -158,8 +156,6 @@ export class DashboardComponent implements OnInit {
         this.workInThisWeekArray = res.data2;
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
-        console.log('workInThisWeekArray', this.workInThisWeekArray);
-        console.log('newMemberInThisWeekArray', this.newMemberInThisWeekArray);
       } else {
           this.toastrService.error("Data is not available");
       }
@@ -181,7 +177,6 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.districtWiseMemberCountArray = res.data1;
         this.weeklyColumnChart();
-        //console.log('getDistrictWiseMemberCount',this.districtWiseMemberCountArray);
       } else {
           this.toastrService.error("Data is not available");
       }
@@ -537,7 +532,6 @@ export class DashboardComponent implements OnInit {
       if (category) {
         return "assets/images/logos/" + category.split(" ").join("-").toLowerCase() + ".png";
       }
-      console.log(target);
       return href;
     })
     categoryAxis.dataItems.template.bullet = image;

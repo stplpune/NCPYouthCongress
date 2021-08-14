@@ -35,6 +35,7 @@ export class CommonService {
     return new Date(year, month, day);
   }
 
+
   
   codecareerPage:any;
   createCaptchaCarrerPage() {

@@ -217,10 +217,13 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
-        this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) =>
-          new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
-        );
+        this.ParpantsProMemImge.map((item:any) =>{
+          debugger;
+          // new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
+         this.ParpantsProMemImge1.push({'ImagePath':item.ImagePath})
+        });
         this.basicLightboxExample('members');
+  
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -235,7 +238,9 @@ export class PartyProgramDetailsComponent implements OnInit {
     if(flag == 'global'){
       this.gallery.ref().load(this.programGalleryImg);
     }else if (flag == 'members'){
-      this.gallery.ref().load(this.ParpantsProMemImge);
+      debugger;
+      this.gallery.ref().load(this.ParpantsProMemImge1);
+      this._lightbox.open(this.ParpantsProMemImge1);
     }
 
   }

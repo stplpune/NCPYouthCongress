@@ -469,13 +469,14 @@ export class OrganizationDetailsComponent implements OnInit {
       let UserPostBodyId: any;
       this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
       let fromData = new FormData();
+      let postFromDate:any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
       fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
       fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
       fromData.append('UserId', this.bodyMember.value.bodyId);
       fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
-      fromData.append('PostfromDate', this.bodyMember.value.PostfromDate);
+      fromData.append('PostfromDate', postFromDate);
       this.spinner.show();
       this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {

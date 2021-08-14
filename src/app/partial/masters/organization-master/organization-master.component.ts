@@ -633,7 +633,7 @@ export class OrganizationMasterComponent implements OnInit {
     }else{
       let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
       localStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['organization-details'], { relativeTo: this.route })
+      this.router.navigate(['details'], { relativeTo: this.route })
     }
   }
 

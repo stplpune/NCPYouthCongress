@@ -36,7 +36,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   toDate: any;
   fromDate: any;
   catValue: any;
-  bestPerCat = [{'id':1,'name':"Committee"},{'id':2,'name':"Location"}];
+  bestPerCat = [{'id':1,'name':"Committee"},{'id':0,'name':"Location"}];
+  defultCategoryName:any = 0;
   resWorkcategory:any;
   dateRange:any;
   defaultCloseBtn: boolean = false;
@@ -46,20 +47,15 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, private route: ActivatedRoute,
-    public location: Location,  public dateTimeAdapter: DateTimeAdapter<any>,
-  ) {
-   { dateTimeAdapter.setLocale('en-IN'); } 
+    public location: Location,  public dateTimeAdapter: DateTimeAdapter<any>) {
+   {dateTimeAdapter.setLocale('en-IN');} 
     let data: any = localStorage.getItem('weekRange');
     this.selweekRange = JSON.parse(data);
-  
+    this.dateRange = [this.selweekRange.fromDate, this.selweekRange.toDate];
   }
 
   ngOnInit(): void {
-
     this.getWorkcategoryFilterDetails();
-    let fromDate:any = this.commonService.dateFormatChange(this.selweekRange.fromDate);
-    let ToDate:any = this.commonService.dateFormatChange(this.selweekRange.toDate);
-    this.dateRange = [new Date(fromDate), new Date(ToDate)];
     this. defaultFilterForm();
     this.defaultFilterBestPer();
     this.geWeekReport()
@@ -157,35 +153,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  defaultFilterForm() {
-    this.topFilterForm = this.fb.group({
-      category: [0],
-      fromTo: [this.dateRange],
-    })
-  }
 
-  clearFilter(flag:any){
-    if (flag == 'workType') {
-      this.topFilterForm.controls['category'].setValue(null);
-    } else if (flag == 'dateValue') {
-      this.topFilterForm.controls['fromTo'].setValue(null);
-    }  else if (flag == 'district') {
-      this.filterBestPer.controls['DistrictId'].setValue(null);
-    } else if (flag == 'taluka') {
-      this.filterBestPer.controls['TalukaId'].setValue(null);
-    }  else if (flag == 'committee') {
-      this.filterBestPer.controls['BodyId'].setValue(null);
-    } 
-    // this.paginationNo = 1;
-    // this.getPoliticalWork();
-  }
 
-  committee() {
+  filterData(flag:any){
+    if (flag == 'district') {
+      this.getTaluka(this.filterBestPer.value.DistrictId)
+    }
+    // district talka committee
     this.bestPerformance();
-  }
-
-  filterData(){
-
   }
 
   getweekRage(event:any){
@@ -208,7 +183,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     });
-    this.bestPerformance();
   }
 
   getTaluka(districtId: any) {
@@ -258,17 +232,50 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
+  defaultFilterForm() {
+    this.topFilterForm = this.fb.group({
+      category: [0],
+      fromTo: [this.dateRange],
+    })
+  }
+
+  clearFilter(flag:any){
+    if (flag == 'workType') {
+      this.topFilterForm.controls['category'].setValue(0);
+    } else if (flag == 'dateValue') {
+      this.topFilterForm.controls['fromTo'].setValue(this.selweekRange.fromDate, this.selweekRange.toDate);
+    }  else if (flag == 'district') {
+      this.filterBestPer.controls['DistrictId'].setValue(0);
+      this.filterBestPer.controls['TalukaId'].setValue(0);
+    } else if (flag == 'taluka') {
+      this.filterBestPer.controls['TalukaId'].setValue(0);
+    }  else if (flag == 'committee') {
+      this.filterBestPer.controls['BodyId'].setValue(1);
+    } 
+    this.bestPerformance();
+  }
+
+  committee() {
+    this.bestPerformance();
+  }
+
   getBestPerKaryMember() {
+    debugger;
     this.spinner.show();
-    let topFilterValue = this.topFilterForm.value
-    console.log(topFilterValue);
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' +topFilterValue.fromTo[0] + '&ToDate=' + topFilterValue.fromTo[1] + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
+    let topFilterValue = this.topFilterForm.value;
+    // let fromDate: any;
+    // let toDate: any;
+    // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
+    // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
+
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         console.log(res);
         this.spinner.hide();
         this.resBestPerKaryMember = res.data1;
       } else {
+        this.resBestPerKaryMember = [];
         this.spinner.hide();
         if (res.data == 1) {
           this.toastrService.error("Data is not available");
@@ -283,13 +290,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   geWeekReport() {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value
-    let fromDate: any;
-    let toDate: any;
-    // this.topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
-    // this.topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+    // let fromDate: any;
+    // let toDate: any;
+    // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
 
-    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + topFilterValue.fromTo[0] + '&ToDate=' + topFilterValue.fromTo[1]+ '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.WorkDoneByYuvakTP = res.data1;
@@ -308,17 +315,17 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
+
   bestPerformance() {
-    // this.spinner.show();
+    this.spinner.show();
+    debugger;
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
-
-    let fromDate: any;
-    let toDate: any;
-    topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
-    topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
-
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
+    // let fromDate: any;
+    // let toDate: any;
+    // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
+    // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -326,6 +333,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         // this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
+        this.resultBestPerKaryMember =  [];
         this.spinner.hide();
         if (res.data == 1) {
           this.toastrService.error("Data is not available");
@@ -444,7 +452,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
       let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
       localStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../master/organization/organization-details'], { relativeTo: this.route })
+      this.router.navigate(['../../master/organization/details'], { relativeTo: this.route })
   }
 
   redToMemberProfile(memberId:any,FullName:any){
