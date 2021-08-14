@@ -135,8 +135,8 @@
                                   <!-- <ng-container *ngFor="let img of ParpantsProMemImge; let i = index"  >
                                         <img *ngIf="i<1"  [lightbox]="i" [src]="img?.data?.thumb" />
                                 
-                                    </ng-container> -->
-                                    <img [src]="membersData.ImagePath" [lightbox]="membersData.MemberId" (click)="showLightBox(membersData.MemberId)" />
+                                    </ng-container>  [lightbox]="membersData.MemberId" -->
+                                    <img [src]="membersData.ImagePath" [lightbox]="membersData.MemberId"  [gallery]="'anotherLightbox'"  (click)="showLightBox(membersData.MemberId)" />
                                 </td>
                             </tr>
                         </tbody>

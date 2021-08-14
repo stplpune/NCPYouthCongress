@@ -5,6 +5,8 @@ import { NotificationsRoutingModule } from './notifications-routing.module';
 import { NotificationsComponent } from './notifications.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgxSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    OwlNativeDateTimeModule,
+    OwlDateTimeModule,
+    NgxPaginationModule
   ]
 })
 export class NotificationsModule { }

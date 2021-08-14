@@ -40,7 +40,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
   ParpantsProMemImge!: GalleryItem[]; 
-  ParpantsProMemImge1:any; 
+  ParpantsProMemImge1!: GalleryItem[];
   imgLightBox:boolean = false;
 
   constructor(
@@ -214,16 +214,19 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      console.log(res);
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
-        this.ParpantsProMemImge.map((item:any) =>{
-          debugger;
-          // new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
-         this.ParpantsProMemImge1.push({'ImagePath':item.ImagePath})
+
+        let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
+          new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
         });
+        console.log(getImages);
+        this.ParpantsProMemImge1 = getImages;
+    
         this.basicLightboxExample('members');
-  
+        this.withCustomGalleryConfig();
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -238,10 +241,17 @@ export class PartyProgramDetailsComponent implements OnInit {
     if(flag == 'global'){
       this.gallery.ref().load(this.programGalleryImg);
     }else if (flag == 'members'){
-      debugger;
       this.gallery.ref().load(this.ParpantsProMemImge1);
-      this._lightbox.open(this.ParpantsProMemImge1);
     }
+  }
 
+  withCustomGalleryConfig() {
+    const lightboxGalleryRef = this.gallery.ref('anotherLightbox');
+    lightboxGalleryRef.setConfig({
+      imageSize: ImageSize.Cover,
+      thumbPosition: ThumbnailsPosition.Top
+    });
+
+    lightboxGalleryRef.load(this.ParpantsProMemImge1);
   }
 }
