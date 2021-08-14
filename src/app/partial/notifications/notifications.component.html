@@ -3,25 +3,6 @@
         <div class="col-sm-4">
             <span class="page-name">Notifications</span>
         </div>
-        <!-- <div class="col-sm-8">
-            <div class="row g-1">
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-control" type="text" placeholder="Search Member" />
-                </div>
-            </div>
-        </div> -->
     </div>
 
     <div class="row chartbox">
@@ -68,7 +49,7 @@
                             </div>
                             <div class="mb-2">
                                 <label for="ddlScope" class="form-label">Scope of Notification</label>
-                                <ngx-select [allowClear]="true" [items]="allLevels" formControlName="scopeOf_Notifi" placeholder="Scope of Notification" optionValueField="Id" optionTextField="LevelName" >
+                                <ngx-select [allowClear]="true" [items]="notificationscopeArray" formControlName="scopeOf_Notifi" placeholder="Scope of Notification" optionValueField="id" optionTextField="ScopeName" >
                                 </ngx-select>
                                 <div *ngIf="submitted && f.scopeOf_Notifi.errors" class="invalid-feedback">
                                     <div *ngIf="f.scopeOf_Notifi.errors.required">Scope of Notification is required</div>
@@ -82,6 +63,16 @@
                                     <div *ngIf="f.members.errors.required">Select Members is required</div>
                                 </div>
                             </div>
+
+
+                            <div class="mb-3">
+                                <label for="ddlMembers" class="form-label">Check</label>
+                                <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" formControlName="check" id="flexSwitchCheckChecked" data-bs-toggle="modal"
+                                data-bs-target="#ProgramStatusModal" >
+                            </div>
+                            </div>
+                              
                             <div class="mb-2 text-end">
                                 <button type="submit" class="btn btn-main">Push Notification</button>
                                 <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
@@ -92,7 +83,9 @@
                     </div>
                     <div class="col-9 border-start" id="notifications">
                         <div class="text-end">
+                            <form [formGroup]="filterForm">
                             <div class="row g-1">
+                                
                                 <div class="col-sm-auto">
                                     <div class="form-check pt-2 me-3">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -102,21 +95,23 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
+                                    <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
                                     </ngx-select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
+                                    <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
+                                    optionValueField="TalukaId" optionTextField="TalukaName">
+                                </ngx-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <ngx-select [allowClear]="true" formControlName="VillageId" [disabled]="!filterForm.value.TalukaId" optionTextField="VillageName" optionValueField="" [items]="resultVillageOrCity"  placeholder="Select City/Village">
                                     </ngx-select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                                    </ngx-select>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input class="form-control" type="text" placeholder="Search Member" />
+                                    <input class="form-control" formControlName="searchText" type="text" placeholder="Search Member" />
                                 </div>
                             </div>
+                        </form>
                         </div>
                         <hr class="mt-2">
                         <div class="d-flex media">
@@ -199,6 +194,34 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal pop up -->
+<div class="modal fade" id="ProgramStatusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProgramStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="ProgramStatusModalLabel">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                            <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8"
+                                y2="92.3" />
+                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
+                                stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4"
+                                y2="92.2" />
+                        </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to  This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal" aria-label="Close" >Cancel</button>
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close">I'm Sure</button>
             </div>
         </div>
     </div>

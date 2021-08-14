@@ -11,21 +11,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./notifications.component.css', '../partial.component.css']
 })
 export class NotificationsComponent implements OnInit {
-  public items: string[] = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-  'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-  'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-  'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-  'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-  'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-  'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-  'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-  'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-  'Zagreb', 'Zaragoza', 'Łódź'];
 
   notificationForm!: FormGroup;
   submitted = false;
   allLevels: any;
   memberNameArray: any;
+  filterForm!: FormGroup;
+  allDistrict: any;
+  viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
+  getTalkaByDistrict: any;
+  resultVillageOrCity: any;
+  notificationscopeArray: any;
   
   constructor(
     private callAPIService: CallAPIService, 
@@ -41,6 +37,9 @@ export class NotificationsComponent implements OnInit {
     this.customForm();
     this.getLevel();
     this.getMemberName();
+    this.getDistrict();
+    this.defaultFilterForm();
+    this.gerNotificationscope();
   }
 
   customForm() {
@@ -52,6 +51,16 @@ export class NotificationsComponent implements OnInit {
       attachment: ['', Validators.required],
       scopeOf_Notifi: ['', Validators.required],
       members: ['', Validators.required],
+      check:['']
+    })
+  }
+
+  defaultFilterForm() {
+    this.filterForm = this.fb.group({
+      DistrictId: [''],
+      TalukaId: [''],
+      VillageId: [''],
+      searchText:[''],
     })
   }
 
@@ -97,7 +106,82 @@ export class NotificationsComponent implements OnInit {
     })
   }
 
+  getDistrict() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrict = res.data1;
+      } else {
+          this.toastrService.error("Data is not available 2");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
+  getTaluka(districtId: any) {
+    this.viewMembersObj.DistrictId = districtId;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.getTalkaByDistrict = res.data1;
+        console.log(this.getTalkaByDistrict)
+      } else {
+          this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
+  getVillageOrCity(talukaID: any) {
+    debugger
+    this.viewMembersObj.Talukaid = talukaID
+    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultVillageOrCity = res.data1;
+
+      } else {
+          this.toastrService.error("Data is not available1");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  } 
+
+  gerNotificationscope() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Notificationscope', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.notificationscopeArray = res.data1;
+        console.log(this.notificationscopeArray)
+      } else {
+          this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  filterVillage(villageId: any){
+    this.viewMembersObj.villageid = villageId;
+    console.log(this.filterForm.value)
+  }
 
 }

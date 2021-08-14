@@ -27,6 +27,11 @@ export class ForwardActivitiesComponent implements OnInit {
   submitted = false;
   allLevels: any;
   memberNameArray: any;
+  filterForm!: FormGroup;
+  allDistrict: any;
+  viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
+  getTalkaByDistrict: any;
+  resultVillageOrCity: any;
   
   constructor(
     private callAPIService: CallAPIService, 
@@ -41,6 +46,8 @@ export class ForwardActivitiesComponent implements OnInit {
   ngOnInit(): void {
     this.customForm();
     this.getLevel();
+    this.getDistrict();
+    this.defaultFilterForm();
   }
 
   customForm() {
@@ -57,6 +64,15 @@ export class ForwardActivitiesComponent implements OnInit {
   }
 
   get f() { return this.forwardActivitiForm.controls };
+
+  defaultFilterForm() {
+    this.filterForm = this.fb.group({
+      DistrictId: [''],
+      TalukaId: [''],
+      VillageId: [''],
+      searchText:['']
+    })
+  }
   
   onSubmit(){
     this.submitted = true;
@@ -79,6 +95,66 @@ export class ForwardActivitiesComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  getDistrict() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrict = res.data1;
+      } else {
+          this.toastrService.error("Data is not available 2");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getTaluka(districtId: any) {
+    this.viewMembersObj.DistrictId = districtId;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.getTalkaByDistrict = res.data1;
+        console.log(this.getTalkaByDistrict)
+      } else {
+          this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getVillageOrCity(talukaID: any) {
+    debugger
+    this.viewMembersObj.Talukaid = talukaID
+    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultVillageOrCity = res.data1;
+
+      } else {
+          this.toastrService.error("Data is not available1");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  filterVillage(villageId: any){
+    this.viewMembersObj.villageid = villageId;
+    console.log(this.filterForm.value)
   }
 
 }
