@@ -154,6 +154,7 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
+        this.workLineChart();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
       } else {
@@ -189,178 +190,270 @@ export class DashboardComponent implements OnInit {
 
 
   /* Chart code */
+  workLineChart(){
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+  
+  // Create chart instance
+  let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
+  
+  // Add data
 
-  workLineChart() {
-    // Themes begin
-    am4core.useTheme(am4themes_kelly);
-    am4core.useTheme(am4themes_animated);
-    // Themes end
+  chart.data = this.workInThisWeekArray;
 
-    // Create chart instance
-    let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
+  // Create category axis
+  let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.dataFields.category = "Date";
+  categoryAxis.renderer.opposite = false;
+  
+  
+  // Create value axis
+  let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.inversed = false;
+  valueAxis.title.text = "Work In This Week Dated Count";
+  valueAxis.renderer.minLabelPosition = 0.01;
+  
+  // Create series
+  let series1 = chart.series.push(new am4charts.LineSeries());
+  series1.dataFields.valueY = "ActivityCount";
+  series1.dataFields.categoryX = "Date";
+  series1.name = "Work Count";
+  series1.bullets.push(new am4charts.CircleBullet());
+  series1.tooltipText = "{name} in {categoryX}: {valueY}";
+  series1.legendSettings.valueText = "{valueY}";
+  series1.visible  = false;
 
-    // Add data 
-    // chart.data = this.workInThisWeekArray;
-    chart.data = [{
-      "x": 1,
-      "ay": 6.5,
-      "by": 2.2,
-      "aValue": 15,
-      "bValue": 10
-    }, {
-      "x": 2,
-      "ay": 12.3,
-      "by": 4.9,
-      "aValue": 8,
-      "bValue": 3
-    }, {
-      "x": 3,
-      "ay": 12.3,
-      "by": 5.1,
-      "aValue": 16,
-      "bValue": 4
-    }, {
-      "x": 5,
-      "ay": 2.9,
-      "aValue": 9
-    }, {
-      "x": 7,
-      "by": 8.3,
-      "bValue": 13
-    }, {
-      "x": 10,
-      "ay": 2.8,
-      "by": 13.3,
-      "aValue": 9,
-      "bValue": 13
-    }, {
-      "x": 12,
-      "ay": 3.5,
-      "by": 6.1,
-      "aValue": 5,
-      "bValue": 2
-    }, {
-      "x": 13,
-      "ay": 5.1,
-      "aValue": 10
-    }, {
-      "x": 15,
-      "ay": 6.7,
-      "by": 10.5,
-      "aValue": 3,
-      "bValue": 10
-    }, {
-      "x": 16,
-      "ay": 8,
-      "by": 12.3,
-      "aValue": 5,
-      "bValue": 13
-    }, {
-      "x": 20,
-      "by": 4.5,
-      "bValue": 11
-    }, {
-      "x": 22,
-      "ay": 9.7,
-      "by": 15,
-      "aValue": 15,
-      "bValue": 10
-    }, {
-      "x": 23,
-      "ay": 10.4,
-      "by": 10.8,
-      "aValue": 1,
-      "bValue": 11
-    }, {
-      "x": 24,
-      "ay": 1.7,
-      "by": 19,
-      "aValue": 12,
-      "bValue": 3
-    }];
+  let series2 = chart.series.push(new am4charts.LineSeries());
+  series2.dataFields.valueY = "MemberCount";
+  series2.dataFields.categoryX = "Date";
+  series2.name = 'Members Count';
+  series2.bullets.push(new am4charts.CircleBullet());
+  series2.tooltipText = "{name} in {categoryX}: {valueY}";
+  series2.legendSettings.valueText = "{valueY}";
 
-    // 13: {ActivityCount: 0, MemberCount: 0, UserCount: 0, Date: "28/05/2021"}
+  let series3 = chart.series.push(new am4charts.LineSeries());
+series3.dataFields.valueY = "UserCount";
+series3.dataFields.categoryX = "Date";
+series3.name = 'UserCount';
+series3.bullets.push(new am4charts.CircleBullet());
+series3.tooltipText = "{name} in {categoryX}: {valueY}";
+series3.legendSettings.valueText = "{valueY}";
+
+  // Add chart cursor
+  // chart.cursor = new am4charts.XYCursor();
+  // chart.cursor.behavior = "zoomY";
+  
+  
+  let hs1 = series1.segments.template.states.create("hover")
+  hs1.properties.strokeWidth = 5;
+  series1.segments.template.strokeWidth = 1;
+  
+  let hs2 = series2.segments.template.states.create("hover")
+  hs2.properties.strokeWidth = 5;
+  series2.segments.template.strokeWidth = 1;
+
+  let hs3 = series3.segments.template.states.create("hover")
+hs3.properties.strokeWidth = 5;
+series3.segments.template.strokeWidth = 1;
+  
+  // Add legend
+  chart.legend = new am4charts.Legend();
+  chart.legend.maxWidth = 70;
+  chart.legend.fontSize = 9;
+
+  // let markerTemplate = chart.legend.markers.template;
+  // markerTemplate.width = 15;
+  // markerTemplate.height = 15;
 
 
-
-    // Create axes
-    let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    xAxis.renderer.minGridDistance = 40;
-
-
-    // Create value axis
-    let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-    // Create series
-    let series1 = chart.series.push(new am4charts.LineSeries());
-    series1.dataFields.valueX = "x";
-    series1.dataFields.valueY = "ay";
-    series1.dataFields.value = "aValue";
-    series1.name = "Work Count";
-    series1.strokeWidth = 2;
-    // series1.bullets.push(new am4charts.CircleBullet());
-    // series1.tooltipText = "Place{name} in {valueX}: {valueY}";
-    // series1.legendSettings.valueText = "{valueY}";
-
-    let bullet1 = series1.bullets.push(new am4charts.CircleBullet());
-    series1.heatRules.push({
-      target: bullet1.circle,
-      min: 5,
-      max: 5,
-      property: "radius"
-    });
-
-    bullet1.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
-
-    let series2 = chart.series.push(new am4charts.LineSeries());
-    series2.dataFields.valueX = "x";
-    series2.dataFields.valueY = "by";
-    series2.dataFields.value = "bValue";
-    series2.name = 'Members Count';
-    series2.strokeWidth = 2;
-    // series2.bullets.push(new am4charts.CircleBullet());
-    // series2.tooltipText = "Place{name} in {valueX}: {valueY}";
-    // series2.legendSettings.valueText = "{valueY}";
-
-    let bullet2 = series2.bullets.push(new am4charts.CircleBullet());
-    series2.heatRules.push({
-      target: bullet2.circle,
-      min: 5,
-      max: 5,
-      property: "radius"
-    });
-
-    bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
+  // chart.legend.itemContainers.template.events.on("over", function(event:any){
+  //   let segments = event.target.dataItem.dataContext.segments;
+  //   segments.each(function(segment:any){
+  //     segment.isHover = true;
+  //   })
+  // })
+  
+  // chart.legend.itemContainers.template.events.on("out", function(event:any){
+  //   let segments = event.target.dataItem.dataContext.segments;
+  //   segments.each(function(segment:any){
+  //     segment.isHover = false;
+  //   })
+  // })
+  
+}
 
 
-    let hs1 = series1.segments.template.states.create("hover")
-    hs1.properties.strokeWidth = 5;
-    series1.segments.template.strokeWidth = 1;
+  // workLineChart() {
+  //   // Themes begin
+  //   am4core.useTheme(am4themes_kelly);
+  //   am4core.useTheme(am4themes_animated);
+  //   // Themes end
 
-    let hs2 = series2.segments.template.states.create("hover")
-    hs2.properties.strokeWidth = 5;
-    series2.segments.template.strokeWidth = 1;
+  //   // Create chart instance
+  //   let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
 
-    // //scrollbars
-    // chart.scrollbarX = new am4core.Scrollbar();
-    // chart.scrollbarY = new am4core.Scrollbar();
+  //   // Add data 
+  //   // chart.data = this.workInThisWeekArray;
+  //   chart.data = [{
+  //     "x": 1,
+  //     "ay": 6.5,
+  //     "by": 2.2,
+  //     "aValue": 15,
+  //     "bValue": 10
+  //   }, {
+  //     "x": 2,
+  //     "ay": 12.3,
+  //     "by": 4.9,
+  //     "aValue": 8,
+  //     "bValue": 3
+  //   }, {
+  //     "x": 3,
+  //     "ay": 12.3,
+  //     "by": 5.1,
+  //     "aValue": 16,
+  //     "bValue": 4
+  //   }, {
+  //     "x": 5,
+  //     "ay": 2.9,
+  //     "aValue": 9
+  //   }, {
+  //     "x": 7,
+  //     "by": 8.3,
+  //     "bValue": 13
+  //   }, {
+  //     "x": 10,
+  //     "ay": 2.8,
+  //     "by": 13.3,
+  //     "aValue": 9,
+  //     "bValue": 13
+  //   }, {
+  //     "x": 12,
+  //     "ay": 3.5,
+  //     "by": 6.1,
+  //     "aValue": 5,
+  //     "bValue": 2
+  //   }, {
+  //     "x": 13,
+  //     "ay": 5.1,
+  //     "aValue": 10
+  //   }, {
+  //     "x": 15,
+  //     "ay": 6.7,
+  //     "by": 10.5,
+  //     "aValue": 3,
+  //     "bValue": 10
+  //   }, {
+  //     "x": 16,
+  //     "ay": 8,
+  //     "by": 12.3,
+  //     "aValue": 5,
+  //     "bValue": 13
+  //   }, {
+  //     "x": 20,
+  //     "by": 4.5,
+  //     "bValue": 11
+  //   }, {
+  //     "x": 22,
+  //     "ay": 9.7,
+  //     "by": 15,
+  //     "aValue": 15,
+  //     "bValue": 10
+  //   }, {
+  //     "x": 23,
+  //     "ay": 10.4,
+  //     "by": 10.8,
+  //     "aValue": 1,
+  //     "bValue": 11
+  //   }, {
+  //     "x": 24,
+  //     "ay": 1.7,
+  //     "by": 19,
+  //     "aValue": 12,
+  //     "bValue": 3
+  //   }];
 
-    // Add legend
-    chart.legend = new am4charts.Legend();
-    chart.legend.itemContainers.template.events.on("over", function (event: any) {
-      let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function (segment: any) {
-        segment.isHover = true;
-      })
-    })
+  //   // 13: {ActivityCount: 0, MemberCount: 0, UserCount: 0, Date: "28/05/2021"}
 
-    chart.legend.itemContainers.template.events.on("out", function (event: any) {
-      let segments = event.target.dataItem.dataContext.segments;
-      segments.each(function (segment: any) {
-        segment.isHover = false;
-      })
-    })
-  }
+
+
+  //   // Create axes
+  //   let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+  //   xAxis.renderer.minGridDistance = 40;
+
+
+  //   // Create value axis
+  //   let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+  //   // Create series
+  //   let series1 = chart.series.push(new am4charts.LineSeries());
+  //   series1.dataFields.valueX = "x";
+  //   series1.dataFields.valueY = "ay";
+  //   series1.dataFields.value = "aValue";
+  //   series1.name = "Work Count";
+  //   series1.strokeWidth = 2;
+  //   // series1.bullets.push(new am4charts.CircleBullet());
+  //   // series1.tooltipText = "Place{name} in {valueX}: {valueY}";
+  //   // series1.legendSettings.valueText = "{valueY}";
+
+  //   let bullet1 = series1.bullets.push(new am4charts.CircleBullet());
+  //   series1.heatRules.push({
+  //     target: bullet1.circle,
+  //     min: 5,
+  //     max: 5,
+  //     property: "radius"
+  //   });
+
+  //   bullet1.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
+
+  //   let series2 = chart.series.push(new am4charts.LineSeries());
+  //   series2.dataFields.valueX = "x";
+  //   series2.dataFields.valueY = "by";
+  //   series2.dataFields.value = "bValue";
+  //   series2.name = 'Members Count';
+  //   series2.strokeWidth = 2;
+  //   // series2.bullets.push(new am4charts.CircleBullet());
+  //   // series2.tooltipText = "Place{name} in {valueX}: {valueY}";
+  //   // series2.legendSettings.valueText = "{valueY}";
+
+  //   let bullet2 = series2.bullets.push(new am4charts.CircleBullet());
+  //   series2.heatRules.push({
+  //     target: bullet2.circle,
+  //     min: 5,
+  //     max: 5,
+  //     property: "radius"
+  //   });
+
+  //   bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
+
+
+  //   let hs1 = series1.segments.template.states.create("hover")
+  //   hs1.properties.strokeWidth = 5;
+  //   series1.segments.template.strokeWidth = 1;
+
+  //   let hs2 = series2.segments.template.states.create("hover")
+  //   hs2.properties.strokeWidth = 5;
+  //   series2.segments.template.strokeWidth = 1;
+
+  //   // //scrollbars
+  //   // chart.scrollbarX = new am4core.Scrollbar();
+  //   // chart.scrollbarY = new am4core.Scrollbar();
+
+  //   // Add legend
+  //   chart.legend = new am4charts.Legend();
+  //   chart.legend.itemContainers.template.events.on("over", function (event: any) {
+  //     let segments = event.target.dataItem.dataContext.segments;
+  //     segments.each(function (segment: any) {
+  //       segment.isHover = true;
+  //     })
+  //   })
+
+  //   chart.legend.itemContainers.template.events.on("out", function (event: any) {
+  //     let segments = event.target.dataItem.dataContext.segments;
+  //     segments.each(function (segment: any) {
+  //       segment.isHover = false;
+  //     })
+  //   })
+  // }
 
   weeklyColumnChart() {
     // Themes begin
