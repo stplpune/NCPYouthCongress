@@ -32,6 +32,12 @@ export class NotificationsComponent implements OnInit {
   searchFilter = "";
   defaultCloseBtn:boolean = false;
   total:any;
+  imgName: any;
+  ImgUrl: any;
+  getImgExt: any;
+  selectedFile!: File;
+  NotificationText:string =  "Push";
+  getImgPath:any;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -57,14 +63,15 @@ export class NotificationsComponent implements OnInit {
 
   customForm() {
     this.notificationForm = this.fb.group({
-      titleName: ['', Validators.required],
-      notifi_Body: ['', Validators.required],
-      Photo: ['', Validators.required],
-      link: ['', Validators.required],
-      attachment: ['', Validators.required],
-      scope_Of_Not: ['', Validators.required],
-      members: ['', Validators.required],
-      check:['']
+      Id:[0],
+      CreatedBy:[this.commonService.loggedInUserId()],
+      ScopeId: ['', Validators.required], 
+      Title: ['', Validators.required],
+      Description: ['', Validators.required],
+      ImageUrl: [''],
+      Link: [''], 
+      MemberStr: [''],
+      
     })
   }
 
@@ -79,10 +86,71 @@ export class NotificationsComponent implements OnInit {
   get f() { return this.notificationForm.controls };
   
   onSubmit(){
+    this.spinner.show();
     this.submitted = true;
-    console.log(this.notificationForm.value);
-    //this.clearForm();
+    if (this.notificationForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+    let fromData = new FormData();
+      Object.keys(this.notificationForm.value).forEach((cr: any, ind: any) => {
+        let value: any = Object.values(this.notificationForm.value)[ind] != null ? Object.values(this.notificationForm.value)[ind] : 0;
+        fromData.append(cr, value)
+      });
+      let notStatus:any;
+      this.selectedFile ? notStatus = 2 : notStatus = 1;
+      fromData.append('AttchmentStr', this.selectedFile);
+      fromData.append('NotificationType', notStatus);
+
+      this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.submitted = false;
+          this.spinner.hide();
+          this.toastrService.success(res.data1[0].Msg)
+          this.getNotificationData();
+        } else {
+          this.toastrService.error(res.data1[0].Msg)
+          this.spinner.hide();
+        }
+      } ,(error:any) => {
+        this.spinner.hide();
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
+      })
+    }
   }
+
+  editNotification(data:any){
+    console.log(data);
+    this.NotificationText == "Update";
+    this.getImgPath = data.AttachmentPath
+    this.notificationForm.patchValue({
+      AttachmentPath: data.AttachmentPath,
+      Description: data.Description,
+      Id: data.Id,
+      Link: data.Link,
+      MemberScope: data.MemberScope,
+      NotificationDate: data.NotificationDate,
+      NotificationType: data.NotificationType,
+      ScopeId: data.ScopeId,
+      ScopeName: data.ScopeName,
+      SrNo: data.SrNo,
+      Title: data.Title,
+    })
+
+  }
+
+  deleteImg(){
+    this.getImgPath = null;
+    this.notificationForm.patchValue({
+      AttachmentPath:'',
+      NotificationType:1
+    })
+  }
+  
 
   getLevel() {
     this.spinner.show();
@@ -155,7 +223,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any) {
-    debugger
     this.viewMembersObj.Talukaid = talukaID
     this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -214,7 +281,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   getNotificationData(){
-    debugger;
     let getObj:any = this.filterForm.value;
     this.spinner.show();
     let fromDate: any;
@@ -240,7 +306,8 @@ export class NotificationsComponent implements OnInit {
       }
     })
   }
-  
+
+ 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
     this.getNotificationData();
@@ -265,4 +332,31 @@ export class NotificationsComponent implements OnInit {
     );
   }
 
+  
+  choosePhoto() {
+    let clickPhoto: any = document.getElementById('my_file')
+    clickPhoto.click();
+  }
+
+  readUrl(event: any) {
+    let selResult = event.target.value.split('.');
+    this.getImgExt = selResult.pop();
+    this.getImgExt.toLowerCase();
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg") {
+      this.selectedFile = <File>event.target.files[0];
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.ImgUrl = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        this.imgName = event.target.files[0].name;
+      }
+    }
+    else {
+      this.toastrService.error("Profile image allowed only jpg or png format");
+    }
+  }
+
+  
 }
