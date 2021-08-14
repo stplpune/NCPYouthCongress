@@ -62,7 +62,7 @@ export class OrganizationMasterComponent implements OnInit {
   editRadioBtnClick:any;
   subject: Subject<any> = new Subject();
   globalLevelId:any;
-  allBodyAssignedDesignation:any
+  allBodyAssignedDesignation:any;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
