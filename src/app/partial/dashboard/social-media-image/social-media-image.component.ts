@@ -6,10 +6,10 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { ToastrService } from 'ngx-toastr';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { CommonService } from 'src/app/services/common.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-social-media-image',
@@ -27,9 +27,13 @@ export class SocialMediaImageComponent implements OnInit {
   perceptionOnSocialMediaArray: any;
   trendOnSocialMediaArray: any;
   dateRange = [new Date(Date.now() + -7 * 24 * 60 * 60 * 1000), new Date()];
+  dateRange1 = [new Date(Date.now() + -7 * 24 * 60 * 60 * 1000), new Date()];
   allDistrict: any;
   getTalkaByDistrict: any;
   filterForm!: FormGroup;
+  defaultCloseBtn:boolean = false;
+  perceptionTrendWebArray:any;
+  perOnSocialMedArray:any;
 
   constructor(
     private fb: FormBuilder,
@@ -38,22 +42,22 @@ export class SocialMediaImageComponent implements OnInit {
     private toastrService: ToastrService,
     private commonService: CommonService,
     public dateTimeAdapter: DateTimeAdapter<any>,
+    public location:Location,
     public datepipe: DatePipe,
   ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
-    this.getMostLikeHatedPerson();
-    this.getLowHighSocialMTypesOfWorks();
     this.getDistrict();
     this.defaultFilterForm();
+    this.getMostLikeHatedPerson();
   }
 
   
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      DistrictId: [''],
-      TalukaId: [''],
-      fromTo:['']
+      DistrictId: [0],
+      TalukaId: [0],
+      fromTo:[this.dateRange],
     })
   }
 
@@ -76,14 +80,13 @@ export class SocialMediaImageComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-
+    this.getMostLikeHatedPerson();
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        console.log(this.getTalkaByDistrict)
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -97,32 +100,88 @@ export class SocialMediaImageComponent implements OnInit {
 
 
   getweekRage(dates: any) {
+    this.defaultCloseBtn = true;
     var Time = dates.value[1].getTime() - dates.value[0].getTime();
     var Days = Time / (1000 * 3600 * 24);
 
     if (Days <= 7) {
-      this.fromDate = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
-      this.toDate = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
+      // this.fromDate = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
+      // this.toDate = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
       this.getMostLikeHatedPerson();
-      this.getLowHighSocialMTypesOfWorks();
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
     }
   }
+  filterData(){
+    this.getMostLikeHatedPerson();
+  }
+
+  clearFilter(flag: any) {
+    if (flag == 'district') {
+      this.filterForm.controls['DistrictId'].setValue(0);
+      this.filterForm.controls['TalukaId'].setValue(0);
+    } else if (flag == 'taluka') {
+      this.filterForm.controls['TalukaId'].setValue(0);
+    } else if (flag == 'Date') {
+      debugger;
+      this.defaultCloseBtn = false;
+      this.filterForm.controls['fromTo'].setValue(this.dateRange1);
+    }
+    this.getMostLikeHatedPerson();
+  }
 
   getMostLikeHatedPerson() {
+    let fromDate: any;
+    let toDate: any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_MostLikeHatedPerson_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_MostLikeHatedPerson_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.mostLikedPersonArray = res.data1;
         this.mostHatedPersonArray = res.data2;
-        //console.log('getDistrictWiseMemberCount',this.districtWiseMemberCountArray);
+        this.perceptionTrendWeb();
       } else {
+        this.perceptionTrendWeb();
         if (res.data == 1) {
           this.spinner.hide();
           this.toastrService.error("Data is not available");
+          this.mostLikedPersonArray = [];
+          this.mostHatedPersonArray = [];
+        } else {
+          this.spinner.hide();
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  perceptionTrendWeb() {
+    let fromDate: any;
+    let toDate: any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+       
+        this.perOnSocialMedArray = res.data2;
+        this.trendOnSocialMediaArray = res.data1;
+        this.trendSocialMediaLineChart();
+        this.socialMediaChart();
+        this.spinner.hide();
+      } else {
+        if (res.data == 1) {
+        
+          this.toastrService.error("Data is not available");
+          this.perOnSocialMedArray = [];
+          this.trendOnSocialMediaArray = [];
+          this.trendSocialMediaLineChart();
+          this.socialMediaChart();
+          this.spinner.hide();
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -132,40 +191,41 @@ export class SocialMediaImageComponent implements OnInit {
   }
 
   getLowHighSocialMTypesOfWorks() {//count3 api
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.trendOnSocialMediaArray = res.data1;
-        let perOnSocialMedArray = res.data2;
-        let addLogoParty = perOnSocialMedArray.map((ele: any) => {
-          if (ele.PartyShortCode == 'NCP') {
-            ele['href'] = "assets/images/logos/ncp-logo.png";
-          } else if (ele.PartyShortCode == 'SS') {
-            ele['href'] = "assets/images/logos/shivsena-logo.png";
-          } else if (ele.PartyShortCode == 'BJP') {
-            ele['href'] = "assets/images/logos/bjp-logo.png";
-          } else if (ele.PartyShortCode == 'INC') {
-            ele['href'] = "assets/images/logos/inc-logo.png";
-          } else if (ele.PartyShortCode == 'OTR') {
-            ele['href'] = "assets/images/logos/speech.png";
-          }
-          return ele
-        })
-        this.perceptionOnSocialMediaArray = addLogoParty
-        this.trendSocialMediaLineChart();
-        this.socialMediaChart();
-      } else {
-        if (res.data == 1) {
-          this.spinner.hide();
-          this.toastrService.error("Data is not available");
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
-      }
-    })
+    // this.spinner.show();
+    // this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.getHttp().subscribe((res: any) => {
+    //   if (res.data == 0) {
+    //     this.spinner.hide();
+    //     this.trendOnSocialMediaArray = res.data1;
+    //     let perOnSocialMedArray = res.data2;
+    //     let addLogoParty = perOnSocialMedArray.map((ele: any) => {
+    //       if (ele.PartyShortCode == 'NCP') {
+    //         ele['href'] = "assets/images/logos/ncp-logo.png";
+    //       } else if (ele.PartyShortCode == 'SS') {
+    //         ele['href'] = "assets/images/logos/shivsena-logo.png";
+    //       } else if (ele.PartyShortCode == 'BJP') {
+    //         ele['href'] = "assets/images/logos/bjp-logo.png";
+    //       } else if (ele.PartyShortCode == 'INC') {
+    //         ele['href'] = "assets/images/logos/inc-logo.png";
+    //       } else if (ele.PartyShortCode == 'OTR') {
+    //         ele['href'] = "assets/images/logos/speech.png";
+    //       }
+    //       return ele
+    //     })
+    //     this.perceptionOnSocialMediaArray = addLogoParty
+    //     this.trendSocialMediaLineChart();
+    //     this.socialMediaChart();
+    //   } else {
+    //     if (res.data == 1) {
+    //       this.spinner.hide();
+    //       this.trendOnSocialMediaArray = [];
+    //       this.toastrService.error("Data is not available");
+    //     } else {
+    //       this.spinner.hide();
+    //       this.toastrService.error("Please try again something went wrong");
+    //     }
+    //   }
+    // })
   }
 
   socialMediaChart() {
@@ -175,7 +235,7 @@ export class SocialMediaImageComponent implements OnInit {
     let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    chart.data = this.perceptionOnSocialMediaArray;
+    chart.data = this.perOnSocialMedArray;
     chart.colors.list = [
       am4core.color("#80DEEA"),
       am4core.color("#FF8A65"),
@@ -204,7 +264,6 @@ export class SocialMediaImageComponent implements OnInit {
       if (category) {
         return "assets/images/logos/" + category.split(" ").join("-").toLowerCase() + ".png";
       }
-      console.log(target);
       return href;
     })
     categoryAxis.dataItems.template.bullet = image;
@@ -246,7 +305,7 @@ export class SocialMediaImageComponent implements OnInit {
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "SrNo";
     categoryAxis.renderer.opposite = false;
-    categoryAxis.title.text = "X-Axis";
+    // categoryAxis.title.text = "X-Axis";
 
     // Create value axis
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());

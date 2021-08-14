@@ -5,6 +5,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
+
+
+
 @Component({
   selector: 'app-party-program-details',
   templateUrl: './party-program-details.component.html',
@@ -36,6 +40,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
   ParpantsProMemImge!: GalleryItem[]; 
+  ParpantsProMemImge1:any; 
   imgLightBox:boolean = false;
 
   constructor(
@@ -45,7 +50,8 @@ export class PartyProgramDetailsComponent implements OnInit {
     private toastrService: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    public gallery: Gallery
+    public gallery: Gallery,
+    private _lightbox: Lightbox
   ) {
     if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
       this.toastrService.error("Please select Program Title  and try again");
@@ -204,13 +210,13 @@ export class PartyProgramDetailsComponent implements OnInit {
  
 
   showLightBox(MemberId:any){
+    let index:any = 1;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
-        
         this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) =>
           new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
         );

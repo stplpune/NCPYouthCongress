@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
   GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }, { id: 3, name: "Other" }];
@@ -39,7 +39,8 @@ export class HeaderComponent implements OnInit {
   setVillOrcityName: any;
   globalVillageOrCityId: any;
   disabledEditForm :boolean = true;
-
+  defaultModalHIde:boolean = false;
+  defaultModalHIdeCP:boolean = false;
   changePasswordForm: any;
   submittedChangePassword = false;
   show_button: Boolean = false;
@@ -61,6 +62,10 @@ export class HeaderComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(){
     this.myProfileForm();
     this.getProfileData();
     this.customFormChangePassword();

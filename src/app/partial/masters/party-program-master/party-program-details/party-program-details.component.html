@@ -132,11 +132,11 @@
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
-
-                                    <ng-container *ngFor="let img of membersData.ImagePath?.split(',',1); let i = index">
-                                        <img [lightbox]="i" [src]="img?.data?.thumb" (click)="showLightBox(membersData.MemberId)" />
-                                        <!-- <img src="{{img}}" (click)="showLightBox(membersData.MemberId); imgLightBox = true" *ngIf="!imgLightBox" /> -->
+                                  <ng-container *ngFor="let img of ParpantsProMemImge; let i = index" (click)="showLightBox(membersData.MemberId)" >
+                                        <img *ngIf="i<1"  [lightbox]="i" [src]="img?.data?.thumb" />
+                                
                                     </ng-container>
+                                     <!--  <img src="{{membersData.ImagePath}}"  (click)="showLightBox(membersData.MemberId)"   /> -->
                                 </td>
                             </tr>
                         </tbody>

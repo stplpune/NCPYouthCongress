@@ -4,21 +4,35 @@
             <span class="page-name">View Members</span>
         </div>
         <div class="col-sm-9">
+            <form [formGroup]="topFilterForm">
             <div class="row g-1 d-flex justify-content-end">
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="ddlpoliticalWork" placeholder="Select Political Work">
+            
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" formControlName="category" (remove)="clearFilter('workType')"
+                        (select)="filterData()" [items]="resWorkcategory" optionValueField="Id"
+                        optionTextField="Category" 
+                        placeholder="Select Work Category">
                     </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <div class="input-group">
-                        <input class="form-control rounded" type="text" placeholder="From To" />
-                        <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
                     </div>
-                </div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <input [owlDateTime]="dt1" formControlName="fromTo" (dateTimeChange)="getweekRage($event)"
+                                    class="form-control form-control-sm"  [(ngModel)]="dateRange" 
+                                    [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                                <button class="btn btn-light btn-sm" type="button" *ngIf="!defaultCloseBtn" [owlDateTimeTrigger]="dt1"> <i class="fas fa-calendar-alt"></i></button>
+                                <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateValue')">
+                                    <i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+            
                 <div class="col-sm-auto">
                     <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
     <!-- <div class="row">
@@ -78,6 +92,7 @@
             <div class="card">
                 <div class="card-header">Best Performed Organization Body</div>
                 <div class="card-body">
+                   
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -85,36 +100,23 @@
                                 <th>Organization Name</th>
                                 <th>Location</th>
                                 <th>Work Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a routerLink="#">Maharashtra Rajya Committee</a></td>
-                                <td>City, Taluka, District</td>
-                                <td>2541</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Karyakarta Name</th>
-                                <th>Email ID</th>
-                                <th>Contact No</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let result of resBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{result.FullName}}</td>
-                                <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
-                                <td>{{result.MobileNo}}</td>
+                                <td><a class="text-primary" (click)="redirectOrgDetails(result.BodyId,result.BodyOrgCellName)">{{result.BodyOrgCellName}}</a></td>
+                                <td>{{result.Area}}</td>
+                                <td>{{result.Totalwork}}</td>
+                            </tr>
+                            <tr *ngIf="resBestPerKaryMember?.length == 8">
+                                <td colspan="4">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
                             </tr>
                         </tbody>
-                    </table> -->
+                    </table>
                 </div>
             </div>
         </div>
@@ -133,8 +135,8 @@
                             </div>
                             <div class="col-sm-6 text-end">
                                 <div class="form-check form-check-inline" *ngFor="let PerformanceCat of bestPerCat">
-                                    <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" [checked]="PerformanceCat == 'Location'" (change)="catChange(PerformanceCat)">
-                                    <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat}}</label>
+                                    <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsBody" [value]="PerformanceCat.id" [checked]="PerformanceCat.id == 2"  (change)="catChange(PerformanceCat)">
+                                    <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat.name}}</label>
                                 </div>
                                 <!-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="rblWise" id="rbCommittee" value="Committee">
@@ -148,11 +150,11 @@
                         </div>
                         <div class="row g-2" *ngIf="catValue != 'Committee'">
                             <div class="col-md-4 offset-4">
-                                <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="districtClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                                <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterBestPer.value.DistrictId)" (remove)="clearFilter('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                             </div>
                             <div class="col-md-4">
-                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="districtClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterBestPer.value.TalukaId)"
+                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="clearFilter('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" 
                                     [disabled]="!this.filterBestPer.value.DistrictId">
                                 </ngx-select>
                             </div>
@@ -164,8 +166,7 @@
                         </div>
                         <div class="row g-2" *ngIf="catValue == 'Committee'">
                             <div class="col-md-6 offset-6">
-                                <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select Committee Name" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
-                                    (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
+                                <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')" (select)="committee()" placeholder="Select Committee Name">
                                 </ngx-select>
                             </div>
                         </div>
@@ -175,6 +176,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Sr.NO.</th>
                                 <th>Member Name</th>
                                 <th>Political Work</th>
                                 <th>News</th>
@@ -184,27 +186,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a routerLink="">Anil Kambale</a>
-                                </td>
-                                <td>23</td>
-                                <td>213</td>
-                                <td>233</td>
-                                <td>243</td>
-                                <td>523</td>
-                            </tr>
-                            <!-- <tr *ngFor="let result of resBestPerMember; let i = index">
+                           
+                            <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{result.FullName}}</td>
-                                <td><a href="mailto:{{result.EmailId}}">{{result.EmailId}}</a></td>
-                                <td>{{result.MobileNo}}</td>
+                                <!-- (click)="redToMemberProfile(result.MemberId, result.FullName)" -->
+                                <td><a class="text-primary">{{result.FullName}}</a></td>
+                                <td>{{result.PoliticalCount}}</td>
+                                <!-- <td>{{result.Totalwork}}</td> -->
+                                <td>{{result.NewsLetterCount}}</td>
+                                <td>{{result.SocialMediaCount}}</td>
+                                <td>{{result.HelpCount}}</td>
+                                <td>{{result.PartyProgramCount}}</td>
                             </tr>
-                            <tr *ngIf="resBestPerMember?.length == 0">
+                            <tr *ngIf="resultBestPerKaryMember?.length == 8">
                                 <td colspan="4">
                                     <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>

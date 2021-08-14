@@ -56,16 +56,18 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
-    //this.asd();
+    console.log(this.dateRange);
+    this.getweekRage(this.dateRange)
   }
 
   getweekRage(dates: any) {
-    var Time = dates.value[1].getTime() - dates.value[0].getTime();
+    console.log(dates);
+    var Time = dates[1].getTime() - dates[0].getTime();
     var Days = Time / (1000 * 3600 * 24);
 
     if (Days <= 7) {
-      let fromDate: any = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
-      let toDate: any = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
+      let fromDate: any = this.datepipe.transform(dates[0], 'dd/MM/yyyy');
+      let toDate: any = this.datepipe.transform(dates[1], 'dd/MM/yyyy');
       this.weekRangeObj = { 'fromDate': fromDate, 'toDate': toDate };
       localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
     } else {
