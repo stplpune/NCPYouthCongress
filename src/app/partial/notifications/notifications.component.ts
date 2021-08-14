@@ -101,6 +101,7 @@ export class NotificationsComponent implements OnInit {
       });
       let notStatus:any;
       this.selectedFile ? notStatus = 2 : notStatus = 1;
+      // this.selectedFile ? notStatus = 2 : notStatus = 1;
       fromData.append('AttchmentStr', this.selectedFile);
       fromData.append('NotificationType', notStatus);
 
@@ -179,8 +180,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   pushMotification(){
-    alert(this.NotificationId + this.ScopeId);
-    return
+    debugger;
     this.callAPIService.setHttp('get', 'Push_SendNotification_1_0?UserId='+this.commonService.loggedInUserId()+'&NotificationId='+this.NotificationId+'&ScopeId='+this.ScopeId, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
