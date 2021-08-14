@@ -38,6 +38,8 @@ export class NotificationsComponent implements OnInit {
   selectedFile!: File;
   NotificationText:string =  "Push";
   getImgPath:any;
+  NotificationId:any;
+  ScopeId:any;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -71,7 +73,6 @@ export class NotificationsComponent implements OnInit {
       ImageUrl: [''],
       Link: [''], 
       MemberStr: [''],
-      
     })
   }
 
@@ -86,7 +87,7 @@ export class NotificationsComponent implements OnInit {
   get f() { return this.notificationForm.controls };
   
   onSubmit(){
-    this.spinner.show();
+    // this.spinner.show();
     this.submitted = true;
     if (this.notificationForm.invalid) {
       this.spinner.hide();
@@ -107,11 +108,12 @@ export class NotificationsComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
+          this.resetNotificationForm();
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
           this.getNotificationData();
         } else {
-          this.toastrService.error(res.data1[0].Msg)
+          // this.toastrService.error(res.data1[0].Msg)
           this.spinner.hide();
         }
       } ,(error:any) => {
@@ -124,8 +126,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
-    console.log(data);
-    this.NotificationText == "Update";
+    this.NotificationText = "Update";
     this.getImgPath = data.AttachmentPath
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
@@ -140,7 +141,10 @@ export class NotificationsComponent implements OnInit {
       SrNo: data.SrNo,
       Title: data.Title,
     })
+  }
 
+  resetNotificationForm(){
+    this.notificationForm.reset();
   }
 
   deleteImg(){
@@ -151,6 +155,48 @@ export class NotificationsComponent implements OnInit {
     })
   }
   
+  deleteNotifications(NewsId:any){
+    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg)
+        this.getNotificationData();
+      } else {
+        // this.toastrService.error(res.data1[0].Msg)
+        this.spinner.hide();
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  pushMotificationStatus(id:any,scopeId:any){
+    this.NotificationId = id;
+    this.ScopeId = scopeId;
+  }
+
+  pushMotification(){
+    alert(this.NotificationId + this.ScopeId);
+    return
+    this.callAPIService.setHttp('get', 'Push_SendNotification_1_0?UserId='+this.commonService.loggedInUserId()+'&NotificationId='+this.NotificationId+'&ScopeId='+this.ScopeId, false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg)
+        this.getNotificationData();
+      } else {
+        // this.toastrService.error(res.data1[0].Msg)
+        this.spinner.hide();
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
   getLevel() {
     this.spinner.show();
