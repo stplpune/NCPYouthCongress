@@ -72,6 +72,8 @@ export class NotificationsComponent implements OnInit {
       Description: ['', Validators.required],
       ImageUrl: [''],
       Link: [''], 
+      DistrictId: [''],
+      memberId: [''],
       MemberStr: [''],
     })
   }
@@ -233,7 +235,6 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
-        console.log(this.memberNameArray);
       } else {
           this.toastrService.error("Data is not available");
       }

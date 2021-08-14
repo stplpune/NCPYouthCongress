@@ -57,9 +57,19 @@
                                     <div *ngIf="f.ScopeId.errors.required">Scope of Notification is required</div>
                                 </div>
                             </div>
+                            <div class="mb-2">
+                                <label for="ddlMembers" class="form-label">Select District</label>
+                                <ngx-select [allowClear]="true" [multiple]="true" [disabled]="" [items]="allDistrict"   formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                                </ngx-select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="ddlMembers" class="form-label">Select Orgnization</label>
+                                <ngx-select [allowClear]="true" [multiple]="true" [disabled]="" [items]="memberNameArray" (select)="filterData('committee')" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')"  placeholder="Select Committee Name">
+                                </ngx-select>
+                            </div>
                             <div class="mb-3">
                                 <label for="ddlMembers" class="form-label">Select Members</label>
-                                <ngx-select [allowClear]="true"  [multiple]="true" [items]="memberNameArray" optionValueField="Id" formControlName="MemberStr" optionTextField="FullName" placeholder="Select Member Name">
+                                <ngx-select [allowClear]="true"  [multiple]="true" [disabled]="" [items]="memberNameArray" optionValueField="Id" formControlName="MemberStr" optionTextField="FullName" placeholder="Select Member Name">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.MemberStr.errors" class="invalid-feedback">
                                     <div *ngIf="f.MemberStr.errors.required">Select Members is required</div>
