@@ -9,6 +9,7 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -40,6 +41,9 @@ export class NotificationsComponent implements OnInit {
   getImgPath:any;
   NotificationId:any;
   ScopeId:any;
+  MemberIdEdit:any;
+  getBodyOrgCellName:any;
+  globalMemberId:any[]= [];
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -55,8 +59,6 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
     this.customForm();
     this.getLevel();
-    this.getMemberName();
-    this.getDistrict();
     this.defaultFilterForm();
     this.gerNotificationscope();
     this.getNotificationData();
@@ -73,8 +75,8 @@ export class NotificationsComponent implements OnInit {
       ImageUrl: [''],
       Link: [''], 
       DistrictId: [''],
-      memberId: [''],
-      MemberStr: [''],
+      BodyId:[''],
+      MemberStr: [],
     })
   }
 
@@ -96,32 +98,53 @@ export class NotificationsComponent implements OnInit {
       return;
     }
     else {
-
+      debugger;
+      this.globalMemberId = [];
+      console.log(this.notificationForm.value);
       let fromData = new FormData();
-
       let notStatus:any;
       let ImageChangeFlag:any;
-      this.selectedFile ? ( notStatus = 2, ImageChangeFlag = 1 ): (notStatus = 1, ImageChangeFlag = 0);
+      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 0, ImageChangeFlag = 1);
 
       let getObj:any = this.notificationForm.value;
+      // let MemberId:any = [{"MemberId":getObj.MemberStr.toString()}];
+      let fillSelection:any;
+      if(getObj.ScopeId == 4){
+        fillSelection = getObj.MemberStr.split(',');
+      }else if (getObj.DistrictId == 3){
+        fillSelection = getObj.BodyId.split(',');
+      }else if (getObj.ScopeId == 2){
+        fillSelection = getObj.DistrictId.split(',');
+      }
+      console.log(fillSelection);
+
+      fillSelection.map((ele:any)=>{
+        this.globalMemberId.push({"MemberId":ele});
+      })
+
+      console.log(this.globalMemberId)
+
       fromData.append('Id', getObj.Id);
-      fromData.append('CreatedBy', getObj.CreatedBy);
+      fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
       fromData.append('Title', getObj.Title);
       fromData.append('Description', getObj.Description);
       fromData.append('ImageUrl', getObj.ImageUrl);
       fromData.append('Link', getObj.Link);
-      fromData.append('MemberStr', getObj.MemberStr.toString());
+    
+      fromData.append('MemberStr', JSON.stringify(this.globalMemberId));
 
 
       fromData.append('AttchmentStr', this.selectedFile);
-      fromData.append('NotificationType', notStatus);
+      fromData.append('NotificationType', ImageChangeFlag);
       fromData.append('IsChangeImage', notStatus);
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
+          // let attachmentNull:any = document.getElementById("#fuAttachments");
+          // attachmentNull.value=null; 
           this.resetNotificationForm();
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
@@ -132,16 +155,65 @@ export class NotificationsComponent implements OnInit {
         }
       } ,(error:any) => {
         this.spinner.hide();
-        if (error.status == 500) {
-          this.router.navigate(['../500'], { relativeTo: this.route });
-        }
+        // if (error.status == 500) {
+        //   this.router.navigate(['../500'], { relativeTo: this.route });
+        // }
       })
     }
   }
 
+  addValidationOn(scodeId: any) {
+    if (scodeId == 2) {
+      this.validationRemove();
+      this.getDistrict();
+      this.notificationForm.controls["DistrictId"].setValidators(Validators.required);
+      this.notificationForm.controls["DistrictId"].updateValueAndValidity();
+      this.notificationForm.controls['DistrictId'].clearValidators();
+    } else if (scodeId == 3) {
+      this.validationRemove();
+      this.getOrgName()
+      this.notificationForm.controls["BodyId"].setValidators(Validators.required);
+      this.notificationForm.controls["BodyId"].updateValueAndValidity();
+      this.notificationForm.controls['BodyId'].clearValidators();
+    } else if (scodeId == 4) {
+      this.validationRemove();
+      this.getMemberName();
+      this.notificationForm.controls["MemberStr"].setValidators(Validators.required);
+      this.notificationForm.controls["MemberStr"].updateValueAndValidity();
+      this.notificationForm.controls['MemberStr'].clearValidators();
+    }
+  }
+  
+
+  validationRemove() {
+    this.notificationForm.controls['DistrictId'].clearValidators();
+    this.notificationForm.controls["DistrictId"].updateValueAndValidity();
+    this.notificationForm.controls['DistrictId'].setValue('');
+    this.notificationForm.controls['BodyId'].clearValidators();
+    this.notificationForm.controls["BodyId"].updateValueAndValidity();
+    this.notificationForm.controls['MemberStr'].setValue('');
+    this.notificationForm.controls['MemberStr'].clearValidators();
+    this.notificationForm.controls['MemberStr'].updateValueAndValidity();
+    this.notificationForm.controls['BodyId'].setValue('');
+  
+  }
+
   editNotification(data:any){
+    debugger;
     this.NotificationText = "Update";
-    this.getImgPath = data.AttachmentPath
+    this.getImgPath = data.AttachmentPath;
+    this.addValidationOn(data.ScopeId);
+
+
+    if(data.ScopeId == 4){
+      data.MemberStr = data.MemberStr.split(',');
+    }else if (data.ScopeId == 3){
+      data.BodyId = data.MemberStr.split(',');
+    }else if (data.ScopeId == 2){
+      data.DistrictId = data.MemberStr.split(',');
+    }
+    console.log(data);
+
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
       Description: data.Description,
@@ -154,10 +226,30 @@ export class NotificationsComponent implements OnInit {
       ScopeName: data.ScopeName,
       SrNo: data.SrNo,
       Title: data.Title,
+      MemberStr:data.MemberStr,
+      BodyId:data.BodyId,
+      DistrictId:data.DistrictId,
     })
+    
+    if (data.ScopeId == 2) {
+     this.getDistrict();
+     this.notificationForm.controls["DistrictId"].setValue(this.notificationForm.value.DistrictId.map(Number))
+    } else if (data.ScopeId == 3) {
+      this.notificationForm.controls["BodyId"].setValidators(Validators.required);
+      this.notificationForm.controls["BodyId"].updateValueAndValidity();
+      this.notificationForm.controls['BodyId'].clearValidators();
+      this.notificationForm.controls["BodyId"].setValue(this.notificationForm.value.BodyId.map(Number))
+    } else if (data.ScopeId == 4) {
+      this.getMemberName();
+      this.notificationForm.controls["MemberStr"].setValue(this.notificationForm.value.MemberStr.map(Number))
+    }
+    
+  
   }
 
   resetNotificationForm(){
+    this.submitted = false;
+    this.getImgPath = null;
     this.notificationForm.reset();
   }
 
@@ -235,12 +327,36 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
+        console.log(this.memberNameArray);
+        // if(this.NotificationText == 'update'){
+        //   this.notificationForm.controls['MemberStr'].setValue('');
+        // }
+        
       } else {
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  
+  getOrgName() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0?', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.getBodyOrgCellName = res.data1;
+        console.log(this.memberNameArray)
+      } else {
+          this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -262,42 +378,6 @@ export class NotificationsComponent implements OnInit {
     })
   }
 
-  getTaluka(districtId: any) {
-    this.viewMembersObj.DistrictId = districtId;
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.getTalkaByDistrict = res.data1;
-        console.log(this.getTalkaByDistrict)
-      } else {
-          this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  getVillageOrCity(talukaID: any) {
-    this.viewMembersObj.Talukaid = talukaID
-    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.resultVillageOrCity = res.data1;
-
-      } else {
-          this.toastrService.error("Data is not available1");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  } 
 
   gerNotificationscope() {
     this.spinner.show();
