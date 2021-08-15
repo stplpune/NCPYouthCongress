@@ -63,9 +63,11 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available 2");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -85,9 +87,11 @@ export class FeedbacksComponent implements OnInit {
         this.getTalkaByDistrict = res.data1;
         // this.details(1)
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -105,9 +109,11 @@ export class FeedbacksComponent implements OnInit {
         this.resultVillageOrCity = res.data1;
 
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available1");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -127,9 +133,11 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -171,6 +179,7 @@ export class FeedbacksComponent implements OnInit {
         }
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -250,6 +259,7 @@ export class FeedbacksComponent implements OnInit {
         // }
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -266,10 +276,12 @@ export class FeedbacksComponent implements OnInit {
           this.toastrService.success(' Message Read...')
           this.getFeedBackData(this.FeedbackObj)
         } else {
+          this.spinner.hide();
           this.defualtHideFeedback = false;
             this.toastrService.error("Data is not available");
         }
       } ,(error:any) => {
+        this.spinner.hide();
         if (error.status == 500) {
           this.router.navigate(['../500'], { relativeTo: this.route });
         }
@@ -297,10 +309,12 @@ export class FeedbacksComponent implements OnInit {
           this.getFeedBackData(this.FeedbackObj)
           this.defualtHideFeedback = false;
         } else {
+          this.spinner.hide();
           this.defualtHideFeedback = false;
             this.toastrService.error("Data is not available");
         }
       } ,(error:any) => {
+        this.spinner.hide();
         if (error.status == 500) {
           this.router.navigate(['../500'], { relativeTo: this.route });
         }

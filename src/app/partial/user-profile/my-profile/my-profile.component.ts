@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CallAPIService } from 'src/app/services/call-api.service';
-import { NgxSpinnerService } from "ngx-spinner";
-import { ToastrService } from 'ngx-toastr';
-import { CommonService } from '../../../services/common.service';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { CallAPIService } from 'src/app/services/call-api.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -11,31 +12,45 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./my-profile.component.css', '../../partial.component.css']
 })
 export class MyProfileComponent implements OnInit {
-  public items: string[] = [];
-  resProfileData: any;
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
   GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }, { id: 3, name: "Other" }];
-  resultVillageOrCity: any;
-  getTalkaByDistrict: any;
-  allDistrict: any;
-  globalDistrictId: any;
-  submitted = false;
-  setVillOrcityName: any;
-  setVillOrCityId: any;
-  villageCityLabel: any;
   selGender: any;
-  editFlag: boolean = true;
   getImgExt: any;
   imgName: any;
   ImgUrl: any;
-  selectedFile!: File;
-  globalVillageOrCityId: any;
-  profilePhotoChange:any;
-  @ViewChild('closeModal') closeModal: any;
+  isShowMenu: boolean = false;
+  @Output() onShowMenu: EventEmitter<any> = new EventEmitter();
+  editFlag: boolean = true;
+  userName = this.commonService.loggedInUserName();
+  submitted = false;
+  resultVillageOrCity: any;
+  allDistrict: any;
+  getTalkaByDistrict: any;
+  profilePhotoChange: any;
   @ViewChild('myInput') myInputVariable!: ElementRef;
+  selectedFile!: File;
+  resProfileData: any;
+  showingUserName: any;
+  showingMobileNo: any;
+  villageCityLabel: any;
+  setVillOrCityId: any;
+  setVillOrcityName: any;
+  globalVillageOrCityId: any;
+  disabledEditForm :boolean = true;
+  defaultModalHIde:boolean = false;
+  defaultModalHIdeCP:boolean = false;
+  changePasswordForm: any;
+  submittedChangePassword = false;
+  show_button: Boolean = false;
+  show_eye: Boolean = false;
+  show_button1: Boolean = false;
+  show_eye1: Boolean = false;
+  show_button2: Boolean = false;
+  show_eye2: Boolean = false;
 
-  constructor(
+  constructor(private router: Router,
+    private route: ActivatedRoute,
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
@@ -46,6 +61,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit(): void {
     this.myProfileForm();
     this.getProfileData();
+    this.customFormChangePassword();
   }
 
   getProfileData() {
@@ -200,9 +216,7 @@ export class MyProfileComponent implements OnInit {
         if (res.data == 0) {
           this.profilePhotoChange = null;
           this.submitted = false;
-          this.resetFile()
-          let modalClosed = this.closeModal.nativeElement;
-          modalClosed.click();
+          this.resetFile();
           this.spinner.hide();
           let result = res.data1[0];
           this.toastrService.success(result.Msg);
@@ -275,5 +289,94 @@ export class MyProfileComponent implements OnInit {
   removePhoto(){
    this.profilePhotoChange = 2;
     this.ImgUrl = null;
+  }
+
+ 
+  //change password 
+  customFormChangePassword() {
+    this.changePasswordForm = this.fb.group({
+      userName: [this.commonService.loggedInUserName(), [Validators.required,]],
+      oldPassword: ['', [Validators.required,]],
+      newPassword: ['', [Validators.required, this.passwordValid]],
+      ConfirmPassword: ['',[Validators.required, this.passwordValid]],
+    })
+  }
+
+  get cp() { return this.changePasswordForm.controls };
+
+  onSubmit() {
+    this.spinner.show();
+    this.submitted = true;
+    if (this.changePasswordForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+      if (this.changePasswordForm.value.newPassword == this.changePasswordForm.value.ConfirmPassword) {
+        if(this.changePasswordForm.value.oldPassword == this.changePasswordForm.value.newPassword){
+          this.toastrService.error('Old password and new password should not  be same')
+          this.spinner.hide();
+          return
+        }
+        let obj= 'UserId=' + this.commonService.loggedInUserId() + '&OldPassword=' + this.changePasswordForm.value.oldPassword + '&NewPassword=' + this.changePasswordForm.value.newPassword
+        this.callAPIService.setHttp('get','Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
+        this.callAPIService.getHttp().subscribe((res: any) => {
+          if (res.data1[0].Id!== 0) {
+           this.toastrService.success(res.data1[0].Msg)
+            this.spinner.hide();
+            this.clearForm();
+          }
+          else {
+            this.spinner.hide();
+           this.toastrService.error(res.data1[0].Msg)
+          }
+        })
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastrService.error("New password and Confirm password should be same")
+      }
+
+    }
+
+  
+  }
+
+  showPassword(data: any) {
+    if (data == 'old') {
+      this.show_button = !this.show_button;
+      this.show_eye = !this.show_eye;
+    } else if (data == 'new') {
+      this.show_button1 = !this.show_button1;
+      this.show_eye1 = !this.show_eye1;
+    } else {
+      this.show_button2 = !this.show_button2;
+      this.show_eye2 = !this.show_eye2;
+    }
+
+  }
+
+  clearForm() {
+    this.submitted = false;
+    this.changePasswordForm.reset({
+      userName: this.commonService.loggedInUserName(),
+      oldPassword: '',
+      newPassword: '',
+      ConfirmPassword: ''
+    });
+  }
+
+  passwordValid(controls:any) {
+    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { passwordValid: true }
+    }
+  }
+
+  DisabledAllForm(){//Disabled hole Form When Click model Close Button
+    this.disabledEditForm = true;
   }
 }

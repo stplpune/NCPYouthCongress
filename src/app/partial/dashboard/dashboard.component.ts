@@ -63,13 +63,15 @@ export class DashboardComponent implements OnInit {
 
   getweekRage(dates: any) {
     var Time = dates[1].getTime() - dates[0].getTime();
+    this.defaultFromDate=dates[0];
+    this.defaultToDate=dates[1];
     var Days = Time / (1000 * 3600 * 24);
-
     if (Days <= 7) {
       // let fromDate: any = this.datepipe.transform(dates[0], 'dd/MM/yyyy');
       // let toDate: any = this.datepipe.transform(dates[1], 'dd/MM/yyyy');
       this.weekRangeObj = { 'fromDate': dates[0], 'toDate': dates[1] };
       localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+      this.getNewMemberAndWorkInThisWeek()
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
     }
@@ -83,9 +85,11 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.allDistrictArray = res.data1;
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -101,9 +105,11 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.dashboardCount1Array = res.data1[0];
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     }  ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -138,9 +144,11 @@ export class DashboardComponent implements OnInit {
         this.pieChart();
         this.socialMediaChart();
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     }  ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -169,9 +177,11 @@ export class DashboardComponent implements OnInit {
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     }  ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -190,9 +200,11 @@ export class DashboardComponent implements OnInit {
         this.districtWiseMemberCountArray = res.data1;
         this.weeklyColumnChart();
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     }  ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -685,6 +697,4 @@ series3.segments.template.strokeWidth = 1;
       this.toastrService.error("Data is not available.");
     }
   }
-
-
 }
