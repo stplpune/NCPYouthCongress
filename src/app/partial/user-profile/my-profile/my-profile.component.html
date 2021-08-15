@@ -12,7 +12,7 @@
         <div class="col-sm-12">
             <div class="card card-body">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <!-- <div class="col-sm-4">
                         <div class="card shadow-none border">
                             <div class="card-body" id="myprofile">
                                 <div class="mb-2 text-end">
@@ -43,137 +43,152 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-sm-8">
-                        <div class="card card-body shadow-none border">
-                            <form [formGroup]="editProfileForm" enctype="multipart/form-data" (ngSubmit)="updateProfile()">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <a class="update-photo" (click)="choosePhoto()">
-                                            <i class="fas fa-camera"></i>
-                                        </a>
-                                        <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                        <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)">
-                                        <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid">
-                                        <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                Edit Profile
+                            </div>
+                            <div class="card-body">
+                                <form [formGroup]="editProfileForm" enctype="multipart/form-data" (ngSubmit)="updateProfile()">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="update-photo" (click)="choosePhoto()">
+                                                <i class="fas fa-camera"></i>
+                                            </a>
+                                            <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                            <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)">
+                                            <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid">
+                                            <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid">
 
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="form-container">
-                                            <div class="mb-3 row">
-                                                <div class="col-sm-4">
-                                                    <label for="txtFullName" class="form-label required-field">First Name</label>
-                                                    <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
-                                                    <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.FName.errors.required">First name is required</div>
-                                                        <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="form-container">
+                                                <div class="mb-3 row">
+                                                    <div class="col-sm-4">
+                                                        <label for="txtFullName" class="form-label required-field">First Name</label>
+                                                        <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                                        <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.FName.errors.required">First name is required</div>
+                                                            <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label for="txtFullName" class="form-label required-field">Middle Name</label>
-                                                    <input type="text" class="form-control" id="txtFullName" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
-                                                    <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.MName.errors.required">Middle name is required</div>
-                                                        <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
+                                                    <div class="col-sm-4">
+                                                        <label for="txtFullName" class="form-label required-field">Middle Name</label>
+                                                        <input type="text" class="form-control" id="txtFullName" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
+                                                        <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.MName.errors.required">Middle name is required</div>
+                                                            <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label for="txtFullName" class="form-label required-field">Last Name</label>
-                                                    <input type="text" class="form-control" id="txtFullName" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
-                                                    <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.LName.errors.required">Last name is required</div>
-                                                        <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <div class="col-sm-6">
-                                                    <label for="txtEmailID" class="form-label required-field">Email ID</label>
-                                                    <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
-                                                    <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.EmailId.errors.required">Email is required</div>
-                                                        <div *ngIf="f.EmailId.errors.email">Enter Valid email id</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="txtContactNo" class="form-label required-field">Contact No</label>
-                                                    <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" disabled value="{{resProfileData?.MobileNo}}">
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-2 row">
-                                                <div class="col-sm-6">
-                                                    <label for="txtContactNo" class="form-label required-field">User Name</label>
-                                                    <input type="text" class="form-control" placeholder="User Name" disabled value="{{resProfileData?.UserName}}">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="txtEmailID" class="form-label required-field">Gender</label>
-                                                    <div class="d-block">
-                                                        <!-- [checked]="defultCategory == category.name" -->
-                                                        <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                                            <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender" id="rgender">
-                                                            <label class="form-check-label" for="rgender">{{gender.name}}</label>
+                                                    <div class="col-sm-4">
+                                                        <label for="txtFullName" class="form-label required-field">Last Name</label>
+                                                        <input type="text" class="form-control" id="txtFullName" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
+                                                        <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.LName.errors.required">Last name is required</div>
+                                                            <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="txtAddress" class="form-label">Address</label>
-                                                <textarea class="form-control" id="txtAddress" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
-                                                <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.Address.errors.required">Address is required</div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-2">
-                                                <!-- [checked]="defultCategory == category.name"GenderArray -->
-                                                <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
-                                                    <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" (change)='onRadioChangeCategory(category.name)'>
-                                                    <label class="form-check-label" for="rblRural">{{category.name}}</label>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <div class="col-sm-4">
-                                                    <label for="ddlDistrict" class="form-label required-field">District</label>
-                                                    <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
-                                                    </ngx-select>
-                                                    <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                                                <div class="mb-3 row">
+                                                    <div class="col-sm-6">
+                                                        <label for="txtEmailID" class="form-label required-field">Email ID</label>
+                                                        <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
+                                                        <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.EmailId.errors.required">Email is required</div>
+                                                            <div *ngIf="f.EmailId.errors.email">Enter Valid email id</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="txtContactNo" class="form-label required-field">Contact No</label>
+                                                        <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" disabled value="{{resProfileData?.MobileNo}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4" *ngIf="this.editProfileForm.value.IsRural == 1">
-                                                    <label for="ddlTaluka" class="form-label required-field">Taluka</label>
-                                                    <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
-                                                        (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
-                                                    </ngx-select>
-                                                    <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.TalukaId.errors.required">Taluka is required</div>
+
+                                                <div class="mb-2 row">
+                                                    <div class="col-sm-6">
+                                                        <label for="txtContactNo" class="form-label required-field">User Name</label>
+                                                        <input type="text" class="form-control" placeholder="User Name" disabled value="{{resProfileData?.UserName}}">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="txtEmailID" class="form-label required-field">Gender</label>
+                                                        <div class="d-block">
+                                                            <!-- [checked]="defultCategory == category.name" -->
+                                                            <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
+                                                                <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender" id="rgender">
+                                                                <label class="form-check-label" for="rgender">{{gender.name}}</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <label for="ddlCityVillage" (remove)="districtClear('village')" class="form-label required-field">{{villageCityLabel}}</label>
-                                                    <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="!this.editProfileForm.value.TalukaId"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
-                                                    </ngx-select>
-                                                    <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.VillageId.errors.required">{{villageCityLabel}} is required</div>
+                                                <div class="mb-3">
+                                                    <label for="txtAddress" class="form-label">Address</label>
+                                                    <textarea class="form-control" id="txtAddress" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                                                    <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.Address.errors.required">Address is required</div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr />
-                                            <div class="text-end">
-                                                <button type="submit" class="btn btn-main btn-sm">Update Profile</button>
+                                                <div class="mb-2">
+                                                    <!-- [checked]="defultCategory == category.name"GenderArray -->
+                                                    <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
+                                                        <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" (change)='onRadioChangeCategory(category.name)'>
+                                                        <label class="form-check-label" for="rblRural">{{category.name}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ddlDistrict" class="form-label required-field">District</label>
+                                                        <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                                                        </ngx-select>
+                                                        <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4" *ngIf="this.editProfileForm.value.IsRural == 1">
+                                                        <label for="ddlTaluka" class="form-label required-field">Taluka</label>
+                                                        <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                                                            (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                                        </ngx-select>
+                                                        <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.TalukaId.errors.required">Taluka is required</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label for="ddlCityVillage" (remove)="districtClear('village')" class="form-label required-field">{{villageCityLabel}}</label>
+                                                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="!this.editProfileForm.value.TalukaId"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                                        </ngx-select>
+                                                        <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.VillageId.errors.required">{{villageCityLabel}} is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-main btn-sm">Update Profile</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
+                    <div class="col-sm-4">
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                Change Password
+                            </div>
+                            <div class="card-body">
+                                Change password box
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
