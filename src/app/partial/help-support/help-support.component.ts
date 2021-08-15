@@ -78,6 +78,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.receiverChatListArray = res.data1;
         // this.receiverChatListArray.reverse();
       } else {
+        this.receiverChatListArray = [];
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
@@ -234,10 +235,15 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subject
     .pipe(debounceTime(700))
     .subscribe(() => {
-      this.searchFilter = this.filterForm.value.searchFilter;
+      this.searchFilter =  this.filterForm.value.searchFilter;
       this.getReceiverChatList()
     }
     );
+  }
+
+  filter(searchText: any) {
+    this.searchFilter = searchText;
+    // this.getOrganizationList();
   }
 
   ngAfterViewInit() {
