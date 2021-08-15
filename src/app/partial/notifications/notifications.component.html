@@ -10,82 +10,106 @@
             <div class="card card-body">
                 <div class="row">
                     <div class="col-3">
-                        <form [formGroup]="notificationForm" enctype="multipart/form-data"  (ngSubmit)="onSubmit()">
-                        <div class="form-container">
-                            <div class="mb-2">
-                                <label for="txtTitleName" class="form-label  required-field">Title Name</label>
-                                <input type="text" class="form-control" id="txtTitleName" formControlName="Title" placeholder="Title Name">
-                                <div *ngIf="submitted && f.Title .errors" class="invalid-feedback">
-                                    <div *ngIf="f.Title.errors.required">Title name is required</div>
+                        <form [formGroup]="notificationForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+                            <div class="form-container">
+                                <div class="mb-2">
+                                    <label for="txtTitleName" class="form-label  required-field">Title Name</label>
+                                    <input type="text" class="form-control" id="txtTitleName" formControlName="Title"
+                                        placeholder="Title Name">
+                                    <div *ngIf="submitted && f.Title .errors" class="invalid-feedback">
+                                        <div *ngIf="f.Title.errors.required">Title name is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="txtBody" class="form-label  required-field">Notification Body</label>
-                                <textarea type="text" rows="4" class="form-control" formControlName="Description" id="txtBody" placeholder="Notification Body"></textarea>
-                                <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Description.errors.required">Notification Body is required</div>
+                                <div class="mb-2">
+                                    <label for="txtBody" class="form-label  required-field">Notification Body</label>
+                                    <textarea type="text" rows="4" class="form-control" formControlName="Description"
+                                        id="txtBody" placeholder="Notification Body"></textarea>
+                                    <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Description.errors.required">Notification Body is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- <div class="mb-2">
+                                <!-- <div class="mb-2">
                                 <label for="fuPhoto" class="form-label">Photo</label>
                                 <input class="form-control form-control-sm" formControlName="Photo" id="fuPhoto" type="file">
                                 <div *ngIf="submitted && f.Photo.errors" class="invalid-feedback">
                                     <div *ngIf="f.Photo.errors.required">Photo is required</div>
                                 </div>
                             </div> -->
-                            <div class="mb-2">
-                                <label for="txtLinkURL" class="form-label">Link</label>
-                                <input type="url" class="form-control" formControlName="Link" id="txtLinkURL" placeholder="http://www.example.com">
-                                <div *ngIf="submitted && f.Link.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Link.errors.required">Link is required</div>
+                                <div class="mb-2">
+                                    <label for="txtLinkURL" class="form-label">Link</label>
+                                    <input type="url" class="form-control" formControlName="Link" id="txtLinkURL"
+                                        placeholder="http://www.example.com">
+                                    <div *ngIf="submitted && f.Link.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Link.errors.required">Link is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="fuAttachments" class="form-label">Attachment(s)</label>
-                                <!-- <input type="file" id="my_file" #myInput class="d-none" > -->
-                                <input class="form-control form-control-sm" id="fuAttachments" type="file" (change)="readUrl($event)">
-                                <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i  class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
-                                <!-- <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
+                                <div class="mb-2">
+                                    <label for="fuAttachments" class="form-label">Attachment(s)</label>
+                                    <!-- <input type="file" id="my_file" #myInput class="d-none" > -->
+                                    <input class="form-control form-control-sm" id="fuAttachments" type="file"
+                                        (change)="readUrl($event)">
+                                    <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i
+                                            class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
+                                    <!-- <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
                                     <div *ngIf="f.attachment.errors.required">Attachment is required</div>
                                 </div> -->
-                            </div>
-                            <div class="mb-2">
-                                <label for="ddlScope" class="form-label  required-field">Scope of Notification</label>
-                                <ngx-select [allowClear]="true" (remove)="validationRemove()" (select)="addValidationOn($event)"  [items]="notificationscopeArray" formControlName="ScopeId" placeholder="Scope of Notification" optionValueField="id" optionTextField="ScopeName" >
-                                </ngx-select>
-                                <div *ngIf="submitted && f.ScopeId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.ScopeId.errors.required">Scope of Notification is required</div>
                                 </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="ddlMembers" class="form-label"  [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select District</label>
-                                <ngx-select [allowClear]="true"   [multiple]="true" [disabled]="this.notificationForm.value.ScopeId != 2" [items]="allDistrict"   formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                                <div class="mb-2">
+                                    <label for="ddlScope" class="form-label  required-field">Scope of
+                                        Notification</label>
+                                    <ngx-select [allowClear]="true" (remove)="validationRemove()"
+                                        (select)="addValidationOn($event)" [items]="notificationscopeArray"
+                                        formControlName="ScopeId" placeholder="Scope of Notification"
+                                        optionValueField="id" optionTextField="ScopeName">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.ScopeId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.ScopeId.errors.required">Scope of Notification is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="ddlMembers" class="form-label"  [ngClass]="{ 'required-field': submitted && f.BodyId.errors }">Select Orgnization</label>
-                                <!-- <ngx-select [allowClear]="true" [multiple]="true"  [disabled]="this.notificationForm.value.ScopeId != 3"  [items]="memberNameArray"  optionValueField="Id" formControlName="BodyId" optionTextField="FullName"  placeholder="Select Committee Name">
+                                <div class="mb-2">
+                                    <label for="ddlMembers" class="form-label"
+                                        [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
+                                        District</label>
+                                    <ngx-select [allowClear]="true" [multiple]="true"
+                                        [disabled]="this.notificationForm.value.ScopeId != 2" [items]="allDistrict"
+                                        formControlName="DistrictId" optionValueField="DistrictId"
+                                        optionTextField="DistrictName" placeholder="Select District">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.DistrictId.errors.required">District is required</div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="ddlMembers" class="form-label"
+                                        [ngClass]="{ 'required-field': submitted && f.BodyId.errors }">Select
+                                        Orgnization</label>
+                                    <!-- <ngx-select [allowClear]="true" [multiple]="true"  [disabled]="this.notificationForm.value.ScopeId != 3"  [items]="memberNameArray"  optionValueField="Id" formControlName="BodyId" optionTextField="FullName"  placeholder="Select Committee Name">
                                 </ngx-select> -->
-                                <ngx-select [allowClear]="true" [items]="getBodyOrgCellName" [disabled]="this.notificationForm.value.ScopeId != 3"  optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName"  placeholder="Select Committee Name">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.BodyId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.BodyId.errors.required">Orgnization is required</div>
+                                    <ngx-select [allowClear]="true" [multiple]="true" [items]="getBodyOrgCellName"
+                                        [disabled]="this.notificationForm.value.ScopeId != 3" optionValueField="Id"
+                                        formControlName="BodyId" optionTextField="BodyOrgCellName"
+                                        placeholder="Select Committee Name">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.BodyId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.BodyId.errors.required">Orgnization is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="ddlMembers" class="form-label" [ngClass]="{ 'required-field': submitted && f.MemberStr.errors }">Select Members</label>
-                                <ngx-select [allowClear]="true" (select)="addValidationOn('Members')"  [multiple]="true" [disabled]="this.notificationForm.value.ScopeId != 4"  [items]="memberNameArray" optionValueField="Id" formControlName="MemberStr" optionTextField="FullName" placeholder="Select Member Name">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.MemberStr.errors" class="invalid-feedback">
-                                    <div *ngIf="f.MemberStr.errors.required">Select Members is required</div>
+                                <div class="mb-3">
+                                    <label for="ddlMembers" class="form-label"
+                                        [ngClass]="{ 'required-field': submitted && f.MemberStr.errors }">Select
+                                        Members</label>
+                                    <ngx-select [allowClear]="true" (select)="addValidationOn('Members')"
+                                        [multiple]="true" [disabled]="this.notificationForm.value.ScopeId != 4"
+                                        [items]="memberNameArray" optionValueField="Id" formControlName="MemberStr"
+                                        optionTextField="FullName" placeholder="Select Member Name">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.MemberStr.errors" class="invalid-feedback">
+                                        <div *ngIf="f.MemberStr.errors.required">Select Members is required</div>
+                                    </div>
                                 </div>
-                            </div>
 
 
-                            <!-- 
+                                <!-- 
                                 <div class="mb-3">
                                 <label for="ddlMembers" class="form-label">Status</label>
                                 <div class="form-check form-switch">
@@ -94,67 +118,84 @@
                             </div>
                             </div>
                                -->
-                             
-                            <div class="mb-2 ">
-                                <button type="button" class="btn btn-secondary float-lg-start" (click)="resetNotificationForm()">Clear</button>
-                                <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}} Notification</button>
-                                <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
-                                <button type="button" class="btn btn-danger">Delete</button> -->  
+
+                                <div class="mb-2 ">
+                                    <button type="button" class="btn btn-secondary float-lg-start"
+                                        (click)="resetNotificationForm()">Clear</button>
+                                    <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}}
+                                        Notification</button>
+                                    <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
+                                <button type="button" class="btn btn-danger">Delete</button> -->
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     </div>
                     <div class="col-9 border-start" id="notifications">
                         <div class="text-end">
                             <form [formGroup]="filterForm">
-                            <div class="row g-1 ">
-                                <div class="offset-sm-3 col-sm-3">
-                                    <ngx-select [allowClear]="true" (remove)="clearFilter('notifications')" [items]="notificationscopeArray" formControlName="ScopeId" placeholder="Scope of Notification"  (select)="filterData(false)" optionValueField="id" optionTextField="ScopeName" >
-                                    </ngx-select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="filterData('range')"  class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-
-                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
-                                            <i class="fas fa-calendar"></i></button>
-                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
-                                            <i class="fas fa-times"></i></button>
+                                <div class="row g-1 ">
+                                    <div class="offset-sm-3 col-sm-3">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('notifications')"
+                                            [items]="notificationscopeArray" formControlName="ScopeId"
+                                            placeholder="Scope of Notification" (select)="filterData(false)"
+                                            optionValueField="id" optionTextField="ScopeName">
+                                        </ngx-select>
                                     </div>
-                                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
+                                                formControlName="fromTo" [selectMode]="'range'"
+                                                (dateTimeChange)="filterData('range')" class="form-control"
+                                                [owlDateTimeTrigger]="dt3" placeholder="From To Date">
 
-                                </div>
-                               
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" formControlName="searchText" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                        <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
-                                                _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
-                                        <button type="button" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i
-                                                class="fas fa-search"></i></button>
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                                <i class="fas fa-calendar"></i></button>
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
+                                                <i class="fas fa-times"></i></button>
+                                        </div>
+                                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="searchText"
+                                                placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                            <button type="button" class="btn btn-light border btn-sm"
+                                                (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
+                                                    _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                            <button type="button" *ngIf="!filterForm.value.searchText"
+                                                class="btn btn-sm border btn-light"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         </div>
                         <hr class="mt-2">
-                        <div class="d-flex media" *ngFor="let notificationScope of notificationArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                        <div class="d-flex media"
+                            *ngFor="let notificationScope of notificationArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <div class="flex-shrink-0">
-                                <img *ngIf="notificationScope?.AttachmentPath else noImg" src="{{notificationScope?.AttachmentPath}}" alt="..." class="media-img">
+                                <img *ngIf="notificationScope?.AttachmentPath else noImg"
+                                    src="{{notificationScope?.AttachmentPath}}" alt="..." class="media-img">
                                 <ng-template #noImg>
                                     <img src="assets/images/ncp-default.png" alt="..." class="media-img">
-                                    
+
                                 </ng-template>
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <!-- <span class="media-date" *ngIf="{{'notificationScope?.NotificationDate' == 1}}"></span> -->
-                                <span class="media-date">{{notificationScope?.IsPushed}}</span>
+                                <span class="media-date"
+                                    [ngClass]="{'text-success fw-bolder':notificationScope?.IsPushed == 1}">{{notificationScope?.IsPushed
+                                    == 1 ? 'Published' : 'Not-published'}}</span>
                                 <div class="media-title">{{notificationScope?.Title}}</div>
                                 <div class="media-scope">
                                     {{notificationScope?.ScopeName}}
                                 </div>
                                 <div class="media-body">
-                                   {{notificationScope?.Description}}
+                                    {{notificationScope?.Description}}
                                 </div>
                                 <div class="media-links">
                                     <a href="{{notificationScope?.Link}}" target="_blank" class="me-5">Click Here</a>
@@ -162,19 +203,29 @@
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button> -->
+                                 
                                     <span class="float-end">
-                                         <button type="button" title="Delete Notification" class="btn btn-outline-danger btn-sm me-1" (click)="pushMotificationStatus(notificationScope?.Id, notificationScope?.ScopeId)">Push</button>
-                                        <button type="button" title="Edit Notification" class="btn btn-outline-warning me-1 btn-sm" (click)="editNotification(notificationScope)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" title="Delete Notification" class="btn btn-outline-danger btn-sm me-1" (click)="deleteNotifications(notificationScope?.Id)"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" title="Delete Notification" #clickPushModal data-bs-toggle="modal"
+                                            data-bs-target="#ProgramStatusModal1" class="btn btn-outline-danger btn-sm me-1"
+                                            (click)="pushMotificationStatus(notificationScope?.Id, notificationScope?.ScopeId)">Push</button>
+                                        <button type="button" title="Edit Notification"
+                                            class="btn btn-outline-warning me-1 btn-sm"
+                                            (click)="editNotification(notificationScope)"><i
+                                                class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" title="Delete Notification"
+                                            class="btn btn-outline-danger btn-sm me-1"
+                                            (click)="delNotConfirmation(notificationScope?.Id)" data-bs-toggle="modal"
+                                            data-bs-target="#delteteModal"><i class="fas fa-trash-alt"></i></button>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-2 text-end" *ngIf="notificationArray?.length == 0">
                             <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                            </div>
+                        </div>
                         <div class="mt-2 text-end" *ngIf="notificationArray?.length != 0">
-                            <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                            <pagination-controls previousLabel="" nextLabel=""
+                                (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                         </div>
                     </div>
                 </div>
@@ -184,7 +235,36 @@
 </div>
 
 <!-- modal pop up -->
-<div class="modal fade" id="ProgramStatusModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProgramStatusModal1Label" aria-hidden="true">
+<div class="modal fade" id="ProgramStatusModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ProgramStatusModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="ProgramStatusModal1Label">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg _ngcontent-wqt-c55="" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle _ngcontent-wqt-c55="" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" class="path circle"></circle>
+                    <polyline _ngcontent-wqt-c55="" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " class="path check"></polyline>
+                </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel</button>
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="pushMotification()" type="button" data-bs-dismiss="modal" aria-label="Close">I'm
+                    Sure</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delteteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="delteteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-transparent border-bottom-0">
@@ -193,19 +273,20 @@
             </div>
             <div class="modal-body text-center pb-5">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                            <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6"
-                                stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
-                                stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8"
-                                y2="92.3" />
-                            <line class="path line" fill="none" stroke="#D06079" stroke-width="6"
-                                stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4"
-                                y2="92.2" />
-                        </svg>
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
                 <h3 class="my-3">Are You Sure?</h3>
-                <p class="mb-4">Do you really want to  This process can not be undone.</p>
-                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal" aria-label="Close" >Cancel</button>
-                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="pushMotification()"  type="button" data-bs-dismiss="modal" aria-label="Close">I'm Sure</button>
+                <p class="mb-4">Do you really want to This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel</button>
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="deleteNotifications()" type="button" data-bs-dismiss="modal" aria-label="Close">I'm
+                    Sure</button>
             </div>
         </div>
     </div>

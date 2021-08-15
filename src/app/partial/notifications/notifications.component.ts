@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -44,6 +44,8 @@ export class NotificationsComponent implements OnInit {
   MemberIdEdit:any;
   getBodyOrgCellName:any;
   globalMemberId:any[]= [];
+  NewsId:any;
+  @ViewChild('clickPushModal') clickPushModal:any;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -107,22 +109,22 @@ export class NotificationsComponent implements OnInit {
       this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 0, ImageChangeFlag = 1);
 
       let getObj:any = this.notificationForm.value;
-      // let MemberId:any = [{"MemberId":getObj.MemberStr.toString()}];
+
       let fillSelection:any;
       if(getObj.ScopeId == 4){
-        fillSelection = getObj.MemberStr.split(',');
-      }else if (getObj.DistrictId == 3){
-        fillSelection = getObj.BodyId.split(',');
+        fillSelection = getObj.MemberStr
+      }else if (getObj.ScopeId == 3){
+        fillSelection = getObj.BodyId
       }else if (getObj.ScopeId == 2){
-        fillSelection = getObj.DistrictId.split(',');
+        fillSelection = getObj.DistrictId
       }
-      console.log(fillSelection);
-
-      fillSelection.map((ele:any)=>{
-        this.globalMemberId.push({"MemberId":ele});
-      })
-
-      console.log(this.globalMemberId)
+      
+      if(getObj.ScopeId != 1){
+        fillSelection.map((ele:any)=>{
+          this.globalMemberId.push({"MemberId":ele});
+        })
+      }
+      
 
       fromData.append('Id', getObj.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
@@ -143,11 +145,12 @@ export class NotificationsComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
-          // let attachmentNull:any = document.getElementById("#fuAttachments");
-          // attachmentNull.value=null; 
           this.resetNotificationForm();
-          this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
+          this.spinner.hide();
+          // let modalClick = this.clickPushModal.nativeElement;
+          // modalClick.click();
+          // this.pushMotificationStatus(getObj?.Id, getObj?.ScopeId)
           this.getNotificationData();
         } else {
           // this.toastrService.error(res.data1[0].Msg)
@@ -155,9 +158,9 @@ export class NotificationsComponent implements OnInit {
         }
       } ,(error:any) => {
         this.spinner.hide();
-        // if (error.status == 500) {
-        //   this.router.navigate(['../500'], { relativeTo: this.route });
-        // }
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
       })
     }
   }
@@ -261,8 +264,12 @@ export class NotificationsComponent implements OnInit {
     })
   }
   
-  deleteNotifications(NewsId:any){
-    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
+  delNotConfirmation(NewsId:any){
+    this.NewsId = NewsId;
+  }
+
+  deleteNotifications(){
+    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+this.NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg)
