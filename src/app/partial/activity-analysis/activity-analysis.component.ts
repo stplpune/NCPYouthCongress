@@ -38,7 +38,7 @@ export class ActivityAnalysisComponent implements OnInit {
   lng: any;
   zoom: any = 12;
   activityLikesArray: any;
-
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -211,6 +211,7 @@ export class ActivityAnalysisComponent implements OnInit {
     debugger;
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+    console.log(this.viewPoliticleWorkDetailsById);
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
       let getLatLong = latLong.split(',');
@@ -223,18 +224,34 @@ export class ActivityAnalysisComponent implements OnInit {
   }
 
   getActivityLikes(activityId:any,flag:any, counter:any) {
-    if(counter==0){
-      this.toastrService.info('Data is not available');
-      return
-    }else{
-    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      console.log(res)
       if (res.data == 0) {
         this.spinner.hide();
-        this.activityLikesArray = res.data1;
+        this.activityLikesArray = res.data1 ? res.data1 : [];
     
+      } else {
+        this.spinner.hide();
+        this.activityLikesArray = [];
+        // this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+}
+
+  insertMarkAsAbuse(activityId: any, IsAbuse: any) {
+    let AbuseStatus:any;
+    IsAbuse == 0 ? AbuseStatus = 1 : AbuseStatus = 0; 
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'InsertMarkAsAbuse?ActivityId=' + activityId + '&UserId=' + this.commonService.loggedInUserId() + '&IsAbuse=' + AbuseStatus, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
       } else {
         this.toastrService.error("Data is not available");
       }
@@ -244,6 +261,4 @@ export class ActivityAnalysisComponent implements OnInit {
       }
     })
   }
-}
-
 }
