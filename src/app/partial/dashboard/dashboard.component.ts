@@ -10,6 +10,8 @@ import { CommonService } from '../../services/common.service';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment'
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -154,6 +156,15 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
+        this.workInThisWeekArray.map((ele:any)=>{
+           if(ele.Date){
+            let  DateFormate= this.commonService.dateFormatChange(ele.Date);
+            let transformDate=this.datepipe.transform(DateFormate, 'MMM d');
+            ele.Date = transformDate;
+           }
+        })
+        console.log(this.workInThisWeekArray)
+
         this.workLineChart();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
@@ -203,7 +214,8 @@ export class DashboardComponent implements OnInit {
   // Create category axis
   let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
   categoryAxis.dataFields.category = "Date";
-  chart.dateFormatter.dateFormat = "dd MM";
+  categoryAxis.dateFormatter = new am4core.DateFormatter();
+  categoryAxis.dateFormatter.dateFormat = "dd/MM";
   categoryAxis.renderer.opposite = false;
   // categoryAxis.dateFormatter = new am4core.DateFormatter();
   // categoryAxis.dateFormatter.dateFormat = "d MMM";

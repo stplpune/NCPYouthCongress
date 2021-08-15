@@ -43,14 +43,14 @@
                         </div>
 
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
+                            <a *ngFor="let receiverChatList of receiverChatListArray" class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
+                                    <p class="membername mb-1">{{receiverChatList.Sender}}</p>
+                                    <small class="feeddate">{{receiverChatList.MessageDate}}</small>
                                 </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
+                                <small class="comment">{{receiverChatList.SenderMsg}}</small>
                             </a>
-                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
+                            <!-- <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
                                 <div class="d-flex w-100 justify-content-between">
                                     <p class="membername mb-1">Anil Kambale</p>
                                     <small class="feeddate">01-04-2021</small>
@@ -68,9 +68,9 @@
                                 <div class="d-flex w-100 justify-content-between">
                                     <p class="membername mb-1">Anil Kambale</p>
                                     <small class="feeddate">01-04-2021</small>
-                                </div>
+                                </div> 
                                 <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                     <div class="col-9">
