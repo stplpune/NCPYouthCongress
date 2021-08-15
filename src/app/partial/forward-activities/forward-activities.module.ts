@@ -5,6 +5,8 @@ import { ForwardActivitiesRoutingModule } from './forward-activities-routing.mod
 import { ForwardActivitiesComponent } from './forward-activities.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ForwardActivitiesRoutingModule,
     NgxSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OwlNativeDateTimeModule,
+    OwlDateTimeModule,
+    NgxPaginationModule
   ]
 })
 export class ForwardActivitiesModule { }
