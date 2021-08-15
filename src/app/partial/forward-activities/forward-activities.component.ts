@@ -97,7 +97,7 @@ export class ForwardActivitiesComponent implements OnInit {
       let fromData = new FormData();
       let notStatus:any;
       let ImageChangeFlag:any;
-      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 0, ImageChangeFlag = 1);
+      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 3 ): (notStatus = 0, ImageChangeFlag = 1);
 
       let getObj:any = this.forwardActivitiForm.value;
 
@@ -142,7 +142,7 @@ export class ForwardActivitiesComponent implements OnInit {
    
     this.forwardActivitiForm.patchValue({
       CreatedBy:this.commonService.loggedInUserId(),
-      Id: data.Id,
+      Id: data.NewsId,
       activityTitle: data.Title,
       activityBody: data.Description,
       hashtags_Activity:data.HashTags,

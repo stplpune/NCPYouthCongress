@@ -34,9 +34,9 @@
                                 <input class="form-control form-control-sm" (change)="readUrl($event)" id="fuPhoto" type="file">
                                 <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i
                                     class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
-                                <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">
+                                <!-- <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">
                                     <div *ngIf="f.activityPhoto.errors.required">Title name is required</div>
-                                </div>
+                                </div> -->
                             </div>
                            
                             <div class="mb-2">
