@@ -4,7 +4,7 @@
             <span class="page-name">Forward Activities</span>
         </div>
         <div class="col-sm-8 text-end pt-1">
-            <a routerLink="../forward-activity-tracker"><i class="fas fa-chart-line me-2"></i>Forward Activity Tracker</a>
+            <!-- <a routerLink="../forward-activity-tracker"><i class="fas fa-chart-line me-2"></i>Forward Activity Tracker</a> -->
         </div>
     </div>
 
@@ -57,10 +57,10 @@
                     <div class="col-8 border-start" id="notifications">
                         <form [formGroup]="filterForm">
                             <div class="row g-1 mb-2 border-bottom pb-2">
-                                <div class="col-sm-4">
+                                <!-- <div class="col-sm-4">
                                     <ngx-select [allowClear]="true" (remove)="clearFilter('newsType')" formControlName="newstypeId" [items]="newstypeArray" optionValueField="Id" optionTextField="NewsType" placeholder="News Type" (select)="filterData(false)">
                                     </ngx-select>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-4">
                                     <div class="input-group">
                                         <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="filterData('range')" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
