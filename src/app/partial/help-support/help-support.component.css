@@ -11,6 +11,10 @@
     bottom: -21px;
 }
 
+.admincall {
+    margin-bottom: 15px;
+}
+
 .admincall:before {
     content: "";
     width: 0px;
@@ -24,7 +28,12 @@
     bottom: -21px;
 }
 
-.h-scroll-1{
+.h-scroll-1 {
     height: 400px;
+    overflow-y: scroll;
+}
+
+.h-scroll-600 {
+    height: 600px;
     overflow-y: scroll;
 }

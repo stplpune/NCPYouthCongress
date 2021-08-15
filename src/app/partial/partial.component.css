@@ -97,8 +97,7 @@
 
 #email-container .list-group-item {
     border-left: solid 4px #fff;
-    border-bottom: solid 1px #fff !important;
-    border-bottom: none;
+    border-bottom: solid 1px #eee !important;
     border-top: none
 }
 
@@ -134,7 +133,7 @@
 
 #email-container .form-control {
     font-size: .85rem;
-    height: 100px;
+    /* height: 100px; */
     outline: none;
     box-shadow: none
 }

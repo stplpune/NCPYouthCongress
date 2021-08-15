@@ -18,8 +18,8 @@
                     </ngx-select>
                 </div> -->
                 <div class="offset-sm-9 col-sm-3">
-                    
-                
+
+
                 </div>
             </div>
         </div>
@@ -29,17 +29,17 @@
         <div class="col-sm-12">
             <div class="card card-body">
                 <div class="row" id="email-container">
-                    <div class="col-3 h-scroll-1">
+                    <div class="col-sm-3 h-scroll-600">
                         <label class="mb-3 emailname">All Messages</label>
                         <form [formGroup]="filterForm">
-                            <div class="input-group">
+                            <div class="input-group mb-3">
                                 <input type="text" class="form-control" formControlName="searchFilter" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                            <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter()" *ngIf="filterForm.value.searchFilter"><i
+                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter()" *ngIf="filterForm.value.searchFilter"><i
                                 _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
-                        <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm border btn-light"><i
+                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm border btn-light"><i
                                 class="fas fa-search"></i></button>
-                                </div>
-                                </form>
+                            </div>
+                        </form>
                         <!-- <div class="mb-2">
                             <div class="btn-group btn-block" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio1" autocomplete="off" checked>
@@ -55,30 +55,36 @@
 
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
                             <!-- [ngClass]="{'text-muted':receiverChatList?.IsRead == 1, 'unread':receiverChatList?.IsRead == 0 }" -->
-                            <a *ngFor="let receiverChatList of receiverChatListArray; let i = index"  class="list-group-item list-group-item-action"  [ngClass]="{'fw-bold text-info':receiverChatList?.IsRead == 0}"  id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
-                                <p> Unread      <ng-container *ngIf="receiverChatList.TotalUnReadMsg != 0">{{receiverChatList.TotalUnReadMsg}}</ng-container></p>
+                            <a *ngFor="let receiverChatList of receiverChatListArray; let i = index" class="list-group-item list-group-item-action" [ngClass]="{'fw-bold text-info':receiverChatList?.IsRead == 0}" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab"
+                                aria-controls="list-home" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
+                                <p> Unread
+                                    <ng-container *ngIf="receiverChatList.TotalUnReadMsg != 0">{{receiverChatList.TotalUnReadMsg}}</ng-container>
+                                </p>
                                 <div class="d-flex w-100 justify-content-between">
-                                   
-                                    <p class="membername mb-1"  >{{receiverChatList.Sender | titlecase}} </p>
-                             
-                                   
+
+                                    <p class="membername mb-1">{{receiverChatList.Sender | titlecase}} </p>
+
+
                                     <small class="feeddate">{{receiverChatList.MessageDate}} {{receiverChatList.MessageTime}}</small>
                                 </div>
                                 <small class="comment">{{receiverChatList.SenderMsg}}</small>
                             </a>
 
                             <a *ngIf="receiverChatListArray.length">NO data found</a>
-                          
+
                         </div>
                     </div>
-                    <div class="col-9"  >
-                        <button (click)="ngOnInit()" class="btn btn-sm btn-primary">Refresh</button>
-                        <div class="tab-content h-scroll-1" id="nav-tabContent" *ngIf="defaultMsgBox" #content >
+                    <div class="col-sm-9 h-scroll-600">
+                        <div class="d-block text-end">
+                            <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                        <hr />
+                        <div class="tab-content" id="nav-tabContent" *ngIf="defaultMsgBox" #content>
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="border-bottom mb-2 pb-1">
                                     <span class="emailname">{{infoUser?.Sender}}</span>
                                     <!-- <ng-container  *ngIf="{{infoUser.MediaPath}}"> -->
-                                        <!-- <img src="{{infoUser.MediaPath}}" style="width: 100px;"> -->
+                                    <!-- <img src="{{infoUser.MediaPath}}" style="width: 100px;"> -->
                                     <!-- </ng-container> -->
                                     <span class="float-end emaildate">
                                         <i class="far fa-calendar-alt me-1"></i> {{infoUser?.MessageDay}} {{infoUser.MessageTime}}
@@ -86,34 +92,37 @@
                                 </div>
                                 <div class="mb-3 pb-1 emailcontact">
                                     <!-- <ng-container  *ngIf="{{infoUser.MediaPath}}"> -->
-                                     
+
                                     <!-- </ng-container> -->
-                                    <i class="far fa-envelope me-1"></i> {{infoUser?.Emailid}}
-                                    {{infoUser?.MessageDate}}
+                                    <i class="far fa-envelope me-1"></i> {{infoUser?.Emailid}} {{infoUser?.MessageDate}}
                                     <span class="float-end">
                                         <i class="fas fa-phone-alt me-1"></i> +91-{{infoUser?.MobileNo}}
                                     </span>
                                 </div>
                                 <div class="row" #messages>
-                                    <ng-container   *ngFor="let message of messagebyGroupIdArray">
-                                    <div class="mb-2 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
-                                        <div class="card card-body border shadow-none position-relative membercall">
-                                            <p class="small text-muted mb-1 lblfeedback">{{message.Sender}} {{infoUser?.MessageDay}} {{infoUser.MessageTime}}</p>
-                                            <span class="feedback">{{message.SenderMsg}}</span>
-                                            <img  src="{{message.MediaPath}}" style="width: 100px;">
+                                    <ng-container *ngFor="let message of messagebyGroupIdArray">
+                                        <div class="mb-2 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
+                                            <div class="card card-body border shadow-none position-relative membercall">
+                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
+                                                    <span class="float-end text-muted small">{{infoUser?.MessageDay}} {{infoUser.MessageTime}}</span>
+                                                </p>
+                                                <span class="feedback">{{message.SenderMsg}}</span>
+                                                <img src="{{message.MediaPath}}" style="width: 100px;">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-2 pb-1 col-sm-10 offset-2"  *ngIf="message.ReceiverId != loginUserId">
-                                        <div class="card card-body border bg-light shadow-none position-relative admincall">
-                                            <p class="small text-muted mb-1 lblfeedback">{{message.Sender}} {{infoUser?.MessageDate}}</p>
-                                            <span class="feedback">{{message.SenderMsg}}</span>
-                                            <img  src="{{message.MediaPath}}" style="width: 100px;">
+                                        <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
+                                            <div class="card card-body border bg-light shadow-none position-relative admincall">
+                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
+                                                    <span class="float-end text-muted small"> {{infoUser?.MessageDate}}</span>
+                                                </p>
+                                                <span class="feedback">{{message.SenderMsg}}</span>
+                                                <img src="{{message.MediaPath}}" style="width: 100px;">
+                                            </div>
                                         </div>
-                                    </div>
-                                </ng-container>
+                                    </ng-container>
                                 </div>
-                           
-                                <form enctype="multipart/form-data"   [formGroup]="replayForm">
+
+                                <form enctype="multipart/form-data" [formGroup]="replayForm">
                                     <div class="mb-3 mt-4">
                                         <div class="form-floating">
                                             <textarea class="form-control" formControlName="senderMsg" placeholder="Reply to comment here" id="txtReply" rows="4"></textarea>
@@ -121,16 +130,14 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 mt-4">
-                                        <div class="form-floating">
-                                            <input type="file" (change)="readUrl($event)">
-                                        </div>
+                                        <input type="file" (change)="readUrl($event)" class="form-control form-control-sm">
                                     </div>
-                                  
+
                                     <div class="">
                                         <button class="btn btn-secondary float-lg-start" type="button" (click)="defaultMsgBox = false">Clear</button>
-                                        <button class="btn btn-main float-lg-end" type="submit" (click)="UploadHelpMeChatMediaMsg()" [disabled]="!replayForm.valid">Send</button>
-                                </div>
-                            </form>
+                                        <button class="btn btn-main float-lg-end" type="submit" (click)="UploadHelpMeChatMediaMsg()" [disabled]="!replayForm.valid">Send Reply</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">2</div>
                             <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">3</div>
