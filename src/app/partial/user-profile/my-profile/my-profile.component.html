@@ -51,7 +51,8 @@
                                 Edit Profile
                             </div>
                             <div class="card-body">
-                                <form [formGroup]="editProfileForm" enctype="multipart/form-data" (ngSubmit)="updateProfile()">
+                                <form [formGroup]="editProfileForm" enctype="multipart/form-data">
+                                    <!-- <fieldset [disabled]="disabledEditForm"> -->
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <a class="update-photo" (click)="choosePhoto()">
@@ -169,7 +170,7 @@
                                                 </div>
                                                 <hr />
                                                 <div class="text-end">
-                                                    <button type="submit" class="btn btn-main btn-sm">Update Profile</button>
+                                                    <button type="submit" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +186,69 @@
                                 Change Password
                             </div>
                             <div class="card-body">
-                                Change password box
+                              
+                                <div class="modal-body form-container">
+                                    <form [formGroup]="changePasswordForm" autocomplete="off">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtUserName">UserName</label>
+                                                <input type="email" class="form-control" [readonly]="true" formControlName="userName" id="txtUserName" placeholder="UserName">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="txtOldPassword">Old Password<span
+                                                        class="text-center text-danger">*</span></label>
+                                                <input [type]="show_button ? 'text' : 'password'" class="form-control" placeholder="Old password" formControlName="oldPassword" [ngClass]="{ 'is-invalid': submittedChangePassword && cp.oldPassword.errors }">
+                                                <i class="eye-icon-pos" [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword('old')"> </i>
+                                                <div *ngIf="submittedChangePassword && cp.oldPassword.errors" class="invalid-feedback">
+                                                    <div *ngIf="cp.oldPassword.errors.required">Old Password is requird </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="txtNewPassword">New Password<span
+                                                        class="text-center text-danger">*</span></label>
+                                                <input [type]="show_button1 ? 'text' : 'password'" class="form-control" placeholder="New password" formControlName="newPassword" [ngClass]="{ 'is-invalid': submittedChangePassword && cp.newPassword.errors }">
+                                                <i class="eye-icon-pos" [class]="show_eye1 ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword('new')"> </i>
+                                                <div *ngIf="submittedChangePassword && cp.newPassword.errors" class="invalid-feedback">
+                                                    <div *ngIf="cp.newPassword.errors.passwordValid"> New Password is invalid format
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="txtRePassword">Confirm Password<span
+                                                        class="text-center text-danger">*</span></label>
+                                                <input [type]="show_button2 ? 'text' : 'password'" class="form-control" placeholder="Confirm password" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submittedChangePassword && cp.ConfirmPassword.errors }">
+                                                <i class="eye-icon-pos" [class]="show_eye2 ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword('confirm')"> </i>
+                                                <div *ngIf="submittedChangePassword && cp.ConfirmPassword.errors" class="invalid-feedback">
+                                                    <div *ngIf="cp.ConfirmPassword.errors.passwordValid"> Confirm Password is invalid format </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="mb-2 mt-4">
+                                                <button type="button" class="btn btn-secondary float-lg-start" (click)="clearForm()">Clear</button>
+                                                <button type="submit" (click)="onSubmit()" class="btn btn-main float-lg-end">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                    <div class="chartbox mt-3">
+                                        <div class="card border">
+                                            <div class="card-header">Note :</div>
+                                            <div class="card-body">
+                                                <ul class="small">
+                                                    <li>Have at least one Lower Case character</li>
+                                                    <li>Have at lease one Upper Case character</li>
+                                                    <li>Have at least one Number</li>
+                                                    <li>Have at least one Special Character</li>
+                                                    <li>Password must be between 8 and 20 characters</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

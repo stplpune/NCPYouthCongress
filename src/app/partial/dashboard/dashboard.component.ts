@@ -697,6 +697,4 @@ series3.segments.template.strokeWidth = 1;
       this.toastrService.error("Data is not available.");
     }
   }
-
-
 }
