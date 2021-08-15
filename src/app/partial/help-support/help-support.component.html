@@ -29,7 +29,8 @@
             <div class="card card-body">
                 <div class="row" id="email-container">
                     <div class="col-3">
-                        <div class="mb-2">
+                        <label class="mb-3 emailname">All Messages</label>
+                        <!-- <div class="mb-2">
                             <div class="btn-group btn-block" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio1" autocomplete="off" checked>
                                 <label class="btn btn-outline-primary" for="btnradio1"><i class="fas fa-star me-1"></i>New</label>
@@ -40,59 +41,40 @@
                                 <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio3" autocomplete="off">
                                 <label class="btn btn-outline-danger" for="btnradio3"><i class="fas fa-thumbs-down me-1"></i>Ignored</label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a *ngFor="let receiverChatList of receiverChatListArray" class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" >
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">{{receiverChatList.Sender}}</p>
+                            <!-- [ngClass]="{'text-muted':receiverChatList?.IsRead == 1, 'unread':receiverChatList?.IsRead == 0 }" -->
+                            <a *ngFor="let receiverChatList of receiverChatListArray; let i = index"  class="list-group-item list-group-item-action"  [ngClass]="{'fw-bold text-info':receiverChatList?.IsRead == 0}"  id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" >
+                                <div class="d-flex w-100 justify-content-between" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
+                                    <p class="membername mb-1"  >{{receiverChatList.Sender | titlecase}}</p>
                                     <small class="feeddate">{{receiverChatList.MessageDate}}</small>
                                 </div>
                                 <small class="comment">{{receiverChatList.SenderMsg}}</small>
                             </a>
-                            <!-- <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
-                            <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div>
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a>
-                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="membername mb-1">Anil Kambale</p>
-                                    <small class="feeddate">01-04-2021</small>
-                                </div> 
-                                <small class="comment">Some placeholder content in a paragraph. And some small print.</small>
-                            </a> -->
+                          
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9" *ngIf="defaultMsgBox">
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="border-bottom mb-2 pb-1">
-                                    <span class="emailname">Mr. Anil Kambale</span>
+                                    <span class="emailname">{{infoUser?.Sender}}</span>
                                     <span class="float-end emaildate">
-                                        <i class="far fa-calendar-alt me-1"></i> 01-04-2021, 12:35:25 PM
+                                        <i class="far fa-calendar-alt me-1"></i> {{infoUser?.MessageDate}}
                                     </span>
                                 </div>
                                 <div class="mb-3 pb-1 emailcontact">
-                                    <i class="far fa-envelope me-1"></i> anilkambale@gmail.com
+                                    <i class="far fa-envelope me-1"></i> {{infoUser?.Emailid}}
                                     <span class="float-end">
-                                        <i class="fas fa-phone-alt me-1"></i> +91-9876543210
+                                        <i class="fas fa-phone-alt me-1"></i> +91-{{infoUser?.MobileNo}}
                                     </span>
                                 </div>
                                 <div class="row">
-                                    <div class="mb-2 pb-1 col-sm-10">
+                                    <div class="mb-2 pb-1 col-sm-10" *ngFor="let message of messagebyGroupIdArray">
                                         <div class="card card-body border shadow-none position-relative membercall">
-                                            <p class="small text-muted mb-1 lblfeedback">Mr. Anil Kambale Says :</p>
-                                            <span class="feedback">Nowadays you can see how the Social Media is making a huge impact in Indian Politics and there are lot of Political Consulting Firms in India. We Trivoli Consultancy are Political Digital Marketing Agency and the leading Political Consulting Firm in India.</span>
+                                            <p class="small text-muted mb-1 lblfeedback">{{message.Receiver}} ({{message.MessageDate}})</p>
+                                            <span class="feedback">{{message.SenderMsg}}</span>
                                         </div>
                                     </div>
                                     <div class="mb-2 pb-1 col-sm-10 offset-2">
@@ -102,17 +84,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 mt-4">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Reply to comment here" id="txtReply" rows="4"></textarea>
-                                        <label for="floatingTextarea2">Reply</label>
+                                <form nctype="multipart/form-data"  [formGroup]="replayForm">
+                                    <div class="mb-3 mt-4">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" formControlName="senderMsg" placeholder="Reply to comment here" id="txtReply" rows="4"></textarea>
+                                            <label for="floatingTextarea2">Reply</label>
+                                        </div>
                                     </div>
+                                    <div class="mb-3 mt-4">
+                                        <div class="form-floating">
+                                            <input type="file" (change)="readUrl($event)">
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <!-- <button class="btn btn-danger me-1" type="submit">Ignore Message</button> -->
+                                        <button class="btn btn-main" type="submit">send</button>
                                 </div>
-
-                                <div class="text-end">
-                                    <button class="btn btn-danger me-1" type="submit">Ignore Message</button>
-                                    <button class="btn btn-main" type="submit">Reply Feedback</button>
-                                </div>
+                            </form>
                             </div>
                             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">2</div>
                             <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">3</div>

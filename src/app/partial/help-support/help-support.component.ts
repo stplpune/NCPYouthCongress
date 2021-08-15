@@ -18,7 +18,15 @@ export class HelpSupportComponent implements OnInit {
   messagebyGroupIdArray: any;
   chatGroupMemberArray: any;
   tblchatreceivedArray: any;
- 
+  defaultMsgBox:boolean = false;
+  replayForm!:FormGroup;
+  selectedFile!:File;
+  ImgUrl:any;
+  getImgExt:any;
+  imgName:any;
+  infoUser:any;
+
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
@@ -26,15 +34,22 @@ export class HelpSupportComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReceiverChatList();
-    this.getMessagebyGroupId();
-    this.getChatGroupMember();
-    this.getTblchatreceived();
-    this.UploadHelpMeChatMediaMsg()
+    this.defualtForm();
+    // this.getChatGroupMember();
+    // this.getTblchatreceived();
+    // this.UploadHelpMeChatMediaMsg()
   }
+  defualtForm(){
+      this.replayForm = this.fb.group({
+        senderMsg:['']
+      })
+  }
+
+
 
   getReceiverChatList() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_get_ReceiverChatList?UserId=' + this.commonService.loggedInUserId() + '&Search=' + '' , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_get_ReceiverChatList?UserId=' +297  + '&Search=' + '' , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -50,17 +65,28 @@ export class HelpSupportComponent implements OnInit {
     } )
   }
 
-  getMessagebyGroupId() {
+  getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
+    // if(readStatus == 0){
+    //   this.getTblchatreceived(GroupId);
+    // }
+    debugger;
+    this.defaultMsgBox= true;
+    this.infoUser = infoUser;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId=' + this.commonService.loggedInUserId() + '&GroupId=' + 8 , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+297+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      console.log('getMessagebyGroupId',res);
       if (res.data == 0) {
         this.spinner.hide();
         this.messagebyGroupIdArray = res.data1;
+      
       } else {
-          this.toastrService.error("Data is not available");
+        this.spinner.hide();
+        // this.messagebyGroupIdArray = [];
+          // this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -69,7 +95,7 @@ export class HelpSupportComponent implements OnInit {
 
   getChatGroupMember() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + 8 + '&UserId=' + this.commonService.loggedInUserId() , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + 8 + '&UserId=' +297, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -84,11 +110,12 @@ export class HelpSupportComponent implements OnInit {
     } )
   }
 
-  getTblchatreceived() {
+  getTblchatreceived(GroupId:any,) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + 8 + '&UserId=' + this.commonService.loggedInUserId() , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId+ '&UserId=' +297, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.getReceiverChatList();
         this.spinner.hide();
         this.tblchatreceivedArray = res.data1;
       } else {
@@ -124,11 +151,30 @@ export class HelpSupportComponent implements OnInit {
         this.spinner.hide();
       }
     } ,(error:any) => {
-      this.spinner.hide();
+       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
 
+  readUrl(event: any) {
+    let selResult = event.target.value.split('.');
+    this.getImgExt = selResult.pop();
+    this.getImgExt.toLowerCase();
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg") {
+      this.selectedFile = <File>event.target.files[0];
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.ImgUrl = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        this.imgName = event.target.files[0].name;
+      }
+    }
+    else {
+      this.toastrService.error("Profile image allowed only jpg or png format");
+    }
+  }
 }
