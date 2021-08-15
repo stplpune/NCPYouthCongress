@@ -106,8 +106,11 @@ export class NotificationsComponent implements OnInit {
       let fromData = new FormData();
       let notStatus:any;
       let ImageChangeFlag:any;
-      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 1, ImageChangeFlag = 1);
 
+      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 1 ): (notStatus = 1, ImageChangeFlag = 0);
+      if(this.notificationForm.value.NotificationType == 0){
+        ImageChangeFlag = 0;
+      }
       let getObj:any = this.notificationForm.value;
 
       let fillSelection:any;
@@ -257,7 +260,7 @@ export class NotificationsComponent implements OnInit {
     this.getImgPath = null;
     this.notificationForm.patchValue({
       AttachmentPath:'',
-      NotificationType:1
+      NotificationType:0
     })
   }
   

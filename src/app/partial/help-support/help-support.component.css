@@ -23,3 +23,8 @@
     right: 19px;
     bottom: -21px;
 }
+
+.h-scroll-1{
+    height: 400px;
+    overflow-y: scroll;
+}
