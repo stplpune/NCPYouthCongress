@@ -69,7 +69,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       'path3109': {
           id: "1",
           tooltip: "पुणे",
-          data: {value:"25"}
+          data: {}
       },
       'path3121': {
           id: "2",
@@ -283,7 +283,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         },
         tooltips: {
           mode: "title",
-          off: false,
+          off: true,
           priority: "local",
           position: "top"
         },
@@ -330,7 +330,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           min: 0,
           max: false
         },
-        source: "assets/images/map_maha_m.svg",
+        source: "assets/images/map_maha_m1.svg",
         title: "Maharashtra-bg_o",
         responsive: true
       });
@@ -498,6 +498,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvakTP = res.data1;
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
+        console.log(this.WorkDoneByYuvakTP);
         this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -546,6 +547,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // chart DIv 
   WorkDoneByYuvak() {
+ 
+
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
       am4core.useTheme(am4themes_material);
@@ -637,6 +640,21 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
     });
+
+    // statemap start here 
+    let data:any =  this.WorkDoneByYuvakTP;
+    data.map((ele:any)=>{
+      $('path[id="' + ele.DistrictId + '"]').css('fill', '#d1e7dd');
+        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
+        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
+      })
+
+    this.WorkDoneByYuvakBP.map((ele:any)=>{
+      $('path[id="' + ele.DistrictId + '"]').css('fill', '#f8d7da');
+        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
+        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
+      })
+
   }
 
   catChange(value: any) {

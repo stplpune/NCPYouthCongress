@@ -66,9 +66,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.myProfileForm();
-    this.getProfileData();
-    this.customFormChangePassword();
+    // this.myProfileForm();
+    // this.getProfileData();
+    // this.customFormChangePassword();
   }
 
   getProfileData() {

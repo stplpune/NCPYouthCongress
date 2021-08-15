@@ -132,11 +132,14 @@
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
+                                    <img *ngIf="membersData.ImagePath" src="{{membersData.ImagePath}}" else noData >
+                                    <ng-template #noData><img src="assets/images/dashboard-images/ncp-default.png"></ng-template>
+                                    
                                   <!-- <ng-container *ngFor="let img of ParpantsProMemImge; let i = index"  >
                                         <img *ngIf="i<1"  [lightbox]="i" [src]="img?.data?.thumb" />
                                 
                                     </ng-container>  [lightbox]="membersData.MemberId" -->
-                                    <img [src]="membersData.ImagePath" [lightbox]="membersData.MemberId"  [gallery]="'anotherLightbox'"  (click)="showLightBox(membersData.MemberId)" />
+                                    <!-- <img [src]="" [lightbox]="membersData.MemberId"  [gallery]="'anotherLightbox'"  (click)="showLightBox(membersData.MemberId)" /> -->
                                 </td>
                             </tr>
                         </tbody>

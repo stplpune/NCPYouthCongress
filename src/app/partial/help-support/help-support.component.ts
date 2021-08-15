@@ -31,7 +31,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
   timeInterval: any;
   filterForm!:FormGroup;
   subject: Subject<any> = new Subject();
-  searchFilter:any;
+  // searchFilter:any;
   @ViewChildren('messages') messages: any;
   @ViewChild('content') content!: ElementRef;
 
@@ -50,6 +50,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     // }, 5000)
     this.getReceiverChatList();
     this.scrollToBottom();
+    this.searchFilters(false);
   }
 
   defualtForm(){
@@ -78,10 +79,12 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.receiverChatListArray = res.data1;
         // this.receiverChatListArray.reverse();
       } else {
+        this.spinner.hide();
         this.receiverChatListArray = [];
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -98,8 +101,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scrollToBottom();
     this.defaultMsgBox= true;
     this.infoUser = infoUser;
-    console.log(this.infoUser);
-    // this.spinner.show();
+   
     this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+this.commonService.loggedInUserId()+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       console.log('getMessagebyGroupId',res);
@@ -117,7 +119,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
-    } )
+    })
   }
 
   joinChatGroupMember() {
@@ -235,17 +237,13 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subject
     .pipe(debounceTime(700))
     .subscribe(() => {
-      this.searchFilter =  this.filterForm.value.searchFilter;
+      this.filterForm.value.searchFilter;
       this.getReceiverChatList()
     }
     );
   }
 
-  filter(searchText: any) {
-    this.searchFilter = searchText;
-    // this.getOrganizationList();
-  }
-
+ 
   ngAfterViewInit() {
     this.scrollToBottom();
     this.messages.changes.subscribe(this.scrollToBottom);
