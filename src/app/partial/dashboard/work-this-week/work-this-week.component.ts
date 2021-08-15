@@ -184,9 +184,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -204,8 +206,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
+          this.spinner.hide();
           this.toastrService.error("Data is not available");
         } else {
+          this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
         }
       }
@@ -221,9 +225,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -488,9 +494,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.memberNameArray = res.data1;
         console.log(this.memberNameArray)
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }

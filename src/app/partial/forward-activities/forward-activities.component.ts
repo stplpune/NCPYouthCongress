@@ -197,9 +197,11 @@ export class ForwardActivitiesComponent implements OnInit {
         this.spinner.hide();
         this.newstypeArray = res.data1;
       } else {
+        this.spinner.hide();
           this.toastrService.error("Data is not available1");
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }

@@ -121,6 +121,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.politicalWorkArray = [];
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -135,9 +136,11 @@ export class ActivityAnalysisComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -181,9 +184,11 @@ export class ActivityAnalysisComponent implements OnInit {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -198,9 +203,11 @@ export class ActivityAnalysisComponent implements OnInit {
         this.spinner.hide();
         this.categoryArray = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -253,9 +260,11 @@ export class ActivityAnalysisComponent implements OnInit {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
