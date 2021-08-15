@@ -51,15 +51,15 @@
                             </div>
                             <div class="mb-2">
                                 <label for="ddlScope" class="form-label  required-field">Scope of Notification</label>
-                                <ngx-select [allowClear]="true" [items]="notificationscopeArray" formControlName="ScopeId" placeholder="Scope of Notification" optionValueField="id" optionTextField="ScopeName" >
+                                <ngx-select [allowClear]="true"  [items]="notificationscopeArray" formControlName="ScopeId" placeholder="Scope of Notification" optionValueField="id" optionTextField="ScopeName" >
                                 </ngx-select>
                                 <div *ngIf="submitted && f.ScopeId.errors" class="invalid-feedback">
                                     <div *ngIf="f.ScopeId.errors.required">Scope of Notification is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label for="ddlMembers" class="form-label">Select District</label>
-                                <ngx-select [allowClear]="true" [multiple]="true" [items]="allDistrict"   formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                                <label for="ddlMembers" class="form-label">Select District {{this.notificationForm.value.ScopeId}}</label>
+                                <ngx-select [allowClear]="true" [multiple]="true" [disabled]="this.notificationForm.value.ScopeId != 2" [items]="allDistrict"   formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                             </div>
                             <div class="mb-2">
