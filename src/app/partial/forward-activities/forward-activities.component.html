@@ -13,7 +13,7 @@
             <div class="card card-body">
                 <div class="row">
                     <div class="col-4">
-                        <form [formGroup]="forwardActivitiForm" (ngSubmit)="onSubmit()">
+                        <form [formGroup]="forwardActivitiForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="mb-2">
                                 <label for="txtActivityTitle" class="form-label">Activity Title</label>
@@ -31,41 +31,14 @@
                             </div>
                             <div class="mb-2">
                                 <label for="fuPhoto" class="form-label">Activity Photo</label>
-                                <input class="form-control form-control-sm" formControlName="activityPhoto" id="fuPhoto" type="file">
+                                <input class="form-control form-control-sm" (change)="readUrl($event)" id="fuPhoto" type="file">
+                                <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i
+                                    class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
                                 <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">
                                     <div *ngIf="f.activityPhoto.errors.required">Title name is required</div>
                                 </div>
                             </div>
-                            <div class="mb-2">
-                                <label for="txtLinkURL" class="form-label">Link</label>
-                                <input type="url" class="form-control" formControlName="link" id="txtLinkURL" placeholder="http://www.example.com">
-                                <div *ngIf="submitted && f.link.errors" class="invalid-feedback">
-                                    <div *ngIf="f.link.errors.required">Title name is required</div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="fuAttachments" class="form-label">Attachment(s)</label>
-                                <input class="form-control form-control-sm" formControlName="attachment" id="fuAttachments" type="file" multiple>
-                                <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
-                                    <div *ngIf="f.attachment.errors.required">Title name is required</div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Scope of Activity</label>
-                                <ngx-select [allowClear]="true" [items]="allLevels" formControlName="scopeOf_Activity" placeholder="Scope of Notification" optionValueField="Id" optionTextField="LevelName" >
-                                </ngx-select>
-                                <div *ngIf="submitted && f.scopeOf_Activity.errors" class="invalid-feedback">
-                                    <div *ngIf="f.scopeOf_Activity.errors.required">Title name is required</div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Select Values</label>
-                                <ngx-select [multiple]="true" [allowClear]="true" formControlName="selectValues" [items]="items" placeholder="Select Value">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.selectValues.errors" class="invalid-feedback">
-                                    <div *ngIf="f.selectValues.errors.required">Title name is required</div>
-                                </div>
-                            </div>
+                           
                             <div class="mb-2">
                                 <label for="txtBody" class="form-label">Hashtags for Activity</label>
                                 <textarea type="text" rows="3" class="form-control" formControlName="hashtags_Activity" id="txtBody" placeholder="Hashtags for Activity"></textarea>
@@ -76,9 +49,7 @@
                             </div>
 
                             <div class="mb-2 text-end">
-                                <button type="submit" class="btn btn-main">Publish Activity</button>
-                                <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
-                                <button type="button" class="btn btn-danger">Delete</button> -->
+                                <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}} Activity</button>
                             </div>
                         </div>
                     </form>
@@ -86,95 +57,93 @@
                     <div class="col-8 border-start" id="notifications">
                         <form [formGroup]="filterForm">
                         <div class="row g-1 mb-2 border-bottom pb-2">
-                            <div class="col-sm-3">
-                                <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
-                                </ngx-select>
+                            <div class="col-sm-4">
+                                <ngx-select [allowClear]="true" (remove)="clearFilter('newsType')" formControlName="newstypeId" [items]="newstypeArray" optionValueField="Id" optionTextField="NewsType" placeholder="News Type" (select)="filterData(false)">
+                                    </ngx-select>
+                                    </div>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="filterData('range')"  class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                    <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                        <i class="fas fa-calendar"></i></button>
+                                    <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+                                <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
                             </div>
-                            <div class="col-sm-3">
-                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
-                                optionValueField="TalukaId" optionTextField="TalukaName">
-                            </ngx-select>
-                            </div>
-                            <div class="col-sm-3">
-                                <ngx-select [allowClear]="true" formControlName="VillageId" [disabled]="!filterForm.value.TalukaId" optionTextField="VillageName" optionValueField="" [items]="resultVillageOrCity"  placeholder="Select City/Village">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm-3">
-                                <input class="form-control" formControlName="searchText" type="text" placeholder="Search Member" />
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="searchText" placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i
+                                            class="fas fa-search"></i></button>
+                                </div>
                             </div>
                         </div>
                     </form>
-                        <div class="d-flex media">
+                        <div class="d-flex media" *ngFor="let getnews of getnewsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <div class="flex-shrink-0">
-                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                                <img *ngIf="getnews?.NewsImages else noImg" src="{{getnews?.NewsImages}}" alt="..." class="media-img">
+                                <ng-template #noImg>
+                                    <img src="assets/images/ncp-default.png" alt="..." class="media-img">
+                                    
+                                </ng-template>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <span class="media-date">10-02-2021</span>
-                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
+                                <span class="media-date">{{getnews.NewsDate1}}</span>
+                                <div class="media-title">{{getnews.Title}}</div>
                                 <div class="media-body">
-                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
-                                    You can replace this with any content and adjust it as needed.
+                                  {{getnews.Description}}
                                 </div>
                                 <div class="media-links">
-                                    <a href="#" class="me-5">Click Here</a>
-                                    <span class="badge bg-primary">#activity</span>
-                                    <span class="badge bg-primary">#ncpyouth</span>
-                                    <span class="badge bg-primary">#sataracity</span>
-                                    <span class="badge bg-primary">#india</span>
                                     <span class="float-end">
-                                        <button type="button" title="Edit Notification" class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" title="Delete Notification" class="btn btn-outline-danger btn-sm me-1"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" title="Edit Notification" (click)="editNotification(getnews)" class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" title="Delete Notification" (click)="delNotConfirmation(getnews?.NewsId)"
+                                            class="btn btn-outline-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#delteteModal"><i class="fas fa-trash-alt"></i></button>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex media">
-                            <div class="flex-shrink-0">
-                                <img src="assets/images/dashboard-images/ncplogo.png" alt="..." class="media-img">
+                        <div class="mt-2 text-end" *ngIf="getnewsArray?.length == 0">
+                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                                <span class="media-date">10-02-2021</span>
-                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
-                                <div class="media-body">
-                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
-                                    You can replace this with any content and adjust it as needed.
-                                </div>
-                                <div class="media-links">
-                                    <a href="#" class="me-5">Click Here</a>
-                                    <span class="badge bg-primary">#activity</span>
-                                    <span class="badge bg-primary">#ncpyouth</span>
-                                    <span class="badge bg-primary">#india</span>
-                                    <span class="float-end">
-                                        <button type="button" title="Edit Notification" class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" title="Delete Notification" class="btn btn-outline-danger btn-sm me-1"><i class="fas fa-trash-alt"></i></button>
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="mt-2 text-end" *ngIf="getnewsArray?.length != 0">
+                            <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                         </div>
-                        <div class="d-flex media">
-                            <div class="flex-grow-1 ms-3">
-                                <span class="media-date">10-02-2021</span>
-                                <div class="media-title">Request to Attend workshop on Indian Constitution</div>
-
-                                <div class="media-body">
-                                    This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component. You can replace this with any content and adjust it as needed. This is some content from a media component.
-                                    You can replace this with any content and adjust it as needed.
-                                </div>
-                                <div class="media-links">
-                                    <a href="#" class="me-5">Click Here</a>
-                                    <span class="badge bg-primary">#activity</span>
-                                    <span class="badge bg-primary">#ncpyouth</span>
-                                    <span class="badge bg-primary">#sataracity</span>
-                                    <span class="badge bg-primary">#india</span>
-                                    <span class="float-end">
-                                        <button type="button" title="Edit Notification" class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" title="Delete Notification" class="btn btn-outline-danger btn-sm me-1"><i class="fas fa-trash-alt"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                       
+                      
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delteteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="delteteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="ProgramStatusModal1Label">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal"
+                    aria-label="Close">Cancel</button>
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="deleteNotifications()" type="button" data-bs-dismiss="modal" aria-label="Close">I'm
+                    Sure</button>
             </div>
         </div>
     </div>

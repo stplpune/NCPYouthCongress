@@ -187,7 +187,6 @@ export class NotificationsComponent implements OnInit {
     }
   }
   
-
   validationRemove() {
     this.notificationForm.controls['DistrictId'].clearValidators();
     this.notificationForm.controls["DistrictId"].updateValueAndValidity();
@@ -198,7 +197,6 @@ export class NotificationsComponent implements OnInit {
     this.notificationForm.controls['MemberStr'].clearValidators();
     this.notificationForm.controls['MemberStr'].updateValueAndValidity();
     this.notificationForm.controls['BodyId'].setValue('');
-  
   }
 
   editNotification(data:any){
@@ -247,7 +245,6 @@ export class NotificationsComponent implements OnInit {
       this.notificationForm.controls["MemberStr"].setValue(this.notificationForm.value.MemberStr.map(Number))
     }
     
-  
   }
 
   resetNotificationForm(){

@@ -5,24 +5,17 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-forward-activities',
   templateUrl: './forward-activities.component.html',
   styleUrls: ['./forward-activities.component.css', '../partial.component.css']
 })
 export class ForwardActivitiesComponent implements OnInit {
-  public items: string[] = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-  'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-  'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-  'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-  'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-  'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-  'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-  'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-  'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-  'Zagreb', 'Zaragoza', 'Łódź'];
- 
-  
+
   forwardActivitiForm!: FormGroup;
   submitted = false;
   allLevels: any;
@@ -32,6 +25,22 @@ export class ForwardActivitiesComponent implements OnInit {
   viewMembersObj:any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText:''}
   getTalkaByDistrict: any;
   resultVillageOrCity: any;
+  newstypeArray: any;
+  getnewsArray: any;
+  total: any;
+  paginationNo: number = 1;
+  pageSize: number = 10;
+  defaultCloseBtn:boolean = false;
+  subject: Subject<any> = new Subject();
+  searchFilter = "";
+  getImgPath:any;
+  globalMemberId:any[]= [];
+  NotificationText:string =  "Push";
+  imgName: any;
+  ImgUrl: any;
+  getImgExt: any;
+  selectedFile!: File;
+  NewsId: any;
   
   constructor(
     private callAPIService: CallAPIService, 
@@ -41,107 +50,152 @@ export class ForwardActivitiesComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
+    private datePipe:DatePipe
     ) { }
 
   ngOnInit(): void {
     this.customForm();
-    this.getLevel();
-    this.getDistrict();
     this.defaultFilterForm();
+    this.getnewstype();
+    this.getNewsData();
+    this.searchFilters('false');
   }
 
   customForm() {
     this.forwardActivitiForm = this.fb.group({
+      Id: [0],
+      CreatedBy:[this.commonService.loggedInUserId()],
       activityTitle: ['', Validators.required],
       activityBody: ['', Validators.required],
-      activityPhoto: ['', Validators.required],
-      link: ['', Validators.required],
-      attachment: ['', Validators.required],
-      scopeOf_Activity: ['', Validators.required],
-      selectValues: ['', Validators.required],
       hashtags_Activity: ['', Validators.required],
+      IsChangeImage: [0],
+      NewsType:[''],
     })
   }
 
   get f() { return this.forwardActivitiForm.controls };
-
+ 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      DistrictId: [''],
-      TalukaId: [''],
-      VillageId: [''],
-      searchText:['']
+      newstypeId: [0],
+      fromTo: [['','']],
+      searchText:[''],
     })
   }
   
   onSubmit(){
+    // this.spinner.show();
     this.submitted = true;
-    console.log(this.forwardActivitiForm.value);
-    //this.clearForm();
+    if (this.forwardActivitiForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+      debugger;
+      this.globalMemberId = [];
+      console.log(this.forwardActivitiForm.value);
+      let fromData = new FormData();
+      let notStatus:any;
+      let ImageChangeFlag:any;
+      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 0, ImageChangeFlag = 1);
+
+      let getObj:any = this.forwardActivitiForm.value;
+
+      fromData.append('Id', getObj.Id);
+      fromData.append('CreatedBy', this.commonService.loggedInUserId());
+      fromData.append('Title', getObj.activityTitle);
+      fromData.append('Description', getObj.activityBody);
+      fromData.append('HashTags', getObj.hashtags_Activity);
+      fromData.append('NewsType', ImageChangeFlag);
+      fromData.append('IsChangeImage', notStatus);
+      fromData.append('NewsImages ', this.selectedFile);
+  
+      this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.submitted = false;
+          // let attachmentNull:any = document.getElementById("#fuAttachments");
+          // attachmentNull.value=null; 
+          this.resetNotificationForm();
+          this.spinner.hide();
+          this.toastrService.success(res.data1[0].Msg)
+          this.getNewsData();
+        } else {
+          // this.toastrService.error(res.data1[0].Msg)
+          this.spinner.hide();
+        }
+      } ,(error:any) => {
+        this.spinner.hide();
+        // if (error.status == 500) {
+        //   this.router.navigate(['../500'], { relativeTo: this.route });
+        // }
+      })
+    }
   }
 
-  getLevel() {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0', false, false, false, 'ncpServiceForWeb');
+  editNotification(data:any){
+    console.log(data);
+    debugger;
+    this.NotificationText = "Update";
+    this.getImgPath = data.NewsImages;
+    //this.addValidationOn(data.ScopeId);
+   
+    this.forwardActivitiForm.patchValue({
+      CreatedBy:this.commonService.loggedInUserId(),
+      Id: data.Id,
+      activityTitle: data.Title,
+      activityBody: data.Description,
+      hashtags_Activity:data.HashTags,
+      IsChangeImage:data.IsChangeImage,
+    })
+
+  }
+
+
+  resetNotificationForm(){
+    this.submitted = false;
+    this.getImgPath = null;
+    this.forwardActivitiForm.reset();
+  }
+
+  deleteImg(){
+    this.getImgPath = null;
+    this.forwardActivitiForm.patchValue({
+      NewsImages:'',
+      NotificationType:1
+    })
+  }
+  
+  delNotConfirmation(NewsId:any){
+    this.NewsId = NewsId;
+  }
+
+  deleteNotifications(){
+    this.callAPIService.setHttp('get', 'Delete_News_Web_1_0?NewsId='+this.NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.spinner.hide();
-        this.allLevels = res.data1;
+        this.toastrService.success(res.data1[0].Msg)
+        this.getNewsData();
       } else {
-          this.toastrService.error("Data is not available");
+        // this.toastrService.error(res.data1[0].Msg)
+        this.spinner.hide();
       }
     } ,(error:any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
 
-  getDistrict() {
+
+  getnewstype(){
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Getnewstype?', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.allDistrict = res.data1;
-      } else {
-          this.toastrService.error("Data is not available 2");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  getTaluka(districtId: any) {
-    this.viewMembersObj.DistrictId = districtId;
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.getTalkaByDistrict = res.data1;
-        console.log(this.getTalkaByDistrict)
-      } else {
-          this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  getVillageOrCity(talukaID: any) {
-    debugger
-    this.viewMembersObj.Talukaid = talukaID
-    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.resultVillageOrCity = res.data1;
-
+        this.newstypeArray = res.data1;
       } else {
           this.toastrService.error("Data is not available1");
       }
@@ -152,9 +206,101 @@ export class ForwardActivitiesComponent implements OnInit {
     })
   }
 
-  filterVillage(villageId: any){
-    this.viewMembersObj.villageid = villageId;
-    console.log(this.filterForm.value)
+  getNewsData(){
+    let getObj:any = this.filterForm.value;
+    this.spinner.show();
+    let fromDate: any;
+    let toDate: any;
+    getObj.fromTo[0] != "" ? (fromDate = this.datePipe.transform(getObj.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    getObj.fromTo[1] != "" ? (toDate = this.datePipe.transform(getObj.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+   
+    let obj= this.commonService.loggedInUserId() + '&PageNo=' + this.paginationNo + '&FromDate=' + fromDate + '&ToDate=' + toDate + 
+    '&NewsType=' +getObj.newstypeId + '&SearchText=' + getObj.searchText
+    this.callAPIService.setHttp('get', 'GetNews_Web_1_0?UserId='+obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.getnewsArray = res.data1;
+        this.total = res.data2[0].TotalCount;
+      } else {
+        this.getnewsArray = [];
+        this.spinner.hide();
+      }
+    } ,(error:any) => {
+      this.getnewsArray = [];
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  filterData(flag:any){
+    flag == 'range' ?  this.defaultCloseBtn = true :  this.defaultCloseBtn = false; 
+    this.paginationNo = 1;
+    this.getNewsData();
+  }
+
+  clearFilter(flag:any){
+    if(flag ==  'newsType'){
+      this.filterForm.controls['newstypeId'].setValue(0);
+    }else  if(flag ==  'search'){
+      this.filterForm.controls['searchText'].setValue('');
+    }else  if(flag ==  'dateRangePIcker'){
+      this.defaultCloseBtn = false;
+      this.filterForm.controls['fromTo'].setValue(['','']);
+    }
+    this.paginationNo = 1;
+    this.getNewsData();
+  }
+
+  onKeyUpFilter(){
+    this.subject.next();
+  }
+
+  searchFilters(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
+    this.subject.pipe(debounceTime(700)).subscribe(() => {
+      this.searchFilter = this.filterForm.value.searchText;
+      this.paginationNo = 1;
+      this.getNewsData();
+    }
+    );
+  }
+
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.getNewsData();
+  }
+  
+  choosePhoto() {
+    let clickPhoto: any = document.getElementById('my_file')
+    clickPhoto.click();
+  }
+
+  readUrl(event: any) {
+    let selResult = event.target.value.split('.');
+    this.getImgExt = selResult.pop();
+    this.getImgExt.toLowerCase();
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg") {
+      this.selectedFile = <File>event.target.files[0];
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.ImgUrl = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        this.imgName = event.target.files[0].name;
+      }
+    }
+    else {
+      this.toastrService.error("Profile image allowed only jpg or png format");
+    }
   }
 
 }
