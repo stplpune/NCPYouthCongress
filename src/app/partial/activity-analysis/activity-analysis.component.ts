@@ -37,6 +37,7 @@ export class ActivityAnalysisComponent implements OnInit {
   lat: any;
   lng: any;
   zoom: any = 12;
+  activityLikesArray: any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -205,6 +206,7 @@ export class ActivityAnalysisComponent implements OnInit {
       }
     })
   }
+
   ViewPoliticleWorkDetails(index: any) {
     debugger;
     this.viewPoliticleWorkDetailsById = null;
@@ -219,5 +221,29 @@ export class ActivityAnalysisComponent implements OnInit {
       this.lng = 75.300293;
     }
   }
+
+  getActivityLikes(activityId:any,flag:any, counter:any) {
+    if(counter==0){
+      this.toastrService.info('Data is not available');
+      return
+    }else{
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      console.log(res)
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.activityLikesArray = res.data1;
+    
+      } else {
+        this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+}
 
 }

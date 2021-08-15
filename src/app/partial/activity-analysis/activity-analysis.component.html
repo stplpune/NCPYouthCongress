@@ -108,16 +108,16 @@
                             <td>{{politicalWork.Title | titlecase}}</td>
                             <!-- <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td> -->
                             <td>
-                                <h6 class="mb-0"><a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#LikesModal">{{politicalWork.TotalLikes}}</a></h6>
+                                <h6 class="mb-0"><a href="#" class="text-primary" (click)="getActivityLikes(politicalWork.Id,'1',politicalWork.TotalLikes)" data-bs-toggle="modal" data-bs-target="#LikesModal">{{politicalWork.TotalLikes}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
+                                <h6 class="mb-0"><a href="#" class="text-success" (click)="getActivityLikes(politicalWork.Id,'2',politicalWork.TotalComments)" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a href="#" class="text-info" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
+                                <h6 class="mb-0"><a href="#" class="text-info" (click)="getActivityLikes(politicalWork.Id,'3',politicalWork.TotalShares)" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
+                                <h6 class="mb-0"><a href="#" class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
                             </td>
                           
                             <td>
@@ -245,12 +245,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
-                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                    <a href="#" *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                 </div>
             </div>
         </div>
@@ -267,29 +262,9 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p class="small text-muted mb-0">Anil Kambale</p>
-                        <p class="mb-0 fw-bold">This is very good initiative.</p>
+                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">
+                        <p class="small text-muted mb-0">{{activityLikes.FullName}}</p>
+                        <p class="mb-0 fw-bold">{{activityLikes.Comments}}</p>
                     </a>
                 </div>
             </div>
@@ -307,12 +282,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
-                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                 </div>
             </div>
         </div>
@@ -329,12 +299,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">Anil Kambale</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravikant Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Sagar Karmuse</a>
-                    <a href="#" class="list-group-item list-group-item-action">Anil Yadav Patil</a>
-                    <a href="#" class="list-group-item list-group-item-action">Ravindra Varpe</a>
-                    <a href="#" class="list-group-item list-group-item-action">Balasubramanyam Tiruanantapuram</a>
+                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                 </div>
             </div>
         </div>
