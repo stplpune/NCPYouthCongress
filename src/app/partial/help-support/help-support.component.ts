@@ -112,15 +112,15 @@ export class HelpSupportComponent implements OnInit {
 
   UploadHelpMeChatMediaMsg() {
     this.spinner.show();
-let fromData = new FormData();
-fromData.append('MessageId', '0');
-fromData.append('SenderId', '0');
-fromData.append('ReceiverId', '0');
-fromData.append('SenderMsg', '');
-fromData.append('MediaPath', '');
-fromData.append('MediaName', '');
-fromData.append('MessageTypeId', '0');
-fromData.append('MediaTypeId', '0');
+    let fromData = new FormData();
+    fromData.append('MessageId', '0');
+    fromData.append('SenderId', '0');
+    fromData.append('ReceiverId', '0');
+    fromData.append('SenderMsg', '');
+    fromData.append('MediaPath', '');
+    fromData.append('MediaName', '');
+    fromData.append('MessageTypeId', '0');
+    fromData.append('MediaTypeId', '0');
 
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
