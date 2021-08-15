@@ -341,6 +341,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resultBestPerKaryMember =  res.data1;
+        console.log(this.resultBestPerKaryMember);
         // this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -475,7 +476,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../member/profile'], {relativeTo:this.route})
+    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 
   getMemberName() {

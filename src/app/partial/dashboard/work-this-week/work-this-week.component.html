@@ -189,8 +189,7 @@
                            
                             <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
-                                <!-- (click)="redToMemberProfile(result.MemberId, result.FullName)" -->
-                                <td><a class="text-primary">{{result.FullName}}</a></td>
+                                <td><a class="text-primary" (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a></td>
                                 <td>{{result.PoliticalCount}}</td>
                                 <!-- <td>{{result.Totalwork}}</td> -->
                                 <td>{{result.NewsLetterCount}}</td>
