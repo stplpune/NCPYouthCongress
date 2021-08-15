@@ -54,7 +54,6 @@ export class HelpSupportComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.receiverChatListArray = res.data1;
-        console.log(this.receiverChatListArray)
       } else {
           this.toastrService.error("Data is not available");
       }

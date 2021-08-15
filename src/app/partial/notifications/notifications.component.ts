@@ -106,7 +106,7 @@ export class NotificationsComponent implements OnInit {
       let fromData = new FormData();
       let notStatus:any;
       let ImageChangeFlag:any;
-      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 0, ImageChangeFlag = 1);
+      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 2 ): (notStatus = 1, ImageChangeFlag = 1);
 
       let getObj:any = this.notificationForm.value;
 
