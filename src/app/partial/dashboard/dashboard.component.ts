@@ -272,7 +272,7 @@ series3.segments.template.strokeWidth = 1;
   // Add legend
   chart.legend = new am4charts.Legend();
   chart.legend.maxWidth = 70;
-  chart.legend.fontSize = 9;
+  chart.legend.fontSize = 10;
 
   // let markerTemplate = chart.legend.markers.template;
   // markerTemplate.width = 15;
@@ -587,7 +587,7 @@ series3.segments.template.strokeWidth = 1;
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 100;
-    chart.legend.fontSize = 9;
+    chart.legend.fontSize = 10;
     chart.legend.scrollable = true;
     chart.legend.position = "bottom";
     chart.legend.contentAlign = "left";
