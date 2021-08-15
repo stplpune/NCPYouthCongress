@@ -583,7 +583,7 @@ series3.segments.template.strokeWidth = 1;
     let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
     hoverShadow.opacity = 0.7;
     hoverShadow.blur = 5;
-    chart.radius = am4core.percent(80);
+    chart.radius = am4core.percent(100);
     // Add a legend
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 100;
