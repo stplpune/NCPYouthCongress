@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 
 
 @Component({
@@ -102,12 +103,11 @@ export class NotificationsComponent implements OnInit {
     else {
       debugger;
       this.globalMemberId = [];
-      console.log(this.notificationForm.value);
       let fromData = new FormData();
-      let notStatus:any;
+      let notificationFlag:any;
       let ImageChangeFlag:any;
 
-      this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 1 ): (notStatus = 1, ImageChangeFlag = 0);
+      this.selectedFile ? ( notificationFlag = 2, ImageChangeFlag = 2 ): (notificationFlag = 1, ImageChangeFlag = 1);
       if(this.notificationForm.value.NotificationType == 0){
         ImageChangeFlag = 0;
       }
@@ -127,9 +127,10 @@ export class NotificationsComponent implements OnInit {
           this.globalMemberId.push({"MemberId":ele});
         })
       }
-      
-
-      fromData.append('Id', getObj.Id);
+      let id:any;
+      debugger;
+      getObj.Id ? id = getObj.Id : id = 0;
+      fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
       fromData.append('Title', getObj.Title);
@@ -141,14 +142,15 @@ export class NotificationsComponent implements OnInit {
 
 
       fromData.append('AttchmentStr', this.selectedFile);
-      fromData.append('NotificationType', ImageChangeFlag);
-      fromData.append('IsChangeImage', notStatus);
+      fromData.append('NotificationType', notificationFlag);
+      fromData.append('IsChangeImage',  ImageChangeFlag );
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
-          this.resetNotificationForm();
+          this.notificationForm.reset();
+          // this.resetNotificationForm();
           this.toastrService.success(res.data1[0].Msg)
           this.spinner.hide();
           // let modalClick = this.clickPushModal.nativeElement;
@@ -161,9 +163,9 @@ export class NotificationsComponent implements OnInit {
         }
       } ,(error:any) => {
         this.spinner.hide();
-        if (error.status == 500) {
-          this.router.navigate(['../500'], { relativeTo: this.route });
-        }
+        // if (error.status == 500) {
+        //   this.router.navigate(['../500'], { relativeTo: this.route });
+        // }
       })
     }
   }
@@ -203,7 +205,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
-    debugger;
     this.NotificationText = "Update";
     this.getImgPath = data.AttachmentPath;
     this.addValidationOn(data.ScopeId);

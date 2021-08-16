@@ -162,15 +162,15 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.replayForm.value;
     let fromData = new FormData();
     let MsgType:any;
-
-    this.selectedFile ?  MsgType = 2 : MsgType = 1 ;
+    let MediaTypeId:any;
+    this.selectedFile ?  (MsgType = 2, MediaTypeId = 2) : (MsgType = 1,MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
     fromData.append('ReceiverId', this.infoUser.SenderId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
-    fromData.append('MessageTypeId', this.infoUser.MessageTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
+    fromData.append('MessageTypeId', MediaTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
     fromData.append('MediaTypeId', MsgType);
     fromData.append('MsgType', '2');
 

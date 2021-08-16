@@ -98,7 +98,7 @@ export class ForwardActivitiesComponent implements OnInit {
       let notStatus:any;
       let ImageChangeFlag:any;
       this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 3 ): (notStatus = 0, ImageChangeFlag = 1);
-
+      
       let getObj:any = this.forwardActivitiForm.value;
 
       fromData.append('Id', getObj.Id);

@@ -70,7 +70,7 @@
                                 <small class="comment">{{receiverChatList.SenderMsg}}</small>
                             </a>
 
-                            <a *ngIf="receiverChatListArray.length">NO data found</a>
+                            <a *ngIf="receiverChatListArray?.length == 0">NO data found</a>
 
                         </div>
                     </div>
