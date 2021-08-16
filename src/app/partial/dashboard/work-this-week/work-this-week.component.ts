@@ -667,6 +667,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     
 
     this.svgMapWorkDoneByYuvakBP.map((ele:any)=>{
+      $("#divId1count").text("33")
       $('path[id="' + ele.DistrictId + '"]').css('fill', '#f8d7da');
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
