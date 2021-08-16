@@ -29,9 +29,7 @@ header .navbar-nav .donate{
     color: #fff;
     text-transform: uppercase;
 }
-#home-carousel .carousel-item{
-    padding-top:15%;
-}
+
 #home-carousel .carousel-item h1{
     font-weight: 300;
     font-size: 3.5rem;
@@ -52,7 +50,12 @@ header .navbar-nav .donate{
     color: #fff;
     padding:15px 30px;
 }
-
+#founders{
+    padding-block: 15px;
+}
+#founders img{
+    width: 140px;
+}
 
 
 
