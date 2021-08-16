@@ -57,7 +57,7 @@
                             <!-- [ngClass]="{'text-muted':receiverChatList?.IsRead == 1, 'unread':receiverChatList?.IsRead == 0 }" -->
                             <a *ngFor="let receiverChatList of receiverChatListArray; let i = index" class="list-group-item list-group-item-action" [ngClass]="{'fw-bold text-info':receiverChatList?.IsRead == 0}" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab"
                                 aria-controls="list-home" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
-                                <p> Unread
+                                <p>
                                     <ng-container *ngIf="receiverChatList.TotalUnReadMsg != 0">{{receiverChatList.TotalUnReadMsg}}</ng-container>
                                 </p>
                                 <div class="d-flex w-100 justify-content-between">
@@ -87,7 +87,9 @@
                                     <!-- <img src="{{infoUser.MediaPath}}" style="width: 100px;"> -->
                                     <!-- </ng-container> -->
                                     <span class="float-end emaildate">
-                                        <i class="far fa-calendar-alt me-1"></i> {{infoUser?.MessageDay}} {{infoUser.MessageTime}}
+                                        <i class="far fa-calendar-alt me-1"></i>
+                                     
+                                        {{infoUser?.MessageDay}} {{infoUser.MessageTime}}
                                     </span>
                                 </div>
                                 <div class="mb-3 pb-1 emailcontact">
