@@ -341,11 +341,43 @@ export class MyProfileComponent implements OnInit {
       else {
         this.spinner.hide();
         this.toastrService.error("New password and Confirm password should be same")
-      }
+      } 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     }
-
-  
   }
 
   showPassword(data: any) {
