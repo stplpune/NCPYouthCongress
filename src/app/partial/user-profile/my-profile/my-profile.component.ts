@@ -148,6 +148,7 @@ export class MyProfileComponent implements OnInit {
 
   getTaluka(districtId: any) {
     this.spinner.show();
+    (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
