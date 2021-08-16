@@ -355,7 +355,6 @@ export class MyProfileComponent implements OnInit {
       this.show_button2 = !this.show_button2;
       this.show_eye2 = !this.show_eye2;
     }
-
   }
 
   clearForm() {
