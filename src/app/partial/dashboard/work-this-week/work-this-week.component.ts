@@ -47,6 +47,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   memberNameArray:any;
   regions_m:any;
   isBestworst = 0;
+  savgMapArray:any;
+  svgMapWorkDoneByYuvakBP:any;
+  svgMapWorkDoneByYuvakTp:any;
   
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -445,8 +448,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getBestPerKaryMember();
       this.geWeekReport();
     } else if (flag == 'dateValue') {
+      console.log(this.savgMapArray);
       this.defaultCloseBtn = false;
       this.topFilterForm.controls['fromTo'].setValue(this.dateRange1);
+      this.savgMapArray = [];
       this.getBestPerKaryMember();
       this.geWeekReport();
     }  else if (flag == 'district') {
@@ -644,21 +649,28 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-
-    // statemap start here 
-    let data:any =  this.WorkDoneByYuvakTP;
-    data.map((ele:any)=>{
-      $('path[id="' + ele.DistrictId + '"]').css('fill', '#d1e7dd');
+    this.svgMapWorkDoneByYuvakTp= this.WorkDoneByYuvakTP;
+    this.svgMapWorkDoneByYuvakBP = this.WorkDoneByYuvakBP;
+    this.mahaSVGMap();
+  }
+  mahaSVGMap(){
+    debugger;
+    if(this.svgMapWorkDoneByYuvakTp.length != 0){
+      this.svgMapWorkDoneByYuvakTp.map((ele:any)=>{
+        $('path[id="' + ele.DistrictId + '"]').css('fill', '#d1e7dd');
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
       })
+    }else{
+      $('path').css('fill', '#a5caf3');
+    }
+    
 
-    this.WorkDoneByYuvakBP.map((ele:any)=>{
+    this.svgMapWorkDoneByYuvakBP.map((ele:any)=>{
       $('path[id="' + ele.DistrictId + '"]').css('fill', '#f8d7da');
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
       })
-
   }
 
   catChange(value: any) {
