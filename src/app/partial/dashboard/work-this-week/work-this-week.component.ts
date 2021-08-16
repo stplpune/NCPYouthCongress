@@ -250,13 +250,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           data: {}
       },
   }
-  this.showSvgMap(this.regions_m)
   }
 
   ngAfterViewInit(){
-    // setTimeout(() => {
-    //   this.showSvgMap(this.regions_m)
-    // }, 5000);
+    setTimeout(() => {
+      this.showSvgMap(this.regions_m)
+    }, 1000);
   }
 
   showSvgMap(regions_m:any) {
@@ -658,7 +657,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
       })
-
   }
 
   catChange(value: any) {
