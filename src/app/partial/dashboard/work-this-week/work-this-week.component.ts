@@ -541,7 +541,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resultBestPerKaryMember =  [];
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+         this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -642,7 +642,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }
       }
-
     });
 
     // statemap start here 
@@ -676,7 +675,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   bestWorstPer(value: any) {
      this.isBestworst=value.id;
-    //  alert(this.isBestworst)
+    alert(this.isBestworst)
      this.getBestPerKaryMember();
   }
 
