@@ -37,17 +37,18 @@
                 <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
-                        {{allMemberprofile?.Designation}}
+                        <ng-container *ngIf="allMemberprofile?.Designation"></ng-container>
+
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <i class="fas fa-fist-raised text-success"></i> Active Since : {{allMemberprofile?.RegtDate}}
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item" *ngIf="allMemberprofile?.ConstituencyName">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.ConstituencyName}}
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item" *ngIf="allMemberprofile?.Emailid">
                         <i class="far fa-envelope text-info"></i> {{allMemberprofile?.Emailid}}
                     </li>
                     <li class="list-group-item">
@@ -174,7 +175,11 @@
                                 <td>{{roles?.PostFromDate}} ~ {{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}}</td>
                                 <td>{{roles?.Designation}}</td>
                             </tr>
-
+                            <tr *ngIf="organizationRoles.length == 0">
+                                <td colspan="5">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -220,7 +225,11 @@
                                 <td><button type="button" data-bs-toggle="modal" data-bs-target="#ViewFeedbackModal" class="btn btn-sm btn-light" (click)="viewFeedBackModalFN(resFeedbacks)"><i
                                             class="far fa-eye"></i></button></td>
                             </tr>
-
+                            <tr *ngIf="feedbacks.length == 0">
+                                <td colspan="5">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
