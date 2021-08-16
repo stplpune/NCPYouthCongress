@@ -16,10 +16,10 @@
                     <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="mb-2">
-                                <label for="txtBodyName" class="form-label required-field">Member Name</label>
-                                <input type="text" class="form-control" id="txtBodyName" placeholder="Member Name" formControlName="BodyOrgCellName" [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
+                                <label for="txtBodyName" class="form-label required-field">Organization Name</label>
+                                <input type="text" class="form-control" id="txtBodyName" placeholder="Organization Name" formControlName="BodyOrgCellName" [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
                                 <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.BodyOrgCellName.errors.required">Member name is required</div>
+                                    <div *ngIf="f.BodyOrgCellName.errors.required">Organization name is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -132,7 +132,7 @@
                         <thead>
                             <tr>
                                 <th>#ID</th>
-                                <th>Member Name</th>
+                                <th>Organization Name</th>
                                 <th>Level</th>
                                 <th>Area</th>
                                 <th>Designations Assigned</th>

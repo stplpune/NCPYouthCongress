@@ -48,6 +48,9 @@
                     <li class="list-group-item" *ngIf="allMemberprofile?.ConstituencyName">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.ConstituencyName}}
                     </li>
+                    <li class="list-group-item" *ngIf="allMemberprofile?.Designation">
+                        <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.Designation}}
+                    </li>
                     <li class="list-group-item" *ngIf="allMemberprofile?.Emailid">
                         <i class="far fa-envelope text-info"></i> {{allMemberprofile?.Emailid}}
                     </li>
@@ -91,7 +94,7 @@
                         <div class="col-sm-3">
                             <div class="card card-body">
                                 <i class="fas fa-hashtag"></i>
-                                <p>Social Media Messages</p>
+                                <p>Perceptions Captured</p>
                                 <h3>{{membersOverview?.TotalSocialMediaWork}}</h3>
                             </div>
                         </div>
