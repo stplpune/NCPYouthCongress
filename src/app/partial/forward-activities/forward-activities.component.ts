@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-forward-activities',
@@ -51,8 +52,9 @@ export class ForwardActivitiesComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe:DatePipe
-    ) { }
+    private datePipe:DatePipe,
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
     this.customForm();
