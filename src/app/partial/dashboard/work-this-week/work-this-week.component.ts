@@ -676,7 +676,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   bestWorstPer(value: any) {
      this.isBestworst=value.id;
-     alert(this.isBestworst)
+    //  alert(this.isBestworst)
      this.getBestPerKaryMember();
   }
 
