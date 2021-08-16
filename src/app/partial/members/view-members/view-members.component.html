@@ -87,7 +87,7 @@
                             <th scope="col">Contacts</th>
                             <th scope="col">Location</th>
                             <!-- <th scope="col">Designation</th> -->
-                            <th scope="col">Status</th>
+                            <th scope="col">Active Status</th>
                             <!-- <th scope="col">Device</th> -->
                             <th></th>
                         </tr>
@@ -102,7 +102,7 @@
                             <td><a class="text-primary" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)">{{allMembers.FullName | titlecase}}</a></td>
                             <td>
                                 <p class="mb-0">{{allMembers.EmailId}}</p>
-                                <p class="mb-0">{{allMembers.ContactNo}}</p>
+                                <p class="mb-0">{{allMembers.MobileNo}}</p>
                             </td>
                             <!-- <td>City(Village)<br/>Taluka, District</td> -->
                             <!-- <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td> -->

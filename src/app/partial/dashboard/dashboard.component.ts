@@ -32,14 +32,10 @@ export class DashboardComponent implements OnInit {
   districtWiseMemberCountArray: any;
   districtId: number = 0;
 
-  toDate: any;
-  selWeekDate: any;
-  weekRangeObj: any;
   maxDate: any = new Date();
-  fromDate: any;
-  defaultToDate = new Date();
-  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
-  // dateRange = [this.defaultToDate];
+  fromDate= new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
+  toDate :any;
+  weekRangeObj: any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -53,33 +49,22 @@ export class DashboardComponent implements OnInit {
   ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
+    this.toDate=new Date();
     this.workLineChart();
     this.getDistrict();
     this.getDashboardCount1();
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
-    // this.getweekRage(this.defaultToDate)
   }
 
   getweekRage(dates: any) {
-debugger
-let selectedDate=dates;
-console.log(selectedDate)
-let avi=new Date((selectedDate) + -6 * 24 * 60 * 60 * 1000)
-console.log(avi)
-
-    // var Time = dates[1].getTime() - dates[0].getTime();
-    // this.defaultFromDate = dates[0];
-    // this.defaultToDate = dates[1];
-    // var Days = Time / (1000 * 3600 * 24);
-    // if (Days <= 7) {
-    //   this.weekRangeObj = { 'fromDate': dates[0], 'toDate': dates[1] };
-    //   localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
-    //   this.getNewMemberAndWorkInThisWeek()
-    // } else {
-    //   this.toastrService.error("Please Select Date Only Week Range");
-    // }
+    this.toDate= dates;         //selected Date
+    this.fromDate= new Date((this.toDate) - 7 * 24 * 60 * 60 * 1000)
+ 
+    this.weekRangeObj = { 'fromDate': this.fromDate, 'toDate': this.toDate };
+    localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    this.getNewMemberAndWorkInThisWeek();
   }
 
   getDistrict() {
@@ -162,8 +147,8 @@ console.log(avi)
 
   getNewMemberAndWorkInThisWeek() {
     this.spinner.show();
-    let fromDate = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
-    let toDate = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    let fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
+    let toDate = this.datepipe.transform(this.toDate, 'dd/MM/yyyy');
     this.callAPIService.setHttp('get', 'Dashboard_Count2_Data_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -196,8 +181,8 @@ console.log(avi)
   getDistrictWiseMemberCount(event: any) {
     event == false ? this.districtId = 0 : this.districtId = event;
     this.spinner.show();
-    let fromDate = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
-    let toDate = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
+    let fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
+    let toDate = this.datepipe.transform(this.toDate, 'dd/MM/yyyy');
     this.callAPIService.setHttp('get', 'Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

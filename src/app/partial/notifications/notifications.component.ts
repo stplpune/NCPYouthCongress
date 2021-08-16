@@ -47,6 +47,7 @@ export class NotificationsComponent implements OnInit {
   globalMemberId:any[]= [];
   NewsId:any;
   @ViewChild('clickPushModal') clickPushModal:any;
+  IsChangeImage:boolean = false;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -107,10 +108,18 @@ export class NotificationsComponent implements OnInit {
       let notificationFlag:any;
       let ImageChangeFlag:any;
 
-      this.selectedFile ? ( notificationFlag = 2, ImageChangeFlag = 2 ): (notificationFlag = 1, ImageChangeFlag = 1);
-      if(this.notificationForm.value.NotificationType == 0){
-        ImageChangeFlag = 0;
+      if(this.IsChangeImage || this.selectedFile){
+        notificationFlag = 1;
+        ImageChangeFlag = 1 
+      }else{
+        notificationFlag = 0;
+        ImageChangeFlag = 0
       }
+
+      // this.selectedFile ? ( notificationFlag = 2, ImageChangeFlag = 1 ): (notificationFlag = 1, ImageChangeFlag = 0);
+      // if(this.notificationForm.value.NotificationType == 0){
+      //   ImageChangeFlag = 0;
+      // }
       let getObj:any = this.notificationForm.value;
 
       let fillSelection:any;
@@ -257,6 +266,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   deleteImg(){
+    this.IsChangeImage = true;
     this.getImgPath = null;
    this.selectedFile = null;
   }
