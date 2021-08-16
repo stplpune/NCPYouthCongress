@@ -210,6 +210,12 @@ export class DashboardComponent implements OnInit {
     // Create chart instance
     let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
 
+    chart.colors.list = [
+      am4core.color("#BB8FCE"),
+      am4core.color("#EC7063"),
+      am4core.color("#80DEEA"),
+    ];
+
     // Add data
 
     chart.data = this.workInThisWeekArray;
