@@ -30,15 +30,16 @@ export class DashboardComponent implements OnInit {
   workInThisWeekForm: any;
   newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
-  defaultToDate = new Date();
-  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
-  maxDate: any = new Date();
-  fromDate: any;
+  districtId: number = 0;
+
   toDate: any;
   selWeekDate: any;
   weekRangeObj: any;
-  districtId: number = 0;
-  dateRange = [this.defaultFromDate, this.defaultToDate];
+  maxDate: any = new Date();
+  fromDate: any;
+  defaultToDate = new Date();
+  defaultFromDate = new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
+  // dateRange = [this.defaultToDate];
 
   constructor(
     private callAPIService: CallAPIService,
@@ -58,23 +59,27 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
-    this.getweekRage(this.dateRange)
+    // this.getweekRage(this.defaultToDate)
   }
 
   getweekRage(dates: any) {
-    var Time = dates[1].getTime() - dates[0].getTime();
-    this.defaultFromDate=dates[0];
-    this.defaultToDate=dates[1];
-    var Days = Time / (1000 * 3600 * 24);
-    if (Days <= 7) {
-      // let fromDate: any = this.datepipe.transform(dates[0], 'dd/MM/yyyy');
-      // let toDate: any = this.datepipe.transform(dates[1], 'dd/MM/yyyy');
-      this.weekRangeObj = { 'fromDate': dates[0], 'toDate': dates[1] };
-      localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
-      this.getNewMemberAndWorkInThisWeek()
-    } else {
-      this.toastrService.error("Please Select Date Only Week Range");
-    }
+debugger
+let selectedDate=dates;
+console.log(selectedDate)
+let avi=new Date((selectedDate) + -6 * 24 * 60 * 60 * 1000)
+console.log(avi)
+
+    // var Time = dates[1].getTime() - dates[0].getTime();
+    // this.defaultFromDate = dates[0];
+    // this.defaultToDate = dates[1];
+    // var Days = Time / (1000 * 3600 * 24);
+    // if (Days <= 7) {
+    //   this.weekRangeObj = { 'fromDate': dates[0], 'toDate': dates[1] };
+    //   localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    //   this.getNewMemberAndWorkInThisWeek()
+    // } else {
+    //   this.toastrService.error("Please Select Date Only Week Range");
+    // }
   }
 
   getDistrict() {
@@ -86,9 +91,9 @@ export class DashboardComponent implements OnInit {
         this.allDistrictArray = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -106,9 +111,9 @@ export class DashboardComponent implements OnInit {
         this.dashboardCount1Array = res.data1[0];
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    }  ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -145,9 +150,9 @@ export class DashboardComponent implements OnInit {
         this.socialMediaChart();
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    }  ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -164,12 +169,12 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
-        this.workInThisWeekArray.map((ele:any)=>{
-           if(ele.Date){
-            let  DateFormate= this.commonService.dateFormatChange(ele.Date);
-            let transformDate=this.datepipe.transform(DateFormate, 'MMM d');
+        this.workInThisWeekArray.map((ele: any) => {
+          if (ele.Date) {
+            let DateFormate = this.commonService.dateFormatChange(ele.Date);
+            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
             ele.Date = transformDate;
-           }
+          }
         })
         console.log(this.workInThisWeekArray)
 
@@ -178,9 +183,9 @@ export class DashboardComponent implements OnInit {
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    }  ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -201,9 +206,9 @@ export class DashboardComponent implements OnInit {
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    }  ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -213,272 +218,80 @@ export class DashboardComponent implements OnInit {
 
 
   /* Chart code */
-  workLineChart(){
-  am4core.useTheme(am4themes_animated);
-  // Themes end
-  
-  // Create chart instance
-  let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
-  
-  // Add data
+  workLineChart() {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
 
-  chart.data = this.workInThisWeekArray;
-  // Create category axis
-  let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-  categoryAxis.dataFields.category = "Date";
-  categoryAxis.dateFormatter = new am4core.DateFormatter();
-  categoryAxis.dateFormatter.dateFormat = "dd/MM";
-  categoryAxis.renderer.opposite = false;
-  // categoryAxis.dateFormatter = new am4core.DateFormatter();
-  // categoryAxis.dateFormatter.dateFormat = "d MMM";
-  
-  // Create value axis
-  let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-  valueAxis.renderer.inversed = false;
-  valueAxis.title.text = "Work In This Week Dated Count";
-  valueAxis.renderer.minLabelPosition = 0.01;
-  
-  // Create series
-  let series1 = chart.series.push(new am4charts.LineSeries());
-  series1.dataFields.valueY = "ActivityCount";
-  series1.dataFields.categoryX = "Date";
-  series1.name = "Work Count";
-  series1.bullets.push(new am4charts.CircleBullet());
-  series1.tooltipText = "{name} in {categoryX}: {valueY}";
-  series1.legendSettings.valueText = "{valueY}";
-  series1.visible  = false;
+    // Create chart instance
+    let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
 
-  let series2 = chart.series.push(new am4charts.LineSeries());
-  series2.dataFields.valueY = "MemberCount";
-  series2.dataFields.categoryX = "Date";
-  series2.name = 'Members Count';
-  series2.bullets.push(new am4charts.CircleBullet());
-  series2.tooltipText = "{name} in {categoryX}: {valueY}";
-  series2.legendSettings.valueText = "{valueY}";
+    // Add data
 
-  let series3 = chart.series.push(new am4charts.LineSeries());
-series3.dataFields.valueY = "UserCount";
-series3.dataFields.categoryX = "Date";
-series3.name = 'UserCount';
-series3.bullets.push(new am4charts.CircleBullet());
-series3.tooltipText = "{name} in {categoryX}: {valueY}";
-series3.legendSettings.valueText = "{valueY}";
+    chart.data = this.workInThisWeekArray;
+    // Create category axis
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "Date";
+    categoryAxis.dateFormatter = new am4core.DateFormatter();
+    categoryAxis.dateFormatter.dateFormat = "dd/MM";
+    categoryAxis.renderer.opposite = false;
+    // categoryAxis.dateFormatter = new am4core.DateFormatter();
+    // categoryAxis.dateFormatter.dateFormat = "d MMM";
 
-  // Add chart cursor
-  // chart.cursor = new am4charts.XYCursor();
-  // chart.cursor.behavior = "zoomY";
-  
-  
-  let hs1 = series1.segments.template.states.create("hover")
-  hs1.properties.strokeWidth = 5;
-  series1.segments.template.strokeWidth = 1;
-  
-  let hs2 = series2.segments.template.states.create("hover")
-  hs2.properties.strokeWidth = 5;
-  series2.segments.template.strokeWidth = 1;
+    // Create value axis
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.inversed = false;
+    valueAxis.title.text = "Work In This Week Dated Count";
+    valueAxis.renderer.minLabelPosition = 0.01;
 
-  let hs3 = series3.segments.template.states.create("hover")
-hs3.properties.strokeWidth = 5;
-series3.segments.template.strokeWidth = 1;
-  
-  // Add legend
-  chart.legend = new am4charts.Legend();
-  chart.legend.maxWidth = 70;
-  chart.legend.fontSize = 10;
+    // Create series
+    let series1 = chart.series.push(new am4charts.LineSeries());
+    series1.dataFields.valueY = "ActivityCount";
+    series1.dataFields.categoryX = "Date";
+    series1.name = "Activities";
+    series1.bullets.push(new am4charts.CircleBullet());
+    series1.tooltipText = "{name} in {categoryX}: {valueY}";
+    series1.legendSettings.valueText = "{valueY}";
+    series1.visible = false;
 
-  // let markerTemplate = chart.legend.markers.template;
-  // markerTemplate.width = 15;
-  // markerTemplate.height = 15;
+    let series2 = chart.series.push(new am4charts.LineSeries());
+    series2.dataFields.valueY = "MemberCount";
+    series2.dataFields.categoryX = "Date";
+    series2.name = 'Active Member';
+    series2.bullets.push(new am4charts.CircleBullet());
+    series2.tooltipText = "{name} in {categoryX}: {valueY}";
+    series2.legendSettings.valueText = "{valueY}";
+
+    let series3 = chart.series.push(new am4charts.LineSeries());
+    series3.dataFields.valueY = "UserCount";
+    series3.dataFields.categoryX = "Date";
+    series3.name = 'New Member Count';
+    series3.bullets.push(new am4charts.CircleBullet());
+    series3.tooltipText = "{name} in {categoryX}: {valueY}";
+    series3.legendSettings.valueText = "{valueY}";
+
+    // Add chart cursor
+    // chart.cursor = new am4charts.XYCursor();
+    // chart.cursor.behavior = "zoomY";
 
 
-  // chart.legend.itemContainers.template.events.on("over", function(event:any){
-  //   let segments = event.target.dataItem.dataContext.segments;
-  //   segments.each(function(segment:any){
-  //     segment.isHover = true;
-  //   })
-  // })
-  
-  // chart.legend.itemContainers.template.events.on("out", function(event:any){
-  //   let segments = event.target.dataItem.dataContext.segments;
-  //   segments.each(function(segment:any){
-  //     segment.isHover = false;
-  //   })
-  // })
-  
-}
+    let hs1 = series1.segments.template.states.create("hover")
+    hs1.properties.strokeWidth = 5;
+    series1.segments.template.strokeWidth = 1;
 
+    let hs2 = series2.segments.template.states.create("hover")
+    hs2.properties.strokeWidth = 5;
+    series2.segments.template.strokeWidth = 1;
 
-  // workLineChart() {
-  //   // Themes begin
-  //   am4core.useTheme(am4themes_kelly);
-  //   am4core.useTheme(am4themes_animated);
-  //   // Themes end
+    let hs3 = series3.segments.template.states.create("hover")
+    hs3.properties.strokeWidth = 5;
+    series3.segments.template.strokeWidth = 1;
 
-  //   // Create chart instance
-  //   let chart = am4core.create("workLineChartdiv", am4charts.XYChart);
+    // Add legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.maxWidth = 70;
+    chart.legend.fontSize = 10;
 
-  //   // Add data 
-  //   // chart.data = this.workInThisWeekArray;
-  //   chart.data = [{
-  //     "x": 1,
-  //     "ay": 6.5,
-  //     "by": 2.2,
-  //     "aValue": 15,
-  //     "bValue": 10
-  //   }, {
-  //     "x": 2,
-  //     "ay": 12.3,
-  //     "by": 4.9,
-  //     "aValue": 8,
-  //     "bValue": 3
-  //   }, {
-  //     "x": 3,
-  //     "ay": 12.3,
-  //     "by": 5.1,
-  //     "aValue": 16,
-  //     "bValue": 4
-  //   }, {
-  //     "x": 5,
-  //     "ay": 2.9,
-  //     "aValue": 9
-  //   }, {
-  //     "x": 7,
-  //     "by": 8.3,
-  //     "bValue": 13
-  //   }, {
-  //     "x": 10,
-  //     "ay": 2.8,
-  //     "by": 13.3,
-  //     "aValue": 9,
-  //     "bValue": 13
-  //   }, {
-  //     "x": 12,
-  //     "ay": 3.5,
-  //     "by": 6.1,
-  //     "aValue": 5,
-  //     "bValue": 2
-  //   }, {
-  //     "x": 13,
-  //     "ay": 5.1,
-  //     "aValue": 10
-  //   }, {
-  //     "x": 15,
-  //     "ay": 6.7,
-  //     "by": 10.5,
-  //     "aValue": 3,
-  //     "bValue": 10
-  //   }, {
-  //     "x": 16,
-  //     "ay": 8,
-  //     "by": 12.3,
-  //     "aValue": 5,
-  //     "bValue": 13
-  //   }, {
-  //     "x": 20,
-  //     "by": 4.5,
-  //     "bValue": 11
-  //   }, {
-  //     "x": 22,
-  //     "ay": 9.7,
-  //     "by": 15,
-  //     "aValue": 15,
-  //     "bValue": 10
-  //   }, {
-  //     "x": 23,
-  //     "ay": 10.4,
-  //     "by": 10.8,
-  //     "aValue": 1,
-  //     "bValue": 11
-  //   }, {
-  //     "x": 24,
-  //     "ay": 1.7,
-  //     "by": 19,
-  //     "aValue": 12,
-  //     "bValue": 3
-  //   }];
-
-  //   // 13: {ActivityCount: 0, MemberCount: 0, UserCount: 0, Date: "28/05/2021"}
-
-
-
-  //   // Create axes
-  //   let xAxis = chart.xAxes.push(new am4charts.ValueAxis());
-  //   xAxis.renderer.minGridDistance = 40;
-
-
-  //   // Create value axis
-  //   let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-  //   // Create series
-  //   let series1 = chart.series.push(new am4charts.LineSeries());
-  //   series1.dataFields.valueX = "x";
-  //   series1.dataFields.valueY = "ay";
-  //   series1.dataFields.value = "aValue";
-  //   series1.name = "Work Count";
-  //   series1.strokeWidth = 2;
-  //   // series1.bullets.push(new am4charts.CircleBullet());
-  //   // series1.tooltipText = "Place{name} in {valueX}: {valueY}";
-  //   // series1.legendSettings.valueText = "{valueY}";
-
-  //   let bullet1 = series1.bullets.push(new am4charts.CircleBullet());
-  //   series1.heatRules.push({
-  //     target: bullet1.circle,
-  //     min: 5,
-  //     max: 5,
-  //     property: "radius"
-  //   });
-
-  //   bullet1.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
-
-  //   let series2 = chart.series.push(new am4charts.LineSeries());
-  //   series2.dataFields.valueX = "x";
-  //   series2.dataFields.valueY = "by";
-  //   series2.dataFields.value = "bValue";
-  //   series2.name = 'Members Count';
-  //   series2.strokeWidth = 2;
-  //   // series2.bullets.push(new am4charts.CircleBullet());
-  //   // series2.tooltipText = "Place{name} in {valueX}: {valueY}";
-  //   // series2.legendSettings.valueText = "{valueY}";
-
-  //   let bullet2 = series2.bullets.push(new am4charts.CircleBullet());
-  //   series2.heatRules.push({
-  //     target: bullet2.circle,
-  //     min: 5,
-  //     max: 5,
-  //     property: "radius"
-  //   });
-
-  //   bullet2.tooltipText = "{valueX} x {valueY}: [bold]{value}[/]";
-
-
-  //   let hs1 = series1.segments.template.states.create("hover")
-  //   hs1.properties.strokeWidth = 5;
-  //   series1.segments.template.strokeWidth = 1;
-
-  //   let hs2 = series2.segments.template.states.create("hover")
-  //   hs2.properties.strokeWidth = 5;
-  //   series2.segments.template.strokeWidth = 1;
-
-  //   // //scrollbars
-  //   // chart.scrollbarX = new am4core.Scrollbar();
-  //   // chart.scrollbarY = new am4core.Scrollbar();
-
-  //   // Add legend
-  //   chart.legend = new am4charts.Legend();
-  //   chart.legend.itemContainers.template.events.on("over", function (event: any) {
-  //     let segments = event.target.dataItem.dataContext.segments;
-  //     segments.each(function (segment: any) {
-  //       segment.isHover = true;
-  //     })
-  //   })
-
-  //   chart.legend.itemContainers.template.events.on("out", function (event: any) {
-  //     let segments = event.target.dataItem.dataContext.segments;
-  //     segments.each(function (segment: any) {
-  //       segment.isHover = false;
-  //     })
-  //   })
-  // }
+  }
 
   weeklyColumnChart() {
     // Themes begin
