@@ -52,7 +52,13 @@
 }
 .message-box{
     height: 70vh;
-    overflow-y: auto;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+.messagedetails{
+    height: 61vh;
+    overflow-y: scroll;
+    padding-right: 10px; 
 }
 #help-support .list-group .active{
     background-color: var(--main-color);
@@ -71,5 +77,16 @@
 #help-support .personadetails .personemail,
 #help-support .personadetails .personcontact{
     color: #999;
+    font-size: 0.85rem;
+}
+#help-support .form-control{
+    font-size: 0.85rem;
+    box-shadow: none;
+    outline: none;
+}
+.messagedetails .lblfeedback{
+    font-size: 0.7rem;
+}
+.messagedetails .feedback{
     font-size: 0.85rem;
 }
