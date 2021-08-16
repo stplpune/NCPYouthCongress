@@ -295,7 +295,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           position: "top"
         },
         popovers: {
-          mode: "off",
+          mode: "on",
           on: false,
           priority: "local",
           position: "top",
@@ -337,7 +337,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           min: 0,
           max: false
         },
-        source: "assets/images/map_maha_m1.svg",
+        source: "assets/images/divisionwise.svg",
         title: "Maharashtra-bg_o",
         responsive: true
       });

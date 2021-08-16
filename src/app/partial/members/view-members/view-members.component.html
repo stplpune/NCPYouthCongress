@@ -89,7 +89,7 @@
                             <!-- <th scope="col">Designation</th> -->
                             <th scope="col">Active Status</th>
                             <!-- <th scope="col">Device</th> -->
-                            <th></th>
+                            <!-- <th></th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -126,12 +126,12 @@
                                     No Device
                                 </ng-container>
                             </td> -->
-                            <td>
+                            <!-- <td>
                                 <button class="btn btn-sm btn-light" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)" type="button"><i class="far fa-eye"></i></button>
-                            </td>
+                            </td> -->
                         </tr>
                         <tr *ngIf="resultAllViewMembers?.length == 0">
-                            <td colspan="9">
+                            <td colspan="8">
                                 <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                             </td>
                         </tr>
