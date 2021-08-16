@@ -187,6 +187,7 @@
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                             <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude"></agm-marker>
+                            <!-- <agm-info-window>{{latlongData}}</agm-info-window> -->
                         </agm-map>
                     </div>
                 </div>
