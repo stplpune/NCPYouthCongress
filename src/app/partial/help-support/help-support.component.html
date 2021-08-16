@@ -3,150 +3,132 @@
         <div class="col-sm-4">
             <span class="page-name">Help - Support</span>
         </div>
-        <div class="col-sm-8">
-            <div class="row g-1">
-                <!-- <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                    </ngx-select>
-                </div>
-                <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                    </ngx-select>
-                </div> -->
-                <div class="offset-sm-9 col-sm-3">
-
-
-                </div>
-            </div>
+        <div class="col-sm-8 text-end">
+            <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
         </div>
     </div>
 
     <div class="row chartbox">
         <div class="col-sm-12">
             <div class="card card-body">
-                <div class="row" id="email-container">
-                    <div class="col-sm-3 h-scroll-600">
-                        <label class="mb-3 emailname">All Messages</label>
-                        <form [formGroup]="filterForm">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" formControlName="searchFilter" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter()" *ngIf="filterForm.value.searchFilter"><i
-                                _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
-                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm border btn-light"><i
-                                class="fas fa-search"></i></button>
+                <div class="row" id="help-support">
+                    <div class="col-sm-4 border-end">
+                        <div class="input-group mb-3">
+                            <input class="form-control" placeholder="Search Member" type="text" />
+                            <button type="button" class="btn btn-light"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="message-box">
+                            <div class="list-group list-group-flush" id="list-tab" role="tablist">
+                                <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <p class="mb-1 username">List group item heading</p>
+                                        <small class="helpdate">01-02-2021</small>
+                                    </div>
+                                    <small class="helpmsg">And some small print.</small>
+                                    <span class="float-end">
+                                        <span class="badge bg-danger">14</span>
+                                    </span>
+                                </a>
+                                <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <p class="mb-1 username">List group item heading</p>
+                                        <small class="helpdate">01-02-2021</small>
+                                    </div>
+                                    <small class="helpmsg">And some small print.</small>
+                                    <span class="float-end">
+                                        <i class="fas fa-check text-success"></i>
+                                    </span>
+                                </a>
+                                <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <p class="mb-1 username">List group item heading</p>
+                                        <small class="helpdate">01-02-2021</small>
+                                    </div>
+                                    <small class="helpmsg">And some small print.</small>
+                                    <span class="float-end">
+                                        <i class="fas fa-check text-success"></i>
+                                    </span>
+                                </a>
+                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <p class="mb-1 username">List group item heading</p>
+                                        <small class="helpdate">01-02-2021</small>
+                                    </div>
+                                    <small class="helpmsg">And some small print.</small>
+                                    <span class="float-end">
+                                        <i class="fas fa-check text-success"></i>
+                                    </span>
+                                </a>
                             </div>
-                        </form>
-                        <!-- <div class="mb-2">
-                            <div class="btn-group btn-block" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio1" autocomplete="off" checked>
-                                <label class="btn btn-outline-primary" for="btnradio1"><i class="fas fa-star me-1"></i>New</label>
-
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio2" autocomplete="off">
-                                <label class="btn btn-outline-success" for="btnradio2"><i class="fas fa-comment-dots me-1"></i>Replied</label>
-
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio3" autocomplete="off">
-                                <label class="btn btn-outline-danger" for="btnradio3"><i class="fas fa-thumbs-down me-1"></i>Ignored</label>
-                            </div>
-                        </div> -->
-
-                        <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <!-- [ngClass]="{'text-muted':receiverChatList?.IsRead == 1, 'unread':receiverChatList?.IsRead == 0 }" -->
-                            <a *ngFor="let receiverChatList of receiverChatListArray; let i = index" class="list-group-item list-group-item-action" [ngClass]="{'fw-bold text-info':receiverChatList?.IsRead == 0}" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab"
-                                aria-controls="list-home" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
-                                <p>
-                                    <ng-container *ngIf="receiverChatList.TotalUnReadMsg != 0">{{receiverChatList.TotalUnReadMsg}}</ng-container>
-                                </p>
-                                <div class="d-flex w-100 justify-content-between">
-
-                                    <p class="membername mb-1">{{receiverChatList.Sender | titlecase}} </p>
-
-
-                                    <small class="feeddate">{{receiverChatList.MessageDate}} {{receiverChatList.MessageTime}}</small>
-                                </div>
-                                <small class="comment">{{receiverChatList.SenderMsg}}</small>
-                            </a>
-
-                            <div *ngIf="receiverChatListArray?.length == 0">
-
-                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                            </div>
-
                         </div>
                     </div>
-                    <div class="col-sm-9 h-scroll-600" #content>
-                        <div class="d-block text-end">
-                            <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
-                        </div>
-                        <hr />
-                        <div class="tab-content p-5" id="nav-tabContent" *ngIf="defaultMsgBox">
+                    <div class="col-sm-8" #content>
+                        <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                                <div class="border-bottom mb-2 pb-1">
-                                    <span class="emailname">{{infoUser?.Sender}}</span>
-                                    <!-- <ng-container  *ngIf="{{infoUser.MediaPath}}"> -->
-                                    <!-- <img src="{{infoUser.MediaPath}}" style="width: 100px;"> -->
-                                    <!-- </ng-container> -->
-                                    <span class="float-end emaildate">
-                                        <i class="far fa-calendar-alt me-1"></i>
-                                     
-                                        {{infoUser?.MessageDay}} {{infoUser.MessageTime}}
-                                    </span>
-                                </div>
-                                <div class="mb-3 pb-1 emailcontact">
-                                    <!-- <ng-container  *ngIf="{{infoUser.MediaPath}}"> -->
-
-                                    <!-- </ng-container> -->
-                                    <i class="far fa-envelope me-1"></i> {{infoUser?.Emailid}} {{infoUser?.MessageDate}}
-                                    <span class="float-end">
-                                        <i class="fas fa-phone-alt me-1"></i> +91-{{infoUser?.MobileNo}}
-                                    </span>
-                                </div>
-                                <div class="row">
-                                    <ng-container *ngFor="let message of messagebyGroupIdArray" #messages>
-                                        <div class="mb-2 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
-                                            <div class="card card-body border shadow-none position-relative membercall">
-                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                    <span class="float-end text-muted small">{{infoUser?.MessageDay}} {{infoUser.MessageTime}}</span>
-                                                </p>
-                                                <span class="feedback">{{message.SenderMsg}}</span>
-                                                <img src="{{message.MediaPath}}" style="width: 100px;">
-                                            </div>
+                                <div class="personadetails mb-3">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <span class="personname">Mr. Vijay M. Kore</span>
                                         </div>
-                                        <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
-                                            <div class="card card-body border bg-light shadow-none position-relative admincall">
-                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                    <span class="float-end text-muted small"> {{infoUser?.MessageDate}}  {{infoUser.MessageTime}}</span>
-                                                </p>
-                                                <span class="feedback">{{message.SenderMsg}}</span>
-                                                <img src="{{message.MediaPath}}" style="width: 100px;">
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </div>
-
-                                <form enctype="multipart/form-data" [formGroup]="replayForm">
-                                    <div class="mb-3 mt-4">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" formControlName="senderMsg" placeholder="Reply to comment here" id="txtReply" rows="4"></textarea>
-                                            <label for="floatingTextarea2">Reply</label>
+                                        <div class="col-sm-4 text-end">
+                                            <span class="persondate"><i class="fas fa-calendar-alt me-2"></i> 16-02-2021</span>
                                         </div>
                                     </div>
-                                    <div class="mb-3 mt-4">
-                                        <input type="file" (change)="readUrl($event)" class="form-control form-control-sm">
+                                    <hr class="my-1">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <span class="personemail"><i class="far fa-envelope me-1"></i> vijaymkore@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-4 text-end">
+                                            <span class="personcontact"><i class="fas fa-phone-alt me-1"></i> +91-9876543210</span>
+                                        </div>
                                     </div>
+                                </div>
 
-                                    <div class="">
-                                        <button class="btn btn-secondary float-lg-start" type="button" (click)="defaultMsgBox = false">Clear</button>
-                                        <button class="btn btn-main float-lg-end" type="submit" (click)="UploadHelpMeChatMediaMsg()" [disabled]="!replayForm.valid">Send Reply</button>
+                                <div class="messagedetails">
+                                    <div class="mb-2 pb-1 col-sm-10">
+                                        <div class="card card-body border shadow-none position-relative membercall">
+                                            <p class="small text-muted mb-1 lblfeedback">Message Sender
+                                                <span class="float-end text-muted small">
+                                                    Message DateTime
+                                                </span>
+                                            </p>
+                                            <span class="feedback">
+                                                he next generation of the web’s favorite icon library + toolkit is now available as a Beta release! Subscribe to Font Awesome Pro and get instant access to the v6 beta.
+                                            </span>
+                                        </div>
                                     </div>
-                                </form>
+                                    <div class="mb-2 pb-1 col-sm-10 offset-2">
+                                        <div class="card card-body border bg-light shadow-none position-relative admincall">
+                                            <p class="small text-muted mb-1 lblfeedback">Message Sender
+                                                <span class="float-end text-muted small">Message DateTime</span>
+                                            </p>
+                                            <span class="feedback">
+                                                he next generation of the web’s favorite icon library + toolkit is now available as a Beta release! Subscribe to Font Awesome Pro and get instant access to the v6 beta.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 pb-1 col-sm-10 offset-2">
+                                        <div class="card card-body border bg-light shadow-none position-relative admincall">
+                                            <p class="small text-muted mb-1 lblfeedback">Message Sender
+                                                <span class="float-end text-muted small">Message DateTime</span>
+                                            </p>
+                                            <span class="feedback">
+                                                he next generation of the web’s favorite icon library + toolkit is now available as a Beta release! Subscribe to Font Awesome Pro and get instant access to the v6 beta.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">2</div>
-                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">3</div>
-                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">4</div>
+                            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                                2
+                            </div>
+                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                                3
+                            </div>
+                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                                4
+                            </div>
                         </div>
                     </div>
                 </div>

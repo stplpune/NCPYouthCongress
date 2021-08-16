@@ -27,13 +27,49 @@
     right: 19px;
     bottom: -21px;
 }
-
-.h-scroll-1 {
-    height: 400px;
-    overflow-y: scroll;
+#help-support .input-group .form-control,
+#help-support .input-group .form-control:focus{
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 0.85rem;
+    border-right: none;
 }
-
-.h-scroll-600 {
-    height: 600px;
-    overflow-y: scroll;
+#help-support .input-group .btn{
+    box-shadow: none !important;
+    font-size: 0.85rem;
+    border: 1px solid #ced4da;
+    background-color: transparent;
+    border-left: none;
+}
+#help-support .username{
+    font-weight: 600;
+}
+#help-support .helpdate{
+    font-size: 0.7rem;
+}
+#help-support .helpmsg{
+    color: #888;
+}
+.message-box{
+    height: 70vh;
+    overflow-y: auto;
+}
+#help-support .list-group .active{
+    background-color: var(--main-color);
+    color: #fff;
+}
+#help-support .list-group .active .helpmsg{
+    color: #eee;
+}
+#help-support .list-group .active i{
+    color: #0f0 !important;
+}
+#help-support .personadetails .personname{
+    color: var(--main-color);
+}
+#help-support .personadetails .persondate,
+#help-support .personadetails .personemail,
+#help-support .personadetails .personcontact{
+    color: #999;
+    font-size: 0.85rem;
 }
