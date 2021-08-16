@@ -37,6 +37,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   fromDate: any;
   catValue: any;
   bestPerCat = [{'id':1,'name':"Committee"},{'id':0,'name':"Location"}];
+  bestWorstArray = [{'id':1,'name':"Best"},{'id':0,'name':"Worst"}];
   defultCategoryName:any = 0;
   resWorkcategory:any;
   dateRange:any;
@@ -45,6 +46,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   resultBestPerKaryMember:any;
   memberNameArray:any;
   regions_m:any;
+  isBestworst = 0;
+  
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, private route: ActivatedRoute,
@@ -464,7 +467,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   getBestPerKaryMember() {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
+       'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         console.log(res);
@@ -669,6 +673,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.bestPerformance();
   }
+
+  bestWorstPer(value: any) {
+     this.isBestworst=value.id;
+     alert(this.isBestworst)
+     this.getBestPerKaryMember();
+  }
+
   ngOnDestroy() {
     // localStorage.removeItem('weekRange');
   }
