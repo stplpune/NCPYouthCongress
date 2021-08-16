@@ -216,7 +216,7 @@ export class DashboardComponent implements OnInit {
     // Create category axis
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "Date";
-    categoryAxis.renderer.minGridDistance = 50;
+    categoryAxis.renderer.minGridDistance = 20;
     categoryAxis.dateFormatter = new am4core.DateFormatter();
     categoryAxis.dateFormatter.dateFormat = "dd/MM";
     categoryAxis.renderer.opposite = false;
