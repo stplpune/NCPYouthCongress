@@ -37,7 +37,7 @@ export class NotificationsComponent implements OnInit {
   imgName: any;
   ImgUrl: any;
   getImgExt: any;
-  selectedFile!: File;
+  selectedFile: any;
   NotificationText:string =  "Push";
   getImgPath:any;
   NotificationId:any;
@@ -209,7 +209,6 @@ export class NotificationsComponent implements OnInit {
     this.getImgPath = data.AttachmentPath;
     this.addValidationOn(data.ScopeId);
 
-
     if(data.ScopeId == 4){
       data.MemberStr = data.MemberStr.split(',');
     }else if (data.ScopeId == 3){
@@ -259,10 +258,7 @@ export class NotificationsComponent implements OnInit {
 
   deleteImg(){
     this.getImgPath = null;
-    this.notificationForm.patchValue({
-      AttachmentPath:'',
-      NotificationType:0
-    })
+   this.selectedFile = null;
   }
   
   delNotConfirmation(NewsId:any){

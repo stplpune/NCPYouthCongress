@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label for="fuPhoto" class="form-label">Activity Photo</label>
-                                    <input class="form-control form-control-sm" (change)="readUrl($event)" formControlName="NewsImages" type="file">
+                                    <input class="form-control form-control-sm" (change)="readUrl($event)" type="file">
                                     <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i
                                     class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
                                     <!-- <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -39,7 +39,7 @@ export class ForwardActivitiesComponent implements OnInit {
   imgName: any;
   ImgUrl: any;
   getImgExt: any;
-  selectedFile!: File;
+  selectedFile: any;
   NewsId: any;
   IsChangeImage:boolean = false;
 
@@ -71,7 +71,6 @@ export class ForwardActivitiesComponent implements OnInit {
       hashtags_Activity: ['', Validators.required],
       IsChangeImage: [0],
       NewsType:[''],
-      NewsImages:['']
     })
   }
 
@@ -111,13 +110,13 @@ export class ForwardActivitiesComponent implements OnInit {
 
       let getObj:any = this.forwardActivitiForm.value;
       if(this.IsChangeImage) notStatus = 1;
-
+      console.log(this.selectedFile);
       fromData.append('Id', getObj.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('Title', getObj.activityTitle);
       fromData.append('Description', getObj.activityBody);
       fromData.append('HashTags', getObj.hashtags_Activity);
-      fromData.append('NewsType', ImageChangeFlag);
+      fromData.append('NewsType', ImageChangeFlag);  //img + text = 3, & only text = 1 
       fromData.append('IsChangeImage', notStatus);
       fromData.append('NewsImages ', this.selectedFile);
   
@@ -125,6 +124,7 @@ export class ForwardActivitiesComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           // this.submitted = false;
+          // this.deleteImg();
           this.IsChangeImage = false;
           this.resetNotificationForm();
 
@@ -172,7 +172,7 @@ export class ForwardActivitiesComponent implements OnInit {
   deleteImg(){
     this.getImgPath = null;
     this.IsChangeImage = true;
-    this.forwardActivitiForm.controls['NewsImages'].setValue('')
+    this.selectedFile = null;
   }
   
   delNotConfirmation(NewsId:any){
@@ -206,7 +206,7 @@ export class ForwardActivitiesComponent implements OnInit {
         this.newstypeArray = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available1");
+          // this.toastrService.error("Data is not available1");
       }
     } ,(error:any) => {
       this.spinner.hide();
@@ -288,11 +288,7 @@ export class ForwardActivitiesComponent implements OnInit {
     this.getNewsData();
   }
   
-  choosePhoto() {
-    let clickPhoto: any = document.getElementById('my_file')
-    clickPhoto.click();
-  }
-
+ 
   readUrl(event: any) {
     let selResult = event.target.value.split('.');
     this.getImgExt = selResult.pop();
