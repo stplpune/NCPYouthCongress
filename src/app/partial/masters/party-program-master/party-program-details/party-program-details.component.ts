@@ -100,7 +100,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   
-
   getMembersData() {
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;
@@ -113,6 +112,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
+        console.log("1111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         // console.log(this.ParpantsProMemImge);
