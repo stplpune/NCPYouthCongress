@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-sm-6 text-end">
                         <div class="form-check form-check-inline" *ngFor="let bestWorst of bestWorstArray">
-                            <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes"  [value]="bestWorst.id"  formControlName="IsBody" [checked]="bestWorst.id ==  defultCategoryName"  (change)="bestWorstPer(bestWorst)">
+                            <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes"  [value]="bestWorst.id"  [checked]="bestWorst.id ==  defultCategoryName"  (change)="bestWorstPer(bestWorst)">
                             <label class="form-check-label" for="chkIsMultipleYes">{{bestWorst.name}}</label>
                         </div>
                     </div>
