@@ -92,6 +92,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
+    // this.filterForm.reset();
     if(readStatus == 0){
       this.getTblchatreceived(GroupId);
       if(infoUser.IsMember == 0){
@@ -101,27 +102,29 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scrollToBottom();
     this.defaultMsgBox= true;
     this.infoUser = infoUser;
-   
-    this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+this.commonService.loggedInUserId()+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      console.log('getMessagebyGroupId',res);
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.messagebyGroupIdArray = res.data1;
-      
-      } else {
-        this.spinner.hide();
-        //this.messagebyGroupIdArray = [];
-        //this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
+    this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }
 
+  Chat_MessagebyGroupId(GroupId:any){
+  this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+this.commonService.loggedInUserId()+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
+  this.callAPIService.getHttp().subscribe((res: any) => {
+    console.log('getMessagebyGroupId',res);
+    if (res.data == 0) {
+      this.spinner.hide();
+      this.messagebyGroupIdArray = res.data1;
+    
+    } else {
+      this.spinner.hide();
+      //this.messagebyGroupIdArray = [];
+      //this.toastrService.error("Data is not available");
+    }
+  } ,(error:any) => {
+    this.spinner.hide();
+    if (error.status == 500) {
+      this.router.navigate(['../500'], { relativeTo: this.route });
+    }
+  })
+}
   joinChatGroupMember() {
     // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + this.commonService.loggedInUserId() + '&UserId=' +this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
@@ -163,16 +166,16 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let fromData = new FormData();
     let MsgType:any;
     let MediaTypeId:any;
-    this.selectedFile ?  (MsgType = 2, MediaTypeId = 2) : (MsgType = 1,MediaTypeId = 1) ;
+    this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
     fromData.append('ReceiverId', this.infoUser.SenderId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
-    fromData.append('MessageTypeId', MediaTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
-    fromData.append('MediaTypeId', MsgType);
-    fromData.append('MsgType', '2');
+    fromData.append('MessageTypeId', this.infoUser.MediaTypeId);  // 1 personal 2 group
+    fromData.append('MediaTypeId', MediaTypeId  ); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
+    // fromData.append('MsgType', '2');
 
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -183,14 +186,15 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.toastrService.success(res.data1[0].Msg);
         this.replayForm.reset();
       } else {
-        // this.toastrService.error(res.data1[0].Msg)
+        this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
+        this.replayForm.reset();
       }
     } ,(error:any) => {
        this.spinner.hide();
-      // if (error.status == 500) {
-      //   this.router.navigate(['../500'], { relativeTo: this.route });
-      // }
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
   }
 

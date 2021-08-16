@@ -71,6 +71,7 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
+        this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -145,6 +146,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -291,8 +293,6 @@ export class MyProfileComponent implements OnInit {
     this.ImgUrl = null;
   }
 
- 
-  //change password 
   customFormChangePassword() {
     this.changePasswordForm = this.fb.group({
       userName: [this.commonService.loggedInUserName(), [Validators.required,]],
@@ -305,8 +305,9 @@ export class MyProfileComponent implements OnInit {
   get cp() { return this.changePasswordForm.controls };
 
   onSubmit() {
+    debugger
     this.spinner.show();
-    this.submitted = true;
+    this.submittedChangePassword  = true;
     if (this.changePasswordForm.invalid) {
       this.spinner.hide();
       return;
@@ -322,7 +323,7 @@ export class MyProfileComponent implements OnInit {
         this.callAPIService.setHttp('get','Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           if (res.data1[0].Id!== 0) {
-           this.toastrService.success(res.data1[0].Msg)
+           this.toastrService.success(res.data1[0].Msg);
             this.spinner.hide();
             this.clearForm();
           }
@@ -354,11 +355,10 @@ export class MyProfileComponent implements OnInit {
       this.show_button2 = !this.show_button2;
       this.show_eye2 = !this.show_eye2;
     }
-
   }
 
   clearForm() {
-    this.submitted = false;
+    this.submittedChangePassword  = false;
     this.changePasswordForm.reset({
       userName: this.commonService.loggedInUserName(),
       oldPassword: '',
@@ -375,8 +375,5 @@ export class MyProfileComponent implements OnInit {
       return { passwordValid: true }
     }
   }
-
-  DisabledAllForm(){//Disabled hole Form When Click model Close Button
-    this.disabledEditForm = true;
-  }
+  
 }
