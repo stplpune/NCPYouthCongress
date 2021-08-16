@@ -73,7 +73,7 @@
                             <span class="float-end">
                                 <div class="input-group">
                                     <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)" 
-                                        [(ngModel)]="defaultToDate" class="form-control form-control-sm" [max]="maxDate"
+                                        [(ngModel)]="toDate" class="form-control form-control-sm" [max]="maxDate"
                                         [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                                     <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
                                     <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1" >
