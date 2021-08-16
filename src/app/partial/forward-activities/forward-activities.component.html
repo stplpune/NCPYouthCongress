@@ -31,26 +31,26 @@
                                 </div>
                                 <div class="mb-2">
                                     <label for="fuPhoto" class="form-label">Activity Photo</label>
-                                    <input class="form-control form-control-sm" (change)="readUrl($event)" id="fuPhoto" type="file">
+                                    <input class="form-control form-control-sm" (change)="readUrl($event)" formControlName="NewsImages" type="file">
                                     <a *ngIf="getImgPath"><small>{{getImgPath}}</small> &nbsp; <i
                                     class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></a>
-                                <!-- <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">
+                                    <!-- <div *ngIf="submitted && f.activityPhoto.errors" class="invalid-feedback">
                                     <div *ngIf="f.activityPhoto.errors.required">Title name is required</div>
                                 </div> -->
-                            </div>
-                           
-                            <div class="mb-2">
-                                <label for="txtBody" class="form-label">Hashtags for Activity</label>
-                                <textarea type="text" rows="3" class="form-control" formControlName="hashtags_Activity" id="txtBody" placeholder="Hashtags for Activity"></textarea>
-                                <small class="form-text small">Use # symbol before every hashtag and separate each tag with comma (,).</small>
-                                <div *ngIf="submitted && f.hashtags_Activity.errors" class="invalid-feedback">
-                                    <div *ngIf="f.hashtags_Activity.errors.required">Title name is required</div>
                                 </div>
 
-                                <div class="mb-2 text-end">
-                                    <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}} Activity</button>
+                                <div class="mb-2">
+                                    <label for="txtBody" class="form-label">Hashtags for Activity</label>
+                                    <textarea type="text" rows="3" class="form-control" formControlName="hashtags_Activity" id="txtBody" placeholder="Hashtags for Activity"></textarea>
+                                    <small class="form-text small">Use # symbol before every hashtag and separate each tag with comma (,).</small>
+                                    <div *ngIf="submitted && f.hashtags_Activity.errors" class="invalid-feedback">
+                                        <div *ngIf="f.hashtags_Activity.errors.required">Title name is required</div>
+                                    </div>
+
+                                    <div class="mb-2 text-end">
+                                        <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}} Activity</button>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </form>
                     </div>
@@ -61,7 +61,7 @@
                                     <ngx-select [allowClear]="true" (remove)="clearFilter('newsType')" formControlName="newstypeId" [items]="newstypeArray" optionValueField="Id" optionTextField="NewsType" placeholder="News Type" (select)="filterData(false)">
                                     </ngx-select>
                                 </div> -->
-                                <div class="col-sm-4">
+                                <div class="offset-sm-4 col-sm-4">
                                     <div class="input-group">
                                         <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="filterData('range')" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                                         <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">

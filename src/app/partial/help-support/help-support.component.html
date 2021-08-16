@@ -74,12 +74,12 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-9 h-scroll-600">
+                    <div class="col-sm-9 h-scroll-600" #content>
                         <div class="d-block text-end">
                             <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
                         </div>
                         <hr />
-                        <div class="tab-content p-5" id="nav-tabContent" *ngIf="defaultMsgBox" #content>
+                        <div class="tab-content p-5" id="nav-tabContent" *ngIf="defaultMsgBox">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="border-bottom mb-2 pb-1">
                                     <span class="emailname">{{infoUser?.Sender}}</span>
@@ -101,8 +101,8 @@
                                         <i class="fas fa-phone-alt me-1"></i> +91-{{infoUser?.MobileNo}}
                                     </span>
                                 </div>
-                                <div class="row" #messages>
-                                    <ng-container *ngFor="let message of messagebyGroupIdArray">
+                                <div class="row">
+                                    <ng-container *ngFor="let message of messagebyGroupIdArray" #messages>
                                         <div class="mb-2 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
                                             <div class="card card-body border shadow-none position-relative membercall">
                                                 <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
@@ -115,7 +115,7 @@
                                         <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
                                             <div class="card card-body border bg-light shadow-none position-relative admincall">
                                                 <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                    <span class="float-end text-muted small"> {{infoUser?.MessageDate}}</span>
+                                                    <span class="float-end text-muted small"> {{infoUser?.MessageDate}}  {{infoUser.MessageTime}}</span>
                                                 </p>
                                                 <span class="feedback">{{message.SenderMsg}}</span>
                                                 <img src="{{message.MediaPath}}" style="width: 100px;">
