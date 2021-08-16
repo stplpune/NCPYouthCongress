@@ -48,6 +48,7 @@ export class MyProfileComponent implements OnInit {
   show_eye1: Boolean = false;
   show_button2: Boolean = false;
   show_eye2: Boolean = false;
+  villOrcityDisabled:boolean = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -87,7 +88,7 @@ export class MyProfileComponent implements OnInit {
     this.editProfileForm = this.fb.group({
       UserId: [this.commonService.loggedInUserId()],
       StateId: [1],
-      DistrictId: ['', [Validators.required]],
+      DistrictId: [0, [Validators.required]],
       TalukaId: ['', [Validators.required]],
       VillageId: ['', [Validators.required]],
       FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
@@ -158,7 +159,9 @@ export class MyProfileComponent implements OnInit {
           });
           let selValueCityOrVillage: any = "";
           this.editProfileForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
-          this.getVillageOrCity(this.editProfileForm.value.TalukaId, selValueCityOrVillage)
+          if(this.editProfileForm.value.TalukaId){
+            this.getVillageOrCity(this.editProfileForm.value.TalukaId, selValueCityOrVillage)
+          }
         }
       } else {
         this.spinner.hide();
@@ -253,13 +256,14 @@ export class MyProfileComponent implements OnInit {
 
   districtClear(text: any) {
     if (text == 'district') {
-      this.editProfileForm.controls['DistrictId'].setValue(null), this.editProfileForm.controls['TalukaId'].setValue(null), this.editProfileForm.controls['VillageId'].setValue(null);
+      
+      this.editProfileForm.controls['DistrictId'].setValue(0), this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
 
     } else if (text == 'taluka') {
-      this.editProfileForm.controls['TalukaId'].setValue(null), this.editProfileForm.controls['VillageId'].setValue(null);
+      this.editProfileForm.controls['TalukaId'].setValue(0), this.editProfileForm.controls['VillageId'].setValue('');
 
     } else if (text == 'village') {
-      this.editProfileForm.controls['VillageId'].setValue(null);
+      this.editProfileForm.controls['VillageId'].setValue(0);
     }
   }
 

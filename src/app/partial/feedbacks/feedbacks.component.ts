@@ -126,7 +126,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getMemberName() {
-    this.spinner.show();
+    // this.spinner.show();
     this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

@@ -49,7 +49,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     //   this.getReceiverChatList();
     // }, 5000)
     this.getReceiverChatList();
-    this.scrollToBottom();
+    // this.scrollToBottom();
     this.searchFilters(false);
   }
 
@@ -93,6 +93,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
     // this.filterForm.reset();
+    console.log(this.infoUser);
     if(readStatus == 0){
       this.getTblchatreceived(GroupId);
       if(infoUser.IsMember == 0){
@@ -142,7 +143,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     } )
   }
 
-  getTblchatreceived(GroupId:any,) {
+  getTblchatreceived(GroupId:any) {
     // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId+ '&UserId=' +this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -169,7 +170,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
-    fromData.append('ReceiverId', this.infoUser.SenderId);
+    fromData.append('ReceiverId', this.infoUser.ReceiverId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
@@ -182,6 +183,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (res.data == 0) {
        // this.submitted = false;
        this.getReceiverChatList();
+       this.Chat_MessagebyGroupId(this.infoUser.GroupId)
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
         this.replayForm.reset();
@@ -249,8 +251,8 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
  
   ngAfterViewInit() {
-    this.scrollToBottom();
-    this.messages.changes.subscribe(this.scrollToBottom);
+    // this.scrollToBottom();
+    // this.messages.changes.subscribe(this.scrollToBottom);
   }
   
   scrollToBottom = () => {
