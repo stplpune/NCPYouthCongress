@@ -5,6 +5,8 @@
 
 #profile-left .card .card-img-top {
     border-radius: 10px;
+    height:310px;
+    object-fit: cover;
 }
 
 #profile-left .card-text {
