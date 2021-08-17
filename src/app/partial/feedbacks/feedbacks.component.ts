@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-feedbacks',
   templateUrl: './feedbacks.component.html',
-  styleUrls: ['./feedbacks.component.css', '../partial.component.css']
+  styleUrls: ['./feedbacks.component.css', '../partial.component.css', '../help-support/help-support.component.css']
 })
 export class FeedbacksComponent implements OnInit {
   public items: string[] = [];

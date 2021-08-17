@@ -34,12 +34,12 @@
     font-size: 0.85rem;
     border-right: none;
 }
-#help-support .input-group .btn{
+#help-support .input-group .btn-search{
     box-shadow: none !important;
     font-size: 0.85rem;
     border: 1px solid #ced4da;
     background-color: transparent;
-    border-left: none;
+    border-left: none !important;
 }
 #help-support .username{
     font-weight: 600;
@@ -67,8 +67,14 @@
 #help-support .list-group .active .helpmsg{
     color: #eee;
 }
-#help-support .list-group .active i{
+#help-support .list-group .active i.text-success{
     color: #0f0 !important;
+}
+#help-support .list-group .active i.text-primary{
+    color: rgb(65, 194, 245) !important;
+}
+#help-support .list-group .active i.text-danger{
+    color: #f00 !important;
 }
 #help-support .personadetails .personname{
     color: var(--main-color);
@@ -84,19 +90,22 @@
     box-shadow: none;
     outline: none;
 }
+#help-support .btn-group .btn{
+    font-size: 0.8rem;
+}
 .messagedetails .lblfeedback{
-    font-size: 0.7rem;
+    font-size: 0.75rem;
 }
 .messagedetails .feedback{
     font-size: 0.85rem;
 }
 .img-con{
     position:relative;
-    width: 150px;
+    width: 100px;
     margin-right: 10px;
 }
 .img-con .helpimg{
-    width: 150px;
+    width: 100px;
     border:solid 1px #ced4da;
     padding:5px;
     border-radius: 5px;
