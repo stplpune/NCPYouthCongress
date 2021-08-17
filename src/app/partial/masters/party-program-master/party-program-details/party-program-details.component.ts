@@ -42,7 +42,8 @@ export class PartyProgramDetailsComponent implements OnInit {
   ParpantsProMemImge!: GalleryItem[]; 
   ParpantsProMemImge1!: GalleryItem[];
   imgLightBox:boolean = false;
-  membersData: any;
+  resultBodyMemActDetails: any;
+  // membersData: any;
 
   constructor(
     public location: Location,
@@ -111,6 +112,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
+        //console.log("11111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         // console.log(this.ParpantsProMemImge);
@@ -205,10 +207,38 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 
-  getPartyProgramDetails(membersData:any){
-    this.membersData=membersData;
-    this.showLightBox(membersData.MemberId);
+  // getPartyProgramDetails(membersData:any){
+  //   this.membersData=membersData;
+  //   this.showLightBox(membersData.MemberId);
+  // }
+
+  getPartyProgramDetails(viewMemberId:any){
+    // this.membersData=membersData;
+    this.getBodyMemeberActivitiesDetails(viewMemberId);
   }
+
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultBodyMemActDetails = res.data1[0];
+         console.log("asd",this.resultBodyMemActDetails)
+        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        this.lat = Number(latLong[0]);
+        this.lng = Number(latLong[1]);
+      } else {
+        this.resultBodyMemActDetails = [];
+        // this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
 
 
   showLightBox(MemberId:any){
