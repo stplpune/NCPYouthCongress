@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { iif, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 
 @Component({
   selector: 'app-help-support',
@@ -35,6 +36,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   @ViewChildren('messages') messages: any;
   @ViewChild('content') content!: ElementRef;
   globalGroupId = 0;
+  @ViewChild('fileInput') fileInput: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -51,7 +53,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
 
   defualtForm() {
     this.replayForm = this.fb.group({
-      senderMsg: ['', Validators.required]
+      senderMsg: ['']
     })
   }
 
@@ -87,13 +89,13 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   getMessagebyGroupId(infoUser: any, GroupId: any, readStatus: any) {
+    this.replayForm.reset();
     if (readStatus == 0) {
       this.getTblchatreceived(GroupId);
       if (infoUser.IsMember == 0) {
         this.joinChatGroupMember();
       }
     }
-
     this.defaultMsgBox = true;
     this.infoUser = infoUser;
     this.globalGroupId = this.infoUser.GroupId;
@@ -120,8 +122,8 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
-
   }
+
   joinChatGroupMember() {
     this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + this.commonService.loggedInUserId() + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -156,17 +158,33 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
 
   UploadHelpMeChatMediaMsg() {
     let data = this.replayForm.value;
-    if (data.senderMsg == "" || this.selectedFile == "") {
-      this.toastrService.error('please Enter your data')
+    if ((data.senderMsg == "" || data.senderMsg == null) || this.getImgExt == "") {
+      this.toastrService.error('Please Enter your data')
       return
     }
     let fromData = new FormData();
     let checkrecId:any;
-
     this.commonService.loggedInUserId() ==  this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId :  checkrecId = this.infoUser.ReceiverId; 
-
     let MediaTypeId: any;
-    this.selectedFile ? (MediaTypeId = 2) : (MediaTypeId = 1);
+    this.selectedFile;
+    debugger;
+    switch (this.getImgExt) {
+      case ('png'):
+        MediaTypeId = 2;
+        break;
+      case ('jpg'):
+        MediaTypeId = 2;
+        break;
+      case ('mp4'):
+        MediaTypeId = 3;
+        break;
+      case ('mp3'):
+        MediaTypeId = 4;
+        break;
+      default:
+        MediaTypeId = 1;
+        break;
+    }
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
     fromData.append('ReceiverId', checkrecId);
@@ -183,7 +201,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.Chat_MessagebyGroupId(this.infoUser.GroupId)
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-
+        this.closeImg();
       } else {
         this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
@@ -195,6 +213,14 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  closeImg() {
+    this.ImgUrl = null;
+    this.fileInput.nativeElement.value = '';
+    // console.log(this.selectedFile);
+    // this.selectedFile = undefined;
+    // this.imgName = null;
   }
 
   readUrl(event: any) {
@@ -223,11 +249,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeImg() {
-    this.ImgUrl = null;
-    this.selectedFile = null;
-    this.imgName = null;
-  }
+
   onKeyUpFilter() {
     this.subject.next();
   }
@@ -236,6 +258,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     let clickInputFile = document.getElementById("img-upload");
     clickInputFile?.click();
   }
+
   searchFilters(flag: any) {
     if (flag == 'true') {
       if (this.filterForm.value.searchFilter == "" || this.filterForm.value.searchFilter == null) {
