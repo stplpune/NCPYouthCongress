@@ -240,3 +240,22 @@ header .navbar-nav .donate{
 #footer #bottom a img{
     height:25px;
 }
+.main{
+    height:100vh;
+    display:block;
+    position: relative;
+}
+.main:after{
+    content: "";    
+    background-image: url('../../../assets/images/ncp-founders/sharad-pawar.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    filter:grayscale(0.8);
+}
