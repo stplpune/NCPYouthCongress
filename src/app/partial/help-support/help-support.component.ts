@@ -6,7 +6,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
+import { iif, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -14,22 +14,22 @@ import { debounceTime } from 'rxjs/operators';
   templateUrl: './help-support.component.html',
   styleUrls: ['./help-support.component.css', '../partial.component.css']
 })
-export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HelpSupportComponent implements OnInit, OnDestroy {
   public items: string[] = [];
   receiverChatListArray: any;
   messagebyGroupIdArray: any;
   chatGroupMemberArray: any;
   tblchatreceivedArray: any;
-  defaultMsgBox:boolean = false;
-  replayForm!:FormGroup;
-  selectedFile:any;
-  ImgUrl:any;
-  getImgExt:any;
-  imgName:any;
-  infoUser:any;
-  loginUserId:any;
+  defaultMsgBox: boolean = false;
+  replayForm!: FormGroup;
+  selectedFile: any;
+  ImgUrl: any;
+  getImgExt: any;
+  imgName: any;
+  infoUser: any;
+  loginUserId: any;
   timeInterval: any;
-  filterForm!:FormGroup;
+  filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
   // searchFilter:any;
   @ViewChildren('messages') messages: any;
@@ -37,42 +37,37 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
-    private commonService: CommonService, public datepipe: DatePipe,private _el: ElementRef) { }
+    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
+    private commonService: CommonService, public datepipe: DatePipe, private _el: ElementRef) { }
 
   ngOnInit(): void {
-   this.loginUserId =  this.commonService.loggedInUserId();
-
-   this.defualtForm();
-   this.customFilter();
-    // this.timeInterval = setInterval(() => {
-    //   this.getReceiverChatList();
-    // }, 5000)
+    this.loginUserId = this.commonService.loggedInUserId();
+    this.defualtForm();
+    this.customFilter();
     this.getReceiverChatList();
-    // this.scrollToBottom();
     this.searchFilters(false);
   }
 
-  defualtForm(){
-      this.replayForm = this.fb.group({
-        senderMsg:['', Validators.required]
-      })
+  defualtForm() {
+    this.replayForm = this.fb.group({
+      senderMsg: ['', Validators.required]
+    })
   }
 
-  customFilter(){
+  customFilter() {
     this.filterForm = this.fb.group({
-      searchFilter:['']
+      searchFilter: ['']
     });
   }
 
-  clearFilter(){
+  clearFilter() {
     this.filterForm.controls['searchFilter'].setValue('');
-     this.getReceiverChatList();
+    this.getReceiverChatList();
   }
 
   getReceiverChatList() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_get_ReceiverChatList?UserId=' +this.commonService.loggedInUserId()  + '&Search=' + this.filterForm.value.searchFilter, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_get_ReceiverChatList?UserId=' + this.commonService.loggedInUserId() + '&Search=' + this.filterForm.value.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -81,124 +76,115 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
       } else {
         this.spinner.hide();
         this.receiverChatListArray = [];
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
-    } )
+    })
   }
 
-  getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
-    // this.filterForm.reset();
-    debugger;
-    if(readStatus == 0){
+  getMessagebyGroupId(infoUser: any, GroupId: any, readStatus: any) {
+    if (readStatus == 0) {
       this.getTblchatreceived(GroupId);
-      if(infoUser.IsMember == 0){
+      if (infoUser.IsMember == 0) {
         this.joinChatGroupMember();
       }
     }
-  
-    this.defaultMsgBox= true;
+
+    this.defaultMsgBox = true;
     this.infoUser = infoUser;
     console.log(this.infoUser);
     this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }
 
-  Chat_MessagebyGroupId(GroupId:any){
-  this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+this.commonService.loggedInUserId()+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
-  this.callAPIService.getHttp().subscribe((res: any) => {
-    if (res.data == 0) {
+  Chat_MessagebyGroupId(GroupId: any) {
+    this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId=' + this.commonService.loggedInUserId() + '&GroupId=' + GroupId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.messagebyGroupIdArray = res.data1;
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
       this.spinner.hide();
-      this.messagebyGroupIdArray = res.data1;
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 100);
-    } else {
-      this.spinner.hide();
-      //this.messagebyGroupIdArray = [];
-      //this.toastrService.error("Data is not available");
-    }
-  } ,(error:any) => {
-    this.spinner.hide();
-    if (error.status == 500) {
-      this.router.navigate(['../500'], { relativeTo: this.route });
-    }
-  })
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
 
-}
+  }
   joinChatGroupMember() {
-    // this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + this.commonService.loggedInUserId() + '&UserId=' +this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Join_ChatGroupMember?GroupId=' + this.commonService.loggedInUserId() + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.chatGroupMemberArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
-    } )
+    })
   }
 
-  getTblchatreceived(GroupId:any) {
-    // this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId+ '&UserId=' +this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+  getTblchatreceived(GroupId: any) {
+    this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        // this.getReceiverChatList();
         this.spinner.hide();
         this.tblchatreceivedArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
-    } )
-  } 
+    })
+  }
 
   UploadHelpMeChatMediaMsg() {
-    // this.spinner.show();
     let data = this.replayForm.value;
+    if (data.senderMsg == "" || this.selectedFile == "") {
+      this.toastrService.error('please Enter your data')
+      return
+    }
     let fromData = new FormData();
-    let MsgType:any;
-    let MediaTypeId:any;
-
-    this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
+    let MediaTypeId: any;
+    this.selectedFile ? (MediaTypeId = 2) : (MediaTypeId = 1);
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
     fromData.append('ReceiverId', this.infoUser.ReceiverId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
-    fromData.append('MediaName',  this.imgName); // this.imgName
+    fromData.append('MediaName', this.imgName); // this.imgName
     fromData.append('MessageTypeId', this.infoUser.MediaTypeId);  // 1 personal 2 group
-    fromData.append('MediaTypeId', MediaTypeId  ); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
-    // fromData.append('MsgType', '2');
-
+    fromData.append('MediaTypeId', MediaTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-      //  this.submitted = false;
-       this.replayForm.reset();
-       this.getReceiverChatList();
-       this.Chat_MessagebyGroupId(this.infoUser.GroupId)
+        this.replayForm.reset();
+        this.getReceiverChatList();
+        this.Chat_MessagebyGroupId(this.infoUser.GroupId)
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-     
+
       } else {
         this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
         this.replayForm.reset();
       }
-    } ,(error:any) => {
-       this.spinner.hide();
+    }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -209,7 +195,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let selResult = event.target.value.split('.');
     this.getImgExt = selResult.pop();
     this.getImgExt.toLowerCase();
-    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg" || this.getImgExt == "mp3" ||  this.getImgExt == "mp4") {
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "mp3" || this.getImgExt == "mp4") {
       this.selectedFile = <File>event.target.files[0];
       if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
@@ -218,11 +204,10 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         reader.readAsDataURL(event.target.files[0]);
         this.imgName = event.target.files[0].name;
-
       }
     }
     else {
-      this.toastrService.error("Profile image allowed only jpg or png format");
+      this.toastrService.error("Allowed only jpg, png, mp3 & mp4 format");
     }
   }
 
@@ -232,45 +217,39 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  closeImg(){
+  closeImg() {
     this.ImgUrl = null;
     this.selectedFile = null;
     this.imgName = null;
   }
-  onKeyUpFilter(){
+  onKeyUpFilter() {
     this.subject.next();
   }
 
-  openInputFile(){
+  openInputFile() {
     let clickInputFile = document.getElementById("img-upload");
     clickInputFile?.click();
   }
-  searchFilters(flag:any) {
-    if(flag == 'true'){
-      if(this.filterForm.value.searchFilter == "" || this.filterForm.value.searchFilter == null){
+  searchFilters(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.searchFilter == "" || this.filterForm.value.searchFilter == null) {
         this.toastrService.error("Please search and try again");
         return
       }
     }
     this.subject
-    .pipe(debounceTime(700))
-    .subscribe(() => {
-      this.filterForm.value.searchFilter;
-      this.getReceiverChatList()
-    }
-    );
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+        this.filterForm.value.searchFilter;
+        this.getReceiverChatList()
+      }
+      );
   }
 
- 
-  ngAfterViewInit() {
-    // this.scrollToBottom();
-    // this.messages.changes.subscribe(this.scrollToBottom);
-  }
-  
   scrollToBottom = () => {
     try {
       this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
 }
