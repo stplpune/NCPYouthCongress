@@ -89,6 +89,9 @@
 #help-support .list-group .active i.text-danger {
     color: #f00 !important;
 }
+#help-support .list-group .active i.text-warning {
+    color: #fff !important;
+}
 
 #help-support .personadetails .personname {
     color: var(--main-color);
