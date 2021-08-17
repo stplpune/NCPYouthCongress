@@ -54,7 +54,9 @@
                                 <div class="personadetails mb-3">
                                     <div class="row">
                                         <div class="col-sm-8">
-                                            <span class="personname">{{infoUser?.Sender}}</span>
+                                            <span class="personname">
+                                                <button class="btn btn-sm btn-light shadow-none me-2"><i class="fas fa-arrow-left"></i></button>
+                                                {{infoUser?.Sender}}</span>
                                         </div>
                                         <div class="col-sm-4 text-end">
                                             <span class="persondate"><i class="fas fa-calendar-alt me-2"></i>
@@ -140,19 +142,19 @@
                                         <div class="img-con">
                                             <ng-container *ngIf="getImgExt == 'png'">
                                                 <img src="{{ImgUrl}}" class="helpimg">
-                                                <button class="btn img-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                                <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
                                             <ng-container *ngIf="getImgExt == 'mp3'">
                                                 <audio controls>
                                                 <source src="{{ImgUrl}}" type="audio/mpeg">
                                               </audio>
-                                                <button class="btn audio-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                                <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
                                             <ng-container *ngIf="getImgExt == 'mp4'">
                                                 <video width="320" height="240" controls>
                                                 <source src="{{ImgUrl}}" type="video/mp4">
                                               </video>
-                                                <button class="btn video-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                                <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>                                          
 
                                         </div>

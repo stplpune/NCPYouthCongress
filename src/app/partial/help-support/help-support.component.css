@@ -142,20 +142,9 @@
     line-height: 16px;
     padding: 5px;
     font-size: 0.85rem;
-}
-.img-con .img-close {  
     right: -6px;
     top: -6px;
 }
-.img-con .audio-close{
-    right: -6px;
-    top: -6px;
-}
-.img-con .video-close{
-    right: -6px;
-    top: -6px;
-}
-
 .replybox {
     background-color: #eee;
     padding: 10px;
