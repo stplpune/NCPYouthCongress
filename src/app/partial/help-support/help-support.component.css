@@ -121,7 +121,7 @@
 
 .img-con {
     position: relative;
-    width: 100px;
+    /* width: 100px; */
     margin-right: 10px;
 }
 
@@ -136,16 +136,15 @@
     border-radius: 50%;
     box-shadow: none;
     position: absolute;
-    right: -6px;
-    top: -6px;
     background-color: rgb(255, 190, 190);
     width: 26px;
     height: 26px;
     line-height: 16px;
     padding: 5px;
     font-size: 0.85rem;
+    right: -6px;
+    top: -6px;
 }
-
 .replybox {
     background-color: #eee;
     padding: 10px;
