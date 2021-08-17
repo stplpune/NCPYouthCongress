@@ -64,7 +64,7 @@
 }
 
 .messagedetails {
-    height: 61vh;
+    height: 60vh;
     overflow-y: scroll;
     padding-right: 10px;
 }
@@ -145,8 +145,9 @@
     padding: 5px;
     font-size: 0.85rem;
 }
-.replybox{
-    background-color:#eee;
-    padding:10px;
+
+.replybox {
+    background-color: #eee;
+    padding: 10px;
     border-radius: 10px;
 }

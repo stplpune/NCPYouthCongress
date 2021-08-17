@@ -93,7 +93,6 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
     // this.filterForm.reset();
-    console.log(this.infoUser);
     if(readStatus == 0){
       this.getTblchatreceived(GroupId);
       if(infoUser.IsMember == 0){
@@ -103,13 +102,13 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scrollToBottom();
     this.defaultMsgBox= true;
     this.infoUser = infoUser;
+    console.log(this.infoUser);
     this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }
 
   Chat_MessagebyGroupId(GroupId:any){
   this.callAPIService.setHttp('get', 'Web_get_HelpMe_Chat_MessagebyGroupId_All?UserId='+this.commonService.loggedInUserId()+'&GroupId='+GroupId, false, false, false, 'ncpServiceForWeb');
   this.callAPIService.getHttp().subscribe((res: any) => {
-    console.log('getMessagebyGroupId',res);
     if (res.data == 0) {
       this.spinner.hide();
       this.messagebyGroupIdArray = res.data1;
@@ -171,7 +170,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
-    fromData.append('ReceiverId', this.infoUser.SenderId);
+    fromData.append('ReceiverId', this.infoUser.ReceiverId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
@@ -206,7 +205,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let selResult = event.target.value.split('.');
     this.getImgExt = selResult.pop();
     this.getImgExt.toLowerCase();
-    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg") {
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg" || this.getImgExt == "mp3" ||  this.getImgExt == "mp4") {
       this.selectedFile = <File>event.target.files[0];
       if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
