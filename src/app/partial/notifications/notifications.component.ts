@@ -160,10 +160,12 @@ export class NotificationsComponent implements OnInit {
           this.submitted = false;
           this.notificationForm.reset();
           // this.resetNotificationForm();
+          let modalClick = this.clickPushModal.nativeElement;
+          modalClick.click();
           this.toastrService.success(res.data1[0].Msg)
+          this.pushMotificationStatus(res.data1[0].ID, res.data1[0].ScopeId);
           this.spinner.hide();
-          // let modalClick = this.clickPushModal.nativeElement;
-          // modalClick.click();
+       
           // this.pushMotificationStatus(getObj?.Id, getObj?.ScopeId)
           this.getNotificationData();
         } else {
