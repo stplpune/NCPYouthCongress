@@ -6,7 +6,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
+import { iif, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -165,8 +165,13 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
   } 
 
   UploadHelpMeChatMediaMsg() {
-    // this.spinner.show();
     let data = this.replayForm.value;
+    // this.spinner.show();
+    if(data.senderMsg == "" || this.selectedFile == ""){
+      this.toastrService.error('Invalid')
+      return
+    }
+
     let fromData = new FormData();
     let MsgType:any;
     let MediaTypeId:any;
@@ -209,7 +214,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let selResult = event.target.value.split('.');
     this.getImgExt = selResult.pop();
     this.getImgExt.toLowerCase();
-    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg" || this.getImgExt == "mp3" ||  this.getImgExt == "mp4") {
+    if (this.getImgExt == "png" || this.getImgExt == "jpg"  || this.getImgExt == "mp3" ||  this.getImgExt == "mp4") {
       this.selectedFile = <File>event.target.files[0];
       if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
@@ -222,7 +227,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     else {
-      this.toastrService.error("Profile image allowed only jpg or png format");
+      this.toastrService.error("Allowed only jpg, png, mp3 & mp4 format");
     }
   }
 
