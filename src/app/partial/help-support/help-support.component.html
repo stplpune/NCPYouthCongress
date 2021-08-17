@@ -18,7 +18,7 @@
                                 <input class="form-control" placeholder="Search Member" type="text" class="form-control" formControlName="searchFilter" placeholder="Search..." (keyup)="onKeyUpFilter()" />
                                 <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter()" *ngIf="filterForm.value.searchFilter"><i _ngcontent-tbl-c102=""
                                         class="fas fa-times"></i></button>
-                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm btn-search border btn-light"><i class="fas fa-search"></i></button>
                             </div>
                         </form>
                         <div class="message-box">
