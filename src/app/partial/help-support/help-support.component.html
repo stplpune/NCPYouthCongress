@@ -18,7 +18,7 @@
                                 <input class="form-control" placeholder="Search Member" type="text" class="form-control" formControlName="searchFilter" placeholder="Search..." (keyup)="onKeyUpFilter()" />
                                 <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter()" *ngIf="filterForm.value.searchFilter"><i _ngcontent-tbl-c102=""
                                         class="fas fa-times"></i></button>
-                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.searchFilter" class="btn btn-sm btn-search border btn-light"><i class="fas fa-search"></i></button>
                             </div>
                         </form>
                         <div class="message-box">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8" #content>
+                    <div class="col-sm-8">
                         <div class="tab-content" id="nav-tabContent" *ngIf="defaultMsgBox">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="personadetails mb-3">
@@ -73,48 +73,96 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="messagedetails mb-3">
-                                    <ng-container *ngFor="let message of messagebyGroupIdArray" #messages>
-                                        <div class="mb-4 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
-                                            <div class="card card-body border shadow-none position-relative membercall">
-                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                    <span class="float-end text-muted small">
+                                <ng-container #messages>
+                                    <div class="messagedetails mb-3" #content>
+                                        <ng-container *ngFor="let message of messagebyGroupIdArray">
+                                            <div class="mb-4 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
+                                                <div class="card card-body border shadow-none position-relative membercall">
+                                                    <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
+                                                        <span class="float-end text-muted small">
                                                         {{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}
                                                 </span>
-                                                </p>
-                                                <span class="feedback">
+                                                    </p>
+                                                    <span class="feedback">
                                                     {{message.SenderMsg}}
                                             </span>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
+                                                        <div class="img-con">
+                                                            <img src="{{message.MediaPath}}" class="helpimg">
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp3'">
+                                                        <audio controls>
+                                                    <source src="{{message.MediaPath}}" type="audio/mpeg">
+                                                  </audio>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp4'">
+                                                        <video width="320" height="240" controls>
+                                                        <source src="{{message.MediaPath}}" type="video/mp4">
+                                                      </video>
+                                                    </ng-container>
+                                                    <!-- <img src="{{message.MediaPath}}" style="width: 100px;"> -->
+                                                </div>
                                             </div>
+
+                                            <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
+                                                <div class="card card-body border bg-light shadow-none position-relative admincall">
+                                                    <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
+                                                        <span class="float-end text-muted small">{{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
+                                                    </p>
+                                                    <span class="feedback">
+                                                    {{message.SenderMsg | titlecase}}
+                                            </span>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
+                                                        <div class="img-con">
+                                                            <img src="{{message.MediaPath}}" class="helpimg">
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp3'">
+                                                        <audio controls>
+                                                        <source src="{{message.MediaPath}}" type="audio/mpeg">
+                                                      </audio>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp4'">
+                                                        <video width="320" height="240" controls>
+                                                        <source src="{{message.MediaPath}}" type="video/mp4">
+                                                      </video>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <form enctype="multipart/form-data" [formGroup]="replayForm" class="replybox">
+                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row" *ngIf="ImgUrl">
+                                        <!-- *ngIf="ImgUrl && getImgExt == 'png' || ImgUrl && getImgExt 'jpg' || ImgUrl &&  getImgExt == 'svg'"  -->
+
+                                        <div class="img-con">
+                                            <ng-container *ngIf="getImgExt == 'png'">
+                                                <img src="{{ImgUrl}}" class="helpimg">
+                                                <button class="btn img-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                            </ng-container>
+                                            <ng-container *ngIf="getImgExt == 'mp3'">
+                                                <audio controls>
+                                                <source src="{{ImgUrl}}" type="audio/mpeg">
+                                              </audio>
+                                                <button class="btn audio-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                            </ng-container>
+                                            <ng-container *ngIf="getImgExt == 'mp4'">
+                                                <video width="320" height="240" controls>
+                                                <source src="{{ImgUrl}}" type="video/mp4">
+                                              </video>
+                                                <button class="btn video-close" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                            </ng-container>                                          
+
                                         </div>
 
-                                        <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
-                                            <div class="card card-body border bg-light shadow-none position-relative admincall">
-                                                <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                    <span class="float-end text-muted small">{{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
-                                                </p>
-                                                <span class="feedback">
-                                                    {{message.SenderMsg}}
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </div>
-                                <form enctype="multipart/form-data" [formGroup]="replayForm">
-                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row">
-                                        <div class="img-con">
-                                            <img src="{{ImgUrl}}" class="helpimg">
-                                            <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
                                     </div>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="Reply Here.." />
+                                        <input class="form-control" type="text" placeholder="Reply Here.." formControlName="senderMsg" />
                                         <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)">
                                         <button type="button" class="btn btn-light bg-transparent" (click)="openInputFile()"><i class="fas fa-paperclip"></i></button>
-                                        <button type="button" class="btn btn-sm btn-main bg-success border border-success" (click)="UploadHelpMeChatMediaMsg()"><i class="fas fa-paper-plane me-2"></i> Send</button>
+                                        <button type="button" class="btn btn-sm btn-main " (click)="UploadHelpMeChatMediaMsg()"><i class="fas fa-paper-plane me-2"></i> Send</button>
                                     </div>
                                 </form>
                             </div>

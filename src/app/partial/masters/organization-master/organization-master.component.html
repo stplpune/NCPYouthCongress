@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div id="pageheader">
-                <span class="page-name">Organization Master
+                <span class="page-name">Committee Master
                 </span>
             </div>
         </div>
@@ -11,20 +11,26 @@
     <div class="row chartbox mb-3">
         <div class="col-sm-3">
             <div class="card">
-                <div class="card-header">Create Organization Body</div>
+                <div class="card-header">Create Committee Body</div>
                 <div class="card-body pt-0">
                     <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="mb-2">
-                                <label for="txtBodyName" class="form-label required-field">Organization Name</label>
-                                <input type="text" class="form-control" id="txtBodyName" placeholder="Organization Name" formControlName="BodyOrgCellName" [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
+                                <label for="txtBodyName" class="form-label required-field">Committee Name</label>
+                                <input type="text" class="form-control" id="txtBodyName" placeholder="Committee Name"
+                                    formControlName="BodyOrgCellName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
                                 <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
                                     <div *ngIf="f.BodyOrgCellName.errors.required">Organization name is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label required-field">Select Level</label>
-                                <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels" (select)="selectLevel(this.orgMasterForm.value.BodyLevelId)" formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id" optionTextField="LevelName" [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels"
+                                    (select)="selectLevel(this.orgMasterForm.value.BodyLevelId)"
+                                    formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id"
+                                    optionTextField="LevelName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.BodyLevelId.errors" class="invalid-feedback">
                                     <div *ngIf="f.BodyLevelId.errors.required">Body Level is required</div>
@@ -32,43 +38,68 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label required-field">Select State</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('State')" [items]="allStates" formControlName="StateId" placeholder="Select State" optionValueField="Id" optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }" [disabled]="!this.orgMasterForm.value.BodyLevelId">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('State')" [items]="allStates"
+                                    formControlName="StateId" placeholder="Select State" optionValueField="Id"
+                                    optionTextField="StateName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
+                                    [disabled]="!this.orgMasterForm.value.BodyLevelId">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.StateId.errors" class="invalid-feedback">
                                     <div *ngIf="f.StateId.errors.required">State is required</div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
+                                <label class="form-label"
+                                    [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
                                     District</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('District')" [items]="allDistrict" formControlName="DistrictId" [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId" (select)="getTaluka(this.orgMasterForm.value.DistrictId)" optionValueField="DistrictId"
-                                    optionTextField="DistrictName" placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('District')"
+                                    [items]="allDistrict" formControlName="DistrictId"
+                                    [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId"
+                                    (select)="getTaluka(this.orgMasterForm.value.DistrictId)"
+                                    optionValueField="DistrictId" optionTextField="DistrictName"
+                                    placeholder="Select District"
+                                    [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
                                     <div *ngIf="f.DistrictId.errors.required">District is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <div class="form-check form-check-inline" *ngFor="let category of categoryArray; let i = index">
-                                    <input class="form-check-input" type="radio" [attr.disabled]="redioBtnDisabled ? true : null" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural{{i}}" [checked]="defultCategory == category.name" (change)='onRadioChangeCategory(category.name, false)'>
+                                <div class="form-check form-check-inline"
+                                    *ngFor="let category of categoryArray; let i = index">
+                                    <input class="form-check-input" type="radio"
+                                        [attr.disabled]="redioBtnDisabled ? true : null" formControlName="IsRural"
+                                        [value]="category.id" name="IsRural" id="rblRural{{i}}"
+                                        [checked]="defultCategory == category.name"
+                                        (change)='onRadioChangeCategory(category.name, false)'>
                                     <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                 </div>
                             </div>
                             <!-- -->
                             <div class="mb-2" *ngIf="this.orgMasterForm.value.IsRural != 0">
-                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors}">Select
+                                <label class="form-label"
+                                    [ngClass]="{ 'required-field': submitted && f.TalukaId.errors}">Select
                                     Taluka</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('Taluka')" [items]="getTalkaByDistrict" [disabled]="disableFlagTal || !this.orgMasterForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
-                                    (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('Taluka')"
+                                    [items]="getTalkaByDistrict"
+                                    [disabled]="disableFlagTal || !this.orgMasterForm.value.DistrictId"
+                                    formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName"
+                                    placeholder="Select Taluka"
+                                    (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)"
+                                    [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
                                     <div *ngIf="f.TalukaId.errors.required">Taluka is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label class="form-label" [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select
+                                <label class="form-label"
+                                    [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select
                                     {{villageCityLabel}}</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('Village')" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="disableFlagVill"
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('Village')"
+                                    [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}"
+                                    [optionValueField]="setVillOrCityId" formControlName="VillageId"
+                                    [optionTextField]="setVillOrcityName" [disabled]="disableFlagVill"
                                     [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
@@ -87,7 +118,8 @@
                         </div> -->
 
                             <div class="mb-2 mt-4">
-                                <button type="button" class="btn btn-secondary  float-lg-start" (click)="clearForm()">Clear</button>
+                                <button type="button" class="btn btn-secondary  float-lg-start"
+                                    (click)="clearForm()">Clear</button>
                                 <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
                                 <!-- <button type="button" class="btn btn-warning mx-1">Update</button>
                             <button type="button" class="btn btn-danger">Delete</button> -->
@@ -103,20 +135,29 @@
                     <form [formGroup]="filterForm">
                         <div class="row g-1">
 
-                            <div class="col-sm-3 offset-6">
-                                <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')" (select)="filterData()" formControlName="filterDistrict" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
+                            <div class="col-sm-3 offset-3">
+                                <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')"
+                                    (select)="filterData()" formControlName="filterDistrict" [items]="allDistrict"
+                                    optionValueField="DistrictId" optionTextField="DistrictName"
+                                    placeholder="Is Members Assigned">
                                 </ngx-select>
-                                <!-- <ngx-select [allowClear]="allowClearFlag" (remove)="districtAllowClear()" (select)="selDistrict($event)" [items]="allDistrict" optionValueField="DistrictId"  optionTextField="DistrictName"  placeholder="Select District" >
-                            </ngx-select> -->
-
+                            </div>
+                            <div class="col-sm-3">
+                                <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')"
+                                    (select)="filterData()" formControlName="filterDistrict" [items]="allDistrict"
+                                    optionValueField="DistrictId" optionTextField="DistrictName"
+                                    placeholder="Select District">
+                                </ngx-select>
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" formControlName="searchText" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                    <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
-                                            _ngcontent-tbl-c102="" class="fas fa-times" ></i></button>
-                                    <button type="button" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i
-                                            class="fas fa-search"></i></button>
+                                    <input type="text" class="form-control" formControlName="searchText"
+                                        placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm"
+                                        (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.searchText"
+                                        class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                                     <!-- <button class="btn btn-sm btn-main" type="button" (click)="filter(this.filterForm.value.searchText)">
 
                                 <i class="fas fa-search"></i> </button> &nbsp; &nbsp;
@@ -132,7 +173,7 @@
                         <thead>
                             <tr>
                                 <th>#ID</th>
-                                <th>Organization Name</th>
+                                <th>Committee Name</th>
                                 <th>Level</th>
                                 <th>Area</th>
                                 <th>Designations Assigned</th>
@@ -143,19 +184,25 @@
                         </thead>
                         <tbody>
                             <!-- | filter:searchText -->
-                            <tr *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="result.Id == HighlightRow">
+                            <tr *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
+                                [class.active]="result.Id == HighlightRow">
                                 <td>{{result.SrNo}}</td>
-                                <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result.BodyOrgCellName | titlecase}}</a></td>
+                                <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)"
+                                        class="text-primary">{{result.BodyOrgCellName | titlecase}}</a></td>
                                 <td>{{result.LevelName}}</td>
                                 <td><span class="text-ellipsis-150px">{{result.Area}}</span></td>
 
                                 <td><span class="text-ellipsis-150px">{{result.DesignationAssigned}}</span></td>
-                                <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id)" data-bs-target="#AddDesignationModal">
+                                <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation"
+                                        data-bs-toggle="modal"
+                                        (click)="AddDesignation(result.BodyOrgCellName, result.Id)"
+                                        data-bs-target="#AddDesignationModal">
                                         <i class="fas fa-user-plus"></i>
                                     </button> </td>
                                 <td>{{result.AllottedDesignation}}</td>
                                 <td>
-                                    <button type="button" title="Edit Organization" class="btn btn-secondary btn-sm" (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Edit Organization" class="btn btn-secondary btn-sm"
+                                        (click)="editOrganization(result.Id)"><i class="far fa-edit"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="organizationRes?.length == 0">
@@ -166,7 +213,8 @@
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="organizationRes?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                         <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
                     </div>
                 </div>
@@ -176,13 +224,15 @@
 </div>
 
 <!-- Modal for Add Designation -->
-<div class="modal fade" id="AddDesignationModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddDesignationModal" tabindex="-1" aria-labelledby="AddDesignationModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
 
             <div class="modal-header">
                 <p class="modal-title" id="AddDesignationModalLabel">Add Designation</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModalAddDesignation (click)="clearAddDesignationForm()" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModalAddDesignation
+                    (click)="clearAddDesignationForm()" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -195,7 +245,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="ddlDesignationName" class="form-label">Designation Name</label>
-                                    <ngx-select [allowClear]="true" [items]="resultDesignation" placeholder="Select Designation" formControlName="DesignationId" optionValueField="Id" optionTextField="DesignationName">
+                                    <ngx-select [allowClear]="true" [items]="resultDesignation"
+                                        placeholder="Select Designation" formControlName="DesignationId"
+                                        optionValueField="Id" optionTextField="DesignationName">
                                     </ngx-select>
                                     <div *ngIf="addDesFormSubmitted && d.DesignationId.errors" class="invalid-feedback">
                                         <div *ngIf="d.DesignationId.errors.required">Designation is required</div>
@@ -205,16 +257,21 @@
                                     <label class="form-label d-block">Is Multiple</label>
 
                                     <div class="form-check form-check-inline" *ngFor="let isMultiple of IsMultiple">
-                                        <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
-                                        <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
+                                        <input class="form-check-input" name="IsMultiple" type="radio"
+                                            id="chkIsMultipleYes" formControlName="IsMultiple"
+                                            [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
+                                        <label class="form-check-label"
+                                            for="chkIsMultipleYes">{{isMultiple.name}}</label>
                                     </div>
                                     <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback">
                                         <div *ngIf="d.IsMultiple.errors.required">Is Multiple is required</div>
                                     </div>
                                 </div>
-                                <button class="btn btn-secondary me-2 " type="button " (click)="clearAddDesignationForm() ">
+                                <button class="btn btn-secondary me-2 " type="button "
+                                    (click)="clearAddDesignationForm() ">
                                     Clear </button>
-                                <button type="submit " class="btn btn-main ml-2" (click)="submitDesignationForm() ">{{addDesignation}} Designation</button>
+                                <button type="submit " class="btn btn-main ml-2"
+                                    (click)="submitDesignationForm() ">{{addDesignation}} Designation</button>
 
                             </div>
                             <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2 mt-3">
@@ -228,7 +285,8 @@
                                 <div class="col-sm-1"></div>
                             </div>
                             <div cdkDropList class="example-list" (cdkDropListDropped)="swingDesignation($event)">
-                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag>
+                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center"
+                                    *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag>
                                     <div class="col-sm-2">
                                         {{bodyAssignedDesignation.SrNo}}
                                     </div>
@@ -237,7 +295,8 @@
                                     </div>
                                     <div class="col-sm-1">
                                         <!-- [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) " -->
-                                        <button class="btn btn-sm btn-light ng-star-inserted" (click)=" editDesignationForm(bodyAssignedDesignation) "><i
+                                        <button class="btn btn-sm btn-light ng-star-inserted"
+                                            (click)=" editDesignationForm(bodyAssignedDesignation) "><i
                                                 class="fas fa-pencil-alt "></i></button>
                                     </div>
                                 </div>
@@ -268,7 +327,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations" class="example-box">
+                                <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations"
+                                    class="example-box">
                                     <td>{{resOfAssignedDesignations.SrNo}}</td>
                                     <td>{{resOfAssignedDesignations.DesignationName}}</td>
                                     <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>
