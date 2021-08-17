@@ -236,7 +236,6 @@ export class ActivityAnalysisComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.activityLikesArray = res.data1 ? res.data1 : [];
-    
       } else {
         this.spinner.hide();
         this.activityLikesArray = [];
