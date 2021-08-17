@@ -42,6 +42,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   ParpantsProMemImge!: GalleryItem[]; 
   ParpantsProMemImge1!: GalleryItem[];
   imgLightBox:boolean = false;
+  membersData: any;
 
   constructor(
     public location: Location,
@@ -63,7 +64,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       this.programListId = programListId.programListId;
       this.programTile = programListId.programList;
     }
-    
   }
 
   ngOnInit(): void {
@@ -98,8 +98,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       }
     })
   }
-
-  
 
   getMembersData() {
     this.membersDataNonParticipantsArray = [];
@@ -207,23 +205,27 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 
- 
+  getPartyProgramDetails(membersData:any){
+    this.membersData=membersData;
+    this.showLightBox(membersData.MemberId);
+  }
+
 
   showLightBox(MemberId:any){
     let index:any = 1;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
-
-        let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
-          new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
-        });
-        console.log(getImages);
-        this.ParpantsProMemImge1 = getImages;
+        console.log(this.ParpantsProMemImge);
+        // let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
+        //   new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
+        // });
+        // console.log(getImages);
+        // this.ParpantsProMemImge1 = getImages;
     
         this.basicLightboxExample('members');
         this.withCustomGalleryConfig();
