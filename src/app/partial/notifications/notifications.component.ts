@@ -95,19 +95,18 @@ export class NotificationsComponent implements OnInit {
   get f() { return this.notificationForm.controls };
   
   onSubmit(){
-    // this.spinner.show();
+    this.spinner.show();
+    
     this.submitted = true;
     if (this.notificationForm.invalid) {
       this.spinner.hide();
       return;
     }
     else {
-      debugger;
       this.globalMemberId = [];
       let fromData = new FormData();
       let notificationFlag:any;
       let ImageChangeFlag:any;
-
       if(this.IsChangeImage || this.selectedFile){
         notificationFlag = 1;
         ImageChangeFlag = 1 
@@ -115,11 +114,6 @@ export class NotificationsComponent implements OnInit {
         notificationFlag = 0;
         ImageChangeFlag = 0
       }
-
-      // this.selectedFile ? ( notificationFlag = 2, ImageChangeFlag = 1 ): (notificationFlag = 1, ImageChangeFlag = 0);
-      // if(this.notificationForm.value.NotificationType == 0){
-      //   ImageChangeFlag = 0;
-      // }
       let getObj:any = this.notificationForm.value;
 
       let fillSelection:any;
@@ -137,7 +131,6 @@ export class NotificationsComponent implements OnInit {
         })
       }
       let id:any;
-      debugger;
       getObj.Id ? id = getObj.Id : id = 0;
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
@@ -146,10 +139,7 @@ export class NotificationsComponent implements OnInit {
       fromData.append('Description', getObj.Description);
       fromData.append('ImageUrl', getObj.ImageUrl);
       fromData.append('Link', getObj.Link);
-    
       fromData.append('MemberStr', JSON.stringify(this.globalMemberId));
-
-
       fromData.append('AttchmentStr', this.selectedFile);
       fromData.append('NotificationType', notificationFlag);
       fromData.append('IsChangeImage',  ImageChangeFlag );
@@ -157,26 +147,22 @@ export class NotificationsComponent implements OnInit {
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          // this.notificationForm.reset();
           this.submitted = false;
-          // this.resetNotificationForm();
+          this.notificationForm.reset();
           let modalClick = this.clickPushModal.nativeElement;
           modalClick.click();
           this.toastrService.success(res.data1[0].Msg)
           this.pushMotificationStatus(res.data1[0].ID, res.data1[0].ScopeId);
-          this.spinner.hide();
-       
           // this.pushMotificationStatus(getObj?.Id, getObj?.ScopeId)
           this.getNotificationData();
         } else {
-          // this.toastrService.error(res.data1[0].Msg)
           this.spinner.hide();
         }
       } ,(error:any) => {
         this.spinner.hide();
-        // if (error.status == 500) {
-        //   this.router.navigate(['../500'], { relativeTo: this.route });
-        // }
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
       })
     }
   }

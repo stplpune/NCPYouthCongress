@@ -161,11 +161,15 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       return
     }
     let fromData = new FormData();
+    let checkrecId:any;
+
+    this.commonService.loggedInUserId() ==  this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId :  checkrecId = this.infoUser.ReceiverId; 
+
     let MediaTypeId: any;
     this.selectedFile ? (MediaTypeId = 2) : (MediaTypeId = 1);
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
-    fromData.append('ReceiverId', this.infoUser.ReceiverId);
+    fromData.append('ReceiverId', checkrecId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName', this.imgName); // this.imgName
