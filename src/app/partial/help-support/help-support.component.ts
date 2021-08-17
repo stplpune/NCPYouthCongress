@@ -93,13 +93,14 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getMessagebyGroupId(infoUser:any,GroupId:any, readStatus:any) {
     // this.filterForm.reset();
+    debugger;
     if(readStatus == 0){
       this.getTblchatreceived(GroupId);
       if(infoUser.IsMember == 0){
         this.joinChatGroupMember();
       }
     }
-    this.scrollToBottom();
+  
     this.defaultMsgBox= true;
     this.infoUser = infoUser;
     console.log(this.infoUser);
@@ -112,7 +113,9 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     if (res.data == 0) {
       this.spinner.hide();
       this.messagebyGroupIdArray = res.data1;
-    
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
     } else {
       this.spinner.hide();
       //this.messagebyGroupIdArray = [];
@@ -124,6 +127,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['../500'], { relativeTo: this.route });
     }
   })
+
 }
   joinChatGroupMember() {
     // this.spinner.show();
@@ -147,7 +151,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId+ '&UserId=' +this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.getReceiverChatList();
+        // this.getReceiverChatList();
         this.spinner.hide();
         this.tblchatreceivedArray = res.data1;
       } else {

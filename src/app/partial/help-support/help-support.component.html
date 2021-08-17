@@ -135,15 +135,29 @@
                                 </ng-container>
                                 <form enctype="multipart/form-data" [formGroup]="replayForm" class="replybox">
                                     <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row" *ngIf="ImgUrl">
-                                        <ng-container>
-                                            <!-- *ngIf="getImgExt == 'png' || getImgExt 'jpg' || getImgExt == 'svg'" -->
-                                            <div class="img-con">
+                                        <!-- *ngIf="ImgUrl && getImgExt == 'png' || ImgUrl && getImgExt 'jpg' || ImgUrl &&  getImgExt == 'svg'"  -->
+
+                                        <div class="img-con">
+                                            <ng-container *ngIf="getImgExt == 'png'">
                                                 <img src="{{ImgUrl}}" class="helpimg">
-                                                <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                            </div>
-                                        </ng-container>
+                                                <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl"></button>
+                                            </ng-container>
+                                            <ng-container *ngIf="getImgExt == 'mp3'">
+                                                <audio controls>
+                                                <source src="{{ImgUrl}}" type="audio/mpeg">
+                                              </audio>
+                                                <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl"></button>
+                                            </ng-container>
+                                            <ng-container *ngIf="getImgExt == 'mp4'">
+                                                <video width="320" height="240" controls>
+                                                <source src="{{ImgUrl}}" type="video/mp4">
+                                              </video>
+                                                <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl"></button>
+                                            </ng-container>
+                                            <i class="fas fa-times"></i>
+
+                                        </div>
+
                                     </div>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Reply Here.." formControlName="senderMsg" />
