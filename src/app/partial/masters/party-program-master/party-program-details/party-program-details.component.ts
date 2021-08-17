@@ -43,8 +43,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   ParpantsProMemImge1!: GalleryItem[];
   imgLightBox:boolean = false;
   resultBodyMemActDetails: any;
-  // membersData: any;
-
+  
   constructor(
     public location: Location,
     private callAPIService: CallAPIService,
@@ -207,13 +206,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 
-  // getPartyProgramDetails(membersData:any){
-  //   this.membersData=membersData;
-  //   this.showLightBox(membersData.MemberId);
-  // }
-
   getPartyProgramDetails(viewMemberId:any){
-    // this.membersData=membersData;
     this.getBodyMemeberActivitiesDetails(viewMemberId);
   }
 

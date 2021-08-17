@@ -179,9 +179,7 @@
                 <div class="card-body border">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
-                        <!-- <agm-map *ngIf="programDetailsLatLongArray.length!='';else other_content" [latitude]="lat" [longitude]="lng" [zoom]="zoom"  > -->
-                           
-                           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                             <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
                       
                                 <agm-info-window>
