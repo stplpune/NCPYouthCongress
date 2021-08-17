@@ -102,8 +102,14 @@
                                     </ng-container>
                                 </div>
                                 <form enctype="multipart/form-data" [formGroup]="replayForm">
-                                    <img src="{{ImgUrl}}">
-                                    <button class="btn btn-sm btn-primary" (click)="closeImg()" *ngIf="ImgUrl">Close</button>
+                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row">
+                                        <div class="img-con">
+                                            <img src="{{ImgUrl}}" class="helpimg">
+                                            <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Reply Here.." />
                                         <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)">
