@@ -106,6 +106,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.messagebyGroupIdArray = res.data1;
+        this.getReceiverChatList();
         setTimeout(() => {
           this.scrollToBottom();
         }, 100);

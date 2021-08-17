@@ -304,8 +304,9 @@ export class NotificationsComponent implements OnInit {
     debugger;
     this.callAPIService.setHttp('get', 'Push_SendNotification_1_0?UserId='+this.commonService.loggedInUserId()+'&NotificationId='+this.NotificationId+'&ScopeId='+this.ScopeId, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.success == 1) {
-        this.toastrService.success('Notification send successfully');
+      debugger;
+      if (res.data == 0) {
+        this.toastrService.success(res.data1);
         this.getNotificationData();
       } else {
         this.toastrService.error('Something went wrong please try again');

@@ -37,7 +37,7 @@
                 <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <p class="card-text mb-0">
-                        <ng-container *ngIf="allMemberprofile?.Designation"></ng-container>
+                        <ng-container *ngIf="allMemberprofile?.Designation">{{allMemberprofile?.Designation}}</ng-container>
 
                     </p>
                 </div>
@@ -48,9 +48,9 @@
                     <li class="list-group-item" *ngIf="allMemberprofile?.ConstituencyName">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.ConstituencyName}}
                     </li>
-                    <li class="list-group-item" *ngIf="allMemberprofile?.Designation">
+                    <!-- <li class="list-group-item" *ngIf="allMemberprofile?.Designation">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.Designation}}
-                    </li>
+                    </li> -->
                     <li class="list-group-item" *ngIf="allMemberprofile?.Emailid">
                         <i class="far fa-envelope text-info"></i> {{allMemberprofile?.Emailid}}
                     </li>
