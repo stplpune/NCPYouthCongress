@@ -34,6 +34,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   // searchFilter:any;
   @ViewChildren('messages') messages: any;
   @ViewChild('content') content!: ElementRef;
+  globalGroupId = 0;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -72,7 +73,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.receiverChatListArray = res.data1;
-        // this.receiverChatListArray.reverse();
       } else {
         this.spinner.hide();
         this.receiverChatListArray = [];
@@ -96,6 +96,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
 
     this.defaultMsgBox = true;
     this.infoUser = infoUser;
+    this.globalGroupId = this.infoUser.GroupId;
     console.log(this.infoUser);
     this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }

@@ -157,8 +157,8 @@ export class NotificationsComponent implements OnInit {
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          // this.notificationForm.reset();
           this.submitted = false;
-          this.notificationForm.reset();
           // this.resetNotificationForm();
           let modalClick = this.clickPushModal.nativeElement;
           modalClick.click();
