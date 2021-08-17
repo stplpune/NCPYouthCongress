@@ -157,7 +157,7 @@
                         <tbody>
                             <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a routerLink="../../member/profile">{{committeesData.BodyOrgCellName}}</a></td>
+                                <td><a (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a></td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
@@ -189,9 +189,9 @@
     </div>
 </div>
 
- <!-- Modal for Location  -->
+<!-- Modal for Location  -->
 
- <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -208,7 +208,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Members Name</label>
-                                <div id="txtPostDate" class="form-data">  {{membersData?.FullName}}</div>
+                                <div id="txtPostDate" class="form-data"> {{membersData?.FullName}}</div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -234,9 +234,9 @@
                         <div class="row mb-3">
                             <div class="col-sm-6">
                                 <label class="form-label">Taluka Name</label>
-                            <div id="txtDescription" class="form-data">
-                                {{membersData?.TalukaName}}
-                            </div>
+                                <div id="txtDescription" class="form-data">
+                                    {{membersData?.TalukaName}}
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Village Name</label>
@@ -272,4 +272,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

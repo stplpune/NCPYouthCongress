@@ -199,12 +199,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
-  redToMemberProfile(memberId: any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
-    localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
-  }
-
   getPartyProgramDetails(membersData:any){
     this.membersData=membersData;
     this.showLightBox(membersData.MemberId);
@@ -255,5 +249,11 @@ export class PartyProgramDetailsComponent implements OnInit {
     });
 
     lightboxGalleryRef.load(this.ParpantsProMemImge1);
+  }
+  
+  redToMemberProfile(memberId:any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
   }
 }

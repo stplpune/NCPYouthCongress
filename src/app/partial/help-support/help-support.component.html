@@ -23,7 +23,8 @@
                         </form>
                         <div class="message-box">
                             <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" *ngFor="let receiverChatList of receiverChatListArray; let i = index" (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
+                                <a class="list-group-item list-group-item-action " id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" *ngFor="let receiverChatList of receiverChatListArray; let i = index" [ngClass]="{'active' : receiverChatList?.GroupId == globalGroupId}"
+                                    (click)="getMessagebyGroupId(receiverChatList, receiverChatList?.GroupId, receiverChatList?.IsRead)">
                                     <div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1 username">{{receiverChatList.Sender | titlecase}}</p>
                                         <small class="helpdate">{{receiverChatList.MessageDate}}  {{receiverChatList.MessageTime}}</small>
@@ -34,17 +35,6 @@
                                     <ng-template #readMsg> <i class="fas fa-check text-success"></i></ng-template>
                                     </span>
                                 </a>
-                                <!-- <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <p class="mb-1 username">List group item heading</p>
-                                        <small class="helpdate">01-02-2021</small>
-                                    </div>
-                                    <small class="helpmsg">And some small print.</small>
-                                    <span class="float-end">
-                                        <i class="fas fa-check text-success"></i>
-                                    </span>
-                                </a> -->
-
                             </div>
                         </div>
                     </div>
@@ -55,7 +45,7 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <span class="personname">
-                                                <button class="btn btn-sm btn-light shadow-none me-2"><i class="fas fa-arrow-left"></i></button>
+                                                <button class="btn btn-sm btn-light shadow-none me-2" (click)="defaultMsgBox = false; globalGroupId = 0"><i class="fas fa-arrow-left"></i></button>
                                                 {{infoUser?.Sender}}</span>
                                         </div>
                                         <div class="col-sm-4 text-end">
@@ -155,7 +145,7 @@
                                                 <source src="{{ImgUrl}}" type="video/mp4">
                                               </video>
                                                 <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
-                                            </ng-container>                                          
+                                            </ng-container>
 
                                         </div>
 
