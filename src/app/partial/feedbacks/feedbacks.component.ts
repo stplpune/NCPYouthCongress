@@ -243,7 +243,7 @@ export class FeedbacksComponent implements OnInit {
     console.log(this.detailsData);
     this.defualtHideFeedback = true;
     this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
-    this.spinner.show();
+    // this.spinner.show();
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
