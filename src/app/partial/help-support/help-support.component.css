@@ -27,87 +27,106 @@
     right: 19px;
     bottom: -21px;
 }
+
 #help-support .input-group .form-control,
-#help-support .input-group .form-control:focus{
+#help-support .input-group .form-control:focus {
     box-shadow: none !important;
     outline: none !important;
     font-size: 0.85rem;
     border-right: none;
 }
-#help-support .input-group .btn{
+
+#help-support .input-group .btn {
     box-shadow: none !important;
     font-size: 0.85rem;
     border: 1px solid #ced4da;
     background-color: transparent;
     border-left: none;
 }
-#help-support .username{
+
+#help-support .username {
     font-weight: 600;
 }
-#help-support .helpdate{
+
+#help-support .helpdate {
     font-size: 0.7rem;
 }
-#help-support .helpmsg{
+
+#help-support .helpmsg {
     color: #888;
 }
-.message-box{
+
+.message-box {
     height: 70vh;
     overflow-y: scroll;
     padding-right: 10px;
 }
-.messagedetails{
+
+.messagedetails {
     height: 61vh;
     overflow-y: scroll;
-    padding-right: 10px; 
+    padding-right: 10px;
 }
-#help-support .list-group .active{
+
+#help-support .list-group .active {
     background-color: var(--main-color);
     color: #fff;
 }
-#help-support .list-group .active .helpmsg{
+
+#help-support .list-group .active .helpmsg {
     color: #eee;
 }
-#help-support .list-group .active i{
+
+#help-support .list-group .active i {
     color: #0f0 !important;
 }
-#help-support .personadetails .personname{
+
+#help-support .personadetails .personname {
     color: var(--main-color);
 }
+
 #help-support .personadetails .persondate,
 #help-support .personadetails .personemail,
-#help-support .personadetails .personcontact{
+#help-support .personadetails .personcontact {
     color: #999;
     font-size: 0.85rem;
 }
-#help-support .form-control{
+
+#help-support .form-control {
     font-size: 0.85rem;
     box-shadow: none;
     outline: none;
 }
-.messagedetails .lblfeedback{
+
+.messagedetails .lblfeedback {
     font-size: 0.7rem;
 }
-.messagedetails .feedback{
+
+.messagedetails .feedback {
     font-size: 0.85rem;
 }
-.img-con{
-    position:relative;
+
+.img-con {
+    margin-top: 10px;
+    position: relative;
     width: 150px;
     margin-right: 10px;
 }
-.img-con .helpimg{
+
+.img-con .helpimg {
     width: 150px;
-    border:solid 1px #ced4da;
-    padding:5px;
+    border: solid 1px #ced4da;
+    padding: 5px;
     border-radius: 5px;
 }
-.img-con .btn{
+
+.img-con .btn {
     border-radius: 50%;
     box-shadow: none;
     position: absolute;
     right: -6px;
     top: -6px;
-    background-color:rgb(255, 190, 190);
+    background-color: rgb(255, 190, 190);
     width: 26px;
     height: 26px;
     line-height: 16px;

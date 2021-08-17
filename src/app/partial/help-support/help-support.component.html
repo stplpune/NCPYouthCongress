@@ -86,6 +86,7 @@
                                                 <span class="feedback">
                                                     {{message.SenderMsg}}
                                             </span>
+                                                <img src="{{message.MediaPath}}" style="width: 100px;">
                                             </div>
                                         </div>
 
@@ -95,14 +96,29 @@
                                                     <span class="float-end text-muted small">{{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
                                                 </p>
                                                 <span class="feedback">
-                                                    {{message.SenderMsg}}
+                                                    {{message.SenderMsg}} {{message.MediaPath.split('.').pop()}}
                                             </span>
+                                                <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || 'jpg' || 'svg'">
+                                                    <div class="img-con">
+                                                        <img src="{{message.MediaPath}}" class="helpimg">
+                                                    </div>
+                                                </ng-container>
+                                                <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp3'">
+                                                    <audio controls>
+                                                        <source src="{{message.MediaPath}}" type="audio/mpeg">
+                                                      </audio>
+                                                </ng-container>
+                                                <!-- <ng-container *ngIf="message.MediaPath.split('.').pop() == 'video'">
+                                                    <video width="320" height="240" controls>
+                                                        <source src="{{message.MediaPath}}" type="video/mp4">
+                                                      </video>
+                                                </ng-container> -->
                                             </div>
                                         </div>
                                     </ng-container>
                                 </div>
                                 <form enctype="multipart/form-data" [formGroup]="replayForm">
-                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row">
+                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row" *ngIf="ImgUrl">
                                         <div class="img-con">
                                             <img src="{{ImgUrl}}" class="helpimg">
                                             <button class="btn btn-light" (click)="closeImg()" *ngIf="ImgUrl">
@@ -111,7 +127,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="Reply Here.." />
+                                        <input class="form-control" type="text" placeholder="Reply Here.." formControlName="senderMsg" />
                                         <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)">
                                         <button type="button" class="btn btn-light bg-transparent" (click)="openInputFile()"><i class="fas fa-paperclip"></i></button>
                                         <button type="button" class="btn btn-sm btn-main bg-success border border-success" (click)="UploadHelpMeChatMediaMsg()"><i class="fas fa-paper-plane me-2"></i> Send</button>

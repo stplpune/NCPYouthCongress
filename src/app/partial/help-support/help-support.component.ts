@@ -162,7 +162,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
   } 
 
   UploadHelpMeChatMediaMsg() {
-    this.spinner.show();
+    // this.spinner.show();
     let data = this.replayForm.value;
     let fromData = new FormData();
     let MsgType:any;
@@ -171,8 +171,8 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
-    fromData.append('ReceiverId', this.infoUser.ReceiverId);
-    fromData.append('SenderMsg', data.value.senderMsg);
+    fromData.append('ReceiverId', this.infoUser.SenderId);
+    fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
     fromData.append('MessageTypeId', this.infoUser.MediaTypeId);  // 1 personal 2 group
