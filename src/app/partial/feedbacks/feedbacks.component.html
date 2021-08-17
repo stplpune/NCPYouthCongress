@@ -5,26 +5,22 @@
         </div>
         <div class="col-sm-8">
             <form [formGroup]="filterForm">
-                <div class="row g-1">
-                    <div class="col-md-3 offset-md-3">
-                        <ngx-select [allowClear]="true" [items]="allDistrict"
-                            (select)="getTaluka(this.filterForm.value.DistrictId)" (remove)="filterClear('district')"
-                            formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName"
-                            placeholder="Select District">
+                <div class="row g-1 d-flex justify-content-end">
+                    <div class="col-md-3">
+                        <ngx-select [allowClear]="true" [items]="allDistrict" (select)="getTaluka(this.filterForm.value.DistrictId)" (remove)="filterClear('district')" formControlName="DistrictId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                         </ngx-select>
                     </div>
                     <div class="col-md-3">
-                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="filterClear('taluka')"
-                            optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId"
-                            placeholder="Select Taluka" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (remove)="filterClear('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
                             [disabled]="!this.filterForm.value.DistrictId">
                         </ngx-select>
                     </div>
                     <div class="col-md-3">
-                        <ngx-select [allowClear]="true" [items]="memberNameArray" (remove)="filterClear('member')"
-                            optionValueField="Id" formControlName="MemberId" optionTextField="FullName"
-                            placeholder="Select Member Name" (select)="selectMember($event)">
+                        <ngx-select [allowClear]="true" [items]="memberNameArray" (remove)="filterClear('member')" optionValueField="Id" formControlName="MemberId" optionTextField="FullName" placeholder="Select Member Name" (select)="selectMember($event)">
                         </ngx-select>
+                    </div>
+                    <div class="col-md-auto">
+                        <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
             </form>
@@ -38,46 +34,34 @@
                     <div class="col-sm-4 border-end">
                         <form [formGroup]="filterForm">
                             <div class="btn-group mb-3">
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio2"
-                                    autocomplete="off" checked>
-                                <label class="btn btn-outline-success" for="btnradio2"
-                                    (click)="feedBackDataResult('New')"><i class="fas fa-eye me-1"></i>All</label>
+                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio2" autocomplete="off" checked>
+                                <label class="btn btn-outline-success" for="btnradio2" (click)="feedBackDataResult('New')"><i class="fas fa-eye me-1"></i>All</label>
 
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio4"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btnradio4"
-                                    (click)="feedBackDataResult('Replied')"><i
+                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio4" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio4" (click)="feedBackDataResult('Replied')"><i
                                         class="fas fa-comment-dots me-1"></i>Action Taken</label>
 
-                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio3"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-danger" for="btnradio3"
-                                    (click)="feedBackDataResult('Ignored')"><i
+                                <input type="radio" class="btn-check" name="btnFeedStatus" id="btnradio3" autocomplete="off">
+                                <label class="btn btn-outline-danger" for="btnradio3" (click)="feedBackDataResult('Ignored')"><i
                                         class="fas fa-thumbs-down me-1"></i>Ignored</label>
                             </div>
                         </form>
                         <div class="message-box">
                             <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                                    data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <p class="mb-1 username">List group item heading</p>
-                                        <small class="helpdate">01-02-2021</small>
+                                <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile" *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}"
+                                    (click)="details(result)">
+                                    <!-- [ngClass]="{'text-muted':result.FeedbackStatus == 1, 'unread':result.FeedbackStatus == 0, 'replay':result.FeedbackStatus==2, 'ignored':result.FeedbackStatus==3}" -->
+                                    <div class="d-flex w-100 justify-content-between">                                        
+                                        <p class="mb-1 username">{{result.FullName}}
+                                        </p>
+                                        <small class="helpdate">{{result.FeedbackDate}}{{result.FeedbackTime}} </small>
                                     </div>
-                                    <small class="helpmsg">And some small print.</small>
+                                    <small class="helpmsg">{{result.Feedback  | titlecase}}</small>
                                     <span class="float-end">
-                                        <i class="fas fa-thumbs-down text-danger"></i>
-                                    </span>
-                                </a>
-                                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                                    data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <p class="mb-1 username">List group item heading</p>
-                                        <small class="helpdate">01-02-2021</small>
-                                    </div>
-                                    <small class="helpmsg">And some small print.</small>
-                                    <span class="float-end">
-                                        <i class="fas fa-comment-dots text-primary"></i>
+                                        <i class="fas fa-thumbs-down text-danger" *ngIf="result.FeedbackStatus==3"></i>
+                                        <i class="fas fa-comment-dots me-1 text-primary" *ngIf="result.FeedbackStatus==2"></i>
+                                        <i class="fas fa-eye  me-1 text-warning" *ngIf="result.FeedbackStatus==1"></i>
+                                        <i class="fas fa-eye-slash  me-1 text-muted" *ngIf="result.FeedbackStatus==0"></i>
                                     </span>
                                 </a>
 
@@ -85,102 +69,101 @@
                         </div>
                     </div>
                     <div class="col-sm-8" #content>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="list-home" role="tabpanel"
-                                aria-labelledby="list-home-list">
+                        <div class="tab-content" id="nav-tabContent" *ngIf="defualtHideFeedback">
+                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                                 <div class="personadetails mb-3">
                                     <div class="row">
                                         <div class="col-sm-8">
-                                            <span class="personname">person name</span>
+                                            <span class="personname">{{detailsData.FullName | titlecase}}</span>
                                         </div>
                                         <div class="col-sm-4 text-end">
-                                            <span class="persondate"><i class="fas fa-calendar-alt me-2"></i>
-                                                date</span>
+                                            <button class="btn btn-sm btn-light shadow-none me-2 text-danger"><i class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <hr class="my-1">
                                     <div class="row">
-                                        <div class="col-sm-8">
-                                            <span class="personemail"><i class="far fa-envelope me-1"></i>
-                                                email</span>
+                                        <div class="col-sm-4">
+                                            <span class="persondate"><i class="fas fa-calendar-alt me-2"></i>
+                                                {{detailsData.FeedbackDate}}{{detailsData.FeedbackTime}} </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="personemail" *ngIf="detailsData?.EmailId"><i class="far fa-envelope me-1"></i>
+                                                {{detailsData?.EmailId}}</span>
                                         </div>
                                         <div class="col-sm-4 text-end">
                                             <span class="personcontact"><i class="fas fa-phone-alt me-1"></i>
-                                                +91-98654320</span>
+                                                +91-{{detailsData.Mobileno}}</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="messagedetails">
-                                    <ng-container  #messages>
+                                    <ng-container #messages>
                                         <div class="mb-4 pb-1 col-sm-10">
                                             <div class="card card-body border shadow-none position-relative membercall">
-                                                <p class="small text-muted mb-1 lblfeedback">Admin
+                                                <p class="small text-muted mb-1 lblfeedback"> {{detailsData.FullName | titlecase}}
                                                     <span class="float-end text-muted small">
-                                                        date time
+                                                        {{detailsData.FeedbackDate}}{{detailsData.FeedbackTime}}
                                                     </span>
                                                 </p>
                                                 <span class="feedback">
-                                                    message
+                                                    {{detailsData.Feedback}}
                                                 </span>
-                                                <div class="card card-body p-2 ps-0 shadow-none bg-transparent d-flex flex-row">
+                                                <!-- <div class="card card-body p-2 ps-0 shadow-none bg-transparent d-flex flex-row">
                                                     <div class="img-con">
                                                         <img src="assets/images/ncp-default.png" class="helpimg">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-10 offset-2" >
-                                            <div
-                                                class="card card-body border bg-light shadow-none position-relative admincall">
+                                        <div class="col-sm-10 offset-2">
+                                            <div class="card card-body border bg-light shadow-none position-relative admincall" *ngFor="let msg of resultAllFeedBackDetails">
                                                 <p class="small text-muted mb-1 lblfeedback">Admin
                                                     <span class="float-end text-muted small">
                                                        date time</span>
                                                 </p>
                                                 <span class="feedback">
-                                                    message
+                                                    {{msg.ReplyMessage | titlecase}}
                                                 </span>
-                                                <div class="card card-body p-2 ps-0 bg-transparent shadow-none d-flex flex-row">
+                                                <!-- <div class="card card-body p-2 ps-0 bg-transparent shadow-none d-flex flex-row">
                                                     <div class="img-con">
                                                         <img src="assets/images/ncp-default.png" class="helpimg">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </ng-container>
                                 </div>
-                                <form class="replybox">
-                                    <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row">
+                                <form class="replybox" *ngIf="detailsData.FeedbackStatus != 3">
+                                    <!-- <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row">
                                         <div class="img-con">
                                             <img src="assets/images/ncp-default.png" class="helpimg">
                                             <button class="btn btn-light">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="Reply Here.." />
-                                        <input type="file" id="img-upload" class="d-none" >
-                                        <button type="button" class="btn btn-light border-top border-bottom bg-transparent"><i class="fas fa-paperclip"></i></button>
-                                        <button type="button"
-                                            class="btn btn-sm btn-main"><i class="fas fa-paper-plane me-2"></i>
-                                            Send</button>
+                                        <input class="form-control" #txtReply type="text" placeholder="Reply Here.." />
+                                        <!-- <input type="file" id="img-upload" class="d-none"> -->
+                                        <!-- <button type="button" class="btn btn-light border-top border-bottom bg-transparent"><i class="fas fa-paperclip"></i></button> -->
+                                        <button type="submit" class="btn btn-sm btn-main" (click)="insertFeebackReply(txtReply.value, 'Reply', detailsData.Id, detailsData.FeedbackStatus)"><i class="fas fa-paper-plane me-2"></i>
+                                            Take Action</button>
+                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-times me-2"></i>
+                                                Ignore</button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="list-profile" role="tabpanel"
-                                aria-labelledby="list-profile-list">
+                            <!-- <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                                 2
                             </div>
-                            <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                                aria-labelledby="list-messages-list">
+                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                                 3
                             </div>
-                            <div class="tab-pane fade" id="list-settings" role="tabpanel"
-                                aria-labelledby="list-settings-list">
+                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
                                 4
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

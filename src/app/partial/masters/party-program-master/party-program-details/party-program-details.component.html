@@ -147,7 +147,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">SrNo</th>
+                                <th scope="col">Sr. No.</th>
                                 <th scope="col">Committee Name</th>
                                 <th scope="col">District Name</th>
                                 <th scope="col">Taluka Name</th>
@@ -158,7 +158,7 @@
                         <tbody>
                             <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a routerLink="../../member/profile">{{committeesData.BodyOrgCellName}}</a></td>
+                                <td><a (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a></td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
@@ -209,82 +209,6 @@
         </div>
     </div>
 </div>
-
- <!-- Modal for Location  Before Model Hide-->
-
- <!-- <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6 form-container">
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">{{membersData?.MemberId}}</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Members Name</label>
-                                <div id="txtPostDate" class="form-data">  {{membersData?.FullName}}</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Mobile Number</label>
-                            <div id="txtMembersName" class="form-data">
-                                {{membersData?.MobileNo}}
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">Designation</label>
-                                <div id="txtSocialMediaSource" class="form-data">
-                                    <i class="fab fa-whatsapp me-1"></i> {{membersData?.Designation}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">District Name</label>
-                                <div id="txtMobileNo" class="form-data">
-                                    {{membersData?.DistrictName}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">Taluka Name</label>
-                            <div id="txtDescription" class="form-data">
-                                {{membersData?.TalukaName}}
-                            </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Village Name</label>
-                                <div id="txtMessageFavour" class="form-data">
-                                    {{membersData?.VillageName}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 form-container">
-                      
-                        <div class="mb-3">
-                            <label class="form-label">Photos</label>
-                            <div class="row">
-                                <div class="col-sm-4 mb-3" *ngFor="let img of ParpantsProMemImge">
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  -->
-
 
 
 <!-- View Activity Details Modal -->

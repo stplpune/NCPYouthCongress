@@ -34,6 +34,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   // searchFilter:any;
   @ViewChildren('messages') messages: any;
   @ViewChild('content') content!: ElementRef;
+  globalGroupId = 0;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -72,7 +73,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.receiverChatListArray = res.data1;
-        // this.receiverChatListArray.reverse();
       } else {
         this.spinner.hide();
         this.receiverChatListArray = [];
@@ -96,6 +96,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
 
     this.defaultMsgBox = true;
     this.infoUser = infoUser;
+    this.globalGroupId = this.infoUser.GroupId;
     console.log(this.infoUser);
     this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }
@@ -106,6 +107,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.messagebyGroupIdArray = res.data1;
+        this.getReceiverChatList();
         setTimeout(() => {
           this.scrollToBottom();
         }, 100);
@@ -159,11 +161,15 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       return
     }
     let fromData = new FormData();
+    let checkrecId:any;
+
+    this.commonService.loggedInUserId() ==  this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId :  checkrecId = this.infoUser.ReceiverId; 
+
     let MediaTypeId: any;
     this.selectedFile ? (MediaTypeId = 2) : (MediaTypeId = 1);
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
-    fromData.append('ReceiverId', this.infoUser.ReceiverId);
+    fromData.append('ReceiverId', checkrecId);
     fromData.append('SenderMsg', data.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName', this.imgName); // this.imgName

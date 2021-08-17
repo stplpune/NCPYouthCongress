@@ -286,4 +286,5 @@ export class PartyProgramDetailsComponent implements OnInit {
 
     lightboxGalleryRef.load(this.ParpantsProMemImge1);
   }
+  
 }

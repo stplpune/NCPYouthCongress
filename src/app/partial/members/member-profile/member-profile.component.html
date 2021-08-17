@@ -36,9 +36,31 @@
                 <img *ngIf="allMemberprofile?.ProfilePhoto" src="{{allMemberprofile?.ProfilePhoto}}" class="card-img-top" alt="...">
                 <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="card-img-top" alt="...">
                 <div class="card-body p-2">
+                    <ol class="list-group list-group-numbered list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">Adhyaksha</div>
+                            Committee
+                          </div>
+                          <span class="badge bg-light rounded-pill text-secondary">14-02-2021</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Upadhyaksha</div>
+                                Committee
+                              </div>
+                              <span class="badge bg-light rounded-pill text-secondary">14-02-2021</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Upadhyaksha</div>
+                                Committee
+                              </div>
+                              <span class="badge bg-light rounded-pill text-secondary">14-02-2021</span>
+                        </li>
+                      </ol>
                     <p class="card-text mb-0">
-                        <ng-container *ngIf="allMemberprofile?.Designation"></ng-container>
-
+                        <ng-container *ngIf="allMemberprofile?.Designation">{{allMemberprofile?.Designation}}</ng-container>
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -48,9 +70,9 @@
                     <li class="list-group-item" *ngIf="allMemberprofile?.ConstituencyName">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.ConstituencyName}}
                     </li>
-                    <li class="list-group-item" *ngIf="allMemberprofile?.Designation">
+                    <!-- <li class="list-group-item" *ngIf="allMemberprofile?.Designation">
                         <i class="fas fa-map-marked-alt text-warning"></i> {{allMemberprofile?.Designation}}
-                    </li>
+                    </li> -->
                     <li class="list-group-item" *ngIf="allMemberprofile?.Emailid">
                         <i class="far fa-envelope text-info"></i> {{allMemberprofile?.Emailid}}
                     </li>
