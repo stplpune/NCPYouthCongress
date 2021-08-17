@@ -336,7 +336,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           min: 0,
           max: false
         },
-        source: "assets/images/divisionwise.svg",
+        source: "assets/images/maharashtra_District_map.svg",
         title: "Maharashtra-bg_o",
         responsive: true
       });

@@ -167,11 +167,12 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     let fromData = new FormData();
     let MsgType:any;
     let MediaTypeId:any;
+
     this.selectedFile ?  (MediaTypeId = 2) : (MediaTypeId = 1) ;
     fromData.append('MessageId', this.infoUser.MessageId);
     fromData.append('SenderId', this.commonService.loggedInUserId());
     fromData.append('ReceiverId', this.infoUser.ReceiverId);
-    fromData.append('SenderMsg', data.senderMsg);
+    fromData.append('SenderMsg', data.value.senderMsg);
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName',  this.imgName); // this.imgName
     fromData.append('MessageTypeId', this.infoUser.MediaTypeId);  // 1 personal 2 group
@@ -181,12 +182,13 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-       // this.submitted = false;
+      //  this.submitted = false;
+       this.replayForm.reset();
        this.getReceiverChatList();
        this.Chat_MessagebyGroupId(this.infoUser.GroupId)
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        this.replayForm.reset();
+     
       } else {
         this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
