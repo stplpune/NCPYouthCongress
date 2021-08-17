@@ -132,14 +132,7 @@
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
-                                    <img *ngIf="membersData.ImagePath" src="{{membersData.ImagePath}}" else noData >
-                                    <ng-template #noData><img src="assets/images/dashboard-images/ncp-default.png"></ng-template>
-                                    
-                                  <!-- <ng-container *ngFor="let img of ParpantsProMemImge; let i = index"  >
-                                        <img *ngIf="i<1"  [lightbox]="i" [src]="img?.data?.thumb" />
-                                
-                                    </ng-container>  [lightbox]="membersData.MemberId" -->
-                                    <!-- <img [src]="" [lightbox]="membersData.MemberId"  [gallery]="'anotherLightbox'"  (click)="showLightBox(membersData.MemberId)" /> -->
+                                    <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -195,3 +188,88 @@
         </div>
     </div>
 </div>
+
+ <!-- Modal for Location  -->
+
+ <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 form-container">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">{{membersData?.MemberId}}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Members Name</label>
+                                <div id="txtPostDate" class="form-data">  {{membersData?.FullName}}</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mobile Number</label>
+                            <div id="txtMembersName" class="form-data">
+                                {{membersData?.MobileNo}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Designation</label>
+                                <div id="txtSocialMediaSource" class="form-data">
+                                    <i class="fab fa-whatsapp me-1"></i> {{membersData?.Designation}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">District Name</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    {{membersData?.DistrictName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Taluka Name</label>
+                            <div id="txtDescription" class="form-data">
+                                {{membersData?.TalukaName}}
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Village Name</label>
+                                <div id="txtMessageFavour" class="form-data">
+                                    {{membersData?.VillageName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label class="form-label">Party in Support</label>
+                            <div id="txtPartyInSupport" class="form-data">
+                                <img src="{{socialMediaDetailsArray?.PartyIconImage}}" class="partylogo" /> {{socialMediaDetailsArray?.PartyInSupport}}
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-sm-6 form-container">
+                        <!-- <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+                        </div> -->
+                        <div class="mb-3">
+                            <label class="form-label">Photos</label>
+                            <div class="row">
+                                <div class="col-sm-4 mb-3" *ngFor="let img of ParpantsProMemImge">
+                                    <!-- <img src="{{img.ImagePath}}" class="img-thumbnail h-150"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -201,7 +201,6 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-
   /* Chart code */
   workLineChart() {
     am4core.useTheme(am4themes_animated);
@@ -280,7 +279,6 @@ export class DashboardComponent implements OnInit {
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 70;
     chart.legend.fontSize = 10;
-
   }
 
   weeklyColumnChart() {
