@@ -33,6 +33,7 @@
     box-shadow: none !important;
     outline: none !important;
     font-size: 0.85rem;
+    border: 1px solid #ced4da;
     border-right: none;
 }
 
@@ -143,4 +144,9 @@
     line-height: 16px;
     padding: 5px;
     font-size: 0.85rem;
+}
+.replybox{
+    background-color:#eee;
+    padding:10px;
+    border-radius: 10px;
 }
