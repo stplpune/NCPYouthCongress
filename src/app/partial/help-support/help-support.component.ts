@@ -22,7 +22,7 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
   tblchatreceivedArray: any;
   defaultMsgBox:boolean = false;
   replayForm!:FormGroup;
-  selectedFile!:File;
+  selectedFile:any;
   ImgUrl:any;
   getImgExt:any;
   imgName:any;
@@ -227,12 +227,19 @@ export class HelpSupportComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
+  closeImg(){
+    this.ImgUrl = null;
+    this.selectedFile = null;
+    this.imgName = null;
+  }
   onKeyUpFilter(){
     this.subject.next();
   }
 
-
+  openInputFile(){
+    let clickInputFile = document.getElementById("img-upload");
+    clickInputFile?.click();
+  }
   searchFilters(flag:any) {
     if(flag == 'true'){
       if(this.filterForm.value.searchFilter == "" || this.filterForm.value.searchFilter == null){

@@ -70,7 +70,7 @@ export class ForwardActivitiesComponent implements OnInit {
       CreatedBy:[this.commonService.loggedInUserId()],
       activityTitle: ['', Validators.required],
       activityBody: ['', Validators.required],
-      hashtags_Activity: ['', Validators.required],
+      hashtags_Activity: [''],
       IsChangeImage: [0],
       NewsType:[''],
     })
