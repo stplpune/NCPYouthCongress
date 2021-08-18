@@ -17,11 +17,13 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <label class="form-label">From</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ? (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ?
+                                (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
                         </li>
                         <li class="list-group-item">
                             <label class="form-label">To</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ? (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ?
+                                (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>
                         </li>
 
                         <li class="list-group-item">
@@ -61,7 +63,9 @@
                                 <h6>Members</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
+                                        <a class="btn btn-light py-2 px-3 border-add"
+                                            (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'"
+                                            [ngClass]="{'active':ParticipantsText == 'Members'}">
                                             <p class="small mb-1">Participants</p>
                                             <h3 class="mb-0">{{overviewArray?.ParticipatedMember}}</h3>
                                         </a>
@@ -79,7 +83,9 @@
                                 <h6>Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
+                                        <a class="btn btn-light py-2 px-3 border-add"
+                                            (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'"
+                                            [ngClass]="{'active':ParticipantsText == 'Committees'}">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -98,7 +104,9 @@
                                 <h6>Non-Participant Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
+                                        <a class="btn btn-light py-2 px-3 border-add"
+                                            (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'"
+                                            [ngClass]="{'active':ParticipantsText == 'Non -'}">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -126,20 +134,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                            <tr
+                                *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)" class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)"
+                                        class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td *ngIf="ViewModelHide">
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
-                                    <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData.MemberId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light"
+                                        (click)="getPartyProgramDetails(membersData.MemberId)" data-bs-toggle="modal"
+                                        data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="membersDataNonParticipantsArray?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event, defaultPartiNonParti)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event, defaultPartiNonParti)">
+                        </pagination-controls>
                     </div>
                 </div>
 
@@ -152,54 +166,64 @@
                                 <th scope="col">District Name</th>
                                 <th scope="col">Taluka Name</th>
                                 <th scope="col">Head of Committee</th>
-                                <th scope="col">Photos</th>
+                                <th scope="col">View</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
+                            <tr
+                                *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a></td>
+                                <td><a
+                                        (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a>
+                                </td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
-                                <td>
+                                <!-- <td>
                                     <img src="{{committeesData.ImagePath}}" *ngIf="committeesData.ImagePath; else noImg" />
                                     <ng-template #noImg>
                                         <img src="assets/images/dashboard-images/ncp-default.png">
                                     </ng-template>
+                                </td> -->
+                                <td>
+                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="committeesDataArray?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
 
                 <div class="card-body border">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
-                          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
-                      
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray"
+                                [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
+
                                 <agm-info-window>
-                             <table class="table table-bordered table-sm mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td>Full Name :</td>
-                                            <th>{{latlongData.FullName}}</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Mobile No :</td>
-                                            <th>{{latlongData.MobileNo}}</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Address :</td>
-                                            <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </agm-info-window></agm-marker>
+                                    <table class="table table-bordered table-sm mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td>Full Name :</td>
+                                                <th>{{latlongData.FullName}}</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile No :</td>
+                                                <th>{{latlongData.MobileNo}}</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Address :</td>
+                                                <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </agm-info-window>
+                            </agm-marker>
                         </agm-map>
                     </div>
                 </div>
@@ -208,9 +232,10 @@
     </div>
 </div>
 
+<!-- Modal for view participants  -->
 
-<!-- View Activity Details Modal -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -279,22 +304,22 @@
                                 <agm-marker [latitude]="lat" [longitude]="lng">
                                     <agm-info-window>
                                         <table class="table table-bordered table-sm mb-0">
-                                               <tbody>
-                                                   <tr>
-                                                       <td>Full Name :</td>
-                                                       <th>{{resultBodyMemActDetails?.FullName}}</th>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>Mobile No :</td>
-                                                       <th>{{resultBodyMemActDetails?.MobileNo}}</th>
-                                                   </tr>
-                                                   <!-- <tr>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Full Name :</td>
+                                                    <th>{{resultBodyMemActDetails?.FullName}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mobile No :</td>
+                                                    <th>{{resultBodyMemActDetails?.MobileNo}}</th>
+                                                </tr>
+                                                <!-- <tr>
                                                        <td>Address :</td>
                                                        <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
                                                    </tr> -->
-                                               </tbody>
-                                           </table>
-                                       </agm-info-window>
+                                            </tbody>
+                                        </table>
+                                    </agm-info-window>
                                 </agm-marker>
                             </agm-map>
                         </div>
@@ -304,9 +329,140 @@
                         <div class="mb-3">
                             <label class="form-label">Photos</label>
                             <div class="row">
-                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
+                                <div class="col-sm-2 mb-3"
+                                    *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
                                     <img src="{{img}}" class="img-thumbnail h-150">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for committee participants details -->
+<div class="modal fade" id="ViewCommitteeDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewCommitteeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewCommitteeDetailsModalLabel">committee Name</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3 border-end">
+                        <div class="list-group list-group-flush" id="list-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action active list-group-item d-flex justify-content-between align-items-start"
+                                id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab"
+                                aria-controls="list-home">
+                                <div class="me-auto">
+                                    <div class="fw-bold">Member Name</div>
+                                    <small>Designation</small>
+                                </div>
+                                <i class="fas fa-thumbs-up text-success"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
+                                id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab"
+                                aria-controls="list-profile">
+                                <div class="me-auto">
+                                    <div class="fw-bold">Member Name</div>
+                                    <small>Designation</small>
+                                </div>
+                                <i class="fas fa-thumbs-up text-success"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
+                                id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab"
+                                aria-controls="list-messages">
+                                <div class="me-auto">
+                                    <div class="fw-bold">Member Name</div>
+                                    <small>Designation</small>
+                                </div>
+                                <i class="fas fa-thumbs-down text-danger"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
+                                id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab"
+                                aria-controls="list-settings">
+                                <div class="me-auto">
+                                    <div class="fw-bold">Member Name</div>
+                                    <small>Designation</small>
+                                </div>
+                                <i class="fas fa-thumbs-down text-danger"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                                aria-labelledby="list-home-list">
+                                <div class="form-container">
+                                    <div class="mb-3">
+                                        <div class="row border-bottom pb-1">
+                                            <div class="col-sm-6">
+                                                <h6 class="mb-0"><span class="badge bg-success">Program Attended</span></h6>
+                                                <h6 class="mb-0"><span class="badge bg-danger">Program Not Attended</span></h6>
+                                            </div>
+                                            <div class="col-sm-6 text-muted text-end">
+                                                <i class="fas fa-calendar-alt me-2"></i> 14-02-2021
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Members Name</label>
+                                        <p class="form-data mb-0">Mr. Arvind Kambale <span class="text-muted ms-2 small">+91-9876543210</span></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Program Title</label>
+                                        <p class="form-data mb-0">राजकीय व्यवस्थापन कार्यक्रम</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <p class="form-data mb-0">The next generation of the web’s favorite icon library + toolkit is now available as a Beta release! Subscribe to Font Awesome Pro and get instant access to the v6 beta.</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="form-label">Description</label>
+                                            MAP
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-label">Description</label>
+                                            <div class="row g-2">
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="list-profile" role="tabpanel"
+                                aria-labelledby="list-profile-list">
+                                2
+                            </div>
+                            <div class="tab-pane fade" id="list-messages" role="tabpanel"
+                                aria-labelledby="list-messages-list">
+                                3
+                            </div>
+                            <div class="tab-pane fade" id="list-settings" role="tabpanel"
+                                aria-labelledby="list-settings-list">
+                                4
                             </div>
                         </div>
                     </div>

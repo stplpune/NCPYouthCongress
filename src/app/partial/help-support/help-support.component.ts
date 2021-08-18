@@ -89,6 +89,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   getMessagebyGroupId(infoUser: any, GroupId: any, readStatus: any) {
+    debugger;
     this.replayForm.reset();
     if (readStatus == 0) {
       this.getTblchatreceived(GroupId);
@@ -163,8 +164,8 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       return
     }
     let fromData = new FormData();
-    let checkrecId:any;
-    this.commonService.loggedInUserId() ==  this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId :  checkrecId = this.infoUser.ReceiverId; 
+    let checkrecId: any;
+    this.commonService.loggedInUserId() == this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId : checkrecId = this.infoUser.ReceiverId;
     let MediaTypeId: any;
     this.selectedFile;
     debugger;
@@ -176,10 +177,19 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         MediaTypeId = 2;
         break;
       case ('mp4'):
-        MediaTypeId = 3;
+        MediaTypeId = 4;
         break;
       case ('mp3'):
-        MediaTypeId = 4;
+        MediaTypeId = 3;
+        break;
+      case ('pdf'):
+        MediaTypeId = 5;
+        break;
+      case ('docx'):
+        MediaTypeId = 5;
+        break;
+      case ('xlsx'):
+        MediaTypeId = 5;
         break;
       default:
         MediaTypeId = 1;
@@ -227,7 +237,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     let selResult = event.target.value.split('.');
     this.getImgExt = selResult.pop();
     this.getImgExt.toLowerCase();
-    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "mp3" || this.getImgExt == "mp4") {
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "mp3" || this.getImgExt == "mp4" || this.getImgExt == "pdf") {
       this.selectedFile = <File>event.target.files[0];
       if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
