@@ -248,15 +248,18 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   committeeUserdetails(ActivityId:any){
     this.spinner.show();
-    this.committeeModelDataDivHide=true;/////////////////
+    this.committeeModelDataDivHide=true;
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + ActivityId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
+        console.log(res)
         this.committeeUserdetailsArray.globalGroupId;
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
+       
+        console.log(this.activitiesDetailslat )
         this.activitiesDetailslng = Number(latLong[1]);
       } else {
         this.toastrService.error("Member is not available");
