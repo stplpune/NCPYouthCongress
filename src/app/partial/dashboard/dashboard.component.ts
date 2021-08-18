@@ -455,8 +455,6 @@ export class DashboardComponent implements OnInit {
     })
     categoryAxis.dataItems.template.bullet = image;
 
-
-
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.renderer.minGridDistance = 30;

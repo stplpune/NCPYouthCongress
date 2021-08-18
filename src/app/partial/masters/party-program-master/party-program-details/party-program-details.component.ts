@@ -132,13 +132,42 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  getNonParticipantsData() {
+  // getNonParticipantsData() {
+  //   this.committeeTableDiv = false;
+  //   this.membersDataNonParticipantsArray = [];
+  //   this.membersAndNonParticipantsDiv = true;
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.membersDataNonParticipantsArray = res.data1;
+  //       this.total = res.data2[0].TotalCount;
+  //       this.defaultPartiNonParti = false;
+  //     } else {
+  //       if (res.data == 1) {
+  //         this.spinner.hide();
+  //         // this.toastrService.error("Data is not available");
+  //       } else {
+  //         this.spinner.hide();
+  //         this.toastrService.error("Please try again something went wrong");
+  //       }
+  //     }
+  //   } ,(error:any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
+   getNonParticipantsData() {
     this.committeeTableDiv = false;
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_NonProgram_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+     console.log("qqqq",res)
       if (res.data == 0) {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
@@ -179,6 +208,29 @@ export class PartyProgramDetailsComponent implements OnInit {
       }
     })
   }
+
+  ////latest calll
+  // getCommitteeUserList(id: any) {
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + id + '&nopage=' + 1  + '&BodyId=' + 1, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.resultBodyMemActDetails = res.data1[0];
+  //       let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+  //       this.lat = Number(latLong[0]);
+  //       this.lng = Number(latLong[1]);
+
+  //     } else {
+  //       this.toastrService.error("Member is not available");
+  //     }
+  //   }, (error: any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
 
   onClickPagintion(pageNo: number, defaultPartiNonParti: any) {
     if (defaultPartiNonParti) {
