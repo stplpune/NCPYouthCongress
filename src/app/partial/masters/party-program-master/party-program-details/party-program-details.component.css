@@ -94,3 +94,16 @@ agm-map {
 .border-add.active {
     border-bottom: solid 3px var(--main-color)!important;
 }
+
+#ViewCommitteeDetailsModal .list-group .active{
+    background-color:var(--main-color);
+    color: #fff !important;
+
+}
+#ViewCommitteeDetailsModal .list-group .active i.text-success {
+    color: #0f0 !important;
+}
+
+#ViewCommitteeDetailsModal .list-group .active i.text-danger {
+    color: #f00 !important;
+}
