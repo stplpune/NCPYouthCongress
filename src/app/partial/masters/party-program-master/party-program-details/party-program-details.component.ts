@@ -266,6 +266,7 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   getPartyProgramDetails(viewMemberId:any){
     this.getBodyMemeberActivitiesDetails(viewMemberId);
+    this.getCommitteeUserList();
   }
 
     getBodyMemeberActivitiesDetails(viewMemberId: any) {
@@ -275,7 +276,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-         console.log("asd",this.resultBodyMemActDetails)
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
@@ -301,7 +301,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
-        console.log(this.ParpantsProMemImge);
         // let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
         //   new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
         // });
