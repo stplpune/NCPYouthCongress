@@ -101,8 +101,8 @@
                                     <span class="mb-1 text-ellipsis-150px">{{resultExeMember?.Location}}</span>
                                 </td>
                                 <td>
-                                    <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
-                                    <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
+                                    <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">{{designation}}</p>
+
                                 </td>
                                 <td>
                                     <ng-container *ngIf="resultExeMember.UserStatus == 0">
