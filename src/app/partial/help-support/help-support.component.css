@@ -89,6 +89,7 @@
 #help-support .list-group .active i.text-danger {
     color: #f00 !important;
 }
+
 #help-support .list-group .active i.text-warning {
     color: #fff !important;
 }
@@ -121,8 +122,16 @@
 .messagedetails .feedback {
     font-size: 0.85rem;
 }
+
 .replybox {
     background-color: #eee;
     padding: 10px;
     border-radius: 10px;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    padding: 0px !important;
 }

@@ -75,26 +75,29 @@
                                                 <div class="card card-body border shadow-none position-relative membercall">
                                                     <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
                                                         <span class="float-end text-muted small">
-                                                        {{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}
+                                                         {{infoUser?.MessageDate}} {{infoUser.MessageTime}}
                                                 </span>
                                                     </p>
                                                     <span class="feedback">
                                                         {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
                                             </span>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
                                                             <img src="{{message.MediaPath}}" class="helpimg">
                                                         </div>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp3'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 3">
                                                         <audio controls>
                                                     <source src="{{message.MediaPath}}" type="audio/mpeg">
                                                   </audio>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp4'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 4">
                                                         <video width="320" height="240" controls>
                                                         <source src="{{message.MediaPath}}" type="video/mp4">
                                                       </video>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaTypeId == 5">
+                                                        <a href="{{message.MediaPath}}" download target="_blank" class=" btn btn-info" style="width: 123px;"><small><i class="fa fa-paperclip" aria-hidden="true" ></i>  Attachment</small></a>
                                                     </ng-container>
                                                     <!-- <img src="{{message.MediaPath}}" style="width: 100px;"> -->
                                                 </div>
@@ -103,25 +106,28 @@
                                             <div class="mb-2 pb-1 col-sm-10 offset-2" *ngIf="message.ReceiverId != loginUserId">
                                                 <div class="card card-body border bg-light shadow-none position-relative admincall">
                                                     <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
-                                                        <span class="float-end text-muted small">{{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
+                                                        <span class="float-end text-muted small"> {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
                                                     </p>
                                                     <span class="feedback">
                                                     {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
                                             </span>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
                                                             <img src="{{message.MediaPath}}" class="helpimg">
                                                         </div>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp3'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 3">
                                                         <audio controls>
-                                                        <source src="{{message.MediaPath}}" type="audio/mpeg">
-                                                      </audio>
+                                            <source src="{{message.MediaPath}}" type="audio/mpeg">
+                                          </audio>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaPath.split('.').pop() == 'mp4'">
+                                                    <ng-container *ngIf="message.MediaTypeId == 4">
                                                         <video width="320" height="240" controls>
-                                                        <source src="{{message.MediaPath}}" type="video/mp4">
-                                                      </video>
+                                                <source src="{{message.MediaPath}}" type="video/mp4">
+                                              </video>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="message.MediaTypeId == 5">
+                                                        <a href="{{message.MediaPath}}" download target="_blank" class=" btn btn-info" style="width: 123px;"><small><i class="fa fa-paperclip" aria-hidden="true" ></i>  Attachment</small></a>
                                                     </ng-container>
                                                 </div>
                                             </div>
