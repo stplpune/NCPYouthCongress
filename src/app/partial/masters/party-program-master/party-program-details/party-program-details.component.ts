@@ -202,6 +202,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
+    this.ViewModelHide = true;
     this.membersAndNonParticipantsDiv = false;
     this.committeeTableDiv = true;
     this.spinner.show();
