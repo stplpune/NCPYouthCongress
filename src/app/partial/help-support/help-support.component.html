@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-sm-4 text-end">
                                             <button class="btn btn-sm btn-light text-danger shadow-none me-2" (click)="defaultMsgBox = false; globalGroupId = 0"><i class="fas fa-times"></i></button>
-                                            
+
                                         </div>
                                     </div>
                                     <hr class="my-1">
@@ -58,12 +58,12 @@
                                             <span class="persondate"><i class="fas fa-calendar-alt me-2"></i>
                                                 {{infoUser?.MessageDate}}</span>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <!-- <div class="col-sm-4">
                                             <span class="personemail"><i class="far fa-envelope me-1"></i>
                                                 {{infoUser?.Emailid}}</span>
-                                        </div>
+                                        </div> -->
                                         <div class="col-sm-4 text-end">
-                                            <span class="personcontact"><i class="fas fa-phone-alt me-1"></i>
+                                            <span class="personcontact" *ngIf="infoUser?.MobileNo"><i class="fas fa-phone-alt me-1"></i>
                                                 +91-{{infoUser?.MobileNo}}</span>
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@
                                                 </span>
                                                     </p>
                                                     <span class="feedback">
-                                                    {{message.SenderMsg}}
+                                                        {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
                                             </span>
                                                     <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
                                                         <div class="img-con">
@@ -106,7 +106,7 @@
                                                         <span class="float-end text-muted small">{{message.Sender}} {{infoUser?.MessageDate}} {{infoUser.MessageTime}}</span>
                                                     </p>
                                                     <span class="feedback">
-                                                    {{message.SenderMsg | titlecase}}
+                                                    {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
                                             </span>
                                                     <ng-container *ngIf="message.MediaPath.split('.').pop() == 'png' || message.MediaPath.split('.').pop() ==  'jpg' || message.MediaPath.split('.').pop() == 'svg'">
                                                         <div class="img-con">
@@ -133,7 +133,7 @@
                                         <!-- *ngIf="ImgUrl && getImgExt == 'png' || ImgUrl && getImgExt 'jpg' || ImgUrl &&  getImgExt == 'svg'"  -->
 
                                         <div class="img-con">
-                                            <ng-container *ngIf="getImgExt == 'png'">
+                                            <ng-container *ngIf="getImgExt == 'png' || getImgExt == 'jpg'">
                                                 <img src="{{ImgUrl}}" class="helpimg">
                                                 <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Reply Here.." formControlName="senderMsg" />
-                                        <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)">
+                                        <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)" #fileInput>
                                         <button type="button" class="btn btn-light bg-transparent" (click)="openInputFile()"><i class="fas fa-paperclip"></i></button>
                                         <button type="button" class="btn btn-sm btn-main " (click)="UploadHelpMeChatMediaMsg()"><i class="fas fa-paper-plane me-2"></i> Send</button>
                                     </div>
