@@ -619,7 +619,7 @@ export class OrganizationMasterComponent implements OnInit {
   onClickPagintion(pageNo: number) {
     // this.clearForm();
     this.paginationNo = pageNo;
-    this.getOrganizationList()
+    this.getOrganizationList();
   }
 
   filter(searchText: any) {
@@ -636,7 +636,6 @@ export class OrganizationMasterComponent implements OnInit {
       this.router.navigate(['details'], { relativeTo: this.route })
     }
   }
-
 
   onKeyUpFilter(){
     this.subject.next();

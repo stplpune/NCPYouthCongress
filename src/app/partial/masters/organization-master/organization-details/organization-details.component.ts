@@ -357,7 +357,6 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
   // chart DIv 
   bodyMemeberChartGraph(data: any) {
     am4core.ready(() => {

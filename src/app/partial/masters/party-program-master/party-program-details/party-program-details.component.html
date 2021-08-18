@@ -122,7 +122,7 @@
                                 <th scope="col">Participants Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
-                                <th scope="col">Photos</th>
+                                <th scope="col" *ngIf="ViewModelHide">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,8 +131,9 @@
                                 <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)" class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                <td *ngIf="ViewModelHide">
+                                    <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
+                                    <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData.MemberId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -178,9 +179,27 @@
                 <div class="card-body border">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude"></agm-marker>
-                            <!-- <agm-info-window>{{latlongData}}</agm-info-window> -->
+                          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
+                      
+                                <agm-info-window>
+                             <table class="table table-bordered table-sm mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>Full Name :</td>
+                                            <th>{{latlongData.FullName}}</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile No :</td>
+                                            <th>{{latlongData.MobileNo}}</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Address :</td>
+                                            <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </agm-info-window></agm-marker>
                         </agm-map>
                     </div>
                 </div>
@@ -189,8 +208,8 @@
     </div>
 </div>
 
-<!-- Modal for Location  -->
 
+<!-- View Activity Details Modal -->
 <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -199,71 +218,94 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" *ngIf="resultBodyMemActDetails">
                     <div class="col-sm-6 form-container">
                         <div class="row mb-3">
-                            <!-- <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">{{membersData?.MemberId}}</div>
-                            </div> -->
-                            <div class="col-sm-12">
-                                <label class="form-label">Members Name</label>
-                                <div id="txtPostDate" class="form-data"> {{membersData?.FullName}}</div>
+                                <div id="txtID" class="form-data">{{resultBodyMemActDetails.Id}}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Post Date</label>
+                                <div id="txtPostDate" class="form-data">
+                                    {{resultBodyMemActDetails.ActivityDate}}</div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Mobile Number</label>
+                            <label class="form-label">Members FullName</label>
                             <div id="txtMembersName" class="form-data">
-                                {{membersData?.MobileNo}}
+                                {{resultBodyMemActDetails.FullName}}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">Designation</label>
-                                <div id="txtSocialMediaSource" class="form-data">
-                                    {{membersData?.Designation}}
+                            <div class="col-sm-4">
+                                <label class="form-label">Work Type</label>
+                                <div id="txtWorkType" class="form-data">
+                                    {{resultBodyMemActDetails.CategoryName}}
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">District Name</label>
-                                <div id="txtMobileNo" class="form-data">
-                                    {{membersData?.DistrictName}}
+                            <div class="col-sm-4">
+                                <label class="form-label">Title</label>
+                                <div id="txtTitle" class="form-data">
+                                    {{resultBodyMemActDetails.Title | titlecase}}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">Taluka Name</label>
-                                <div id="txtDescription" class="form-data">
-                                    {{membersData?.TalukaName}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Village Name</label>
-                                <div id="txtMessageFavour" class="form-data">
-                                    {{membersData?.VillageName}}
+                            <div class="col-sm-4">
+                                <label class="form-label">Program</label>
+                                <div id="txtProgram" class="form-data">
+                                    {{resultBodyMemActDetails. ProgramTitle | titlecase}}
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label class="form-label">Party in Support</label>
-                            <div id="txtPartyInSupport" class="form-data">
-                                <img src="{{socialMediaDetailsArray?.PartyIconImage}}" class="partylogo" /> {{socialMediaDetailsArray?.PartyInSupport}}
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <div id="txtDescription" class="form-data">
+                                {{resultBodyMemActDetails.Description | titlecase}}
                             </div>
-                        </div> -->
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link URL</label>
+                            <div class="form-data">
+                                <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
+                                    {{resultBodyMemActDetails.Link}}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6 form-container">
-                        <!-- <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                <agm-marker [latitude]="lat" [longitude]="lng">
+                                    <agm-info-window>
+                                        <table class="table table-bordered table-sm mb-0">
+                                               <tbody>
+                                                   <tr>
+                                                       <td>Full Name :</td>
+                                                       <th>{{resultBodyMemActDetails?.FullName}}</th>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>Mobile No :</td>
+                                                       <th>{{resultBodyMemActDetails?.MobileNo}}</th>
+                                                   </tr>
+                                                   <!-- <tr>
+                                                       <td>Address :</td>
+                                                       <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
+                                                   </tr> -->
+                                               </tbody>
+                                           </table>
+                                       </agm-info-window>
+                                </agm-marker>
                             </agm-map>
-                        </div> -->
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 form-container">
                         <div class="mb-3">
                             <label class="form-label">Photos</label>
                             <div class="row">
-                                <div class="col-sm-4 mb-3" *ngFor="let img of ParpantsProMemImge">
-                                    <!-- <img src="{{img.ImagePath}}" class="img-thumbnail h-150"> -->
+                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
+                                    <img src="{{img}}" class="img-thumbnail h-150">
                                 </div>
                             </div>
                         </div>
