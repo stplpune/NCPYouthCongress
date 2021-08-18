@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -32,6 +32,7 @@ export class FeedbacksComponent implements OnInit {
   memberNameArray: any;
   defaultToDate = Date.now();
   defaultFromDate = new Date(Date.now() + - 30 * 24 * 60 * 60 * 1000);
+  @ViewChild('txtReply') txtReply:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -238,12 +239,9 @@ export class FeedbacksComponent implements OnInit {
   }
 
   details(data: any) {
-    // this.HighlightRow = data.SrNo;
     this.detailsData = data;
-    console.log(this.detailsData);
     this.defualtHideFeedback = true;
     this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
-    // this.spinner.show();
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -290,6 +288,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   insertFeebackReply(data: any, flag: any, id: any, fStatus: any) {
+    debugger;
     if ((data == "" || data == null) && flag != 'read') {
       this.toastrService.error("Action taken field is required");
     } else {
@@ -303,14 +302,15 @@ export class FeedbacksComponent implements OnInit {
       this.callAPIService.setHttp('get', 'InsertFeebackReply_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + id + '&Replymessage=' + data + '&FeedbackStatus=' + this.globalFeedbackStatus, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          this.defualtHideFeedback = true;
+          this.txtReply.nativeElement.value = '';
+          this.details(this.detailsData);
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
           this.getFeedBackData(this.FeedbackObj)
-          this.defualtHideFeedback = false;
+          // this.defualtHideFeedback = false;
         } else {
           this.spinner.hide();
-          this.defualtHideFeedback = false;
+          // this.defualtHideFeedback = false;
             this.toastrService.error("Data is not available");
         }
       } ,(error:any) => {
