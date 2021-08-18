@@ -24,7 +24,7 @@
                         <div class="input-group">
                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                             <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
-                                <i class="fas fa-calendar"></i></button>
+                                <i class="fas fa-calendar-alt"></i></button>
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearValue()">
                                 <i class="fas fa-times"></i></button>
                         </div>
