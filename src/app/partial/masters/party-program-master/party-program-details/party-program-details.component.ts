@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { Lightbox } from '@ngx-gallery/lightbox';
+import { CommonService } from 'src/app/services/common.service';
 
 
 
@@ -53,6 +54,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   total2: any;
   committeeId: any;
   globalGroupId = 0;
+  comUserdetImg:any;
 
   constructor(
     public location: Location,
@@ -62,7 +64,8 @@ export class PartyProgramDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public gallery: Gallery,
-    private _lightbox: Lightbox
+    private _lightbox: Lightbox,
+    private _commonService:CommonService
   ) {
     if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
       this.toastrService.error("Please select Program Title  and try again");
@@ -91,10 +94,9 @@ export class PartyProgramDetailsComponent implements OnInit {
         let programDetailsImagesArray = res.data2;
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
-        this.programGalleryImg = this.programGalleryImg.map((item:any) =>
-          new ImageItem({ src: item.ImagePath, thumb: item.ImagePath , caption:'one'})
-        );
-        this.basicLightboxExample('global');
+        this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
+        this.gallery.ref().load(this.programGalleryImg);
+
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -219,6 +221,11 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
         this.committeeUserdetailsArray.globalGroupId;
+        this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
+        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
+        console.log(this.comUserdetImg);
+        this.gallery.ref().load(this.comUserdetImg);
+
         let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
@@ -279,7 +286,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.lng = Number(latLong[1]);
       } else {
         this.resultBodyMemActDetails = [];
-        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -287,12 +293,4 @@ export class PartyProgramDetailsComponent implements OnInit {
       }
     })
   }
-
-  basicLightboxExample(flag:any) {
-      if(flag=='global'){
-        this.gallery.ref().load(this.programGalleryImg);
-      }
-  }
-
-  
 }
