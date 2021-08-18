@@ -98,11 +98,11 @@
                                     <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.MobileNo ? (resultExeMember.MobileNo | titlecase) : 'NA'}}</p>
                                 </td>
                                 <td>
-                                    <span class="mb-1 text-ellipsis-150px">{{resultExeMember?.Location}}</span>
+                                    <span class="mb-1">{{resultExeMember?.Location}}</span>
                                 </td>
                                 <td>
-                                    <p class="mb-1">{{resultExeMember.Designation| titlecase}}</p>
-                                    <p class="mb-0 text-muted small">{{resultExeMember.BodyOrgCellName| titlecase}}</p>
+                                    <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">{{designation}}</p>
+
                                 </td>
                                 <td>
                                     <ng-container *ngIf="resultExeMember.UserStatus == 0">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -48,6 +48,7 @@ export class NotificationsComponent implements OnInit {
   NewsId:any;
   @ViewChild('clickPushModal') clickPushModal:any;
   IsChangeImage:boolean = false;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -253,10 +254,12 @@ export class NotificationsComponent implements OnInit {
     this.notificationForm.reset();
   }
 
+
   deleteImg(){
+    this.selectedFile = "";
+    this.getImgPath = "";
+    this.fileInput.nativeElement.value = '';
     this.IsChangeImage = true;
-    this.getImgPath = null;
-   this.selectedFile = null;
   }
   
   delNotConfirmation(NewsId:any){
@@ -490,6 +493,7 @@ export class NotificationsComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.ImgUrl = event.target.result;
+          this.getImgPath = event.target.result;
         }
         reader.readAsDataURL(event.target.files[0]);
         this.imgName = event.target.files[0].name;
@@ -498,6 +502,11 @@ export class NotificationsComponent implements OnInit {
     else {
       this.toastrService.error("Profile image allowed only jpg or png format");
     }
+  }
+
+  openInputFile() {
+    let clickInputFile = document.getElementById("img-upload");
+    clickInputFile?.click();
   }
 
   

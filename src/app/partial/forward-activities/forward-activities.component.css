@@ -43,8 +43,3 @@
     margin: 0 3px;
     font-weight: 500;
 }
-.uploadimg img{
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-}
