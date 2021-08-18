@@ -141,34 +141,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  // getNonParticipantsData() {
-  //   this.committeeTableDiv = false;
-  //   this.membersDataNonParticipantsArray = [];
-  //   this.membersAndNonParticipantsDiv = true;
-  //   this.spinner.show();
-  //   this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
-  //   this.callAPIService.getHttp().subscribe((res: any) => {
-  //     if (res.data == 0) {
-  //       this.spinner.hide();
-  //       this.membersDataNonParticipantsArray = res.data1;
-  //       this.total = res.data2[0].TotalCount;
-  //       this.defaultPartiNonParti = false;
-  //     } else {
-  //       if (res.data == 1) {
-  //         this.spinner.hide();
-  //         // this.toastrService.error("Data is not available");
-  //       } else {
-  //         this.spinner.hide();
-  //         this.toastrService.error("Please try again something went wrong");
-  //       }
-  //     }
-  //   } ,(error:any) => {
-  //     if (error.status == 500) {
-  //       this.router.navigate(['../../500'], { relativeTo: this.route });
-  //     }
-  //   })
-  // }
-
    getNonParticipantsData() {
     this.ViewModelHide=false;
     this.committeeTableDiv = false;
