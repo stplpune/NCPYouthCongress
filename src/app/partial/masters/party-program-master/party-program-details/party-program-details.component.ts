@@ -90,15 +90,11 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
         this.programGalleryImg = programDetailsImagesArray;
-        // this.programDetailsLatLongArray = res.data3;
         this.overviewArray = res.data3[0];
-        // this.programGalleryImg1 = programDetailsImagesArray.slice(0, 6);
-
         this.programGalleryImg = this.programGalleryImg.map((item:any) =>
-          new ImageItem({ src: item.ImagePath, thumb: item.ImagePath })
+          new ImageItem({ src: item.ImagePath, thumb: item.ImagePath , caption:'one'})
         );
         this.basicLightboxExample('global');
-        // this.withCustomGalleryConfig();
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -121,10 +117,10 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
-        this.programDetailsLatLongArray = res.data3;
+        let data = res.data3;
         // this.ParpantsProMemImge = res.data1;
-        // this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
-        //  this.basicLightboxExample('members');
+        // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
+        //  this.basicLightboxExample();
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -292,49 +288,11 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-
-
-  showLightBox(MemberId:any){
-    let index:any = 1;
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.ParpantsProMemImge = res.data1;
-        // let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
-        //   new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
-        // });
-        // this.ParpantsProMemImge1 = getImages;
-    
-        this.basicLightboxExample('members');
-        this.withCustomGalleryConfig();
-      } else {
-          // this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
   basicLightboxExample(flag:any) {
-    if(flag == 'global'){
-      this.gallery.ref().load(this.programGalleryImg);
-    }else if (flag == 'members'){
-      this.gallery.ref().load(this.ParpantsProMemImge1);
-    }
+      if(flag=='global'){
+        this.gallery.ref().load(this.programGalleryImg);
+      }
   }
 
-  withCustomGalleryConfig() {
-    const lightboxGalleryRef = this.gallery.ref('anotherLightbox');
-    lightboxGalleryRef.setConfig({
-      imageSize: ImageSize.Cover,
-      thumbPosition: ThumbnailsPosition.Top
-    });
-
-    lightboxGalleryRef.load(this.ParpantsProMemImge1);
-  }
   
 }
