@@ -89,6 +89,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   getMessagebyGroupId(infoUser: any, GroupId: any, readStatus: any) {
+    debugger;
     this.replayForm.reset();
     if (readStatus == 0) {
       this.getTblchatreceived(GroupId);
@@ -176,7 +177,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         MediaTypeId = 2;
         break;
       case ('mp4'):
-        MediaTypeId =4;
+        MediaTypeId = 4;
         break;
       case ('mp3'):
         MediaTypeId = 3;

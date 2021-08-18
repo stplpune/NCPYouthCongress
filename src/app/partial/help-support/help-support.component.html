@@ -86,12 +86,12 @@
                                                             <img src="{{message.MediaPath}}" class="helpimg">
                                                         </div>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaTypeId == 3">
+                                                    <ng-container *ngIf="message.MediaTypeId == 4">
                                                         <audio controls>
                                                     <source src="{{message.MediaPath}}" type="audio/mpeg">
                                                   </audio>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaTypeId == 4">
+                                                    <ng-container *ngIf="message.MediaTypeId == 3">
                                                         <video width="320" height="240" controls>
                                                         <source src="{{message.MediaPath}}" type="video/mp4">
                                                       </video>
@@ -121,7 +121,7 @@
                                             <source src="{{message.MediaPath}}" type="audio/mpeg">
                                           </audio>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaTypeId == 4">
+                                                    <ng-container *ngIf="message.MediaTypeId == 3">
                                                         <video width="320" height="240" controls>
                                                 <source src="{{message.MediaPath}}" type="video/mp4">
                                               </video>
