@@ -151,7 +151,7 @@
                                 <th scope="col">District Name</th>
                                 <th scope="col">Taluka Name</th>
                                 <th scope="col">Head of Committee</th>
-                                <th scope="col">Photos</th>
+                                <th scope="col">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -161,11 +161,14 @@
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
-                                <td>
+                                <!-- <td>
                                     <img src="{{committeesData.ImagePath}}" *ngIf="committeesData.ImagePath; else noImg" />
                                     <ng-template #noImg>
                                         <img src="assets/images/dashboard-images/ncp-default.png">
                                     </ng-template>
+                                </td> -->
+                                <td>
+                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -189,7 +192,7 @@
     </div>
 </div>
 
-<!-- Modal for Location  -->
+<!-- Modal for view participants  -->
 
 <div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -267,6 +270,28 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for committee participants details -->
+<div class="modal fade" id="ViewCommitteeDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewCommitteeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ViewCommitteeDetailsModalLabel">Committee Name</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        
                     </div>
                 </div>
             </div>
