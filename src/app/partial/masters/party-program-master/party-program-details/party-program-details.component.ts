@@ -44,6 +44,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   imgLightBox:boolean = false;
   resultBodyMemActDetails: any;
   CommitteeUserArray: any;
+  ViewModelHide:boolean=true;
   
   constructor(
     public location: Location,
@@ -101,6 +102,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
+    this.ViewModelHide=true;
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;
     this.committeeTableDiv = false;
@@ -162,6 +164,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   // }
 
    getNonParticipantsData() {
+    this.ViewModelHide=false;
     this.committeeTableDiv = false;
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;

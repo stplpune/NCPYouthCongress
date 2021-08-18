@@ -122,7 +122,7 @@
                                 <th scope="col">Participants Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
-                                <th scope="col">Photos</th>
+                                <th scope="col" *ngIf="ViewModelHide">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,7 +131,7 @@
                                 <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)" class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
-                                <td>
+                                <td *ngIf="ViewModelHide">
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
                                     <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData.MemberId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
