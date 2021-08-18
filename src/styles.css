@@ -56,7 +56,7 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     color: var(--main-color);
 }
 .text-edit{
-    color: var(--clr-orange) !important;
+    color: blueviolet !important;
 }
 .btn-main {
     background-color: var(--main-color);
@@ -451,8 +451,8 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 .chartbox .table td .form-check-input[type="checkbox"] {
-    width: 34px;
-    height: 20px;
+    width: 32px;
+    height: 18px;
 }
 
 .chartbox .table td .form-check-input:checked {

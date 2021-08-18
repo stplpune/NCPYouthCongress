@@ -29,6 +29,7 @@ const routes: Routes = [
       //{ path: 'masters/designation-master', loadChildren: () => import('./partial/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule), data: { title: 'Designation Master' } },
       { path: 'master/committee', loadChildren: () => import('./partial/masters/organization-master/organization-master.module').then(m => m.OrganizationMasterModule), data: { title: 'Organization Master' } },
       { path: 'master/party-program', loadChildren: () => import('./partial/masters/party-program-master/party-program-master.module').then(m => m.PartyProgramMasterModule) },
+      { path: 'master/event-master', loadChildren: () => import('./partial/masters/event-master/event-master.module').then(m => m.EventMasterModule) },
       { path: 'master/party-program/details', loadChildren: () => import('./partial/masters/party-program-master/party-program-details/party-program-details.module').then(m => m.PartyProgramDetailsModule) },
       { path: 'member/executive', loadChildren: () => import('./partial/members/executive-members/executive-members.module').then(m => m.ExecutiveMembersModule), data: { title: 'Executive Members' } },
       // { path: 'registrations', loadChildren: () => import('./partial/registrations/registrations.module').then(m => m.RegistrationsModule), data: { title: 'Registrations' } },
@@ -48,6 +49,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
+  
 
   { path: '**', component: PageNotFoundComponent },
 ];
