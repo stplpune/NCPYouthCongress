@@ -38,7 +38,9 @@ export class ActivityAnalysisComponent implements OnInit {
   lng: any;
   zoom: any = 12;
   activityLikesArray: any;
-  
+  disabledMarkAsAbuse: boolean = false; 
+  disabledMarkasNotAbuse: boolean = false;
+
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -215,10 +217,19 @@ export class ActivityAnalysisComponent implements OnInit {
   }
 
   ViewPoliticleWorkDetails(index: any) {
-    debugger;
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
-    console.log(this.viewPoliticleWorkDetailsById);
+    debugger;
+    if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 0){
+      this.disabledMarkAsAbuse = true;
+      this.disabledMarkasNotAbuse = false;
+    } else{
+      if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 1){
+        this.disabledMarkAsAbuse = true;
+        this.disabledMarkasNotAbuse = false;
+      }
+    }
+  
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
       let getLatLong = latLong.split(',');
@@ -250,23 +261,33 @@ export class ActivityAnalysisComponent implements OnInit {
 }
 
   insertMarkAsAbuse(activityId: any, IsAbuse: any) {
+    debugger;
     let AbuseStatus:any;
-    IsAbuse == 0 ? AbuseStatus = 1 : AbuseStatus = 0; 
+    let MarkAsNotAbuse:any = 0;
+    if(IsAbuse == 0){
+      AbuseStatus = 1 
+    }else if (IsAbuse == 1){
+      AbuseStatus = 1;  MarkAsNotAbuse = 1; 
+    }else if (IsAbuse == 1 && MarkAsNotAbuse == 1){
+      AbuseStatus = 1;  MarkAsNotAbuse = 0; 
+    }
+ 
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'InsertMarkAsAbuse?ActivityId=' + activityId + '&UserId=' + this.commonService.loggedInUserId() + '&IsAbuse=' + AbuseStatus, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'InsertMarkAsAbuse?ActivityId=' + activityId + '&UserId=' + this.commonService.loggedInUserId() + '&IsAbuse=' + AbuseStatus+'&MarkAsNotAbuse='+MarkAsNotAbuse, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
+        this.getPoliticalWork();
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
+      // if (error.status == 500) {
+      //   this.router.navigate(['../500'], { relativeTo: this.route });
+      // }
     })
   }
 }

@@ -102,7 +102,7 @@
                     <tbody>
                         <tr *ngFor="let politicalWork of politicalWorkArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <td>{{politicalWork.SrNo}}</td>
-                         
+
                             <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.MemberId, politicalWork.FullName)">{{politicalWork.FullName | titlecase}}</a></td>
                             <td>{{politicalWork.ActivityDate}}</td>
                             <td>{{politicalWork.Title | titlecase}}</td>
@@ -111,15 +111,15 @@
                                 <h6 class="mb-0"><a class="text-primary" (click)="getActivityLikes(politicalWork.Id,'1',politicalWork.TotalLikes)" data-bs-toggle="modal" data-bs-target="#LikesModal">{{politicalWork.TotalLikes}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a  class="text-success" (click)="getActivityLikes(politicalWork.Id,'2',politicalWork.TotalComments)" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
+                                <h6 class="mb-0"><a class="text-success" (click)="getActivityLikes(politicalWork.Id,'2',politicalWork.TotalComments)" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a  class="text-info" (click)="getActivityLikes(politicalWork.Id,'3',politicalWork.TotalShares)" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
+                                <h6 class="mb-0"><a class="text-info" (click)="getActivityLikes(politicalWork.Id,'3',politicalWork.TotalShares)" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a  class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
+                                <h6 class="mb-0"><a class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
                             </td>
-                          
+
                             <td>
                                 <button class="btn btn-sm btn-light" (click)="ViewPoliticleWorkDetails(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
@@ -230,8 +230,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark As Abuse</button>
-                <button type="button" class="btn btn-main btn-sm" data-bs-dismiss="modal" aria-label="Close" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark as Not Abuse</button>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close" [disabled]="disabledMarkAsAbuse" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark As Abuse</button>
+                <button type="button" class="btn btn-main btn-sm" data-bs-dismiss="modal" aria-label="Close" [disabled]="disabledMarkasNotAbuse" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark as Not Abuse</button>
             </div>
         </div>
     </div>
@@ -251,7 +251,7 @@
                 <div class="list-group list-group-flush">
                     <a href="#" *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                     <div *ngIf="activityLikesArray?.length == 0" class="m-4">
-                        <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </div>
                 </div>
             </div>
@@ -273,10 +273,10 @@
                         <p class="small text-muted mb-0">{{activityLikes.FullName}}</p>
                         <p class="mb-0 fw-bold">{{activityLikes.Comments}}</p>
                     </a>
-                    
-   <div *ngIf="activityLikesArray?.length == 0" class="m-4">
-    <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
-</div>
+
+                    <div *ngIf="activityLikesArray?.length == 0" class="m-4">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -294,10 +294,10 @@
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
                     <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
-                   
-   <div *ngIf="activityLikesArray?.length == 0" class="m-4">
-    <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
-</div>
+
+                    <div *ngIf="activityLikesArray?.length == 0" class="m-4">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -315,10 +315,10 @@
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
                     <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
-                   
-   <div *ngIf="activityLikesArray?.length == 0" class="m-4">
-    <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
-</div>
+
+                    <div *ngIf="activityLikesArray?.length == 0" class="m-4">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
                 </div>
             </div>
         </div>
