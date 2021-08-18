@@ -169,10 +169,10 @@
                                     <button class="btn btn-sm btn-light" title="View Program Details" (click)="ViewProgramList(programList)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-warning mx-2" title="Edit Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="editrogramList(programList)">
-                                        <i class="far fa-edit"></i>
+                                    <button class="btn btn-sm btn-light text-edit mx-2" title="Edit Program" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" (click)="editrogramList(programList)">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" title="Cancel Program" [disabled]="programList.ProgramStatus == 2 || (programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" data-bs-toggle="modal" data-bs-target="#ProgramStatusModal"
+                                    <button class="btn btn-sm btn-light text-danger" title="Cancel Program" [disabled]="programList.ProgramStatus == 2 || (programList.ProgramStatus == 3 ||  programList.ProgramStatus == 4) ? disabledAction : ''" data-bs-toggle="modal" data-bs-target="#ProgramStatusModal"
                                         (click)="ModalOpen('cancelProgram', programList)">
                                         <i class="fas fa-ban"></i>
                                     </button>

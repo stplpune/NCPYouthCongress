@@ -219,14 +219,14 @@
                                     <span class="float-end">
                                         <button type="button" title="Delete Notification" #clickPushModal
                                             data-bs-toggle="modal" data-bs-target="#ProgramStatusModal1"
-                                            class="btn btn-outline-primary btn-sm me-1"
-                                            (click)="pushMotificationStatus(notificationScope?.Id, notificationScope?.ScopeId)">Push</button>
+                                            class="btn btn-light text-primary btn-sm me-1"
+                                            (click)="pushMotificationStatus(notificationScope?.Id, notificationScope?.ScopeId)">
+                                            <i class="fas fa-paper-plane"></i></button>
                                         <button type="button" title="Edit Notification"
-                                            class="btn btn-outline-warning me-1 btn-sm"
-                                            (click)="editNotification(notificationScope)"><i
-                                                class="fas fa-pencil-alt"></i></button>
+                                            class="btn btn-light text-edit me-1 btn-sm"
+                                            (click)="editNotification(notificationScope)"><i class="fas fa-edit"></i></button>
                                         <button type="button" title="Delete Notification"
-                                            class="btn btn-outline-danger btn-sm me-1"
+                                            class="btn btn-light text-danger btn-sm me-1"
                                             (click)="delNotConfirmation(notificationScope?.Id)" data-bs-toggle="modal"
                                             data-bs-target="#delteteModal"><i class="fas fa-trash-alt"></i></button>
                                     </span>

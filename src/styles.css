@@ -52,7 +52,12 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     background-color: var(--main-color);
     color: #fff;
 }
-
+.text-main {
+    color: var(--main-color);
+}
+.text-edit{
+    color: var(--clr-orange) !important;
+}
 .btn-main {
     background-color: var(--main-color);
     color: #fff;
