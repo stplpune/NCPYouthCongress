@@ -42,8 +42,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   ParpantsProMemImge!: GalleryItem[]; 
   ParpantsProMemImge1!: GalleryItem[];
   imgLightBox:boolean = false;
-  membersData: any;
-
+  resultBodyMemActDetails: any;
+  CommitteeUserArray: any;
+  ViewModelHide:boolean=true;
+  
   constructor(
     public location: Location,
     private callAPIService: CallAPIService,
@@ -100,6 +102,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
+    this.ViewModelHide=true;
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;
     this.committeeTableDiv = false;
@@ -111,6 +114,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
+        //console.log("11111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         // console.log(this.ParpantsProMemImge);
@@ -131,13 +135,43 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  getNonParticipantsData() {
+  // getNonParticipantsData() {
+  //   this.committeeTableDiv = false;
+  //   this.membersDataNonParticipantsArray = [];
+  //   this.membersAndNonParticipantsDiv = true;
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.membersDataNonParticipantsArray = res.data1;
+  //       this.total = res.data2[0].TotalCount;
+  //       this.defaultPartiNonParti = false;
+  //     } else {
+  //       if (res.data == 1) {
+  //         this.spinner.hide();
+  //         // this.toastrService.error("Data is not available");
+  //       } else {
+  //         this.spinner.hide();
+  //         this.toastrService.error("Please try again something went wrong");
+  //       }
+  //     }
+  //   } ,(error:any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
+   getNonParticipantsData() {
+    this.ViewModelHide=false;
     this.committeeTableDiv = false;
     this.membersDataNonParticipantsArray = [];
     this.membersAndNonParticipantsDiv = true;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_NonProgram_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+    //  console.log("qqqq",res)
       if (res.data == 0) {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
@@ -179,6 +213,31 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
+  //latest calll
+  getCommitteeUserList() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + 1  + '&BodyId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.CommitteeUserArray = res.data1;
+
+        console.log("rrrrr",res)
+        // let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        // this.lat = Number(latLong[0]);
+        // this.lng = Number(latLong[1]);
+
+      } else {
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+
   onClickPagintion(pageNo: number, defaultPartiNonParti: any) {
     if (defaultPartiNonParti) {
       this.paginationNo = pageNo;
@@ -199,10 +258,38 @@ export class PartyProgramDetailsComponent implements OnInit {
     // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
-  getPartyProgramDetails(membersData:any){
-    this.membersData=membersData;
-    this.showLightBox(membersData.MemberId);
+  redToMemberProfile(memberId: any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
+
+  getPartyProgramDetails(viewMemberId:any){
+    this.getBodyMemeberActivitiesDetails(viewMemberId);
+  }
+
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultBodyMemActDetails = res.data1[0];
+         console.log("asd",this.resultBodyMemActDetails)
+        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        this.lat = Number(latLong[0]);
+        this.lng = Number(latLong[1]);
+      } else {
+        this.resultBodyMemActDetails = [];
+        // this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
 
 
   showLightBox(MemberId:any){
@@ -251,9 +338,4 @@ export class PartyProgramDetailsComponent implements OnInit {
     lightboxGalleryRef.load(this.ParpantsProMemImge1);
   }
   
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
-    localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
-  }
 }

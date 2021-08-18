@@ -43,6 +43,7 @@ export class ForwardActivitiesComponent implements OnInit {
   selectedFile: any;
   NewsId: any;
   IsChangeImage:boolean = false;
+  @ViewChild('fileInput') fileInput: any;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -101,7 +102,7 @@ export class ForwardActivitiesComponent implements OnInit {
       let notStatus:any;
       let ImageChangeFlag:any;
       // this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 3 ): (notStatus = 0, ImageChangeFlag = 1);
-      if(this.IsChangeImage || this.selectedFile){
+      if(this.getImgExt || this.selectedFile){
         notStatus = 1;
         ImageChangeFlag = 3 
       }else{
@@ -173,8 +174,7 @@ export class ForwardActivitiesComponent implements OnInit {
 
   deleteImg(){
     this.getImgPath = null;
-    this.IsChangeImage = true;
-    this.selectedFile = null;
+    this.fileInput.nativeElement.value = '';
   }
   
   delNotConfirmation(NewsId:any){
@@ -301,6 +301,7 @@ export class ForwardActivitiesComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.ImgUrl = event.target.result;
+          this.getImgPath =  this.ImgUrl;
         }
         reader.readAsDataURL(event.target.files[0]);
         this.imgName = event.target.files[0].name;
@@ -309,6 +310,11 @@ export class ForwardActivitiesComponent implements OnInit {
     else {
       this.toastrService.error("Profile image allowed only jpg or png format");
     }
+  }
+
+  openInputFile() {
+    let clickInputFile = document.getElementById("img-upload");
+    clickInputFile?.click();
   }
 
 }
