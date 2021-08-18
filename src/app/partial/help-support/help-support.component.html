@@ -134,7 +134,7 @@
                                         </ng-container>
                                     </div>
                                 </ng-container>
-                                <form enctype="multipart/form-data" [formGroup]="replayForm" class="replybox">
+                                <form enctype="multipart/form-data" [formGroup]="replayForm" class="replybox" (ngSubmit)="UploadHelpMeChatMediaMsg()">
                                     <div class="card card-body p-2 shadow-none border mb-2 d-flex flex-row" *ngIf="ImgUrl">
                                         <!-- *ngIf="ImgUrl && getImgExt == 'png' || ImgUrl && getImgExt 'jpg' || ImgUrl &&  getImgExt == 'svg'"  -->
 
@@ -163,7 +163,7 @@
                                         <input class="form-control" type="text" placeholder="Reply Here.." formControlName="senderMsg" />
                                         <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)" #fileInput>
                                         <button type="button" class="btn btn-light bg-transparent" (click)="openInputFile()"><i class="fas fa-paperclip"></i></button>
-                                        <button type="button" class="btn btn-sm btn-main " (click)="UploadHelpMeChatMediaMsg()"><i class="fas fa-paper-plane me-2"></i> Send</button>
+                                        <button type="submit" class="btn btn-sm btn-main "><i class="fas fa-paper-plane me-2"></i> Send</button>
                                     </div>
                                 </form>
                             </div>

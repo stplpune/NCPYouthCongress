@@ -164,8 +164,8 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       return
     }
     let fromData = new FormData();
-    let checkrecId:any;
-    this.commonService.loggedInUserId() ==  this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId :  checkrecId = this.infoUser.ReceiverId; 
+    let checkrecId: any;
+    this.commonService.loggedInUserId() == this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId : checkrecId = this.infoUser.ReceiverId;
     let MediaTypeId: any;
     this.selectedFile;
     debugger;
@@ -186,10 +186,10 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         MediaTypeId = 5;
         break;
       case ('docx'):
-          MediaTypeId = 5;
+        MediaTypeId = 5;
         break;
       case ('xlsx'):
-          MediaTypeId = 5;
+        MediaTypeId = 5;
         break;
       default:
         MediaTypeId = 1;

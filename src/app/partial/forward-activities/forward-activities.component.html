@@ -50,15 +50,16 @@
                                 <div class="mb-3">
                                     <label for="fuPhoto" class="form-label">Activity Photo</label>
                                     <div class="d-flex justify-content-start align-items-start uploadimg">
+                                        <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)" #fileInput>
                                         <img src="{{getImgPath}}" *ngIf="getImgPath else defaultImg" class="img-fluid img-thumbnail" />
-                                        <ng-template #defaultImg> <img src="assets/images/ncp-default.png"></ng-template>
+                                        <ng-template #defaultImg> <img src="assets/images/ncp-default.png" class="img-fluid img-thumbnail"></ng-template>
                                         <div class="btn-group-vertical">
-                                            <button type="button" class="btn btn-light btn-sm">
-                                                <i class="fas fa-plus text-primary" (click)="openInputFile()"></i>
-                                                <input type="file" id="img-upload" class="d-none" (change)="readUrl($event)" #fileInput>
+                                            <button type="button" class="btn btn-light btn-sm" *ngIf="!getImgPath" (click)="openInputFile()">
+                                                <i class="fas fa-plus text-primary"></i>
+                                               
                                             </button>
-                                            <button type="button" class="btn btn-light btn-sm"><i
-                                                    class="fas fa-trash-alt text-danger" (click)="deleteImg()"></i></button>
+                                            <button type="button" class="btn btn-light btn-sm" *ngIf="getImgPath" (click)="deleteImg()"><i
+                                                    class="fas fa-trash-alt text-danger" ></i></button>
                                         </div>
                                     </div>
                                 </div>
