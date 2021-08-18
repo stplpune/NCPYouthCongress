@@ -122,10 +122,8 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        //console.log("11111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.ParpantsProMemImge = this.ParpantsProMemImge.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
-        // console.log(this.ParpantsProMemImge);
         //  this.basicLightboxExample('members');
       } else {
         if (res.data == 1) {
@@ -143,34 +141,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  // getNonParticipantsData() {
-  //   this.committeeTableDiv = false;
-  //   this.membersDataNonParticipantsArray = [];
-  //   this.membersAndNonParticipantsDiv = true;
-  //   this.spinner.show();
-  //   this.callAPIService.setHttp('get', 'Web_GetProgram_Details_NonPartipateList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
-  //   this.callAPIService.getHttp().subscribe((res: any) => {
-  //     if (res.data == 0) {
-  //       this.spinner.hide();
-  //       this.membersDataNonParticipantsArray = res.data1;
-  //       this.total = res.data2[0].TotalCount;
-  //       this.defaultPartiNonParti = false;
-  //     } else {
-  //       if (res.data == 1) {
-  //         this.spinner.hide();
-  //         // this.toastrService.error("Data is not available");
-  //       } else {
-  //         this.spinner.hide();
-  //         this.toastrService.error("Please try again something went wrong");
-  //       }
-  //     }
-  //   } ,(error:any) => {
-  //     if (error.status == 500) {
-  //       this.router.navigate(['../../500'], { relativeTo: this.route });
-  //     }
-  //   })
-  // }
-
    getNonParticipantsData() {
     this.ViewModelHide=false;
     this.committeeTableDiv = false;
@@ -179,7 +149,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_NonProgram_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-    //  console.log("qqqq",res)
       if (res.data == 0) {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
@@ -202,6 +171,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
+    this.ViewModelHide = true;
     this.membersAndNonParticipantsDiv = false;
     this.committeeTableDiv = true;
     this.spinner.show();
@@ -210,10 +180,8 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeesDataArray = res.data1;
-        console.log("1111",res)
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        console.log("222",this.programDetailsLatLongArray)
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -248,14 +216,14 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   committeeUserdetails(ActivityId:any){
     this.spinner.show();
-    this.committeeModelDataDivHide=true;/////////////////
+    this.committeeModelDataDivHide=true;
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + ActivityId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
         this.committeeUserdetailsArray.globalGroupId;
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
       } else {
@@ -331,14 +299,12 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_ProgromPhoto?ProgramId=' + this.programListId + '&MemberId=' + MemberId+ '&BodyId=0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      // console.log(res);
       if (res.data == 0) {
         this.spinner.hide();
         this.ParpantsProMemImge = res.data1;
         // let getImages :any = this.ParpantsProMemImge.map((item:any,i:any) =>{
         //   new ImageItem({src:item[i].ImagePath, thumb:item[i].ImagePath})
         // });
-        // console.log(getImages);
         // this.ParpantsProMemImge1 = getImages;
     
         this.basicLightboxExample('members');
