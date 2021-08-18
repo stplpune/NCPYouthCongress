@@ -35,7 +35,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   ParticipantsText: string = "Members";
   total1: any;
   paginationNo1: number = 1;
-  pageSize1: number = 10;
   programTile: any;
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
@@ -45,7 +44,16 @@ export class PartyProgramDetailsComponent implements OnInit {
   resultBodyMemActDetails: any;
   CommitteeUserArray: any;
   ViewModelHide:boolean=true;
-  
+  committeeNmame: any;
+  committeeModelDataDivHide:boolean=false;
+  committeeUserdetailsArray: any;
+  activitiesDetailslat: any;
+  activitiesDetailslng: any;
+  paginationNo2: number =1;
+  total2: any;
+  committeeId: any;
+  globalGroupId = 0;
+
   constructor(
     public location: Location,
     private callAPIService: CallAPIService,
@@ -202,7 +210,10 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeesDataArray = res.data1;
+        console.log("1111",res)
         this.total = res.data2[0].TotalCount;
+        this.programDetailsLatLongArray = res.data3;
+        console.log("222",this.programDetailsLatLongArray)
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -214,19 +225,39 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   //latest calll
-  getCommitteeUserList() {
+  getCommitteeUserList(committeeId:any,committeeNmame:any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + 1  + '&BodyId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.committeeId=committeeId;
+    this.committeeNmame=committeeNmame;
+    this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo2 + '&BodyId=' + committeeId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.CommitteeUserArray = res.data1;
+        this.total2 = res.data2[0].TotalCount;
 
-        console.log("rrrrr",res)
-        // let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        // this.lat = Number(latLong[0]);
-        // this.lng = Number(latLong[1]);
+      } else {
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
+  committeeUserdetails(ActivityId:any){
+    this.spinner.show();
+    this.committeeModelDataDivHide=true;/////////////////
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + ActivityId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.committeeUserdetailsArray = res.data1[0];
+        this.committeeUserdetailsArray.globalGroupId;
+        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        this.activitiesDetailslat = Number(latLong[0]);
+        this.activitiesDetailslng = Number(latLong[1]);
       } else {
         this.toastrService.error("Member is not available");
       }
@@ -246,12 +277,16 @@ export class PartyProgramDetailsComponent implements OnInit {
       this.paginationNo = pageNo;
       this.getNonParticipantsData();
     }
-
   }
 
   onClickPagintion1(pageNo: number) {
     this.paginationNo1 = pageNo;
     this.getCommitteesData();
+  }
+
+  onClickPagintion2(pageNo: number){
+    this.paginationNo2 = pageNo;
+    this.getCommitteeUserList(this.committeeId,this.committeeNmame);
   }
 
   ngOnDestroy() {
@@ -266,7 +301,6 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   getPartyProgramDetails(viewMemberId:any){
     this.getBodyMemeberActivitiesDetails(viewMemberId);
-    this.getCommitteeUserList();
   }
 
     getBodyMemeberActivitiesDetails(viewMemberId: any) {

@@ -186,7 +186,7 @@
                                     </ng-template>
                                 </td> -->
                                 <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" (click)="getCommitteeUserList(committeesData.Id,committeesData.BodyOrgCellName)"
                                         data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
 
-                <div class="card-body border">
+                <div class="card-body border" *ngIf="ViewModelHide">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
@@ -313,10 +313,10 @@
                                                     <td>Mobile No :</td>
                                                     <th>{{resultBodyMemActDetails?.MobileNo}}</th>
                                                 </tr>
-                                                <!-- <tr>
+                                                <tr>
                                                        <td>Address :</td>
-                                                       <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
-                                                   </tr> -->
+                                                       <th style="max-width:250px;">{{resultBodyMemActDetails.ActivityLocation}}</th>
+                                                   </tr>
                                             </tbody>
                                         </table>
                                     </agm-info-window>
@@ -348,51 +348,33 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="ViewCommitteeDetailsModalLabel">committee Name</h6>
+                <h6 class="modal-title" id="ViewCommitteeDetailsModalLabel">{{committeeNmame}}</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-3 border-end">
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a class="list-group-item list-group-item-action active list-group-item d-flex justify-content-between align-items-start"
-                                id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab"
-                                aria-controls="list-home">
+                            <a  *ngFor="let CommitteeUser of CommitteeUserArray  | paginate:  { itemsPerPage: 10, currentPage: paginationNo2, totalItems:total2};
+                             let i = index" (click)="committeeUserdetails(CommitteeUser.ActivityId)"
+                             class="list-group-item list-group-item-action  list-group-item d-flex justify-content-between align-items-start"
+                                id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" [ngClass]="{'active' : CommitteeUser?.ActivityId == globalGroupId}">
                                 <div class="me-auto">
-                                    <div class="fw-bold">Member Name</div>
-                                    <small>Designation</small>
+                                    <div class="fw-bold">{{CommitteeUser.FullName}}</div>
+                                    <small>{{CommitteeUser.Designation}}</small>
                                 </div>
                                 <i class="fas fa-thumbs-up text-success"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
-                                id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab"
-                                aria-controls="list-profile">
-                                <div class="me-auto">
-                                    <div class="fw-bold">Member Name</div>
-                                    <small>Designation</small>
-                                </div>
-                                <i class="fas fa-thumbs-up text-success"></i>
-                            </a>
-                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
-                                id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab"
-                                aria-controls="list-messages">
-                                <div class="me-auto">
-                                    <div class="fw-bold">Member Name</div>
-                                    <small>Designation</small>
-                                </div>
-                                <i class="fas fa-thumbs-down text-danger"></i>
-                            </a>
-                            <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-start"
-                                id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab"
-                                aria-controls="list-settings">
-                                <div class="me-auto">
-                                    <div class="fw-bold">Member Name</div>
-                                    <small>Designation</small>
-                                </div>
-                                <i class="fas fa-thumbs-down text-danger"></i>
-                            </a>
+                            <div class="mt-2 text-end" *ngIf="CommitteeUserArray?.length == 0">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                            </div>
+                            <div class="mt-2 text-end" *ngIf="CommitteeUserArray?.length != 0">
+                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion2(pageSize = $event)"> </pagination-controls>
+                            </div>
                         </div>
                     </div>
+
+                    <ng-container *ngIf="committeeModelDataDivHide">
                     <div class="col-sm-9">
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="list-home" role="tabpanel"
@@ -402,50 +384,56 @@
                                         <div class="row border-bottom pb-1">
                                             <div class="col-sm-6">
                                                 <h6 class="mb-0"><span class="badge bg-success">Program Attended</span></h6>
-                                                <h6 class="mb-0"><span class="badge bg-danger">Program Not Attended</span></h6>
+                                                <!-- <h6 class="mb-0"><span class="badge bg-danger">Program Not Attended</span></h6> -->
                                             </div>
                                             <div class="col-sm-6 text-muted text-end">
-                                                <i class="fas fa-calendar-alt me-2"></i> 14-02-2021
+                                                <i class="fas fa-calendar-alt me-2"></i> {{committeeUserdetailsArray?.ActivityDate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Members Name</label>
-                                        <p class="form-data mb-0">Mr. Arvind Kambale <span class="text-muted ms-2 small">+91-9876543210</span></p>
+                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.FullName}}<span class="text-muted ms-2 small">+91-{{committeeUserdetailsArray?.MobileNo}}</span></p>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Program Title</label>
-                                        <p class="form-data mb-0">राजकीय व्यवस्थापन कार्यक्रम</p>
+                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramTitle}}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
-                                        <p class="form-data mb-0">The next generation of the web’s favorite icon library + toolkit is now available as a Beta release! Subscribe to Font Awesome Pro and get instant access to the v6 beta.</p>
+                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramDescription}}</p>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label class="form-label">Description</label>
-                                            MAP
+                                            <label class="form-label">Location</label>
+                                            <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                                <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
+                                                    <agm-info-window>
+                                                        <table class="table table-bordered table-sm mb-0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Full Name :</td>
+                                                                    <th>{{committeeUserdetailsArray?.FullName}}</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Mobile No :</td>
+                                                                    <th>{{committeeUserdetailsArray?.MobileNo}}</th>
+                                                                </tr>
+                                                                <!-- <tr>
+                                                                       <td>Address :</td>
+                                                                       <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
+                                                                   </tr> -->
+                                                            </tbody>
+                                                        </table>
+                                                    </agm-info-window>
+                                                </agm-marker>
+                                            </agm-map>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label">Description</label>
                                             <div class="row g-2">
                                                 <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <img src="assets/images/ncp-default.png" class="img-thumbnail" />
+                                                    <img src="{{committeeUserdetailsArray.Images}}" class="img-thumbnail" />
                                                 </div>
                                             </div>
                                         </div>
@@ -466,6 +454,8 @@
                             </div>
                         </div>
                     </div>
+                </ng-container>
+
                 </div>
             </div>
         </div>
