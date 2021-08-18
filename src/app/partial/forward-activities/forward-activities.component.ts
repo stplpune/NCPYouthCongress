@@ -43,7 +43,7 @@ export class ForwardActivitiesComponent implements OnInit {
   selectedFile: any;
   NewsId: any;
   IsChangeImage:boolean = false;
-  @ViewChild('fileInput') fileInput: any;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -88,46 +88,40 @@ export class ForwardActivitiesComponent implements OnInit {
   }
   
   onSubmit(){
-    // this.spinner.show();
+    this.spinner.show();
     this.submitted = true;
     if (this.forwardActivitiForm.invalid) {
       this.spinner.hide();
       return;
     }
     else {
-      debugger;
       this.globalMemberId = [];
-      console.log(this.forwardActivitiForm.value);
       let fromData = new FormData();
-      let notStatus:any;
-      let ImageChangeFlag:any;
-      // this.selectedFile ? ( notStatus = 1, ImageChangeFlag = 3 ): (notStatus = 0, ImageChangeFlag = 1);
-      if(this.getImgExt || this.selectedFile){
-        notStatus = 1;
-        ImageChangeFlag = 3 
-      }else{
-        notStatus = 0;
-        ImageChangeFlag = 1
-      }
-      this.forwardActivitiForm.value.IsChangeImage;
-
+      let imageChangeFlag:any;
+      let NewsTypeFlag:any;
       let getObj:any = this.forwardActivitiForm.value;
-      if(this.IsChangeImage) notStatus = 1;
-      console.log(this.selectedFile);
+      if (this.getImgPath != "") {
+        imageChangeFlag = 1; NewsTypeFlag = 3;
+      } else {
+        if (this.IsChangeImage == true) {
+          imageChangeFlag = 1; NewsTypeFlag = 1;
+        }
+        else {
+          imageChangeFlag = 0; NewsTypeFlag = 1;
+        }
+      }
       fromData.append('Id', getObj.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('Title', getObj.activityTitle);
       fromData.append('Description', getObj.activityBody);
       fromData.append('HashTags', getObj.hashtags_Activity);
-      fromData.append('NewsType', ImageChangeFlag);  //img + text = 3, & only text = 1 
-      fromData.append('IsChangeImage', notStatus);
+      fromData.append('NewsType', NewsTypeFlag);  //img + text = 3, & only text = 1 
+      fromData.append('IsChangeImage', imageChangeFlag);
       fromData.append('NewsImages ', this.selectedFile);
   
       this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          // this.submitted = false;
-          // this.deleteImg();
           this.IsChangeImage = false;
           this.resetNotificationForm();
 
@@ -139,20 +133,14 @@ export class ForwardActivitiesComponent implements OnInit {
         }
       } ,(error:any) => {
         this.spinner.hide();
-        // if (error.status == 500) {
-        //   this.router.navigate(['../500'], { relativeTo: this.route });
-        // }
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
       })
     }
   }
 
-  // resetImgType(){
-  //   let photoValueNull:any = document.getElementById('fuPhoto')
-  //   photoValueNull.value= null;
-  // }
   editNotification(data:any){
-    console.log(data);
-    debugger;
     this.NotificationText = "Update";
     this.getImgPath = data.NewsImages;
     this.forwardActivitiForm.patchValue({
@@ -173,8 +161,10 @@ export class ForwardActivitiesComponent implements OnInit {
   }
 
   deleteImg(){
-    this.getImgPath = null;
+    this.selectedFile = "";
+    this.getImgPath = "";
     this.fileInput.nativeElement.value = '';
+    this.IsChangeImage = true;
   }
   
   delNotConfirmation(NewsId:any){
