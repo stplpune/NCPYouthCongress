@@ -96,7 +96,7 @@
                         <tr *ngFor="let allMembers of resultAllViewMembers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <th scope="row">
                                 <img *ngIf="allMembers.ProfilePhoto" src="{{allMembers.ProfilePhoto}}" class="prophoto" />
-                                <img *ngIf="!allMembers.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
+                                <img *ngIf="!allMembers.ProfilePhoto" src="assets/images/ncp-default.png" class="prophoto" />
                             </th>
                             <td>{{allMembers.PostDate}}</td>
                             <td><a class="text-primary" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)">{{allMembers.FullName | titlecase}}</a></td>
