@@ -67,7 +67,8 @@
 
 
 
-                                <div class="mb-2 text-end">
+                                <div class="mb-2 mt-4">
+                                    <button type="button" class="btn btn-secondary float-lg-start" (click)="resetNotificationForm()">Clear</button>
                                     <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}}
                                         Activity</button>
                                 </div>
@@ -111,7 +112,7 @@
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <span class="media-date">{{getnews.NewsDate1}}</span>
-                                <div class="media-title">{{getnews.Title}}</div>
+                                <div class="media-title">{{getnews.Title | titlecase}}</div>
                                 <div class="media-body">
                                     {{getnews.Description}}
                                 </div>

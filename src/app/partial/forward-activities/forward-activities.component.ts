@@ -88,7 +88,7 @@ export class ForwardActivitiesComponent implements OnInit {
   }
   
   onSubmit(){
-    // this.spinner.show();
+    this.spinner.show();
     this.submitted = true;
     if (this.forwardActivitiForm.invalid) {
       this.spinner.hide();
@@ -100,11 +100,15 @@ export class ForwardActivitiesComponent implements OnInit {
       let imageChangeFlag:any;
       let NewsTypeFlag:any;
       let getObj:any = this.forwardActivitiForm.value;
-      if(this.getImgPath != ""){
-        imageChangeFlag = 1;NewsTypeFlag = 3 ;
-      }
-      if(this.IsChangeImage == true){
-        imageChangeFlag = 1; NewsTypeFlag = 1;
+      if (this.getImgPath != "") {
+        imageChangeFlag = 1; NewsTypeFlag = 3;
+      } else {
+        if (this.IsChangeImage == true) {
+          imageChangeFlag = 1; NewsTypeFlag = 1;
+        }
+        else {
+          imageChangeFlag = 0; NewsTypeFlag = 1;
+        }
       }
       fromData.append('Id', getObj.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
@@ -118,8 +122,6 @@ export class ForwardActivitiesComponent implements OnInit {
       this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          // this.submitted = false;
-          // this.deleteImg();
           this.IsChangeImage = false;
           this.resetNotificationForm();
 
@@ -131,9 +133,9 @@ export class ForwardActivitiesComponent implements OnInit {
         }
       } ,(error:any) => {
         this.spinner.hide();
-        // if (error.status == 500) {
-        //   this.router.navigate(['../500'], { relativeTo: this.route });
-        // }
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
       })
     }
   }
@@ -159,6 +161,7 @@ export class ForwardActivitiesComponent implements OnInit {
   }
 
   deleteImg(){
+    this.selectedFile = "";
     this.getImgPath = "";
     this.fileInput.nativeElement.value = '';
     this.IsChangeImage = true;
