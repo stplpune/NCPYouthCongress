@@ -220,7 +220,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
-        console.log("11111111111",this.committeeUserdetailsArray);
         this.committeeUserdetailsArray.globalGroupId;
         this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
@@ -240,6 +239,22 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
+  closeModelCommitty(){
+    this.committeeModelDataDivHide=false;
+  }
+  
+  // redToMemberProfile(bodyId: any, BodyOrgCellName:any) {
+  //     let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+  //     localStorage.setItem('memberId', JSON.stringify(obj))
+  //     // this.router.navigate(['details'], { relativeTo: this.route })
+  //     this.router.navigate(['profile'], {relativeTo:this.route})
+  // }
+
+  redToMemberProfile(memberId: any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
+  }
 
   onClickPagintion(pageNo: number, defaultPartiNonParti: any) {
     if (defaultPartiNonParti) {
@@ -265,17 +280,12 @@ export class PartyProgramDetailsComponent implements OnInit {
     // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
-  redToMemberProfile(memberId: any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
-    localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
-  }
 
   getPartyProgramDetails(viewMemberId:any){
     this.getBodyMemeberActivitiesDetails(viewMemberId);
   }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {//aa
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -287,7 +297,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.gallery.ref().load(this.comUserdetImg);
-        console.log("aaaaaaaaaaaaa",this.comUserdetImg)
 
 
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");

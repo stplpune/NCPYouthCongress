@@ -17,13 +17,11 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <label class="form-label">From</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ?
-                                (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramStartDate) ? (programDetailsArray?.ProgramStartDate) : 'NA'}}</p>
                         </li>
                         <li class="list-group-item">
                             <label class="form-label">To</label>
-                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ?
-                                (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>
+                            <p class="form-data mb-0">{{(programDetailsArray?.ProgramEndDate) ? (programDetailsArray?.ProgramEndDate) : 'NA'}}</p>
                         </li>
 
                         <li class="list-group-item">
@@ -43,7 +41,7 @@
                 <div class="card-body">
                     <div class="row g-2">
                         <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
-                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb"/>
+                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                         </div>
                     </div>
                 </div>
@@ -63,9 +61,7 @@
                                 <h6>Members</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add"
-                                            (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'"
-                                            [ngClass]="{'active':ParticipantsText == 'Members'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)=" paginationNo = 1; getMembersData(); ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
                                             <p class="small mb-1">Participants</p>
                                             <h3 class="mb-0">{{overviewArray?.ParticipatedMember}}</h3>
                                         </a>
@@ -83,9 +79,7 @@
                                 <h6>Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add"
-                                            (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'"
-                                            [ngClass]="{'active':ParticipantsText == 'Committees'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -104,9 +98,7 @@
                                 <h6>Non-Participant Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-light py-2 px-3 border-add"
-                                            (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'"
-                                            [ngClass]="{'active':ParticipantsText == 'Non -'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -134,25 +126,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                            <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)"
-                                        class="text-primary">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td *ngIf="ViewModelHide">
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
-                                    <button class="btn btn-sm btn-light"
-                                        (click)="getPartyProgramDetails(membersData.MemberId)" data-bs-toggle="modal"
-                                        data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData.ActivityId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="membersDataNonParticipantsArray?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion(pageSize = $event, defaultPartiNonParti)">
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event, defaultPartiNonParti)">
                         </pagination-controls>
                     </div>
                 </div>
@@ -170,8 +157,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
+                            <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
                                 <td><a class="text-primary" (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
@@ -185,15 +171,13 @@
                                     </ng-template>
                                 </td> -->
                                 <td>
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" (click)="getCommitteeUserList(committeesData.Id,committeesData.BodyOrgCellName)"
-                                        data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" (click)="getCommitteeUserList(committeesData.Id,committeesData.BodyOrgCellName)" data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="committeesDataArray?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
 
@@ -201,8 +185,7 @@
                     <div class="mb-3">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray"
-                                [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
+                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
 
                                 <agm-info-window>
                                     <table class="table table-bordered table-sm mb-0">
@@ -233,8 +216,7 @@
 
 <!-- Modal for view participants  -->
 
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -313,9 +295,9 @@
                                                     <th>{{resultBodyMemActDetails?.MobileNo}}</th>
                                                 </tr>
                                                 <tr>
-                                                       <td>Address :</td>
-                                                       <th style="max-width:250px;">{{resultBodyMemActDetails.ActivityLocation}}</th>
-                                                   </tr>
+                                                    <td>Address :</td>
+                                                    <th style="max-width:250px;">{{resultBodyMemActDetails.ActivityLocation}}</th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </agm-info-window>
@@ -345,22 +327,20 @@
 </div>
 
 <!-- modal for committee participants details -->
-<div class="modal fade" id="ViewCommitteeDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="ViewCommitteeDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewCommitteeDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewCommitteeDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title" id="ViewCommitteeDetailsModalLabel">{{committeeNmame}}</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" (click)="closeModelCommitty()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-3 border-end">
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a  *ngFor="let CommitteeUser of CommitteeUserArray  | paginate:  { itemsPerPage: 10, currentPage: paginationNo2, totalItems:total2};
-                             let i = index" (click)="committeeUserdetails(CommitteeUser.ActivityId)"
-                             class="list-group-item list-group-item-action  list-group-item d-flex justify-content-between align-items-start"
-                                id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" [ngClass]="{'active' : CommitteeUser?.ActivityId == globalGroupId}">
+                            <a *ngFor="let CommitteeUser of CommitteeUserArray  | paginate:  { itemsPerPage: 10, currentPage: paginationNo2, totalItems:total2};
+                             let i = index" (click)="committeeUserdetails(CommitteeUser.ActivityId)" class="list-group-item list-group-item-action  list-group-item d-flex justify-content-between align-items-start" id="list-home-list" data-bs-toggle="list"
+                                href="#list-home" role="tab" aria-controls="list-home" [ngClass]="{'active' : CommitteeUser?.ActivityId == globalGroupId}">
                                 <div class="me-auto">
                                     <div class="fw-bold">{{CommitteeUser.FullName}}</div>
                                     <small>{{CommitteeUser.Designation}}</small>
@@ -377,104 +357,100 @@
                     </div>
 
                     <ng-container *ngIf="committeeModelDataDivHide">
-                    <div class="col-sm-9">
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="list-home" role="tabpanel"
-                                aria-labelledby="list-home-list">
-                                <div class="form-container">
-                                    <div class="mb-2">
-                                        <div class="row border-bottom pb-1">
+                        <div class="col-sm-9">
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                                    <div class="form-container">
+                                        <div class="mb-2">
+                                            <div class="row border-bottom pb-1">
+                                                <div class="col-sm-6">
+                                                    <h6 class="mb-0"><span class="badge bg-success">Program Attended</span></h6>
+                                                    <!-- <h6 class="mb-0"><span class="badge bg-danger">Program Not Attended</span></h6> -->
+                                                </div>
+                                                <div class="col-sm-6 text-muted text-end">
+                                                    <i class="fas fa-calendar-alt me-2"></i> {{committeeUserdetailsArray?.ActivityDate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label">Members Name</label>
+                                            <p class="form-data mb-0">{{committeeUserdetailsArray?.FullName}}<span class="text-muted ms-2 small">+91-{{committeeUserdetailsArray?.MobileNo}}</span></p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label">Program Title</label>
+                                            <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramTitle}}</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label">Description</label>
+                                            <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramDescription}}</p>
+                                        </div>
+                                        <div class="row mb-0">
+                                            <div class="col-sm-3">
+                                                <label class="form-label">Likes</label>
+                                                <p class="form-data text-primary">{{committeeUserdetailsArray?.TotalLikes}}</p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="form-label">Comments</label>
+                                                <p class="form-data text-success">{{committeeUserdetailsArray?.TotalComments}}</p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="form-label">Shares</label>
+                                                <p class="form-data text-info">{{committeeUserdetailsArray?.TotalShares}}</p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="form-label">Abuses</label>
+                                                <p class="form-data text-danger">{{committeeUserdetailsArray?.TotalAbuses}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-6">
-                                                <h6 class="mb-0"><span class="badge bg-success">Program Attended</span></h6>
-                                                <!-- <h6 class="mb-0"><span class="badge bg-danger">Program Not Attended</span></h6> -->
-                                            </div>
-                                            <div class="col-sm-6 text-muted text-end">
-                                                <i class="fas fa-calendar-alt me-2"></i> {{committeeUserdetailsArray?.ActivityDate}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label">Members Name</label>
-                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.FullName}}<span class="text-muted ms-2 small">+91-{{committeeUserdetailsArray?.MobileNo}}</span></p>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label">Program Title</label>
-                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramTitle}}</p>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label">Description</label>
-                                        <p class="form-data mb-0">{{committeeUserdetailsArray?.ProgramDescription}}</p>
-                                    </div>
-                                    <div class="row mb-0">
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Likes</label>
-                                            <p class="form-data text-primary">{{committeeUserdetailsArray?.TotalLikes}}</p>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Comments</label>
-                                            <p class="form-data text-success">{{committeeUserdetailsArray?.TotalComments}}</p>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Shares</label>
-                                            <p class="form-data text-info">{{committeeUserdetailsArray?.TotalShares}}</p>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Abuses</label>
-                                            <p class="form-data text-danger">{{committeeUserdetailsArray?.TotalAbuses}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <label class="form-label">Location</label>
-                                            <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
-                                                <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
-                                                    <agm-info-window>
-                                                        <table class="table table-bordered table-sm mb-0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Full Name :</td>
-                                                                    <th>{{committeeUserdetailsArray?.FullName}}</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Mobile No :</td>
-                                                                    <th>{{committeeUserdetailsArray?.MobileNo}}</th>
-                                                                </tr>
-                                                                <!-- <tr>
+                                                <label class="form-label">Location</label>
+                                                <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
+                                                    <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
+                                                        <agm-info-window>
+                                                            <table class="table table-bordered table-sm mb-0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Full Name :</td>
+                                                                        <th>{{committeeUserdetailsArray?.FullName}}</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Mobile No :</td>
+                                                                        <th>{{committeeUserdetailsArray?.MobileNo}}</th>
+                                                                    </tr>
+                                                                    <!-- <tr>
                                                                        <td>Address :</td>
                                                                        <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
                                                                    </tr> -->
-                                                            </tbody> 
-                                                        </table>
-                                                    </agm-info-window>
-                                                </agm-marker>
-                                            </agm-map>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="form-label">Photos</label>
-                                            <div class="row g-2">
-                                                <div class="col-sm-3 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
-                                                    <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
+                                                                </tbody>
+                                                            </table>
+                                                        </agm-info-window>
+                                                    </agm-marker>
+                                                </agm-map>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label">Photos</label>
+                                                <div class="row g-2">
+                                                    <div class="col-sm-3 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
+                                                        <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-profile" role="tabpanel"
-                                aria-labelledby="list-profile-list">
-                                2
-                            </div>
-                            <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                                aria-labelledby="list-messages-list">
-                                3
-                            </div>
-                            <div class="tab-pane fade" id="list-settings" role="tabpanel"
-                                aria-labelledby="list-settings-list">
-                                4
+                                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                                    2
+                                </div>
+                                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                                    3
+                                </div>
+                                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                                    4
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </ng-container>
+                    </ng-container>
 
                 </div>
             </div>
