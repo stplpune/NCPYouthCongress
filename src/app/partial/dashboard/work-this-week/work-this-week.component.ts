@@ -563,10 +563,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       am4core.useTheme(am4themes_material);
       let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
       chart.colors.list = [
-        am4core.color("#85C1E9"),
-        am4core.color("#85C1E9"),
-        am4core.color("#6365AE "),
-        am4core.color("#6365AE "),
+        am4core.color("#0000ff"),
+        am4core.color("#00ff00"),
+        am4core.color("#ffa500"),
+        am4core.color("#800080"),
       ];
       chart.colors.step = 2;
 
@@ -585,6 +585,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
+// xAxis.renderer.labels.template.rotation = -45;
+xAxis.renderer.minGridDistance = 30;
 
       function createSeries(value: string | undefined, name: string) {
         let series = chart.series.push(new am4charts.ColumnSeries())
