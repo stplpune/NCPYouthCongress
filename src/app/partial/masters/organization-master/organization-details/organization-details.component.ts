@@ -364,6 +364,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
       let chart = am4core.create('membersProBarChart', am4charts.XYChart)
       chart.colors.step = 2;
+      chart.data = this.resultBodyMemActGraph;
 
       chart.legend = new am4charts.Legend()
       chart.legend.position = 'top'
@@ -401,7 +402,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
       chart.padding(10, 5, 5, 5);
       // createSeries('MemberName', 'Work Done by Committes');
-      createSeries('TotalWork', 'Total Work Done');
+      createSeries('Totalwork', 'Total Work Done');
 
       function arrangeColumns() {
         var series: any = chart.series.getIndex(0);
@@ -511,13 +512,15 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   activitiesPerodicGraph(id: any) {
-    let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.FromDate[0] + '&ToDate=' + this.filter.value.ToDate[1];
+    console.log(this.filter.value);
+    let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.fromTodate[0] + '&ToDate=' + this.filter.value.fromTodate[1];
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities_PerodicGraph' + stringPerodicGraph, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
+        console.log(this.periodicChart);
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");
