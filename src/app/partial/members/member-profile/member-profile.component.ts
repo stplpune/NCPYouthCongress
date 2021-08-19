@@ -299,6 +299,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
+        console.log("111111111111111",this.resultBodyMemActDetails);
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
