@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.Link">
-                                <label class="form-label">Link</label>
+                                <label class="form-label">Link</label><br/>
                                 <a target="_blank" href="{{viewPoliticleWorkDetailsById?.Link}}"> {{viewPoliticleWorkDetailsById?.Link}}</a>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                             </div> -->
                             <div class="col-sm-2 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
                                 <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
-                                                                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

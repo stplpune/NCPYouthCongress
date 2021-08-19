@@ -111,6 +111,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         this.membersOverview = res.data1[0];
         this.organizationRoles = res.data2;
+        console.log(this.organizationRoles);
         this.feedbacks = res.data3;
       } else {
         this.membersOverview = null;
@@ -130,11 +131,13 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.fromDateWorkdetails + '&ToDate=' + this.toDateWorkdetails + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-       
+       debugger;
         this.resWorkList = res.data1;
         this.total = res.data2[0].TotalCount;
         this.barChartCategory = res.data3;
         this.periodicChart = res.data4;
+        console.log('barChartCategory',this.barChartCategory )
+        console.log('periodicChart',this.periodicChart )
         this.WorkDoneByYuvak();
         this.workCountAgainstWorkType();
         this.spinner.hide();
