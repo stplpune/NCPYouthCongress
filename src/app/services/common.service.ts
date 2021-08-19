@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ImageItem } from '@ngx-gallery/core';
 
 
 @Injectable({
@@ -73,4 +74,21 @@ export class CommonService {
     checkvalidateCaptcha() {
       return this.codecareerPage;
     }
+
+    imgesDataTransform(data:any, type:any){
+      if(type == 'obj'){
+        let images =  data.map((item:any) =>
+        new ImageItem({ src: item.ImagePath, thumb: item.ImagePath , text:''}));
+        return images;
+      }else{
+        let images =  data.map((item:any) =>
+        new ImageItem({ src: item, thumb: item, text:''}));
+        console.log(images)
+        return images;
+     
+      }
+    
+    }
+     
+   
 }
