@@ -87,8 +87,8 @@ export class CommonService {
         return images;
      
       }
-    
     }
+    
      
    
 }

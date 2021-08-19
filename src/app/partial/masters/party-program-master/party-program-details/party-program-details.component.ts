@@ -55,6 +55,8 @@ export class PartyProgramDetailsComponent implements OnInit {
   committeeId: any;
   globalGroupId = 0;
   comUserdetImg:any;
+  comUserdetImg1:any;
+  lightBoxGalleryFlag:boolean = true;
 
   constructor(
     public location: Location,
@@ -92,7 +94,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
-        console.log("slkngjidfbnfin",programDetailsImagesArray)
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
         this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
@@ -223,11 +224,11 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
         this.committeeUserdetailsArray.globalGroupId;
-        this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
-        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
-        this.gallery.ref().load(this.comUserdetImg);
-
-        console.log(this.comUserdetImg);
+        this.comUserdetImg1 = this.committeeUserdetailsArray.Images.split(',');
+        this.comUserdetImg1 = this._commonService.imgesDataTransform(this.comUserdetImg1,'array');
+        this.gallery.ref().load(this.comUserdetImg1);
+        this.lightBoxGalleryFlag = true;
+        console.log(this.comUserdetImg1);
         let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
@@ -277,7 +278,8 @@ export class PartyProgramDetailsComponent implements OnInit {
 
 
   getPartyProgramDetails(viewMemberId:any){
-    this.getBodyMemeberActivitiesDetails(viewMemberId);
+    this.getBodyMemeberActivitiesDetails(viewMemberId);   
+    
   }
 
     getBodyMemeberActivitiesDetails(viewMemberId: any) {
@@ -287,8 +289,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-        this.gallery.ref().load(this.comUserdetImg);
-        this.comUserdetImg=[];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.gallery.ref().load(this.comUserdetImg);
