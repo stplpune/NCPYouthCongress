@@ -11,7 +11,7 @@
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Activity" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -39,14 +39,14 @@
         <div class="col-sm">
             <div class="card card-body bg-gold">
                 <i class="fas fa-network-wired"></i>
-                <p>Total Works</p>
+                <p>Total Activity</p>
                 <h3>{{TotalWorks}}</h3>
             </div>
         </div>
         <div class="col-sm">
             <div class="card card-body bg-blue">
                 <i class="fas fa-award"></i>
-                <p>Political Works</p>
+                <p>Political Activity</p>
                 <h3>{{PoliticalWork}}</h3>
             </div>
         </div>
@@ -87,8 +87,8 @@
                     <thead>
                         <tr>
                             <!-- <th scope="col">Photo</th> -->
-                            <th scope="col">Sr.No.</th>
-                            <th scope="col">Full Name</th>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Member Name</th>
                             <th scope="col">Activity Date</th>
                             <!-- <th scope="col">Activity Type</th> -->
                             <th scope="col">Activity Title/Description</th>
