@@ -57,14 +57,14 @@ export class OrganizationMasterComponent implements OnInit {
   disableFlagDist: boolean = true;
   disableFlagTal: boolean = true;
   disableFlagVill: boolean = true;
-  redioBtnDisabled : boolean = true;
+  redioBtnDisabled: boolean = true;
   addDesignation = "Assign";
-  selectObj:any;
-  editRadioBtnClick:any;
+  selectObj: any;
+  editRadioBtnClick: any;
   subject: Subject<any> = new Subject();
-  globalLevelId:any;
-  allBodyAssignedDesignation:any;
-  
+  globalLevelId: any;
+  allBodyAssignedDesignation: any;
+
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
@@ -79,7 +79,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDesignation();
     this.defaultDesignationForm();
     this.searchFilters('false');
-  
+
   }
 
   selectLevel(levelId: any) {
@@ -97,54 +97,42 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = true;
       this.redioBtnDisabled = true;
     } else if (levelId == 5) {
-      this.validationOncondition(levelId)
-      // this.disableFlagVill = false;
+      this.validationOncondition(levelId);
       this.disableFlagTal = false;
       this.disableFlagDist = false;
-      // this.redioBtnDisabled = false;
+      this.setVillOrcityName = "VillageName";
+      this.setVillOrCityId = "VillageId";
+      this.villageCityLabel = "Village";
+      if(this.addDesignation == "Edit"){
+        debugger;
+        this.getTaluka(this.globalDistrictId)
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+      }
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
       this.redioBtnDisabled = true;
       this.disableFlagVill = true;
       this.disableFlagTal = true;
-    }else if (levelId == 6) {
+    } else if (levelId == 6) {
       this.validationOncondition(levelId);
       this.disableFlagDist = false;
       this.redioBtnDisabled = true;
-      this.disableFlagVill = true;
+      this.disableFlagVill = false;
       this.disableFlagTal = true;
+      this.setVillOrcityName = "CityName";
+      this.setVillOrCityId = "Id";
+      this.villageCityLabel = "City";
+      if(this.addDesignation == "Edit"){
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+      }
     }
     else {
       this.selectLevelClear();
     }
   }
 
-  selCity(){
-    debugger;
-    this.villageCityLabel = "City";
-    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
-      this.toastrService.error("Please select district");
-      return
-    } else {
-      this.getVillageOrCity(this.globalDistrictId, 'City');
-      this.setVillOrcityName = "CityName";
-      this.setVillOrCityId = "Id";
-    }
-  }
 
-  selVillage() {
-    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
-      this.toastrService.error("Please select district");
-      return
-    } else {
-      this.disableFlagVill = true;
-      this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
-      this.btnText == "Update Organization" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
-      this.setVillOrcityName = "VillageName";
-      this.setVillOrCityId = "VillageId";
-    }
-  }
 
   validationOncondition(levelId: any) {
     if (levelId == 5) {
@@ -159,7 +147,8 @@ export class OrganizationMasterComponent implements OnInit {
     } else if (levelId == 3) {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.updateValueAndValidityMF(levelId);
-    }else if (levelId == 6) {
+    } else if (levelId == 6) {
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.updateValueAndValidityMF(levelId);
     } else {
@@ -170,14 +159,14 @@ export class OrganizationMasterComponent implements OnInit {
 
   clearValidatorsMF(levelId: any) {
     if (levelId == 5) {
-    this.orgMasterForm.controls['DistrictId'].clearValidators();
-    this.orgMasterForm.controls['TalukaId'].clearValidators();
-    this.orgMasterForm.controls['VillageId'].clearValidators();
+      this.orgMasterForm.controls['DistrictId'].clearValidators();
+      this.orgMasterForm.controls['TalukaId'].clearValidators();
+      this.orgMasterForm.controls['VillageId'].clearValidators();
     }
   }
 
-  clearselOption(flag:any){
-    if(flag == 'State'){
+  clearselOption(flag: any) {
+    if (flag == 'State') {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
@@ -187,8 +176,8 @@ export class OrganizationMasterComponent implements OnInit {
       // this.clickRuralRadioBtnClick();
       this.redioBtnDisabled = true;
       this.disableFlagVill = true;
-  
-    }else  if(flag == 'District'){
+
+    } else if (flag == 'District') {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
@@ -198,13 +187,13 @@ export class OrganizationMasterComponent implements OnInit {
       // this.clickRuralRadioBtnClick();
       this.redioBtnDisabled = true;
       this.disableFlagVill = true;
-      
-    } else  if(flag == 'Taluka'){
+
+    } else if (flag == 'Taluka') {
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValue(null);
       this.orgMasterForm.controls["VillageId"].setValue(null);
-    }else  if(flag == 'Village'){
+    } else if (flag == 'Village') {
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValue(null);
     }
@@ -212,6 +201,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   updateValueAndValidityMF(levelId: any) {
     // if(levelId == 5){
+    this.submitted = false;
     this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
     this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
     this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
@@ -252,7 +242,7 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
-  clearSearchFilter(){
+  clearSearchFilter() {
     this.filterForm.controls['searchText'].setValue('');
     this.districtId = this.districtId;
     this.searchFilter = "";
@@ -261,8 +251,8 @@ export class OrganizationMasterComponent implements OnInit {
   getOrganizationList() {
     this.spinner.show();
     let filterData = this.filterForm.value;
-    (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ?  filterData.AllotedDesignation  = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation 
-    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo+'&AllotedDesignation='+filterData.AllotedDesignation;
+    (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
+    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation;
     this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0' + data, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -278,7 +268,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.organizationRes = [];
         }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -293,9 +283,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allLevels = res.data1;
       } else {
-          // this.toastrService.error("Data is not available 1");
+        // this.toastrService.error("Data is not available 1");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -310,9 +300,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allStates = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -326,20 +316,20 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        // debugger;
-        // if (this.btnText == "Update Organization" && this.selEditOrganization.DistrictId != 0 && this.selEditOrganization.IsRural == 1) { // edit
-        //   this.getTaluka(this.selEditOrganization.DistrictId);
-        // } else {
-          
-        //   if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) {
-        //     this.globalDistrictId = this.selEditOrganization?.DistrictId;
-        //     this.globalLevelId == 6 ?  this.selCity() :  this.selVillage();
-        //   }
-        // } 
+        debugger;
+        this.globalDistrictId = this.selEditOrganization?.DistrictId;
+        if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) { // edit
+          this.selCity();
+        } else {
+          if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) {
+            this.getTaluka(this.globalDistrictId);
+          }
+        }
+
       } else {
-          this.toastrService.error("Data is not available 2");
+        this.toastrService.error("Data is not available 2");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -347,11 +337,16 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    if(this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1){
+    this.globalDistrictId = districtId;
+
+    if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) {
       this.getVillageOrCity(districtId, 'City');
     }
-    
-    if(this.globalLevelId == 6) this.disableFlagVill = false ; // village flag disabled
+    if (this.globalLevelId == 6){
+      this.disableFlagVill = false; 
+      this.selCity();
+    }// village flag disabled
+
     this.spinner.show();
     this.globalDistrictId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -359,27 +354,29 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        this.globalLevelId == 6 ?  this.selCity() :  this.selVillage();
-        // debugger;
-        // if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) { // edit
-        //   this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
-        //   this.globalTalukaID = this.selEditOrganization.TalukaId
-        // }else{
-
-        // }
+        debugger;
+        if (this.btnText == "Update Organization") {
+          if (this.selEditOrganization.IsRural == 1) {
+            this.globalTalukaID = this.selEditOrganization.TalukaId;
+            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
+            this.selVillage();
+          } else {
+            this.globalTalukaID = this.selEditOrganization.TalukaId;
+            this.selCity();
+          }
+        } // edit only 
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
-      // if (error.status == 500) {
-      //   this.router.navigate(['../../500'], { relativeTo: this.route });
-      // }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
-    (this.globalLevelId == 5 || this.globalLevelId == 6) ? this.disableFlagVill = false :  this.disableFlagVill = true; // village flag disabled
+    (this.globalLevelId == 5 || this.globalLevelId == 6) ? this.disableFlagVill = false : this.disableFlagVill = true; // village flag disabled
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -391,12 +388,12 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
         }
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
-      // if (error.status == 500) {
-      //   this.router.navigate(['../../500'], { relativeTo: this.route });
-      // }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -425,12 +422,12 @@ export class OrganizationMasterComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
-          // this.getOrganizationList();
+          this.getOrganizationList();
           this.clearForm();
         } else {
-            this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available");
         }
-      } ,(error:any) => {
+      }, (error: any) => {
         if (error.status == 500) {
           this.router.navigate(['../../500'], { relativeTo: this.route });
         }
@@ -449,23 +446,22 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
 
-  filterData(){
+  filterData() {
     this.paginationNo = 1;
-     this.getOrganizationList();
-   }
+    this.getOrganizationList();
+  }
 
-   clearFilter(flag: any) {
-     debugger;
-    if(flag == 'district'){
+  clearFilter(flag: any) {
+    if (flag == 'district') {
       this.filterForm.controls['filterDistrict'].setValue(0);
-    }else if (flag == 'search'){
+    } else if (flag == 'search') {
       this.filterForm.controls['searchText'].setValue('');
-    }else if (flag == 'member'){
+    } else if (flag == 'member') {
       this.filterForm.controls['AllotedDesignation'].setValue('');
     }
     this.paginationNo = 1;
     this.getOrganizationList();
-    }
+  }
 
   editOrganization(BodyId: any) {
     this.clearForm();
@@ -489,9 +485,9 @@ export class OrganizationMasterComponent implements OnInit {
           CreatedBy: this.commonService.loggedInUserId()
         })
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -509,9 +505,9 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
         }
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -546,10 +542,10 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allAssignedDesignations = res.data1;
       } else {
-          // this.toastrService.error("Designations is  not available");
-          this.allAssignedDesignations = [];
+        // this.toastrService.error("Designations is  not available");
+        this.allAssignedDesignations = [];
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -559,7 +555,6 @@ export class OrganizationMasterComponent implements OnInit {
   get d() { return this.AddDesignationForm.controls };
 
   submitDesignationForm() {
-    debugger;
     this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
@@ -567,7 +562,6 @@ export class OrganizationMasterComponent implements OnInit {
       return;
     }
     else {
-      debugger;
       let fromData: any = new FormData();
       this.AddDesignationForm.value['BodyId'] = this.desBodyId;
       Object.keys(this.AddDesignationForm.value).forEach((cr: any, ind: any) => {
@@ -581,12 +575,12 @@ export class OrganizationMasterComponent implements OnInit {
           this.toastrService.success(res.data1[0].Msg);
           this.closeModalAddDes();
           this.spinner.hide();
-          
+
           this.getOrganizationList();
         } else {
-            this.toastrService.error("Members is not available"); 
+          this.toastrService.error("Members is not available");
         }
-      } ,(error:any) => {
+      }, (error: any) => {
         if (error.status == 500) {
           this.router.navigate(['../../500'], { relativeTo: this.route });
         }
@@ -594,16 +588,16 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 
-  editDesignationForm(data: any){
-      this.editRadioBtnClick = data.IsMultiple;
-      this.addDesignation = 'Edit';
-      this.AddDesignationForm.patchValue({
-        Id:data.Id,
-        BodyId: this.AddDesignationForm.value.BodyId,
-        DesignationId: data.DesignationId,
-        IsMultiple: data.IsMultiple,
-        CreatedBy: this.commonService.loggedInUserId(),
-      })
+  editDesignationForm(data: any) {
+    this.editRadioBtnClick = data.IsMultiple;
+    this.addDesignation = 'Edit';
+    this.AddDesignationForm.patchValue({
+      Id: data.Id,
+      BodyId: this.AddDesignationForm.value.BodyId,
+      DesignationId: data.DesignationId,
+      IsMultiple: data.IsMultiple,
+      CreatedBy: this.commonService.loggedInUserId(),
+    })
     console.log(this.AddDesignationForm.value);
   }
 
@@ -631,23 +625,23 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
   }
 
-  redirectOrgDetails(bodyId: any, officeBearers:any, BodyOrgCellName:any) {
-    if(officeBearers == "" || officeBearers == null){
+  redirectOrgDetails(bodyId: any, officeBearers: any, BodyOrgCellName: any) {
+    if (officeBearers == "" || officeBearers == null) {
       this.toastrService.error("Data not found..");
-    }else{
-      let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+    } else {
+      let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['details'], { relativeTo: this.route })
     }
   }
 
-  onKeyUpFilter(){
+  onKeyUpFilter() {
     this.subject.next();
   }
 
-  searchFilters(flag:any) {
-    if(flag == 'true'){
-      if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+  searchFilters(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
         this.toastrService.error("Please search and try again");
         return
       }
@@ -662,7 +656,7 @@ export class OrganizationMasterComponent implements OnInit {
       );
   }
 
-  getBodyAssignedDesignation(){
+  getBodyAssignedDesignation() {
     this.callAPIService.setHttp('get', 'Web_GetAssigned_Post_1_0?BodyId=' + this.desBodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -670,10 +664,10 @@ export class OrganizationMasterComponent implements OnInit {
         this.allBodyAssignedDesignation = res.data1;
       } else {
         this.spinner.hide();
-          // this.toastrService.error("Designations is  not available");
-          this.allBodyAssignedDesignation = [];
+        // this.toastrService.error("Designations is  not available");
+        this.allBodyAssignedDesignation = [];
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
@@ -681,13 +675,13 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
-  
+
   swingDesignation(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
-    let stringDesignation:any =  'oldChangeId='+this.allBodyAssignedDesignation[event.previousIndex].Id+'&oldChangesSortNo='+this.allBodyAssignedDesignation[event.previousIndex].SrNo
-    + '&NewChangeId='+this.allBodyAssignedDesignation[event.currentIndex].Id+'&NewChangesSortNo='+this.allBodyAssignedDesignation[event.currentIndex].SrNo+'&Createdby='+this.commonService.loggedInUserId();
-    
-    this.callAPIService.setHttp('get', 'Web_SetDesignationSort?'+stringDesignation, false, false, false, 'ncpServiceForWeb');
+    let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
+      + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();
+
+    this.callAPIService.setHttp('get', 'Web_SetDesignationSort?' + stringDesignation, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -696,16 +690,42 @@ export class OrganizationMasterComponent implements OnInit {
         this.AlreadyAssignedDesignations(this.desBodyId);
       } else {
         this.spinner.hide();
-          // this.toastrService.error("Designations is  not available");
-          this.allBodyAssignedDesignation = [];
+        // this.toastrService.error("Designations is  not available");
+        this.allBodyAssignedDesignation = [];
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
-  
+
+  selCity() {
+    debugger;
+    this.villageCityLabel = "City";
+    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+      this.toastrService.error("Please select district");
+      return
+    } else {
+      this.getVillageOrCity(this.globalDistrictId, 'City');
+      this.setVillOrcityName = "CityName";
+      this.setVillOrCityId = "Id";
+    }
+  }
+
+  selVillage() {
+    debugger;
+    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+      this.toastrService.error("Please select district");
+      return
+    } else {
+      this.disableFlagVill = true;
+      this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
+      this.btnText == "Update Organization" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
+      this.setVillOrcityName = "VillageName";
+      this.setVillOrCityId = "VillageId";
+    }
+  }
 }
 

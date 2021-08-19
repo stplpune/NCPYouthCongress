@@ -230,8 +230,12 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close" [disabled]="disabledMarkAsAbuse" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark As Abuse</button>
-                <button type="button" class="btn btn-main btn-sm" data-bs-dismiss="modal" aria-label="Close" [disabled]="disabledMarkasNotAbuse" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark as Not Abuse</button>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close" *ngIf="viewPoliticleWorkDetailsById?.IsAbuse == 0" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark As Abuse</button>
+                <button type="button" class="btn btn-main btn-sm" data-bs-dismiss="modal" aria-label="Close" *ngIf="viewPoliticleWorkDetailsById?.IsAbuse  == 1" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark as Not Abuse</button>
+
+                <!-- <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark As Abuse</button>
+                <button type="button" class="btn btn-main btn-sm" data-bs-dismiss="modal" aria-label="Close" (click)="insertMarkAsAbuse(viewPoliticleWorkDetailsById?.Id, viewPoliticleWorkDetailsById?.IsAbuse)">Mark as Not Abuse</button> -->
+
             </div>
         </div>
     </div>

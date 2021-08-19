@@ -220,15 +220,15 @@ export class ActivityAnalysisComponent implements OnInit {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
     debugger;
-    if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 0){
-      this.disabledMarkAsAbuse = true;
-      this.disabledMarkasNotAbuse = false;
-    } else{
-      if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 1){
-        this.disabledMarkAsAbuse = true;
-        this.disabledMarkasNotAbuse = false;
-      }
-    }
+    // if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 0){
+    //   this.disabledMarkAsAbuse = true;
+    //   this.disabledMarkasNotAbuse = false;
+    // } else{
+    //   if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 1){
+    //     this.disabledMarkAsAbuse = true;
+    //     this.disabledMarkasNotAbuse = false;
+    //   }
+    // }
   
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
@@ -261,7 +261,6 @@ export class ActivityAnalysisComponent implements OnInit {
 }
 
   insertMarkAsAbuse(activityId: any, IsAbuse: any) {
-    debugger;
     let AbuseStatus:any;
     let MarkAsNotAbuse:any = 0;
     if(IsAbuse == 0){
