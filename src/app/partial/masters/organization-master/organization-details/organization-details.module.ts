@@ -7,6 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 @NgModule({
   declarations: [
     OrganizationDetailsComponent
@@ -20,11 +22,13 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     NgxPaginationModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    LightboxModule,
+    GalleryModule,
     
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA2AB0fKeqVHUUmRB1pvcaFRiDFTj8dSfM',
+      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
       language: 'en',
-      libraries: ['places']
+      libraries: ['geometry','places']
     }),
   ],
 })

@@ -11,7 +11,8 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
-
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
@@ -40,16 +41,20 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   resultBodyMemActDetails: any;
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
-  zoom: any = 12;
+  zoom: any = 5;
   resultFeedBack: any;
   checkUserBlock!: string;
   dateTime = new FormControl();
   FullName: any;
+  comUserdetImg:any;
+  programGalleryImg!: GalleryItem[]; 
 
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, public location: Location, private route: ActivatedRoute, public dateTimeAdapter: DateTimeAdapter<any>,
+    public gallery: Gallery,
+ private _lightbox: Lightbox,
   ) { { dateTimeAdapter.setLocale('en-IN'); }
 
   let getLocalStorageData: any = localStorage.getItem('memberId');
@@ -298,8 +303,12 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
+
         this.resultBodyMemActDetails = res.data1[0];
-        console.log("111111111111111",this.resultBodyMemActDetails);
+        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
+        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.gallery.ref().load(this.comUserdetImg);
+
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);

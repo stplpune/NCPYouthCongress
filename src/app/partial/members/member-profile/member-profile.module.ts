@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 import { MemberProfileRoutingModule } from './member-profile-routing.module';
 import { MemberProfileComponent } from './member-profile.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -22,10 +23,12 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlDateTimeModule,
     NgxPaginationModule,
     OwlNativeDateTimeModule,
+    LightboxModule ,
+    GalleryModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA2AB0fKeqVHUUmRB1pvcaFRiDFTj8dSfM',
+      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
       language: 'en',
-      libraries: ['places']
+      libraries: ['geometry','places']
     }),
   ]
 })

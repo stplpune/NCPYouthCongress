@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="h-400 membersProBarChart"></div>
+                    <div class="h-400 membersProBarChart chartfont"></div>
                     <table class="table table-hover mt-3">
                         <thead>
                             <tr>
@@ -283,28 +283,28 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Members FullName</label>
+                            <label class="form-label">Member Name</label>
                             <div id="txtMembersName" class="form-data">
                                 {{resultBodyMemActDetails.FullName}}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.CategoryName">
                                 <label class="form-label">Work Type</label>
                                 <div id="txtWorkType" class="form-data">
                                     {{resultBodyMemActDetails.CategoryName}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.Title">
                                 <label class="form-label">Title</label>
                                 <div id="txtTitle" class="form-data">
                                     {{resultBodyMemActDetails.Title | titlecase}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.ProgramTitle">
                                 <label class="form-label">Program</label>
                                 <div id="txtProgram" class="form-data">
-                                    {{resultBodyMemActDetails. ProgramTitle | titlecase}}
+                                    {{resultBodyMemActDetails.ProgramTitle | titlecase}}
                                 </div>
                             </div>
                         </div>
@@ -314,7 +314,7 @@
                                 {{resultBodyMemActDetails.Description | titlecase}}
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="resultBodyMemActDetails?.Link">
                             <label class="form-label">Link URL</label>
                             <div class="form-data">
                                 <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
@@ -337,9 +337,8 @@
                         <div class="mb-3">
                             <label class="form-label">Photos</label>
                             <div class="row">
-                                <div class="col-sm-2 mb-3" *ngFor="let img of resultBodyMemActDetails?.Images?.split(',')">
-                                    <img src="{{img}}" class="img-thumbnail h-150">
-                                    <!-- <img src="assets/images/dashboard-images/defaultimg.png" class="img-thumbnail" /> -->
+                                <div class="col-sm-2 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
+                                    <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
                                 </div>
                             </div>
                         </div>
