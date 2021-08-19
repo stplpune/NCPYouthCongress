@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row" id="news-details">
+        <div class="col-md-5 mx-auto col-sm-12 col-lg-5 col-12 p-0">
+            <nav class="navbar navbar-light fixed-top shadow-sm">
+                <div class="container-fluid px-2">
+                    <a class="navbar-brand">
+                    राष्ट्रवादी युवक कॉंग्रेस
+                  </a>
+                    <div class="d-flex">
+                        <button class="btn btn-sm" type="button">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    </div>
+                </div>
+            </nav>
+            <div class="card">
+                <div id="programcarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" *ngFor="let img of resultOfShareData?.Images.split(','); let i = index" [class.active]="i == 0">
+                            <img src="{{img}}" class="d-block w-100" alt="...">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{resultOfShareData?.ProgramTitle}}
+                    </h5>
+                    <p class="news-datelike">
+                        <i class="far fa-clock"></i> Posted at: {{resultOfShareData?.ActivityDate}} {{resultOfShareData?.CreatedTime}}
+                        <span class="float-end">
+                            <i class="far fa-heart"></i>  {{resultOfShareData?.TotalLikes}}
+                        </span>
+                    </p>
+                    <div class="postedby py-2 mb-1 text-end">
+                        - {{resultOfShareData?.FullName}}
+                    </div>
+                    <div class="news-text">
+                        <p>
+                            {{resultOfShareData?.Description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
