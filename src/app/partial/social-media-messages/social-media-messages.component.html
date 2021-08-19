@@ -1,139 +1,152 @@
 <div class="container-fluid">
-    <div class="row">
-        <form [formGroup]="filterForm">
-            <div class="col-sm-12">
-                <div id="pageheader">
-                    <span class="page-name">Social media perception
-                </span>
-                    <span class="float-end">
-                    <div class="input-group">
-                        <span class="float-end mx-2" style="width: 200px;">
-                            <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="memberName" optionTextField="FullName" (select)="filterData()"  placeholder="Select Member Name">
-                            </ngx-select>
-                        </span>
-                    <!-- <span class="float-end mx-2" style="width: 200px;">
-                            <ngx-select [allowClear]="true" (remove)="clearFilter('district')" [items]="allDistrictArray" optionValueField="DistrictId" formControlName="district" (select)="filterData()"  optionTextField="DistrictName"  placeholder="Select District">
-                            </ngx-select>
-                        </span>  -->
-                    <span class="float-end" style="width: 200px;">
-                            <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName" (select)="filterData()"  formControlName="mediaSource" placeholder="Select Media Source">
-                            </ngx-select>
-                        </span>
+    <div class="row mx-0 px-0" id="pageheader">
+        <div class="col-sm-4">
+            <span class="page-name">Social media perception</span>
+        </div>
+        <div class="col-sm-8">
+            <form [formGroup]="filterForm">
+                <div class="row g-1">
+                    <div class="col-sm-4 offset-5">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')"
+                                    [items]="memberNameArray" optionValueField="Id" formControlName="memberName"
+                                    optionTextField="FullName" (select)="filterData()" placeholder="Select Member Name">
+                                </ngx-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')"
+                                    [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName"
+                                    (select)="filterData()" formControlName="mediaSource"
+                                    placeholder="Select Media Source">
+                                </ngx-select>
+                    </div>
                 </div>
-                </span>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" id="dash-stats">
+        <div class="col-sm">
+            <div class="card card-body bg-gold">
+                <i class="fas fa-comments"></i>
+                <p>Total Messages</p>
+                <h3>{{TotalMsg}}</h3>
             </div>
-    </div>
-    </form>
-</div>
-
-<div class="row" id="dash-stats">
-    <div class="col-sm">
-        <div class="card card-body bg-gold">
-            <i class="fas fa-comments"></i>
-            <p>Total Messages</p>
-            <h3>{{TotalMsg}}</h3>
         </div>
-    </div>
-    <div class="col-sm">
-        <div class="card card-body bg-blue">
-            <i class="fab fa-facebook"></i>
-            <p>Facebook</p>
-            <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
-            <h3>{{FacebookCount}}</h3>
+        <div class="col-sm">
+            <div class="card card-body bg-blue">
+                <i class="fab fa-facebook"></i>
+                <p>Facebook</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
+                <h3>{{FacebookCount}}</h3>
+            </div>
         </div>
-    </div>
-    <div class="col-sm">
-        <div class="card card-body bg-green">
-            <i class="fab fa-whatsapp"></i>
-            <p>WhtasApp</p>
-            <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
-            <h3>{{WhtasAppCount}}</h3>
+        <div class="col-sm">
+            <div class="card card-body bg-green">
+                <i class="fab fa-whatsapp"></i>
+                <p>WhtasApp</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
+                <h3>{{WhtasAppCount}}</h3>
+            </div>
         </div>
-    </div>
-    <div class="col-sm">
-        <div class="card card-body bg-cyan">
-            <i class="fab fa-twitter"></i>
-            <p>Twitter</p>
-            <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
-            <h3>{{Twitter}}</h3>
+        <div class="col-sm">
+            <div class="card card-body bg-cyan">
+                <i class="fab fa-twitter"></i>
+                <p>Twitter</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
+                <h3>{{Twitter}}</h3>
+            </div>
         </div>
-    </div>
-    <div class="col-sm">
-        <div class="card card-body bg-red">
-            <i class="fas fa-hashtag"></i>
-            <p>Other</p>
-            <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
-            <h3>{{socialMediaCount}}</h3>
-        </div>
-    </div>
-</div>
-
-<div class="row chartbox">
-    <div class="col-sm-12">
-        <div class="card card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Post Date</th>
-                        <th scope="col">Social Media</th>
-                        <th scope="col">NCP Member</th>
-                        <th scope="col">Posted By</th>
-                        <th scope="col">Mobile No.</th>
-                        <th scope="col">Message in Favour</th>
-                        <th scope="col">Message in Oppose</th>
-                        <th scope="col">Supporting To</th>
-                        <th scope="col">View</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let socialMediaMessages of socialMediaMessagesArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-                        <td>{{socialMediaMessages.SrNo}}</td>
-                        <td>{{socialMediaMessages.PostDate}}</td>
-
-                        <!-- <td><i class="fab fa-whatsapp me-1"></i> {{socialMediaMessages.SocialMediaName}}</td> -->
-
-                        <td>
-                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Other'"><i class="fas fa-hashtag me-1"></i></ng-container>
-                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'WhatsApp'"><i class="fab fa-whatsapp me-1"></i></ng-container>
-                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Instagram'"><i class="fab fa-instagram me-1"></i></ng-container>
-                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Facebook'"><i class="fab fa-facebook me-1"></i></ng-container>
-                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Twitter'"><i class="fab fa-twitter me-1" style='color:rgb(70, 53, 53)'></i></ng-container>{{socialMediaMessages.SocialMediaName}}
-                        </td>
-
-
-
-                        <td><a (click)="redToMemberProfile(socialMediaMessages.MemberId, socialMediaMessages.MemberName)" class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
-                        <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.PersonMobileNo)" class="text-primary">{{socialMediaMessages.PersonName}} </a></td>
-                        <td> <a href="tel:{{socialMediaMessages.PersonMobileNo}}">{{socialMediaMessages.PersonMobileNo}}</a></td>
-                        <td><span class="text-ellipsis-150px">{{socialMediaMessages.InFavorOf}}</span></td>
-                        <td><span class="text-ellipsis-150px">{{socialMediaMessages.InOppositionOf}}</span></td>
-                        <td>
-                            <img src="{{socialMediaMessages.PartyIconImage}}">
-                            <!-- {{socialMediaMessages.PartyInSupport}} -->
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-light" (click)="getSocialMediaDetails(socialMediaMessages.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
-                        </td>
-                    </tr>
-                    <tr *ngIf="socialMediaMessagesArray?.length == 0">
-                        <td colspan="10">
-                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="mt-2 text-end" *ngIf="socialMediaMessagesArray?.length != 0">
-                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+        <div class="col-sm">
+            <div class="card card-body bg-red">
+                <i class="fas fa-hashtag"></i>
+                <p>Other</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
+                <h3>{{socialMediaCount}}</h3>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="row chartbox">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Post Date</th>
+                            <th scope="col">Social Media</th>
+                            <th scope="col">NCP Member</th>
+                            <th scope="col">Posted By</th>
+                            <th scope="col">Mobile No.</th>
+                            <th scope="col">Message in Favour</th>
+                            <th scope="col">Message in Oppose</th>
+                            <th scope="col">Supporting To</th>
+                            <th scope="col">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let socialMediaMessages of socialMediaMessagesArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <td>{{socialMediaMessages.SrNo}}</td>
+                            <td>{{socialMediaMessages.PostDate}}</td>
+
+                            <!-- <td><i class="fab fa-whatsapp me-1"></i> {{socialMediaMessages.SocialMediaName}}</td> -->
+
+                            <td>
+                                <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Other'"><i
+                                        class="fas fa-hashtag me-1"></i></ng-container>
+                                <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'WhatsApp'"><i
+                                        class="fab fa-whatsapp me-1"></i></ng-container>
+                                <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Instagram'"><i
+                                        class="fab fa-instagram me-1"></i></ng-container>
+                                <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Facebook'"><i
+                                        class="fab fa-facebook me-1"></i></ng-container>
+                                <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Twitter'"><i
+                                        class="fab fa-twitter me-1" style='color:rgb(70, 53, 53)'></i></ng-container>
+                                {{socialMediaMessages.SocialMediaName}}
+                            </td>
+
+
+
+                            <td><a (click)="redToMemberProfile(socialMediaMessages.MemberId, socialMediaMessages.MemberName)"
+                                    class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
+                            <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.PersonMobileNo)"
+                                    class="text-primary">{{socialMediaMessages.PersonName}} </a></td>
+                            <td> <a
+                                    href="tel:{{socialMediaMessages.PersonMobileNo}}">{{socialMediaMessages.PersonMobileNo}}</a>
+                            </td>
+                            <td><span class="">{{socialMediaMessages.InFavorOf}}</span></td>
+                            <td><span class="">{{socialMediaMessages.InOppositionOf}}</span></td>
+                            <td>
+                                <img src="{{socialMediaMessages.PartyIconImage}}">
+                                <!-- {{socialMediaMessages.PartyInSupport}} -->
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-light"
+                                    (click)="getSocialMediaDetails(socialMediaMessages.Id)" data-bs-toggle="modal"
+                                    data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="socialMediaMessagesArray?.length == 0">
+                            <td colspan="10">
+                                <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-2 text-end" *ngIf="socialMediaMessagesArray?.length != 0">
+                    <pagination-controls previousLabel="" nextLabel=""
+                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <!-- Modal for Location -->
-<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -196,7 +209,8 @@
                         <div class="mb-3">
                             <label class="form-label">Party in Support</label>
                             <div id="txtPartyInSupport" class="form-data">
-                                <img src="{{socialMediaDetailsArray?.PartyIconImage}}" class="partylogo" /> {{socialMediaDetailsArray?.PartyInSupport}}
+                                <img src="{{socialMediaDetailsArray?.PartyIconImage}}" class="partylogo" />
+                                {{socialMediaDetailsArray?.PartyInSupport}}
                             </div>
                         </div>
                     </div>
