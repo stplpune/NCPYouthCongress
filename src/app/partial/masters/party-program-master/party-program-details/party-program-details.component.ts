@@ -282,10 +282,12 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-
+        this.gallery.ref().load(this.comUserdetImg);
+        this.comUserdetImg=[];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.gallery.ref().load(this.comUserdetImg);
+        console.log("aaaaaaaaaaaaa",this.comUserdetImg)
 
 
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
