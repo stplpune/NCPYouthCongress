@@ -7,6 +7,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 
 @Component({
   selector: 'app-political-work',
@@ -37,6 +39,8 @@ export class PoliticalWorkComponent implements OnInit {
   lat: any;
   lng: any;
   zoom: any = 12;
+  comUserdetImg:any;
+programGalleryImg!: GalleryItem[]; 
 
   constructor(
     private callAPIService: CallAPIService,
@@ -45,6 +49,8 @@ export class PoliticalWorkComponent implements OnInit {
     private commonService: CommonService,
     private fb: FormBuilder,
     private router: Router,
+    public gallery: Gallery,
+    private _lightbox: Lightbox,
     private route: ActivatedRoute,
     public dateTimeAdapter: DateTimeAdapter<any>,
     private datePipe: DatePipe
@@ -209,6 +215,13 @@ export class PoliticalWorkComponent implements OnInit {
     debugger;
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+
+    this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
+    this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+    this.gallery.ref().load(this.comUserdetImg);
+
+
+    console.log("2222222",this.comUserdetImg);
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
       let getLatLong = latLong.split(',');

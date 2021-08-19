@@ -266,8 +266,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         animateBullet(event.target.object);
       })
     }
-
-
   }
 
   ngOnDestroy() {
