@@ -89,13 +89,11 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
-      this.redioBtnDisabled = true;
     } else if (levelId == 4) {
       this.validationOncondition(levelId)
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
-      this.redioBtnDisabled = true;
     } else if (levelId == 5) {
       this.validationOncondition(levelId);
       this.disableFlagTal = false;
@@ -103,29 +101,27 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      if(this.addDesignation == "Edit"){
-        debugger;
-        this.getTaluka(this.globalDistrictId)
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-      }
+      // if(this.btnText == "Update Organization"){
+      //   this.orgMasterForm.controls["VillageId"].setValue(null);
+      //   this.getTaluka(this.globalDistrictId);
+      // }
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
-      this.redioBtnDisabled = true;
       this.disableFlagVill = true;
       this.disableFlagTal = true;
     } else if (levelId == 6) {
       this.validationOncondition(levelId);
       this.disableFlagDist = false;
-      this.redioBtnDisabled = true;
       this.disableFlagVill = false;
       this.disableFlagTal = true;
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      if(this.addDesignation == "Edit"){
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-      }
+      // if(this.btnText == "Update Organization"){
+      //   this.orgMasterForm.controls["VillageId"].setValue(null);
+      //   this.getVillageOrCity(this.globalDistrictId, 'city');
+      // }
     }
     else {
       this.selectLevelClear();
@@ -369,9 +365,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
+      // if (error.status == 500) {
+      //   this.router.navigate(['../../500'], { relativeTo: this.route });
+      // }
     })
   }
 
