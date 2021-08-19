@@ -242,7 +242,19 @@ export class PartyProgramDetailsComponent implements OnInit {
   closeModelCommitty(){
     this.committeeModelDataDivHide=false;
   }
+  
+  // redToMemberProfile(bodyId: any, BodyOrgCellName:any) {
+  //     let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+  //     localStorage.setItem('memberId', JSON.stringify(obj))
+  //     // this.router.navigate(['details'], { relativeTo: this.route })
+  //     this.router.navigate(['profile'], {relativeTo:this.route})
+  // }
 
+  redToMemberProfile(memberId: any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    localStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
+  }
 
   onClickPagintion(pageNo: number, defaultPartiNonParti: any) {
     if (defaultPartiNonParti) {
@@ -268,11 +280,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
   }
 
-  redToMemberProfile(memberId: any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
-    localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../member/profile'], {relativeTo:this.route})
-  }
 
   getPartyProgramDetails(viewMemberId:any){
     this.getBodyMemeberActivitiesDetails(viewMemberId);
