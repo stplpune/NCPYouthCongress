@@ -46,8 +46,10 @@ export class ShareComponent implements OnInit {
   }
 
   updateMetaInfo(content: any, author: any, category: any) {
-    this.meta.updateTag({ name: 'og:title', content: content });
-    this.meta.updateTag({ name: 'og:url', content: author });
-    this.meta.updateTag({ name: 'og:image', content: category });
+    this.titleService.setTitle(content);    
+    this.meta.updateTag({ name: 'title', content: content });
+    this.meta.updateTag({ property: 'og:title', content: content });
+    this.meta.updateTag({ property: 'og:url', content: author });
+    this.meta.updateTag({ property: 'og:image', content: category });
   }
 }
