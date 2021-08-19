@@ -92,6 +92,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.programDetailsArray = res.data1[0];
         let programDetailsImagesArray = res.data2;
+        console.log("slkngjidfbnfin",programDetailsImagesArray)
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
         this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
