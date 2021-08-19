@@ -83,34 +83,59 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any) {
-    alert(levelId)
-    switch(levelId){
-      case 2:
-        this.disableFlagDist = true;
-        this.redioBtnDisabled = true;
-        this.disableFlagVill = true;
-        this.disableFlagTal = true;
-        break;
-      case 3:
-        this.disableFlagDist = false;
-        this.disableFlagTal = true;
-        this.disableFlagVill = true;
-        this.redioBtnDisabled = true;
-        break;
-      case 4:
-        this.disableFlagTal = false;
-        this.disableFlagDist = false;
-        this.disableFlagVill = true;
-        this.redioBtnDisabled = true;
-        break;
-      case 5:
-        this.disableFlagTal = false;
-        this.disableFlagDist = false;
-        break;
-      case 6:
-        this.disableFlagTal = false;
-        this.disableFlagDist = false;
-        break;
+    this.globalLevelId = levelId
+    // switch(levelId){
+    //   case 2:
+    //     this.disableFlagDist = true;
+    //     this.redioBtnDisabled = true;
+    //     this.disableFlagVill = true;
+    //     this.disableFlagTal = true;
+    //     break;
+    //   case 3:
+    //     this.disableFlagDist = false;
+    //     this.disableFlagTal = true;
+    //     this.disableFlagVill = true;
+    //     this.redioBtnDisabled = true;
+    //     break;
+    //   case 4:
+    //     this.disableFlagTal = false;
+    //     this.disableFlagDist = false;
+    //     this.disableFlagVill = true;
+    //     this.redioBtnDisabled = true;
+    //     break;
+    //   case 5:
+    //     this.disableFlagTal = false;
+    //     this.disableFlagDist = false;
+    //     break;
+    //   case 6:
+    //     this.disableFlagTal = false;
+    //     this.disableFlagDist = false;
+    //     break;
+    // }
+  }
+
+  selCity(){
+    this.villageCityLabel = "City";
+    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+      this.toastrService.error("Please select district");
+      return
+    } else {
+      this.getVillageOrCity(this.globalDistrictId, 'City');
+      this.setVillOrcityName = "CityName";
+      this.setVillOrCityId = "Id";
+    }
+  }
+
+  selVillage() {
+    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+      this.toastrService.error("Please select district");
+      return
+    } else {
+      this.disableFlagVill = true;
+      this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
+      this.btnText == "Update Organization" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
+      this.setVillOrcityName = "VillageName";
+      this.setVillOrCityId = "VillageId";
     }
   }
 
@@ -145,7 +170,7 @@ export class OrganizationMasterComponent implements OnInit {
       DistrictId: [''],
       TalukaId: [''],
       VillageId: [''],
-      IsRural: [1, Validators.required],
+      IsRural: [1],
       BodyLevelId: ['', Validators.required],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
@@ -227,7 +252,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDistrict() {
-    alert('ok')
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -238,9 +262,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.getTaluka(this.selEditOrganization.DistrictId);
         } else {
           if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) {
-            console.log(this.selEditOrganization)
             this.globalDistrictId = this.selEditOrganization?.DistrictId;
-            let selFlagForRadioChange: any = this.selEditOrganization.IsRural == 0 ? "Urban" : "Rural";
           }
 
         }
@@ -255,8 +277,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    this.globalLevelId == 5   ? this.redioBtnDisabled = false : this.redioBtnDisabled = true; 
-   
+   this.globalLevelId == 6 ?  this.selCity() :  this.selVillage();
     this.spinner.show();
     this.globalDistrictId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -266,7 +287,6 @@ export class OrganizationMasterComponent implements OnInit {
         this.getTalkaByDistrict = res.data1;
         if (this.btnText == "Update Organization" && this.selEditOrganization.TalukaId != 0) { // edit
           this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
-          let selFlagForRadioChange: any = this.selEditOrganization.IsRural == 0 ? "Urban" : "Rural";
           this.globalTalukaID = this.selEditOrganization.TalukaId
         }
       } else {
@@ -313,7 +333,8 @@ export class OrganizationMasterComponent implements OnInit {
     }
     else {
       let fromData: any = new FormData();
-
+      console.log(this.orgMasterForm.value);
+      this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
         let value = Object.values(this.orgMasterForm.value)[ind] != null ? Object.values(this.orgMasterForm.value)[ind] : 0;
         fromData.append(cr, value)
