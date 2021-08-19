@@ -138,7 +138,7 @@
                                 *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
                                 <td><a (click)="redToMemberProfile(membersData.MemberId, membersData.FullName)"
-                                        class="text-ellipsis-250px text-primary">{{membersData.FullName}}</a></td>
+                                        class="text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td *ngIf="ViewModelHide">
@@ -173,8 +173,7 @@
                             <tr
                                 *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a
-                                        (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a>
+                                <td><a class="text-primary" (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
