@@ -104,13 +104,13 @@
                                     <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">{{designation}}</p>
                                 </td>
                                 <td>
-                                    <ng-container *ngIf="resultExeMember.UserStatus == 0">
+                                    <ng-container *ngIf="resultExeMember.DeviceType == 0">
                                         No Device
                                     </ng-container>
-                                    <ng-container *ngIf="resultExeMember.UserStatus == 1">
+                                    <ng-container *ngIf="resultExeMember.DeviceType == 1">
                                         <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo">
                                     </ng-container>
-                                    <ng-container *ngIf="resultExeMember.UserStatus == 2">
+                                    <ng-container *ngIf="resultExeMember.DeviceType == 2">
                                         <img src="assets/images/dashboard-images/Apple_logo.svg" class="devicelogo">
                                     </ng-container>
                                 </td>

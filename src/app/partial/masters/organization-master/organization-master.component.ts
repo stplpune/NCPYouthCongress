@@ -82,7 +82,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   }
 
-  selectLevel(levelId: any) {
+  selectLevel(levelId: any, flag:any) {
     this.globalLevelId = levelId;
     if (levelId == 3) {
       this.validationOncondition(levelId)
@@ -101,10 +101,11 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      // if(this.btnText == "Update Organization"){
-      //   this.orgMasterForm.controls["VillageId"].setValue(null);
-      //   this.getTaluka(this.globalDistrictId);
-      // }
+      if(this.btnText == "Update Organization" && flag == 'select'){
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+        this.getTaluka(this.globalDistrictId);
+      }
+ 
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
@@ -118,10 +119,11 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      // if(this.btnText == "Update Organization"){
-      //   this.orgMasterForm.controls["VillageId"].setValue(null);
-      //   this.getVillageOrCity(this.globalDistrictId, 'city');
-      // }
+      if(this.btnText == "Update Organization" && flag == 'select'){
+   
+        this.getVillageOrCity(this.globalDistrictId, 'city');
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+      }
     }
     else {
       this.selectLevelClear();
@@ -154,7 +156,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   clearValidatorsMF(levelId: any) {
-    if (levelId == 5) {
+    if (levelId == 5 || levelId == 6) {
       this.orgMasterForm.controls['DistrictId'].clearValidators();
       this.orgMasterForm.controls['TalukaId'].clearValidators();
       this.orgMasterForm.controls['VillageId'].clearValidators();
@@ -334,14 +336,9 @@ export class OrganizationMasterComponent implements OnInit {
 
   getTaluka(districtId: any) {
     this.globalDistrictId = districtId;
-
     if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) {
       this.getVillageOrCity(districtId, 'City');
     }
-    if (this.globalLevelId == 6){
-      this.disableFlagVill = false; 
-      this.selCity();
-    }// village flag disabled
 
     this.spinner.show();
     this.globalDistrictId = districtId;
@@ -365,9 +362,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
-      // if (error.status == 500) {
-      //   this.router.navigate(['../../500'], { relativeTo: this.route });
-      // }
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
     })
   }
 
@@ -470,7 +467,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.selEditOrganization = res.data1[0];
         console.log(this.selEditOrganization);
         this.HighlightRow = this.selEditOrganization.Id;
-        this.selectLevel(this.selEditOrganization.BodyLevel);
+        this.selectLevel(this.selEditOrganization.BodyLevel, 'edit');
         this.getDistrict();
         this.orgMasterForm.patchValue({
           BodyOrgCellName: this.selEditOrganization.BodyOrgCellName,

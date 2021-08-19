@@ -6,8 +6,9 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
-import { CommonService } from 'src/app/services/common.service';
-
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
+import { CommonService } from '../../services/common.service';
 @Component({
   selector: 'app-activity-analysis',
   templateUrl: './activity-analysis.component.html',
@@ -40,11 +41,15 @@ export class ActivityAnalysisComponent implements OnInit {
   activityLikesArray: any;
   disabledMarkAsAbuse: boolean = false; 
   disabledMarkasNotAbuse: boolean = false;
+  comUserdetImg:any;
+  programGalleryImg!: GalleryItem[]; 
 
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
+    public gallery: Gallery,
+    private _lightbox: Lightbox,
     private commonService: CommonService,
     private fb: FormBuilder,
     private router: Router,
@@ -219,16 +224,10 @@ export class ActivityAnalysisComponent implements OnInit {
   ViewPoliticleWorkDetails(index: any) {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
-    debugger;
-    // if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 0){
-    //   this.disabledMarkAsAbuse = true;
-    //   this.disabledMarkasNotAbuse = false;
-    // } else{
-    //   if(this.viewPoliticleWorkDetailsById.IsAbuse == 1 && this.viewPoliticleWorkDetailsById.MarkedAsNotAbused == 1){
-    //     this.disabledMarkAsAbuse = true;
-    //     this.disabledMarkasNotAbuse = false;
-    //   }
-    // }
+
+        this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
+        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.gallery.ref().load(this.comUserdetImg);
   
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
