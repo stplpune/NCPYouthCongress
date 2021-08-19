@@ -79,7 +79,7 @@
                                 <h6>Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData(); ParticipantsText = 'Committees'" [ngClass]="{'active':ParticipantsText == 'Committees'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getCommitteesData();  ParticipantsText = 'Committees';" [ngClass]="{'active':ParticipantsText == 'Committees'}">
                                             <p class="small mb-1">Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.TotalCommitteeParticipated}}</h3>
                                         </a>
@@ -98,7 +98,7 @@
                                 <h6>Non-Participant Committees</h6>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();   ParticipantsText = 'Non -'" [ngClass]="{'active':ParticipantsText == 'Non -'}">
+                                        <a class="btn btn-light py-2 px-3 border-add" (click)="paginationNo = 1; getNonParticipantsData();  ParticipantsText = 'Non -';" [ngClass]="{'active':ParticipantsText == 'Non -'}">
                                             <p class="small mb-1">Non-Participated</p>
                                             <h3 class="mb-0">{{overviewArray?.NonParticipatedMember}}</h3>
                                         </a>
@@ -118,8 +118,9 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Sr. No.</th>
-                                <th scope="col">Participants Name</th>
+                                <th scope="col">Sr. No. {{ParticipantsText}}</th>
+                                <th scope="col" *ngIf="ParticipantsText == 'Non -'">Committee Name	</th>
+                                <th scope="col" *ngIf="ParticipantsText == 'Members'">Participants Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
                                 <th scope="col" *ngIf="ViewModelHide">View</th>
@@ -128,7 +129,8 @@
                         <tbody>
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
+                                <td *ngIf="ParticipantsText == 'Non -'"><a (click)="redirectOrgDetails(membersData.MemberId,membersData.BodyOrgCellName)" class="text-primary">{{membersData.BodyOrgCellName}}</a></td>
+                                <td  *ngIf="ParticipantsText == 'Members'"><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td *ngIf="ViewModelHide">
@@ -159,7 +161,7 @@
                         <tbody>
                             <tr *ngFor="let committeesData of committeesDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
-                                <td><a class="text-primary" (click)="redToMemberProfile(committeesData.MemberId,committeesData.FullName)">{{committeesData.BodyOrgCellName}}</a>
+                                <td><a class="text-primary" (click)="redirectOrgDetails(committeesData.Id,committeesData.BodyOrgCellName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
