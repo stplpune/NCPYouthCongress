@@ -64,7 +64,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.memberProfileWorkdetails();
   }
 
-
   getMemberprofile() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_1_0?MemberId=' + this.memberId, false, false, false, 'ncpServiceForWeb');
@@ -103,8 +102,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-
-  // 
 
   getMemberprofileDetails() {
     this.spinner.show();
@@ -283,7 +280,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../master/organization/details'], { relativeTo: this.route })
+      this.router.navigate(['../../master/committee/details'], { relativeTo: this.route })
     }
   }
 
