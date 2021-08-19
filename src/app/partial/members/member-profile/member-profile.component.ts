@@ -64,7 +64,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.memberProfileWorkdetails();
   }
 
-
   getMemberprofile() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_1_0?MemberId=' + this.memberId, false, false, false, 'ncpServiceForWeb');
@@ -104,8 +103,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  // 
-
   getMemberprofileDetails() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetMemberprofile_details_1_0?MemberId=' + this.memberId + '&FromDate=' + this.globalFromDate + '&ToDate=' + this.globalToDate, false, false, false, 'ncpServiceForWeb');
@@ -130,7 +127,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   memberProfileWorkdetails() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.fromDateWorkdetails + '&ToDate=' + this.toDateWorkdetails + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.globalFromDate + '&ToDate=' + this.globalToDate + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
        
