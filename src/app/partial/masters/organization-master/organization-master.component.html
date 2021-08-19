@@ -24,7 +24,8 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label required-field">Select Level</label>
-                                <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels" (select)="selectLevel(this.orgMasterForm.value.BodyLevelId)" formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id" optionTextField="LevelName" [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels" (select)="selectLevel(this.orgMasterForm.value.BodyLevelId, 'select')" formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id" optionTextField="LevelName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.BodyLevelId.errors" class="invalid-feedback">
                                     <div *ngIf="f.BodyLevelId.errors.required">Body Level is required</div>
@@ -131,7 +132,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>#ID</th>
+                                <th>Sr.No.</th>
                                 <th>Committee Name</th>
                                 <th>Level</th>
                                 <th>Area</th>
