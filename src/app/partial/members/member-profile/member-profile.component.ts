@@ -127,7 +127,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   memberProfileWorkdetails() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.globalFromDate + '&ToDate=' + this.globalToDate + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetMemberprofile_Workdetails_1_0?MemberId=' + this.memberId + '&FromDate=' + this.fromDateWorkdetails + '&ToDate=' + this.toDateWorkdetails + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
        
@@ -280,7 +280,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../master/organization/details'], { relativeTo: this.route })
+      this.router.navigate(['../../master/committee/details'], { relativeTo: this.route })
     }
   }
 
