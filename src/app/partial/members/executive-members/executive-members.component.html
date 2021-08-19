@@ -116,7 +116,7 @@
                                     </ng-container>
                                 </td>
                                 <td>
-                                    <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus == 0; else elseStatus"></i>
+                                    <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus != 0; else elseStatus"></i>
                                     <ng-template #elseStatus>
                                         <i class="fas fa-ban text-danger"></i>
                                     </ng-template>
