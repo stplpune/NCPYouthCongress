@@ -122,3 +122,8 @@ agm-map {
     padding: 10px 15px;
     text-align: justify;
   }
+  .img-square{
+      height: 83px;
+      width: 100%;
+      object-fit: color;
+  }
