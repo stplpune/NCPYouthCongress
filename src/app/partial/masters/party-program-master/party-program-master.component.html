@@ -14,7 +14,7 @@
                 <div class="card-header">{{programTitle}} Program</div>
                 <div class="card-body pt-0 form-container">
                     <form [formGroup]="createProgram" (ngSubmit)="onSubmitProgramForm()">
-                        <div class="mb-2">
+                        <div class="mb-3">
                             <label for="txtProgramTitle" class="form-label">Program Title <span
                                     class="text-danger">*</span> </label>
                             <input type="text" class="form-control" formControlName="ProgramTitle" placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }" />
@@ -22,7 +22,7 @@
                                 <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
                             </div>
                         </div>
-                        <div class="mb-2">
+                        <div class="mb-3">
                             <label for="txtProgramDescription" class="form-label">Program Description <span
                                     class="text-danger">*</span> </label>
                             <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
