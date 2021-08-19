@@ -56,14 +56,14 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
+    this.getweekRage(this.toDate)
   }
 
   getweekRage(dates: any) {
     this.toDate= dates;         //selected Date
-    this.fromDate= new Date((this.toDate) - 7 * 24 * 60 * 60 * 1000)
- 
+    this.fromDate= new Date((this.toDate) - 6 * 24 * 60 * 60 * 1000)
     this.weekRangeObj = { 'fromDate': this.fromDate, 'toDate': this.toDate };
-    //localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
     this.getNewMemberAndWorkInThisWeek();
   }
 
@@ -154,6 +154,7 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
+        debugger;
         this.workInThisWeekArray.map((ele: any) => {
           if (ele.Date) {
             let DateFormate = this.commonService.dateFormatChange(ele.Date);
@@ -161,8 +162,6 @@ export class DashboardComponent implements OnInit {
             ele.Date = transformDate;
           }
         })
-        console.log(this.workInThisWeekArray)
-
         this.workLineChart();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
@@ -187,8 +186,10 @@ export class DashboardComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.districtWiseMemberCountArray = res.data1;
+        this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
+        console.log(this.newMemberInThisWeekArray )
+        // this.weeklyColumnChart();
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available");
@@ -297,7 +298,7 @@ export class DashboardComponent implements OnInit {
       am4core.color("#99A3A4"),
       am4core.color("#D2B4DE")
     ];
-
+    console.log(this.newMemberInThisWeekArray);
     chart.data = this.newMemberInThisWeekArray;
 
     chart.padding(5, 5, 5, 5);
