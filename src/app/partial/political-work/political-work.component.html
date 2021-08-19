@@ -153,10 +153,10 @@
                                 {{viewPoliticleWorkDetailsById?.FullName}}
                             </div>
                         </div>
-                        <div class="row mb-3"  *ngIf="viewPoliticleWorkDetailsById?.Title">
-                            <div class="col-sm" >
+                        <div class="row mb-3" *ngIf="viewPoliticleWorkDetailsById?.Title">
+                            <div class="col-sm">
                                 <label class="form-label">Title</label>
-                                <div id="txtMobileNo"  class="form-data">
+                                <div id="txtMobileNo" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.Title}}
                                 </div>
                             </div>
@@ -191,8 +191,12 @@
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.PersonContactDetails">
                                 <label class="form-label">Contact Person Details</label>
                                 <div id="txtMessageOppse" class="form-data">
-                                    Contact Person Name<br>{{viewPoliticleWorkDetailsById?.PersonContactDetails}}
+                                    {{viewPoliticleWorkDetailsById?.PersonContactDetails}}
                                 </div>
+                            </div>
+                            <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.Link">
+                                <label class="form-label">Link</label>
+                                <a target="_blank" href="{{viewPoliticleWorkDetailsById?.Link}}"> {{viewPoliticleWorkDetailsById?.Link}}</a>
                             </div>
                         </div>
                     </div>
