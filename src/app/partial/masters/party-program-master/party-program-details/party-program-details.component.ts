@@ -120,7 +120,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
-        let data = res.data3;
+        this.programDetailsLatLongArray = res.data3;
         // this.ParpantsProMemImge = res.data1;
         // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         //  this.basicLightboxExample();
