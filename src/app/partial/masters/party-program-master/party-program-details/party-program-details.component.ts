@@ -223,9 +223,9 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeeUserdetailsArray.globalGroupId;
         this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
-        console.log(this.comUserdetImg);
         this.gallery.ref().load(this.comUserdetImg);
 
+        console.log(this.comUserdetImg);
         let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
@@ -281,6 +281,13 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
+
+      
+        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
+        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.gallery.ref().load(this.comUserdetImg);
+
+
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
