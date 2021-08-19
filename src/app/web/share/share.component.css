@@ -1,0 +1,45 @@
+#news-details .navbar {
+    background-color: var(--main-color);
+}
+
+#news-details .navbar .navbar-brand {
+    color: #fff !important;
+    font-size: 1rem;
+    padding-left: 0;
+    font-weight: 600;
+}
+
+#news-details .navbar .btn {
+    color: #fff !important;
+}
+
+#news-details .card {
+    border: none;
+    margin-top: 50px;
+}
+
+#news-details #programcarousel img {
+    height: 250px;
+    max-height: 250px;
+    width: 100%;
+}
+
+#news-details h5.card-title {
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 28px;
+}
+
+#news-details p.news-datelike {
+    margin-bottom: 0;
+    border-block: solid 1px #ccc;
+    font-size: 0.75rem;
+    padding: 8px 5px;
+    color: #777;
+}
+
+#news-details .postedby,
+#news-details .news-text {
+    font-size: 0.85rem;
+    line-height: 22px;
+}

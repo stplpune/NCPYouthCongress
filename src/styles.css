@@ -313,6 +313,9 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     border-radius: 15px;
     box-shadow: 1px 1px 4px #dfdfdf
 }
+#dash-stats .card:hover{
+    cursor: pointer;
+}
 
 #dash-stats .card i {
     font-size: 4.4rem;
