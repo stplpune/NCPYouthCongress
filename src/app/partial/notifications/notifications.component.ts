@@ -109,10 +109,10 @@ export class NotificationsComponent implements OnInit {
       let notificationFlag:any;
       let ImageChangeFlag:any;
       if(this.IsChangeImage || this.selectedFile){
-        notificationFlag = 1;
+        notificationFlag = 2;
         ImageChangeFlag = 1 
       }else{
-        notificationFlag = 0;
+        notificationFlag = 1;
         ImageChangeFlag = 0
       }
       let getObj:any = this.notificationForm.value;
