@@ -143,6 +143,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.total = null;
         this.barChartCategory = [];
         this.periodicChart = [];
+        this.WorkDoneByYuvak();
+        this.workCountAgainstWorkType();
         // this.toastrService.error("Data is not available");
       }
     }, (error: any) => {

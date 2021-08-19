@@ -87,8 +87,9 @@
                             <th scope="col">Contacts</th>
                             <th scope="col">Location</th>
                             <th scope="col">Designation</th>
+
+                            <th scope="col">Device</th>
                             <th scope="col">Active Status</th>
-                            <!-- <th scope="col">Device</th> -->
                             <!-- <th></th> -->
                         </tr>
                     </thead>
@@ -107,25 +108,23 @@
                             <!-- <td>City(Village)<br/>Taluka, District</td> -->
                             <!-- <td>Secretary<br/><small class="text-muted">Satara City IT Section</small></td> -->
                             <td><span>{{allMembers.Location}}</span></td>
-                            <td><span >{{allMembers.Designation}}</span></td>
+                            <td><span>{{allMembers.Designation}}</span></td>
+                            <td>
+                                <ng-container *ngIf="allMembers.DeviceType == 0">
+                                    No Device
+                                </ng-container>
+                                <ng-container *ngIf="allMembers.DeviceType == 1">
+                                    <img src="assets/images/dashboard-images/Android_robot.svg" class="devicelogo">
+                                </ng-container>
+                                <ng-container *ngIf="allMembers.DeviceType == 2">
+                                    <img src="assets/images/dashboard-images/Apple_logo.svg" class="devicelogo">
+                                </ng-container>
+                            </td>
                             <td>
                                 <ng-container *ngIf="allMembers.UserStatus == 0"><i class="fas  fa-times-circle text-danger"></i></ng-container>
                                 <ng-container *ngIf="allMembers.UserStatus != 0"><i class="fas fa-shield-alt text-success"></i></ng-container>
                             </td>
-                            <!-- <ng-container *ngIf="designatedMembers.DeviceType == 1">
-                                <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
-                            </ng-container> -->
-                            <!-- <td>
-                                <ng-container *ngIf="allMembers.DeviceType == 1">
-                                    <img src="assets/images/dashboard-images/Android_robot.svg" class="border-0">
-                                </ng-container>
-                                <ng-container *ngIf="allMembers.DeviceType == 2">
-                                    <img src="assets/images/dashboard-images/Apple_logo.svg" class="border-0">
-                                </ng-container>
-                                <ng-container *ngIf="allMembers.DeviceType != 2 && allMembers.DeviceType != 1">
-                                    No Device
-                                </ng-container>
-                            </td> -->
+
                             <!-- <td>
                                 <button class="btn btn-sm btn-light" (click)="redToMemberProfile(allMembers.MemberId,allMembers.FullName)" type="button"><i class="far fa-eye"></i></button>
                             </td> -->
