@@ -94,6 +94,7 @@
                         <!-- <td><i class="fab fa-whatsapp me-1"></i> {{socialMediaMessages.SocialMediaName}}</td> -->
 
                         <td>
+                            <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Other'"><i class="fas fa-hashtag me-1"></i></ng-container>
                             <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'WhatsApp'"><i class="fab fa-whatsapp me-1"></i></ng-container>
                             <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Instagram'"><i class="fab fa-instagram me-1"></i></ng-container>
                             <ng-container *ngIf="socialMediaMessages.SocialMediaName == 'Facebook'"><i class="fab fa-facebook me-1"></i></ng-container>
