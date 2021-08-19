@@ -11,6 +11,8 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 
 @Component({
   selector: 'app-organization-details',
@@ -57,18 +59,22 @@ export class OrganizationDetailsComponent implements OnInit {
   getCommitteeName: any;
   toDate: any = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
   fromDate: any = this.datepipe.transform(new Date(Date.now() + -6 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy');
-  zoom: any = 12;
+  zoom: any = 4;
   maxDate: any = new Date();
   addMemberFlag: any;
   selUserpostbodyId: any;
   periodicChart: any;
   defaultCloseBtn: boolean = false;
+  comUserdetImg:any;
+  programGalleryImg!: GalleryItem[];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
     public location: Location, private datePipe:DatePipe,
+    public gallery: Gallery,
+ private _lightbox: Lightbox,
     private commonService: CommonService, public datepipe: DatePipe,) {
     let getLocalStorageData: any = localStorage.getItem('bodyId');
     getLocalStorageData = JSON.parse(getLocalStorageData);
@@ -342,7 +348,12 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
+
         this.resultBodyMemActDetails = res.data1[0];
+        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
+        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.gallery.ref().load(this.comUserdetImg);
+
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
