@@ -387,6 +387,10 @@ export class OrganizationDetailsComponent implements OnInit {
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
+      xAxis.renderer.minGridDistance = 30;
+      let label = xAxis.renderer.labels.template;
+      label.wrap = true;
+label.maxWidth = 90;
 
       let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
