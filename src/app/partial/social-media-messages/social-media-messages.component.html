@@ -210,8 +210,8 @@
                         <div class="mb-3">
                             <label class="form-label">Photos</label>
                             <div class="row">
-                                <div class="col-sm-4 mb-3" *ngFor="let img of socialMediaDetailsImageArray">
-                                    <img src="{{img.ImagePath}}" class="img-thumbnail h-150">
+                                <div class="col-sm-4 mb-3" *ngFor="let img of programGalleryImg; index as i">
+                                    <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                                 </div>
                             </div>
                         </div>
