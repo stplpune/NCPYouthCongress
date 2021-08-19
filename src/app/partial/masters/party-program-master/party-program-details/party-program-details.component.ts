@@ -220,6 +220,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
+        console.log("11111111111",this.committeeUserdetailsArray);
         this.committeeUserdetailsArray.globalGroupId;
         this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
