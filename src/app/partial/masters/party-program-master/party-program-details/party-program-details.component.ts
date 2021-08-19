@@ -278,7 +278,8 @@ export class PartyProgramDetailsComponent implements OnInit {
 
 
   getPartyProgramDetails(viewMemberId:any){
-    this.getBodyMemeberActivitiesDetails(viewMemberId);
+    this.getBodyMemeberActivitiesDetails(viewMemberId);   
+    
   }
 
     getBodyMemeberActivitiesDetails(viewMemberId: any) {//aa
