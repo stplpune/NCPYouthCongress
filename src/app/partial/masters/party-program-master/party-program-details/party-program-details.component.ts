@@ -149,6 +149,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
+        console.log(res);
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.defaultPartiNonParti = false;
@@ -242,13 +243,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   closeModelCommitty(){
     this.committeeModelDataDivHide=false;
   }
-  
-  // redToMemberProfile(bodyId: any, BodyOrgCellName:any) {
-  //     let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
-  //     localStorage.setItem('memberId', JSON.stringify(obj))
-  //     // this.router.navigate(['details'], { relativeTo: this.route })
-  //     this.router.navigate(['profile'], {relativeTo:this.route})
-  // }
 
   redToMemberProfile(memberId: any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
@@ -310,5 +304,15 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
+    if(bodyId == "" || bodyId == null){
+      this.toastrService.error("Data not found..");
+    }else{
+      let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+      localStorage.setItem('bodyId', JSON.stringify(obj))
+      this.router.navigate(['../../../master/committee/details'], { relativeTo: this.route })
+    }
   }
 }
