@@ -44,7 +44,7 @@
 #pageheader .input-group .btn {
     background-color: transparent;
     border: 1px solid #ced4da;
-    border-left: none;
+    border-left: none !important;
     box-shadow: none;
     outline: none;
 }

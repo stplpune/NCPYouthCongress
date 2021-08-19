@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -23,8 +25,8 @@ export class SocialMediaMessagesComponent implements OnInit {
   memberNameArray: any;
   socialMediaMessagesArray: any;
   socialMediaDetailsArray: any;
-  lat: any = 19.75117687556874;
-  lng: any = 75.71630325927731;
+  lat: any;
+  lng: any;
   zoom: any = 12;
   socialMediaDetailsImageArray: any;
   defaultToDate: string = '';
@@ -34,6 +36,8 @@ export class SocialMediaMessagesComponent implements OnInit {
    WhtasAppCount:any;  
    socialMediaCount:any;
    Twitter:any;
+   comUserdetImg:any;
+   programGalleryImg!: GalleryItem[]; 
 
 
   constructor(
@@ -44,6 +48,8 @@ export class SocialMediaMessagesComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    public gallery: Gallery,
+    private _lightbox: Lightbox,
   ) { }
 
   ngOnInit(): void {
@@ -171,7 +177,12 @@ export class SocialMediaMessagesComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaDetailsArray = res.data1[0];
-        this.socialMediaDetailsImageArray = res.data2;
+
+        let socialMediaDetailsImageArray = res.data2;
+        this.programGalleryImg = socialMediaDetailsImageArray;
+        this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
+        this.gallery.ref().load(this.programGalleryImg);
+
         let socialMediaDetailsLatLongArray = res.data3[0];
         this.lat = socialMediaDetailsLatLongArray.Latitude;
         this.lng = socialMediaDetailsLatLongArray.Longitude;

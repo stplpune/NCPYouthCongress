@@ -86,7 +86,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Sr. No.</th>
                             <th scope="col">Work Date</th>
                             <th scope="col">Member Name</th>
                             <th scope="col">Work Type</th>
@@ -215,7 +215,7 @@
                                 <img src="{{viewPoliticleWorkDetailsById?.Images}}" class="img-thumbnail" />
                             </div> -->
                             <div class="col-sm-2 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
-                                <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
+                                <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail h-150">
                             </div>
                         </div>
                     </div>
