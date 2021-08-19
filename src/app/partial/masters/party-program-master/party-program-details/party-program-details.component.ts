@@ -220,7 +220,6 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.committeeUserdetailsArray = res.data1[0];
-        console.log("11111111111",this.committeeUserdetailsArray);
         this.committeeUserdetailsArray.globalGroupId;
         this.comUserdetImg = this.committeeUserdetailsArray.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
@@ -238,6 +237,10 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  closeModelCommitty(){
+    this.committeeModelDataDivHide=false;
   }
 
 
@@ -275,7 +278,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.getBodyMemeberActivitiesDetails(viewMemberId);
   }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {//aa
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -287,7 +290,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.gallery.ref().load(this.comUserdetImg);
-        console.log("aaaaaaaaaaaaa",this.comUserdetImg)
 
 
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
