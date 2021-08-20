@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -10,6 +10,7 @@ import { DatePipe, Location } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+declare var $: any
 
 @Component({
   selector: 'app-social-media-image',
@@ -17,7 +18,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./social-media-image.component.css', '../../partial.component.css'],
 
 })
-export class SocialMediaImageComponent implements OnInit {
+export class SocialMediaImageComponent implements OnInit , AfterViewInit{
 
   maxDate: any = new Date();
   toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
@@ -34,6 +35,7 @@ export class SocialMediaImageComponent implements OnInit {
   defaultCloseBtn:boolean = false;
   perceptionTrendWebArray:any;
   perOnSocialMedArray:any;
+  graphInstance:any;
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,97 @@ export class SocialMediaImageComponent implements OnInit {
   }
 
   
+  ngAfterViewInit() {
+    this.showSvgMap(this.commonService.mapRegions());
+  }
+
+  
+  showSvgMap(regions_m:any) {
+    if (this.graphInstance) {
+      this.graphInstance.destroy();
+    }
+     this.graphInstance = $("#mapsvg").mapSvg({
+        width: 550,
+        height: 430,
+        colors: {
+          baseDefault: "#bfddff",
+          background: "#fff",
+          selected: "#272848",
+          hover: "#272848",
+          directory: "#bfddff",
+          status: {}
+        },
+        regions: regions_m,
+        viewBox: [0, 0, 763.614, 599.92],
+        cursor: "pointer",
+        zoom: {
+          on: false,
+          limit: [0, 50],
+          delta: 2,
+          buttons: {
+            on: true,
+            location: "left"
+          },
+          mousewheel: true
+        },
+        tooltips: {
+          mode: "title",
+          off: true,
+          priority: "local",
+          position: "bottom"
+        },
+        popovers: {
+          mode: "on",
+          on: false,
+          priority: "local",
+          position: "top",
+          centerOn: false,
+          width: 300,
+          maxWidth: 50,
+          maxHeight: 50,
+          resetViewboxOnClose: false,
+          mobileFullscreen: false
+        },
+        gauge: {
+          on: false,
+          labels: {
+            low: "low",
+            high: "high"
+          },
+          colors: {
+            lowRGB: {
+              r: 211,
+              g: 227,
+              b: 245,
+              a: 1
+            },
+            highRGB: {
+              r: 67,
+              g: 109,
+              b: 154,
+              a: 1
+            },
+            low: "#d3e3f5",
+            high: "#436d9a",
+            diffRGB: {
+              r: -144,
+              g: -118,
+              b: -91,
+              a: 0
+            }
+          },
+          min: 0,
+          max: false
+        },
+        source: "assets/images/maharashtra_districts_texts.svg",
+        // source: "assets/images/divisionwise.svg",
+        title: "Maharashtra-bg_o",
+        responsive: true
+      });
+    // });
+  }
+
+
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       DistrictId: [0],
@@ -190,6 +283,16 @@ export class SocialMediaImageComponent implements OnInit {
     })
   }
 
+  mahaSVGMap(){
+      // this.perOnSocialMedArray.map((ele:any)=>{
+      //   $('#'+ele.DistrictName).text(ele.TotalWork);
+      //   $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+      //   $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+      // })
+    }
+  
+
+  // this.trendOnSocialMediaArray 
   getLowHighSocialMTypesOfWorks() {//count3 api
     // this.spinner.show();
     // this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
