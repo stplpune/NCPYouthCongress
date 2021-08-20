@@ -33,7 +33,8 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label required-field">Select State</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('State', this.orgMasterForm.value.BodyLevelId)" [items]="allStates" formControlName="StateId" placeholder="Select State" optionValueField="Id" optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }" [disabled]="!this.orgMasterForm.value.BodyLevelId">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="allStates" formControlName="StateId" placeholder="Select State" optionValueField="Id" optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
+                                    [disabled]="!this.orgMasterForm.value.BodyLevelId">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.StateId.errors" class="invalid-feedback">
                                     <div *ngIf="f.StateId.errors.required">State is required</div>
@@ -42,8 +43,8 @@
                             <div class="mb-3">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
                                     District</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('District',this.orgMasterForm.value.BodyLevelId)" [items]="allDistrict" formControlName="DistrictId" [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId" (select)="getTaluka(this.orgMasterForm.value.DistrictId)" optionValueField="DistrictId"
-                                    optionTextField="DistrictName" placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="allDistrict" formControlName="DistrictId" [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId" (select)="getTaluka(this.orgMasterForm.value.DistrictId)"
+                                    optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
                                     <div *ngIf="f.DistrictId.errors.required">District is required</div>
@@ -59,7 +60,7 @@
                             <div class="mb-2">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors}">Select
                                     Taluka</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('Taluka',this.orgMasterForm.value.BodyLevelId)" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
                                     (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
@@ -69,8 +70,8 @@
                             <div class="mb-2">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select
                                     {{villageCityLabel}}</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption('Village',this.orgMasterForm.value.BodyLevelId)" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="disableFlagVill"
-                                    [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName"
+                                    [disabled]="disableFlagVill" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
                                     <div *ngIf="f.VillageId.errors.required">{{villageCityLabel}} is required</div>

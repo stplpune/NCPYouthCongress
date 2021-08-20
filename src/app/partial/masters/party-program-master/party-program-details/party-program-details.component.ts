@@ -96,6 +96,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         let programDetailsImagesArray = res.data2;
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
+        console.log(this.overviewArray);
         this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
         this.gallery.ref().load(this.programGalleryImg);
 

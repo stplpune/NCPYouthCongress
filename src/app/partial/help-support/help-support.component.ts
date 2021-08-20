@@ -109,11 +109,13 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.messagebyGroupIdArray = res.data1;
-        this.getReceiverChatList();
         setTimeout(() => {
           this.scrollToBottom();
         }, 100);
+        this.messagebyGroupIdArray = res.data1;
+        console.log('messagebyGroupIdArray',this.messagebyGroupIdArray)
+        // this.getReceiverChatList();
+     
       } else {
         this.spinner.hide();
       }
