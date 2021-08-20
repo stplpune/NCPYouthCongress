@@ -5,21 +5,16 @@
         </div>
         <div class="col-sm-9">
             <form [formGroup]="topFilterForm">
-            <div class="row g-1 d-flex justify-content-end">
-            
+                <div class="row g-1 d-flex justify-content-end">
+
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" formControlName="category" (remove)="clearFilter('workType')"
-                        (select)="filterData('workType')" [items]="resWorkcategory" optionValueField="Id"
-                        optionTextField="Category" 
-                        placeholder="Select Work Category">
-                    </ngx-select>
+                        <ngx-select [allowClear]="true" formControlName="category" (remove)="clearFilter('workType')" (select)="filterData('workType')" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" placeholder="Select Work Category">
+                        </ngx-select>
                     </div>
                     <div class="col-sm-3">
                         <div class="input-group">
                             <div class="input-group">
-                                <input [owlDateTime]="dt1" formControlName="fromTo" (dateTimeChange)="getweekRage($event)"
-                                    class="form-control form-control-sm"  [(ngModel)]="dateRange" 
-                                    [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                <input [owlDateTime]="dt1" formControlName="fromTo" (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm" [(ngModel)]="dateRange" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                                 <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
                                 <button class="btn btn-light btn-sm" type="button" *ngIf="!defaultCloseBtn" [owlDateTimeTrigger]="dt1"> <i class="fas fa-calendar-alt"></i></button>
                                 <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateValue')">
@@ -27,12 +22,12 @@
                             </div>
                         </div>
                     </div>
-            
-                <div class="col-sm-auto">
-                    <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
+
+                    <div class="col-sm-auto">
+                        <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
     </div>
     <!-- <div class="row">
@@ -65,7 +60,7 @@
                 <div class="card-header">Work done by Members</div>
                 <div class="card-body">
                     <!-- <div id="mapsvg"></div> -->
-                    <!-- <img src="assets/images/mahamap.svg" class="img-fluid mb-4" /> -->
+                    <img src="assets/images/map_maha_m.svg" class="img-fluid mb-4" />
 
                     <div class="row">
                         <div class="col-sm-6 border-end">
@@ -92,21 +87,21 @@
 
             <div class="card">
                 <div class="card-header">
-                <div class="row g-2">
-                    <div class="col-sm-6">
-                        Performance By Committees
-                    </div>
-                    <div class="col-sm-6 text-end">
-                        <div class="form-check form-check-inline" *ngFor="let bestWorst of bestWorstArray">
-                            <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes"  [value]="bestWorst.id"  [checked]="bestWorst.id ==  defultCategoryName"  (change)="bestWorstPer(bestWorst)">
-                            <label class="form-check-label" for="chkIsMultipleYes">{{bestWorst.name}}</label>
+                    <div class="row g-2">
+                        <div class="col-sm-6">
+                            Performance By Committees
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <div class="form-check form-check-inline" *ngFor="let bestWorst of bestWorstArray">
+                                <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes" [value]="bestWorst.id" [checked]="bestWorst.id ==  defultCategoryName" (change)="bestWorstPer(bestWorst)">
+                                <label class="form-check-label" for="chkIsMultipleYes">{{bestWorst.name}}</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
                 <div class="card-body">
-                   
+
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -114,7 +109,7 @@
                                 <th>Committee Name</th>
                                 <th>Location</th>
                                 <th>Work Count</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -149,7 +144,7 @@
                             </div>
                             <div class="col-sm-6 text-end">
                                 <div class="form-check form-check-inline" *ngFor="let PerformanceCat of bestPerCat">
-                                    <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes"  [value]="PerformanceCat.id"  formControlName="IsBody" [checked]="PerformanceCat.id ==  defultCategoryName"  (change)="catChange(PerformanceCat)">
+                                    <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes" [value]="PerformanceCat.id" formControlName="IsBody" [checked]="PerformanceCat.id ==  defultCategoryName" (change)="catChange(PerformanceCat)">
                                     <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat.name}}</label>
                                 </div>
                                 <!-- <div class="form-check form-check-inline">
@@ -168,8 +163,7 @@
                                 </ngx-select>
                             </div>
                             <div class="col-md-4">
-                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (select)="filterData('talka')" (remove)="clearFilter('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" 
-                                    [disabled]="!this.filterBestPer.value.DistrictId">
+                                <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" (select)="filterData('talka')" (remove)="clearFilter('taluka')" optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId" placeholder="Select Taluka" [disabled]="!this.filterBestPer.value.DistrictId">
                                 </ngx-select>
                             </div>
                             <!-- <div class="col-md-4">
@@ -180,7 +174,7 @@
                         </div>
                         <div class="row g-2" *ngIf="catValue == 'Committee'">
                             <div class="col-md-6 offset-6">
-                                <ngx-select [allowClear]="true" [items]="memberNameArray" (select)="filterData('committee')" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')"  placeholder="Select Committee Name">
+                                <ngx-select [allowClear]="true" [items]="memberNameArray" (select)="filterData('committee')" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')" placeholder="Select Committee Name">
                                 </ngx-select>
                             </div>
                         </div>
@@ -200,7 +194,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+
                             <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
                                 <td><a class="text-primary" (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a></td>

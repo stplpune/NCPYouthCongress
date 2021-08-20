@@ -23,7 +23,7 @@ import { GalleryModule } from '@ngx-gallery/core';
     LightboxModule,
     GalleryModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
+      apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',
       libraries: ['geometry','places']
     }),
