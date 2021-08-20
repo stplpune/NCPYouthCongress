@@ -84,7 +84,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <span class="persondate"><i class="fas fa-calendar-alt me-2"></i>
-                                                {{detailsData.FeedbackDate}}{{detailsData.FeedbackTime}} </span>
+                                                {{detailsData.FeedbackDate}}   <small>({{detailsData.FeedbackTime}})</small> </span>
                                         </div>
                                         <div class="col-sm-4">
                                             <span class="personemail" *ngIf="detailsData?.EmailId"><i class="far fa-envelope me-1"></i>
@@ -103,7 +103,7 @@
                                             <div class="card card-body border shadow-none position-relative membercall">
                                                 <p class="small text-muted mb-1 lblfeedback"> {{detailsData.FullName | titlecase}}
                                                     <span class="float-end text-muted small">
-                                                        {{detailsData.FeedbackDate}}{{detailsData.FeedbackTime}}
+                                                        {{detailsData.FeedbackDate}} <small>({{detailsData.FeedbackTime}})</small>
                                                     </span>
                                                 </p>
                                                 <span class="feedback">
@@ -121,7 +121,7 @@
                                             <div class="card card-body border bg-light shadow-none position-relative admincall" *ngFor="let msg of resultAllFeedBackDetails">
                                                 <p class="small text-muted mb-1 lblfeedback">Admin
                                                     <span class="float-end text-muted small">
-                                                       date time</span>
+                                                        {{detailsData.FeedbackDate}} <small>({{detailsData.FeedbackTime}})</small></span>
                                                 </p>
                                                 <span class="feedback">
                                                     {{msg.ReplyMessage | titlecase}}
