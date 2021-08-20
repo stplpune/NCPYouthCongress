@@ -49,6 +49,7 @@ export class NotificationsComponent implements OnInit {
   @ViewChild('clickPushModal') clickPushModal:any;
   IsChangeImage:boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
+  
 
   constructor(
     private callAPIService: CallAPIService, 
