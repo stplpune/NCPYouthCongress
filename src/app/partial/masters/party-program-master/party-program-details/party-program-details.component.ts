@@ -126,7 +126,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        console.log("11111111111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         //  this.basicLightboxExample();
@@ -188,7 +187,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        console.log("2222222222",this.programDetailsLatLongArray)
       } else {
           // this.toastrService.error("Data is not available");
       }
