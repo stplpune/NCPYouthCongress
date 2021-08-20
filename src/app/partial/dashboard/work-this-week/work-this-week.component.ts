@@ -264,13 +264,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   showSvgMap(regions_m:any) {
     $(document).ready(function () {
       $("#mapsvg").mapSvg({
-        width: 763.614,
-        height: 599.92,
+        width: 550,
+        height: 430,
         colors: {
           baseDefault: "#bfddff",
           background: "#fff",
-          selected: "#6365AE",
-          hover: "#6365AE",
+          selected: "#272848",
+          hover: "#272848",
           directory: "#bfddff",
           status: {}
         },
@@ -291,7 +291,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           mode: "title",
           off: true,
           priority: "local",
-          position: "top"
+          position: "bottom"
         },
         popovers: {
           mode: "on",
@@ -564,10 +564,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       am4core.useTheme(am4themes_material);
       let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
       chart.colors.list = [
-        am4core.color("#ABEBC6"),
-        am4core.color("#ABEBC6"),
-        am4core.color("#D2B4DE"),
-        am4core.color("#D2B4DE"),
+        am4core.color("#515ee6"),
+        am4core.color("#515ee6"),
+        am4core.color("#b959e0"),
+        am4core.color("#b959e0"),
       ];
       chart.colors.step = 2;
 
@@ -658,9 +658,9 @@ xAxis.renderer.minGridDistance = 30;
   mahaSVGMap(){
     console.log(this.WorkDoneByYuvakBarchart);
       this.WorkDoneByYuvakBarchart.map((ele:any)=>{
-        $('#'+ele.DistrictName).text(ele.DistrictName +'\n'+ ele.TotalWork);
-        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
-        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
+        $('#'+ele.DistrictName).text(ele.TotalWork);
+        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
     }
   
