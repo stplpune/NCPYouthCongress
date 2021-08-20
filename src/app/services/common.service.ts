@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommonService {
-  constructor() { }
+  constructor() {
+    
+   }
   regions_m:any;
   getLocalStorageData() {
     let loginObj = JSON.parse(localStorage.loggedInDetails).data1[0];
@@ -89,189 +91,190 @@ export class CommonService {
       }
     } 
 
+ 
+
 mapRegions():Observable<any>{
   this.regions_m = {
     'path3109': {
         id: "1",
         tooltip: "पुणे",
-        data: {}
     },
     'path3121': {
         id: "2",
         tooltip: "सांगली",
-        data: {}
+        
     },
     'path3117': {
         id: "3",
         tooltip: "सातारा",
-        data: {}
+        
     },
     'path3193': {
         id: "5",
         tooltip: "परभणी",
-        data: {}
+        
     },
     'path3209': {
         id: "6",
         tooltip: "यवतमाळ",
-        data: {}
+        
     },
     'path3113': {
         id: "7",
         tooltip: "सोलापूर",
-        data: {}
+        
     },
     'path3157': {
         id: "8",
         tooltip: "अहमदनगर",
-        data: {}
+        
     },
     'path3125': {
         id: "9",
         tooltip: "कोल्हापूर",
-        data: {}
+        
     },
     'path3169': {
         id: "10",
         tooltip: "औरंगाबाद",
-        data: {}
+        
     },
     'path3181': {
         id: "11",
         tooltip: "बीड",
-        data: {}
+        
     },
     'path3197': {
         id: "12",
         tooltip: "हिंगोली",
-        data: {}
+        
     },
     'path3173': {
         id: "13",
         tooltip: "जालना",
-        data: {}
+        
     },
     'path3185': {
         id: "14",
         tooltip: "लातूर",
-        data: {}
+        
     },
     'path3177': {
         id: "15",
         tooltip: "नांदेड",
-        data: {}
+        
     },
     'path3189': {
         id: "16",
         tooltip: "उस्मानाबाद",
-        data: {}
+        
     },
     'path3213': {
         id: "17",
         tooltip: "अकोला",
-        data: {}
+        
     },
     'path3201': {
         id: "18",
         tooltip: "अमरावती",
-        data: {}
+        
     },
     'path3205': {
         id: "19",
         tooltip: "बुलडाणा",
-        data: {}
+        
     },
     'path3217': {
         id: "20",
         tooltip: "वाशिम",
-        data: {}
+        
     },
     'path3165': {
         id: "21",
         tooltip: "धुळे",
-        data: {}
+        
     },
     'path3149': {
         id: "22",
         tooltip: "जळगाव",
-        data: {}
+        
     },
     'path3161': {
         id: "23",
         tooltip: "नंदुरबार",
-        data: {}
+        
     },
     'path3153': {
         id: "24",
         tooltip: "नाशिक",
-        data: {}
+        
     },
     'path3237': {
         id: "25",
         tooltip: "भंडारा",
-        data: {}
+        
     },
     'path3233': {
         id: "26",
         tooltip: "चंद्रपूर",
-        data: {}
+        
     },
     'path3229': {
         id: "27",
         tooltip: "गडचिरोली",
-        data: {}
+        
     },
     'path3241': {
         id: "28",
         tooltip: "गोंदिया",
-        data: {}
+        
     },
     'path3221': {
         id: "29",
         tooltip: "नागपूर",
-        data: {}
+        
     },
     'path3225': {
         id: "30",
         tooltip: "वर्धा",
-        data: {}
+        
     },
     'path3129': {
         id: "31",
         tooltip: "मुंबई उपनगर",
-        data: {}
+        
     },
     'path3137': {
         id: "32",
         tooltip: "रायगड",
-        data: {}
+        
     },
     'path3133': {
         id: "33",
         tooltip: "रत्नागिरी",
-        data: {}
+        
     },
     'path3141': {
         id: "34",
         tooltip: "सिंधुदुर्ग",
-        data: {}
+        
     },
     'path1022': {
         id: "35",
         tooltip: "ठाणे",
-        data: {}
+        
     },
     'path1026': {
         id: "36",
         tooltip: "मुंबई शहर",
-        data: {}
+        
     },
     'path3145': {
         id: "37",
         tooltip: "पालघर",
-        data: {}
+        
     },
 }
-return this.regions_m;
+ return this.regions_m;
 }
 }
