@@ -64,7 +64,7 @@ export class OrganizationMasterComponent implements OnInit {
   subject: Subject<any> = new Subject();
   globalLevelId: any;
   allBodyAssignedDesignation: any;
-  globalselLevelFlag!:string;
+  globalselLevelFlag!: string;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -80,7 +80,6 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDesignation();
     this.defaultDesignationForm();
     this.searchFilters('false');
-
   }
 
   selectLevel(levelId: any, flag: any) {
@@ -118,7 +117,6 @@ export class OrganizationMasterComponent implements OnInit {
         this.orgMasterForm.controls["TalukaId"].setValue(null);
         this.getTaluka(this.globalDistrictId);
       }
-
     } else if (levelId == 2) {
       this.validationOncondition(levelId);
       this.disableFlagDist = true;
@@ -138,7 +136,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
       debugger
-      if (this.btnText == "Update Organization"  && flag == 'edit') {
+      if (this.btnText == "Update Organization" && flag == 'edit') {
         this.orgMasterForm.controls["VillageId"].setValue(null);
       }
       if (this.btnText == "Update Organization" && flag == 'select') {
@@ -147,10 +145,9 @@ export class OrganizationMasterComponent implements OnInit {
         // this.orgMasterForm.controls["TalukaId"].setValue(null);
         this.getVillageOrCity(this.globalDistrictId, 'city');
       }
- 
     }
     else {
-      
+
       this.selectLevelClear();
     }
   }
@@ -175,7 +172,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       // this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.updateValueAndValidityMF(levelId);
-    }else if (levelId == 2) {
+    } else if (levelId == 2) {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.updateValueAndValidityMF(levelId);
     } else {
@@ -193,19 +190,19 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 
-  clearselOption(flag: any, globalLevelId:any) {
+  clearselOption(flag: any, globalLevelId: any) {
     debugger;
     if (flag == 'State') {
       // if(flag == 'State' && this.globalLevelId == 6){
       //   this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       //   this.orgMasterForm.controls["VillageId"].setValue(null);
       // }else{
-        this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-        this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-        this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-        this.orgMasterForm.controls["DistrictId"].setValue(null);
-        this.orgMasterForm.controls["TalukaId"].setValue(null);
-        this.orgMasterForm.controls["VillageId"].setValue(null);
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls["TalukaId"].setValue(null);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
       // }
       this.redioBtnDisabled = true;
       this.disableFlagVill = true;
@@ -226,7 +223,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValue(null);
       this.orgMasterForm.controls["VillageId"].setValue(null);
-    } else if (flag == 'Village') {
+    } else if (flag == 'Village'  && this.globalLevelId != 6) {
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValue(null);
     } else if (flag == 'Village' && this.globalLevelId == 6) {
@@ -371,10 +368,11 @@ export class OrganizationMasterComponent implements OnInit {
         debugger;
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
         if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) { // edit
-          if(this.selEditOrganization.BodyLevel == 6){
+          if (this.selEditOrganization.BodyLevel == 6) {
             this.orgMasterForm.controls["VillageId"].setValue(null);
+            this.selCity();
           }
-          this.selCity();
+
         } else {
           if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) {
             this.getTaluka(this.globalDistrictId);

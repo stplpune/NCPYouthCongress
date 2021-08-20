@@ -38,12 +38,13 @@
                 <div class="card-body p-2">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item px-0 border-bottom" *ngFor="let roles of organizationRoles">
-                            <div class="text-end mb-1">
-                                <span class="badge bg-light rounded-pill text-secondary">{{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}}</span>
-                            </div>
+                            <!-- <div class="text-end mb-1">
+
+                            </div> -->
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold text-main"> {{roles?.BodyOrgCellName}}</div>
-                                <small class="text-primary">{{roles?.Designation}}</small>
+                                <small class="text-primary">{{roles?.Designation}}</small><br/>
+                                <small class="bg-light rounded-pill text-secondary">{{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}}</small>
                             </div>
                         </li>
                     </ul>
@@ -97,7 +98,7 @@
                         <div class="col-sm-3">
                             <div class="card card-body">
                                 <i class="fas fa-network-wired"></i>
-                                <p>Political Works</p>
+                                <p>Political Activity</p>
                                 <h3>{{membersOverview?.TotalPoliticalWork}}</h3>
                             </div>
                         </div>
@@ -348,7 +349,7 @@
                             <div class="row">
                                 <div class="col-sm-2 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
                                     <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
-                                                                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
