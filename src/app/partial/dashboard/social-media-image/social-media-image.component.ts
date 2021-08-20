@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -18,7 +18,7 @@ declare var $: any
   styleUrls: ['./social-media-image.component.css', '../../partial.component.css'],
 
 })
-export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDestroy{
+export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDestroy, OnChanges{
 
   maxDate: any = new Date();
   toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
@@ -36,6 +36,9 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
   perceptionTrendWebArray:any;
   perOnSocialMedArray:any;
   graphInstance:any;
+  resPoliticalParty:any;
+  selectedParty:number = 1;
+  resultofPartyData:any;
 
   constructor(
     private fb: FormBuilder,
@@ -52,6 +55,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     this.getDistrict();
     this.defaultFilterForm();
     this.getMostLikeHatedPerson();
+    this.getPoliticalParty();
   }
 
   
@@ -283,13 +287,71 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     })
   }
 
+  getPoliticalParty(){
+    this.callAPIService.setHttp('get', 'Web_GetPoliticalParty', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resPoliticalParty = res.data1;
+        this.mahaSVGMap();
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  ngOnChanges(){
+    console.log(this.selectedParty);
+  }
+
+  partyChangeEvent(getPartyId:any){
+    this.selectedParty = getPartyId;
+    this.mahaSVGMap()
+  }
+
   mahaSVGMap(){
-      // this.perOnSocialMedArray.map((ele:any)=>{
-      //   $('#'+ele.DistrictName).text(ele.TotalWork);
-      //   $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
-      //   $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
-      // })
-      
+    let fromDate: any;
+    let toDate: any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId+'&PartyId='+this.selectedParty, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        console.log(res);
+        this.resultofPartyData = res.data1
+        this.spinner.hide();
+         this.resultofPartyData.map((ele:any)=>{
+           if(ele.ActivityCount > 1 ){
+             if(this.selectedParty == 1){
+              $('path[id="' + ele.Id + '"]').css('fill', '#80deea');
+             }else if(this.selectedParty == 2){
+              $('path[id="' + ele.Id + '"]').css('fill', '#ff8a65');
+             }else if(this.selectedParty == 3){
+              $('path[id="' + ele.Id + '"]').css('fill', '#e57373');
+             }else if(this.selectedParty == 4){
+              $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
+             }
+           }
+          $('#'+ele.DistrictName).text(ele.ActivityCount);
+          // $('#mapsvg-menu-regions option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
+          // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
+        })
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+    
     }
   
   socialMediaChart() {

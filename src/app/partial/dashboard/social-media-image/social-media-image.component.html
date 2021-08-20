@@ -42,6 +42,9 @@
             </div>
             <div class="card">
                 <div class="card-header">Party Influence Map</div>
+                
+                <ngx-select  [items]="resPoliticalParty"  (select)="partyChangeEvent(selectedParty)"  optionValueField="Id" optionTextField="PartyName" [(ngModel)]="selectedParty">
+                </ngx-select>
                 <div class="card-body">
                     <div id="mapsvg"></div>
                     <!-- <img src="assets/images/map_maha_m.svg" class="img-fluid mb-4" /> -->
