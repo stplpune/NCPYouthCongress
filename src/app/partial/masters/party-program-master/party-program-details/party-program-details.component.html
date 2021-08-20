@@ -121,6 +121,7 @@
                             <tr>
                                 <th scope="col">Sr. No.</th>
                                 <th scope="col">Participants Name</th>
+                                <th scope="col">Participation</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
                                 <th scope="col">View</th>
@@ -130,6 +131,7 @@
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
                                 <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
+                                <td>{{membersData.ActivityDate}}  {{membersData.ActivityTime}}</td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
@@ -248,32 +250,32 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.CategoryName">
                                 <label class="form-label">Work Type</label>
                                 <div id="txtWorkType" class="form-data">
                                     {{resultBodyMemActDetails.CategoryName}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.Title">
                                 <label class="form-label">Title</label>
                                 <div id="txtTitle" class="form-data">
                                     {{resultBodyMemActDetails.Title | titlecase}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.ProgramTitle">
                                 <label class="form-label">Program</label>
                                 <div id="txtProgram" class="form-data">
                                     {{resultBodyMemActDetails. ProgramTitle | titlecase}}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="resultBodyMemActDetails?.Description">
                             <label class="form-label">Description</label>
                             <div id="txtDescription" class="form-data">
                                 {{resultBodyMemActDetails.Description | titlecase}}
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="resultBodyMemActDetails?.Link">
                             <label class="form-label">Link URL</label>
                             <div class="form-data">
                                 <a href="{{resultBodyMemActDetails.Link}}" target="_blank">

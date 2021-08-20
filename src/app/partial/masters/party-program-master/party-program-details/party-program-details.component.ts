@@ -127,9 +127,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        // this.ParpantsProMemImge = res.data1;
-        // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
-        //  this.basicLightboxExample();
       } else {
         if (res.data == 1) {
           this.spinner.hide();
