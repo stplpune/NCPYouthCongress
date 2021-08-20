@@ -167,7 +167,7 @@
                                 {{viewPoliticleWorkDetailsById?.FullName}}
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3" *ngIf="viewPoliticleWorkDetailsById?.Title">
                             <div class="col-sm-6">
                                 <label class="form-label">Title</label>
                                 <div id="txtMobileNo" class="form-data">
@@ -176,33 +176,33 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="viewPoliticleWorkDetailsById?.ProgramTitle">
                                 <label class="form-label">Program</label>
                                 <div id="txtSocialMediaSource" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.ProgramTitle}}
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="viewPoliticleWorkDetailsById?.CategoryName">
                                 <label class="form-label">Media</label>
                                 <div id="txtMobileNo" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.CategoryName}}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="viewPoliticleWorkDetailsById?.Description">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
                                 {{viewPoliticleWorkDetailsById?.Description}}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="viewPoliticleWorkDetailsById?.ActivityLocation">
                                 <label class="form-label">URL Link</label>
                                 <div id="txtMessageFavour" class="form-data">
                                     <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="viewPoliticleWorkDetailsById?.PersonContactDetails">
                                 <label class="form-label">Contact Person Details</label>
                                 <div id="txtMessageOppse" class="form-data">
                                     Contact Person Name<br>{{viewPoliticleWorkDetailsById?.PersonContactDetails}}

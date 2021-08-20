@@ -104,6 +104,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.gallery.ref().load(this.programGalleryImg);
 
       } else {
+        this.spinner.hide();
           // this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
@@ -188,6 +189,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
       } else {
+        this.spinner.hide();
           // this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
@@ -237,6 +239,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
       } else {
+        this.spinner.hide();
         this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
@@ -301,6 +304,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
       } else {
+        this.spinner.hide();
         this.resultBodyMemActDetails = [];
       }
     }, (error: any) => {
