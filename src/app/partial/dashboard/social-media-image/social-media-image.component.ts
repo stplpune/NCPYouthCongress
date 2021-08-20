@@ -460,11 +460,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
 
   }
 
-  
   ngOnDestroy() {
-    // localStorage.removeItem('weekRange');
     this.graphInstance.destroy();
   }
-
-
 }
