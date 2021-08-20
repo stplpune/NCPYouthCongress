@@ -104,6 +104,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.gallery.ref().load(this.programGalleryImg);
 
       } else {
+        this.spinner.hide();
           // this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
@@ -126,10 +127,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        console.log("11111111111",this.programDetailsLatLongArray)
-        // this.ParpantsProMemImge = res.data1;
-        // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
-        //  this.basicLightboxExample();
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -188,8 +185,8 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
-        console.log("2222222222",this.programDetailsLatLongArray)
       } else {
+        this.spinner.hide();
           // this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
@@ -239,6 +236,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
       } else {
+        this.spinner.hide();
         this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
@@ -303,6 +301,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
       } else {
+        this.spinner.hide();
         this.resultBodyMemActDetails = [];
       }
     }, (error: any) => {
