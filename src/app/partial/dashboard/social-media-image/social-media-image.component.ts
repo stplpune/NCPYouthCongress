@@ -289,6 +289,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
       //   $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       //   $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       // })
+      
     }
   
   socialMediaChart() {
