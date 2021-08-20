@@ -83,7 +83,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
-    alert(levelId);
     debugger;
     this.globalselLevelFlag = flag;
     this.globalLevelId = levelId;

@@ -48,6 +48,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   FullName: any;
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[]; 
+  selUserpostbodyId:any;
 
   constructor(
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
@@ -346,5 +347,30 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.memberProfileWorkdetails();
     this.getMemberprofileDetails();
     this.dateTime.setValue(null);
+  }
+
+  getUserPostBodyId(id: any) {
+    this.selUserpostbodyId = id;
+  }
+
+  deleteMember() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_AssignMember_1_0?userpostbodyId=' + this.selUserpostbodyId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getMemberprofileDetails();
+
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }
