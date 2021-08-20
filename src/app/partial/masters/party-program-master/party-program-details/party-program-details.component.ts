@@ -276,11 +276,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.getCommitteeUserList(this.committeeId,this.committeeNmame);
   }
 
-  ngOnDestroy() {
-    // this.router.url != '/member/profile' ? localStorage.removeItem('programListIdKey') : '';
-  }
-
-
   getPartyProgramDetails(viewMemberId:any){
     this.getBodyMemeberActivitiesDetails(viewMemberId);   
     
