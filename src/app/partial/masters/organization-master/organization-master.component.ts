@@ -150,6 +150,7 @@ export class OrganizationMasterComponent implements OnInit {
  
     }
     else {
+      
       this.selectLevelClear();
     }
   }
