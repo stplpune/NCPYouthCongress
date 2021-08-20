@@ -37,8 +37,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   fromDate: any;
   catValue: any;
   bestPerCat = [{'id':1,'name':"Committee"},{'id':0,'name':"Location"}];
-  bestWorstArray = [{'id':1,'name':"Best"},{'id':0,'name':"Worst"}];
-  defultCategoryName:any = 0;
+  bestWorstArray = [{'id':0,'name':"Worst"}, {'id':1,'name':"Best"}];
+  defultCategoryName:any = 1;
   resWorkcategory:any;
   dateRange:any;
   dateRange1:any;
@@ -46,7 +46,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   resultBestPerKaryMember:any;
   memberNameArray:any;
   regions_m:any;
-  isBestworst = 0;
+  isBestworst = 1;
   savgMapArray:any;
   svgMapWorkDoneByYuvakBP:any;
   svgMapWorkDoneByYuvakTp:any;

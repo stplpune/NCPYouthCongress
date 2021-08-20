@@ -64,6 +64,7 @@ export class OrganizationMasterComponent implements OnInit {
   subject: Subject<any> = new Subject();
   globalLevelId: any;
   allBodyAssignedDesignation: any;
+  globalselLevelFlag!:string;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
@@ -83,6 +84,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
+    debugger;
+    this.globalselLevelFlag = flag;
     this.globalLevelId = levelId;
     if (levelId == 3) {
       this.validationOncondition(levelId)
@@ -134,12 +137,17 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
+      debugger
+      if (this.btnText == "Update Organization"  && flag == 'edit') {
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+      }
       if (this.btnText == "Update Organization" && flag == 'select') {
         this.orgMasterForm.controls["VillageId"].setValue(null);
         // this.orgMasterForm.controls["DistrictId"].setValue(null);
-        this.orgMasterForm.controls["TalukaId"].setValue(null);
+        // this.orgMasterForm.controls["TalukaId"].setValue(null);
         this.getVillageOrCity(this.globalDistrictId, 'city');
       }
+ 
     }
     else {
       this.selectLevelClear();
@@ -149,6 +157,7 @@ export class OrganizationMasterComponent implements OnInit {
 
 
   validationOncondition(levelId: any) {
+    debugger;
     if (levelId == 5) {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
@@ -163,7 +172,10 @@ export class OrganizationMasterComponent implements OnInit {
       this.updateValueAndValidityMF(levelId);
     } else if (levelId == 6) {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+      // this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+      this.updateValueAndValidityMF(levelId);
+    }else if (levelId == 2) {
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.updateValueAndValidityMF(levelId);
     } else {
       this.clearValidatorsMF(levelId);
@@ -172,6 +184,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   clearValidatorsMF(levelId: any) {
+    debugger;
     if (levelId == 5 || levelId == 6) {
       this.orgMasterForm.controls['DistrictId'].clearValidators();
       this.orgMasterForm.controls['TalukaId'].clearValidators();
@@ -179,15 +192,20 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 
-  clearselOption(flag: any) {
+  clearselOption(flag: any, globalLevelId:any) {
+    debugger;
     if (flag == 'State') {
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["DistrictId"].setValue(null);
-      this.orgMasterForm.controls["TalukaId"].setValue(null);
-      this.orgMasterForm.controls["VillageId"].setValue(null);
-      // this.clickRuralRadioBtnClick();
+      // if(flag == 'State' && this.globalLevelId == 6){
+      //   this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      //   this.orgMasterForm.controls["VillageId"].setValue(null);
+      // }else{
+        this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+        this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+        this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+        this.orgMasterForm.controls["DistrictId"].setValue(null);
+        this.orgMasterForm.controls["TalukaId"].setValue(null);
+        this.orgMasterForm.controls["VillageId"].setValue(null);
+      // }
       this.redioBtnDisabled = true;
       this.disableFlagVill = true;
 
@@ -211,9 +229,13 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValue(null);
     } else if (flag == 'Village' && this.globalLevelId == 6) {
+      // this.orgMasterForm.controls["TalukaId"].setValue(null);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValue(null);
     }
+
+    this.updateValueAndValidityMF(globalLevelId);
+
   }
 
   updateValueAndValidityMF(levelId: any) {
@@ -232,9 +254,9 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["StateId"].updateValueAndValidity();
       this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
     }
-    this.submitted = false;
+    // this.submitted = false;
 
-    this.clearValidatorsMF(levelId);
+    // this.clearValidatorsMF(levelId);
     // }
   }
 
@@ -348,6 +370,9 @@ export class OrganizationMasterComponent implements OnInit {
         debugger;
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
         if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 0) { // edit
+          if(this.selEditOrganization.BodyLevel == 6){
+            this.orgMasterForm.controls["VillageId"].setValue(null);
+          }
           this.selCity();
         } else {
           if (this.btnText == "Update Organization" && this.selEditOrganization.IsRural == 1) {
@@ -426,7 +451,8 @@ export class OrganizationMasterComponent implements OnInit {
   get f() { return this.orgMasterForm.controls };
 
   onSubmit() {
-    // this.spinner.show();
+    debugger;
+    this.spinner.show();
     this.submitted = true;
     if (this.orgMasterForm.invalid) {
       this.spinner.hide();

@@ -288,8 +288,9 @@ export class FeedbacksComponent implements OnInit {
   }
 
   insertFeebackReply(data: any, flag: any, id: any, fStatus: any) {
-    debugger;
+    this.spinner.show();
     if ((data == "" || data == null) && flag != 'read') {
+      this.spinner.hide();
       this.toastrService.error("Action taken field is required");
     } else {
       if (flag == 'read') {
