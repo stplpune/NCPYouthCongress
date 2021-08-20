@@ -336,7 +336,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           min: 0,
           max: false
         },
-        source: "assets/images/maharashtra_districts_map.svg",
+        source: "assets/images/maharashtra_districts_texts.svg",
         // source: "assets/images/divisionwise.svg",
         title: "Maharashtra-bg_o",
         responsive: true
@@ -651,30 +651,19 @@ xAxis.renderer.minGridDistance = 30;
         }
       }
     });
-    this.svgMapWorkDoneByYuvakTp= this.WorkDoneByYuvakTP;
-    this.svgMapWorkDoneByYuvakBP = this.WorkDoneByYuvakBP;
+    // this.svgMapWorkDoneByYuvakTp= this.WorkDoneByYuvakTP;
+    // this.svgMapWorkDoneByYuvakBP = this.WorkDoneByYuvakBP;
     this.mahaSVGMap();
   }
   mahaSVGMap(){
-    debugger;
-    if(this.svgMapWorkDoneByYuvakTp.length != 0){
-      this.svgMapWorkDoneByYuvakTp.map((ele:any)=>{
-        $('path[id="' + ele.DistrictId + '"]').css('fill', '#d1e7dd');
+    console.log(this.WorkDoneByYuvakBarchart);
+      this.WorkDoneByYuvakBarchart.map((ele:any)=>{
+        $('#'+ele.DistrictName).text(ele.DistrictName +'\n'+ ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
       })
-    }else{
-      $('path').css('fill', '#a5caf3');
     }
-    
-
-    this.svgMapWorkDoneByYuvakBP.map((ele:any)=>{
-      $("#divId1count").text("33")
-      $('path[id="' + ele.DistrictId + '"]').css('fill', '#f8d7da');
-        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').prop('selected', true);
-        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').prop('selected', true);
-      })
-  }
+  
 
   catChange(value: any) {
     this.catValue = value.name;

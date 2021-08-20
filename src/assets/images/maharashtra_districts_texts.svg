@@ -104,41 +104,41 @@
         <path id="path3241" d="M2754.333,317.936l-3.511-8.288-2.8-6.244-5.6-7.634-8.4-6.88-7.031-2.8v-4.082l5.6-5.595,8.514-9.148,1.883-.1,1.732-.652,2.132-.422,2.8-.545.718-.438,1.782-1.181,1.884-1.723,1.582-.864,1.433-.317,1.263-.915.667-.809.815-.649.766-.654,1.782-1.723,1.384-1.075,1.536-.106,1.981.967,2.35.6,1.5.88,1.534,1.568.815,1.282.617.811,2.746.493,2.134.86,1.213,1.727,1.113,1.619,1.433,1.392,2.135,1.282.816,1.285.914,1.39.667,1.337.667,1.725.865,1.335.57,1.388.613,1.567.818,1.126,2.546.759,2.852,2.041,2.133.7,1.981.6,3.047.86,1.835.863,1.579,1.074,1.582.915,1.833,1.619,1.118,1.619,1.062.7h1.632l1.381.211,1.167-.055.866.367,1.168-.1,1.063.493,1.318.809-1.267,1.391-2.4,1.83-2.082,1.833-1.07,1.387-1.481,1.518-2.131,2.356-1.518,2.058-1.167-.214-1.483,1.285-2.7,1.285-2.4.545-1.115.439-2.7-.653-1.484,1.567-1.431,1.126-1.73,2.795-2.35,4.186-.713,3.167-.052,2.534.2,3.112,1.484,1.778,1.113.97.565,1.129,2.3,2.039,2.45.81,1.633.493,1.832.965,1.581.97,2.352.7.717,1.775.616,1.935.251,1.511-.053,1.829.15,2.041-1.115-1.619-1.431.372-1.535.809-1.683.317-1.684.227-2.948.214-2.249.208-1.384,1.075-1.785.965-1.73-.315-2.9-.653-2.3-.863-1.064.649-.05,2.2.349,1.458-.1,2.041-.2,2.147-1.933,3.113-1.265,3.446-1.633,1.885-4.529,1.83-3.665.211-2.549-.368-1.881-.319-3.513-.65H2760.1l-2.451-.054-2.131.054-1.835.208-2.031-.317-1.584-.65-2.081-1.724-2.029,1.071-1.686.968-1.78,1.073-1.219.968-1.781.317-1.783-.211-4.381-9.835v-3.5l-4.879-6.192-3.512-3.5-.719-4.085,7.029-1.389,6.316-2.8,4.9-5.49,9.827-3.5,2.046-7.551h0Z" transform="translate(-2724.215 -255.087)" fill="#a7a9e0" stroke="#fff" stroke-width="1.5"/>
       </g>
     </g>
-    <text id="Pune" transform="translate(2785 1171.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Pune</tspan></text>
-    <text id="Thane" transform="translate(2717 1087.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Thane</tspan></text>
-    <text id="Palghar" transform="translate(2680 1037.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Palghar</tspan></text>
-    <text id="Nashik" transform="translate(2797 986.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Nashik</tspan></text>
-    <text id="Dhule" transform="translate(2856 898.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Dhule</tspan></text>
-    <text id="Jalgaon" transform="translate(2956 909.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Jalgaon</tspan></text>
-    <text id="Aurangabad" transform="translate(2904 1013.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Aurangabad</tspan></text>
-    <text id="Jalna" transform="translate(3013 1058.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Jalna</tspan></text>
-    <text id="Buldhana" transform="translate(3042 970.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Buldhana</tspan></text>
-    <text id="Nandurbar" transform="translate(2804 841.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Nandurbar</tspan></text>
-    <text id="Ahmednagar" transform="translate(2840 1085.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Ahmednagar</tspan></text>
-    <text id="Raigad" transform="translate(2674 1190.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Raigad</tspan></text>
+    <text id="Pune" transform="translate(2785 1171.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Thane" transform="translate(2717 1087.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Palghar" transform="translate(2680 1037.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Nashik" transform="translate(2797 986.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Dhule" transform="translate(2856 898.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Jalgaon" transform="translate(2956 909.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Aurangabad" transform="translate(2904 1013.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Jalna" transform="translate(3013 1058.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Buldhana" transform="translate(3042 970.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Nandurbar" transform="translate(2804 841.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Ahmednagar" transform="translate(2840 1085.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Raigad" transform="translate(2674 1190.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
     <text id="Mumbai_Suburban" data-name="Mumbai
-Suburban" transform="translate(2629 1099.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Mumbai</tspan><tspan x="0" y="19">Suburban</tspan></text>
-    <text id="Satara" transform="translate(2804 1283.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Satara</tspan></text>
-    <text id="Solapur" transform="translate(2952 1274.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Solapur</tspan></text>
-    <text id="Osmanabad" transform="translate(3042 1254.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Osmanabad</tspan></text>
-    <text id="latur" transform="translate(3119 1205.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">latur</tspan></text>
-    <text id="Nanded" transform="translate(3169 1147.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Nanded</tspan></text>
-    <text id="Beed" transform="translate(3008 1137.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Beed</tspan></text>
-    <text id="Parbhani" transform="translate(3062 1085.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Parbhani</tspan></text>
-    <text id="Hingoli" transform="translate(3148 1064.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Hingoli</tspan></text>
-    <text id="Washim" transform="translate(3152 992.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Washim</tspan></text>
-    <text id="Yavatmal" transform="translate(3256 997.51)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Yavatmal</tspan></text>
-    <text id="Chandrapur" transform="translate(3383 990.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Chandrapur</tspan></text>
-    <text id="Wardha" transform="translate(3311 942.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Wardha</tspan></text>
-    <text id="Nagpur" transform="translate(3361 881.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Nagpur</tspan></text>
-    <text id="Bhandara" transform="translate(3440 885.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Bhandara</tspan></text>
-    <text id="Gondia" transform="translate(3500 863.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Gondia</tspan></text>
-    <text id="Gadchiroli" transform="translate(3498 1065.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Gadchiroli</tspan></text>
-    <text id="Akola" transform="translate(3136 932.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Akola</tspan></text>
-    <text id="Amravati" transform="translate(3193 899.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Amravati</tspan></text>
-    <text id="Sangli" transform="translate(2857 1353.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Sangli</tspan></text>
-    <text id="Sindhudurg" transform="translate(2689 1445.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Sindhudurg</tspan></text>
-    <text id="Ratnagiri" transform="translate(2695 1302.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Ratnagiri</tspan></text>
-    <text id="Kolhapur" transform="translate(2777 1415.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Kolhapur</tspan></text>
+Suburban" transform="translate(2629 1099.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan><tspan x="0" y="19"></tspan></text>
+    <text id="Satara" transform="translate(2804 1283.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Solapur" transform="translate(2952 1274.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Osmanabad" transform="translate(3042 1254.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="latur" transform="translate(3119 1205.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Nanded" transform="translate(3169 1147.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Beed" transform="translate(3008 1137.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Parbhani" transform="translate(3062 1085.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Hingoli" transform="translate(3148 1064.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Washim" transform="translate(3152 992.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Yavatmal" transform="translate(3256 997.51)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Chandrapur" transform="translate(3383 990.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Wardha" transform="translate(3311 942.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Nagpur" transform="translate(3361 881.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Bhandara" transform="translate(3440 885.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Gondia" transform="translate(3500 863.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Gadchiroli" transform="translate(3498 1065.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Akola" transform="translate(3136 932.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Amravati" transform="translate(3193 899.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Sangli" transform="translate(2857 1353.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Sindhudurg" transform="translate(2689 1445.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Ratnagiri" transform="translate(2695 1302.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
+    <text id="Kolhapur" transform="translate(2777 1415.01)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"></tspan></text>
   </g>
 </svg>
