@@ -56,7 +56,7 @@
                                         </p>
                                         <small class="helpdate">{{result.FeedbackDate}}, {{result.FeedbackTime}} </small>
                                     </div>
-                                    <small class="helpmsg">{{result.Feedback  | titlecase}}</small>
+                                    <small class="helpmsg text-ellipsis-250px">{{result.Feedback  | titlecase}}</small>
                                     <span class="float-end">
                                         <i class="fas fa-thumbs-down text-danger" *ngIf="result.FeedbackStatus==3"></i>
                                         <i class="fas fa-comment-dots me-1 text-primary" *ngIf="result.FeedbackStatus==2"></i>
