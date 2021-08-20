@@ -152,10 +152,11 @@ export class NotificationsComponent implements OnInit {
           this.notificationForm.reset();
           let modalClick = this.clickPushModal.nativeElement;
           modalClick.click();
-          this.toastrService.success(res.data1[0].Msg)
+          this.toastrService.success(res.data1[0].Msg);
           this.pushMotificationStatus(res.data1[0].ID, res.data1[0].ScopeId);
           // this.pushMotificationStatus(getObj?.Id, getObj?.ScopeId)
           this.getNotificationData();
+          this.resetNotificationForm();
         } else {
           this.spinner.hide();
         }
@@ -298,7 +299,7 @@ export class NotificationsComponent implements OnInit {
         this.toastrService.success(res.data1);
         this.getNotificationData();
       } else {
-        this.toastrService.error('Something went wrong please try again');
+       // this.toastrService.error('Something went wrong please try again');
         this.spinner.hide();
       }
     } ,(error:any) => {

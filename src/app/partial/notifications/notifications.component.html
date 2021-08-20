@@ -157,13 +157,13 @@
                                         <div class="input-group">
                                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
                                                 formControlName="fromTo" [selectMode]="'range'"
-                                                (dateTimeChange)="filterData('range')" class="form-control"
+                                                (dateTimeChange)="filterData('range')" class="form-control border border-end-0"
                                                 [owlDateTimeTrigger]="dt3" placeholder="From To Date">
 
-                                            <button class="btn btn-light border btn-sm" type="button"
+                                            <button class="btn btn-light border btn-sm border-start-0 bg-transparent" type="button"
                                                 [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar-alt"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button"
+                                            <button class="btn btn-light border btn-sm border-end-0 bg-transparent" type="button"
                                                 *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
                                                 <i class="fas fa-times"></i></button>
                                         </div>
@@ -173,13 +173,13 @@
 
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" formControlName="searchText"
+                                            <input type="text" class="form-control border-end-0 border" formControlName="searchText"
                                                 placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                            <button type="button" class="btn btn-light border btn-sm"
+                                            <button type="button" class="btn btn-light border btn-sm border-start-0 bg-transparent"
                                                 (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
                                                     _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                                             <button type="button" *ngIf="!filterForm.value.searchText"
-                                                class="btn btn-sm border btn-light"><i
+                                                class="btn btn-sm border btn-light border-start-0 bg-transparent"><i
                                                     class="fas fa-search"></i></button>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                             <div class="flex-grow-1 ms-3">
                                 <!-- <span class="media-date" *ngIf="{{'notificationScope?.NotificationDate' == 1}}"></span> -->
                                 <span class="media-date"
-                                    [ngClass]="{'text-success fw-bolder':notificationScope?.IsPushed == 1}">{{notificationScope?.IsPushed
+                                    [ngClass]="{'badge text-white bg-success fw-bolder':notificationScope?.IsPushed == 1}">{{notificationScope?.IsPushed
                                     == 1 ? 'Published' : 'Not-published'}}</span>
                                 <div class="media-title">{{notificationScope?.Title}}</div>
                                 <div class="media-scope">
@@ -210,7 +210,7 @@
                                     {{notificationScope?.Description}}
                                 </div>
                                 <div class="media-links">
-                                    <a href="{{notificationScope?.Link}}" target="_blank" class="me-5">Click Here</a>
+                                    <a href="{{notificationScope?.Link}}" target="_blank" class="me-5">{{notificationScope?.Link}}</a>
                                     <!-- <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
