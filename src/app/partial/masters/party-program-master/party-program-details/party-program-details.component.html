@@ -114,26 +114,25 @@
                     {{ParticipantsText}} Participants
                 </div>
 
-                <div class="card-body chartbox" *ngIf="membersAndNonParticipantsDiv">
+ <!-- Member Table -->
+                <div class="card-body chartbox" *ngIf="MemberTableDiv">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Sr. No.</th>
-                                <th scope="col" *ngIf="ParticipantsText == 'Non -'">Committee Name </th>
-                                <th scope="col" *ngIf="ParticipantsText == 'Members'">Participants Name</th>
+                                <th scope="col">Participants Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Designation</th>
-                                <th scope="col" *ngIf="ViewModelHide">View</th>
+                                <th scope="col">View</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
-                                <td *ngIf="ParticipantsText == 'Non -'"><a (click)="redirectOrgDetails(membersData.MemberId,membersData.BodyOrgCellName)" class="text-primary">{{membersData.BodyOrgCellName}}</a></td>
-                                <td *ngIf="ParticipantsText == 'Members'"><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
+                                <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
-                                <td *ngIf="ViewModelHide">
+                                <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
                                     <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData.ActivityId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
@@ -146,7 +145,9 @@
                     </div>
                 </div>
 
-                <div class="card-body chartbox" *ngIf="committeeTableDiv">
+
+ <!-- Commity & Non Commity Table -->
+                <div class="card-body chartbox" *ngIf="commityNonComityTableDiv">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -155,7 +156,7 @@
                                 <th scope="col">District Name</th>
                                 <th scope="col">Taluka Name</th>
                                 <th scope="col">Head of Committee</th>
-                                <th scope="col">View</th>
+                                <th scope="col" *ngIf="ViewEyeModelHide">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -172,7 +173,7 @@
                                         <img src="assets/images/dashboard-images/ncp-default.png">
                                     </ng-template>
                                 </td> -->
-                                <td>
+                                <td *ngIf="ViewEyeModelHide">
                                     <button class="btn btn-sm btn-light" data-bs-toggle="modal" (click)="getCommitteeUserList(committeesData.Id,committeesData.BodyOrgCellName)" data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
@@ -183,7 +184,7 @@
                     </div>
                 </div>
 
-                <div class="card-body border" *ngIf="ViewModelHide">
+                <div class="card-body border" *ngIf="ViewEyeModelHide">
                     <div class="mb-3">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
@@ -211,6 +212,7 @@
                         </agm-map>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

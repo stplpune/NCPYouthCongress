@@ -31,7 +31,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   paginationNo: number = 1;
   pageSize: number = 10;
   committeesDataArray: any;
-  committeeTableDiv: boolean = false;
   membersAndNonParticipantsDiv: boolean = true;
   ParticipantsText: string = "Members";
   total1: any;
@@ -44,7 +43,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   imgLightBox:boolean = false;
   resultBodyMemActDetails: any;
   CommitteeUserArray: any;
-  ViewModelHide:boolean=true;
   committeeNmame: any;
   committeeModelDataDivHide:boolean=false;
   committeeUserdetailsArray: any;
@@ -57,6 +55,11 @@ export class PartyProgramDetailsComponent implements OnInit {
   comUserdetImg:any;
   comUserdetImg1:any;
   lightBoxGalleryFlag:boolean = true;
+
+  commityNonComityTableDiv: boolean = false;
+  MemberTableDiv: boolean = true;
+
+  ViewEyeModelHide:boolean=true;
 
   constructor(
     public location: Location,
@@ -111,10 +114,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
-    this.ViewModelHide=true;
+    this.commityNonComityTableDiv=false;
+    this.MemberTableDiv=true;
+    this.ViewEyeModelHide=true;
     this.membersDataNonParticipantsArray = [];
-    this.membersAndNonParticipantsDiv = true;
-    this.committeeTableDiv = false;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -123,6 +126,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.membersDataNonParticipantsArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
+        console.log("11111111111",this.programDetailsLatLongArray)
         // this.ParpantsProMemImge = res.data1;
         // this.programGalleryImg = data.map((item:any) => new ImageItem({ src: item.ImagePath, thumb: item.ImagePath }));
         //  this.basicLightboxExample();
@@ -143,17 +147,16 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
    getNonParticipantsData() {
-    this.ViewModelHide=false;
-    this.committeeTableDiv = false;
-    this.membersDataNonParticipantsArray = [];
-    this.membersAndNonParticipantsDiv = true;
+    this.ViewEyeModelHide=false;
+    this.commityNonComityTableDiv=true;
+    this.MemberTableDiv=false;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_NonProgram_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'NonWeb_Program_Committee_List_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         console.log(res);
-        this.membersDataNonParticipantsArray = res.data1;
+        this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.defaultPartiNonParti = false;
       } else {
@@ -173,9 +176,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
-    this.ViewModelHide = true;
-    this.membersAndNonParticipantsDiv = false;
-    this.committeeTableDiv = true;
+    this.ViewEyeModelHide=true;
+    this.commityNonComityTableDiv=true;
+    this.MemberTableDiv=false;
+
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -184,6 +188,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
+        console.log("2222222222",this.programDetailsLatLongArray)
       } else {
           // this.toastrService.error("Data is not available");
       }
@@ -207,6 +212,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.total2 = res.data2[0].TotalCount;
 
       } else {
+        this.spinner.hide();
         this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
