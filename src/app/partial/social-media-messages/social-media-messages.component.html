@@ -111,10 +111,10 @@
                             <td><a (click)="redToMemberProfile(socialMediaMessages.MemberId, socialMediaMessages.MemberName)"
                                     class="text-primary">{{socialMediaMessages.MemberName}}</a></td>
                             <td><a (click)="redToSocialMediaPerson(socialMediaMessages.PersonName,socialMediaMessages.PersonMobileNo)"
-                                    class="text-primary">{{socialMediaMessages.PersonName}} </a></td>
-                            <td> <a
-                                    href="tel:{{socialMediaMessages.PersonMobileNo}}">{{socialMediaMessages.PersonMobileNo}}</a>
-                            </td>
+                                    class="text-primary">{{socialMediaMessages.PersonName}} </a>
+                                    <p class="small mb-0"><a class="text-muted" href="tel:{{socialMediaMessages.PersonMobileNo}}">{{socialMediaMessages.PersonMobileNo}}</a></p>
+                                </td>
+                           
                             <td><span class="">{{socialMediaMessages.InFavorOf}}</span></td>
                             <td><span class="">{{socialMediaMessages.InOppositionOf}}</span></td>
                             <td>
@@ -166,23 +166,32 @@
                                 <div id="txtPostDate" class="form-data">{{socialMediaDetailsArray?.PostDate}}</div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Members Name</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-6">
+                                <label class="form-label">Members Name</label>
                             <div id="txtMembersName" class="form-data">
                                 {{socialMediaDetailsArray?.MemberName}}
+                                <span class="text-muted ms-2">[{{socialMediaDetailsArray?.MemberMobileNo}}]</span>
                             </div>
-                        </div>
-                        <div class="row mb-3">
+                            </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Social Media Source</label>
                                 <div id="txtSocialMediaSource" class="form-data">
                                     <i class="fab fa-whatsapp me-1"></i> {{socialMediaDetailsArray?.SocialMediaName}}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label">Mobile Number</label>
+                                <label class="form-label">Posted By</label>
                                 <div id="txtMobileNo" class="form-data">
-                                    {{socialMediaDetailsArray?.MemberMobileNo}}
+                                    {{socialMediaDetailsArray?.PersonName}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Person's Mobile No.</label>
+                                <div id="txtMobileNo" class="form-data">
+                                    {{socialMediaDetailsArray?.PersonMobileNo}}
                                 </div>
                             </div>
                         </div>
@@ -220,14 +229,14 @@
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                             </agm-map>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Photos</label>
-                            <div class="row">
-                                <div class="col-sm-4 mb-3" *ngFor="let img of programGalleryImg; index as i">
-                                    <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
-                                </div>
-                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="form-container">
+                    <label class="form-label">Photos</label>
+                    <div class="row">
+                        <div class="col-sm-2 mb-3" *ngFor="let img of programGalleryImg; index as i">
+                            <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
                         </div>
                     </div>
                 </div>
