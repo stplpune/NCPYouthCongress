@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -18,7 +18,7 @@ declare var $: any
   styleUrls: ['./social-media-image.component.css', '../../partial.component.css'],
 
 })
-export class SocialMediaImageComponent implements OnInit , AfterViewInit{
+export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDestroy{
 
   maxDate: any = new Date();
   toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
@@ -291,50 +291,9 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit{
       // })
     }
   
-
-  // this.trendOnSocialMediaArray 
-  getLowHighSocialMTypesOfWorks() {//count3 api
-    // this.spinner.show();
-    // this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
-    // this.callAPIService.getHttp().subscribe((res: any) => {
-    //   if (res.data == 0) {
-    //     this.spinner.hide();
-    //     this.trendOnSocialMediaArray = res.data1;
-    //     let perOnSocialMedArray = res.data2;
-    //     let addLogoParty = perOnSocialMedArray.map((ele: any) => {
-    //       if (ele.PartyShortCode == 'NCP') {
-    //         ele['href'] = "assets/images/logos/ncp-logo.png";
-    //       } else if (ele.PartyShortCode == 'SS') {
-    //         ele['href'] = "assets/images/logos/shivsena-logo.png";
-    //       } else if (ele.PartyShortCode == 'BJP') {
-    //         ele['href'] = "assets/images/logos/bjp-logo.png";
-    //       } else if (ele.PartyShortCode == 'INC') {
-    //         ele['href'] = "assets/images/logos/inc-logo.png";
-    //       } else if (ele.PartyShortCode == 'OTR') {
-    //         ele['href'] = "assets/images/logos/speech.png";
-    //       }
-    //       return ele
-    //     })
-    //     this.perceptionOnSocialMediaArray = addLogoParty
-    //     this.trendSocialMediaLineChart();
-    //     this.socialMediaChart();
-    //   } else {
-    //     if (res.data == 1) {
-    //       this.spinner.hide();
-    //       this.trendOnSocialMediaArray = [];
-    //       this.toastrService.error("Data is not available");
-    //     } else {
-    //       this.spinner.hide();
-    //       this.toastrService.error("Please try again something went wrong");
-    //     }
-    //   }
-    // })
-  }
-
   socialMediaChart() {
     am4core.useTheme(am4themes_animated);
     // Themes end
-
     let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
@@ -500,5 +459,12 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit{
     })
 
   }
+
+  
+  ngOnDestroy() {
+    // localStorage.removeItem('weekRange');
+    this.graphInstance.destroy();
+  }
+
 
 }
