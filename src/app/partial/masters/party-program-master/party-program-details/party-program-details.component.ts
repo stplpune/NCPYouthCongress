@@ -215,7 +215,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  committeeUserdetails(ActivityId:any){///////////////////////commity model
+  committeeUserdetails(ActivityId:any){
     this.spinner.show();
     this.committeeModelDataDivHide=true;
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + ActivityId, false, false, false, 'ncpServiceForWeb');
@@ -281,7 +281,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     
   }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any) {////////////////member details
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
