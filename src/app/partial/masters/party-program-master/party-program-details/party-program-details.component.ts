@@ -227,8 +227,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.comUserdetImg1 = this.committeeUserdetailsArray.Images.split(',');
         this.comUserdetImg1 = this._commonService.imgesDataTransform(this.comUserdetImg1,'array');
         this.gallery.ref().load(this.comUserdetImg1);
-        this.lightBoxGalleryFlag = true;
-        console.log(this.comUserdetImg1);
+
         let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
         this.activitiesDetailslng = Number(latLong[1]);
