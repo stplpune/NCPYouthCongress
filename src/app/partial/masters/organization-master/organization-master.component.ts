@@ -83,201 +83,175 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
-    debugger;
-    this.globalselLevelFlag = flag;
     this.globalLevelId = levelId;
-    if (levelId == 3) {
-
+    if (levelId == 2) {
+      this.disableFlagDist = true;
+    } 
+    else if (levelId == 3) {
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
-      if (this.btnText == "Update Committee" && flag == 'select') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-        this.orgMasterForm.controls["TalukaId"].setValue(null);
-        // this.getTaluka(this.globalDistrictId);
-      }
-      this.validationOncondition(levelId)
-    } else if (levelId == 4) {
-      this.validationOncondition(levelId)
-      this.disableFlagTal = false;
+    } 
+    else if (levelId == 4) {
+      this.disableFlagTal = true;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
-      if (this.btnText == "Update Committee" && flag == 'select') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-        // this.getTaluka(this.globalDistrictId);
-      }
-    } else if (levelId == 5) {
-      this.validationOncondition(levelId);
+    } 
+    else if (levelId == 5) {
+      this.orgMasterForm.controls["VillageId"].setValue(null);
       this.disableFlagTal = false;
       this.disableFlagDist = false;
+      this.disableFlagVill = false;
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      if (this.btnText == "Update Committee" && flag == 'select') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-        this.orgMasterForm.controls["TalukaId"].setValue(null);
-        this.getTaluka(this.globalDistrictId);
-      }
-    } else if (levelId == 2) {
-      this.validationOncondition(levelId);
-      this.disableFlagDist = true;
-      this.disableFlagVill = true;
-      this.disableFlagTal = true;
-      if (this.btnText == "Update Committee" && flag == 'select') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-        this.orgMasterForm.controls["DistrictId"].setValue(null);
-        this.orgMasterForm.controls["TalukaId"].setValue(null);
-        // this.getTaluka(this.globalDistrictId);
-      }
-    } else if (levelId == 6) {
-      this.validationOncondition(levelId);
+      // if(this.orgMasterForm.value.DistrictId && flag == 'edit'){ // DistrictId is availble then show village 
+      //   this.getTaluka(this.orgMasterForm.value.DistrictId);
+      // }
+    } 
+    else if (levelId == 6) {
+      this.orgMasterForm.controls["VillageId"].setValue(null);
       this.disableFlagDist = false;
-      this.disableFlagVill = false;
       this.disableFlagTal = true;
+      this.disableFlagVill = false;
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      debugger
-      if (this.btnText == "Update Committee" && flag == 'edit') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-      }
-      if (this.btnText == "Update Committee"  && flag == 'select') {
-        this.orgMasterForm.controls["VillageId"].setValue(null);
-        // this.orgMasterForm.controls["DistrictId"].setValue(null);
-        // this.orgMasterForm.controls["TalukaId"].setValue(null);
-        this.getVillageOrCity(this.globalDistrictId, 'city');
-      }
+      // if(this.orgMasterForm.value.DistrictId  && flag == 'edit'){ // DistrictId is availble then show city 
+      //   this.districtEvent(this.orgMasterForm.value.BodyLevelId,this.orgMasterForm.value.DistrictId);
+      // }
+      
     }
-    else {
-
-      this.selectLevelClear();
-    }
+    this.validationOncondition(levelId);
   }
 
-
-
-  validationOncondition(levelId: any) {
+  validationOncondition(levelId:any){
     debugger;
-    if (levelId == 5) {
+    if (levelId == 2) {
+      this.orgMasterForm.controls["StateId"].setValidators(Validators.required);
+    }else if (levelId == 3) {
+      this.orgMasterForm.controls["StateId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+    }else if (levelId == 4) {
+      this.orgMasterForm.controls["StateId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
+    }else if (levelId == 5) {
+      this.orgMasterForm.controls["StateId"].setValidators(Validators.required);
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.updateValueAndValidityMF(levelId);
-    } else if (levelId == 4) {
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-      this.updateValueAndValidityMF(levelId);
-    } else if (levelId == 3) {
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.updateValueAndValidityMF(levelId);
-    } else if (levelId == 6) {
+      
+    }else if (levelId == 6) {
+      this.orgMasterForm.controls["StateId"].setValidators(Validators.required);
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.updateValueAndValidityMF(levelId);
-    } else if (levelId == 2) {
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.updateValueAndValidityMF(levelId);
-    } else {
-      this.clearValidatorsMF(levelId);
-      // this.updateValueAndValidityMF(levelId);
-  
     }
+    this.updateValueAndValidityMF(levelId);
+  }
+
+  clearselOption(flag: any) { // on click select option close icon
+    debugger;
+    if( flag == 'State'){
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
+      this.orgMasterForm.controls["StateId"].setValue(null);
+      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls["TalukaId"].setValue(null);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
+    }else if( flag == 'District'){
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
+      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls["TalukaId"].setValue(null);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
+    }else if( flag  == 'Taluka'){
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = false;
+      this.orgMasterForm.controls["TalukaId"].setValue(null);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
+    }else  if(flag == 'Village'){
+      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
+    }
+    // this.updateValueAndValidityMF(globalLevelId)
+  }
+
+  updateValueAndValidityMF(levelId: any) {
+    if (levelId == 2) {
+      this.orgMasterForm.controls["StateId"].updateValueAndValidity();
+    } else if (levelId == 3) {
+      this.orgMasterForm.controls["StateId"].updateValueAndValidity();
+      this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
+    }else if (levelId == 4) {
+      this.orgMasterForm.controls["StateId"].updateValueAndValidity();
+      this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
+    }else if (levelId == 5) {
+      this.orgMasterForm.controls["StateId"].updateValueAndValidity();
+      this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
+      this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
+    }else if (levelId == 6) {
+      this.orgMasterForm.controls["StateId"].updateValueAndValidity();
+      this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
+      this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
+    }
+    this.clearValidatorsMF(levelId);
   }
 
   clearValidatorsMF(levelId: any) {
     debugger;
-    // if (levelId == 5 || levelId == 6) {
+    if (levelId == 2) {
+      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls["TalukaId"].setValue(null);
+      this.orgMasterForm.controls["VillageId"].setValue(null);
       this.orgMasterForm.controls['DistrictId'].clearValidators();
+      this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
       this.orgMasterForm.controls['TalukaId'].clearValidators();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
       this.orgMasterForm.controls['VillageId'].clearValidators();
-    // }
-  }
-
-  clearselOption( globalLevelId: any) {
-    alert('ok')
-    debugger;
-    if (globalLevelId ==2) {
-      // if(flag == 'State' && this.globalLevelId == 6){
-      //   this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      //   this.orgMasterForm.controls["VillageId"].setValue(null);
-      // }else{
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
+    } else if (levelId == 3) {
       this.orgMasterForm.controls["TalukaId"].setValue(null);
       this.orgMasterForm.controls["VillageId"].setValue(null);
-      // }
-      this.redioBtnDisabled = true;
-      this.disableFlagVill = true;
-
-    } else if (globalLevelId == 3) {
-      this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["DistrictId"].setValue(null);
+      this.orgMasterForm.controls['TalukaId'].clearValidators();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
+      this.orgMasterForm.controls['VillageId'].clearValidators();
+      this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
+    } else if (levelId == 4) {
+      this.orgMasterForm.controls["VillageId"].setValue(null);
+      this.orgMasterForm.controls['VillageId'].clearValidators();
+      this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
+    } else if (levelId == 6) {
       this.orgMasterForm.controls["TalukaId"].setValue(null);
-      this.orgMasterForm.controls["VillageId"].setValue(null);
-      // this.clickRuralRadioBtnClick();
-      this.redioBtnDisabled = true;
-      this.disableFlagVill = true;
-
-    } else if (globalLevelId == 4) {
-      this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["TalukaId"].setValue(null);
-      this.orgMasterForm.controls["VillageId"].setValue(null);
-    } else if (globalLevelId == 5) {
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValue(null);
-    } else if (globalLevelId == 5) {
-      // this.orgMasterForm.controls["TalukaId"].setValue(null);
-      this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
-      this.orgMasterForm.controls["VillageId"].setValue(null);
+      this.orgMasterForm.controls['TalukaId'].clearValidators();
+      this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
     }
-
-    this.updateValueAndValidityMF(globalLevelId);
-
-  }
-
-  updateValueAndValidityMF(levelId: any) {
-    debugger;
-    // if (levelId == 5) {
-    //   this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
+    // else if (levelId == 5) {
+    //   this.orgMasterForm.controls["VillageId"].setValue(null);
+    //   this.orgMasterForm.controls['VillageId'].clearValidators();
+    //   this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
     // } else if (levelId == 6) {
-    //   this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
-    //   // this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
-    // } else if (levelId == 2) {
-    //   this.orgMasterForm.controls["StateId"].updateValueAndValidity();
-    // } else if (levelId == 3) {
-    //   this.orgMasterForm.controls["StateId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
-    // }else if (levelId == 4) {
-    //   this.orgMasterForm.controls["StateId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
-    //   this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
-    // }
-    // this.submitted = false;
-    this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
-    this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
-    this.orgMasterForm.controls["VillageId"].updateValueAndValidity();
-    this.clearValidatorsMF(levelId);
+    //   this.orgMasterForm.controls["VillageId"].setValue(null);
+    //   this.orgMasterForm.controls['VillageId'].clearValidators();
+    //   this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
     // }
   }
 
   selectLevelClear() {
-    this.disableFlagVill = true;
-    this.disableFlagTal = true;
     this.disableFlagDist = true;
+    this.disableFlagTal = true;
+    this.disableFlagVill = true;
     this.orgMasterForm.controls["StateId"].setValue(null);
     this.orgMasterForm.controls["DistrictId"].setValue(null);
     this.orgMasterForm.controls["TalukaId"].setValue(null);
     this.orgMasterForm.controls["VillageId"].setValue(null);
-    this.redioBtnDisabled = true;
-    // this.clickRuralRadioBtnClick();
+    this.submitted = false;
   }
 
   customForm() {
@@ -368,27 +342,27 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
+  districtEvent(levelId:any, districtId:any){
+    if(levelId == 6){
+      this.globalDistrictId = districtId;
+      this.selCity();
+    }
+  }
+
   getDistrict() {
+    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        debugger;
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
-        if (this.btnText == "Update Committee" && this.selEditOrganization.IsRural == 0) { // edit
-          if (this.selEditOrganization.BodyLevel == 6) {
-            this.orgMasterForm.controls["VillageId"].setValue(null);
-            this.selCity();
-          }
-
-        } else {
-          if (this.btnText == "Update Committee" && this.selEditOrganization.IsRural == 1) {
-            this.getTaluka(this.globalDistrictId);
-          }
+        if (this.btnText == "Update Committee" && this.globalLevelId == 6) { // edit for city
+          this.selCity();
+        }else if (this.btnText == "Update Committee" && this.globalLevelId == 5){ // edit for Village
+          this.getTaluka(this.globalDistrictId)
         }
-
       } else {
         // this.toastrService.error("Data is not available 2");
       }
@@ -401,29 +375,17 @@ export class OrganizationMasterComponent implements OnInit {
 
   getTaluka(districtId: any) {
     this.globalDistrictId = districtId;
-    if (this.btnText == "Update Committee" && this.selEditOrganization.IsRural == 1) {
-      this.getVillageOrCity(districtId, 'City');
-    }
-
     this.spinner.show();
-    this.globalDistrictId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        debugger;
-        if (this.btnText == "Update Committee") {
-          if (this.selEditOrganization.IsRural == 1) {
-            this.globalTalukaID = this.selEditOrganization.TalukaId;
-            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
-            this.selVillage();
-          }
-          // else {
-          //   this.globalTalukaID = this.selEditOrganization.TalukaId;
-          //   this.selCity();
-          // }
-        } // edit only 
+        if (this.btnText == "Update Committee" && this.globalLevelId == 5){ // edit for Village
+          this.globalTalukaID = this.selEditOrganization.TalukaId;
+          this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
+          this.selVillage();
+        }
       } else {
         // this.toastrService.error("Data is not available");
       }
@@ -435,8 +397,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
-    (this.globalLevelId == 5 || this.globalLevelId == 6) ? this.disableFlagVill = false : this.disableFlagVill = true; // village flag disabled
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -460,7 +420,9 @@ export class OrganizationMasterComponent implements OnInit {
   get f() { return this.orgMasterForm.controls };
 
   onSubmit() {
-    debugger;
+    // if(JSON.stringify(this.selEditOrganization) == JSON.stringify(this.orgMasterForm.value)){
+    //     this.selectLevel(this.orgMasterForm.value.BodyLevelId,'')
+    // };
     this.spinner.show();
     this.submitted = true;
     if (this.orgMasterForm.invalid) {
@@ -468,18 +430,6 @@ export class OrganizationMasterComponent implements OnInit {
       return;
     }
     else {
-      // if(this.globalLevelId == 2){
-      //   this.orgMasterForm.value['DistrictId']="";
-      //   this.orgMasterForm.value['TalukaId']="";
-      //   this.orgMasterForm.value['VillageId']="";
-      // }else if(this.globalLevelId == 3){
-      //   this.orgMasterForm.value['TalukaId']="";
-      //   this.orgMasterForm.value['VillageId']="";
-      // }else if(this.globalLevelId == 4){
-      //   this.orgMasterForm.value['VillageId']="";
-      // }else if(this.globalLevelId == 6){
-      //   this.orgMasterForm.value['TalukaId']="";
-      // }
       let fromData: any = new FormData();
       console.log(this.orgMasterForm.value);
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
@@ -493,6 +443,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_Bodycellorgmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.selectLevelClear();
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
           this.getOrganizationList();
@@ -516,6 +467,7 @@ export class OrganizationMasterComponent implements OnInit {
       IsRural: 1
     });
     this.getOrganizationList();
+    this.selectLevelClear();
   }
 
 
@@ -782,6 +734,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.toastrService.error("Please select district");
       return
     } else {
+      this.disableFlagVill = false;
       this.getVillageOrCity(this.globalDistrictId, 'City');
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
@@ -794,7 +747,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.toastrService.error("Please select district");
       return
     } else {
-      this.disableFlagVill = true;
+      this.disableFlagVill = false;
       this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
       this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
       this.setVillOrcityName = "VillageName";
@@ -802,3 +755,4 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 }
+

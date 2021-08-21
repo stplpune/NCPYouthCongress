@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label required-field">Select State</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="allStates" formControlName="StateId" placeholder="Select State" optionValueField="Id" optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('State')" [items]="allStates" formControlName="StateId" placeholder="Select State" optionValueField="Id" optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
                                     [disabled]="!this.orgMasterForm.value.BodyLevelId">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.StateId.errors" class="invalid-feedback">
@@ -43,7 +43,7 @@
                             <div class="mb-3">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
                                     District</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="allDistrict" formControlName="DistrictId" [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId" (select)="getTaluka(this.orgMasterForm.value.DistrictId)"
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('District')" [items]="allDistrict" formControlName="DistrictId" (select)="districtEvent(this.orgMasterForm.value.BodyLevelId, this.orgMasterForm.value.DistrictId)"  [disabled]="disableFlagDist || !this.orgMasterForm.value.StateId" (select)="getTaluka(this.orgMasterForm.value.DistrictId)"
                                     optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
@@ -60,7 +60,7 @@
                             <div class="mb-2">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.TalukaId.errors}">Select
                                     Taluka</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="getTalkaByDistrict" [disabled]="disableFlagTal" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('TalukaId')" [items]="getTalkaByDistrict" [disabled]="disableFlagTal || !this.orgMasterForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
                                     (select)="getVillageOrCity(this.orgMasterForm.value.TalukaId,villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
@@ -70,24 +70,14 @@
                             <div class="mb-2">
                                 <label class="form-label" [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select
                                     {{villageCityLabel}}</label>
-                                <ngx-select [allowClear]="true" (remove)="clearselOption(this.orgMasterForm.value.BodyLevelId)" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName"
-                                    [disabled]="disableFlagVill" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                <ngx-select [allowClear]="true" (remove)="clearselOption('Village')" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName"
+                                    [disabled]="disableFlagVill  || !this.orgMasterForm.value.DistrictId" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
                                     <div *ngIf="f.VillageId.errors.required">{{villageCityLabel}} is required</div>
                                 </div>
                             </div>
-                            <!-- <div class="mb-2" *ngIf="selCityFlag"> Id: 464, CityName: "Ahmadnagar"
-                            <label class="form-label">Select City</label>
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select City" [disabled]="!this.orgMasterForm.value.taluka">
-                            </ngx-select>
-                        </div>
-                        <div class="mb-2" *ngIf="selVillageFlag">
-                            <label class="form-label">Select Village</label>
-                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity"    optionValueField="VillageId"  optionTextField="VillageName"  placeholder="Select Village" [disabled]="!this.orgMasterForm.value.taluka">
-                            </ngx-select>
-                        </div> -->
-
+                          
                             <div class="mb-2 mt-4">
                                 <button type="button" class="btn btn-secondary  float-lg-start" (click)="clearForm()">Clear</button>
                                 <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
