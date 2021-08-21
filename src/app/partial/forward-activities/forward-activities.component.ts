@@ -88,6 +88,7 @@ export class ForwardActivitiesComponent implements OnInit {
   }
   
   onSubmit(){
+    debugger;
     this.spinner.show();
     this.submitted = true;
     if (this.forwardActivitiForm.invalid) {
@@ -110,7 +111,9 @@ export class ForwardActivitiesComponent implements OnInit {
           imageChangeFlag = 0; NewsTypeFlag = 1;
         }
       }
-      fromData.append('Id', getObj.Id);
+      this.forwardActivitiForm.value.Id == null ? this.forwardActivitiForm.value.Id = 0 : this.forwardActivitiForm.value.Id;
+      
+      fromData.append('Id', this.forwardActivitiForm.value.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('Title', getObj.activityTitle);
       fromData.append('Description', getObj.activityBody);

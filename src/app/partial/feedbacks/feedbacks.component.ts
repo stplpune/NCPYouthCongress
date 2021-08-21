@@ -238,10 +238,12 @@ export class FeedbacksComponent implements OnInit {
     this.getFeedBackData(this.FeedbackObj)
   }
 
-  details(data: any) {
+  details(data: any, flag:any) {
     this.detailsData = data;
     this.defualtHideFeedback = true;
-    this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
+    if(flag == 'true'){
+      this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
+    }
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -292,6 +294,7 @@ export class FeedbacksComponent implements OnInit {
     if ((data == "" || data == null) && flag != 'read') {
       this.spinner.hide();
       this.toastrService.error("Action taken field is required");
+      return
     } else {
       if (flag == 'read') {
         this.globalFeedbackStatus = 1
@@ -304,7 +307,7 @@ export class FeedbacksComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.txtReply.nativeElement.value = '';
-          this.details(this.detailsData);
+          this.details(this.detailsData, 'false');
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
           this.getFeedBackData(this.FeedbackObj)

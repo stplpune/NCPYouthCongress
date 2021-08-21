@@ -49,7 +49,7 @@
                         <div class="message-box">
                             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                                 <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile" *ngFor="let result of resultAllFeedBackData | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}"
-                                    (click)="details(result)">
+                                    (click)="details(result, 'true')">
                                     <!-- [ngClass]="{'text-muted':result.FeedbackStatus == 1, 'unread':result.FeedbackStatus == 0, 'replay':result.FeedbackStatus==2, 'ignored':result.FeedbackStatus==3}" -->
                                     <div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1 username">{{result.FullName}}

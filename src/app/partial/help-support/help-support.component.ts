@@ -162,9 +162,10 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   UploadHelpMeChatMediaMsg() {
+    debugger;
     this.spinner.show();
-    let data = this.replayForm.value;
-    if (data.senderMsg == "" || this.getImgExt == "") {
+    let data:any = this.replayForm.value;
+    if (data.senderMsg == ""  ||   this.getImgExt  == undefined) {
       this.toastrService.error('Please Enter your data')
       this.spinner.hide();
       return

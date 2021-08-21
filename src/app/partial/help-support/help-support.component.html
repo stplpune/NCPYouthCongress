@@ -29,7 +29,7 @@
                                         <p class="mb-1 username">{{receiverChatList.Sender | titlecase}}</p>
                                         <small class="helpdate">{{receiverChatList.MessageDate}}  {{receiverChatList.MessageTime}}</small>
                                     </div>
-                                    <small class="helpmsg">{{receiverChatList.SenderMsg}}</small>
+                                    <small class="helpmsg">{{receiverChatList.SenderMsg != 'null' ?  receiverChatList.SenderMsg : ''}}</small>
                                     <span class="float-end">
                                         <span class="badge bg-danger" *ngIf="receiverChatList.TotalUnReadMsg else readMsg">{{receiverChatList.TotalUnReadMsg}}</span>
                                     <ng-template #readMsg> <i class="fas fa-check text-success"></i></ng-template>
@@ -116,7 +116,7 @@
                                                             <img src="{{message.MediaPath}}" class="helpimg">
                                                         </div>
                                                     </ng-container>
-                                                    <ng-container *ngIf="message.MediaTypeId == 3">
+                                                    <ng-container *ngIf="message.MediaTypeId == 4">
                                                         <audio controls>
                                             <source src="{{message.MediaPath}}" type="audio/mpeg">
                                           </audio>
@@ -155,7 +155,10 @@
                                               </video>
                                                 <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
-
+                                            <ng-container *ngIf="getImgExt == 'pdf'">
+                                                <span  class="helpimg d-block"> {{getImgExt | titlecase}} </span>
+                                                <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
+                                            </ng-container>
                                         </div>
 
                                     </div>
