@@ -163,7 +163,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   UploadHelpMeChatMediaMsg() {
     this.spinner.show();
     let data = this.replayForm.value;
-    if ((data.senderMsg == "" || data.senderMsg == null) || this.getImgExt == "") {
+    if (data.senderMsg == "" || this.getImgExt == "") {
       this.toastrService.error('Please Enter your data')
       this.spinner.hide();
       return
@@ -182,10 +182,10 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         MediaTypeId = 2;
         break;
       case ('mp4'):
-        MediaTypeId = 4;
+        MediaTypeId = 3;
         break;
       case ('mp3'):
-        MediaTypeId = 3;
+        MediaTypeId = 4;
         break;
       case ('pdf'):
         MediaTypeId = 5;
@@ -211,6 +211,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.fileInput.nativeElement.value = '';
         this.replayForm.reset();
         this.getReceiverChatList();
         this.Chat_MessagebyGroupId(this.infoUser.GroupId)

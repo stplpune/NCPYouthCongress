@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { DatePipe, Location } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { CommonService } from 'src/app/services/common.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { pairwise, startWith } from 'rxjs/operators';
 declare var $: any
 
 @Component({
@@ -18,7 +19,7 @@ declare var $: any
   styleUrls: ['./social-media-image.component.css', '../../partial.component.css'],
 
 })
-export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDestroy, OnChanges{
+export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   maxDate: any = new Date();
   toDate = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
@@ -32,13 +33,14 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
   allDistrict: any;
   getTalkaByDistrict: any;
   filterForm!: FormGroup;
-  defaultCloseBtn:boolean = false;
-  perceptionTrendWebArray:any;
-  perOnSocialMedArray:any;
-  graphInstance:any;
-  resPoliticalParty:any;
-  selectedParty:number = 1;
-  resultofPartyData:any;
+  defaultCloseBtn: boolean = false;
+  perceptionTrendWebArray: any;
+  perOnSocialMedArray: any;
+  graphInstance: any;
+  resPoliticalParty: any;
+  selectedParty: number = 1;
+  resultofPartyData: any;
+  allowClearParty:boolean = false; 
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +49,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     private toastrService: ToastrService,
     private commonService: CommonService,
     public dateTimeAdapter: DateTimeAdapter<any>,
-    public location:Location,
+    public location: Location,
     public datepipe: DatePipe,
   ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
@@ -58,94 +60,94 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     this.getPoliticalParty();
   }
 
-  
+
   ngAfterViewInit() {
     this.showSvgMap(this.commonService.mapRegions());
   }
 
-  
-  showSvgMap(regions_m:any) {
+
+  showSvgMap(regions_m: any) {
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
-     this.graphInstance = $("#mapsvg").mapSvg({
-        width: 550,
-        height: 430,
+    this.graphInstance = $("#mapsvg").mapSvg({
+      width: 550,
+      height: 430,
+      colors: {
+        baseDefault: "#bfddff",
+        background: "#fff",
+        selected: "#272848",
+        hover: "#272848",
+        directory: "#bfddff",
+        status: {}
+      },
+      regions: regions_m,
+      viewBox: [0, 0, 763.614, 599.92],
+      cursor: "pointer",
+      zoom: {
+        on: false,
+        limit: [0, 50],
+        delta: 2,
+        buttons: {
+          on: true,
+          location: "left"
+        },
+        mousewheel: true
+      },
+      tooltips: {
+        mode: "title",
+        off: true,
+        priority: "local",
+        position: "bottom"
+      },
+      popovers: {
+        mode: "on",
+        on: false,
+        priority: "local",
+        position: "top",
+        centerOn: false,
+        width: 300,
+        maxWidth: 50,
+        maxHeight: 50,
+        resetViewboxOnClose: false,
+        mobileFullscreen: false
+      },
+      gauge: {
+        on: false,
+        labels: {
+          low: "low",
+          high: "high"
+        },
         colors: {
-          baseDefault: "#bfddff",
-          background: "#fff",
-          selected: "#272848",
-          hover: "#272848",
-          directory: "#bfddff",
-          status: {}
-        },
-        regions: regions_m,
-        viewBox: [0, 0, 763.614, 599.92],
-        cursor: "pointer",
-        zoom: {
-          on: false,
-          limit: [0, 50],
-          delta: 2,
-          buttons: {
-            on: true,
-            location: "left"
+          lowRGB: {
+            r: 211,
+            g: 227,
+            b: 245,
+            a: 1
           },
-          mousewheel: true
-        },
-        tooltips: {
-          mode: "title",
-          off: true,
-          priority: "local",
-          position: "bottom"
-        },
-        popovers: {
-          mode: "on",
-          on: false,
-          priority: "local",
-          position: "top",
-          centerOn: false,
-          width: 300,
-          maxWidth: 50,
-          maxHeight: 50,
-          resetViewboxOnClose: false,
-          mobileFullscreen: false
-        },
-        gauge: {
-          on: false,
-          labels: {
-            low: "low",
-            high: "high"
+          highRGB: {
+            r: 67,
+            g: 109,
+            b: 154,
+            a: 1
           },
-          colors: {
-            lowRGB: {
-              r: 211,
-              g: 227,
-              b: 245,
-              a: 1
-            },
-            highRGB: {
-              r: 67,
-              g: 109,
-              b: 154,
-              a: 1
-            },
-            low: "#d3e3f5",
-            high: "#436d9a",
-            diffRGB: {
-              r: -144,
-              g: -118,
-              b: -91,
-              a: 0
-            }
-          },
-          min: 0,
-          max: false
+          low: "#d3e3f5",
+          high: "#436d9a",
+          diffRGB: {
+            r: -144,
+            g: -118,
+            b: -91,
+            a: 0
+          }
         },
-        source: "assets/images/maharashtra_districts_texts.svg",
-        // source: "assets/images/divisionwise.svg",
-        title: "Maharashtra-bg_o",
-        responsive: true
-      });
+        min: 0,
+        max: false
+      },
+      source: "assets/images/maharashtra_districts_texts.svg",
+      // source: "assets/images/divisionwise.svg",
+      title: "Maharashtra-bg_o",
+      responsive: true
+    });
     // });
   }
 
@@ -154,7 +156,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     this.filterForm = this.fb.group({
       DistrictId: [0],
       TalukaId: [0],
-      fromTo:[this.dateRange],
+      fromTo: [this.dateRange],
     })
   }
 
@@ -209,7 +211,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
       this.toastrService.error("Please Select Date Only Week Range");
     }
   }
-  filterData(){
+  filterData() {
     this.getMostLikeHatedPerson();
   }
 
@@ -224,6 +226,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
       this.defaultCloseBtn = false;
       this.filterForm.controls['fromTo'].setValue(this.dateRange1);
     }
+    this.partyChangeEvent(1)
     this.getMostLikeHatedPerson();
   }
 
@@ -233,7 +236,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_MostLikeHatedPerson_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_MostLikeHatedPerson_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -261,10 +264,10 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_PerceptionTrend_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-       
+
         this.perOnSocialMedArray = res.data2;
         this.trendOnSocialMediaArray = res.data1;
         this.trendSocialMediaLineChart();
@@ -272,7 +275,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
         this.spinner.hide();
       } else {
         if (res.data == 1) {
-        
+
           this.toastrService.error("Data is not available");
           this.perOnSocialMedArray = [];
           this.trendOnSocialMediaArray = [];
@@ -287,7 +290,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     })
   }
 
-  getPoliticalParty(){
+  getPoliticalParty() {
     this.callAPIService.setHttp('get', 'Web_GetPoliticalParty', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -305,40 +308,43 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     })
   }
 
-  ngOnChanges(){
-    console.log(this.selectedParty);
-  }
-
-  partyChangeEvent(getPartyId:any){
+  partyChangeEvent(getPartyId: any) {
     this.selectedParty = getPartyId;
+    if (this.selectedParty == 1) {
+      this.allowClearParty = false;
+    } else {
+      this.allowClearParty = true;
+    }
+    $('#map svg path').css('fill', '#4f5298');
     this.mahaSVGMap()
   }
 
-  mahaSVGMap(){
+  mahaSVGMap() {
     let fromDate: any;
     let toDate: any;
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+this.filterForm.value.DistrictId+'&TalukaId='+this.filterForm.value.TalukaId+'&PartyId='+this.selectedParty, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId + '&PartyId=' + this.selectedParty, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        console.log(res);
-        this.resultofPartyData = res.data1
+        this.resultofPartyData = res.data1;
         this.spinner.hide();
-         this.resultofPartyData.map((ele:any)=>{
-           if(ele.ActivityCount > 1 ){
-             if(this.selectedParty == 1){
+        this.resultofPartyData.map((ele: any) => {
+          if (ele.ActivityCount >= 1) {
+            if (this.selectedParty == 1) {
               $('path[id="' + ele.Id + '"]').css('fill', '#80deea');
-             }else if(this.selectedParty == 2){
+            } else if (this.selectedParty == 2) {
               $('path[id="' + ele.Id + '"]').css('fill', '#ff8a65');
-             }else if(this.selectedParty == 3){
+            } else if (this.selectedParty == 3) {
               $('path[id="' + ele.Id + '"]').css('fill', '#e57373');
-             }else if(this.selectedParty == 4){
+            } else if (this.selectedParty == 4) {
               $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
-             }
-           }
-          $('#'+ele.DistrictName).text(ele.ActivityCount);
+            }else if (this.selectedParty == 5) {
+              $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
+            }
+          }
+          $('#' + ele.DistrictName).text(ele.ActivityCount);
           // $('#mapsvg-menu-regions option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
           // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
         })
@@ -351,9 +357,9 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
         }
       }
     })
-    
-    }
-  
+
+  }
+
   socialMediaChart() {
     am4core.useTheme(am4themes_animated);
     // Themes end
@@ -400,7 +406,7 @@ export class SocialMediaImageComponent implements OnInit , AfterViewInit, OnDest
     valueAxis.renderer.minGridDistance = 30;
     valueAxis.renderer.baseGrid.disabled = true;
     valueAxis.title.text = "Impressions on social media";
-    
+
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.categoryX = "PartyShortCode";
     series.dataFields.valueY = "ActivityCount";

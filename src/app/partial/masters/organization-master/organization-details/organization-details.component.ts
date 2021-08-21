@@ -65,16 +65,16 @@ export class OrganizationDetailsComponent implements OnInit {
   selUserpostbodyId: any;
   periodicChart: any;
   defaultCloseBtn: boolean = false;
-  comUserdetImg:any;
+  comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
-    public location: Location, private datePipe:DatePipe,
+    public location: Location, private datePipe: DatePipe,
     public gallery: Gallery,
- private _lightbox: Lightbox,
+    private _lightbox: Lightbox,
     private commonService: CommonService, public datepipe: DatePipe,) {
     let getLocalStorageData: any = localStorage.getItem('bodyId');
     getLocalStorageData = JSON.parse(getLocalStorageData);
@@ -99,7 +99,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.filter = this.fb.group({
       memberName: [0],
       workType: [0],
-      fromTodate: [['','']],
+      fromTodate: [['', '']],
     })
   }
 
@@ -141,7 +141,7 @@ export class OrganizationDetailsComponent implements OnInit {
       this.filter.controls['workType'].setValue(0);
     } else if (flag == 'datepicker') {
       this.defaultCloseBtn = false;
-      this.filter.controls['fromTodate'].setValue(['','']);
+      this.filter.controls['fromTodate'].setValue(['', '']);
     }
     this.paginationNo = 1;
     this.getBodyMemeberActivities(this.bodyId)
@@ -290,10 +290,10 @@ export class OrganizationDetailsComponent implements OnInit {
   getBodyMemeberActivities(id: any) {
     debugger;
     let filterData = this.filter.value;
-    let fromDate:any ="";
-    let toDate:any ="";
-    this.filter.value.fromTodate[0] != "" ? (fromDate = this.datePipe.transform(this.filter.value.fromTodate[0], 'dd/MM/yyyy')) : fromDate = '';   
-    this.filter.value.fromTodate[1] != "" ? (toDate = this.datePipe.transform(this.filter.value.fromTodate[1], 'dd/MM/yyyy')) : toDate ='';   
+    let fromDate: any = "";
+    let toDate: any = "";
+    this.filter.value.fromTodate[0] != "" ? (fromDate = this.datePipe.transform(this.filter.value.fromTodate[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filter.value.fromTodate[1] != "" ? (toDate = this.datePipe.transform(this.filter.value.fromTodate[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities?MemberId=' + filterData.memberName + '&BodyId=' + id + '&nopage=' + this.paginationNo + '&CategoryId=' + filterData.workType + '&FromDate=' + fromDate + '&ToDate=' + toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -351,7 +351,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
         this.resultBodyMemActDetails = res.data1[0];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
         this.gallery.ref().load(this.comUserdetImg);
 
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
@@ -390,7 +390,7 @@ export class OrganizationDetailsComponent implements OnInit {
       xAxis.renderer.minGridDistance = 30;
       let label = xAxis.renderer.labels.template;
       label.wrap = true;
-label.maxWidth = 90;
+      label.maxWidth = 90;
 
       let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
@@ -484,7 +484,7 @@ label.maxWidth = 90;
       let UserPostBodyId: any;
       this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
       let fromData = new FormData();
-      let postFromDate:any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
+      let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
       fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
       fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
@@ -518,7 +518,7 @@ label.maxWidth = 90;
     }
   }
   getweekRage(event: any) {
-  this.defaultCloseBtn = true;
+    this.defaultCloseBtn = true;
     this.filter.patchValue({
       FromDate: this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
       ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
@@ -595,8 +595,8 @@ label.maxWidth = 90;
     }
   }
 
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     localStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../../member/profile'])
   }

@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" *ngIf="getPreDesMembersArray.length !=0 ">
                 <div class="card-header pb-0">
                     Previous Designated Members
                 </div>
@@ -217,7 +217,7 @@
                                     <label for="txtMemberName" class="form-label required-field">
                                         Post From Date</label>
                                     <div class="input-group" [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
-                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [max]="maxDate" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                                         <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
                                             <i class="fas fa-calendar-alt"></i></button>
                                         <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
