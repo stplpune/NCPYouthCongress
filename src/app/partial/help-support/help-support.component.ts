@@ -164,8 +164,8 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   UploadHelpMeChatMediaMsg() {
     debugger;
     this.spinner.show();
-    let data:any = this.replayForm.value;
-    if (data.senderMsg == ""  ||   this.getImgExt  == undefined) {
+    let data = this.replayForm.value;
+    if (data.senderMsg == "" ||   this.getImgExt  == undefined) {
       this.toastrService.error('Please Enter your data')
       this.spinner.hide();
       return
@@ -213,8 +213,9 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.fileInput.nativeElement.value = '';
         this.replayForm.reset();
+        this.fileInput.nativeElement.value = '';
+       
         this.getReceiverChatList();
         this.Chat_MessagebyGroupId(this.infoUser.GroupId)
         this.spinner.hide();
