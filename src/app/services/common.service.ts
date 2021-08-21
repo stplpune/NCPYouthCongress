@@ -81,11 +81,11 @@ export class CommonService {
     imgesDataTransform(data:any, type:any){
       if(type == 'obj'){
         let images =  data.map((item:any) =>
-        new ImageItem({ src: item.ImagePath, thumb: item.ImagePath , text:''}));
+        new ImageItem({ src: item.ImagePath, thumb: item.ImagePath , text:'programGalleryImg'}));
         return images;
       }else{
         let images =  data.map((item:any) =>
-        new ImageItem({ src: item, thumb: item, text:''}));
+        new ImageItem({ src: item, thumb: item, text:'programGalleryImg'}));
         console.log(images);
         return images;
       }

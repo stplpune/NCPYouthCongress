@@ -9,11 +9,11 @@ import { Lightbox } from '@ngx-gallery/lightbox';
 import { CommonService } from 'src/app/services/common.service';
 
 
-
 @Component({
   selector: 'app-party-program-details',
   templateUrl: './party-program-details.component.html',
-  styleUrls: ['./party-program-details.component.css', '../../../partial.component.css']
+  styleUrls: ['./party-program-details.component.css', '../../../partial.component.css'],
+
 })
 export class PartyProgramDetailsComponent implements OnInit {
   programDetailsArray: any;
@@ -55,11 +55,12 @@ export class PartyProgramDetailsComponent implements OnInit {
   comUserdetImg:any;
   comUserdetImg1:any;
   lightBoxGalleryFlag:boolean = true;
-
   commityNonComityTableDiv: boolean = false;
   MemberTableDiv: boolean = true;
-
   ViewEyeModelHide:boolean=true;
+  lightboxRef:any;
+  lightboxRef1:any;
+  lightboxRef2:any;
 
   constructor(
     public location: Location,
@@ -99,10 +100,10 @@ export class PartyProgramDetailsComponent implements OnInit {
         let programDetailsImagesArray = res.data2;
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
-        console.log(this.overviewArray);
+        this.gallery.resetAll();
         this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
-        this.gallery.ref().load(this.programGalleryImg);
-
+        this.lightboxRef = this.gallery.ref()
+        this.lightboxRef.load(this.programGalleryImg);
       } else {
         this.spinner.hide();
           // this.toastrService.error("Data is not available");
@@ -229,8 +230,8 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.committeeUserdetailsArray = res.data1[0];
         this.committeeUserdetailsArray.globalGroupId;
         this.comUserdetImg1 = this.committeeUserdetailsArray.Images.split(',');
-        this.comUserdetImg1 = this._commonService.imgesDataTransform(this.comUserdetImg1,'array');
-        this.gallery.ref().load(this.comUserdetImg1);
+        // this.comUserdetImg1 = this._commonService.imgesDataTransform(this.comUserdetImg1,'array');
+        // this.lightboxRef1.load(this.comUserdetImg1);
 
         let latLong = this.committeeUserdetailsArray.ActivityLocation.split(",");
         this.activitiesDetailslat = Number(latLong[0]);
@@ -290,7 +291,8 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.resultBodyMemActDetails = res.data1[0];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
-        this.gallery.ref().load(this.comUserdetImg);
+        this.lightboxRef2 = this.gallery.ref('anotherLightbox')
+        this.lightboxRef2.load(this.comUserdetImg);
 
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
@@ -316,4 +318,5 @@ export class PartyProgramDetailsComponent implements OnInit {
     }
   }
   
+
 }

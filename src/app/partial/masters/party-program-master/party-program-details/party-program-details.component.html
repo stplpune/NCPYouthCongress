@@ -41,7 +41,8 @@
                 <div class="card-body">
                     <div class="row g-2">
                         <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
-                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                            <!-- <button (click)="_lightbox.close(i)"> closed</button> -->
+                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb"/>
                         </div>
                     </div>
                 </div>
@@ -331,7 +332,7 @@
                                     <img src="{{img}}" class="img-thumbnail h-150">
                                 </div> -->
                                 <div class="col-sm-2 mb-3" *ngFor="let imgs1 of comUserdetImg; index as i1">
-                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb" class="img-thumbnail h-150">
+                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb"  [gallery]="'anotherLightbox'"  class="img-thumbnail h-150">
                                 </div>
                             </div>
                         </div>
@@ -452,7 +453,7 @@
                                                 <label class="form-label">Photos</label>
                                                 <div class="row g-2">
                                                     <div class="col-sm-3 mb-3" *ngFor="let imgs of comUserdetImg; index as i2">
-                                                        <img [lightbox]="i2" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
+                                                        <img [lightbox]="i2"  [gallery]="'anotherLightbox'" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
                                                     </div>
                                                 </div>
                                             </div>
@@ -477,3 +478,4 @@
         </div>
     </div>
 </div>
+

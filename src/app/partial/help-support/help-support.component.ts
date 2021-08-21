@@ -148,6 +148,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('get', 'Web_Insert_tblchatreceived_status?GroupId=' + GroupId + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.getReceiverChatList();
         this.spinner.hide();
         this.tblchatreceivedArray = res.data1;
       } else {
