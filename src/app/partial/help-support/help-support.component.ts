@@ -37,6 +37,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   @ViewChild('content') content!: ElementRef;
   globalGroupId = 0;
   @ViewChild('fileInput') fileInput: any;
+  MediaTypeId:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -173,33 +174,32 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     let fromData = new FormData();
     let checkrecId: any;
     this.commonService.loggedInUserId() == this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId : checkrecId = this.infoUser.ReceiverId;
-    let MediaTypeId: any;
     this.selectedFile;
     debugger;
     switch (this.getImgExt) {
       case ('png'):
-        MediaTypeId = 2;
+        this.MediaTypeId = 2;
         break;
       case ('jpg'):
-        MediaTypeId = 2;
+        this.MediaTypeId = 2;
         break;
       case ('mp4'):
-        MediaTypeId = 3;
+        this.MediaTypeId = 3;
         break;
       case ('mp3'):
-        MediaTypeId = 4;
+        this.MediaTypeId = 4;
         break;
       case ('pdf'):
-        MediaTypeId = 5;
+        this.MediaTypeId = 5;
         break;
       case ('docx'):
-        MediaTypeId = 5;
+        this.MediaTypeId = 5;
         break;
       case ('xlsx'):
-        MediaTypeId = 5;
+        this.MediaTypeId = 5;
         break;
       default:
-        MediaTypeId = 1;
+        this.MediaTypeId = 1;
         break;
     }
     fromData.append('MessageId', this.infoUser.MessageId);
@@ -209,7 +209,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     fromData.append('MediaPath', this.selectedFile); //this.selectedFile
     fromData.append('MediaName', this.imgName); // this.imgName
     fromData.append('MessageTypeId', this.infoUser.MediaTypeId);  // 1 personal 2 group
-    fromData.append('MediaTypeId', MediaTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
+    fromData.append('MediaTypeId',  this.MediaTypeId); //1 for text, 2 for Image // 3 for video // 4 audio // 5 documnet 
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -235,11 +235,15 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   closeImg() {
-    this.ImgUrl = null;
+    this.selectedFile = "";
+    this.ImgUrl = "";
+    this.imgName= "";
+    this.getImgExt="";
+    this.MediaTypeId="";
     this.fileInput.nativeElement.value = '';
     // console.log(this.selectedFile);
     // this.selectedFile = undefined;
-    // this.imgName = null;
+    // this.imgName = null
   }
 
   readUrl(event: any) {

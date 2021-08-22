@@ -126,6 +126,7 @@ export class ForwardActivitiesComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.IsChangeImage = false;
+          this.deleteImg();
           this.resetNotificationForm();
 
           this.spinner.hide();
