@@ -163,7 +163,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   UploadHelpMeChatMediaMsg() {
-    debugger;
     this.spinner.show();
     let data = this.replayForm.value;
     if ((data.senderMsg == "" || data.senderMsg == null)  &&  (this.getImgExt  == "" || this.getImgExt  == null)) {
