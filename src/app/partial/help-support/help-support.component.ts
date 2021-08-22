@@ -166,7 +166,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     debugger;
     this.spinner.show();
     let data = this.replayForm.value;
-    if (data.senderMsg == "" ||   this.getImgExt  == undefined) {
+    if ((data.senderMsg == "" || data.senderMsg == null)  &&  (this.getImgExt  == "" || this.getImgExt  == null)) {
       this.toastrService.error('Please Enter your data')
       this.spinner.hide();
       return
