@@ -145,7 +145,6 @@ export class FeedbacksComponent implements OnInit {
     })
   }
 
-
   filterVillage(villageId: any) {
     this.FeedbackObj.villageid = villageId
     this.getFeedBackData(this.FeedbackObj);
@@ -168,7 +167,6 @@ export class FeedbacksComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
-    
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
