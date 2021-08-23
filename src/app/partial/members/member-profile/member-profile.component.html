@@ -185,7 +185,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let roles of organizationRoles">
-                                <td>{{roles?.SrNo}}{{organizationRoles?.length}}</td>
+                                <td>{{roles?.SrNo}}</td>
                                 <td>
                                     <a class="text-primary" (click)="redirectOrgDetails(roles.id,roles.Designation,roles.BodyOrgCellName)">{{roles?.BodyOrgCellName}}</a>
                                 </td>
