@@ -237,8 +237,8 @@
                                 <td>
                                     {{resFeedbacks?.FeedDate}}
                                 </td>
-                                <td><span class="text-ellipsis-250px">{{resFeedbacks?.Feedback}}</span></td>
-                                <td><span class="text-ellipsis-250px">{{resFeedbacks?.Reply}}</span></td>
+                                <td><span class="text-ellipsis-250px" [appTooltip]  title={{resFeedbacks?.Feedback}}>{{resFeedbacks?.Feedback}}</span></td>
+                                <td><span class="text-ellipsis-250px" [appTooltip]  title={{resFeedbacks?.Reply}}>{{resFeedbacks?.Reply}}</span></td>
                                 <td><button type="button" data-bs-toggle="modal" data-bs-target="#ViewFeedbackModal" class="btn btn-sm btn-light" (click)="viewFeedBackModalFN(resFeedbacks)"><i
                                             class="far fa-eye"></i></button></td>
                             </tr>

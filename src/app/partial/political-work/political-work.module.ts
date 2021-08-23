@@ -9,6 +9,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { AgmCoreModule } from '@agm/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
+import { TooltipModule } from '../directive/tooltip.module';
 @NgModule({
   declarations: [
     PoliticalWorkComponent
@@ -24,6 +25,7 @@ import { GalleryModule } from '@ngx-gallery/core';
     OwlNativeDateTimeModule,
     LightboxModule,
     GalleryModule,
+    TooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',
