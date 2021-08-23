@@ -265,7 +265,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
+                <h6 class="modal-title" id="ViewDetailsModalLabel">Details123</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -322,6 +322,26 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <label class="form-label">Likes</label>
+                                <p class="form-data text-primary">{{resultBodyMemActDetails.TotalLikes}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Comments</label>
+                                <p class="form-data text-success">{{resultBodyMemActDetails.TotalComments}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Shares</label>
+                                <p class="form-data text-info">{{resultBodyMemActDetails.TotalShares}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Abuses</label>
+                                <p class="form-data text-danger">{{resultBodyMemActDetails.TotalAbuses}}</p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-6 form-container">
                         <div class="mb-3">
