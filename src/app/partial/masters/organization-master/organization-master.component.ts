@@ -106,9 +106,10 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      // if(this.editLevalFlag == 'edit' && flag == 'select'){ // DistrictId is availble then show city 
-      //   this.getTaluka(this.orgMasterForm.value.DistrictId);
-      // }
+      debugger;
+      if(this.editLevalFlag == 'edit'){ //  && flag == 'select' DistrictId is availble then show city 
+        this.getTaluka(this.selEditOrganization.DistrictId);
+      }
     }
     else if (levelId == 6) {
       this.orgMasterForm.controls["VillageId"].setValue("");
@@ -118,9 +119,10 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      // if(this.editLevalFlag == 'edit' && flag == 'select'){ // DistrictId is availble then show city 
-      //   this.districtEvent(this.orgMasterForm.value.BodyLevelId,this.orgMasterForm.value.DistrictId);
-      // }
+      debugger;
+      if(this.editLevalFlag == 'edit'){ // && flag == 'select'  DistrictId is availble then show city 
+        this.districtEvent(this.selEditOrganization.BodyLevelId,this.selEditOrganization.DistrictId);
+      }
 
     }
     this.validationOncondition(levelId);
@@ -432,16 +434,21 @@ export class OrganizationMasterComponent implements OnInit {
     else {
       let fromData: any = new FormData();
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
+      
+
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
         let value = Object.values(this.orgMasterForm.value)[ind] != null ? Object.values(this.orgMasterForm.value)[ind] : 0;
         fromData.append(cr, value)
       })
-      let btnTextFlag = this.btnText == "Create  Committee" ? 0 : this.HighlightRow;
+      // this.orgMasterForm.value.Id == null ? this.orgMasterForm.value.Id = 0 : this.orgMasterForm.value.Id = this.orgMasterForm.value.Id;
+      let btnTextFlag:any;
+      this.btnText == "Create  Committee" ? btnTextFlag =  0 : btnTextFlag =  this.HighlightRow;
       fromData.append('Id', btnTextFlag);
 
       this.callAPIService.setHttp('Post', 'Web_Insert_Bodycellorgmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.btnText = "Create  Committee";
           this.editLevalFlag = "";
           this.selectLevelClear();
           this.spinner.hide();
