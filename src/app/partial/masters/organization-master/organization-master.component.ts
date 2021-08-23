@@ -94,6 +94,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = true;
     }
     else if (levelId == 4) {
+      debugger;
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
@@ -359,6 +360,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDistrict() {
+    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -368,7 +370,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
         if (this.btnText == "Update Committee" && this.globalLevelId == 6) { // edit for city
           this.selCity();
-        } else if (this.btnText == "Update Committee" && this.globalLevelId == 5) { // edit for Village
+        } else if (this.btnText == "Update Committee" && this.globalLevelId == 5 || this.btnText == "Update Committee" && this.globalLevelId == 4) { // edit for Village
           this.getTaluka(this.globalDistrictId)
         }
       } else {
@@ -382,6 +384,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    debugger;
     this.globalDistrictId = districtId;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -397,6 +400,9 @@ export class OrganizationMasterComponent implements OnInit {
           } else {
             this.orgMasterForm.controls["TalukaId"].setValue(null);
           }
+        }
+        if (this.btnText == "Update Committee" && this.globalLevelId == 4) {
+          this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId});
         }
       } else {
         // this.toastrService.error("Data is not available");

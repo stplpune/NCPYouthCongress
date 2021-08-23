@@ -38,7 +38,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   globalGroupId = 0;
   @ViewChild('fileInput') fileInput: any;
   MediaTypeId:any;
-
+  submitted = false;
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
@@ -160,6 +160,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   UploadHelpMeChatMediaMsg() {
+    this.submitted = true;
     this.spinner.show();
     let data = this.replayForm.value;
     if ((data.senderMsg == "" || data.senderMsg == null)  &&  (this.getImgExt  == "" || this.getImgExt  == null)) {
@@ -208,6 +209,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('post', 'Upload_HelpMe_Chat_Media_Message', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.submitted = false;
         this.replayForm.reset();
         this.fileInput.nativeElement.value = '';
        

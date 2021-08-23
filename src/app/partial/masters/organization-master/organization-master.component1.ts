@@ -395,6 +395,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    debugger;
     this.globalDistrictId = districtId;
     if (this.btnText == "Update Committee" && this.selEditOrganization.IsRural == 1) {
       this.getVillageOrCity(districtId, 'City');
