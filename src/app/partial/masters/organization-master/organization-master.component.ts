@@ -385,7 +385,7 @@ export class OrganizationMasterComponent implements OnInit {
         if (this.btnText == "Update Committee" && this.globalLevelId == 5) { // edit for Village
           this.globalTalukaID = this.selEditOrganization.TalukaId;
           if (this.globalTalukaID != "") {
-            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
+            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId});
             this.selVillage();
           } else {
             this.orgMasterForm.controls["TalukaId"].setValue(null);
@@ -411,7 +411,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.resultVillageOrCity = res.data1;
         if (this.btnText == "Update Committee") { // edit
-          this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
+          let VillageId:any;
+          (this.selEditOrganization.BodyLevel != this.orgMasterForm.value.BodyLevelId) ? VillageId = this.orgMasterForm.value.VillageId : VillageId = this.selEditOrganization.VillageId;
+          this.orgMasterForm.patchValue({ VillageId: VillageId});
         }
       } else {
         // this.toastrService.error("Data is not available");
