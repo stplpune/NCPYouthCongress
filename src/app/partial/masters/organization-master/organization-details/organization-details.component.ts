@@ -106,11 +106,11 @@ export class OrganizationDetailsComponent implements OnInit {
   filterForm(text: any, flag: any) {
     if (flag == "member") {
       this.globalMemberId = text;
-      this.getBodyMemeberActivities(this.bodyId)
     } else if (flag == "workType") {
       this.globalCategoryId = text;
-      this.getBodyMemeberActivities(this.bodyId)
     }
+    this.getBodyMemeberActivities(this.bodyId);
+
   }
 
 
@@ -130,7 +130,8 @@ export class OrganizationDetailsComponent implements OnInit {
 
   filterData() {
     this.paginationNo = 1;
-    this.getBodyMemeberActivities(this.bodyId)
+    this.getBodyMemeberActivities(this.bodyId);
+    this.getBodyMemeberGraph(this.bodyId);
   }
 
   clearFilter(flag: any) {
@@ -143,7 +144,8 @@ export class OrganizationDetailsComponent implements OnInit {
       this.filter.controls['fromTodate'].setValue(['', '']);
     }
     this.paginationNo = 1;
-    this.getBodyMemeberActivities(this.bodyId)
+    this.getBodyMemeberActivities(this.bodyId);
+    this.getBodyMemeberGraph(this.bodyId);
   }
 
   getAllBodyMember() {
