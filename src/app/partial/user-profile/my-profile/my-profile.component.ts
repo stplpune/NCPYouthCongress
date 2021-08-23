@@ -204,7 +204,6 @@ export class MyProfileComponent implements OnInit {
       return;
     }
     else {
-      debugger;
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
@@ -310,7 +309,6 @@ export class MyProfileComponent implements OnInit {
   get cp() { return this.changePasswordForm.controls };
 
   onSubmit() {
-    debugger
     this.spinner.show();
     this.submittedChangePassword  = true;
     if (this.changePasswordForm.invalid) {

@@ -88,7 +88,6 @@ export class ForwardActivitiesComponent implements OnInit {
   }
   
   onSubmit(){
-    debugger;
     this.spinner.show();
     this.submitted = true;
     if (this.forwardActivitiForm.invalid) {

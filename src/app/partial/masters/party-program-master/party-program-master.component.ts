@@ -183,7 +183,6 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   endProgramList(data: any) {
-    debugger;
     this.spinner.show();
     let proStatus = 3;
     // status == 1 ?  proStatus = 0 : proStatus = 1; 
@@ -256,12 +255,10 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   ModalOpen(prgramStatus:any, programList:any){
-    debugger;
     prgramStatus == 'EndProgram' ?  (this.modalStatusMsg = "End The Program",this.globalProgramData = programList) :  (this.modalStatusMsg = "Cancel the Program", this.globalProgramData = programList);
   }
 
   programStatus(modalFlag:any){
-    debugger;
     (modalFlag = "End The Program") ? this.endProgramList(this.globalProgramData) : this.cancelProgramList(this.globalProgramData);
   }
 

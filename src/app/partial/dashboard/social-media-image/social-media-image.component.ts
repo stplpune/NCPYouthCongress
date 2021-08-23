@@ -222,7 +222,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     } else if (flag == 'taluka') {
       this.filterForm.controls['TalukaId'].setValue(0);
     } else if (flag == 'Date') {
-      debugger;
       this.defaultCloseBtn = false;
       this.filterForm.controls['fromTo'].setValue(this.dateRange1);
     }
