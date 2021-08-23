@@ -106,9 +106,9 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      // if(this.editLevalFlag == 'edit' && flag == 'select'){ // DistrictId is availble then show city 
-      //   this.getTaluka(this.orgMasterForm.value.DistrictId);
-      // }
+      if(this.editLevalFlag == 'edit'  && flag == 'select'){ // DistrictId is availble then show city 
+        this.getTaluka(this.orgMasterForm.value.DistrictId);
+      }
     }
     else if (levelId == 6) {
       this.orgMasterForm.controls["VillageId"].setValue("");
@@ -118,9 +118,9 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      // if(this.editLevalFlag == 'edit' && flag == 'select'){ // DistrictId is availble then show city 
-      //   this.districtEvent(this.orgMasterForm.value.BodyLevelId,this.orgMasterForm.value.DistrictId);
-      // }
+      if(this.editLevalFlag == 'edit' && flag == 'select'){ // DistrictId is availble then show city 
+        this.districtEvent(this.orgMasterForm.value.BodyLevelId,this.orgMasterForm.value.DistrictId);
+      }
 
     }
     this.validationOncondition(levelId);
@@ -345,6 +345,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   districtEvent(levelId: any, districtId: any) {
+    debugger;
     if (levelId == 6) {
       this.globalDistrictId = districtId;
       this.selCity();
@@ -359,6 +360,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allDistrict = res.data1;
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
+        debugger;
         if (this.btnText == "Update Committee" && this.globalLevelId == 6) { // edit for city
           this.selCity();
         } else if (this.btnText == "Update Committee" && this.globalLevelId == 5) { // edit for Village
@@ -383,9 +385,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
         if (this.btnText == "Update Committee" && this.globalLevelId == 5) { // edit for Village
-          this.globalTalukaID = this.orgMasterForm.value.TalukaId;
-          if (this.globalTalukaID! = "") {
-            this.orgMasterForm.patchValue({ TalukaId: this.orgMasterForm.value.TalukaId });
+          this.globalTalukaID = this.selEditOrganization.TalukaId;
+          if (this.globalTalukaID != "") {
+            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
             this.selVillage();
           } else {
             this.orgMasterForm.controls["TalukaId"].setValue(null);
@@ -402,6 +404,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
+    debugger;
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -434,16 +437,21 @@ export class OrganizationMasterComponent implements OnInit {
     else {
       let fromData: any = new FormData();
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
+      
+
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
         let value = Object.values(this.orgMasterForm.value)[ind] != null ? Object.values(this.orgMasterForm.value)[ind] : 0;
         fromData.append(cr, value)
       })
-      let btnTextFlag = this.btnText == "Create  Committee" ? 0 : this.HighlightRow;
+      // this.orgMasterForm.value.Id == null ? this.orgMasterForm.value.Id = 0 : this.orgMasterForm.value.Id = this.orgMasterForm.value.Id;
+      let btnTextFlag:any;
+      this.btnText == "Create  Committee" ? btnTextFlag =  0 : btnTextFlag =  this.HighlightRow;
       fromData.append('Id', btnTextFlag);
 
       this.callAPIService.setHttp('Post', 'Web_Insert_Bodycellorgmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.btnText = "Create  Committee";
           this.editLevalFlag = "";
           this.selectLevelClear();
           this.spinner.hide();
@@ -499,6 +507,7 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.selEditOrganization = res.data1[0];
+        console.log(this.selEditOrganization);
         this.HighlightRow = this.selEditOrganization.Id;
         this.editLevalFlag = "edit"
         this.selectLevel(this.selEditOrganization.BodyLevel, this.editLevalFlag);
@@ -729,6 +738,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selCity() {
+    debugger;
     this.villageCityLabel = "City";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
@@ -746,11 +756,13 @@ export class OrganizationMasterComponent implements OnInit {
       this.toastrService.error("Please select district");
       return
     } else {
+      debugger;
       this.disableFlagVill = false;
       this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
       this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
+      
     }
   }
 }

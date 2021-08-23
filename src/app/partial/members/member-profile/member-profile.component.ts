@@ -237,12 +237,12 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
     // Create axes
     let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 50;
     dateAxis.title.text = "Monthly Work";
 
     // Create value axis
     let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.title.text = "Political Work Monhtly Count";
-
 
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());

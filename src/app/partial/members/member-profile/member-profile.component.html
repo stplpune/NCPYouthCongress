@@ -37,17 +37,19 @@
                 <img *ngIf="!allMemberprofile?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="card-img-top" alt="...">
                 <div class="card-body p-2">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item px-0 border-bottom" *ngFor="let roles of organizationRoles">
+                        <ng-container *ngFor="let roles of organizationRoles" >
+                        <li class="list-group-item px-0" [class.d-none]="roles?.IsCurrent == 0">
                             <!-- <div class="text-end mb-1">
 
                             </div> -->
-                            <div class="ms-2 me-auto">
+                            <div class="ms-2 me-auto border-none" *ngIf="roles?.IsCurrent == 1">
                                 <div class="fw-bold text-main"> {{roles?.BodyOrgCellName}}</div>
                                 <small class="text-primary">{{roles?.Designation}}</small><br/>
                                 <small class="bg-light rounded-pill text-secondary">{{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}} -  {{roles?.PostToDate ? roles?.PostToDate : 'Till Date'}}</small>
-                                <button *ngIf="roles?.IsCurrent == 1" class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" (click)="getUserPostBodyId(roles.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
+                                <button  class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" (click)="getUserPostBodyId(roles.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
                             </div>
                         </li>
+                    </ng-container>
                     </ul>
                     <!-- <p class="card-text mb-0">
                         <ng-container *ngIf="allMemberprofile?.Designation">{{allMemberprofile?.Designation}}</ng-container>

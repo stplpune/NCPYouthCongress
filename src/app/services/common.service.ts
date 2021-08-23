@@ -40,6 +40,7 @@ export class CommonService {
   }
 
 
+
   
   codecareerPage:any;
   createCaptchaCarrerPage() {
