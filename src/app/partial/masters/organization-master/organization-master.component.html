@@ -141,12 +141,12 @@
                                 <td>{{result.LevelName}}</td>
                                 <td><span class="">{{result.Area}}</span></td>
                                 <td><span class="">{{result.DesignationAssigned}}</span></td>
-                                <td class="px-0"> <button type="button" class="btn btn-sm btn-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id)" data-bs-target="#AddDesignationModal">
+                                <td class="px-0"> <button type="button" class="btn btn-sm btn-light" data-bs-toggle="tooltip" data-bs-placement="bottom" [appTooltip]  title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id)" data-bs-target="#AddDesignationModal">
                                         <i class="fas fa-user-plus"></i>
                                     </button> </td>
                                 <td>{{result.AllottedDesignation}}</td>
                                 <td>
-                                    <button type="button" title="Edit Organization" class="btn btn-sm btn-light text-edit mx-2" (click)="editOrganization(result.Id)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Committee"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Edit Organization" class="btn btn-sm btn-light text-edit mx-2" (click)="editOrganization(result.Id)" data-bs-toggle="tooltip"  [appTooltip]  data-bs-placement="bottom" title="Edit Committee"><i class="far fa-edit"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="organizationRes?.length == 0">
