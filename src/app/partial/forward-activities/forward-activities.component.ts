@@ -124,6 +124,7 @@ export class ForwardActivitiesComponent implements OnInit {
       this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.submitted = false;
           this.IsChangeImage = false;
           this.deleteImg();
           this.resetNotificationForm();
