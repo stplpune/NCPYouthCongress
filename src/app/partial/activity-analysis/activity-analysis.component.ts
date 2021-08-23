@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
@@ -43,7 +43,10 @@ export class ActivityAnalysisComponent implements OnInit {
   disabledMarkasNotAbuse: boolean = false;
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[]; 
-
+  @ViewChild('TotalLikes') TotalLikes:any;
+  @ViewChild('TotalComments') TotalComments:any;
+  @ViewChild('TotalShares') TotalShares:any;
+  @ViewChild('TotalAbuses') TotalAbuses:any;
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -240,6 +243,23 @@ export class ActivityAnalysisComponent implements OnInit {
   }
 
   getActivityLikes(activityId:any,flag:any, counter:any) {
+    if(counter == 0 ){
+      this.toastrService.info('No data found...');
+      return;
+    }
+    if (flag == 1) {
+      let clickTotalLikesModal: any = this.TotalLikes.nativeElement;
+      clickTotalLikesModal.click();
+    } else if (flag == 2) {
+      let clickTotalComments: any = this.TotalComments.nativeElement;
+      clickTotalComments.click();
+    } else if (flag == 3) {
+      let clickTotalShares: any = this.TotalShares.nativeElement;
+      clickTotalShares.click();
+    } else if (flag == 4) {
+      let clickTotalAbuses: any = this.TotalAbuses.nativeElement;
+      clickTotalAbuses.click();
+    }
     this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

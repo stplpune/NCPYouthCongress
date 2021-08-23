@@ -108,16 +108,20 @@
                             <td>{{politicalWork.Title | titlecase}}</td>
                             <!-- <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td> -->
                             <td>
-                                <h6 class="mb-0"><a class="text-primary" (click)="getActivityLikes(politicalWork.Id,'1',politicalWork.TotalLikes)" data-bs-toggle="modal" data-bs-target="#LikesModal">{{politicalWork.TotalLikes}}</a></h6>
+                                <h6 class="mb-0"><a class="text-primary" (click)="getActivityLikes(politicalWork.Id,'1',politicalWork.TotalLikes)">{{politicalWork.TotalLikes}}</a></h6>
+                                <input type="hidden" data-bs-toggle="modal" data-bs-target="#LikesModal" #TotalLikes>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a class="text-success" (click)="getActivityLikes(politicalWork.Id,'2',politicalWork.TotalComments)" data-bs-toggle="modal" data-bs-target="#CommentModal">{{politicalWork.TotalComments}}</a></h6>
+                                <h6 class="mb-0"><a class="text-success" (click)="getActivityLikes(politicalWork.Id,'2',politicalWork.TotalComments)">{{politicalWork.TotalComments}}</a></h6>
+                                <input type="hidden" data-bs-toggle="modal" data-bs-target="#CommentModal"#TotalComments>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a class="text-info" (click)="getActivityLikes(politicalWork.Id,'3',politicalWork.TotalShares)" data-bs-toggle="modal" data-bs-target="#ShareModal">{{politicalWork.TotalShares}}</a></h6>
+                                <h6 class="mb-0"><a class="text-info" (click)="getActivityLikes(politicalWork.Id,'3',politicalWork.TotalShares)">{{politicalWork.TotalShares}}</a></h6>
+                                <input type="hidden" data-bs-toggle="modal" data-bs-target="#ShareModal"  #TotalShares>
                             </td>
                             <td>
-                                <h6 class="mb-0"><a class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)" data-bs-toggle="modal" data-bs-target="#AbuseModal">{{politicalWork.TotalAbuses}}</a></h6>
+                                <h6 class="mb-0"><a class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)">{{politicalWork.TotalAbuses}}</a></h6>
+                                <input type="hidden"  data-bs-toggle="modal" data-bs-target="#AbuseModal" #TotalAbuses>
                             </td>
 
                             <td>
