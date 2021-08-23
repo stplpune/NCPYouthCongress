@@ -543,15 +543,18 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
   WorkDoneRecentActivityGraph() {
     this.periodicChart.map((ele: any) => {
       ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
     })
+
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     // Add data
     chart.data = this.periodicChart;
 
+     chart.colors.list = [
+      am4core.color("#80DEEA"),
+     ];
     // Create axes
     let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 20;
@@ -559,14 +562,13 @@ export class OrganizationDetailsComponent implements OnInit {
     // Create value axis
     let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
 
-
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
     lineSeries.dataFields.valueY = "Totalwork";
     lineSeries.dataFields.dateX = "StartDate";
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
-    lineSeries.strokeDasharray = "5,4";
+    // lineSeries.strokeDasharray = "5,4";
     lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
 
     // Add simple bullet

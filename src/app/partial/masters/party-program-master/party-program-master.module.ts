@@ -7,7 +7,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { TooltipModule } from '../../directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     OwlNativeDateTimeModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TooltipModule
   ]
 })
 export class PartyProgramMasterModule { }

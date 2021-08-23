@@ -7,7 +7,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { TooltipModule } from '../directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    TooltipModule,
   ]
 })
 export class FeedbacksModule { }
