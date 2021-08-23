@@ -259,4 +259,7 @@ header .navbar-nav .donate{
     position: absolute;
     z-index: -1;
     filter:grayscale(0.8);
+    background-size: 60% auto;
+    background-position-y: 115px;
+    background-position-x: -66px;
 }
