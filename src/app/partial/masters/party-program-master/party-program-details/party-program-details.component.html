@@ -352,7 +352,7 @@
                                     <img src="{{img}}" class="img-thumbnail h-150">
                                 </div> -->
                                 <div class="col-sm-2 mb-3" *ngFor="let imgs1 of comUserdetImg; index as i1">
-                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb"  [gallery]="'anotherLightbox'"  class="img-thumbnail h-150">
+                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb" [title]="imgs1?.data?.title"  [gallery]="'anotherLightbox'"  class="img-thumbnail h-150">
                                 </div>
                             </div>
                         </div>

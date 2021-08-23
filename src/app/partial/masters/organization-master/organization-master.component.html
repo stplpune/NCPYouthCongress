@@ -207,7 +207,7 @@
                                         <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
                                         <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
                                     </div>
-                                    <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback">
+                                    <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback" style="margin-top: -6px;">
                                         <div *ngIf="d.IsMultiple.errors.required">Is Multiple is required</div>
                                     </div>
                                 </div>
