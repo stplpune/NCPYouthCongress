@@ -223,14 +223,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     chart.colors.list = [
-      am4core.color("#F1948A"),
-      am4core.color("#E59866"),
-      am4core.color("#AED6F1"),
-      am4core.color("#ABEBC6"),
       am4core.color("#80DEEA"),
-      am4core.color("#99A3A4"),
     ];
-
 
     // Add data
     chart.data = this.periodicChart;
