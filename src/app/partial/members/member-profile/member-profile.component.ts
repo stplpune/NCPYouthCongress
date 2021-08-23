@@ -244,7 +244,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.title.text = "Political Work Monhtly Count";
 
-
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
     lineSeries.dataFields.valueY = "Totalwork";
