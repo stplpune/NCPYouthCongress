@@ -100,6 +100,7 @@ export class ForwardActivitiesComponent implements OnInit {
       let imageChangeFlag:any;
       let NewsTypeFlag:any;
       let getObj:any = this.forwardActivitiForm.value;
+      debugger;
       if (this.getImgPath != "") {
         imageChangeFlag = 1; NewsTypeFlag = 3;
       } else {
