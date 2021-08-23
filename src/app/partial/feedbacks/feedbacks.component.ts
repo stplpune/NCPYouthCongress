@@ -156,6 +156,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getFeedBackData(FeedbackObj: any) {
+    debugger;
     let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
 
@@ -212,8 +213,8 @@ export class FeedbacksComponent implements OnInit {
 
   filterClear(flag: any) {
     if (flag == 'district') {
-      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0 }
-      this.filterForm.reset();
+      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0}
+      this.filterForm.reset({MemberId: this.filterForm.value.MemberId});
     } else if (flag == 'taluka') {
       this.filterForm.reset({ DistrictId: this.FeedbackObj.DistrictId });
       this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: this.filterForm.value.MemberId }
@@ -223,8 +224,7 @@ export class FeedbacksComponent implements OnInit {
     //     VillageId: 0
     //   });
     //   this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
-    // } 
-
+    // }
     else if (flag == 'member') {
       this.FeedbackObj.MemberId = 0;
     }
