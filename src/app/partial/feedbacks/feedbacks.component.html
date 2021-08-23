@@ -64,7 +64,9 @@
                                         <i class="fas fa-eye-slash  me-1 text-muted" *ngIf="result.FeedbackStatus==0"></i>
                                     </span>
                                 </a>
-
+                                <div *ngIf="resultAllFeedBackData?.length == 0">
+                                    <div  class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                </div>
                             </div>
                         </div>
                     </div>

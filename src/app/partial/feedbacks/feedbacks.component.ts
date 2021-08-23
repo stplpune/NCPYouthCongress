@@ -76,6 +76,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    this.defualtHideFeedback = false;
     this.FeedbackObj.DistrictId = districtId;
     this.paginationNo = 1;
     this.getFeedBackData(this.FeedbackObj);
@@ -100,6 +101,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any) {
+    this.defualtHideFeedback = false;
     this.FeedbackObj.Talukaid = talukaID
     this.getFeedBackData(this.FeedbackObj);
 
@@ -147,8 +149,10 @@ export class FeedbacksComponent implements OnInit {
 
 
   filterVillage(villageId: any) {
-    this.FeedbackObj.villageid = villageId
+    this.FeedbackObj.villageid = villageId;
+    this.defualtHideFeedback = false;
     this.getFeedBackData(this.FeedbackObj);
+
   }
 
   getFeedBackData(FeedbackObj: any) {
@@ -174,7 +178,7 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         if (res.data == 1) {
           this.resultAllFeedBackData = [];
-          this.toastrService.error("Data is not available");
+          // this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -225,10 +229,12 @@ export class FeedbacksComponent implements OnInit {
       this.FeedbackObj.MemberId = 0;
     }
     this.paginationNo = 1;
+    this.defualtHideFeedback = false;
     this.getFeedBackData(this.FeedbackObj)
   }
 
   selectMember(memberId: any) {
+    this.defualtHideFeedback = false;
     this.FeedbackObj.MemberId = memberId;
     this.getFeedBackData(this.FeedbackObj)
   }
@@ -239,6 +245,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   details(data: any, flag:any) {
+    this.spinner.show();
     this.detailsData = data;
     this.defualtHideFeedback = true;
     if(flag == 'true'){
@@ -250,9 +257,10 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.resultAllFeedBackDetails = res.data1;
       } else {
-        // this.spinner.hide();
+        this.spinner.hide();
         // if (res.data == 1) {
           this.resultAllFeedBackDetails = [];
+
           // this.toastrService.error("Feedback is not available");
         // } else {
         //   this.toastrService.error("Please try again something went wrong");
