@@ -609,7 +609,9 @@ export class OrganizationMasterComponent implements OnInit {
           this.clearAddDesignationForm();
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
-          this.closeModalAddDes();
+          // this.closeModalAddDes();
+          this.getBodyAssignedDesignation();
+          this.AlreadyAssignedDesignations(this.desBodyId);
           this.spinner.hide();
 
           this.getOrganizationList();

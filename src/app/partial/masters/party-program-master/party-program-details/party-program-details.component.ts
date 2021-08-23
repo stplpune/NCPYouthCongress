@@ -104,6 +104,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
         this.lightboxRef = this.gallery.ref()
         this.lightboxRef.load(this.programGalleryImg);
+        console.log(this.programGalleryImg);
       } else {
         this.spinner.hide();
           // this.toastrService.error("Data is not available");

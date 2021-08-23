@@ -190,6 +190,8 @@ export class NotificationsComponent implements OnInit {
       this.notificationForm.controls["MemberStr"].setValidators(Validators.required);
       this.notificationForm.controls["MemberStr"].updateValueAndValidity();
       this.notificationForm.controls['MemberStr'].clearValidators();
+    }else{
+      this.validationRemove();
     }
   }
   
@@ -234,7 +236,6 @@ export class NotificationsComponent implements OnInit {
       BodyId:data.BodyId,
       DistrictId:data.DistrictId,
     })
-    
     if (data.ScopeId == 2) {
      this.getDistrict();
      this.notificationForm.controls["DistrictId"].setValue(this.notificationForm.value.DistrictId.map(Number))
