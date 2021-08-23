@@ -111,7 +111,6 @@ export class ActivityAnalysisComponent implements OnInit {
     let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate;
     this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      console.log(res);
       res.data == 0 ? (this.PoliticalWork = res.data3[0].Totalwork) : this.PoliticalWork = 0;
       res.data == 0 ? (this.newsLetters = res.data3[1].Totalwork) : this.newsLetters = 0;
       res.data == 0 ? (this.socialMediaCount = res.data3[2].Totalwork) : this.socialMediaCount = 0;

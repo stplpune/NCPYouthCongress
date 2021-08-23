@@ -78,7 +78,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
-        console.log(this.resProfileData);
         this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();
@@ -216,7 +215,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       return;
     }
     else {
-      debugger;
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {

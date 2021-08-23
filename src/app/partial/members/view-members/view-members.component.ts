@@ -79,7 +79,6 @@ export class ViewMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        console.log(this.getTalkaByDistrict)
       } else {
           this.toastrService.error("Data is not available");
       }
@@ -125,7 +124,6 @@ export class ViewMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultAllViewMembers = res.data1;
-        console.log(this.resultAllViewMembers);
         this.total = res.data2[0].TotalCount;
         this.memberCountData = res.data3[0];
      
@@ -146,7 +144,6 @@ export class ViewMembersComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
-    console.log(pageNo);
     this.paginationNo = pageNo;
     this.getViewMembers(this.viewMembersObj)
   }

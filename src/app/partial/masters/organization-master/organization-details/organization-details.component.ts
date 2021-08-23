@@ -134,7 +134,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   clearFilter(flag: any) {
-    debugger;
     if (flag == 'member') {
       this.filter.controls['memberName'].setValue(0);
     } else if (flag == 'workType') {
@@ -288,7 +287,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getBodyMemeberActivities(id: any) {
-    debugger;
     let filterData = this.filter.value;
     let fromDate: any = "";
     let toDate: any = "";
@@ -527,7 +525,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   activitiesPerodicGraph(id: any) {
-    console.log(this.filter.value);
     let stringPerodicGraph: any = '?MemberId=' + this.globalMemberId + '&BodyId=' + id + '&CategoryId=' + this.globalCategoryId + '&FromDate=' + this.filter.value.fromTodate[0] + '&ToDate=' + this.filter.value.fromTodate[1];
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_Activities_PerodicGraph' + stringPerodicGraph, false, false, false, 'ncpServiceForWeb');
@@ -535,7 +532,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
-        console.log(this.periodicChart);
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");

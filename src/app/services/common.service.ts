@@ -86,7 +86,6 @@ export class CommonService {
       }else{
         let images =  data.map((item:any) =>
         new ImageItem({ src: item, thumb: item, text:'programGalleryImg'}));
-        console.log(images);
         return images;
       }
     } 

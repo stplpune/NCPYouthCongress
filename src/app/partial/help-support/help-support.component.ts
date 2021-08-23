@@ -90,7 +90,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   }
 
   getMessagebyGroupId(infoUser: any, GroupId: any, readStatus: any) {
-    debugger;
     this.replayForm.reset();
     if (readStatus == 0) {
       this.getTblchatreceived(GroupId);
@@ -101,7 +100,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.defaultMsgBox = true;
     this.infoUser = infoUser;
     this.globalGroupId = this.infoUser.GroupId;
-    console.log(this.infoUser);
     this.Chat_MessagebyGroupId(this.infoUser.GroupId)
   }
 
@@ -114,7 +112,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
           this.scrollToBottom();
         }, 100);
         this.messagebyGroupIdArray = res.data1;
-        console.log('messagebyGroupIdArray',this.messagebyGroupIdArray)
         // this.getReceiverChatList();
      
       } else {
@@ -174,7 +171,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     let checkrecId: any;
     this.commonService.loggedInUserId() == this.infoUser.ReceiverId ? checkrecId = this.infoUser.SenderId : checkrecId = this.infoUser.ReceiverId;
     this.selectedFile;
-    debugger;
     switch (this.getImgExt) {
       case ('png'):
         this.MediaTypeId = 2;
@@ -240,9 +236,6 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
     this.getImgExt="";
     this.MediaTypeId="";
     this.fileInput.nativeElement.value = '';
-    // console.log(this.selectedFile);
-    // this.selectedFile = undefined;
-    // this.imgName = null
   }
 
   readUrl(event: any) {

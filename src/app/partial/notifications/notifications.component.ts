@@ -217,7 +217,6 @@ export class NotificationsComponent implements OnInit {
     }else if (data.ScopeId == 2){
       data.DistrictId = data.MemberStr.split(',');
     }
-    console.log(data);
 
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
@@ -293,10 +292,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   pushMotification(){
-    debugger;
     this.callAPIService.setHttp('get', 'Push_SendNotification_1_0?UserId='+this.commonService.loggedInUserId()+'&NotificationId='+this.NotificationId+'&ScopeId='+this.ScopeId, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      debugger;
       if (res.data == 0) {
         this.toastrService.success(res.data1);
         this.getNotificationData();
@@ -336,7 +333,6 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
-        console.log(this.memberNameArray);
         // if(this.NotificationText == 'update'){
         //   this.notificationForm.controls['MemberStr'].setValue('');
         // }
@@ -359,7 +355,6 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getBodyOrgCellName = res.data1;
-        console.log(this.memberNameArray)
       } else {
           this.toastrService.error("Data is not available");
       }
@@ -395,7 +390,6 @@ export class NotificationsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.notificationscopeArray = res.data1;
-        console.log(this.notificationscopeArray)
       } else {
         this.spinner.hide();
           this.toastrService.error("Data is not available");
@@ -441,7 +435,6 @@ export class NotificationsComponent implements OnInit {
         this.spinner.hide();
         this.notificationArray = res.data1;
         this.total = res.data2[0].TotalCount;
-        console.log(this.notificationArray)
       } else {
         this.notificationArray = [];
         this.spinner.hide();

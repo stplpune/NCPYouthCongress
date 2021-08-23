@@ -86,7 +86,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
-    debugger;
     this.globalselLevelFlag = flag;
     this.globalLevelId = levelId;
     if (levelId == 3) {
@@ -140,7 +139,6 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      debugger
       if (this.btnText == "Update Committee" && flag == 'edit') {
         this.orgMasterForm.controls["VillageId"].setValue(null);
       }
@@ -160,7 +158,6 @@ export class OrganizationMasterComponent implements OnInit {
 
 
   validationOncondition(levelId: any) {
-    debugger;
     if (levelId == 5) {
       this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
       this.orgMasterForm.controls["TalukaId"].setValidators(Validators.required);
@@ -188,7 +185,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   clearValidatorsMF(levelId: any) {
-    debugger;
     // if (levelId == 5 || levelId == 6) {
       this.orgMasterForm.controls['DistrictId'].clearValidators();
       this.orgMasterForm.controls['TalukaId'].clearValidators();
@@ -197,8 +193,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   clearselOption( globalLevelId: any) {
-    alert('ok')
-    debugger;
     if (globalLevelId ==2) {
       // if(flag == 'State' && this.globalLevelId == 6){
       //   this.orgMasterForm.controls["DistrictId"].setValidators(Validators.required);
@@ -244,7 +238,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   updateValueAndValidityMF(levelId: any) {
-    debugger;
     // if (levelId == 5) {
     //   this.orgMasterForm.controls["DistrictId"].updateValueAndValidity();
     //   this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
@@ -378,7 +371,6 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        debugger;
         this.globalDistrictId = this.selEditOrganization?.DistrictId;
         if (this.btnText == "Update Committee" && this.selEditOrganization.IsRural == 0) { // edit
           if (this.selEditOrganization.BodyLevel == 6) {
@@ -415,7 +407,6 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        debugger;
         if (this.btnText == "Update Committee") {
           if (this.selEditOrganization.IsRural == 1) {
             this.globalTalukaID = this.selEditOrganization.TalukaId;
@@ -438,7 +429,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
     (this.globalLevelId == 5 || this.globalLevelId == 6) ? this.disableFlagVill = false : this.disableFlagVill = true; // village flag disabled
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.globalDistrictId;
@@ -463,7 +453,6 @@ export class OrganizationMasterComponent implements OnInit {
   get f() { return this.orgMasterForm.controls };
 
   onSubmit() {
-    debugger;
     this.spinner.show();
     this.submitted = true;
     if (this.orgMasterForm.invalid) {
@@ -484,7 +473,6 @@ export class OrganizationMasterComponent implements OnInit {
       //   this.orgMasterForm.value['TalukaId']="";
       // }
       let fromData: any = new FormData();
-      console.log(this.orgMasterForm.value);
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
       Object.keys(this.orgMasterForm.value).forEach((cr: any, ind: any) => {
         let value = Object.values(this.orgMasterForm.value)[ind] != null ? Object.values(this.orgMasterForm.value)[ind] : 0;
@@ -548,7 +536,6 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.selEditOrganization = res.data1[0];
-        console.log(this.selEditOrganization);
         this.HighlightRow = this.selEditOrganization.Id;
         this.selectLevel(this.selEditOrganization.BodyLevel, 'edit');
         this.getDistrict();
@@ -675,7 +662,6 @@ export class OrganizationMasterComponent implements OnInit {
       IsMultiple: data.IsMultiple,
       CreatedBy: this.commonService.loggedInUserId(),
     })
-    console.log(this.AddDesignationForm.value);
   }
 
   clearAddDesignationForm() {
@@ -779,7 +765,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selCity() {
-    debugger;
     this.villageCityLabel = "City";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
@@ -792,7 +777,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selVillage() {
-    debugger;
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
       return

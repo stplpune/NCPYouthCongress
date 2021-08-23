@@ -167,7 +167,6 @@ export class SocialMediaPersonComponent implements OnInit {
       if (category) {
         return "assets/images/logos/" + category.split(" ").join("-").toLowerCase() + ".png";
       }
-      console.log(target);
       return href;
     })
     categoryAxis.dataItems.template.bullet = image;

@@ -154,7 +154,6 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.workInThisWeekArray = res.data2;
-        debugger;
         this.workInThisWeekArray.map((ele: any) => {
           if (ele.Date) {
             let DateFormate = this.commonService.dateFormatChange(ele.Date);
@@ -188,7 +187,6 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
-        console.log(this.newMemberInThisWeekArray )
         // this.weeklyColumnChart();
       } else {
         this.spinner.hide();
@@ -298,7 +296,6 @@ export class DashboardComponent implements OnInit {
       am4core.color("#99A3A4"),
       am4core.color("#D2B4DE")
     ];
-    console.log(this.newMemberInThisWeekArray);
     chart.data = this.newMemberInThisWeekArray;
 
     chart.padding(5, 5, 5, 5);

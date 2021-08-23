@@ -270,7 +270,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getBestPerKaryMember();
       this.geWeekReport();
     } else if (flag == 'dateValue') {
-      console.log(this.savgMapArray);
       this.defaultCloseBtn = false;
       this.topFilterForm.controls['fromTo'].setValue(this.dateRange1);
       this.savgMapArray = [];
@@ -299,7 +298,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
        'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        console.log(res);
         this.spinner.hide();
         this.resBestPerKaryMember = res.data1;
       } else {
@@ -330,7 +328,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvakTP = res.data1;
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
-        console.log(this.WorkDoneByYuvakTP);
         this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -362,7 +359,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resultBestPerKaryMember =  res.data1;
-        console.log(this.resultBestPerKaryMember);
         // this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -476,7 +472,6 @@ xAxis.renderer.minGridDistance = 30;
     this.mahaSVGMap();
   }
   mahaSVGMap(){
-    console.log(this.WorkDoneByYuvakBarchart);
       this.WorkDoneByYuvakBarchart.map((ele:any)=>{
         $('#'+ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
@@ -527,7 +522,6 @@ xAxis.renderer.minGridDistance = 30;
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
-        console.log(this.memberNameArray)
       } else {
         this.spinner.hide();
           this.toastrService.error("Data is not available");

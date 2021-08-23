@@ -153,7 +153,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        console.log(res);
         this.committeesDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.defaultPartiNonParti = false;

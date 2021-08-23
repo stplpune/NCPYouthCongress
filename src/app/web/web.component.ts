@@ -16,7 +16,6 @@ export class WebComponent implements OnInit {
           if (event['url'] == '/login') {
             this.login= true;
           } else {
-            // console.log("NU")
             this.login= false;
           }
         }
