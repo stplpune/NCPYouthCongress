@@ -141,11 +141,11 @@
                                 <td>{{result.LevelName}}</td>
                                 <td><span class="text-ellipsis-150px" [appTooltip]  title={{result.Area}}>{{result.Area}}</span></td>
                               
-                                 <!-- <td *ngIf="result.DesignationAssigned!=''; else elseBlock"> -->
-                                <td>
-                                     <div *ngFor=" let DesignAss of result.DesignationAssigned;let i=index">
+                                 <td>
+                                    <span class="text-ellipsis-150px" [appTooltip]  title={{result.DesignationAssigned}}>{{result.DesignationAssigned}}</span> 
+                                     <!-- <div *ngFor=" let DesignAss of result.DesignationAssigned;let i=index">
                                        {{i+1}}. {{DesignAss}}
-                                     </div>
+                                     </div> -->
                                  </td>
                                  <!-- <ng-template #elseBlock><td style="text-align: center;">NA</td></ng-template> -->
 

@@ -247,6 +247,7 @@ export class ActivityAnalysisComponent implements OnInit {
       this.toastrService.info('No data found...');
       return;
     }
+    this.spinner.show();
     if (flag == 1) {
       let clickTotalLikesModal: any = this.TotalLikes.nativeElement;
       clickTotalLikesModal.click();
