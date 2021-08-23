@@ -106,10 +106,9 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.villageCityLabel = "Village";
-      debugger;
-      if(this.editLevalFlag == 'edit'){ //  && flag == 'select' DistrictId is availble then show city 
-        this.getTaluka(this.selEditOrganization.DistrictId);
-      }
+      // if(this.editLevalFlag == 'edit'){ //  && flag == 'select' DistrictId is availble then show city 
+      //   this.getTaluka(this.selEditOrganization.DistrictId);
+      // }
     }
     else if (levelId == 6) {
       this.orgMasterForm.controls["VillageId"].setValue("");
@@ -119,10 +118,9 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.villageCityLabel = "City";
-      debugger;
-      if(this.editLevalFlag == 'edit'){ // && flag == 'select'  DistrictId is availble then show city 
-        this.districtEvent(this.selEditOrganization.BodyLevelId,this.selEditOrganization.DistrictId);
-      }
+      // if(this.editLevalFlag == 'edit'){ // && flag == 'select'  DistrictId is availble then show city 
+      //   this.districtEvent(this.selEditOrganization.BodyLevelId,this.selEditOrganization.DistrictId);
+      // }
 
     }
     this.validationOncondition(levelId);
@@ -375,6 +373,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    debugger;
     this.globalDistrictId = districtId;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -383,9 +382,9 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
         if (this.btnText == "Update Committee" && this.globalLevelId == 5) { // edit for Village
-          this.globalTalukaID = this.orgMasterForm.value.TalukaId;
-          if (this.globalTalukaID! = "") {
-            this.orgMasterForm.patchValue({ TalukaId: this.orgMasterForm.value.TalukaId });
+          this.globalTalukaID = this.selEditOrganization.TalukaId;
+          if (this.globalTalukaID != "") {
+            this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
             this.selVillage();
           } else {
             this.orgMasterForm.controls["TalukaId"].setValue(null);
@@ -751,11 +750,13 @@ export class OrganizationMasterComponent implements OnInit {
       this.toastrService.error("Please select district");
       return
     } else {
+      debugger;
       this.disableFlagVill = false;
       this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
       this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
+      
     }
   }
 }
