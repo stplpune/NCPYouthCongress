@@ -40,7 +40,7 @@ export class PoliticalWorkComponent implements OnInit {
   lng: any;
   zoom: any = 12;
   comUserdetImg:any;
-programGalleryImg!: GalleryItem[]; 
+  programGalleryImg!: GalleryItem[]; 
 
   constructor(
     private callAPIService: CallAPIService,
