@@ -158,7 +158,7 @@ export class DashboardComponent implements OnInit {
         console.log("workInThisWeekArray",this.workInThisWeekArray);
         this.workInThisWeekArray.map((ele: any) => {
           if (ele.Date) {
-            let DateFormate = this.commonService.dateFormatChange(ele.Date);
+            let DateFormate = this.changeDateFormat(ele.Date);
             let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
             ele.Date = transformDate;
           }
@@ -176,6 +176,12 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+   changeDateFormat(date: string) {
+    const dateParts = date.substring(0, 10).split("/");
+    const ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
+    return ddMMYYYYDate;
   }
 
   getDistrictWiseMemberCount(event: any) {
