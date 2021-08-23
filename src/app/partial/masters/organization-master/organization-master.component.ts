@@ -291,6 +291,8 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.organizationRes = res.data1;
+        // let myarray:any = this.organizationRes?.DesignationAssigned;
+        // console.log("myarray.....",myarray);
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
