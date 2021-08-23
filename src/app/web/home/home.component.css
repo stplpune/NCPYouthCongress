@@ -263,3 +263,8 @@ header .navbar-nav .donate{
     background-position-y: 115px;
     background-position-x: -66px;
 }
+#downloadapp .store-icon{
+    width:150px;
+    height: 50px;
+    margin-right: 15px;
+}
