@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 @Component({
   selector: 'app-social-media-person',
   templateUrl: './social-media-person.component.html',
@@ -33,6 +35,8 @@ export class SocialMediaPersonComponent implements OnInit {
   chartArray:any;
   mostFavouerd:any;
   MostOpposite:any;
+  comUserdetImg:any;
+  programGalleryImg!: GalleryItem[]; 
 
   constructor(
     private callAPIService: CallAPIService,
@@ -43,6 +47,8 @@ export class SocialMediaPersonComponent implements OnInit {
     public location: Location,
     private route: ActivatedRoute,
     private router: Router,
+    public gallery: Gallery,
+    private _lightbox: Lightbox,
     public dateTimeAdapter: DateTimeAdapter<any>,
   ) { { dateTimeAdapter.setLocale('en-IN'); }
 
@@ -94,6 +100,7 @@ export class SocialMediaPersonComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaMessagesPersonArray = res.data1;
+        console.log("asdd",this.socialMediaMessagesPersonArray);
         this.total = res.data2[0].TotalCount;
         this.workCountAgainstWorkType();
       } else {
@@ -195,6 +202,10 @@ export class SocialMediaPersonComponent implements OnInit {
 
   getSocialMediaPersonDataById(index:any) {
     this.getDatabyPersonId=this.socialMediaMessagesPersonArray[index];
+// console.log(this.getDatabyPersonId)
+    this.comUserdetImg = this.getDatabyPersonId.ImagePath.split(',');
+    this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+    this.gallery.ref().load(this.comUserdetImg);
   }
 
   onClickPagintion(pageNo: number) {

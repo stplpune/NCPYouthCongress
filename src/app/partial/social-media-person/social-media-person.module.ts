@@ -5,6 +5,8 @@ import { SocialMediaPersonRoutingModule } from './social-media-person-routing.mo
 import { SocialMediaPersonComponent } from './social-media-person.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 @NgModule({
   declarations: [
     SocialMediaPersonComponent
@@ -17,6 +19,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    LightboxModule,
+    GalleryModule,
   ]
 })
 export class SocialMediaPersonModule { }

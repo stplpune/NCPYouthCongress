@@ -92,7 +92,6 @@ export class CommonService {
     } 
 
  
-
 mapRegions():Observable<any>{
   this.regions_m = {
     'path3109': {

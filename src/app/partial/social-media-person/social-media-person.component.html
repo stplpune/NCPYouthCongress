@@ -106,11 +106,9 @@
                     <div class="mt-2 text-end" *ngIf="socialMediaMessagesPersonArray?.length != 0">
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
-
                     <div class="card-body border mt-3">
                         <div class="workCountAgainstWork chartfont h-400"></div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -186,10 +184,9 @@
                 <div class="col-sm-12 form-container">
                     <label class="form-label">Photos</label>
                     <div class="row">
-                        <div class="col-sm-2 mb-3">
-                            <img src="{{getDatabyPersonId?.ImagePath}}" class="img-thumbnail" />
+                        <div class="col-sm-2 mb-3" *ngFor="let imgs of comUserdetImg; index as i">
+                            <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
                         </div>
-                     
                     </div>
                 </div>
             </div>
