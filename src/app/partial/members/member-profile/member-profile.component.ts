@@ -237,6 +237,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
     // Create axes
     let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 50;
     dateAxis.title.text = "Monthly Work";
 
     // Create value axis
