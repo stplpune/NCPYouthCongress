@@ -7,6 +7,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { TooltipModule } from '../../directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
-
-    DragDropModule
+    TooltipModule,
+    DragDropModule,
   ]
 })
 export class OrganizationMasterModule { }
