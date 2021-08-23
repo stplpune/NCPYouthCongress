@@ -554,6 +554,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
     // Create axes
     let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 20;
 
     // Create value axis
     let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
