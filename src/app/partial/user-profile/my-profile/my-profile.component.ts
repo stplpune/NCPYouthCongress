@@ -29,7 +29,7 @@ export class MyProfileComponent implements OnInit {
   getTalkaByDistrict: any;
   profilePhotoChange: any;
   @ViewChild('myInput') myInputVariable!: ElementRef;
-  selectedFile!: File;
+  selectedFile: any;
   resProfileData: any;
   showingUserName: any;
   showingMobileNo: any;
@@ -37,9 +37,9 @@ export class MyProfileComponent implements OnInit {
   setVillOrCityId: any;
   setVillOrcityName: any;
   globalVillageOrCityId: any;
-  disabledEditForm :boolean = true;
-  defaultModalHIde:boolean = false;
-  defaultModalHIdeCP:boolean = false;
+  disabledEditForm: boolean = true;
+  defaultModalHIde: boolean = false;
+  defaultModalHIdeCP: boolean = false;
   changePasswordForm: any;
   submittedChangePassword = false;
   show_button: Boolean = false;
@@ -48,7 +48,8 @@ export class MyProfileComponent implements OnInit {
   show_eye1: Boolean = false;
   show_button2: Boolean = false;
   show_eye2: Boolean = false;
-  villOrcityDisabled:boolean = false;
+  villOrcityDisabled: boolean = false;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -102,7 +103,7 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  updateProfileDate(){
+  updateProfileDate() {
     this.profileFormPathValue(this.resProfileData);
   }
 
@@ -160,7 +161,7 @@ export class MyProfileComponent implements OnInit {
           });
           let selValueCityOrVillage: any = "";
           this.editProfileForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
-          if(this.editProfileForm.value.TalukaId){
+          if (this.editProfileForm.value.TalukaId) {
             this.getVillageOrCity(this.editProfileForm.value.TalukaId, selValueCityOrVillage)
           }
         }
@@ -210,9 +211,9 @@ export class MyProfileComponent implements OnInit {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
       });
-      fromData.append('ProfilePhoto', this.selectedFile == undefined  ? '' : this.selectedFile);
-      if(this.profilePhotoChange != 2 ){
-        this.selectedFile ?  this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
+      fromData.append('ProfilePhoto', this.selectedFile == undefined ? '' : this.selectedFile);
+      if (this.profilePhotoChange != 2) {
+        this.selectedFile ? this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
       }
       fromData.append('IsPhotoChange', this.profilePhotoChange);
 
@@ -239,7 +240,7 @@ export class MyProfileComponent implements OnInit {
 
   resetFile() {
     this.myInputVariable.nativeElement.value = '';
-}
+  }
 
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
@@ -256,7 +257,7 @@ export class MyProfileComponent implements OnInit {
 
   districtClear(text: any) {
     if (text == 'district') {
-      
+
       this.editProfileForm.controls['DistrictId'].setValue(0), this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
 
     } else if (text == 'taluka') {
@@ -292,8 +293,10 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  removePhoto(){
-   this.profilePhotoChange = 2;
+  removePhoto() {
+    this.selectedFile = "";
+    this.fileInput.nativeElement.value = '';
+    this.profilePhotoChange = 2;
     this.ImgUrl = null;
   }
 
@@ -302,7 +305,7 @@ export class MyProfileComponent implements OnInit {
       userName: [this.commonService.loggedInUserName(), [Validators.required,]],
       oldPassword: ['', [Validators.required,]],
       newPassword: ['', [Validators.required, this.passwordValid]],
-      ConfirmPassword: ['',[Validators.required, this.passwordValid]],
+      ConfirmPassword: ['', [Validators.required, this.passwordValid]],
     })
   }
 
@@ -310,29 +313,29 @@ export class MyProfileComponent implements OnInit {
 
   onSubmit() {
     this.spinner.show();
-    this.submittedChangePassword  = true;
+    this.submittedChangePassword = true;
     if (this.changePasswordForm.invalid) {
       this.spinner.hide();
       return;
     }
     else {
       if (this.changePasswordForm.value.newPassword == this.changePasswordForm.value.ConfirmPassword) {
-        if(this.changePasswordForm.value.oldPassword == this.changePasswordForm.value.newPassword){
+        if (this.changePasswordForm.value.oldPassword == this.changePasswordForm.value.newPassword) {
           this.toastrService.error('Old password and new password should not  be same')
           this.spinner.hide();
           return
         }
-        let obj= 'UserId=' + this.commonService.loggedInUserId() + '&OldPassword=' + this.changePasswordForm.value.oldPassword + '&NewPassword=' + this.changePasswordForm.value.newPassword
-        this.callAPIService.setHttp('get','Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
+        let obj = 'UserId=' + this.commonService.loggedInUserId() + '&OldPassword=' + this.changePasswordForm.value.oldPassword + '&NewPassword=' + this.changePasswordForm.value.newPassword
+        this.callAPIService.setHttp('get', 'Web_Update_Password?' + obj, false, false, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
-          if (res.data1[0].Id!== 0) {
-           this.toastrService.success(res.data1[0].Msg);
+          if (res.data1[0].Id !== 0) {
+            this.toastrService.success(res.data1[0].Msg);
             this.spinner.hide();
             this.clearForm();
           }
           else {
             this.spinner.hide();
-           this.toastrService.error(res.data1[0].Msg)
+            this.toastrService.error(res.data1[0].Msg)
           }
         })
         this.spinner.hide();
@@ -340,7 +343,7 @@ export class MyProfileComponent implements OnInit {
       else {
         this.spinner.hide();
         this.toastrService.error("New password and Confirm password should be same")
-      } 
+      }
 
 
 
@@ -375,7 +378,7 @@ export class MyProfileComponent implements OnInit {
 
 
 
-      
+
     }
   }
 
@@ -393,7 +396,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   clearForm() {
-    this.submittedChangePassword  = false;
+    this.submittedChangePassword = false;
     this.changePasswordForm.reset({
       userName: this.commonService.loggedInUserName(),
       oldPassword: '',
@@ -402,7 +405,7 @@ export class MyProfileComponent implements OnInit {
     });
   }
 
-  passwordValid(controls:any) {
+  passwordValid(controls: any) {
     const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
     if (regExp.test(controls.value)) {
       return null;
@@ -410,5 +413,5 @@ export class MyProfileComponent implements OnInit {
       return { passwordValid: true }
     }
   }
-  
+
 }

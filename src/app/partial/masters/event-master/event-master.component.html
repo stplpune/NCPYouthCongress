@@ -14,20 +14,32 @@
                 <div class="card-header">Create Event</div>
                 <div class="card-body pt-0">
                     <div class="form-container">
-                        <div class="mb-3">
-                            <label for="txtEventTitle" class="form-label">Event Title</label>
-                            <input type="text" id="txtEventTitle" class="form-control" placeholder="Event Title">
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label for="txtEventDuration" class="form-label">Event Duration</label>
-                                <input type="text" id="txtEventDuration" class="form-control" placeholder="Selete Date Range">
+                        <div class="row mb-3">                            
+                            <div class="col-sm">
+                                <div class="mb-3">
+                                    <label for="txtEventTitle" class="form-label">Event Title</label>
+                                    <textarea class="form-control" id="txtEventTitle" rows="3"></textarea>
+                                </div>
+                                <div class="mb-0">
+                                    <label for="txtEventDuration" class="form-label">Event Duration</label>
+                                    <input type="text" id="txtEventDuration" class="form-control"
+                                        placeholder="Selete Date Range">
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="fuEventImage" class="form-label">Display Image</label>
-                                <input class="form-control form-control-sm" id="fuEventImage" type="file">
+                            <div class="col-sm-auto">
+                                <label for="fuPhoto" class="form-label">Event Display Image</label>
+                                <div class="uploadimg">
+                                    <input type="file" id="img-upload" class="d-none">
+                                    <img src="assets/images/ncp-default.png" class="img-fluid img-thumbnail" />
+                                    <button type="button" class="btn btn-light btn-sm btn-add">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-light btn-sm btn-remove">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3">
                             <label for="txtEventDescription" class="form-label">Event Description</label>
                             <textarea class="form-control" rows="15"></textarea>
@@ -54,27 +66,19 @@
                                     <img src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021</p>
-                                    <h6 class="mb-0">Rich text editor component for Angular 11 demo site</h6>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
+                                        12-05-2021</p>
+                                    <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site</h6>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-dark" type="button"><i class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button"><i class="fas fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/ncp-default.png" class="prophoto" />
-                                </td>
-                                <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021</p>
-                                    <h6 class="mb-0">Rich text editor component for Angular 11 demo site</h6>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-light text-dark" type="button"><i class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-light text-dark" type="button"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                            class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -82,18 +86,71 @@
                                     <img src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021</p>
-                                    <h6 class="mb-0">Rich text editor component for Angular 11 demo site</h6>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
+                                        12-05-2021</p>
+                                    <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site. Rich text editor component for Angular 11 demo site</h6>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-dark" type="button"><i class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-light text-dark" type="button"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                            class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/ncp-default.png" class="prophoto" />
+                                </td>
+                                <td>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
+                                        12-05-2021</p>
+                                    <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site</h6>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-light text-dark" type="button"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                            class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delteteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="delteteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent border-bottom-0">
+                <!-- <h5 class="modal-title" id="ProgramStatusModal1Label">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
+                <h3 class="my-3">Are You Sure?</h3>
+                <p class="mb-4">Do you really want to Delete? This process can not be undone.</p>
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close" type="button" data-bs-dismiss="modal" aria-label="Close">I'm
+                    Sure</button>
             </div>
         </div>
     </div>
