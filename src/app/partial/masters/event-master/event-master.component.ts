@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-event-master',
@@ -39,17 +40,25 @@ export class EventMasterComponent implements OnInit {
   };
   addEvent!:FormGroup;
 
-  constructor() { }
+  constructor(private fb:FormBuilder, private _commonService:CommonService) { }
 
   ngOnInit(): void {
     this.defaultEventForm();
   }
 
-  defaultEventForm(){
-
+  defaultEventForm() {
+    this.addEvent = this.fb.group({
+      ProgramTitle: ['', Validators.required],
+      ProgramDescription: ['', Validators.required],
+      ProgramDate: ['', Validators.required],
+      Id: [0],
+      CreatedBy: [this._commonService.loggedInUserId()],
+    })
   }
 
   onSubmit(){
-    
+    let data = this.addEvent.value
+    data.ProgramDate = this._commonService.dateTransformPipe(data.ProgramDate)
+    console.log(data);
   }
 }

@@ -50,6 +50,7 @@ export class OrganizationMasterComponent implements OnInit {
   pageSize: number = 10;
   searchFilter = "";
   @ViewChild('closeModalAddDesignation') closeModalAddDesignation: any;
+  @ViewChild('openDeleteCommitteeModal') openDeleteCommitteeModal: any;
   desBodyId: any;
   allAssignedDesignations: any;
   modalDeafult = false;
@@ -66,7 +67,7 @@ export class OrganizationMasterComponent implements OnInit {
   allBodyAssignedDesignation: any;
   globalselLevelFlag!: string;
   editLevalFlag: any;
-
+  deletebodyId!:number;
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
@@ -94,7 +95,6 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = true;
     }
     else if (levelId == 4) {
-      debugger;
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
@@ -360,7 +360,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDistrict() {
-    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -384,7 +383,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    debugger;
     this.globalDistrictId = districtId;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -776,6 +774,35 @@ export class OrganizationMasterComponent implements OnInit {
       this.setVillOrCityId = "VillageId";
       
     }
+  }
+
+  deleteCommitteeConfirmation(bodyId:any,allottedDesignation:any){
+    if(allottedDesignation == 0){
+      let clickDeleteCommitteeModal = this.openDeleteCommitteeModal.nativeElement;
+      clickDeleteCommitteeModal.click();
+      this.deletebodyId = bodyId;
+    }else{
+      this.toastrService.info('Designation is assign');
+    }
+
+  }
+
+  deletecommittee(){
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_bodycellorgmaster_1_0?UserId='+this.commonService.loggedInUserId()+'&BodyId=' + this.deletebodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+      }
+      this.getOrganizationList();
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }
 
