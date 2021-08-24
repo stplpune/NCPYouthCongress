@@ -29,7 +29,7 @@
                                                 <a class="update-photo" (click)="choosePhoto()">
                                                     <i class="fas fa-camera"></i>
                                                 </a>
-                                                <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
+                                                <a class="update-photo" *ngIf="ImgUrl" [class.disable-close-btn]="disabledEditForm" (click)="removePhoto();">
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                                 <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)" #fileInput>
