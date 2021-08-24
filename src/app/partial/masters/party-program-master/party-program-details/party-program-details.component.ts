@@ -141,6 +141,7 @@ export class PartyProgramDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+      console.log(this.membersDataArray)
     } ,(error:any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
@@ -191,8 +192,10 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programDetailsLatLongArray = res.data3;
       } else {
         this.spinner.hide();
+        this.commityNonComityArray = [];
           // this.toastrService.error("Data is not available");
       }
+      console.log(this.commityNonComityArray)
     } ,(error:any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
