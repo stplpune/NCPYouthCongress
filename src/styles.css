@@ -282,7 +282,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 .ngx-select__item_active {
     background-color: var(--main-color);
-    color: #fff;
+    color: #fff !important;
     box-shadow: none;
 }
 
