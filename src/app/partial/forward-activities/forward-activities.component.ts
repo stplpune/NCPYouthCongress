@@ -95,13 +95,14 @@ export class ForwardActivitiesComponent implements OnInit {
       return;
     }
     else {
+      debugger;
       this.globalMemberId = [];
       let fromData = new FormData();
       let imageChangeFlag:any;
       let NewsTypeFlag:any;
       let getObj:any = this.forwardActivitiForm.value;
-      debugger;
-      if (this.getImgPath != "") {
+      
+      if (this.selectedFile) {
         imageChangeFlag = 1; NewsTypeFlag = 3;
       } else {
         if (this.IsChangeImage == true) {
@@ -126,10 +127,9 @@ export class ForwardActivitiesComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.submitted = false;
-          this.IsChangeImage = false;
           this.deleteImg();
           this.resetNotificationForm();
-
+          this.IsChangeImage = false;
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg)
           this.getNewsData();
