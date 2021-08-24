@@ -147,11 +147,7 @@
                                 <td>
                                     <h6 class="mb-0">
                                         <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}">
-                                            <!-- <ng-container *ngIf="programList.ProgramStatus == 1; then first; programList.ProgramStatus == 2; then second; programList.ProgramStatus == 3; then third else fourth"></ng-container>
-                                        <ng-template #first class="bg-success">Upcomimg</ng-template>
-                                        <ng-template #second class="bg-warning">Second</ng-template>
-                                        <ng-template #third class="bg-danger">Third</ng-template>
-                                        <ng-template #fourth class="bg-info">Third</ng-template> -->
+                                          
                                             <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">
                                                 Upcomimg</ng-container>
                                             <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">
