@@ -18,6 +18,7 @@ const routes: Routes = [
       { path: 'login', loadChildren: () => import('./web/login/login.module').then(m => m.LoginModule), data: { title: 'Login' }, canActivate: [LoggedInAuthGuard] },
       { path: 'privacy-policy', loadChildren: () => import('./web/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule) },
       { path: 'share/:id', loadChildren: () => import('./web/share/share.module').then(m => m.ShareModule) },
+      { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule) },
     ]
   },
   {
