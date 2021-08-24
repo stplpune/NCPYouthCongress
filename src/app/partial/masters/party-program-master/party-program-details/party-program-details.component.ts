@@ -25,16 +25,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   lng: any = 75.71630325927731;
   zoom: any = 5;
   membersDataArray: any;
-  defaultPartiNonParti: boolean = true;
   activeFlag: boolean = true;
-  total: any;
-  paginationNo: number = 1;
-  pageSize: number = 10;
   NonComityDataArray: any;
   membersAndNonParticipantsDiv: boolean = true;
   ParticipantsText: string = "Members";
-  total1: any;
-  paginationNo1: number = 1;
   programTile: any;
   allImages = [];    
   programGalleryImg!: GalleryItem[]; 
@@ -48,8 +42,8 @@ export class PartyProgramDetailsComponent implements OnInit {
   committeeUserdetailsArray: any;
   activitiesDetailslat: any;
   activitiesDetailslng: any;
-  paginationNo2: number =1;
-  total2: any;
+  paginationNo: number =1;
+  comityUserListTotal: any;
   committeeId: any;
   globalGroupId = 0;
   comUserdetImg:any;
@@ -58,11 +52,19 @@ export class PartyProgramDetailsComponent implements OnInit {
   MemberTableDiv: boolean = true;
   ComityTableDiv: boolean = false;
   NonComityTableDiv: boolean = false;
-  ViewEyeModelHide:boolean=true;
+  MapHide:boolean=true;
   lightboxRef:any;
   lightboxRef1:any;
   lightboxRef2:any;
   commityDataArray: any;
+
+  pageSize: number = 10;
+  memPaginationNo: number = 1;
+  comPaginationNo: number = 1;
+  nonComPaginationNo: number = 1;
+  memberTotal: any;
+  comityTotal: any;
+  nonComityTotal: any;
 
   constructor(
     public location: Location,
@@ -124,15 +126,15 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.ComityTableDiv=false;
     this.NonComityTableDiv=false;
     this.MemberTableDiv=true;
-    this.ViewEyeModelHide=true;
-    this.membersDataArray = [];
+    this.MapHide=true;
+    // this.membersDataArray = [];
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.memPaginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.membersDataArray = res.data1;
-        this.total = res.data2[0].TotalCount;
+        this.memberTotal = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
       } else {
         if (res.data == 1) {
@@ -153,18 +155,17 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
    getNonParticipantsData() {
-    this.ViewEyeModelHide=false;
+    this.MapHide=false;
     this.NonComityTableDiv=true;
     this.MemberTableDiv=false;
     this.ComityTableDiv=false;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'NonWeb_Program_Committee_List_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'NonWeb_Program_Committee_List_1_0?ProgramId=' + this.programListId + '&nopage=' + this.nonComPaginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.NonComityDataArray = res.data1;
-        this.total = res.data2[0].TotalCount;
-        this.defaultPartiNonParti = false;
+        this.nonComityTotal = res.data2[0].TotalCount;
       } else {
         if (res.data == 1) {
           this.spinner.hide();
@@ -182,18 +183,19 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
-    this.ViewEyeModelHide=true;
+    this.MapHide=true;
     this.ComityTableDiv=true;
     this.MemberTableDiv=false;
     this.NonComityTableDiv=false;
+    this.programDetailsLatLongArray=[];
 
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.comPaginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.commityDataArray = res.data1;
-        this.total = res.data2[0].TotalCount;
+        this.comityTotal = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
       } else {
         this.spinner.hide();
@@ -212,12 +214,12 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.spinner.show();
     this.committeeId=committeeId;
     this.committeeNmame=committeeNmame;
-    this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo2 + '&BodyId=' + committeeId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo + '&BodyId=' + committeeId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.CommitteeUserArray = res.data1;
-        this.total2 = res.data2[0].TotalCount;
+        this.comityUserListTotal = res.data2[0].TotalCount;
 
       } else {
         this.spinner.hide();
@@ -267,23 +269,21 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
   }
 
-  onClickPagintion(pageNo: number, defaultPartiNonParti: any) {
-    if (defaultPartiNonParti) {
-      this.paginationNo = pageNo;
+  onClickPagintion(pageNo: number, paginationFlag: any) {
+    if (paginationFlag == 'memberFlag') {  
+      this.memPaginationNo = pageNo;
       this.getMembersData();
-    } else {
-      this.paginationNo = pageNo;
+    } else if(paginationFlag == 'commityFlag'){
+      this.comPaginationNo = pageNo;
+      this.getCommitteesData();
+    }else{
+      this.nonComPaginationNo = pageNo;
       this.getNonParticipantsData();
     }
   }
 
-  onClickPagintion1(pageNo: number) {
-    this.paginationNo1 = pageNo;
-    this.getCommitteesData();
-  }
-
-  onClickPagintion2(pageNo: number){
-    this.paginationNo2 = pageNo;
+  onClickPagintion1(pageNo: number){
+    this.paginationNo = pageNo;
     this.getCommitteeUserList(this.committeeId,this.committeeNmame);
   }
 
