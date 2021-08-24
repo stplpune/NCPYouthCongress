@@ -101,10 +101,12 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
         this.gallery.resetAll();
-        this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
-        this.lightboxRef = this.gallery.ref()
-        this.lightboxRef.load(this.programGalleryImg);
-        console.log(this.programGalleryImg);
+        if(this.programGalleryImg){
+          this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
+          this.lightboxRef = this.gallery.ref()
+          this.lightboxRef.load(this.programGalleryImg);
+        }
+       
       } else {
         this.spinner.hide();
           // this.toastrService.error("Data is not available");
@@ -131,6 +133,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programDetailsLatLongArray = res.data3;
       } else {
         if (res.data == 1) {
+          this.membersDataNonParticipantsArray = [];
           this.spinner.hide();
           // this.toastrService.error("Data is not available");
         } else {

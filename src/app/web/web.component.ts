@@ -7,20 +7,14 @@ import { Router, NavigationStart } from '@angular/router';
 })
 export class WebComponent implements OnInit {
 
-  login: boolean = true;
+  login: boolean = false;
   
   constructor(private router: Router) {
     // on route change to '/login', set the variable showHead to false
-      router.events.forEach((event) => {
-        if (event instanceof NavigationStart) {
-          if (event['url'] == '/login') {
-            this.login= true;
-          } else {
-            this.login= false;
-          }
-        }
-      });
+    if (this.router.url == '/login') {
+      this.login = true;
     }
+  }
 
   ngOnInit(): void {
   }

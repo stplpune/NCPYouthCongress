@@ -7,6 +7,7 @@ import { PartyProgramDetailsComponent } from './party-program-details.component'
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
 import { ShareModule } from 'src/app/web/share/share.module';
+import { TooltipModule } from 'src/app/partial/directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ShareModule } from 'src/app/web/share/share.module';
     NgxPaginationModule,
     LightboxModule,
     GalleryModule,
+    TooltipModule
   ]
 })
 export class PartyProgramDetailsModule { }
