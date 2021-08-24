@@ -149,7 +149,8 @@ export class NotificationsComponent implements OnInit {
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          this.deleteImg()
+          this.deleteImg();
+          this.IsChangeImage = false;
           this.submitted = false;
           this.notificationForm.reset();
           // let modalClick = this.clickPushModal.nativeElement;
