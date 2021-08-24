@@ -428,7 +428,7 @@ xAxis.renderer.minGridDistance = 30;
       chart.data = this.WorkDoneByYuvakBarchart;
 
       chart.padding(10, 5, 5, 5);
-      createSeries('MemberWork', 'Work Done by Committes');
+      createSeries('MemberWork', 'Work Done by Committees');
       createSeries('TotalWork', 'Total Work Done');
 
       function arrangeColumns() {
