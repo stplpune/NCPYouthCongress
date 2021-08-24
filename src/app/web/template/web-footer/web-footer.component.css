@@ -1,0 +1,25 @@
+#footer{
+    /* background-color:#fff; */
+    padding-block: 15px;
+}
+#footer .social-link i{
+    color: var(--clr-orange);
+    margin-right: 5px;
+}
+#footer .social-link{
+    text-decoration: none;
+    color: var(--clr-green);
+    font-size:0.85rem
+}
+#footer .social-link:hover{
+    color: var(--clr-orange);
+}
+#footer #bottom{
+    font-size: 0.8rem;
+}
+#footer #bottom a{
+    text-decoration: none;
+}
+#footer #bottom a img{
+    height:25px;
+}
