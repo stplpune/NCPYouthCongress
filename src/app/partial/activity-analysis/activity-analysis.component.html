@@ -14,12 +14,6 @@
                         <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Activity" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
-                    <!-- <div class="col-sm-3">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="From To Date" />
-                            <button type="button" class="btn btn-light btn-sm"><i class="fas fa-calendar-alt"></i></button>
-                        </div>
-                    </div> -->
                     <div class="col-sm-3">
                         <div class="input-group">
                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
@@ -214,12 +208,18 @@
                         </div>
                     </div>
                     <div class="col-sm-6 form-container">
-                        <div class="mb-3">
+                   
+                        <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                             </agm-map>
                         </div>
+                        <ng-template #elseBlock>
+                            <div class="h-20 text-center">
+                                <img src="../../../../assets/images/location-not-found.svg" class="img-h300">
+                            </div>
+                        </ng-template>
                     </div>
                     <div class="col-sm-12 form-container">
                         <label class="form-label">Photos</label>
