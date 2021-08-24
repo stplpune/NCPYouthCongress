@@ -758,6 +758,6 @@ mapsvg-layers-wrap+svg {
     transform: scale(1) !important;
 }
 
-.disable-close-btn {
-    pointer-events: none;
+.img-h300 {
+    height: 300px;
 }
