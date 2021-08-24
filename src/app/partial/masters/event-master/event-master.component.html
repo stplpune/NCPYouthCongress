@@ -13,46 +13,47 @@
             <div class="card">
                 <div class="card-header">Create Event</div>
                 <div class="card-body pt-0">
-                    <div class="form-container">
-                        <div class="row mb-3">                            
-                            <div class="col-sm">
-                                <div class="mb-3">
-                                    <label for="txtEventTitle" class="form-label">Event Title</label>
-                                    <textarea class="form-control" id="txtEventTitle" rows="3"></textarea>
+                    <form [formGroup]="addEvent" (ngSubmit)="onSubmit()">
+                        <div class="form-container">
+                            <div class="row mb-3">
+                                <div class="col-sm">
+                                    <div class="mb-3">
+                                        <label for="txtEventTitle" class="form-label">Event Title</label>
+                                        <textarea class="form-control" id="txtEventTitle" rows="3"></textarea>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label for="txtEventDuration" class="form-label">Event Duration</label>
+                                        <input type="text" id="txtEventDuration" class="form-control" placeholder="Selete Date Range">
+                                    </div>
                                 </div>
-                                <div class="mb-0">
-                                    <label for="txtEventDuration" class="form-label">Event Duration</label>
-                                    <input type="text" id="txtEventDuration" class="form-control"
-                                        placeholder="Selete Date Range">
-                                </div>
-                            </div>
-                            <div class="col-sm-auto">
-                                <label for="fuPhoto" class="form-label">Event Display Image</label>
-                                <div class="uploadimg">
-                                    <input type="file" id="img-upload" class="d-none">
-                                    <img src="assets/images/ncp-default.png" class="img-fluid img-thumbnail" />
-                                    <button type="button" class="btn btn-light btn-sm btn-add">
+                                <div class="col-sm-auto">
+                                    <label for="fuPhoto" class="form-label">Event Display Image</label>
+                                    <div class="uploadimg">
+                                        <input type="file" id="img-upload" class="d-none">
+                                        <img src="assets/images/ncp-default.png" class="img-fluid img-thumbnail" />
+                                        <button type="button" class="btn btn-light btn-sm btn-add">
                                         <i class="fas fa-plus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-light btn-sm btn-remove">
+                                        <button type="button" class="btn btn-light btn-sm btn-remove">
                                         <i class="fas fa-trash-alt text-danger"></i>
                                     </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>                        
-                        <div class="mb-3">
-                            <label for="txtEventDescription" class="form-label">Event Description</label>
-                            <textarea class="form-control" rows="15"></textarea>
-                        </div>
-                        <div class="mb-2">
-                            <span class="float-start">
+                            <div class="mb-3">
+                                <label for="txtEventDescription" class="form-label">Event Description</label>
+                                <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+                            </div>
+                            <div class="mb-2">
+                                <span class="float-start">
                                 <button type="button" class="btn btn-secondary btn-sm">Cancel</button>
                             </span>
-                            <span class="float-end">
-                                <button type="button" class="btn btn-main btn-sm">Publish Event</button>
+                                <span class="float-end">
+                                <button type="submit" class="btn btn-main btn-sm">Publish Event</button>
                             </span>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -66,17 +67,17 @@
                                     <img src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
-                                        12-05-2021</p>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021
+                                    </p>
                                     <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site</h6>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                        <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
                                             class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                        <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
                                             class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
@@ -86,17 +87,17 @@
                                     <img src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
-                                        12-05-2021</p>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021
+                                    </p>
                                     <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site. Rich text editor component for Angular 11 demo site</h6>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                        <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
                                             class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                        <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
                                             class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
@@ -106,17 +107,17 @@
                                     <img src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
-                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 -
-                                        12-05-2021</p>
+                                    <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i> 10-05-2021 - 12-05-2021
+                                    </p>
                                     <h6 class="mb-0 lh-base">Rich text editor component for Angular 11 demo site</h6>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
+                                        <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
                                             class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
+                                        <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
                                             class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
