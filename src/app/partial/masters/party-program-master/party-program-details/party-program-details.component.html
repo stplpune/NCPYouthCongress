@@ -42,7 +42,7 @@
                     <div class="row g-2">
                         <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
                             <!-- <button (click)="_lightbox.close(i)"> closed</button> -->
-                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb"/>
+                            <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                     {{ParticipantsText}} Participants
                 </div>
 
- <!-- Member Table -->
+                <!-- Member Table -->
                 <div class="card-body chartbox" *ngIf="MemberTableDiv">
                     <table class="table table-hover">
                         <thead>
@@ -132,7 +132,7 @@
                             <tr *ngFor="let membersData of membersDataNonParticipantsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
                                 <td>{{membersData.SrNo}}</td>
                                 <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
-                                <td>{{membersData.ActivityDate}}  {{membersData.ActivityTime}}</td>
+                                <td>{{membersData.ActivityDate}} {{membersData.ActivityTime}}</td>
                                 <td> <a href="tel:{{membersData.MobileNo}}">{{membersData.MobileNo}}</a></td>
                                 <td>{{membersData.Designation}}</td>
                                 <td>
@@ -149,7 +149,7 @@
                 </div>
 
 
- <!-- Commity & Non Commity Table -->
+                <!-- Commity & Non Commity Table -->
                 <div class="card-body chartbox" *ngIf="commityNonComityTableDiv">
                     <table class="table table-hover">
                         <thead>
@@ -190,7 +190,7 @@
                 </div>
 
                 <div class="card-body border" *ngIf="ViewEyeModelHide">
-                    <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
+                    <div class="mb-3" *ngIf="membersDataNonParticipantsArray.length != 0 else elseBlock">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                             <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
@@ -332,7 +332,7 @@
                                                 <tr>
                                                     <td>Mobile No :</td>
                                                     <th>{{resultBodyMemActDetails?.MobileNo}}</th>
-                                                </tr> 
+                                                </tr>
                                                 <tr>
                                                     <td>Program Tile :</td>
                                                     <th>{{programTile}}</th>
@@ -364,7 +364,7 @@
                                     <img src="{{img}}" class="img-thumbnail h-150">
                                 </div> -->
                                 <div class="col-sm-2 mb-3" *ngFor="let imgs1 of comUserdetImg; index as i1">
-                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb" [title]="imgs1?.data?.title"  [gallery]="'anotherLightbox'"  class="img-thumbnail h-150">
+                                    <img [lightbox]="i1" [src]="imgs1?.data?.thumb" [title]="imgs1?.data?.title" [gallery]="'anotherLightbox'" class="img-thumbnail h-150">
                                 </div>
                             </div>
                         </div>
@@ -454,47 +454,47 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div *ngIf="activitiesDetailslat!='' && activitiesDetailslng!=''; else elseBlock">
-                                                <label class="form-label">Location</label>
-                                                <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
-                                                    <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
-                                                        <agm-info-window>
-                                                            <table class="table table-bordered table-sm mb-0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>Full Name :</td>
-                                                                        <th>{{committeeUserdetailsArray?.FullName}}</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Mobile No :</td>
-                                                                        <th>{{committeeUserdetailsArray?.MobileNo}}</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Program Tile :</td>
-                                                                        <th>{{programTile}}</th>
-                                                                    </tr>
-                                                                    <!-- <tr>
+                                                    <label class="form-label">Location</label>
+                                                    <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
+                                                        <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
+                                                            <agm-info-window>
+                                                                <table class="table table-bordered table-sm mb-0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Full Name :</td>
+                                                                            <th>{{committeeUserdetailsArray?.FullName}}</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Mobile No :</td>
+                                                                            <th>{{committeeUserdetailsArray?.MobileNo}}</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Program Tile :</td>
+                                                                            <th>{{programTile}}</th>
+                                                                        </tr>
+                                                                        <!-- <tr>
                                                                        <td>Address :</td>
                                                                        <th style="max-width:250px;">{{latlongData.ActivityLocation}}</th>
                                                                    </tr> -->
-                                                                </tbody>
-                                                            </table>
-                                                        </agm-info-window>
-                                                    </agm-marker>
-                                                </agm-map>
-                                            </div>
-
-                                            <ng-template #elseBlock>
-                                                <div class="h-20 text-center">
-                                                    <img src="../../../../assets/images/location-not-found.svg" class="img-h300">
+                                                                    </tbody>
+                                                                </table>
+                                                            </agm-info-window>
+                                                        </agm-marker>
+                                                    </agm-map>
                                                 </div>
-                                            </ng-template>
+
+                                                <ng-template #elseBlock>
+                                                    <div class="h-20 text-center">
+                                                        <img src="../../../../assets/images/location-not-found.svg" class="img-h300">
+                                                    </div>
+                                                </ng-template>
 
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label">Photos</label>
                                                 <div class="row g-2">
                                                     <div class="col-sm-3 mb-3" *ngFor="let imgs of comUserdetImg; index as i2">
-                                                        <img [lightbox]="i2"  [gallery]="'anotherLightbox'" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
+                                                        <img [lightbox]="i2" [gallery]="'anotherLightbox'" [src]="imgs?.data?.thumb" class="img-thumbnail img-square">
                                                     </div>
                                                 </div>
                                             </div>
@@ -519,4 +519,3 @@
         </div>
     </div>
 </div>
-
