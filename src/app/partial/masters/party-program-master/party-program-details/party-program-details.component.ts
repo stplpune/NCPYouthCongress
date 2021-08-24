@@ -30,7 +30,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   total: any;
   paginationNo: number = 1;
   pageSize: number = 10;
-  commityNonComityArray: any;
+  NonComityDataArray: any;
   membersAndNonParticipantsDiv: boolean = true;
   ParticipantsText: string = "Members";
   total1: any;
@@ -55,12 +55,14 @@ export class PartyProgramDetailsComponent implements OnInit {
   comUserdetImg:any;
   comUserdetImg1:any;
   lightBoxGalleryFlag:boolean = true;
-  commityNonComityTableDiv: boolean = false;
   MemberTableDiv: boolean = true;
+  ComityTableDiv: boolean = false;
+  NonComityTableDiv: boolean = false;
   ViewEyeModelHide:boolean=true;
   lightboxRef:any;
   lightboxRef1:any;
   lightboxRef2:any;
+  commityDataArray: any;
 
   constructor(
     public location: Location,
@@ -119,7 +121,8 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
-    this.commityNonComityTableDiv=false;
+    this.ComityTableDiv=false;
+    this.NonComityTableDiv=false;
     this.MemberTableDiv=true;
     this.ViewEyeModelHide=true;
     this.membersDataArray = [];
@@ -151,14 +154,15 @@ export class PartyProgramDetailsComponent implements OnInit {
 
    getNonParticipantsData() {
     this.ViewEyeModelHide=false;
-    this.commityNonComityTableDiv=true;
+    this.NonComityTableDiv=true;
     this.MemberTableDiv=false;
+    this.ComityTableDiv=false;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'NonWeb_Program_Committee_List_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.commityNonComityArray = res.data1;
+        this.NonComityDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.defaultPartiNonParti = false;
       } else {
@@ -179,23 +183,23 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   getCommitteesData() {
     this.ViewEyeModelHide=true;
-    this.commityNonComityTableDiv=true;
+    this.ComityTableDiv=true;
     this.MemberTableDiv=false;
+    this.NonComityTableDiv=false;
 
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.commityNonComityArray = res.data1;
+        this.commityDataArray = res.data1;
         this.total = res.data2[0].TotalCount;
         this.programDetailsLatLongArray = res.data3;
       } else {
         this.spinner.hide();
-        this.commityNonComityArray = [];
+        this.commityDataArray = [];
           // this.toastrService.error("Data is not available");
       }
-      console.log(this.commityNonComityArray)
     } ,(error:any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
