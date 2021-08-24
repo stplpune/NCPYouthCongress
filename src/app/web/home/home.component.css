@@ -1,35 +1,4 @@
-header #topbar{
-    font-size: 0.85rem;
-    padding:8px 0;
-}
-header #topbar a{
-    color: var(--main-color);
-    text-decoration: none;
-}
-header #topbar .btn{
-    font-size: 0.7rem;
-    box-shadow: none !important;
-    padding:2px 5px
-}
-header .navbar-brand img{
-    width: 250px;
-}
-header .navbar-nav .nav-link{
-    font-weight: 500;
-    font-size: 0.85rem;
-    padding: 10px 15px;
-    border-radius: 4px;
-    margin-left: 5px;
-}
-header .navbar-nav .nav-link:hover{
-    background:var(--clr-green);
-    color: #fff;
-}
-header .navbar-nav .donate{
-    background:var(--clr-green);
-    color: #fff;
-    text-transform: uppercase;
-}
+
 
 #home-carousel .carousel-item h1{
     font-weight: 300;
@@ -216,33 +185,8 @@ header .navbar-nav .donate{
     background-color:#eee;
     border-radius: 5px;
 }
-#footer{
-    background-color:#fff;
-    padding-block: 15px;
-}
-#footer .social-link i{
-    color: var(--clr-orange);
-    margin-right: 5px;
-}
-#footer .social-link{
-    text-decoration: none;
-    color: var(--clr-green);
-    font-size:0.85rem
-}
-#footer .social-link:hover{
-    color: var(--clr-orange);
-}
-#footer #bottom{
-    font-size: 0.8rem;
-}
-#footer #bottom a{
-    text-decoration: none;
-}
-#footer #bottom a img{
-    height:25px;
-}
+
 .main{
-    height:100vh;
     display:block;
     position: relative;
 }
@@ -259,8 +203,8 @@ header .navbar-nav .donate{
     position: absolute;
     z-index: -1;
     filter:grayscale(0.8);
-    background-size: 60% auto;
-    background-position-y: 115px;
+    background-size: 50% auto;
+    background-position-y: 60px;
     background-position-x: -66px;
 }
 #downloadapp .store-icon{

@@ -676,13 +676,13 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   redirectOrgDetails(bodyId: any, officeBearers: any, BodyOrgCellName: any) {
-    if (officeBearers == "" || officeBearers == null) {
-      this.toastrService.error("Data not found..");
-    } else {
+    // if (officeBearers == "" || officeBearers == null) {
+    //   this.toastrService.error("Data not found..");
+    // } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['details'], { relativeTo: this.route })
-    }
+    //}
   }
 
   onKeyUpFilter() {

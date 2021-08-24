@@ -1,0 +1,32 @@
+header #topbar{
+    font-size: 0.85rem;
+    padding:8px 0;
+}
+header #topbar a{
+    color: var(--main-color);
+    text-decoration: none;
+}
+header #topbar .btn{
+    font-size: 0.7rem;
+    box-shadow: none !important;
+    padding:2px 5px
+}
+header .navbar-brand img{
+    width: 250px;
+}
+header .navbar-nav .nav-link{
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+header .navbar-nav .nav-link:hover{
+    background:var(--clr-green);
+    color: #fff;
+}
+header .navbar-nav .donate{
+    background:var(--clr-green);
+    color: #fff;
+    text-transform: uppercase;
+}

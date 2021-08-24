@@ -11,18 +11,10 @@ export class WebComponent implements OnInit {
   
   constructor(private router: Router) {
     // on route change to '/login', set the variable showHead to false
-      router.events.forEach((event) => {
-        if (event instanceof NavigationStart) {
-          console.log(event)
-          if (event['url'] == '/login') {
-            alert(event['url']);
-            this.login= true;
-          } else {
-            this.login= false;
-          }
-        }
-      });
+    if (this.router.url == '/login') {
+      this.login = true;
     }
+  }
 
   ngOnInit(): void {
   }
