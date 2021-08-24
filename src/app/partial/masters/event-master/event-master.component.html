@@ -19,11 +19,14 @@
                                 <div class="col-sm">
                                     <div class="mb-3">
                                         <label for="txtEventTitle" class="form-label">Event Title</label>
-                                        <textarea class="form-control" id="txtEventTitle" rows="3"></textarea>
+                                        <textarea class="form-control" id="txtEventTitle" rows="3" formControlName="ProgramTitle"></textarea>
                                     </div>
                                     <div class="mb-0">
                                         <label for="txtEventDuration" class="form-label">Event Duration</label>
-                                        <input type="text" id="txtEventDuration" class="form-control" placeholder="Selete Date Range">
+                                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramDate" class="form-control input-group-addon" placeholder="From Date" />
+                                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+
+                                        <!-- <input type="text" id="txtEventDuration" class="form-control" formControlName="" placeholder="Selete Date Range" formControlName="ProgramTitle"> -->
                                     </div>
                                 </div>
                                 <div class="col-sm-auto">
@@ -32,25 +35,25 @@
                                         <input type="file" id="img-upload" class="d-none">
                                         <img src="assets/images/ncp-default.png" class="img-fluid img-thumbnail" />
                                         <button type="button" class="btn btn-light btn-sm btn-add">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                         <button type="button" class="btn btn-light btn-sm btn-remove">
-                                        <i class="fas fa-trash-alt text-danger"></i>
-                                    </button>
+                                            <i class="fas fa-trash-alt text-danger"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="txtEventDescription" class="form-label">Event Description</label>
-                                <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+                                <angular-editor [(ngModel)]="htmlContent" [config]="config" formControlName="ProgramDescription"></angular-editor>
                             </div>
                             <div class="mb-2">
                                 <span class="float-start">
-                                <button type="button" class="btn btn-secondary btn-sm">Cancel</button>
-                            </span>
+                                    <button type="button" class="btn btn-secondary btn-sm">Cancel</button>
+                                </span>
                                 <span class="float-end">
-                                <button type="submit" class="btn btn-main btn-sm">Publish Event</button>
-                            </span>
+                                    <button type="submit" class="btn btn-main btn-sm">Publish Event</button>
+                                </span>
                             </div>
                         </div>
                     </form>
@@ -74,11 +77,11 @@
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
-                                            class="fas fa-eye"></i></button>
+                                                class="fas fa-eye"></i></button>
                                         <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
-                                            class="fas fa-edit"></i></button>
+                                                class="fas fa-edit"></i></button>
                                         <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
-                                            class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -94,11 +97,11 @@
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
-                                            class="fas fa-eye"></i></button>
+                                                class="fas fa-eye"></i></button>
                                         <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
-                                            class="fas fa-edit"></i></button>
+                                                class="fas fa-edit"></i></button>
                                         <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
-                                            class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -114,11 +117,11 @@
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-light text-dark" type="button"><i
-                                            class="fas fa-eye"></i></button>
+                                                class="fas fa-eye"></i></button>
                                         <button class="btn btn-sm btn-light text-edit mx-1" type="button"><i
-                                            class="fas fa-edit"></i></button>
+                                                class="fas fa-edit"></i></button>
                                         <button class="btn btn-sm btn-light text-danger" type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
-                                            class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
                             </tr>

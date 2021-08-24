@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ImageItem } from '@ngx-gallery/core';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommonService {
-  constructor() {
+  constructor(private datePipe:DatePipe) {
     
    }
   regions_m:any;
@@ -39,9 +40,12 @@ export class CommonService {
     return new Date(year, month, day);
   }
 
+ dateTransformPipe(date_string:any) {
+    let dateFormtchange:any;
+    dateFormtchange = this.datePipe.transform(date_string, 'dd/MM/YYYY');
+    return dateFormtchange;
+  }
 
-
-  
   codecareerPage:any;
   createCaptchaCarrerPage() {
     //clear the contents of captcha div first
