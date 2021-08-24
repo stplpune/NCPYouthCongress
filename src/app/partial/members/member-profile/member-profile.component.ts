@@ -275,6 +275,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   redirectOrgDetails(bodyId: any, officeBearers: any, BodyOrgCellName: any) {
+
     if (officeBearers == "" || officeBearers == null) {
       this.toastrService.error("Data not found..");
     } else {

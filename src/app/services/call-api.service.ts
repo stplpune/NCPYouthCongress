@@ -44,6 +44,7 @@ export class CallAPIService {
   }
 
   setHttp(type: string, url: string, isHeader: Boolean, obj: any, params: any, baseUrl: any) {
+    this.logOutAfterOneHour();
     isHeader = false;
     // check user is login or not 
     try {
@@ -77,4 +78,33 @@ export class CallAPIService {
       this.httpObj.options.params = false;
     }
   }
+
+  logOutAfterOneHour() { // session time out after 1 hours
+    let currentDate: any = new Date();
+    let currentTime = currentDate.getTime();
+
+    let loginDateTime: any = localStorage.getItem('loginDateTime');
+    let loginTime = new Date(loginDateTime);
+    let checkloginTime = loginTime.getTime();
+
+    let diff = currentTime - checkloginTime
+
+    var hh: any = Math.floor(diff / 1000 / 60 / 60);
+    hh = ('0' + hh).slice(-2)
+
+    // var timeDiff:any -= hh * 1000 * 60 * 60;
+    var mm: any = Math.floor(diff / 1000 / 60);
+    mm = ('0' + mm).slice(-2)
+
+    // var timeDiff:any -= mm * 1000 * 60;
+    var ss: any = Math.floor(diff / 1000);
+    ss = ('0' + ss).slice(-2)
+
+    if (mm > 60) {
+      localStorage.clear();
+      this.router.navigate(['../login']);
+    }
+
+  }
+
 }
