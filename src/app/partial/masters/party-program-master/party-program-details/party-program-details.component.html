@@ -210,7 +210,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let committeesData of commityNonComityArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
+                            <tr *ngFor="let committeesData of NonComityDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo1, totalItems:total1  }">
                                 <td>{{committeesData.SrNo}}</td>
                                 <td><a class="text-primary" (click)="redirectOrgDetails(committeesData.Id,committeesData.BodyOrgCellName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
@@ -223,14 +223,14 @@
                                     <button class="btn btn-sm btn-light" data-bs-toggle="modal" (click)="getCommitteeUserList(committeesData.Id,committeesData.BodyOrgCellName)" data-bs-target="#ViewCommitteeDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
-                            <tr *ngIf="commityNonComityArray?.length == 0">
+                            <tr *ngIf="NonComityDataArray?.length == 0">
                                 <td colspan="5">
                                     <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="mt-2 text-right float-lg-end" *ngIf="commityNonComityArray?.length != 0">
+                    <div class="mt-2 text-right float-lg-end" *ngIf="NonComityDataArray?.length != 0">
                         <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
