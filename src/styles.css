@@ -6,8 +6,8 @@ body {
 }
 
 :root {
-    --main-color: #272848;
-    --clr-green: #00923F;
+    --main-color: #007acc;
+    --clr-green: #007acc;
     --clr-orange: #E77817;
 }
 
@@ -282,7 +282,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 .ngx-select__item_active {
     background-color: var(--main-color);
-    color: #fff;
+    color: #fff !important;
     box-shadow: none;
 }
 

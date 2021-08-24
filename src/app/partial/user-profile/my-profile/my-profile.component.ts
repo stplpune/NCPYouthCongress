@@ -134,7 +134,10 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        if (this.editFlag) {
+        debugger;
+        if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
+          this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
+        }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
           this.getTaluka(this.editProfileForm.value.DistrictId)
         }
       } else {
@@ -149,6 +152,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    debugger;
     this.spinner.show();
     (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -178,6 +182,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
+    debugger;
     this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
@@ -208,6 +213,10 @@ export class MyProfileComponent implements OnInit {
     }
     else {
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
+      if(this.editProfileForm.value.IsRural == 0){
+        this.editProfileForm.value.TalukaId = "";
+      }
+
       let fromData = new FormData();
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
@@ -217,9 +226,7 @@ export class MyProfileComponent implements OnInit {
       if (this.profilePhotoChange != 2) {
         this.selectedFile ? this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
       }
-      // if(this.editProfileForm.value.IsRural == 0){
-      //   this.editProfileForm.controls['TalukaId'].setValue('');
-      // }
+      
       fromData.append('IsPhotoChange', this.profilePhotoChange);
 
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
@@ -250,6 +257,7 @@ export class MyProfileComponent implements OnInit {
 
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
+      this.villageDisabled = true;
       this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName"
       this.getTaluka(this.editProfileForm.value.DistrictId);
       this.editProfileForm.controls['VillageId'].setValue(this.globalVillageOrCityId);
@@ -259,7 +267,7 @@ export class MyProfileComponent implements OnInit {
       this.getVillageOrCity(this.editProfileForm.value.DistrictId,'City',);
       this.editProfileForm.controls['VillageId'].setValue(null);
     }
-    // this.getDistrict()
+    // this.getDistrict();
   }
 
   districtClear(text: any) {

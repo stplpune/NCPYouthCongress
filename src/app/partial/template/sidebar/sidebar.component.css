@@ -103,12 +103,13 @@
 .nava a:hover,
 .nava label:focus,
 .nava label:hover {
-    color: #fff;
+    color: #fff !important;
     background: var(--main-color);
 }
 
 .nava label:hover i {
     fill: #fff;
+    color: #fff;
 }
 
 .nava label {
@@ -120,14 +121,15 @@
     padding: 10px 10px 10px 2rem;
     background: #fff;
     font-size: 0.75rem !important;
+    
 }
 
 .group-list a:focus,
 .group-list a:hover,
 .group-list label:focus,
 .group-list label:hover {
-    background: #eee;
-    color: #333;
+    background: var(--main-color);
+    color: #fff;
 }
 
 .sub-group-list a,
@@ -191,6 +193,7 @@ label>span {
     min-height: 36px;
     width: 36px;
     height: 36px;
+    color: var(--main-color);
     /* border: solid 1px #ddd; */
 }
 
