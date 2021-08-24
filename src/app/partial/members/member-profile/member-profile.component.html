@@ -338,7 +338,7 @@
                     </div>
                     <div class="col-sm-6 form-container bg-light">
 
-                        <div class="" *ngIf="lat!=''; else elseBlock">
+                        <div class="" *ngIf="lat!='' && lng!=''; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
