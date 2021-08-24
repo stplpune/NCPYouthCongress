@@ -750,3 +750,7 @@ mapsvg-layers-wrap+svg {
     .mapsvg-scrollpane svg{
         transform: scale(1) !important;
     }
+
+.img-h300{
+    height:300px;
+}
