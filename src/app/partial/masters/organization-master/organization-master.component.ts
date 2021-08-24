@@ -782,7 +782,7 @@ export class OrganizationMasterComponent implements OnInit {
       clickDeleteCommitteeModal.click();
       this.deletebodyId = bodyId;
     }else{
-      this.toastrService.info('Designation is assign');
+      this.toastrService.info('Designations are already assigned to this Committee');
     }
 
   }
