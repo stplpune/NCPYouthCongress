@@ -761,3 +761,6 @@ mapsvg-layers-wrap+svg {
 .img-h300 {
     height: 300px;
 }
+.toast-container{
+    font-size: 0.85rem !important;
+}

@@ -46,7 +46,9 @@
                                 <div class="fw-bold text-main"> {{roles?.BodyOrgCellName}}</div>
                                 <small class="text-primary">{{roles?.Designation}}</small><br/>
                                 <small class="bg-light rounded-pill text-secondary">{{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}} -  {{roles?.PostToDate ? roles?.PostToDate : 'Till Date'}}</small>
-                                <button  class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" (click)="getUserPostBodyId(roles.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
+                                <span class="float-end">
+                                    <a class="text-danger" data-bs-toggle="modal" (click)="getUserPostBodyId(roles.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></a>
+                                </span>
                             </div>
                         </li>
                     </ng-container>
