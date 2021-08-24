@@ -50,6 +50,7 @@ export class MyProfileComponent implements OnInit {
   show_eye2: Boolean = false;
   villOrcityDisabled: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
+  villageDisabled!:boolean;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -177,6 +178,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
+    this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.editProfileForm.value.DistrictId;
@@ -215,11 +217,15 @@ export class MyProfileComponent implements OnInit {
       if (this.profilePhotoChange != 2) {
         this.selectedFile ? this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
       }
+      // if(this.editProfileForm.value.IsRural == 0){
+      //   this.editProfileForm.controls['TalukaId'].setValue('');
+      // }
       fromData.append('IsPhotoChange', this.profilePhotoChange);
 
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.disabledEditForm = true;
           this.profilePhotoChange = null;
           this.submitted = false;
           this.resetFile();
@@ -250,21 +256,21 @@ export class MyProfileComponent implements OnInit {
     } else {
       this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
       this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
+      this.getVillageOrCity(this.editProfileForm.value.DistrictId,'City',);
       this.editProfileForm.controls['VillageId'].setValue(null);
     }
-    this.getDistrict()
+    // this.getDistrict()
   }
 
   districtClear(text: any) {
     if (text == 'district') {
-
-      this.editProfileForm.controls['DistrictId'].setValue(0), this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
-
+      this.editProfileForm.controls['DistrictId'].setValue(''), this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
+      this.villageDisabled = true;
     } else if (text == 'taluka') {
-      this.editProfileForm.controls['TalukaId'].setValue(0), this.editProfileForm.controls['VillageId'].setValue('');
+      this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
 
     } else if (text == 'village') {
-      this.editProfileForm.controls['VillageId'].setValue(0);
+      this.editProfileForm.controls['VillageId'].setValue('');
     }
   }
 
@@ -344,41 +350,6 @@ export class MyProfileComponent implements OnInit {
         this.spinner.hide();
         this.toastrService.error("New password and Confirm password should be same")
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
   }
 

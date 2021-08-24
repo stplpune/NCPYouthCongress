@@ -29,7 +29,7 @@
                                                 <a class="update-photo" (click)="choosePhoto()">
                                                     <i class="fas fa-camera"></i>
                                                 </a>
-                                                <a class="update-photo" *ngIf="ImgUrl" (click)="removePhoto();">
+                                                <a class="update-photo" *ngIf="ImgUrl" [class.disable-close-btn]="disabledEditForm" (click)="removePhoto();">
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                                 <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)" #fileInput>
@@ -130,7 +130,7 @@
                                                         <div class="col-sm-4" *ngIf="this.editProfileForm.value.IsRural == 1">
                                                             <label for="ddlTaluka" class="form-label required-field">Taluka</label>
                                                             <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
-                                                                (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                                                (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel);" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
                                                             </ngx-select>
                                                             <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.TalukaId.errors.required">Taluka is required
@@ -139,8 +139,7 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <label for="ddlCityVillage" (remove)="districtClear('village')" class="form-label required-field">{{villageCityLabel}}</label>
-                                                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="!this.editProfileForm.value.TalukaId"
-                                                                [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="villageDisabled" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                                             </ngx-select>
                                                             <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.VillageId.errors.required">
@@ -149,8 +148,10 @@
                                                         </div>
                                                     </div>
                                                     <hr />
+                                                    <button type="button" (click)="getProfileData();this.disabledEditForm = true;" class="btn btn-main btn-sm">Clear</button>
                                                     <div class="text-end">
                                                         <button type="submit" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
+
                                                     </div>
                                                 </div>
                                             </div>
