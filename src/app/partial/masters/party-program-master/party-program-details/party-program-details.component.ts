@@ -225,7 +225,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         }
         this.spinner.hide();
         this.CommitteeUserArray = res.data1;
-        console.log(this.CommitteeUserArray)
         this.comityUserListTotal = res.data2[0].TotalCount;
 
       } else {
