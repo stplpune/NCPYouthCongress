@@ -42,6 +42,7 @@ export class ActivityAnalysisComponent implements OnInit {
   disabledMarkAsAbuse: boolean = false; 
   disabledMarkasNotAbuse: boolean = false;
   comUserdetImg:any;
+  HighlightRow: any;
   programGalleryImg!: GalleryItem[]; 
   @ViewChild('TotalLikes') TotalLikes:any;
   @ViewChild('TotalComments') TotalComments:any;
@@ -226,6 +227,7 @@ export class ActivityAnalysisComponent implements OnInit {
   ViewPoliticleWorkDetails(index: any) {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+    this.HighlightRow = this.viewPoliticleWorkDetailsById.Id;
 
         this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
         this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');

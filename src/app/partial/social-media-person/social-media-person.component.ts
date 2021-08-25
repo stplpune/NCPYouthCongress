@@ -100,7 +100,6 @@ export class SocialMediaPersonComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaMessagesPersonArray = res.data1;
-        console.log("asdd",this.socialMediaMessagesPersonArray);
         this.total = res.data2[0].TotalCount;
         this.workCountAgainstWorkType();
       } else {
@@ -202,7 +201,6 @@ export class SocialMediaPersonComponent implements OnInit {
 
   getSocialMediaPersonDataById(index:any) {
     this.getDatabyPersonId=this.socialMediaMessagesPersonArray[index];
-// console.log(this.getDatabyPersonId)
     this.comUserdetImg = this.getDatabyPersonId.ImagePath.split(',');
     this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
     this.gallery.ref().load(this.comUserdetImg);

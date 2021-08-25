@@ -274,6 +274,9 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     box-shadow: none;
     /* line-height: 32.71px; */
 }
+.ngx-select__item{
+    color: #000 !important;
+}
 
 .ngx-select_multiple .ngx-select__clear {
     color: #fff !important;
@@ -281,7 +284,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 .ngx-select__item_active {
-    background-color: var(--main-color);
+    background-color: var(--main-color) !important;
     color: #fff !important;
     box-shadow: none;
 }

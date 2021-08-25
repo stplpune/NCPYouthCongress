@@ -205,7 +205,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   logOut() {
     localStorage.clear();
-    this.router.navigate(['/login'], { relativeTo: this.route })
+    this.router.navigate(['/home'], { relativeTo: this.route })
   }
 
   updateProfile() {

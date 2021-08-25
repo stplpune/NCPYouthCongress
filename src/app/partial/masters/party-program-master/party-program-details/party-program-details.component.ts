@@ -64,8 +64,13 @@ export class PartyProgramDetailsComponent implements OnInit {
   memberTotal: any;
   comityTotal: any;
   nonComityTotal: any;
+<<<<<<< HEAD
   @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen: any;
   @ViewChild('MemberparModalOpen') MemberparModalOpen: any;
+=======
+  HighlightRow: any;
+  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
+>>>>>>> 6dee13cfb093dc93b49a4b477709638bfdb52f24
 
   constructor(
     public location: Location,
@@ -147,8 +152,12 @@ export class PartyProgramDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
+<<<<<<< HEAD
       console.log(this.membersDataArray)
     }, (error: any) => {
+=======
+    } ,(error:any) => {
+>>>>>>> 6dee13cfb093dc93b49a4b477709638bfdb52f24
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -296,19 +305,27 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.getCommitteeUserList(this.committeeId, this.committeeNmame, 'false');
   }
 
+<<<<<<< HEAD
   // getPartyProgramDetails(viewMemberId:any){
   //   this.getBodyMemeberActivitiesDetails(viewMemberId);   
   // }
 
   getBodyMemeberActivitiesDetails(viewMemberId: any) {
+=======
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+>>>>>>> 6dee13cfb093dc93b49a4b477709638bfdb52f24
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+<<<<<<< HEAD
         let MemberModalOpen: any = this.MemberparModalOpen.nativeElement;
         MemberModalOpen.click();
+=======
+>>>>>>> 6dee13cfb093dc93b49a4b477709638bfdb52f24
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
+        this.HighlightRow = this.resultBodyMemActDetails.Id;
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg, 'array');
         this.lightboxRef2 = this.gallery.ref('anotherLightbox')
@@ -319,7 +336,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.lng = Number(latLong[1]);
       } else {
         this.spinner.hide();
-        this.toastrService.info("Member Data not available");
         this.resultBodyMemActDetails = [];
       }
     }, (error: any) => {

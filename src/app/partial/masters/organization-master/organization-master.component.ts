@@ -300,7 +300,6 @@ export class OrganizationMasterComponent implements OnInit {
           }
         })
 
-         console.log(this.organizationRes)
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -517,7 +516,6 @@ export class OrganizationMasterComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.selEditOrganization = res.data1[0];
-        console.log(this.selEditOrganization);
         this.HighlightRow = this.selEditOrganization.Id;
         this.editLevalFlag = "edit"
         this.selectLevel(this.selEditOrganization.BodyLevel, this.editLevalFlag);

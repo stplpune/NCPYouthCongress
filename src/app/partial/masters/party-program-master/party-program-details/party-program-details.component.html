@@ -129,7 +129,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let membersData of membersDataArray | paginate: { itemsPerPage: 10, currentPage: memPaginationNo, totalItems:memberTotal  }">
+                            <tr *ngFor="let membersData of membersDataArray | paginate: { itemsPerPage: 10, currentPage: memPaginationNo, totalItems:memberTotal }" [class.active]="membersData.ActivityId == HighlightRow">
                                 <td>{{membersData.SrNo}}</td>
                                 <td><a (click)="redToMemberProfile(membersData.MemberId,membersData.FullName)" class="text-primary">{{membersData.FullName}}</a></td>
                                 <td>{{membersData.ActivityDate}} {{membersData.ActivityTime}}</td>
@@ -137,8 +137,7 @@
                                 <td>{{membersData.Designation}}</td>
                                 <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
-                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(membersData.ActivityId)"><i class="far fa-eye"></i></button>
-                                    <input type="hidden" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal" #MemberparModalOpen>
+                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(membersData.ActivityId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="membersDataArray?.length == 0">
@@ -170,7 +169,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let committeesData of commityDataArray | paginate: { itemsPerPage: 10, currentPage: comPaginationNo, totalItems:comityTotal  }">
+                            <tr *ngFor="let committeesData of commityDataArray | paginate: { itemsPerPage: 10, currentPage: comPaginationNo, totalItems:comityTotal }" [class.active]="committeesData.Id == committeeId">
                                 <td>{{committeesData.SrNo}}</td>
                                 <td><a class="text-primary" (click)="redirectOrgDetails(committeesData.Id,committeesData.BodyOrgCellName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
