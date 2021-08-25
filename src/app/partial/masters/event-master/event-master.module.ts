@@ -5,7 +5,7 @@ import { EventMasterRoutingModule } from './event-master-routing.module';
 import { EventMasterComponent } from './event-master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgxPaginationModule,
   ]
 })
 export class EventMasterModule { }
