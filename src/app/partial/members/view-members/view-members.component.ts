@@ -168,15 +168,6 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj)
   }
 
-  // searchFilter(){
-  //   if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
-  //     this.toastrService.error("Please search and try again");
-  //     return
-  //   }
-  //   this.viewMembersObj.SearchText = this.filterForm.value.searchText
-  //   this.getViewMembers(this.viewMembersObj)
-  // }
-
   searchFilter(flag:any) {
     if(flag == 'true'){
       if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
