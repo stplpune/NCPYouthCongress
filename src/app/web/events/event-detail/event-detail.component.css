@@ -22,3 +22,63 @@
 #allevents .media-body h6 a:hover{
     color: var(--main-color);
 }
+#event-detail .card{
+    border-radius: 10px;
+    padding: 40px;
+}
+#event-detail .event-date{
+    font-size: 0.85rem;
+    color: #999;
+}
+#event-detail .event-head{
+    font-weight: 400;
+    line-height: 30px;
+    margin-block:15px;
+}
+#event-detail .event-image,
+#event-detail .event-description img{
+    width: 100%;
+    height:300px;
+    object-fit: cover;
+    object-position: middle;
+    margin-bottom: 20px;
+}
+#event-detail .event-description p,
+#event-detail .event-description ul,
+#event-detail .event-description ol{
+    font-size: 0.9rem;
+    line-height:24px;
+}
+#event-detail .event-description table{
+    font-size:0.85rem;
+    width: 100%;
+    margin-bottom: 15px;
+    border-inline:solid 1px rgba(0, 0, 0, 0.125);
+}
+#event-detail .event-description table th{
+    border-top:solid 1px rgba(0, 0, 0, 0.125);
+    padding:7px;
+    background-color:#efefef;
+}
+#event-detail .event-description table td{
+    padding:7px;
+    border-bottom:solid 1px rgba(0, 0, 0, 0.125);
+}
+#event-detail .event-description ul { padding-left:20px; list-style:none; }
+#event-detail .event-description ul li:before {    
+    font-family: 'Font Awesome 5 free';
+    content: '\f105';
+    font-weight: 900;
+    margin:0 8px 0 -15px;
+    color: var(--clr-orange);
+}
+#event-detail .event-description h1,
+#event-detail .event-description h2,
+#event-detail .event-description h3,
+#event-detail .event-description h4,
+#event-detail .event-description h5,
+#event-detail .event-description h6{ 
+    font-weight: 600;
+    margin-block:10px;
+    font-size: 85%;
+}
