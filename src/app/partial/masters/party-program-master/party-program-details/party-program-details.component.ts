@@ -30,32 +30,32 @@ export class PartyProgramDetailsComponent implements OnInit {
   membersAndNonParticipantsDiv: boolean = true;
   ParticipantsText: string = "Members";
   programTile: any;
-  allImages = [];    
-  programGalleryImg!: GalleryItem[]; 
-  ParpantsProMemImge!: GalleryItem[]; 
+  allImages = [];
+  programGalleryImg!: GalleryItem[];
+  ParpantsProMemImge!: GalleryItem[];
   ParpantsProMemImge1!: GalleryItem[];
-  imgLightBox:boolean = false;
+  imgLightBox: boolean = false;
   resultBodyMemActDetails: any;
   CommitteeUserArray: any;
   committeeNmame: any;
-  committeeModelDataDivHide:boolean=false;
+  committeeModelDataDivHide: boolean = false;
   committeeUserdetailsArray: any;
   activitiesDetailslat: any;
   activitiesDetailslng: any;
-  paginationNo: number =1;
+  paginationNo: number = 1;
   comityUserListTotal: any;
   committeeId: any;
   globalGroupId = 0;
-  comUserdetImg:any;
-  comUserdetImg1:any;
-  lightBoxGalleryFlag:boolean = true;
+  comUserdetImg: any;
+  comUserdetImg1: any;
+  lightBoxGalleryFlag: boolean = true;
   MemberTableDiv: boolean = true;
   ComityTableDiv: boolean = false;
   NonComityTableDiv: boolean = false;
-  MapHide:boolean=true;
-  lightboxRef:any;
-  lightboxRef1:any;
-  lightboxRef2:any;
+  MapHide: boolean = true;
+  lightboxRef: any;
+  lightboxRef1: any;
+  lightboxRef2: any;
   commityDataArray: any;
   pageSize: number = 10;
   memPaginationNo: number = 1;
@@ -64,8 +64,8 @@ export class PartyProgramDetailsComponent implements OnInit {
   memberTotal: any;
   comityTotal: any;
   nonComityTotal: any;
-  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
-  @ViewChild('MemberparModalOpen') MemberparModalOpen:any;
+  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen: any;
+  @ViewChild('MemberparModalOpen') MemberparModalOpen: any;
 
   constructor(
     public location: Location,
@@ -76,13 +76,13 @@ export class PartyProgramDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public gallery: Gallery,
     private _lightbox: Lightbox,
-    private _commonService:CommonService
+    private _commonService: CommonService
   ) {
-    if(localStorage.getItem('programListIdKey') == null ||  localStorage.getItem('programListIdKey') == ""){
+    if (localStorage.getItem('programListIdKey') == null || localStorage.getItem('programListIdKey') == "") {
       this.toastrService.error("Please select Program Title  and try again");
       this.router.navigate(['../party-program'], { relativeTo: this.route });
       return
-    }else{
+    } else {
       let getLocalStorageData: any = localStorage.getItem('programListIdKey');
       let programListId = JSON.parse(getLocalStorageData);
       this.programListId = programListId.programListId;
@@ -106,17 +106,17 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.programGalleryImg = programDetailsImagesArray;
         this.overviewArray = res.data3[0];
         this.gallery.resetAll();
-        if(this.programGalleryImg){
-          this.programGalleryImg =   this._commonService.imgesDataTransform(this.programGalleryImg,'obj');
+        if (this.programGalleryImg) {
+          this.programGalleryImg = this._commonService.imgesDataTransform(this.programGalleryImg, 'obj');
           this.lightboxRef = this.gallery.ref()
           this.lightboxRef.load(this.programGalleryImg);
         }
-       
+
       } else {
         this.spinner.hide();
-          // this.toastrService.error("Data is not available");
+        // this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -124,10 +124,10 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getMembersData() {
-    this.ComityTableDiv=false;
-    this.NonComityTableDiv=false;
-    this.MemberTableDiv=true;
-    this.MapHide=true;
+    this.ComityTableDiv = false;
+    this.NonComityTableDiv = false;
+    this.MemberTableDiv = true;
+    this.MapHide = true;
     // this.membersDataArray = [];
     this.spinner.show();
     this.callAPIService.setHttp('get', 'GetProgram_Details_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.memPaginationNo, false, false, false, 'ncpServiceForWeb');
@@ -148,18 +148,18 @@ export class PartyProgramDetailsComponent implements OnInit {
         }
       }
       console.log(this.membersDataArray)
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
 
-   getNonParticipantsData() {
-    this.MapHide=false;
-    this.NonComityTableDiv=true;
-    this.MemberTableDiv=false;
-    this.ComityTableDiv=false;
+  getNonParticipantsData() {
+    this.MapHide = false;
+    this.NonComityTableDiv = true;
+    this.MemberTableDiv = false;
+    this.ComityTableDiv = false;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'NonWeb_Program_Committee_List_1_0?ProgramId=' + this.programListId + '&nopage=' + this.nonComPaginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -176,7 +176,7 @@ export class PartyProgramDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -184,11 +184,11 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   getCommitteesData() {
-    this.MapHide=true;
-    this.ComityTableDiv=true;
-    this.MemberTableDiv=false;
-    this.NonComityTableDiv=false;
-    this.programDetailsLatLongArray=[];
+    this.MapHide = true;
+    this.ComityTableDiv = true;
+    this.MemberTableDiv = false;
+    this.NonComityTableDiv = false;
+    this.programDetailsLatLongArray = [];
 
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetProgram_Details_CommitteeList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.comPaginationNo, false, false, false, 'ncpServiceForWeb');
@@ -201,9 +201,9 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.commityDataArray = [];
-          // this.toastrService.error("Data is not available");
+        // this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -211,16 +211,16 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   //latest calll
-  getCommitteeUserList(committeeId:any,committeeNmame:any, flag:any) {
+  getCommitteeUserList(committeeId: any, committeeNmame: any, flag: any) {
     this.comityUserListTotal = 0;
     this.CommitteeUserArray = [];
     this.spinner.show();
-    this.committeeId=committeeId;
-    this.committeeNmame=committeeNmame;
+    this.committeeId = committeeId;
+    this.committeeNmame = committeeNmame;
     this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo + '&BodyId=' + committeeId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        if(flag == 'modalShow'){
+        if (flag == 'modalShow') {
           let committeeModalOpen: any = this.CommitteesparModalOpen.nativeElement;
           committeeModalOpen.click();
         }
@@ -241,9 +241,9 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  committeeUserdetails(ActivityId:any){
+  committeeUserdetails(ActivityId: any) {
     this.spinner.show();
-    this.committeeModelDataDivHide=true;
+    this.committeeModelDataDivHide = true;
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + ActivityId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -268,49 +268,49 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  closeModelCommitty(){
-    this.committeeModelDataDivHide=false;
+  closeModelCommitty() {
+    this.committeeModelDataDivHide = false;
   }
 
-  redToMemberProfile(memberId: any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     localStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../../member/profile'], {relativeTo:this.route})
+    this.router.navigate(['../../../member/profile'], { relativeTo: this.route })
   }
 
   onClickPagintion(pageNo: number, paginationFlag: any) {
-    if (paginationFlag == 'memberFlag') {  
+    if (paginationFlag == 'memberFlag') {
       this.memPaginationNo = pageNo;
       this.getMembersData();
-    } else if(paginationFlag == 'commityFlag'){
+    } else if (paginationFlag == 'commityFlag') {
       this.comPaginationNo = pageNo;
       this.getCommitteesData();
-    }else{
+    } else {
       this.nonComPaginationNo = pageNo;
       this.getNonParticipantsData();
     }
   }
 
-  onClickPagintion1(pageNo: number){
+  onClickPagintion1(pageNo: number) {
     this.paginationNo = pageNo;
-    this.getCommitteeUserList(this.committeeId,this.committeeNmame,'false');
+    this.getCommitteeUserList(this.committeeId, this.committeeNmame, 'false');
   }
 
   // getPartyProgramDetails(viewMemberId:any){
   //   this.getBodyMemeberActivitiesDetails(viewMemberId);   
   // }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+  getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-          let MemberModalOpen: any = this.MemberparModalOpen.nativeElement;
-          MemberModalOpen.click();
+        let MemberModalOpen: any = this.MemberparModalOpen.nativeElement;
+        MemberModalOpen.click();
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
+        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg, 'array');
         this.lightboxRef2 = this.gallery.ref('anotherLightbox')
         this.lightboxRef2.load(this.comUserdetImg);
 
@@ -329,15 +329,15 @@ export class PartyProgramDetailsComponent implements OnInit {
     })
   }
 
-  redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
-    if(bodyId == "" || bodyId == null){
+  redirectOrgDetails(bodyId: any, BodyOrgCellName: any) {
+    if (bodyId == "" || bodyId == null) {
       this.toastrService.error("Data not found..");
-    }else{
-      let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
+    } else {
+      let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       localStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../../../master/committee/details'], { relativeTo: this.route })
     }
   }
-  
+
 
 }
