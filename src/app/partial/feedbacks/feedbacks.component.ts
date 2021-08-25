@@ -279,7 +279,7 @@ export class FeedbacksComponent implements OnInit {
         if (res.data == 0) {
           this.defualtHideFeedback = true;
           this.spinner.hide();
-          this.toastrService.success(' Message Read...')
+          //this.toastrService.success(' Message Read...')
           this.getFeedBackData(this.FeedbackObj)
         } else {
           this.spinner.hide();

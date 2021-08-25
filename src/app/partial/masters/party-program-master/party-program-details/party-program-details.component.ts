@@ -64,6 +64,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   memberTotal: any;
   comityTotal: any;
   nonComityTotal: any;
+  HighlightRow: any;
   @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
 
   constructor(
@@ -146,7 +147,6 @@ export class PartyProgramDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-      console.log(this.membersDataArray)
     } ,(error:any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
@@ -225,6 +225,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         }
         this.spinner.hide();
         this.CommitteeUserArray = res.data1;
+        console.log(this.CommitteeUserArray)
         this.comityUserListTotal = res.data2[0].TotalCount;
 
       } else {
@@ -295,10 +296,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.getCommitteeUserList(this.committeeId,this.committeeNmame,'false');
   }
 
-  // getPartyProgramDetails(viewMemberId:any){
-  //   this.getBodyMemeberActivitiesDetails(viewMemberId);   
-  // }
-
     getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
@@ -306,6 +303,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
+        this.HighlightRow = this.resultBodyMemActDetails.Id;
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
         this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.lightboxRef2 = this.gallery.ref('anotherLightbox')
