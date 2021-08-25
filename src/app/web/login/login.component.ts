@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   show_button: Boolean = false;
   show_eye: Boolean = false;
+  date: any = new Date();
   
   constructor(private callAPIService: CallAPIService, private fb: FormBuilder,
     private spinner:NgxSpinnerService,
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == '0') {
           localStorage.setItem('loggedInDetails', JSON.stringify(res));
-          // localStorage.setItem('loginDateTime', this.date)
+          localStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
           this.router.navigate(['../dashboard'], { relativeTo: this.route })
           this.toastrService.success('login successfully')
