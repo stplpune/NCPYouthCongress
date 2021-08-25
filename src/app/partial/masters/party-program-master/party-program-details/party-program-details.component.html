@@ -432,7 +432,7 @@
                 <div class="row">
                     <div class="col-sm-3 border-end">
                         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                            <a *ngFor="let CommitteeUser of CommitteeUserArray  | paginate:  { itemsPerPage: 10, currentPage: paginationNo, totalItems:comityUserListTotal};
+                            <a *ngFor="let CommitteeUser of CommitteeUserArray  | paginate:  { itemsPerPage: 10, currentPage: paginationNo, totalItems:comityUserListTotal , id: 'first' };
                              let i = index" (click)="committeeUserdetails(CommitteeUser.ActivityId)" class="list-group-item list-group-item-action  list-group-item d-flex justify-content-between align-items-start" id="list-home-list" data-bs-toggle="list"
                                 href="#list-home" role="tab" aria-controls="list-home" [ngClass]="{'active' : CommitteeUser?.ActivityId == globalGroupId}">
                                 <div class="me-auto">
@@ -444,9 +444,9 @@
                             <div class="mt-2 text-end" *ngIf="CommitteeUserArray?.length == 0">
                                 <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                             </div>
-                            <!-- <div class="mt-2 text-end" *ngIf="CommitteeUserArray?.length != 0">
-                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
-                            </div> -->
+                            <div class="mt-2 text-end" *ngIf="CommitteeUserArray?.length != 0">
+                                <pagination-controls id="first" previousLabel="" nextLabel="" (pageChange)="onClickPagintion1(pageSize = $event)"> </pagination-controls>
+                            </div>
                         </div>
                     </div>
 
