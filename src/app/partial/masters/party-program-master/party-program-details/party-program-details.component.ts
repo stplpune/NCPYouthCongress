@@ -65,7 +65,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   comityTotal: any;
   nonComityTotal: any;
   @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
-  @ViewChild('MemberparModalOpen') MemberparModalOpen:any;
 
   constructor(
     public location: Location,
@@ -305,8 +304,6 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-          let MemberModalOpen: any = this.MemberparModalOpen.nativeElement;
-          MemberModalOpen.click();
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
@@ -319,7 +316,6 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.lng = Number(latLong[1]);
       } else {
         this.spinner.hide();
-        this.toastrService.info("Member Data not available");
         this.resultBodyMemActDetails = [];
       }
     }, (error: any) => {

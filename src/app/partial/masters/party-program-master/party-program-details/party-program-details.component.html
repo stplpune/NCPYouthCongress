@@ -137,8 +137,7 @@
                                 <td>{{membersData.Designation}}</td>
                                 <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getPartyProgramDetails(membersData)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button> -->
-                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(membersData.ActivityId)"><i class="far fa-eye"></i></button>
-                                    <input type="hidden" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal" #MemberparModalOpen>
+                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(membersData.ActivityId)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="membersDataArray?.length == 0">
