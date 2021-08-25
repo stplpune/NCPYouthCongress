@@ -1,0 +1,24 @@
+#allevents .media{
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border-bottom:solid 1px #ccc;
+}
+#allevents .media-img{
+    width: 70px;
+    border-radius: 5px;
+}
+#allevents .card{
+    border-radius: 10px;
+}
+#allevents .media-body p{
+    font-size: 0.7rem;    
+}
+#allevents .media-body h6 a{
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: #333;
+}
+#allevents .media-body h6 a:hover{
+    color: var(--main-color);
+}
