@@ -211,6 +211,9 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   //latest calll
   getCommitteeUserList(committeeId:any,committeeNmame:any) {
+    this.comityUserListTotal = 0;
+    this.CommitteeUserArray = [];
+    // this.paginationNo = 1;
     this.spinner.show();
     this.committeeId=committeeId;
     this.committeeNmame=committeeNmame;
@@ -222,8 +225,10 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.comityUserListTotal = res.data2[0].TotalCount;
 
       } else {
+        this.CommitteeUserArray = [];
+        this.comityUserListTotal = [];
         this.spinner.hide();
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
