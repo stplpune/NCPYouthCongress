@@ -38,6 +38,7 @@ export class SocialMediaMessagesComponent implements OnInit {
    Twitter:any;
    comUserdetImg:any;
    programGalleryImg!: GalleryItem[]; 
+   HighlightRow: any;
 
 
   constructor(
@@ -58,8 +59,6 @@ export class SocialMediaMessagesComponent implements OnInit {
     this.getMemberName();
     this.getSocialMedia();
     this.GetSocialMediaMessages();
-
-    //this.getSocialMediaDetails();
   }
 
   defaultFilterForm() {
@@ -176,6 +175,7 @@ export class SocialMediaMessagesComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaDetailsArray = res.data1[0];
+        this.HighlightRow = this.socialMediaDetailsArray.Id;
 
         let socialMediaDetailsImageArray = res.data2;
         this.programGalleryImg = socialMediaDetailsImageArray;

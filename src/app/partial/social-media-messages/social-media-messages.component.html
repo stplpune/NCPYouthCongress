@@ -86,7 +86,7 @@
                     </thead>
                     <tbody>
                         <tr
-                            *ngFor="let socialMediaMessages of socialMediaMessagesArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            *ngFor="let socialMediaMessages of socialMediaMessagesArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="socialMediaMessages.Id == HighlightRow">
                             <td>{{socialMediaMessages.SrNo}}</td>
                             <td>{{socialMediaMessages.PostDate}}</td>
 
