@@ -12,7 +12,8 @@
 .btn-home-orange:hover{
     background:var(--clr-green);
     color: #fff;
-    padding:15px 30px;
+    padding:8px 20px;
+    font-size: 0.9rem;
 }
 .btn-home-orange,
 .btn-home-green:hover{
@@ -78,9 +79,7 @@
       font-size: 0.9rem;
       color: var(--clr-orange);
   }
-  .section{
-      margin-top: 50px;
-  }
+  
   .home-para{
     font-size: 1rem;
     line-height: 28px;
@@ -121,7 +120,7 @@
 #events .card .card-img-top{
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    filter: opacity(0.5);
+    /* filter: opacity(0.5); */
 }
 #events .card:hover{
     background-color: #fff;
