@@ -1,15 +1,18 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
-
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 @Component({
   selector: 'app-event-master',
   templateUrl: './event-master.component.html',
-  styleUrls: ['./event-master.component.css', '../../partial.component.css']
+  styleUrls: ['./event-master.component.css', '../../partial.component.css'],
+  providers: [DatePipe]
 })
 export class EventMasterComponent implements OnInit {
   htmlContent = '';
@@ -46,15 +49,38 @@ export class EventMasterComponent implements OnInit {
   selectedFile: any;
   ImgUrl: any;
   imgName: any;
-  toastrService: any;
   @ViewChild('myInput') myInput!: ElementRef;
+  eventListArray: any;
+  paginationNo: number = 1;
+  total: any;
+  pageSize: number = 10;
+  displayEventArray: any;
 
-  constructor(private fb:FormBuilder, private _commonService:CommonService, private callAPIService:CallAPIService, private router:Router, 
-    private route:ActivatedRoute, private datePipe:DatePipe
-    ) { }
+  maxDate: any = new Date();
+  fromDate:any = "";
+  toDate: any = "";
+  dateRange: any;
+  defaultCloseBtn: boolean = false;
+  selRange = new FormControl();
+
+
+  constructor(
+    private fb:FormBuilder,
+    private commonService:CommonService, 
+    private callAPIService:CallAPIService, 
+    private router:Router, 
+    private route:ActivatedRoute, 
+    private datePipe:DatePipe,
+    private spinner: NgxSpinnerService,
+    private toastrService: ToastrService,
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    public datepipe: DatePipe,
+    ) { { dateTimeAdapter.setLocale('en-IN'); } 
+    this.dateRange = [this.fromDate, this.toDate];}
 
   ngOnInit(): void {
     this.defaultEventForm();
+    this.getEventList();
   }
 
   defaultEventForm() {
@@ -63,7 +89,7 @@ export class EventMasterComponent implements OnInit {
       ProgramDescription: ['', Validators.required],
       ProgramDate: ['', Validators.required],
       Id: [0],
-      CreatedBy: [this._commonService.loggedInUserId()],
+      CreatedBy: [this.commonService.loggedInUserId()],
       IschangeImage:[1],
       EventImages:[this.selectedFile, Validators.required],
     })
@@ -124,10 +150,75 @@ export class EventMasterComponent implements OnInit {
     }
   }
 
+  getEventList() {
+   this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetEventList_1_0?UserId=' + this.commonService.loggedInUserId() + '&PageNo=' + this.paginationNo
+    + '&FromDate=' + this.fromDate + '&ToDate=' +  this.toDate, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.eventListArray = res.data1;
+        this.total = res.data2[0].TotalCount;
+      } else {
+        this.eventListArray = [];
+
+        this.spinner.hide();
+        this.toastrService.error("Data is not available");
+      }
+    },
+     (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    }
+    )
+  }
+
+  IsDisplayEvent() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + 0 + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + 0, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.displayEventArray = res.data1;
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Data is not available");
+      }
+    },
+     (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    }
+    )
+  }
+
+
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.getEventList();
+  }
+
   removePhoto() {
     this.selectedFile = "";
     this.myInput.nativeElement.value = '';
     this.ImgUrl = "";
+  }
+
+  getweekRage(dates: any) {
+    this.defaultCloseBtn = true;
+    this.fromDate= this.datepipe.transform(dates[0], 'dd/MM/YYYY');
+    this.toDate= this.datepipe.transform(dates[1], 'dd/MM/YYYY');
+    this. getEventList();
+  }
+
+  clearValue(){
+    this.defaultCloseBtn = false;
+    this.fromDate = "";
+    this.toDate  = "";
+    this.getEventList();
+    this.selRange.setValue(null);
   }
 
 }
