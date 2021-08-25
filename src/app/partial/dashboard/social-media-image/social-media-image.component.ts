@@ -74,10 +74,10 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       width: 550,
       height: 430,
       colors: {
-        baseDefault: "#bfddff",
+        //baseDefault: "#bfddff",
         background: "#fff",
-        selected: "#272848",
-        hover: "#272848",
+        //selected: "#272848",
+        // hover: "#272848",
         directory: "#bfddff",
         status: {}
       },
@@ -340,7 +340,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
             } else if (this.selectedParty == 4) {
               $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
             }else if (this.selectedParty == 5) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
+              $('path[id="' + ele.Id + '"]').css('fill', '#aa43cb');
             }
           }
           $('#' + ele.DistrictName).text(ele.ActivityCount);

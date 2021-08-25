@@ -656,12 +656,12 @@
     cursor: pointer;
     padding: 10px;
 }
-.mapsvg-directory-item:hover {
+/* .mapsvg-directory-item:hover {
     background: rgba(0,0,0,.05);
 }
 .mapsvg-directory-item.hover {
     background: rgba(0,0,0,.05);
-}
+} */
 .mapsvg-directory-item.selected {
     background: rgba(0,0,0,.1) !important;
 }
