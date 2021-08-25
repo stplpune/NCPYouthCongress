@@ -30,6 +30,7 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./partial/dashboard/dashboard.module').then(m => m.DashboardModule), data: { title: 'Dashboard' } },
       //{ path: 'masters/designation-master', loadChildren: () => import('./partial/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule), data: { title: 'Designation Master' } },
       { path: 'master/committee', loadChildren: () => import('./partial/masters/organization-master/organization-master.module').then(m => m.OrganizationMasterModule), data: { title: 'Organization Master' } },
+      { path: 'master/committees-on-map', loadChildren: () => import('./partial/masters/committees-on-map/committees-on-map.module').then(m => m.CommitteesOnMapModule) },
       { path: 'master/party-program', loadChildren: () => import('./partial/masters/party-program-master/party-program-master.module').then(m => m.PartyProgramMasterModule) },
       { path: 'master/event-master', loadChildren: () => import('./partial/masters/event-master/event-master.module').then(m => m.EventMasterModule) },
       { path: 'master/party-program/details', loadChildren: () => import('./partial/masters/party-program-master/party-program-details/party-program-details.module').then(m => m.PartyProgramDetailsModule) },
@@ -51,6 +52,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
+ 
 
   
 
