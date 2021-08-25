@@ -300,7 +300,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   //   this.getBodyMemeberActivitiesDetails(viewMemberId);   
   // }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any,MemberFlag:any) {
+    getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
