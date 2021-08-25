@@ -41,6 +41,7 @@ export class PoliticalWorkComponent implements OnInit {
   zoom: any = 12;
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[]; 
+  HighlightRow: any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -213,6 +214,7 @@ export class PoliticalWorkComponent implements OnInit {
   ViewPoliticleWorkDetails(index: any) {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+    this.HighlightRow = this.viewPoliticleWorkDetailsById.Id;
 
     this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
     this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');

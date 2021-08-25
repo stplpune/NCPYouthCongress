@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -57,7 +57,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   lightboxRef1:any;
   lightboxRef2:any;
   commityDataArray: any;
-
   pageSize: number = 10;
   memPaginationNo: number = 1;
   comPaginationNo: number = 1;
@@ -65,6 +64,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   memberTotal: any;
   comityTotal: any;
   nonComityTotal: any;
+  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
 
   constructor(
     public location: Location,
@@ -210,16 +210,19 @@ export class PartyProgramDetailsComponent implements OnInit {
   }
 
   //latest calll
-  getCommitteeUserList(committeeId:any,committeeNmame:any) {
+  getCommitteeUserList(committeeId:any,committeeNmame:any, flag:any) {
     this.comityUserListTotal = 0;
     this.CommitteeUserArray = [];
-    // this.paginationNo = 1;
     this.spinner.show();
     this.committeeId=committeeId;
     this.committeeNmame=committeeNmame;
     this.callAPIService.setHttp('get', 'Web_Program_Committee_UserList_1_0?ProgramId=' + this.programListId + '&nopage=' + this.paginationNo + '&BodyId=' + committeeId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        if(flag == 'modalShow'){
+          let committeeModalOpen: any = this.CommitteesparModalOpen.nativeElement;
+          committeeModalOpen.click();
+        }
         this.spinner.hide();
         this.CommitteeUserArray = res.data1;
         this.comityUserListTotal = res.data2[0].TotalCount;
@@ -228,7 +231,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.CommitteeUserArray = [];
         this.comityUserListTotal = [];
         this.spinner.hide();
-        // this.toastrService.error("Member is not available");
+        this.toastrService.info("Committee Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -289,13 +292,12 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   onClickPagintion1(pageNo: number){
     this.paginationNo = pageNo;
-    this.getCommitteeUserList(this.committeeId,this.committeeNmame);
+    this.getCommitteeUserList(this.committeeId,this.committeeNmame,'false');
   }
 
-  getPartyProgramDetails(viewMemberId:any){
-    this.getBodyMemeberActivitiesDetails(viewMemberId);   
-    
-  }
+  // getPartyProgramDetails(viewMemberId:any){
+  //   this.getBodyMemeberActivitiesDetails(viewMemberId);   
+  // }
 
     getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
