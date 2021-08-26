@@ -14,6 +14,19 @@
         <div class="col-sm-12">
             <div class="container">
                 <div class="row" id="events">
+
+                    <div class="offset-8 col-sm-4 float-end">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <input [owlDateTime]="dt2" (dateTimeChange)="getweekRage($event.value)" [formControl]="selRange" class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt2" placeholder="Select Date">
+                                <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
+                                <button class="btn btn-light btn-sm" type="button" *ngIf="!defaultCloseBtn" [owlDateTimeTrigger]="dt2"> <i class="fas fa-calendar-alt"></i></button>
+                                <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)=" paginationNo = 1; clearValue()">
+                                    <i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-sm-12">
                         <!-- <div class="card mb-3 card-body">
                             <div class="row g-0">
@@ -46,7 +59,8 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="card mb-3 card-body" *ngFor="let events of eventListArray">
+                      
+                        <div class="card mb-3 card-body" *ngFor="let events of eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <div class="row g-0">
                                 <div class="col-md-auto">
                                     <img *ngIf="!events?.ImagePath" src="assets/images/ncp-default.png" class="img-fluid rounded" alt="...">
@@ -73,6 +87,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="mt-2 text-end" *ngIf="eventListArray?.length == 0">
+                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        </div>
+                        <div class="mt-2 text-end" *ngIf="eventListArray?.length != 0">
+                            <pagination-controls previousLabel="" nextLabel=""
+                                (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                         </div>
 
                     </div>

@@ -6,11 +6,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
-  styleUrls: ['./event-detail.component.css']
+  styleUrls: ['./event-detail.component.css'],
+  providers: [DatePipe]
 })
 export class EventDetailComponent implements OnInit {
   paginationNo:number = 1;
@@ -22,10 +25,13 @@ export class EventDetailComponent implements OnInit {
   eventDetalis:any;
   selEventId:any;
   pageSize: number = 10;
+  selRange = new FormControl();
+  defaultCloseBtn: boolean = false;
 
   constructor(private spinner:NgxSpinnerService, private callAPIService:CallAPIService, private commonService:CommonService, 
-    private datepipe:DatePipe, private toastrService:ToastrService, private router:Router, private route:ActivatedRoute
-    ){}
+    private datepipe:DatePipe, private toastrService:ToastrService, private router:Router, private route:ActivatedRoute,
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    ) { { dateTimeAdapter.setLocale('en-IN'); } }
  
 
   ngOnInit(): void {
@@ -70,6 +76,21 @@ export class EventDetailComponent implements OnInit {
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
     this.getEventList();
+  }
+
+  getweekRage(dates: any) {
+    this.defaultCloseBtn = true;
+    this.fromDate= this.datepipe.transform(dates[0], 'dd/MM/YYYY');
+    this.toDate= this.datepipe.transform(dates[1], 'dd/MM/YYYY');
+    this. getEventList();
+  }
+
+  clearValue(){
+    this.defaultCloseBtn = false;
+    this.fromDate = "";
+    this.toDate  = "";
+    this.getEventList();
+    this.selRange.setValue(null);
   }
 
 }

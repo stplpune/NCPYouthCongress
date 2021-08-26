@@ -30,6 +30,19 @@
                         </div>
                     </div>
                     <div class="col-sm-4" id="allevents">
+
+                        <div class="offset-4 col-sm-8 float-end">
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <input [owlDateTime]="dt2" (dateTimeChange)="getweekRage($event.value)" [formControl]="selRange" class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt2" placeholder="Select Date">
+                                    <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
+                                    <button class="btn btn-light btn-sm" type="button" *ngIf="!defaultCloseBtn" [owlDateTimeTrigger]="dt2"> <i class="fas fa-calendar-alt"></i></button>
+                                    <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)=" paginationNo = 1; clearValue()">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card mb-3 card-body">
                             <!--  -->
                             <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events)" [class.active]="events.EventId == selEventId">

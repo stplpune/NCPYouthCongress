@@ -114,6 +114,7 @@ export class EventMasterComponent implements OnInit {
       return;
     }
     else {
+      this.submitted = false;
     let data = this.addEvent.value;
     let fromDate:any = this.datePipe.transform(data.ProgramDate[0], 'dd/MM/yyyy');
     let toDate:any = this.datePipe.transform(data.ProgramDate[1], 'dd/MM/yyyy');
@@ -152,7 +153,6 @@ export class EventMasterComponent implements OnInit {
     let clickPhoto: any = document.getElementById('my_file')
     clickPhoto.click();
   }
-
 
   readUrl(event: any) {
     let selResult = event.target.value.split('.');
