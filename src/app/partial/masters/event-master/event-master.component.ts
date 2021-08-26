@@ -66,6 +66,7 @@ export class EventMasterComponent implements OnInit {
   eventId: any;
   isDisplay:any;
   editEventText="Publish Event";
+  isDisplayFlag: any;
 
 
   constructor(
@@ -178,8 +179,14 @@ export class EventMasterComponent implements OnInit {
     )
   }
 
-  delNotConfirmation(eventId:any){
+  delConfirmation(eventId:any,IsDisplay:any){
     this.eventId = eventId;
+    // if(IsDisplay==1){
+    //       this.isDisplayFlag = 0
+    // }else{
+    //   this.isDisplayFlag = 1
+    // }
+    IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1
   }
 
   IsDisplayEvent(flag:any) {
@@ -201,15 +208,24 @@ export class EventMasterComponent implements OnInit {
     }
     )
   }
-  
+
   editEventForm(data: any) {
     this.editEventText = "Update Event";
+    let startDate=this.changeDateFormat(data.ProgramStartDate);
+    let endDate=this.changeDateFormat(data.ProgramEndDate);
+  
     this.htmlContent = data.ProgramDescription;
     this.addEvent.patchValue({
       ProgramTitle: data.ProgramTitle,
-      ProgramDate: [new Date(data.ProgramStartDate),new Date(data.ProgramEndDate)],
+      ProgramDate: [startDate,endDate],
       ProgramDescription: data.ProgramDescription,
     })
+  }
+
+  changeDateFormat(date: string) {
+    const dateParts = date.substring(0, 10).split("/");
+    const ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
+    return ddMMYYYYDate;
   }
 
   onClickPagintion(pageNo: number) {

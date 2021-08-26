@@ -175,7 +175,9 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 1 ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" data-bs-toggle="modal" (click)="ModalOpen('EndProgram', programList)"
+                                        <input class="form-check-input" type="checkbox" [disabled]="(programList.ProgramStatus == 3 ||  programList.ProgramStatus == 1 
+                                        ||  programList.ProgramStatus == 4) ? disabledAction : ''" id="flexSwitchCheckChecked" data-bs-toggle="modal" 
+                                        (click)="ModalOpen('EndProgram', programList)"
                                             data-bs-target="#ProgramStatusModal" [checked]="programList?.ProgramStatus == 1">
                                         <!-- ProgramStatus -->
                                         <!-- <label class="form-check-label" for="flexSwitchCheckChecked">End Program</label> -->
