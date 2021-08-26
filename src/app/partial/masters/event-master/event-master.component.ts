@@ -67,6 +67,7 @@ export class EventMasterComponent implements OnInit {
   isDisplay:any;
   editEventText="Publish Event";
   isDisplayFlag: any;
+  submitted = false;
 
 
   constructor(
@@ -98,7 +99,21 @@ export class EventMasterComponent implements OnInit {
     })
   }
 
+  get f() { return this.addEvent.controls };
+
+  resetEventForm(){
+    this.submitted = false;
+    this.addEvent.reset();
+  }
+
   onSubmit() {
+    this.spinner.show();
+    this.submitted = true;
+    if (this.addEvent.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
     let data = this.addEvent.value;
     let fromDate:any = this.datePipe.transform(data.ProgramDate[0], 'dd/MM/yyyy');
     let toDate:any = this.datePipe.transform(data.ProgramDate[1], 'dd/MM/yyyy');
@@ -116,18 +131,22 @@ export class EventMasterComponent implements OnInit {
     this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.spinner.hide();
         this.toastrService.success("Event Addeed Successfully");
         this.addEvent.reset();
         this.getEventList();
       } else {
+        this.spinner.hide();
         // this.toastrService.error("Data is not available 1");
       }
     }, (error: any) => {
       if (error.status == 500) {
+        this.spinner.hide();
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
+}
 
   choosePhoto() {
     let clickPhoto: any = document.getElementById('my_file')
@@ -166,7 +185,6 @@ export class EventMasterComponent implements OnInit {
         this.total = res.data2[0].TotalCount;
       } else {
         this.eventListArray = [];
-
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
@@ -249,10 +267,6 @@ export class EventMasterComponent implements OnInit {
     this.toDate  = "";
     this.getEventList();
     this.selRange.setValue(null);
-  }
-
-  resetEventForm(){
-    this.addEvent.reset();
   }
 
 }
