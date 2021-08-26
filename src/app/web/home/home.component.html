@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="main">
-        
-    
+
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="container">
@@ -14,7 +14,7 @@
                             <img src="assets/images/ncp-founders/chhagan-bhujbal.png">
                         </div>
                     </div>
-    
+
                     <div class="row">
                         <div id="home-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                             <div class="carousel-inner">
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <div class="row">                                        
+                                    <div class="row">
                                         <div class="col-sm-6 pt-5">
                                             <h1>Together we will move the Nation</h1>
                                             <button type="button" class="btn btn-home-green">Learn More</button>
@@ -71,9 +71,7 @@
                     </div>
                     <div class="col-sm-6 p-5">
                         <h3 class="section-head">President's Message</h3>
-                        <p class="home-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        <p class="home-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             Globally eenable turnkey applications.</p>
                     </div>
                 </div>
@@ -88,7 +86,8 @@
                     <div class="col-sm-6">
                         <h6 class="sub-head">Organizing for Action</h6>
                         <h3 class="section-head">What We Do?</h3>
-                        <p class="home-para">Shri. Sharad Pawar Saheb has always considered Nationalist Youth Congress as a platform for youth to build their leadership qualities and to increase their active participation in politics. Nationalist Youth Congress has emerged as one of the strongest youth organizations in Maharashtra. The important agendas of the party are carried out by this youth cell. It is one of the most active cells of the party and plays a major role in many activities.</p>
+                        <p class="home-para">Shri. Sharad Pawar Saheb has always considered Nationalist Youth Congress as a platform for youth to build their leadership qualities and to increase their active participation in politics. Nationalist Youth Congress has emerged
+                            as one of the strongest youth organizations in Maharashtra. The important agendas of the party are carried out by this youth cell. It is one of the most active cells of the party and plays a major role in many activities.</p>
                         <p class="home-para">Mahebub Sheikh, its state president, has made efforts for the advancement of the youth in many ways. Nationalist Youth Congress has brought about a great convergence with its innovative agitations on various issues.</p>
                         <p class="home-para">Nationalist Youth Congress has always taken an initiative to serve people in social issues as well as during natural calamities.</p>
                     </div>
@@ -138,69 +137,37 @@
                         <h6 class="sub-head">Programs for Youth</h6>
                         <h3 class="section-head head-center">Events Organized by Party</h3>
                     </div>
-                    <div class="col-sm-3">
+                    <!-- <div class="col-sm-3">
                         <div class="card">
                             <span class="event-status">
                                 Upcoming
                             </span>
-                            <img src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg"
-                                class="card-img-top" alt="...">
+                            <img src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="text-end mb-2">
                                     <small class="text-muted"><i class="fas fa-calendar-alt me-2"></i>
                                         10-02-2021</small>
                                 </div>
                                 <h6 class="card-title">Indhan Dharvad Andolan</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content....</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content....</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3">
+                    </div> -->
+                    <div class="col-sm-3" *ngFor="let events of allLatestEvent">
                         <div class="card">
-                            <img src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg"
-                                class="card-img-top" alt="...">
+                            <img *ngIf="!events?.ImagePath" src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg" class="card-img-top" alt="...">
+                            <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="text-end mb-2">
                                     <small class="text-muted"><i class="fas fa-calendar-alt me-2"></i>
-                                        10-02-2021</small>
+                                        {{events?.ProgramStartDate}} ~ {{events?.ProgramEndDate}}</small>
                                 </div>
-                                <h6 class="card-title">Indhan Dharvad Andolan</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content....</p>
+                                <h6 class="card-title"> {{events?.ProgramTitle | titlecase}}</h6>
+                                <div class="card-text" [innerHTML]="events?.ProgramDescription"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="card">
-                            <img src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="text-end mb-2">
-                                    <small class="text-muted"><i class="fas fa-calendar-alt me-2"></i>
-                                        10-02-2021</small>
-                                </div>
-                                <h6 class="card-title">Indhan Dharvad Andolan</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content....</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card">
-                            <img src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="text-end mb-2">
-                                    <small class="text-muted"><i class="fas fa-calendar-alt me-2"></i>
-                                        10-02-2021</small>
-                                </div>
-                                <h6 class="card-title">Indhan Dharvad Andolan</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content....</p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -316,7 +283,7 @@
                         <h1 class="display-4 fw-light">Download the App <br>& Join Us</h1>
                         <h5 class="fw-light lh-base mt-3 mb-5">Lets Connect to most progressive and visionary organization for your better future.</h5>
                         <a href="https://play.google.com/store/apps/details?id=com.stpl.ncp_youth" target="_blank">
-<img src="assets/images/GooglePlayStore.png" class="store-icon">
+                            <img src="assets/images/GooglePlayStore.png" class="store-icon">
                         </a>
                         <a href="https://apps.apple.com/us/app/ncp-youth/id1581373014" target="_blank">
                             <img src="assets/images/AppleStore.png" class="store-icon">
@@ -331,5 +298,5 @@
     </div>
 
 
-    
+
 </div>
