@@ -17,68 +17,41 @@
                     <div class="col-sm-8">
                         <div class="card card-body">
                             <div class="text-end event-date">
-                                <i class="fas fa-calendar-alt me-2"></i> 12-02-2021 - 15-02-2021
+                                <i class="fas fa-calendar-alt me-2"></i> {{eventDetalis?.ProgramStartDate}} ~ {{eventDetalis?.ProgramEndDate}}
                             </div>
                             <hr class="my-2" />
-                            <h5 class="event-head">Rich text editor component for Angular 11 demo site. Rich text editor component for Angular 11 demo site</h5>
+                            <h5 class="event-head">{{eventDetalis?.ProgramTitle | titlecase}}</h5>
                             <div class="event-description">
-                                <img src="assets/images/event-header.jpg" class="event-image">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <table>
-                                <thead>
-                                  <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>Larry the Bird</td>
-                                    <td>Larry the Bird</td>
-                                    <td>@twitter</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                <li>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                <li>quis nostrud exercitation ullamco</li>
-                                <li>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</li>
-                                <li>quis nostrud exercitation ullamco</li>
-                            </ul>
+                                <img *ngIf="!eventDetalis?.ImagePath" src="assets/images/event-header.jpg" class="img-fluid rounded" alt="...">
+                                <img *ngIf="eventDetalis?.ImagePath" src="{{eventDetalis?.ImagePath}}" class="img-fluid rounded" alt="...">
+                                <div [innerHtml]="eventDetalis?.ProgramDescription">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4" id="allevents">
                         <div class="card mb-3 card-body">
-                            <div class="d-flex media">
+                            <!--  -->
+                            <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events)" [class.active]="events.EventId == selEventId">
+                                <div class="flex-shrink-0 me-3">
+                                    <img *ngIf="!events?.ImagePath" src="assets/images/ncp-default.png" class="media-img" alt="...">
+                                    <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="media-img" alt="...">
+                                </div>
+                                <div class="flex-grow-1" class="media-body">
+                                    <h6>
+                                        <a>{{eventDetalis?.ProgramTitle | titlecase}}</a>
+                                    </h6>
+                                    <p [innerHtml]="events?.ProgramDescription" class="text-ellipsis-250px-new"></p>
+                                    <p class="small text-muted">
+                                        <i class="fas fa-calendar-alt me-2"></i> {{events?.ProgramStartDate}} ~ {{events?.ProgramEndDate}}
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="mt-2 text-end" *ngIf="eventListArray?.length != 0">
+                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                            </div>
+                            <!-- <div class="d-flex media">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="assets/images/ncp-default.png" alt="..." class="media-img">
                                 </div>
@@ -90,41 +63,13 @@
                                     <p class="small text-muted">
                                         <i class="fas fa-calendar-alt me-2"></i> 12-02-2021 - 15-02-2021
                                     </p>
-                                    
+
                                 </div>
-                            </div>
-                            <div class="d-flex media">
-                                <div class="flex-shrink-0 me-3">
-                                    <img src="assets/images/ncp-default.png" alt="..." class="media-img">
-                                </div>
-                                <div class="flex-grow-1" class="media-body">
-                                    <h6>
-                                        <a routerLink="./detail">Rich text editor component for Angular 11
-                                            demo site. Rich text editor component for Angular 11 demo site</a>
-                                    </h6>
-                                    <p class="small text-muted">
-                                        <i class="fas fa-calendar-alt me-2"></i> 12-02-2021 - 15-02-2021
-                                    </p>
-                                    
-                                </div>
-                            </div>
-                            <div class="d-flex media">
-                                <div class="flex-shrink-0 me-3">
-                                    <img src="assets/images/ncp-default.png" alt="..." class="media-img">
-                                </div>
-                                <div class="flex-grow-1" class="media-body">
-                                    <h6>
-                                        <a routerLink="./detail">Rich text editor component for Angular 11
-                                            demo site. Rich text editor component for Angular 11 demo site</a>
-                                    </h6>
-                                    <p class="small text-muted">
-                                        <i class="fas fa-calendar-alt me-2"></i> 12-02-2021 - 15-02-2021
-                                    </p>
-                                    
-                                </div>
-                            </div>
+                            </div> -->
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

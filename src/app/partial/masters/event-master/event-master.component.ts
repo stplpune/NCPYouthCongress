@@ -95,7 +95,6 @@ export class EventMasterComponent implements OnInit {
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
       IschangeImage:[1],
-      EventImages:[this.selectedFile, Validators.required],
     })
   }
 
@@ -110,14 +109,15 @@ export class EventMasterComponent implements OnInit {
     fromData.append('ProgramStartDate', fromDate);
     fromData.append('ProgramEndDate', toDate);
     fromData.append('Id', data.Id);
-    fromData.append('CreatedBy', data.CreatedBy);
-    fromData.append('IschangeImage', data.IschangeImage);
+    fromData.append('CreatedBy',  this.commonService.loggedInUserId());
+    fromData.append('IschangeImage', '1');
     fromData.append('EventImages', this.selectedFile);
 
     this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success("Event Addeed Successfully");
+        this.addEvent.reset();
         this.getEventList();
       } else {
         // this.toastrService.error("Data is not available 1");
@@ -181,12 +181,7 @@ export class EventMasterComponent implements OnInit {
 
   delConfirmation(eventId:any,IsDisplay:any){
     this.eventId = eventId;
-    // if(IsDisplay==1){
-    //       this.isDisplayFlag = 0
-    // }else{
-    //   this.isDisplayFlag = 1
-    // }
-    IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1
+    IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1;
   }
 
   IsDisplayEvent(flag:any) {
@@ -213,9 +208,11 @@ export class EventMasterComponent implements OnInit {
     this.editEventText = "Update Event";
     let startDate=this.changeDateFormat(data.ProgramStartDate);
     let endDate=this.changeDateFormat(data.ProgramEndDate);
-  
     this.htmlContent = data.ProgramDescription;
+
+    this.ImgUrl = data.ImagePath;
     this.addEvent.patchValue({
+      Id:data.EventId,
       ProgramTitle: data.ProgramTitle,
       ProgramDate: [startDate,endDate],
       ProgramDescription: data.ProgramDescription,
@@ -223,8 +220,8 @@ export class EventMasterComponent implements OnInit {
   }
 
   changeDateFormat(date: string) {
-    const dateParts = date.substring(0, 10).split("/");
-    const ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
+    let dateParts = date.substring(0, 10).split("/");
+    let ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
     return ddMMYYYYDate;
   }
 
