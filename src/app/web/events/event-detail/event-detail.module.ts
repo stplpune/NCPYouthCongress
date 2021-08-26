@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { EventDetailRoutingModule } from './event-detail-routing.module';
 import { EventDetailComponent } from './event-detail.component';
+import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { EventDetailComponent } from './event-detail.component';
   ],
   imports: [
     CommonModule,
-    EventDetailRoutingModule
+    EventDetailRoutingModule,
+    OwlNativeDateTimeModule,
+    OwlDateTimeModule,
+    NgxPaginationModule
   ]
 })
 export class EventDetailModule { }

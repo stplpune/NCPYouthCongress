@@ -36,9 +36,8 @@ export class HomeComponent implements OnInit {
   }
 
   redirectToEvent(eventId:any){
-    // localStorage.setItem('eventId',eventId);
-    // this.router.navigate(['../event/details']);
-
+    localStorage.setItem('eventId',eventId);
+    this.router.navigate(['../events/detail']);
   }
 
 }

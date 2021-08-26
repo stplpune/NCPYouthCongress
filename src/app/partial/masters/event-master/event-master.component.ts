@@ -15,7 +15,7 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
   providers: [DatePipe]
 })
 export class EventMasterComponent implements OnInit {
-  htmlContent = '';
+  htmlContent:any;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -62,6 +62,11 @@ export class EventMasterComponent implements OnInit {
   dateRange: any;
   defaultCloseBtn: boolean = false;
   selRange = new FormControl();
+  editObjectData: any;
+  eventId: any;
+  isDisplay:any;
+  editEventText="Publish Event";
+  isDisplayFlag: any;
 
 
   constructor(
@@ -75,8 +80,7 @@ export class EventMasterComponent implements OnInit {
     private toastrService: ToastrService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-    ) { { dateTimeAdapter.setLocale('en-IN'); } 
-    this.dateRange = [this.fromDate, this.toDate];}
+    ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
     this.defaultEventForm();
@@ -91,7 +95,6 @@ export class EventMasterComponent implements OnInit {
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
       IschangeImage:[1],
-      EventImages:[this.selectedFile, Validators.required],
     })
   }
 
@@ -106,14 +109,16 @@ export class EventMasterComponent implements OnInit {
     fromData.append('ProgramStartDate', fromDate);
     fromData.append('ProgramEndDate', toDate);
     fromData.append('Id', data.Id);
-    fromData.append('CreatedBy', data.CreatedBy);
-    fromData.append('IschangeImage', data.IschangeImage);
+    fromData.append('CreatedBy',  this.commonService.loggedInUserId());
+    fromData.append('IschangeImage', '1');
     fromData.append('EventImages', this.selectedFile);
 
     this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-
+        this.toastrService.success("Event Addeed Successfully");
+        this.addEvent.reset();
+        this.getEventList();
       } else {
         // this.toastrService.error("Data is not available 1");
       }
@@ -174,16 +179,21 @@ export class EventMasterComponent implements OnInit {
     )
   }
 
-  IsDisplayEvent() {
+  delConfirmation(eventId:any,IsDisplay:any){
+    this.eventId = eventId;
+    IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1;
+  }
+
+  IsDisplayEvent(flag:any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + 0 + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + 0, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + this.eventId + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + flag, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.displayEventArray = res.data1;
+        this.toastrService.success(res.data1[0].Msg)
+        this.getEventList();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
       }
     },
      (error: any) => {
@@ -194,6 +204,26 @@ export class EventMasterComponent implements OnInit {
     )
   }
 
+  editEventForm(data: any) {
+    this.editEventText = "Update Event";
+    let startDate=this.changeDateFormat(data.ProgramStartDate);
+    let endDate=this.changeDateFormat(data.ProgramEndDate);
+    this.htmlContent = data.ProgramDescription;
+
+    this.ImgUrl = data.ImagePath;
+    this.addEvent.patchValue({
+      Id:data.EventId,
+      ProgramTitle: data.ProgramTitle,
+      ProgramDate: [startDate,endDate],
+      ProgramDescription: data.ProgramDescription,
+    })
+  }
+
+  changeDateFormat(date: string) {
+    let dateParts = date.substring(0, 10).split("/");
+    let ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
+    return ddMMYYYYDate;
+  }
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
@@ -219,6 +249,10 @@ export class EventMasterComponent implements OnInit {
     this.toDate  = "";
     this.getEventList();
     this.selRange.setValue(null);
+  }
+
+  resetEventForm(){
+    this.addEvent.reset();
   }
 
 }
