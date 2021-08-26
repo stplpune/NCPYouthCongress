@@ -534,6 +534,11 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
+
+        // this.periodicChart.map((ele: any) => {
+        //     ele.StartDate = new Date(ele.StartDate)
+        // })
+        // console.log(this.periodicChart)
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");
@@ -546,14 +551,10 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   WorkDoneRecentActivityGraph() {
-    this.periodicChart.map((ele: any) => {
-      ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
-    })
 
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     // Add data
-    chart.data = this.periodicChart;
-
+    //  chart.data = this.periodicChart;
      chart.colors.list = [
       am4core.color("#80DEEA"),
      ];
@@ -567,7 +568,7 @@ export class OrganizationDetailsComponent implements OnInit {
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
     lineSeries.dataFields.valueY = "Totalwork";
-    lineSeries.dataFields.dateX = "StartDate";
+    lineSeries.dataFields.dateX = "MonthName";
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
     // lineSeries.strokeDasharray = "5,4";
