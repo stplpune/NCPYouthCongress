@@ -243,17 +243,6 @@ export class EventMasterComponent implements OnInit {
     return ddMMYYYYDate;
   }
 
-  onClickPagintion(pageNo: number) {
-    this.paginationNo = pageNo;
-    this.getEventList();
-  }
-
-  removePhoto() {
-    this.selectedFile = "";
-    this.myInput.nativeElement.value = '';
-    this.ImgUrl = "";
-  }
-
   getweekRage(dates: any) {
     this.defaultCloseBtn = true;
     this.fromDate= this.datepipe.transform(dates[0], 'dd/MM/YYYY');
@@ -267,6 +256,17 @@ export class EventMasterComponent implements OnInit {
     this.toDate  = "";
     this.getEventList();
     this.selRange.setValue(null);
+  }
+
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.getEventList();
+  }
+
+  removePhoto() {
+    this.selectedFile = "";
+    this.myInput.nativeElement.value = '';
+    this.ImgUrl = "";
   }
 
 }
