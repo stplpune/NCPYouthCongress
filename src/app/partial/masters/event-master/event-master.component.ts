@@ -15,7 +15,7 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
   providers: [DatePipe]
 })
 export class EventMasterComponent implements OnInit {
-  htmlContent = '';
+  htmlContent:any;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -62,6 +62,10 @@ export class EventMasterComponent implements OnInit {
   dateRange: any;
   defaultCloseBtn: boolean = false;
   selRange = new FormControl();
+  editObjectData: any;
+  eventId: any;
+  isDisplay:any;
+  editEventText="Publish Event";
 
 
   constructor(
@@ -75,8 +79,7 @@ export class EventMasterComponent implements OnInit {
     private toastrService: ToastrService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
-    ) { { dateTimeAdapter.setLocale('en-IN'); } 
-    this.dateRange = [this.fromDate, this.toDate];}
+    ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
     this.defaultEventForm();
@@ -113,7 +116,8 @@ export class EventMasterComponent implements OnInit {
     this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-
+        this.toastrService.success("Event Addeed Successfully");
+        this.getEventList();
       } else {
         // this.toastrService.error("Data is not available 1");
       }
@@ -174,16 +178,20 @@ export class EventMasterComponent implements OnInit {
     )
   }
 
-  IsDisplayEvent() {
+  delNotConfirmation(eventId:any){
+    this.eventId = eventId;
+  }
+
+  IsDisplayEvent(flag:any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + 0 + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + 0, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + this.eventId + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + flag, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.displayEventArray = res.data1;
+        this.toastrService.success(res.data1[0].Msg)
+        this.getEventList();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
       }
     },
      (error: any) => {
@@ -193,7 +201,16 @@ export class EventMasterComponent implements OnInit {
     }
     )
   }
-
+  
+  editEventForm(data: any) {
+    this.editEventText = "Update Event";
+    this.htmlContent = data.ProgramDescription;
+    this.addEvent.patchValue({
+      ProgramTitle: data.ProgramTitle,
+      ProgramDate: [new Date(data.ProgramStartDate),new Date(data.ProgramEndDate)],
+      ProgramDescription: data.ProgramDescription,
+    })
+  }
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
@@ -219,6 +236,10 @@ export class EventMasterComponent implements OnInit {
     this.toDate  = "";
     this.getEventList();
     this.selRange.setValue(null);
+  }
+
+  resetEventForm(){
+    this.addEvent.reset();
   }
 
 }
