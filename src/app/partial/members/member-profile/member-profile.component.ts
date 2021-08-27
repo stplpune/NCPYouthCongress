@@ -217,59 +217,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   }
 
-  // WorkDoneByYuvak() {
-  //   this.periodicChart.map((ele: any) => {
-  //     ele.StartDate = new Date(this.commonService.dateFormatChange(ele.StartDate))
-  //   })
-  //   let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
-  //   chart.colors.list = [
-  //     am4core.color("#80DEEA"),
-  //   ];
-
-  //   // Add data
-  //   chart.data = this.periodicChart;
-
-  //   // Create axes
-  //   let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
-  //   dateAxis.renderer.minGridDistance = 50;
-  //   dateAxis.title.text = "Monthly Work";
-    
-
-  //   // Create value axis
-  //   let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
-  //   valueAxis.title.text = "Political Work Monhtly Count";
-
-  //   // Create series
-  //   let lineSeries = chart.series.push(new am4charts.LineSeries());
-  //   lineSeries.dataFields.valueY = "Totalwork";
-  //   lineSeries.dataFields.dateX = "StartDate";
-  //   lineSeries.name = "Sales";
-  //   lineSeries.strokeWidth = 3;
-  //   // lineSeries.strokeDasharray = "5,4";
-  //   lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
-
-  //   // Add simple bullet
-  //   let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
-  //   bullet.disabled = true;
-  //   bullet.propertyFields.disabled = "disabled";
-
-  //   let secondCircle = bullet.createChild(am4core.Circle);
-  //   secondCircle.radius = 6;
-  //   secondCircle.fill = chart.colors.getIndex(8);
-
-  //   bullet.events.on("inited", function (event) {
-  //     animateBullet(event.target.circle);
-  //   })
-
-
-  //   function animateBullet(bullet: any) {
-  //     let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
-  //     animation.events.on("animationended", function (event: any) {
-  //       animateBullet(event.target.object);
-  //     })
-  //   }
-  // }
-
   WorkDoneByYuvak(){
     
     am4core.useTheme(am4themes_animated);
