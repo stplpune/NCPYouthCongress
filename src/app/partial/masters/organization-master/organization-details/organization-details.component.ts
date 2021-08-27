@@ -317,11 +317,10 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
   onClickPagintion(pageNo: number) {
     // this.clearForm();
     this.paginationNo = pageNo;
-    this.getBodyMemeberActivities(this.bodyId)
+    this.getBodyMemeberActivities(this.bodyId);
   }
 
   getBodyMemeberGraph(id: any) {
@@ -409,7 +408,6 @@ export class OrganizationDetailsComponent implements OnInit {
         bullet.dy = 30;
         bullet.label.text = '{valueY}'
         bullet.label.fill = am4core.color('#ffffff')
-
         return series;
       }
 
@@ -505,7 +503,6 @@ export class OrganizationDetailsComponent implements OnInit {
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
           this.bodyMember.reset({ BodyName: this.getCommitteeName });
 
-
           this.addMemberFlag = null
         } else {
           this.toastrService.error("Member is not available");
@@ -554,7 +551,9 @@ export class OrganizationDetailsComponent implements OnInit {
 
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
     // Add data
-    //  chart.data = this.periodicChart;
+    
+    chart.data = this.periodicChart;
+
      chart.colors.list = [
       am4core.color("#80DEEA"),
      ];
@@ -583,11 +582,9 @@ export class OrganizationDetailsComponent implements OnInit {
     secondCircle.radius = 6;
     secondCircle.fill = chart.colors.getIndex(8);
 
-
     bullet.events.on("inited", function (event) {
       animateBullet(event.target.circle);
     })
-
 
     function animateBullet(bullet: any) {
       let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
