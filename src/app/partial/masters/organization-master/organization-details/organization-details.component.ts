@@ -67,7 +67,6 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
-  chartData: any[] = []
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
