@@ -211,6 +211,7 @@ export class PoliticalWorkComponent implements OnInit {
       }
     })
   }
+
   ViewPoliticleWorkDetails(index: any) {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
