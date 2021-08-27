@@ -532,7 +532,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
-        
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");
