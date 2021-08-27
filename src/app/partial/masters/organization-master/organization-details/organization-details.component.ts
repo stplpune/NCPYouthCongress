@@ -67,6 +67,7 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
+  chartData: any[] = []
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -404,7 +405,7 @@ export class OrganizationDetailsComponent implements OnInit {
         series.events.on("shown", arrangeColumns);
 
         let bullet = series.bullets.push(new am4charts.LabelBullet())
-        bullet.interactionsEnabled = false
+        bullet.interactionsEnabled = false;
         bullet.dy = 30;
         bullet.label.text = '{valueY}'
         bullet.label.fill = am4core.color('#ffffff')
@@ -468,7 +469,6 @@ export class OrganizationDetailsComponent implements OnInit {
       this.dataAddEditMember = data
       let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
       openMemberModal.click();
-
     }
   }
 
@@ -514,13 +514,14 @@ export class OrganizationDetailsComponent implements OnInit {
       })
     }
   }
+
   getweekRage(event: any) {
     this.defaultCloseBtn = true;
     this.filter.patchValue({
       FromDate: this.datepipe.transform(event.value[0], 'dd/MM/yyyy'),
       ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
     })
-    this.getBodyMemeberActivities(this.bodyId)
+    this.getBodyMemeberActivities(this.bodyId);
   }
 
   activitiesPerodicGraph(id: any) {
@@ -531,11 +532,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.periodicChart = res.data1;
-
-        // this.periodicChart.map((ele: any) => {
-        //     ele.StartDate = new Date(ele.StartDate)
-        // })
-        // console.log(this.periodicChart)
+        
         this.WorkDoneRecentActivityGraph();
       } else {
         this.toastrService.error("Body member is not available");
@@ -549,49 +546,32 @@ export class OrganizationDetailsComponent implements OnInit {
 
   WorkDoneRecentActivityGraph() {
 
+    am4core.useTheme(am4themes_animated);
+
     let chart = am4core.create("recentActivityGraph", am4charts.XYChart);
+
     // Add data
-    
     chart.data = this.periodicChart;
 
-     chart.colors.list = [
+    chart.colors.list = [
       am4core.color("#80DEEA"),
-     ];
+    ];
+
     // Create axes
-    let dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.minGridDistance = 20;
+    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 40;
 
     // Create value axis
-    let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
     // Create series
     let lineSeries = chart.series.push(new am4charts.LineSeries());
-    lineSeries.dataFields.valueY = "Totalwork";
+    lineSeries.dataFields.valueY = "TotalWork";
     lineSeries.dataFields.dateX = "MonthName";
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
-    // lineSeries.strokeDasharray = "5,4";
     lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
 
-    // Add simple bullet
-    let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
-    bullet.disabled = true;
-    bullet.propertyFields.disabled = "disabled";
-
-    let secondCircle = bullet.createChild(am4core.Circle);
-    secondCircle.radius = 6;
-    secondCircle.fill = chart.colors.getIndex(8);
-
-    bullet.events.on("inited", function (event) {
-      animateBullet(event.target.circle);
-    })
-
-    function animateBullet(bullet: any) {
-      let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
-      animation.events.on("animationended", function (event: any) {
-        animateBullet(event.target.object);
-      })
-    }
   }
 
   redToMemberProfile(memberId: any, FullName: any) {
