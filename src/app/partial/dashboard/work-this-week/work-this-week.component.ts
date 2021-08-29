@@ -62,9 +62,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dateRange = [this.selweekRange.fromDate, this.selweekRange.toDate];
   }
 
-
-  
-
   ngOnInit(): void {
     this.getWorkcategoryFilterDetails();
     this. defaultFilterForm();

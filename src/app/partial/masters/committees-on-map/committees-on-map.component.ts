@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './committees-on-map.component.html',
   styleUrls: ['./committees-on-map.component.css', '../../partial.component.css']
 })
+
 export class CommitteesOnMapComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
+  } 
 }
