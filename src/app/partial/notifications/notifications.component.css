@@ -27,13 +27,19 @@
 }
 
 .media .media-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
     margin-bottom: 5px;
+    color: var(--main-color);
 }
 
 .media .media-body {
     color: #777;
     margin-bottom: 10px;
+    display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   overflow: hidden;
 }
 
 .media .media-scope {
