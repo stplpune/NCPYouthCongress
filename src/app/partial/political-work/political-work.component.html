@@ -180,7 +180,7 @@
                                 {{viewPoliticleWorkDetailsById?.Description}}
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-1">
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.ActivityLocation">
                                 <label class="form-label">URL Link</label>
                                 <div id="txtMessageFavour" class="form-data">
@@ -199,7 +199,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-1">
                             <div class="col-sm-3">
                                 <label class="form-label">Likes</label>
                                 <p class="form-data text-primary">{{viewPoliticleWorkDetailsById?.TotalLikes}}</p>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="col-sm-6 form-container">
 
-                        <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
+                        <div class="mb-0" *ngIf="lat!='' && lng!=''; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
@@ -233,7 +233,7 @@
                             </div>
                         </ng-template>
                     </div>
-                    <div class="mb-3 col-sm-12 form-container">
+                    <div class="mb-0 col-sm-12 form-container">
                         <label class="form-label">Photos</label>
                         <div class="row">
                             <!-- <div class="col-sm-2 mb-3">
