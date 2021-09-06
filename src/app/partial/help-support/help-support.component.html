@@ -4,7 +4,23 @@
             <span class="page-name">Help - Support</span>
         </div>
         <div class="col-sm-8 text-end">
-            <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
+            <div class="row g-1 d-flex flex-row-reverse">
+                <div class="col-sm-auto">
+                    <button (click)="ngOnInit()" class="btn btn-sm btn-main"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="From To Date">
+                        <button class="btn btn-light border btn-sm" type="button">
+                            <i class="fas fa-calendar-alt"></i></button>
+                        <button class="btn btn-light border btn-sm" type="button">
+                            <i class="fas fa-times"></i></button>
+                    </div>
+                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>                    
+                </div>
+                
+            </div>
+            
         </div>
     </div>
 
