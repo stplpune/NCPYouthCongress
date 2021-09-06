@@ -135,6 +135,7 @@ tr.active {
 .chartbox .card .card-header .form-select {
     font-size: 0.85rem;
     box-shadow: none;
+    border: 1px solid #ced4da;
 }
 
 .owl-dt-inline-container,
