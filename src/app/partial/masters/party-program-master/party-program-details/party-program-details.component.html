@@ -43,7 +43,10 @@
                         <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
                             <!-- <button (click)="_lightbox.close(i)"> closed</button> -->
                             <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
-                        </div>
+                        </div>                        
+                    </div>
+                    <div class="float-end">
+                        <a href="#" class="card-link small">Show More</a>
                     </div>
                 </div>
             </div>
