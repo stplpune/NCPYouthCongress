@@ -10,7 +10,12 @@ body {
     --clr-green: #7289da;
     --clr-orange: #E77817;
 }
-
+button[disabled] {
+    color: #888 !important;
+}
+button.btn{
+    box-shadow:none !important;
+}
 .main-content {
     margin: 4rem 0 0;
     padding: 0;
