@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignBothComponent } from './assign-both.component';
+import { AssignBoothComponent } from './assign-booth.component';
 
-describe('AssignBothComponent', () => {
-  let component: AssignBothComponent;
-  let fixture: ComponentFixture<AssignBothComponent>;
+describe('AssignBoothComponent', () => {
+  let component: AssignBoothComponent;
+  let fixture: ComponentFixture<AssignBoothComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssignBothComponent ]
+      declarations: [ AssignBoothComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssignBothComponent);
+    fixture = TestBed.createComponent(AssignBoothComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
