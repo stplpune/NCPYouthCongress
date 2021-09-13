@@ -11,8 +11,6 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
-import { Lightbox } from '@ngx-gallery/lightbox';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../dialogs/activity-details/activity-details.component';
 @Component({
@@ -48,8 +46,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   checkUserBlock!: string;
   dateTime = new FormControl();
   FullName: any;
-  comUserdetImg:any;
-  programGalleryImg!: GalleryItem[]; 
   selUserpostbodyId:any;
 
   constructor(
@@ -57,8 +53,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, public location: Location, private route: ActivatedRoute, public dateTimeAdapter: DateTimeAdapter<any>,
-    public gallery: Gallery,
-    private _lightbox: Lightbox,
   ) { { dateTimeAdapter.setLocale('en-IN'); }
 
   let getLocalStorageData: any = localStorage.getItem('memberId');
@@ -277,13 +271,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
-        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
-        this.gallery.ref().load(this.comUserdetImg);
-
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        this.lat = Number(latLong[0]);
-        this.lng = Number(latLong[1]);
         this.openDialogBodyMemActDetails();
       } else {
         this.resultBodyMemActDetails = [];
