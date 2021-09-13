@@ -49,9 +49,11 @@ const routes: Routes = [
       { path: 'user/my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule) },
       { path: 'user/change-password', loadChildren: () => import('./partial/user-profile/change-password/change-password.module').then(m => m.ChangePasswordModule) },
       { path: 'activity-analysis', loadChildren: () => import('./partial/activity-analysis/activity-analysis.module').then(m => m.ActivityAnalysisModule) },
+      { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule) , data: { title: 'Create Election' } },
     ]
   },
   { path: '500', component: ServerErrorComponent },
+ 
  
 
   
