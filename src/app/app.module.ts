@@ -23,8 +23,8 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { AgmCoreModule } from '@agm/core';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { NgxSelectModule } from 'ngx-select-ex';
-
-
+import { ActivityDetailsComponent } from './partial/share/dialogs/activity-details/activity-details.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -49,6 +49,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     FormsModule,
     NgxPaginationModule,
     NgxSelectModule,
+    MatDialogModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
@@ -62,7 +63,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
       libraries: ['places']
     }),
   ],
-  entryComponents:[],
+  entryComponents:[ActivityDetailsComponent],
   providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
