@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-web',
   templateUrl: './web.component.html',
@@ -9,7 +10,7 @@ export class WebComponent implements OnInit {
 
   login: boolean = false;
   
-  constructor(private router: Router) {
+  constructor(private zone: NgZone, private router: Router, private spinner:NgxSpinnerService) {
     // on route change to '/login', set the variable showHead to false
     if (this.router.url == '/login') {
       this.login = true;
@@ -17,6 +18,22 @@ export class WebComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationStart) {
+        this.spinner.show()
+        }
+      if (event instanceof NavigationEnd) {
+        this.spinner.hide()
+        window.scroll(0,0);
+        if (event.url === '/login' || event.url =='/register' || event.url =='/forgotPassword') {
+          this.login= true;
+         
+        } else {
+          this.login= false;
+         
+        }
+      }
+    });
   }
 
 }
