@@ -40,7 +40,8 @@ import { GalleryModule } from '@ngx-gallery/core';
     PartialComponent,
     WebHeaderComponent,
     WebFooterComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    ActivityDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +68,6 @@ import { GalleryModule } from '@ngx-gallery/core';
       libraries: ['geometry','places']
     }),
   ],
-  entryComponents:[ActivityDetailsComponent],
   providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
