@@ -27,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from './partial/dialogs/activity-details/activity-details.component';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
+import { DeleteComponent } from './partial/dialogs/delete/delete.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { GalleryModule } from '@ngx-gallery/core';
     WebHeaderComponent,
     WebFooterComponent,
     ServerErrorComponent,
-    ActivityDetailsComponent
+    ActivityDetailsComponent,
+    DeleteComponent
   ],
   imports: [
     BrowserModule,
