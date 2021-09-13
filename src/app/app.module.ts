@@ -20,11 +20,13 @@ import { AuthService } from './auth/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule} from '@agm/core';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { NgxSelectModule } from 'ngx-select-ex';
-
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ActivityDetailsComponent } from './partial/dialogs/activity-details/activity-details.component';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     PartialComponent,
     WebHeaderComponent,
     WebFooterComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    ActivityDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
     FormsModule,
     NgxPaginationModule,
     NgxSelectModule,
+    MatDialogModule,
+    LightboxModule,
+    GalleryModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
@@ -59,10 +65,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',
-      libraries: ['places']
+      libraries: ['geometry','places']
     }),
   ],
-  entryComponents:[],
   providers: [DatePipe,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
