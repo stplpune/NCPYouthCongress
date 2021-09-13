@@ -523,10 +523,10 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     background-color: rgb(220, 53, 69, 12%) !important;
 }
 
-.modal svg {
+.modal-body svg {
     width: 100px !important;
-    display: block;
-    margin: 0px auto;
+    display: block !important;
+    margin: 0px auto !important;
 }
 
 mapsvg-layers-wrap+svg {
@@ -826,5 +826,10 @@ html, body { height: 100%; }
     padding:0 !important;
 }
 .modal-dialog{
-    margin: 0 !important;
+    margin-block: 0 !important;
+}
+.list-column{
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
 }

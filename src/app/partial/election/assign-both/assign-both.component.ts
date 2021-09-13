@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-assign-both',
   templateUrl: './assign-both.component.html',
-  styleUrls: ['./assign-both.component.css']
+  styleUrls: ['./assign-both.component.css', '../../partial.component.css']
 })
 export class AssignBothComponent implements OnInit {
 
