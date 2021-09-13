@@ -51,6 +51,7 @@ const routes: Routes = [
       { path: 'activity-analysis', loadChildren: () => import('./partial/activity-analysis/activity-analysis.module').then(m => m.ActivityAnalysisModule) },
       { path: 'election/create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule) , data: { title: 'Create Election' } },
       { path: 'election/create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule) },
+      { path: 'election/assign-both', loadChildren: () => import('./partial/election/assign-both/assign-both.module').then(m => m.AssignBothModule) },
     ]
   },
   { path: '500', component: ServerErrorComponent },
