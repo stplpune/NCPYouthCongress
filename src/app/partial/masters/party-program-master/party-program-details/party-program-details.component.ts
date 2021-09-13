@@ -306,14 +306,14 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         this.HighlightRow = this.resultBodyMemActDetails.Id;
-        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg, 'array');
-        this.lightboxRef2 = this.gallery.ref('anotherLightbox')
-        this.lightboxRef2.load(this.comUserdetImg);
+        // this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
+        // this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg, 'array');
+        // this.lightboxRef2 = this.gallery.ref('anotherLightbox')
+        // this.lightboxRef2.load(this.comUserdetImg);
 
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        this.lat = Number(latLong[0]);
-        this.lng = Number(latLong[1]);
+        // let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        // this.lat = Number(latLong[0]);
+        // this.lng = Number(latLong[1]);
         this.openDialogBodyMemActDetails();
       } else {
         this.spinner.hide();
@@ -338,7 +338,7 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   openDialogBodyMemActDetails() {
     const dialogRef = this.dialog.open(ActivityDetailsComponent, {
-      data:this.membersDataArray
+      data:this.resultBodyMemActDetails
     });
   }
 
