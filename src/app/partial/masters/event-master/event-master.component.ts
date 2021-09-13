@@ -8,6 +8,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../../dialogs/delete/delete.component';
 @Component({
   selector: 'app-event-master',
   templateUrl: './event-master.component.html',
@@ -16,6 +18,8 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
 })
 export class EventMasterComponent implements OnInit {
   htmlContent:any;
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -81,6 +85,7 @@ export class EventMasterComponent implements OnInit {
     private toastrService: ToastrService,
     public dateTimeAdapter: DateTimeAdapter<any>,
     public datepipe: DatePipe,
+    public dialog: MatDialog,
     ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
@@ -114,7 +119,14 @@ export class EventMasterComponent implements OnInit {
       return;
     }
     else {
-      this.submitted = false;
+      let ImageChangeFlag:any;
+      if(this.selectedFile){
+        ImageChangeFlag = 1 
+      }else{
+        ImageChangeFlag = 0
+      }
+
+    this.submitted = false;
     let data = this.addEvent.value;
     let fromDate:any = this.datePipe.transform(data.ProgramDate[0], 'dd/MM/yyyy');
     let toDate:any = this.datePipe.transform(data.ProgramDate[1], 'dd/MM/yyyy');
@@ -126,7 +138,8 @@ export class EventMasterComponent implements OnInit {
     fromData.append('ProgramEndDate', toDate);
     fromData.append('Id', data.Id);
     fromData.append('CreatedBy',  this.commonService.loggedInUserId());
-    fromData.append('IschangeImage', '1');
+    fromData.append('IschangeImage', ImageChangeFlag);
+ 
     fromData.append('EventImages', this.selectedFile);
 
     this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
@@ -136,6 +149,8 @@ export class EventMasterComponent implements OnInit {
         this.toastrService.success("Event Addeed Successfully");
         this.addEvent.reset();
         this.getEventList();
+        this.removePhoto();
+        
       } else {
         this.spinner.hide();
         // this.toastrService.error("Data is not available 1");
@@ -149,6 +164,11 @@ export class EventMasterComponent implements OnInit {
   }
 }
 
+
+
+resetFile() {
+  this.fileInput.nativeElement.value = '';
+}
   choosePhoto() {
     let clickPhoto: any = document.getElementById('my_file')
     clickPhoto.click();
@@ -197,9 +217,22 @@ export class EventMasterComponent implements OnInit {
     )
   }
 
+
   delConfirmation(eventId:any,IsDisplay:any){
     this.eventId = eventId;
     IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1;
+    this.openDialog() 
+  }
+
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.IsDisplayEvent(2)
+      }
+    });
   }
 
   IsDisplayEvent(flag:any) {
@@ -244,6 +277,8 @@ export class EventMasterComponent implements OnInit {
   }
 
   getweekRage(dates: any) {
+    this.addEvent.reset();
+    this.removePhoto();
     this.defaultCloseBtn = true;
     this.fromDate= this.datepipe.transform(dates[0], 'dd/MM/YYYY');
     this.toDate= this.datepipe.transform(dates[1], 'dd/MM/YYYY');
@@ -265,8 +300,10 @@ export class EventMasterComponent implements OnInit {
 
   removePhoto() {
     this.selectedFile = "";
-    this.myInput.nativeElement.value = '';
+    this.fileInput.nativeElement.value = '';
     this.ImgUrl = "";
   }
 
+ 
+  
 }

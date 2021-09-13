@@ -1,6 +1,6 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 body {
-    font-family: 'Inter', 'Noto Sans', sans-serif;
+    font-family: 'Inter', 'Noto Sans', sans-serif !important;
     background-color: #f3f3f3;
     font-size: 15px;
 }
@@ -657,12 +657,17 @@ mapsvg-layers-wrap+svg {
     font-size: .85rem
 }
 
-.modal .modal-header {
-    background-color: var(--main-color);
-    color: #fff
+.modal .modal-header,
+.modal-header {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
 }
-
-.modal .modal-content {
+.modal-title{
+    font: inherit !important;
+    margin:0 !important;
+}
+.modal .modal-content,
+.modal-content {
     border: none
 }
 
@@ -681,9 +686,11 @@ mapsvg-layers-wrap+svg {
     border-top: solid 1px #eee
 }
 
-.modal button.btn-close {
-    background-color: #fff;
-    border-radius: 50%
+.modal button.btn-close,
+.btn-close {
+    background-color: #fff !important;
+    border-radius: 50% !important;
+    box-shadow:none !important;
 }
 
 .img-con {
@@ -814,4 +821,10 @@ mapsvg-layers-wrap+svg {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+.mat-dialog-container{
+    padding:0 !important;
+}
+.modal-dialog{
+    margin: 0 !important;
+}

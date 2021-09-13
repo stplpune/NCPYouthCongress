@@ -346,6 +346,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   openDialogBodyMemActDetails() {
     const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+      width: '1024px',
       data:this.resultBodyMemActDetails
     });
   }
