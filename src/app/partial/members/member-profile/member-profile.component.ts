@@ -301,7 +301,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   getRage(value:any){
-    // if(value == )
     this.defaultCloseBtn = true;
     this.fromDateWorkdetails =  this.datepipe.transform(value.value[0], 'dd/MM/YYYY');
     this.globalFromDate =  this.datepipe.transform(value.value[0], 'dd/MM/YYYY');

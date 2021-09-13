@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { Lightbox } from '@ngx-gallery/lightbox';
 import { CommonService } from 'src/app/services/common.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 
 
 @Component({
@@ -76,7 +78,8 @@ export class PartyProgramDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public gallery: Gallery,
     private _lightbox: Lightbox,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    public dialog: MatDialog,
   ) {
     if (localStorage.getItem('programListIdKey') == null || localStorage.getItem('programListIdKey') == "") {
       this.toastrService.error("Please select Program Title  and try again");
@@ -311,6 +314,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
         this.lat = Number(latLong[0]);
         this.lng = Number(latLong[1]);
+        this.openDialogBodyMemActDetails();
       } else {
         this.spinner.hide();
         this.resultBodyMemActDetails = [];
@@ -332,5 +336,10 @@ export class PartyProgramDetailsComponent implements OnInit {
     }
   }
 
+  openDialogBodyMemActDetails() {
+    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+      data:this.membersDataArray
+    });
+  }
 
 }
