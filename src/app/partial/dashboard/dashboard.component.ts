@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment'
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,6 +47,7 @@ export class DashboardComponent implements OnInit {
     public datepipe: DatePipe,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
   ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
@@ -500,4 +502,5 @@ export class DashboardComponent implements OnInit {
       this.toastrService.error("Data is not available.");
     }
   }
+
 }
