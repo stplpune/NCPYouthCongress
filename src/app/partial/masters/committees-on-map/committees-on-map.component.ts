@@ -84,7 +84,6 @@ export class CommitteesOnMapComponent implements OnInit {
 
 
   committeeNameByOrganizationMember(bodyId:any, committeeName:any){
-    debugger;
     this.spinner.show();
     this.activeRow = bodyId
     this.callAPIService.setHttp('get', 'Web_GetOrganizationMember_byBodyId_1_0?UserId='+this.commonService.loggedInUserId()+'&BodyId='+bodyId, false, false , false, 'ncpServiceForWeb');

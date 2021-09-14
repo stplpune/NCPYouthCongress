@@ -45,7 +45,7 @@
                             <div class="card-header pb-0 border-bottom" *ngIf="resultOrganizationMember?.length != 0">Members in <span class="text-main">{{selCommitteeName | titlecase}}</span></div>
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember">
+                                    <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
                                       <p class="mb-0 fw-bold mt-1">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small></p>
                                       <span class="small">{{resOrganizationMember.DesignationName}}</span>
                                     </a>
