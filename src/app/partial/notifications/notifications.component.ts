@@ -9,7 +9,8 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-notifications',
@@ -59,7 +60,8 @@ export class NotificationsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe:DatePipe
+    private datePipe:DatePipe,
+    public dialog: MatDialog,
     ) { }
 
   ngOnInit(): void {
@@ -268,6 +270,16 @@ export class NotificationsComponent implements OnInit {
   
   delNotConfirmation(NewsId:any){
     this.NewsId = NewsId;
+    this.deleteConfirmModel();
+  }
+
+  deleteConfirmModel() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.deleteNotifications();
+      }
+    });
   }
 
   deleteNotifications(){

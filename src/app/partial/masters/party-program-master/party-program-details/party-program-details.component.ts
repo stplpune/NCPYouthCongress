@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { Lightbox } from '@ngx-gallery/lightbox';
 import { CommonService } from 'src/app/services/common.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 
 
 @Component({
@@ -55,7 +57,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   MapHide: boolean = true;
   lightboxRef: any;
   lightboxRef1: any;
-  lightboxRef2: any;
   commityDataArray: any;
   pageSize: number = 10;
   memPaginationNo: number = 1;
@@ -76,7 +77,8 @@ export class PartyProgramDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public gallery: Gallery,
     private _lightbox: Lightbox,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    public dialog: MatDialog,
   ) {
     if (localStorage.getItem('programListIdKey') == null || localStorage.getItem('programListIdKey') == "") {
       this.toastrService.error("Please select Program Title  and try again");
@@ -303,14 +305,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resultBodyMemActDetails = res.data1[0];
         this.HighlightRow = this.resultBodyMemActDetails.Id;
-        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this._commonService.imgesDataTransform(this.comUserdetImg, 'array');
-        this.lightboxRef2 = this.gallery.ref('anotherLightbox')
-        this.lightboxRef2.load(this.comUserdetImg);
-
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        this.lat = Number(latLong[0]);
-        this.lng = Number(latLong[1]);
+        this.openDialogBodyMemActDetails();
       } else {
         this.spinner.hide();
         this.resultBodyMemActDetails = [];
@@ -332,5 +327,11 @@ export class PartyProgramDetailsComponent implements OnInit {
     }
   }
 
+  openDialogBodyMemActDetails() {
+    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+      width: '1024px',
+      data:this.resultBodyMemActDetails
+    });
+  }
 
 }

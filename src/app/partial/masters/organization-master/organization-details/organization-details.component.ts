@@ -11,8 +11,8 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
-import { Lightbox } from '@ngx-gallery/lightbox';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 
 @Component({
   selector: 'app-organization-details',
@@ -66,15 +66,13 @@ export class OrganizationDetailsComponent implements OnInit {
   periodicChart: any;
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
-  programGalleryImg!: GalleryItem[];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
     public location: Location, private datePipe: DatePipe,
-    public gallery: Gallery,
-    private _lightbox: Lightbox,
+    public dialog: MatDialog,
     private commonService: CommonService, public datepipe: DatePipe,) {
     let getLocalStorageData: any = localStorage.getItem('bodyId');
     getLocalStorageData = JSON.parse(getLocalStorageData);
@@ -349,14 +347,14 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
 
         this.resultBodyMemActDetails = res.data1[0];
-        this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
-        this.gallery.ref().load(this.comUserdetImg);
+        // this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
+        // this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
+        // this.gallery.ref().load(this.comUserdetImg);
 
-        let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        this.lat = Number(latLong[0]);
-        this.lng = Number(latLong[1]);
-
+        // let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
+        // this.lat = Number(latLong[0]);
+        // this.lng = Number(latLong[1]);
+        this.openDialogBodyMemActDetails();
       } else {
         this.toastrService.error("Member is not available");
       }
@@ -576,6 +574,13 @@ export class OrganizationDetailsComponent implements OnInit {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     localStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../../member/profile'])
+  }
+
+  openDialogBodyMemActDetails() {
+    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+      width: '1024px',
+      data:this.resultBodyMemActDetails
+    });
   }
 
 }

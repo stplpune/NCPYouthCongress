@@ -152,8 +152,9 @@
                                 <td><span class="text-ellipsis-150px" [appTooltip]  title={{bodyMemActivity.Category}}>{{bodyMemActivity.Category}}</span></td>
                                 <td><span class="text-ellipsis-150px" [appTooltip]  title={{bodyMemActivity.Title}}>{{bodyMemActivity.Title}}</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
-                                            class="far fa-eye"></i></button>
+                                    <!-- <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
+                                            class="far fa-eye"></i></button> -->
+                                            <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="resBodyMemAct?.length == 0">
