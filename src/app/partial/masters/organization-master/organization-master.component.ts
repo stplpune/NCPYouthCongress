@@ -678,7 +678,7 @@ export class OrganizationMasterComponent implements OnInit {
     //   this.toastrService.error("Data not found..");
     // } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
-      localStorage.setItem('bodyId', JSON.stringify(obj))
+      sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['details'], { relativeTo: this.route })
     //}
   }

@@ -35,7 +35,7 @@ export class EventDetailComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.getEventId =  localStorage.getItem('eventId');
+    this.getEventId =  sessionStorage.getItem('eventId');
     this.getEventList();
   }
 

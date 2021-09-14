@@ -57,7 +57,7 @@ export class EventsComponent implements OnInit {
   }
 
   redirectToEvent(eventId:any){
-    localStorage.setItem('eventId',eventId);
+    sessionStorage.setItem('eventId',eventId);
     this.router.navigate(['../events/detail']);
   }
 

@@ -109,7 +109,7 @@ export class CommitteesOnMapComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    // localStorage.removeItem('weekRange');
+    // sessionStorage.removeItem('weekRange');
     this.graphInstance.destroy();
   }
 
@@ -202,7 +202,7 @@ export class CommitteesOnMapComponent implements OnInit {
   
 redToMemberProfile(memberId:any,FullName:any){
   let obj = {'memberId':memberId, 'FullName':FullName}
-  localStorage.setItem('memberId', JSON.stringify(obj));
+  sessionStorage.setItem('memberId', JSON.stringify(obj));
   this.router.navigate(['../../member/profile'])
 }
 

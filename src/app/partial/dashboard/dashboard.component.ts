@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
     this.toDate= dates;         //selected Date
     this.fromDate= new Date((this.toDate) - 6 * 24 * 60 * 60 * 1000)
     this.weekRangeObj = { 'fromDate': this.fromDate, 'toDate': this.toDate };
-    localStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
+    sessionStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
     this.getNewMemberAndWorkInThisWeek();
   }
 

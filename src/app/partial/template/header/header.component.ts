@@ -204,7 +204,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   logOut() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/home'], { relativeTo: this.route })
   }
 

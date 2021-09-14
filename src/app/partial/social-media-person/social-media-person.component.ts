@@ -52,10 +52,10 @@ export class SocialMediaPersonComponent implements OnInit {
     public dateTimeAdapter: DateTimeAdapter<any>,
   ) { { dateTimeAdapter.setLocale('en-IN'); }
 
-  let getLocalStorageData: any = localStorage.getItem('SocialMediaDataPM');
-  let localStorageData = JSON.parse(getLocalStorageData);
-  this.PersonName = localStorageData.PersonName;
-  this.MemberMobileNo = localStorageData.MemberMobileNo;
+  let getsessionStorageData: any = sessionStorage.getItem('SocialMediaDataPM');
+  let sessionStorageData = JSON.parse(getsessionStorageData);
+  this.PersonName = sessionStorageData.PersonName;
+  this.MemberMobileNo = sessionStorageData.MemberMobileNo;
 }
 
   ngOnInit(): void {
@@ -212,7 +212,7 @@ export class SocialMediaPersonComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // localStorage.removeItem('SocialMediaDataPM');
+    // sessionStorage.removeItem('SocialMediaDataPM');
   }
 
 }

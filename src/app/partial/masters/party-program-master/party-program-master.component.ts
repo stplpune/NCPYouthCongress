@@ -244,7 +244,7 @@ export class PartyProgramMasterComponent implements OnInit {
       return;
     }else{
       let obj = {'programListId':programListId, 'programList':ProgramTitle}
-      localStorage.setItem('programListIdKey', JSON.stringify(obj));
+      sessionStorage.setItem('programListIdKey', JSON.stringify(obj));
       this.router.navigate(['../party-program/details'], { relativeTo: this.route });
     }
   }

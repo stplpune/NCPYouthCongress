@@ -74,10 +74,10 @@ export class OrganizationDetailsComponent implements OnInit {
     public location: Location, private datePipe: DatePipe,
     public dialog: MatDialog,
     private commonService: CommonService, public datepipe: DatePipe,) {
-    let getLocalStorageData: any = localStorage.getItem('bodyId');
-    getLocalStorageData = JSON.parse(getLocalStorageData);
-    this.bodyId = getLocalStorageData.bodyId;
-    this.getCommitteeName = getLocalStorageData.BodyOrgCellName;
+    let getsessionStorageData: any = sessionStorage.getItem('bodyId');
+    getsessionStorageData = JSON.parse(getsessionStorageData);
+    this.bodyId = getsessionStorageData.bodyId;
+    this.getCommitteeName = getsessionStorageData.BodyOrgCellName;
     { dateTimeAdapter.setLocale('en-IN') }
   }
 
@@ -454,7 +454,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // localStorage.removeItem('bodyId');
+    // sessionStorage.removeItem('bodyId');
   }
 
   addEditMember(data: any, flag: any) {
@@ -572,7 +572,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
-    localStorage.setItem('memberId', JSON.stringify(obj));
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../../member/profile'])
   }
 

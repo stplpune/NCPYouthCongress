@@ -12,23 +12,23 @@ export class CommonService {
     
    }
   regions_m:any;
-  getLocalStorageData() {
-    let loginObj = JSON.parse(localStorage.loggedInDetails).data1[0];
+  getsessionStorageData() {
+    let loginObj = JSON.parse(sessionStorage.loggedInDetails).data1[0];
     return loginObj;
   }
 
   loggedInUserId() {
-    let userId = this.getLocalStorageData();
+    let userId = this.getsessionStorageData();
     return userId.Id;
   }
 
   districtId() {
-    let DistrictId = this.getLocalStorageData();
+    let DistrictId = this.getsessionStorageData();
     return DistrictId.DistrictId;
   }
 
   loggedInUserName() {
-    let Username = this.getLocalStorageData();
+    let Username = this.getsessionStorageData();
     return Username.Username;
   }
   

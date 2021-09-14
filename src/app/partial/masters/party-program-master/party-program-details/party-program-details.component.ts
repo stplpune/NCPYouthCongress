@@ -80,13 +80,13 @@ export class PartyProgramDetailsComponent implements OnInit {
     private _commonService: CommonService,
     public dialog: MatDialog,
   ) {
-    if (localStorage.getItem('programListIdKey') == null || localStorage.getItem('programListIdKey') == "") {
+    if (sessionStorage.getItem('programListIdKey') == null || sessionStorage.getItem('programListIdKey') == "") {
       this.toastrService.error("Please select Program Title  and try again");
       this.router.navigate(['../party-program'], { relativeTo: this.route });
       return
     } else {
-      let getLocalStorageData: any = localStorage.getItem('programListIdKey');
-      let programListId = JSON.parse(getLocalStorageData);
+      let getsessionStorageData: any = sessionStorage.getItem('programListIdKey');
+      let programListId = JSON.parse(getsessionStorageData);
       this.programListId = programListId.programListId;
       this.programTile = programListId.programList;
     }
@@ -275,7 +275,7 @@ export class PartyProgramDetailsComponent implements OnInit {
 
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
-    localStorage.setItem('memberId', JSON.stringify(obj));
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../../member/profile'], { relativeTo: this.route })
   }
 
@@ -322,7 +322,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       this.toastrService.error("Data not found..");
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
-      localStorage.setItem('bodyId', JSON.stringify(obj))
+      sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../../../master/committee/details'], { relativeTo: this.route })
     }
   }

@@ -56,7 +56,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     public datepipe: DatePipe, private route: ActivatedRoute,
     public location: Location,  public dateTimeAdapter: DateTimeAdapter<any>) {
    {dateTimeAdapter.setLocale('en-IN');} 
-    let data: any = localStorage.getItem('weekRange');
+    let data: any = sessionStorage.getItem('weekRange');
     this.selweekRange = JSON.parse(data);
     this.dateRange1 = [this.selweekRange.fromDate, this.selweekRange.toDate];
     this.dateRange = [this.selweekRange.fromDate, this.selweekRange.toDate];
@@ -496,19 +496,19 @@ xAxis.renderer.minGridDistance = 30;
   }
 
   ngOnDestroy() {
-    // localStorage.removeItem('weekRange');
+    // sessionStorage.removeItem('weekRange');
     this.graphInstance.destroy();
   }
 
   redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
       let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
-      localStorage.setItem('bodyId', JSON.stringify(obj))
+      sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../../master/organization/details'], { relativeTo: this.route })
   }
 
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
-    localStorage.setItem('memberId', JSON.stringify(obj));
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../member/profile'], {relativeTo:this.route})
   }
 

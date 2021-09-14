@@ -57,10 +57,10 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe, public location: Location, private route: ActivatedRoute, public dateTimeAdapter: DateTimeAdapter<any>,
   ) { { dateTimeAdapter.setLocale('en-IN'); }
 
-  let getLocalStorageData: any = localStorage.getItem('memberId');
-  let localStorageData = JSON.parse(getLocalStorageData);
-  this.memberId = localStorageData.memberId;
-  this.FullName = localStorageData.FullName;
+  let getsessionStorageData: any = sessionStorage.getItem('memberId');
+  let sessionStorageData = JSON.parse(getsessionStorageData);
+  this.memberId = sessionStorageData.memberId;
+  this.FullName = sessionStorageData.FullName;
 }
 
   ngOnInit(): void {
@@ -246,7 +246,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       }
 
   ngOnDestroy() {
-    // localStorage.removeItem('memberId');
+    // sessionStorage.removeItem('memberId');
   }
 
   redirectOrgDetails(bodyId: any, officeBearers: any, BodyOrgCellName: any) {
@@ -255,7 +255,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       this.toastrService.error("Data not found..");
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
-      localStorage.setItem('bodyId', JSON.stringify(obj))
+      sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../../master/committee/details'], { relativeTo: this.route })
     }
   }
