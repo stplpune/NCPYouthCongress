@@ -57,11 +57,12 @@
  
   h3.section-head{
       font-weight: 300;
+      font-family: 'Inter', sans-serif !important;
       margin: 0;
   padding-bottom: 7px;
   position:relative;
     display:inline-block;
-  font-size: 1.8rem;
+  font-size: 1.8rem !important;
   margin-bottom: 35px;
   padding-bottom: 15px;
   }
@@ -169,6 +170,8 @@
     margin-bottom: 0;
     font-weight: 800;
     color: var(--clr-orange);
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.8rem;
 }
 #exe-members .card{
     transition: all .25s ease-in;
@@ -221,6 +224,15 @@
     background-size: 50% auto;
     background-position-y: 60px;
     background-position-x: -66px;
+}
+#downloadapp h1.display-4{
+    font-size:3.5rem !important;
+    line-height: normal !important;
+    font-family: 'Inter', sans-serif !important;
+}
+#downloadapp h5{
+    font-size:1.3rem !important;
+    font-family: 'Inter', sans-serif !important;
 }
 #downloadapp .store-icon{
     width:150px;
