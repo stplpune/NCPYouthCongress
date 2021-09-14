@@ -24,8 +24,8 @@
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)" [class.active]="resCommittes.Id == activeRow" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resCommittes of resultCommittees">
-                                        <span class="small">{{resCommittes.Area | titlecase}}</span>
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}}</p>
+                                        <span class="small">{{resCommittes.Area | titlecase}}</span>
                                       </a>
                                       
                                     <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
@@ -46,8 +46,8 @@
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
                                     <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember">
-                                      <span class="small">{{resOrganizationMember.DesignationName}}</span>
                                       <p class="mb-0 fw-bold mt-1">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small></p>
+                                      <span class="small">{{resOrganizationMember.DesignationName}}</span>
                                     </a>
                                     <div  *ngIf="resultOrganizationMember?.length == 0">
                                         <div  class="alert alert-danger text-center py-2">No Data Found..!</div>

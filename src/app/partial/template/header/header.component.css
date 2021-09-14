@@ -17,8 +17,8 @@
 }
 
 .header__container h5 {
-    font-family: 'Yatra One';
-    font-size: 1.3rem;
+    font-family: 'Yatra One' !important;
+    font-size: 1.45rem;
 }
 
 .header__container .btn {
