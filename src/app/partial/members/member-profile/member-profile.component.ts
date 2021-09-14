@@ -13,6 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../dialogs/activity-details/activity-details.component';
+import { DeleteComponent } from '../../dialogs/delete/delete.component';
+
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
@@ -104,7 +106,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       }
     })
   }
-
 
   getMemberprofileDetails() {
     this.spinner.show();
@@ -308,6 +309,16 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   getUserPostBodyId(id: any) {
     this.selUserpostbodyId = id;
+    this.deleteConfirmModel();
+  }
+
+  deleteConfirmModel() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.deleteMember();
+      }
+    });
   }
 
   deleteMember() {
