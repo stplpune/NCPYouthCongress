@@ -9,6 +9,8 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-forward-activities',
@@ -54,6 +56,7 @@ export class ForwardActivitiesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private datePipe:DatePipe,
+    public dialog: MatDialog,
     public dateTimeAdapter: DateTimeAdapter<any>,
     ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
@@ -174,6 +177,16 @@ export class ForwardActivitiesComponent implements OnInit {
   
   delNotConfirmation(NewsId:any){
     this.NewsId = NewsId;
+    this.deleteConfirmModel();
+  }
+
+  deleteConfirmModel() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.deleteNotifications();
+      }
+    });
   }
 
   deleteNotifications(){

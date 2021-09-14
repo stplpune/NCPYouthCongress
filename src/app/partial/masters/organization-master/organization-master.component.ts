@@ -8,6 +8,8 @@ import { debounceTime } from 'rxjs/operators';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../../dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-organization-master',
@@ -50,7 +52,7 @@ export class OrganizationMasterComponent implements OnInit {
   pageSize: number = 10;
   searchFilter = "";
   @ViewChild('closeModalAddDesignation') closeModalAddDesignation: any;
-  @ViewChild('openDeleteCommitteeModal') openDeleteCommitteeModal: any;
+  //@ViewChild('openDeleteCommitteeModal') openDeleteCommitteeModal: any;
   desBodyId: any;
   allAssignedDesignations: any;
   modalDeafult = false;
@@ -69,7 +71,7 @@ export class OrganizationMasterComponent implements OnInit {
   editLevalFlag: any;
   deletebodyId!:number;
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
-    private toastrService: ToastrService, private commonService: CommonService,
+    private toastrService: ToastrService, private commonService: CommonService,public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -697,7 +699,7 @@ export class OrganizationMasterComponent implements OnInit {
       .subscribe(() => {
         this.searchFilter = this.filterForm.value.searchText;
         this.paginationNo = 1;
-        this.getOrganizationList()
+        this.getOrganizationList();
       }
       );
   }
@@ -720,7 +722,6 @@ export class OrganizationMasterComponent implements OnInit {
       }
     })
   }
-
 
   swingDesignation(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
@@ -770,19 +771,27 @@ export class OrganizationMasterComponent implements OnInit {
       this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
-      
     }
   }
 
   deleteCommitteeConfirmation(bodyId:any,allottedDesignation:any){
     if(allottedDesignation == 0){
-      let clickDeleteCommitteeModal = this.openDeleteCommitteeModal.nativeElement;
-      clickDeleteCommitteeModal.click();
+      // let clickDeleteCommitteeModal = this.openDeleteCommitteeModal.nativeElement;
+      // clickDeleteCommitteeModal.click();
       this.deletebodyId = bodyId;
+      this.deleteConfirmModel();
     }else{
       this.toastrService.info('Designations are already assigned to this Committee');
     }
+  }
 
+  deleteConfirmModel() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.deletecommittee();
+      }
+    });
   }
 
   deletecommittee(){
@@ -791,6 +800,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg)
       } else {
         this.spinner.hide();
       }
