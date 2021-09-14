@@ -171,11 +171,11 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     categoryAxis.dataFields.category = "Category";
     categoryAxis.renderer.minGridDistance = 60;
     categoryAxis.renderer.inversed = true;
-    categoryAxis.title.text = "Political Work";
+    categoryAxis.title.text = "Party Work";
     categoryAxis.renderer.grid.template.disabled = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = "Political Work Count";
+    valueAxis.title.text = "Party Work Count";
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
     //valueAxis.rangeChangeEasing = am4core.ease.linear;
