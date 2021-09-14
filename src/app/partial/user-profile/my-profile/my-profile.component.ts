@@ -134,7 +134,6 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        debugger;
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
         }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
@@ -152,7 +151,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    debugger;
     this.spinner.show();
     (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -182,7 +180,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
     this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
