@@ -217,16 +217,13 @@ resetFile() {
     )
   }
 
-
   delConfirmation(eventId:any,IsDisplay:any){
     this.eventId = eventId;
     IsDisplay == 1 ? this.isDisplayFlag = 0 : this.isDisplayFlag = 1;
-    this.openDialog() 
+    this.deleteConfirmModel(); 
   }
 
-
-
-  openDialog() {
+  deleteConfirmModel() {
     const dialogRef = this.dialog.open(DeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'Yes'){
@@ -303,7 +300,5 @@ resetFile() {
     this.fileInput.nativeElement.value = '';
     this.ImgUrl = "";
   }
-
- 
   
 }
