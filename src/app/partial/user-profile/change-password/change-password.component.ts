@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
   customForm() {
     this.changePasswordForm = this.fb.group({
       userName: [this.commonService.loggedInUserName(), [Validators.required,]],
-      oldPassword: ['', [Validators.required,]],
+      oldPassword: ['', [Validators.required,this.passwordValid]],
       newPassword: ['', [Validators.required, this.passwordValid]],
       ConfirmPassword: ['',[Validators.required, this.passwordValid]],
     })
@@ -110,6 +110,7 @@ export class ChangePasswordComponent implements OnInit {
 
   passwordValid(controls:any) {
     const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
+    //const regExp = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
     if (regExp.test(controls.value)) {
       return null;
     } else {

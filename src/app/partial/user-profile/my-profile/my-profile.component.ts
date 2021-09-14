@@ -104,9 +104,9 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  updateProfileDate() {
-    this.profileFormPathValue(this.resProfileData);
-  }
+  // updateProfileDate() {
+  //   this.profileFormPathValue(this.resProfileData);
+  // }
 
   profileFormPathValue(data: any) {
     this.selGender = data.Gender;
@@ -134,7 +134,6 @@ export class MyProfileComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
-        debugger;
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
         }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
@@ -152,7 +151,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    debugger;
     this.spinner.show();
     (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -182,7 +180,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    debugger;
     this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
@@ -206,6 +203,7 @@ export class MyProfileComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   updateProfile() {
+    debugger
     this.submitted = true;
     if (this.editProfileForm.invalid) {
       this.spinner.hide();
@@ -283,6 +281,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   choosePhoto() {
+    this.profilePhotoChange = 1;
     let clickPhoto: any = document.getElementById('my_file')
     clickPhoto.click();
   }
