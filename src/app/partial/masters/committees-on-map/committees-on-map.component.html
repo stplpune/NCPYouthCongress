@@ -19,51 +19,43 @@
                         </div>
                     </div>
                     <div class="col-sm-3 border-end">
-                        <div class="card shadow-none">
-                            <div class="card-header">Committees in <span class="text-main">District</span></div>
+                        <div class="card shadow-none"  *ngIf="defaultCommitteesFlag">
+                            <div class="card-header">Committees in <span class="text-main">{{districtName | titlecase}}</span></div>
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)" [class.active]="resCommittes.Id == activeRow" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resCommittes of resultCommittees">
+                                        <span class="small">{{resCommittes.Area | titlecase}}</span>
+                                        <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}}</p>
+                                      </a>
+                                      
+                                    <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                                       <span class="small">Ahmednagar - Akole - Abit Khind</span>
                                       <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Ahmednagar - Akole - Abit Khind</span>
-                                      <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Ahmednagar - Akole - Abit Khind</span>
-                                      <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Ahmednagar - Akole - Abit Khind</span>
-                                      <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
-                                    </a>
+                                    </a> -->
                                   </div>
                             </div>
                         </div>
+                        <div  *ngIf="resultCommittees?.length == 0">
+                            <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        </div>
                     </div>
+                   
                     <div class="col-sm-3">
-                        <div class="card shadow-none">
-                            <div class="card-header">Members in <span class="text-main">Committee Name</span></div>
+                        <div class="card shadow-none"  *ngIf="defaultMembersFlag">
+                            <div class="card-header" *ngIf="resultOrganizationMember?.length != 0">Members in <span class="text-main">{{selCommitteeName | titlecase}}</span></div>
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                      <span class="small">Designation</span>
-                                      <p class="mb-0 fw-bold mt-1">Member Name</p>
+                                    <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember">
+                                      <span class="small">{{resOrganizationMember.DesignationName}}</span>
+                                      <p class="mb-0 fw-bold mt-1">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small></p>
                                     </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
+                                    <div  *ngIf="resultOrganizationMember?.length == 0">
+                                        <div  class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                    </div>
+                                    <!-- <a href="#" class="list-group-item list-group-item-action">
                                         <span class="small">Designation</span>
                                       <p class="mb-0 fw-bold mt-1">Member Name</p>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Designation</span>
-                                      <p class="mb-0 fw-bold mt-1">Member Name</p>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Designation</span>
-                                      <p class="mb-0 fw-bold mt-1">Member Name</p>
-                                    </a>
+                                    </a> -->
                                   </div>
                             </div>
                         </div>
