@@ -265,9 +265,11 @@ export class ActivityAnalysisComponent implements OnInit {
     }
     this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      console.log("asd11111",res )
       if (res.data == 0) {
         this.spinner.hide();
         this.activityLikesArray = res.data1 ? res.data1 : [];
+        console.log("asd",this.activityLikesArray )
       } else {
         this.spinner.hide();
         this.activityLikesArray = [];

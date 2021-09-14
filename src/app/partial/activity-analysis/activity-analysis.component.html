@@ -256,7 +256,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a href="#" *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}<small class="float-end"><i class="fas fa-calendar-alt me-1"></i>{{activityLikes.CreatedDate}} -  <i class="far fa-clock me-1"></i>{{activityLikes?.Timeline}}</small></a>
+                    <a *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                     <div *ngIf="activityLikesArray?.length == 0" class="m-4">
                         <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                     </div>
@@ -276,7 +276,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">
+                    <a *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">
                         <p class="small text-muted mb-0">{{activityLikes.FullName}} <small class="float-end"><i class="fas fa-calendar-alt me-1"></i>{{activityLikes.CreatedDate}} -  <i class="far fa-clock me-1"></i>{{activityLikes?.Timeline}}</small></p>
                         <p class="mb-0 fw-bold">{{activityLikes.Comments}}</p>
                     </a>
@@ -300,7 +300,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}<small class="float-end"><i class="fas fa-calendar-alt me-1"></i>{{activityLikes.CreatedDate}} - <i class="far fa-clock me-1"></i>{{activityLikes?.Timeline}}</small></a>
+                    <a *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
 
                     <div *ngIf="activityLikesArray?.length == 0" class="m-4">
                         <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
@@ -321,8 +321,7 @@
             </div>
             <div class="modal-body p-0">
                 <div class="list-group list-group-flush">
-                    <a *ngFor="let activityLikes of activityLikesArray" href="#" class="list-group-item list-group-item-action">{{activityLikes.FullName}}<small class="float-end"><i class="fas fa-calendar-alt me-1"></i>{{activityLikes.CreatedDate}} -  <i class="far fa-clock me-1"></i>{{activityLikes?.Timeline}}</small></a>
-
+                    <a *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
                     <div *ngIf="activityLikesArray?.length == 0" class="m-4">
                         <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                     </div>

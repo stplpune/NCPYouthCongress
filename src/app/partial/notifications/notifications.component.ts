@@ -250,11 +250,11 @@ export class NotificationsComponent implements OnInit {
     } else if (data.ScopeId == 4) {
       this.getMemberName();
       this.notificationForm.controls["MemberStr"].setValue(this.notificationForm.value.MemberStr.map(Number))
-    }
-    
+    }  
   }
 
   resetNotificationForm(){
+    this.NotificationText= "Push";
     this.submitted = false;
     this.getImgPath = null;
     this.notificationForm.reset();
