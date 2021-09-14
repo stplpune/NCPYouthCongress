@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit {
       this.callAPIService.setHttp('get', 'Web_GetLogin_1_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == '0') {
-          localStorage.setItem('loggedInDetails', JSON.stringify(res));
-          localStorage.setItem('loginDateTime', this.date)
+          sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
+          sessionStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
           this.router.navigate(['../dashboard'], { relativeTo: this.route })
           this.toastrService.success('login successfully')

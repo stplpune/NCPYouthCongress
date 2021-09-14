@@ -102,7 +102,7 @@ export class CallAPIService {
 
     if (mm > 60) {
       localStorage.clear();
-      this.router.navigate(['../login']);
+      this.router.navigate(['../home']);
     }
 
   }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component,  ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs/operators';
 import { Subject } from "rxjs";
@@ -16,6 +16,8 @@ export class AppComponent {
   isConnected = true;
   @ViewChild('openModal') openModal: any;
   @ViewChild('close') close: any;
+
+
 
   title = 'NCPYouthCongress';
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
@@ -66,4 +68,6 @@ export class AppComponent {
       }
     })
   }
+
+
 }
