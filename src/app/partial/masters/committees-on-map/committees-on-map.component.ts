@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 declare var $: any
 
@@ -9,33 +13,112 @@ declare var $: any
 })
 
 export class CommitteesOnMapComponent implements OnInit {
-  graphInstance:any;
+  graphInstance: any;
+  resultCommittees:any;
+  resultOrganizationMember:any;
+  activeRow:any;
+  selCommitteeName:any;
+  districtName:any;
+  defaultCommitteesFlag:boolean = false;
+  defaultMembersFlag:boolean = false;
 
-  constructor(private commonService:CommonService) { }
+  constructor(private commonService: CommonService, private toastrService: ToastrService,
+    private spinner: NgxSpinnerService, private router: Router,
+    private route: ActivatedRoute,  private callAPIService: CallAPIService) { }
 
   ngOnInit(): void {
-  } 
+    this.showSvgMap(this.commonService.mapRegions());
+  }
 
   ngAfterViewInit() {
-    this.showSvgMap(this.commonService.mapRegions());
+    $(document).on('click', 'path', (e: any) => {
+      let getClickedId = e.currentTarget;
+      var DistrictId = $(getClickedId).attr('id');
+      this.getOrganizationByDistrictId(DistrictId);
+    });
+  }
 
-    $('path').click(()=>{ 
-      alert('ok');
-      console.log($(this).attr('id'))
+  getOrganizationByDistrictId(id: any) {
+    this.getDistrict(id)
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_1_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id, false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.defaultCommitteesFlag = true;
+        this.spinner.hide();
+        this.resultCommittees = res.data1;
+     
+      } else {
+        this.defaultCommitteesFlag = true;
+        this.resultCommittees = [];
+        this.spinner.hide();
+      }
+   
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
-}
+  }
 
-ngOnDestroy() {
-  // localStorage.removeItem('weekRange');
-  this.graphInstance.destroy();
-}
+  getDistrict(id:any) {
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        res.data1.find((ele:any)=>{
+          if(ele.DistrictId == id){
+            this.districtName = ele.DistrictName
+          }
+        })
+      } else {
+        // this.toastrService.error("Data is not available 2");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
 
-showSvgMap(regions_m:any) {
-  if (this.graphInstance) {
+  committeeNameByOrganizationMember(bodyId:any, committeeName:any){
+    debugger;
+    this.spinner.show();
+    this.activeRow = bodyId
+    this.callAPIService.setHttp('get', 'Web_GetOrganizationMember_byBodyId_1_0?UserId='+this.commonService.loggedInUserId()+'&BodyId='+bodyId, false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.defaultMembersFlag = true;
+        this.spinner.hide();
+        this.selCommitteeName = committeeName;
+        this.resultOrganizationMember = res.data1;
+      } else {
+        this.defaultMembersFlag = true;
+        this.resultOrganizationMember = [];
+        this.selCommitteeName ="";
+        this.spinner.hide();
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+
+  }
+  ngOnDestroy() {
+    // localStorage.removeItem('weekRange');
     this.graphInstance.destroy();
   }
-   this.graphInstance = $("#mapsvg").mapSvg({
+
+
+  showSvgMap(regions_m: any) {
+    if (this.graphInstance) {
+      this.graphInstance.destroy();
+    }
+    this.graphInstance = $("#mapsvg").mapSvg({
       width: 550,
       height: 430,
       colors: {
@@ -113,9 +196,14 @@ showSvgMap(regions_m:any) {
       title: "Maharashtra-bg_o",
       responsive: true
     });
-  // });
+    // });
+  }
+
+  
+redToMemberProfile(memberId:any,FullName:any){
+  let obj = {'memberId':memberId, 'FullName':FullName}
+  localStorage.setItem('memberId', JSON.stringify(obj));
+  this.router.navigate(['../../member/profile'])
 }
-
-
 
 }
