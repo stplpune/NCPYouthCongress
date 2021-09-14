@@ -1,9 +1,11 @@
 
 
 #home-carousel .carousel-item h1{
-    font-weight: 300;
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
+    font-weight: 300 !important;
+    font-size: 3.5rem !important;
+    margin-bottom: 2rem !important;
+    line-height:normal !important;
+    
 }
 #home-carousel .carousel{
     transition: all 1s ease-in;
@@ -133,8 +135,10 @@
 #events .card .card-body{
     background-color: transparent;
 }
-#events .card .card-title{
+#events .card h6{
     color: var(--clr-green);
+    font: inherit !important;
+    cursor: pointer;
 }
 #events .card .card-text{
     font-size: 0.85rem;
@@ -199,6 +203,7 @@
 .main{
     display:block;
     position: relative;
+    font-family: 'Inter', 'Noto Sans', sans-serif !important;
 }
 .main:after{
     content: "";    
