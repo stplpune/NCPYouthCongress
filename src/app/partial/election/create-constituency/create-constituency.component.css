@@ -1,0 +1,24 @@
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 500px;
+    width: 100%;
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 500px;
+    width: 100%;
+}
+.mapsearch{
+    position:absolute;
+    z-index: 9999;
+    top:10px;
+    left: 10px;
+    width: 400px;
+}
+.mapsearch .form-control{
+    box-shadow: none !important;
+    border:solid 1px rgba(0, 0, 0, 0.25);
+    font-size: 0.85rem;
+}

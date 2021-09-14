@@ -21,8 +21,9 @@
                             </select>
                         </div>
                         <div class="mb-2">
-                            <label for="txtWardName" class="form-label">Ward Name</label>
-                            <input type="text" class="form-control" id="txtWardName" placeholder="Ward Name">
+                            <label for="txtConstituencyName" class="form-label">Constituency Name</label>
+                            <input type="text" class="form-control" id="txtConstituencyName"
+                                placeholder="Constituency Name">
                         </div>
                         <div class="mb-2">
                             <label for="rblMembers" class="form-label">Members</label>
@@ -74,7 +75,7 @@
                                 </div>
                                 <div class="mb-3 text-end">
                                     <button type="button" class="btn btn-outline-primary btn-sm">
-                                        <i class="fas fa-plus"></i> Add More
+                                        Add
                                     </button>
                                 </div>
                                 <table class="table table-hover mb-0">
@@ -100,6 +101,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="mb-2 text-end">
+                            <a href="#" class="btn btn-link btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#CreateGeoFenceModal">Create Geofence</a>
                         </div>
                         <div class="mb-2 mt-4">
                             <button type="button" class="btn btn-secondary  float-lg-start">Clear</button>
@@ -128,8 +133,8 @@
                         <thead>
                             <tr>
                                 <th>Sr. No.</th>
+                                <th>Constituency Name</th>
                                 <th>Election</th>
-                                <th>Ward Name</th>
                                 <th>Members</th>
                                 <th>Sub Constituency</th>
                                 <th> </th>
@@ -138,13 +143,15 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>ZP Satara 2021</td>
                                 <td>Ward No. 33</td>
+                                <td>ZP Satara 2021</td>
                                 <td>12</td>
                                 <td>
                                     <ol class="mb-0 ps-3">
-                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small></li>
-                                        <li>Punchayat Samity Kharadi<br><small class="text-muted">[Ward No. 33]</small></li>
+                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small>
+                                        </li>
+                                        <li>Punchayat Samity Kharadi<br><small class="text-muted">[Ward No. 33]</small>
+                                        </li>
                                     </ol>
                                 </td>
                                 <td>
@@ -160,12 +167,13 @@
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>ZP Satara 2020</td>
                                 <td>ZP</td>
+                                <td>ZP Satara 2020</td>
                                 <td>1</td>
                                 <td>
                                     <ol class="mb-0 ps-3">
-                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small></li>
+                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small>
+                                        </li>
                                     </ol>
                                 </td>
                                 <td>
@@ -182,6 +190,75 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for geofence -->
+<div class="modal fade" id="CreateGeoFenceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="CreateGeoFenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CreateGeoFenceModalLabel">Create Geofence</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card card-body border shadow-none m-2 p-2">
+                    <div class="row form-container">
+                        <div class="col-sm-4 border-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" id="rbLatLong">
+                                <label class="form-check-label" for="rbLatLong">
+                                    Enter Lat-Long
+                                </label>
+                              </div>
+                            <!-- <label for="txtLatLong" class="form-label">Enter Lat-Long</label> -->
+                            <div class="input-group">
+                                <input type="text" id="txtLatLong" class="form-control" placeholder="Enter Lat-Long" />
+                                <button type="button" title="Draw Geo-Fence" class="btn btn-light border text-primary"><i class="fas fa-draw-polygon"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 border-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" id="rbKMLUpload">
+                                <label class="form-check-label" for="rbKMLUpload">
+                                    Upload KML File
+                                </label>
+                              </div>
+                            <!-- <label for="txtKMLUpload" class="form-label">Upload KML File</label> -->
+                            <div class="input-group">
+                                <input type="file" id="txtKMLUpload" class="form-control"  />
+                                <button type="button" title="Draw Geo-Fence" class="btn btn-light border text-primary"><i class="fas fa-draw-polygon"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" id="rbManualDraw">
+                                <label class="form-check-label" for="rbManualDraw">
+                                    Geo-Fence Lat-Long (Manual)
+                                </label>
+                              </div>
+                            <!-- <label class="form-label">Geo-Fence Lat-Long (Manual)</label> -->
+                            <div class="input-group">
+                                <input type="text" id="txtKMLUpload" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mapouter">
+                    <div class="mapsearch">
+                        <input class="form-control" type="text" placeholder="Search Location">
+                    </div>
+                    <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas"
+                            src="https://maps.google.com/maps?t=&z=17&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-main btn-sm">Submit Geo-Fence Data</button>
             </div>
         </div>
     </div>
