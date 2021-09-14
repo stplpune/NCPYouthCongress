@@ -2,3 +2,7 @@
     background-color:var(--main-color);
     color: #fff;
 }
+.fix-height{
+    height: 67vh;
+    overflow-y: auto;
+}
