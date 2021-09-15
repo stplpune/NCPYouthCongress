@@ -100,7 +100,7 @@ export class EventMasterComponent implements OnInit {
       ProgramDate: ['', Validators.required],
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
-      IschangeImage:[1],
+      IschangeImage:[],
     })
   }
 
