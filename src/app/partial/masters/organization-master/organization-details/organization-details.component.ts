@@ -221,6 +221,17 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
+        // this.allDesignatedMembers.filter((ele:any)=>{
+        //   if(ele.IsMultiple == 1){
+        //     ele.pop();
+        //   }
+        //   return ele;
+        // });
+        // console.log(this.allDesignatedMembers)
+        // let lastArray:any = arrayChange.pop();
+        // lastArray['addFlag'] = true;
+        // console.log(lastArray);
+        // allDesignatedMembers
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         this.getPreDesMembersArray = [];

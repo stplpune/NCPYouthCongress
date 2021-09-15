@@ -29,6 +29,7 @@ export class CommitteesOnMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSvgMap(this.commonService.mapRegions());
+    this.getOrganizationByDistrictId(0);
   }
 
   ngAfterViewInit() {
