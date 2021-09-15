@@ -74,7 +74,11 @@
         width: 219px;
     }
 }
-
+.nava{
+    margin-bottom: 4rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 .nava a,
 .nava label {
     display: block;

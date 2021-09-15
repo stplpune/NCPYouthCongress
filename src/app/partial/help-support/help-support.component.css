@@ -96,12 +96,14 @@
 
 #help-support .personadetails .personname {
     color: var(--main-color);
+    line-height: 31px;
+    font-weight: 600;
 }
 
 #help-support .personadetails .persondate,
 #help-support .personadetails .personemail,
 #help-support .personadetails .personcontact {
-    color: #999;
+    color: #666;
     font-size: 0.85rem;
 }
 
