@@ -11,9 +11,9 @@
     transition: all .25s ease-in;
 }
 #events .card img{
-    /* width: 90px;
-    height:90px; */
     object-fit: cover;
+    height: 100px;
+    width: 100px;
 }
 #events .event-status{
     background-color: var(--main-color);
