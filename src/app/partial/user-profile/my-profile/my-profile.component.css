@@ -31,8 +31,14 @@
     left: 200px;
     top: 50px;
     z-index: 9;
+    object-fit: cover;
 }
-
+.profile-photo{
+    object-fit: cover;
+    height:204px;
+    width: 204px;
+    object-position: center;
+}
 .modal img {
     border-radius: 7px;
 }
