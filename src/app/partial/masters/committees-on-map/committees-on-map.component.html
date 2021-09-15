@@ -20,7 +20,13 @@
                     </div>
                     <div class="col-sm-3 border-end">
                         <div class="card shadow-none"  *ngIf="defaultCommitteesFlag">
-                            <div class="card-header pb-0 border-bottom">Committees in <span class="text-main">{{districtName | titlecase}}</span></div>
+                            <div class="card-header pb-0 border-bottom">Committees in <span class="text-main">{{districtName | titlecase}}</span>
+                                <span class="float-end">
+                                    <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </span>
+                            </div>
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)" [class.active]="resCommittes.Id == activeRow" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resCommittes of resultCommittees">
