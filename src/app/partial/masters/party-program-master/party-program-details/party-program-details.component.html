@@ -62,7 +62,7 @@
                         <div class="col-sm-4">
                             <div class="card card-body">
                                 <i class="fas fa-users pb-2"></i>
-                                <h6>Members</h6>
+                                <span class="h6">Members</span>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <a class="btn btn-light py-2 px-3 border-add" (click)=" memPaginationNo = 1; getMembersData(); ParticipantsText = 'Members'" [ngClass]="{'active':ParticipantsText == 'Members'}">
@@ -80,7 +80,7 @@
                         <div class="col-sm-4">
                             <div class="card card-body">
                                 <i class="fas fa-network-wired pb-2"></i>
-                                <h6>Committees</h6>
+                                <span class="h6">Committees</span>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <a class="btn btn-light py-2 px-3 border-add" (click)="comPaginationNo = 1; getCommitteesData();  ParticipantsText = 'Committees';" [ngClass]="{'active':ParticipantsText == 'Committees'}">
@@ -99,7 +99,7 @@
                         <div class="col-sm-4">
                             <div class="card card-body">
                                 <i class="fas fa-users pb-2"></i>
-                                <h6>Non-Participant Committees</h6>
+                                <span class="h6">Non-Participant Committees</span>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <a class="btn btn-light py-2 px-3 border-add" (click)="nonComPaginationNo = 1; getNonParticipantsData();  ParticipantsText = 'Non -';" [ngClass]="{'active':ParticipantsText == 'Non -'}">

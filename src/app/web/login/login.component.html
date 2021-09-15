@@ -1,61 +1,3 @@
-<!-- <div id="login">
-    <div class="container mt-5">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-4 mt-5">
-                <div id="login-box" class="col-md-12">
-                    <div class="card">
-                        <img src="assets/images/login-top.jpg" class="card-img-top">
-                    </div>
-                    <div class="card-body p-5">
-                        <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
-                            <h3 class="text-center">Login</h3>
-                            <div class="mb-3">
-                                <input type="text" placeholder="User Name" name="username" class="form-control" formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
-                                <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.UserName.errors.required">UserName is required</div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <input autocomplete="off" [type]="show_button ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
-                                    <button type="button" class="btn">
-                                        <i class="eye-icon-pos" [class]="show_eye ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword()"> </i>
-                                    </button>
-                                </div>
-                                <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Password.errors.required">Password is required</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="Enter Captcha" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }">
-                                        <div *ngIf="submitted && f.recaptchaReactive.errors" class="invalid-feedback">
-                                            <div *ngIf="f.recaptchaReactive.errors.required">Captcha is required</div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="mb-3">
-                                        <div class="input-group">
-                                            <div id="captcha" class="form-control py-0"></div>
-                                            <button class="btn sync" type="button" (click)="reCaptcha()"><i class="fa fa-sync"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-main">Submit</button>
-                            </div>
-                        </form>
-                    </div>                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="container p-0" id="loginbox">
     <div id="login-box" class="col-md-12">
         <div class="card-body p-5">
@@ -66,7 +8,7 @@
                 <h5 class="text-center">राष्ट्रवादी युवक कॉंग्रेस</h5>
                 <h3 class="text-center">Admin Login</h3>
                 <div class="mb-3">
-                    <input type="text" placeholder="UserName" name="username" class="form-control" formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
+                    <input type="text" placeholder="User Name" name="username" class="form-control" formControlName="UserName" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
                     <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
                         <div *ngIf="f.UserName.errors.required">UserName is required</div>
                     </div>

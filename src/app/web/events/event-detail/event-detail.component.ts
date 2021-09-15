@@ -37,24 +37,20 @@ export class EventDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getEventId =  sessionStorage.getItem('eventId');
     this.getEventList();
+    
   }
 
   getEventList() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetEventList_1_0?UserId=0' + '&PageNo=' + this.paginationNo
-      + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
+    + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.eventListArray = res.data1;
+        console.log(this.eventListArray);
         this.total = res.data2[0].TotalCount;
-
-        this.eventListArray.forEach((element: any) => { // event Detail
-          if (element.EventId == this.getEventId) {
-            this.eventDetalis = element;
-          }
-        });
-
+        this.eventDetails(this.getEventId);
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available");
@@ -68,9 +64,13 @@ export class EventDetailComponent implements OnInit {
   }
 
   eventDetails(details:any){
-    this.eventDetalis = details;
     this.selEventId= details.EventId;
-    this.getEventList();
+    this.eventListArray.forEach((element: any) => { // event Detail
+      if (element.EventId == details) {
+        this.eventDetalis = element;
+        console.log(this.eventDetalis);
+      }
+    });
   }
 
   onClickPagintion(pageNo: number) {

@@ -150,6 +150,8 @@
     padding-bottom: 5px;
     border-bottom: solid 2px #ddd;
     color: var(--main-color);
+    line-height: 34px !important;
+    font-weight: 600;
 }
 
 #membername .input-group .form-control {

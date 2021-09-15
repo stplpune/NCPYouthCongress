@@ -18,10 +18,11 @@ export class CommitteesOnMapComponent implements OnInit {
   resultOrganizationMember:any;
   activeRow:any;
   selCommitteeName:any;
-  districtName:any;
+  districtName="Maharashtra State";
   defaultCommitteesFlag:boolean = false;
   defaultMembersFlag:boolean = false;
   globalBodyId:any;
+  defaultCloseBtn:boolean = false;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
@@ -29,7 +30,16 @@ export class CommitteesOnMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSvgMap(this.commonService.mapRegions());
+    this.getOrganizationByDistrictId(0);
   }
+
+  clearFilter(){
+    this.districtName="Maharashtra State";
+    this.showSvgMap(this.commonService.mapRegions());
+    this.getOrganizationByDistrictId(0);
+    this.defaultCloseBtn = false;
+ 
+  };
 
   ngAfterViewInit() {
     $(document).on('click', 'path', (e: any) => {
@@ -45,12 +55,16 @@ export class CommitteesOnMapComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_1_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        if(id != 0){
+          this.defaultCloseBtn = true;
+        }
         this.defaultCommitteesFlag = true;
         this.spinner.hide();
         this.resultCommittees = res.data1;
      
       } else {
         this.defaultCommitteesFlag = true;
+        this.defaultCloseBtn = false;
         this.resultCommittees = [];
         this.spinner.hide();
       }

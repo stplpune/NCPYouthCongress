@@ -5,7 +5,7 @@
 
 #profile-left .card .card-img-top {
     border-radius: 10px;
-    height:310px;
+    height:100%;
     object-fit: cover;
 }
 
@@ -59,6 +59,7 @@
     margin: 0;
     font-weight: 600;
     color: var(--main-color);
+    font-size: 28px !important;
 }
 
 agm-map {

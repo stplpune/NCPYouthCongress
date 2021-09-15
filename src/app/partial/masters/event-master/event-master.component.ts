@@ -30,27 +30,27 @@ export class EventMasterComponent implements OnInit {
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      ['bold']
+      ['bold', 'fontName','heading','fontSize']
       ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
+    // customClasses: [
+    //   {
+    //     name: "quote",
+    //     class: "quote",
+    //   },
+    //   {
+    //     name: 'redText',
+    //     class: 'redText'
+    //   },
+    //   {
+    //     name: "titleText",
+    //     class: "titleText",
+    //     tag: "h1",
+    //   },
+    // ]
   };
   addEvent!:FormGroup;
   getImgExt: any;
-  selectedFile: any;
+  selectedFile!: File;
   ImgUrl: any;
   imgName: any;
   @ViewChild('myInput') myInput!: ElementRef;
@@ -100,7 +100,7 @@ export class EventMasterComponent implements OnInit {
       ProgramDate: ['', Validators.required],
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
-      IschangeImage:[1],
+      IschangeImage:[],
     })
   }
 
@@ -296,7 +296,7 @@ resetFile() {
   }
 
   removePhoto() {
-    this.selectedFile = "";
+    // this.selectedFile = "";
     this.fileInput.nativeElement.value = '';
     this.ImgUrl = "";
   }

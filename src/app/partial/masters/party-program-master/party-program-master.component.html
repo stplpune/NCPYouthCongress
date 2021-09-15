@@ -145,7 +145,7 @@
                                     {{programList?.ProgramStartDate}} ~ {{programList?.ProgramEndDate ? programList?.ProgramEndDate : 'NA'}}
                                 </td>
                                 <td>
-                                    <h6 class="mb-0">
+                                    <span class="mb-0 h6">
                                         <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}">
                                           
                                             <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">
@@ -158,7 +158,7 @@
                                                 Cancelled</ng-container>
                                                
                                         </span>
-                                    </h6>
+                                    </span>
                                 </td>
 
                                 <td>

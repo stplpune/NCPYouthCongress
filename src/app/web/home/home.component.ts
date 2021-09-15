@@ -27,7 +27,12 @@ export class HomeComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.allLatestEvent = res.data1;
+        this.allLatestEvent = res.data1.filter((ele:any)=>{
+          if(ele.IsDisplay == 1){
+            return ele
+          }
+        })
+       console.log(this.allLatestEvent)
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available ");

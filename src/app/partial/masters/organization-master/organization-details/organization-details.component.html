@@ -29,15 +29,14 @@
                         <tbody>
                             <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
                                 <td>{{designatedMembers.SrNo}}</td>
-
                                 <td>{{designatedMembers.MemberName | titlecase}}</td>
                                 <td>{{designatedMembers.DesignationName}} <br/><small> (From :{{designatedMembers.PostFromDate}})</small></td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
                                         <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light rounded"> <i class="fas fa-pencil-alt"></i></button>
-                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button>
+                                        <!-- <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button> -->
+                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button>
                                         <button class="btn btn-sm btn-light text-danger mx-1 rounded" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
-
                                         <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                     </div>
                                 </td>
@@ -58,10 +57,12 @@
                         </div>
                         <table class="table table-hover">
                             <tbody>
-                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
-                                    <td><a>{{desMembers.MemberName}}</a></td>
-                                    <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}
-                                    </td>
+                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]; let first = first ">
+                                    <!-- <ng-container *ngIf="designationName.DesignationName == desMembers.DesignationName"> -->
+                                        <!-- <td *ngIf="first"> <div class="text-center bg-light py-2 fw-bold border-bottom">{{desMembers.DesignationName}}</div></td> -->
+                                        <td><a>{{desMembers.MemberName}}</a></td>
+                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
+                                    <!-- </ng-container> -->
                                 </tr>
                             </tbody>
                         </table>

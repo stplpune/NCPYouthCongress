@@ -50,7 +50,8 @@ export class NotificationsComponent implements OnInit {
   @ViewChild('clickPushModal') clickPushModal:any;
   IsChangeImage:boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  
+  schedulerFlag:boolean = false;
+  minDate: any = new Date();
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -85,6 +86,7 @@ export class NotificationsComponent implements OnInit {
       DistrictId: [''],
       BodyId:[''],
       MemberStr: [],
+      NotificationDate:['']
     })
   }
 
@@ -100,7 +102,7 @@ export class NotificationsComponent implements OnInit {
   
   onSubmit(){
     this.spinner.show();
-    
+   
     this.submitted = true;
     if (this.notificationForm.invalid) {
       this.spinner.hide();
@@ -136,6 +138,7 @@ export class NotificationsComponent implements OnInit {
       }
       let id:any;
       getObj.Id ? id = getObj.Id : id = 0;
+      
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
@@ -147,6 +150,8 @@ export class NotificationsComponent implements OnInit {
       fromData.append('AttchmentStr', this.selectedFile);
       fromData.append('NotificationType', notificationFlag);
       fromData.append('IsChangeImage',  ImageChangeFlag );
+     // fromData.append('Ispushed ',  ImageChangeFlag );
+
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
@@ -519,5 +524,8 @@ export class NotificationsComponent implements OnInit {
     clickInputFile?.click();
   }
 
+  checkBoxScheduler(event:any){
+    event.target.checked ? this.schedulerFlag = true : this.schedulerFlag = false;
+  }
   
 }

@@ -348,9 +348,10 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 #dash-stats .card h3 {
-    font-weight: 400;
+    font-weight: 400 !important;
     text-align: left;
-    margin-bottom: 0
+    margin-bottom: 0;
+    font-size: 1.7rem !important;
 }
 
 #dash-stats .bg-cyan {
@@ -760,6 +761,7 @@ mapsvg-layers-wrap+svg {
  ::-webkit-scrollbar-thumb {
     background-color: #ADADAD;
     -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
 }
 
  ::-webkit-scrollbar-thumb:hover {
@@ -822,9 +824,17 @@ mapsvg-layers-wrap+svg {
     font-weight: 300;
     font-size: 2.5rem;
 }
+.page-header p {
+    color: #aaa;
+}
+.page-header p a{
+    color: #fff;
+    text-decoration: none;
+}
+.page-header p a:hover{
+    color: var(--clr-orange);
+}
 
-html, body { height: 100%; }
-/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 .mat-dialog-container{
     padding:0 !important;
 }
