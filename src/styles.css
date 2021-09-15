@@ -822,6 +822,16 @@ mapsvg-layers-wrap+svg {
     font-weight: 300;
     font-size: 2.5rem;
 }
+.page-header p {
+    color: #aaa;
+}
+.page-header p a{
+    color: #fff;
+    text-decoration: none;
+}
+.page-header p a:hover{
+    color: var(--clr-orange);
+}
 
 html, body { height: 100%; }
 /* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
