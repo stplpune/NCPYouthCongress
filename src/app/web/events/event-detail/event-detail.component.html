@@ -4,7 +4,7 @@
             <div class='page-header'>
                 <div class="centered">
                     <h1>Event Details</h1>
-                    <p>Home <span class="mx-2">|</span> Event <span class="mx-2">|</span> Event Details</p>
+                    <p><a routerLink="home">Home</a> <span class="mx-2">/</span><a routerLink="events">Events</a><span class="mx-2">/</span>Details</p>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-sm-4" id="allevents">
 
-                        <div class="offset-4 col-sm-8 float-end">
+                        <!-- <div class="offset-4 col-sm-8 float-end">
                             <div class="input-group">
                                 <div class="input-group">
                                     <input [owlDateTime]="dt2" (dateTimeChange)="getweekRage($event.value)" [formControl]="selRange" class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt2" placeholder="Select Date">
@@ -41,28 +41,32 @@
                                         <i class="fas fa-times"></i></button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="card mb-3 card-body">
-                            <!--  -->
-                            <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events)" [class.active]="events.EventId == selEventId">
-                                <div class="flex-shrink-0 me-3">
-                                    <img *ngIf="!events?.ImagePath" src="assets/images/ncp-default.png" class="media-img" alt="...">
-                                    <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="media-img" alt="...">
-                                </div>
-                                <div class="flex-grow-1" class="media-body">
-                                    <h6>
-                                        <a>{{eventDetalis?.ProgramTitle | titlecase}}</a>
-                                    </h6>
-                                    <p [innerHtml]="events?.ProgramDescription" class="text-ellipsis-250px-new"></p>
-                                    <p class="small text-muted">
-                                        <i class="fas fa-calendar-alt me-2"></i> {{events?.ProgramStartDate}} ~ {{events?.ProgramEndDate}}
-                                    </p>
-
-                                </div>
+                        <div class="card mb-3">
+                            <div class="card-header bg-transparent border-bottom-0 fw-bold">
+                                Latest Events
                             </div>
-                            <div class="mt-2 text-end" *ngIf="eventListArray?.length != 0">
-                                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                            <div class="card-body">
+                                <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events)" [class.active]="events.EventId == selEventId">
+                                    <div class="flex-shrink-0 me-3">
+                                        <img *ngIf="!events?.ImagePath" src="assets/images/ncp-default.png" class="media-img" alt="...">
+                                        <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="media-img" alt="...">
+                                    </div>
+                                    <div class="flex-grow-1" class="media-body">
+                                        <h6>
+                                            <a>{{eventDetalis?.ProgramTitle | titlecase}}</a>
+                                        </h6>
+                                        <!-- <p [innerHtml]="events?.ProgramDescription" class="text-ellipsis-250px-new"></p> -->
+                                        <p class="small text-muted">
+                                            <i class="fas fa-calendar-alt me-2"></i> {{events?.ProgramStartDate}} ~ {{events?.ProgramEndDate}}
+                                        </p>
+    
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-end" *ngIf="eventListArray?.length != 0">
+                                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                                </div>
                             </div>
                             <!-- <div class="d-flex media">
                                 <div class="flex-shrink-0 me-3">

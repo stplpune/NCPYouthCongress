@@ -1,6 +1,6 @@
 #events .card{
     border: none;
-    background-color: transparent;
+    /* background-color: transparent; */
     border-radius: 10px;
     border: solid 1px transparent;
     transition: all .25s ease-in;
@@ -11,8 +11,8 @@
     transition: all .25s ease-in;
 }
 #events .card img{
-    width: 150px;
-    height:150px;
+    /* width: 90px;
+    height:90px; */
     object-fit: cover;
 }
 #events .event-status{
@@ -23,16 +23,45 @@
     padding: 5px 12px;
     font-weight: 600;
 }
+#events h6 {
+    font-family: 'Inter', sans-serif;
+    font: inherit !important;
+    font-weight: 600 !important;
+    line-height: 25px !important;
+}
 #events h6 a{
-    color: var(--main-color);
+    color: #222;
     text-decoration: none;
 }
 #events h6 a:hover{
-    color: var(--clr-orange);
+    color: var(--main-color);
     text-decoration: none;
 }
 #events .event-text{
     font-size: 0.85rem;
     line-height:24px;
-    color: #999;
+    color: #555;
+}
+#events .event-text > *{
+    all: unset !important;
+    font-size: 0.85rem !important;
+}
+#events .input-group .form-control{
+    border: 1px solid #ced4da;
+    border-right:none;
+    box-shadow: none;
+    font-size: 0.85rem;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 15px;
+}
+#events .input-group button{
+    border: 1px solid #ced4da;
+    border-left:none;
+    box-shadow: none;
+    font-size: 0.85rem;
+    background-color:#fff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 15px;
 }
