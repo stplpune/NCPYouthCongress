@@ -75,14 +75,14 @@
     }
 }
 .nava{
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
 .nava a,
 .nava label {
     display: block;
-    padding: 0.5rem .85rem;
+    padding: 0.4rem .85rem;
     color: #333;
     background-color: #fff;
     -webkit-transition: all .25s ease-in;
