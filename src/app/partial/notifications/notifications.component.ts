@@ -102,8 +102,7 @@ export class NotificationsComponent implements OnInit {
   
   onSubmit(){
     this.spinner.show();
-    console.log(this.notificationForm.value);
-    return
+   
     this.submitted = true;
     if (this.notificationForm.invalid) {
       this.spinner.hide();
