@@ -9,7 +9,7 @@
                     <input id="group-1" type="checkbox" hidden />
                     <label for="group-1" routerLink="dashboard">
                       <i class="fas fa-tachometer-alt"></i>
-                        Dashboard</label>
+                        NCP Dashboard</label>
                 </li>
                 <li routerLinkActive="active">
                     <input id="group-2" type="checkbox" hidden />
@@ -34,13 +34,39 @@
                         <li><a routerLink="member/executive">Executive Members</a></li>
                     </ul>
                 </li>
+                <li routerLinkActive="active">
+                    <input id="group-4" type="checkbox" hidden />
+                    <label for="group-4">
+                        <i class="fas fa-tools"></i>
+                        Activity Management <span class="fa fa-angle-right"></span></label>
+                    <ul class="group-list" [class.d-none]="hide ? false : true">
+                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
+                        <li><a routerLink="social-media">Social Media Perception</a></li>
+                        <li><a routerLink="party-works">Party Work</a></li>
+                        <li><a routerLink="forward-activities">Forward Activities</a></li>
+                        <li><a routerLink="activity-analysis">Activity Analysis</a></li>
+                    </ul>
+                </li>
+                <li routerLinkActive="active">
+                    <input id="group-5" type="checkbox" hidden />
+                    <label for="group-5">
+                        <i class="fas fa-tools"></i>
+                        Communications <span class="fa fa-angle-right"></span></label>
+                    <ul class="group-list" [class.d-none]="hide ? false : true">
+                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
+                        <li><a routerLink="feedbacks">Feedbacks</a></li>
+                        <li><a routerLink="notifications">Notifications</a></li>
+                        <li><a routerLink="help-support">Help Support</a></li>
+                        <li><a routerLink="activity-analysis">Activity Analysis</a></li>
+                    </ul>
+                </li>
                 <!-- <li>
                     <input id="group-4" type="checkbox" hidden />
                     <label for="group-4" routerLink="registrations">
                       <i class="far fa-id-card"></i>
                       Registrations</label>
                 </li> -->
-                <li routerLinkActive="active">
+                <!-- <li routerLinkActive="active">
                     <input id="group-5" type="checkbox" hidden />
                     <label for="group-5" routerLink="social-media">
                         <i class="fas fa-share-alt"></i>
@@ -51,8 +77,8 @@
                     <label for="group-6" routerLink="party-works">
                       <i class="fas fa-praying-hands"></i>
                       Party Work</label>
-                </li>
-                <li routerLinkActive="active">
+                </li> -->
+                <!-- <li routerLinkActive="active">
                     <input id="group-7" type="checkbox" hidden />
                     <label for="group-7" routerLink="feedbacks">
                         <i class="fas fa-comments"></i>
@@ -69,19 +95,19 @@
                     <label for="group-8" routerLink="help-support">
                       <i class="fas fa-hands-helping"></i>
                  Help Support</label>
-                </li>
-                <li routerLinkActive="active">
+                </li> -->
+                <!-- <li routerLinkActive="active">
                     <input id="group-9" type="checkbox" hidden />
                     <label for="group-9" routerLink="forward-activities">
                         <i class="fas fa-share"></i>
                 Forward Activities</label>
-                </li>
-                <li routerLinkActive="active">
+                </li> -->
+                <!-- <li routerLinkActive="active">
                     <input id="group-10" type="checkbox" hidden />
                     <label for="group-10" routerLink="activity-analysis">
                         <i class="fas fa-chart-bar"></i>
                 Activity Analysis</label>
-                </li>
+                </li> -->
                 <!-- <li routerLinkActive="active">
                     <input id="group-11" type="checkbox" hidden />
                     <label for="group-11" routerLink="create-election">
@@ -89,10 +115,10 @@
                         Create Election</label>
                 </li> -->
                 <li routerLinkActive="active">
-                    <input id="group-11" type="checkbox" hidden />
-                    <label for="group-11">
+                    <input id="group-6" type="checkbox" hidden />
+                    <label for="group-6">
                         <i class="fas fa-vote-yea"></i>
-                        Create Election <span class="fa fa-angle-right"></span></label>
+                        Election Management <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list">
                         <li><a routerLink="election/create-election">Create Election</a></li>
                         <li><a routerLink="election/create-constituency">Create Constituency</a></li>
