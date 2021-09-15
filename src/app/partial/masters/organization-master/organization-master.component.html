@@ -142,15 +142,10 @@
                                 <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result.BodyOrgCellName | titlecase}}</a></td>
                                 <td>{{result.LevelName}}</td>
                                 <td><span class="text-ellipsis-150px" [appTooltip] title={{result.Area}}>{{result.Area}}</span></td>
-
                                 <td>
                                     <span class="text-ellipsis-150px" [appTooltip] title={{result.DesignationAssigned}}>{{result.DesignationAssigned}}</span>
-                                    <!-- <div *ngFor=" let DesignAss of result.DesignationAssigned;let i=index">
-                                       {{i+1}}. {{DesignAss}}
-                                     </div> -->
                                 </td>
-                                <!-- <ng-template #elseBlock><td style="text-align: center;">NA</td></ng-template> -->
-
+                               
                                 <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id);" data-bs-target="#AddDesignationModal">
                                         <i class="fas fa-user-plus"></i>
                                     </button> </td>

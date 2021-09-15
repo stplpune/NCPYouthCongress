@@ -42,7 +42,7 @@
                    
                     <div class="col-sm-3">
                         <div class="card shadow-none"  *ngIf="defaultMembersFlag">
-                            <div class="card-header pb-0 border-bottom" *ngIf="resultOrganizationMember?.length != 0">Members in <span class="text-main">{{selCommitteeName | titlecase}}</span></div>
+                            <div class="card-header pb-0 border-bottom" *ngIf="resultOrganizationMember?.length != 0">Members in <span class="text-main" style="cursor: pointer;" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
