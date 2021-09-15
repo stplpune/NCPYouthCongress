@@ -348,9 +348,10 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 #dash-stats .card h3 {
-    font-weight: 400;
+    font-weight: 400 !important;
     text-align: left;
-    margin-bottom: 0
+    margin-bottom: 0;
+    font-size: 1.7rem !important;
 }
 
 #dash-stats .bg-cyan {

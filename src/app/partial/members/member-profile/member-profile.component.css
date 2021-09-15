@@ -5,7 +5,7 @@
 
 #profile-left .card .card-img-top {
     border-radius: 10px;
-    height:310px;
+    height:100%;
     object-fit: cover;
 }
 
