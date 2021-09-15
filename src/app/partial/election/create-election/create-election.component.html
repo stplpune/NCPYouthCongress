@@ -4,53 +4,50 @@
             <span class="page-name">Create Election</span>
         </div>
         <div class="col-sm-8 text-end">
-
         </div>
     </div>
 
     <div class="row chartbox mb-3">
         <div class="col-sm-4">
+            <form [formGroup]="createElection" (ngSubmit)="onSubmitElectionForm()">
             <div class="card">
                 <div class="card-header">Create Election</div>
                 <div class="card-body pt-0">
                     <div class="form-container">
                         <div class="mb-3">
                             <label for="txtElectionName" class="form-label">Election Name</label>
-                            <input type="text" class="form-control" id="txtElectionName" placeholder="Election Name">
+                            <input type="text" class="form-control" formControlName="ElectionName" id="txtElectionName" placeholder="Election Name" [ngClass]="{ 'is-invalid': submitted && f.ElectionName.errors }">
+                            <div *ngIf="submitted && f.ElectionName.errors" class="invalid-feedback">
+                                <div *ngIf="f.ElectionName.errors.required">Election Name is required</div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="ddlElectionType" class="form-label">Election Type</label>
-                            <select class="form-select" id="ddlElectionType">
+                            <select class="form-select" id="ddlElectionType" formControlName="ElectionTypeId" [ngClass]="{ 'is-invalid': submitted && f.ElectionTypeId.errors }">
                                 <option value="">Select Election Type</option>
                             </select>
+                            <!-- <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="ElectionTypeId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Election Type"
+                            [ngClass]="{ 'is-invalid': submitted && f.ElectionTypeId.errors }">
+                        </ngx-select> -->
+                            <div *ngIf="submitted && f.ElectionTypeId.errors" class="invalid-feedback">
+                                <div *ngIf="f.ElectionTypeId.errors.required">Election Type is required</div>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="rblBoothListType" class="form-label">Booth List Type</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblBoothListType" id="blAssembly"
-                                        value="Assembly Booth List">
-                                    <label class="form-check-label" for="blAssembly">Assembly Booth List</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblBoothListType" id="bluserDefined"
-                                        value="User Defined Booth List">
-                                    <label class="form-check-label" for="bluserDefined">User Defined Booth List</label>
+                                <div class="form-check form-check-inline" *ngFor="let boothLType of boothListTypeArray">
+                                    <input class="form-check-input" type="radio" formControlName="IsAsemblyBoothListApplicable" [value]="boothLType.id" name="IsAsemblyBoothListApplicable" id="bluserDefined">
+                                    <label class="form-check-label" for="bluserDefined">{{boothLType.name}}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-2">
                             <label for="rblSubElection" class="form-label">Is Sub-Election Applicable</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblSubElection" id="subYes"
-                                        value="Yes">
-                                    <label class="form-check-label" for="subYes">Yes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblSubElection" id="subNo"
-                                        value="No">
-                                    <label class="form-check-label" for="subNo">No</label>
+                                <div class="form-check form-check-inline" *ngFor="let subEleApp of subElectionAppArray">
+                                    <input class="form-check-input" type="radio" formControlName="IsSubElectionApplicable" [value]="subEleApp.id" name="IsSubElectionApplicable" id="subNo">
+                                    <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
                                 </div>
                             </div>
                         </div>
@@ -59,12 +56,20 @@
                                 <div class="mb-3">
                                     <label for="ddlSelectElection" class="form-label">Select Election</label>
                                     <div class="input-group">
-                                        <select class="form-select rounded" id="ddlSelectElection">
-                                            <option value="">Select Election</option>
+                                        <select class="form-select rounded" id="ddlSelectElection" formControlName="SubElectionId" [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors }">
+                                            <option value="1">Select Election</option>
+                                            <option value="2">Select Election1</option>
+                                            <option value="3">Select Election2</option>
                                         </select>
+                                         <!-- <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="SubElectionId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select Election"
+                            [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors }">
+                        </ngx-select> -->
                                         <button type="button" class="btn btn-light btn-sm ms-1 border rounded">
                                             <i class="fas fa-plus"></i>
                                         </button>
+                                    </div>
+                                    <div *ngIf="submitted && f.SubElectionId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.SubElectionId.errors.required">Select Election is required</div>
                                     </div>
                                 </div>
                                 <table class="table table-hover mb-0">
@@ -90,12 +95,13 @@
                             </div>
                         </div>
                         <div class="mb-2 mt-4">
-                            <button type="button" class="btn btn-secondary  float-lg-start">Clear</button>
+                            <button type="button" (click)="clearForm()" class="btn btn-secondary  float-lg-start">Clear</button>
                             <button type="submit" class="btn btn-main float-lg-end">Create Election</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         </div>
         <div class="col-sm-8">
             <div class="card">

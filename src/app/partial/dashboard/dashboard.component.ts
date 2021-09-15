@@ -306,7 +306,7 @@ export class DashboardComponent implements OnInit {
     ];
     chart.data = this.newMemberInThisWeekArray;
 
-    chart.padding(5, 5, 5, 5);
+    //chart.padding(5, 5, 5, 5);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;

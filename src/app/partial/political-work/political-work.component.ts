@@ -39,9 +39,10 @@ export class PoliticalWorkComponent implements OnInit {
   lat: any;
   lng: any;
   zoom: any = 12;
-  comUserdetImg:any;
-  programGalleryImg!: GalleryItem[]; 
+  comUserdetImg: any;
+  programGalleryImg!: GalleryItem[];
   HighlightRow: any;
+  mapHideShowDiv: boolean = false;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -159,10 +160,10 @@ export class PoliticalWorkComponent implements OnInit {
     this.getPoliticalWork()
   }
 
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../member/profile'], {relativeTo:this.route})
+    this.router.navigate(['../member/profile'], { relativeTo: this.route })
   }
 
 
@@ -217,8 +218,15 @@ export class PoliticalWorkComponent implements OnInit {
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
     this.HighlightRow = this.viewPoliticleWorkDetailsById.Id;
 
+    // console.log("asd", this.viewPoliticleWorkDetailsById)
+    // if (this.viewPoliticleWorkDetailsById.CategoryId == 1 || this.viewPoliticleWorkDetailsById.CategoryId == 5) {
+    //   this.mapHideShowDiv = true;
+    // } else {
+    //   this.mapHideShowDiv = false;
+    // }
+
     this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
-    this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
+    this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
     this.gallery.ref().load(this.comUserdetImg);
 
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);

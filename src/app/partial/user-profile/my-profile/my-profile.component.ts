@@ -391,5 +391,4 @@ export class MyProfileComponent implements OnInit {
       return { passwordValid: true }
     }
   }
-
 }
