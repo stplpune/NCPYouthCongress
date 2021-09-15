@@ -93,10 +93,11 @@
                                     <label for="ddlMembers" class="form-label"
                                         [ngClass]="{ 'required-field': submitted && f.MemberStr.errors }">Select
                                         Members</label>
-                                    <ngx-select [allowClear]="true" (select)="addValidationOn('Members')"
-                                        [multiple]="true" [disabled]="this.notificationForm.value.ScopeId != 4"
-                                        [items]="memberNameArray" optionValueField="Id" formControlName="MemberStr"
-                                        optionTextField="FullName" placeholder="Select Member Name">
+                                    <!--  -->
+                                    <ngx-select [allowClear]="true" [multiple]="true" (select)="addValidationOn($event)"
+                                        [disabled]="this.notificationForm.value.ScopeId != 4" [items]="memberNameArray"
+                                        optionValueField="Id" formControlName="MemberStr" optionTextField="FullName"
+                                        placeholder="Select Member Name">
                                     </ngx-select>
                                     <div *ngIf="submitted && f.MemberStr.errors" class="invalid-feedback">
                                         <div *ngIf="f.MemberStr.errors.required">Select Members is required</div>
@@ -157,14 +158,16 @@
                                         <div class="input-group">
                                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
                                                 formControlName="fromTo" [selectMode]="'range'"
-                                                (dateTimeChange)="filterData('range')" class="form-control border border-end-0"
-                                                [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                                (dateTimeChange)="filterData('range')"
+                                                class="form-control border border-end-0" [owlDateTimeTrigger]="dt3"
+                                                placeholder="From To Date">
 
-                                            <button class="btn btn-light border btn-sm border-start-0 bg-transparent" type="button"
-                                                [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                            <button class="btn btn-light border btn-sm border-start-0 bg-transparent"
+                                                type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar-alt"></i></button>
-                                            <button class="btn btn-light border btn-sm border-end-0 bg-transparent" type="button"
-                                                *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
+                                            <button class="btn btn-light border btn-sm border-end-0 bg-transparent"
+                                                type="button" *ngIf="defaultCloseBtn"
+                                                (click)="clearFilter('dateRangePIcker')">
                                                 <i class="fas fa-times"></i></button>
                                         </div>
                                         <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
@@ -173,9 +176,11 @@
 
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input type="text" class="form-control border-end-0 border" formControlName="searchText"
-                                                placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                            <button type="button" class="btn btn-light border btn-sm border-start-0 bg-transparent"
+                                            <input type="text" class="form-control border-end-0 border"
+                                                formControlName="searchText" placeholder="Search..."
+                                                (keyup)="onKeyUpFilter()" />
+                                            <button type="button"
+                                                class="btn btn-light border btn-sm border-start-0 bg-transparent"
                                                 (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
                                                     _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                                             <button type="button" *ngIf="!filterForm.value.searchText"
@@ -210,7 +215,8 @@
                                     {{notificationScope?.Description}}
                                 </div>
                                 <div class="media-links">
-                                    <a href="{{notificationScope?.Link}}" target="_blank" class="me-5">{{notificationScope?.Link}}</a>
+                                    <a href="{{notificationScope?.Link}}" target="_blank"
+                                        class="me-5">{{notificationScope?.Link}}</a>
                                     <!-- <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
                                     <button type="button" class="btn btn-light btn-sm me-1"><i class="fas fa-download"></i></button>
@@ -224,10 +230,12 @@
                                             <i class="fas fa-paper-plane"></i></button>
                                         <button type="button" title="Edit Notification"
                                             class="btn btn-light text-edit me-1 btn-sm"
-                                            (click)="editNotification(notificationScope)"><i class="fas fa-edit"></i></button>
+                                            (click)="editNotification(notificationScope)"><i
+                                                class="fas fa-edit"></i></button>
                                         <button type="button" title="Delete Notification"
                                             class="btn btn-light text-danger btn-sm me-1"
-                                            (click)="delNotConfirmation(notificationScope?.Id)"><i class="fas fa-trash-alt"></i></button>
+                                            (click)="delNotConfirmation(notificationScope?.Id)"><i
+                                                class="fas fa-trash-alt"></i></button>
                                     </span>
                                 </div>
                             </div>

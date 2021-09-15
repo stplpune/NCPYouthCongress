@@ -21,6 +21,7 @@ export class CommitteesOnMapComponent implements OnInit {
   districtName:any;
   defaultCommitteesFlag:boolean = false;
   defaultMembersFlag:boolean = false;
+  globalBodyId:any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
@@ -85,6 +86,7 @@ export class CommitteesOnMapComponent implements OnInit {
 
   committeeNameByOrganizationMember(bodyId:any, committeeName:any){
     this.spinner.show();
+    this.globalBodyId = bodyId;
     this.activeRow = bodyId
     this.callAPIService.setHttp('get', 'Web_GetOrganizationMember_byBodyId_1_0?UserId='+this.commonService.loggedInUserId()+'&BodyId='+bodyId, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -205,4 +207,9 @@ redToMemberProfile(memberId:any,FullName:any){
   this.router.navigate(['../../member/profile'])
 }
 
+redirectOrgDetails(){
+  let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
+  sessionStorage.setItem('bodyId', JSON.stringify(obj))
+  this.router.navigate(['../committee/details'], { relativeTo: this.route })
+}
 }
