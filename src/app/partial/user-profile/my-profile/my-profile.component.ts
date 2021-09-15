@@ -316,7 +316,7 @@ export class MyProfileComponent implements OnInit {
   customFormChangePassword() {
     this.changePasswordForm = this.fb.group({
       userName: [this.commonService.loggedInUserName(), [Validators.required,]],
-      oldPassword: ['', [Validators.required,]],
+      oldPassword: ['', [Validators.required, this.passwordValid]],
       newPassword: ['', [Validators.required, this.passwordValid]],
       ConfirmPassword: ['', [Validators.required, this.passwordValid]],
     })
