@@ -48,14 +48,14 @@
                                 Latest Events
                             </div>
                             <div class="card-body">
-                                <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events)" [class.active]="events.EventId == selEventId">
+                                <div class="d-flex media" *ngFor="let events of  eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" (click)="eventDetails(events.EventId)" [class.active]="events.EventId == selEventId">
                                     <div class="flex-shrink-0 me-3">
                                         <img *ngIf="!events?.ImagePath" src="assets/images/ncp-default.png" class="media-img" alt="...">
                                         <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="media-img" alt="...">
                                     </div>
                                     <div class="flex-grow-1" class="media-body">
                                         <h6>
-                                            <a>{{eventDetalis?.ProgramTitle | titlecase}}</a>
+                                            <a>{{events?.ProgramTitle | titlecase}}</a>
                                         </h6>
                                         <!-- <p [innerHtml]="events?.ProgramDescription" class="text-ellipsis-250px-new"></p> -->
                                         <p class="small text-muted">

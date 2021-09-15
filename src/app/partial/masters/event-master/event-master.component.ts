@@ -50,7 +50,7 @@ export class EventMasterComponent implements OnInit {
   };
   addEvent!:FormGroup;
   getImgExt: any;
-  selectedFile: any;
+  selectedFile!: File;
   ImgUrl: any;
   imgName: any;
   @ViewChild('myInput') myInput!: ElementRef;
@@ -296,7 +296,7 @@ resetFile() {
   }
 
   removePhoto() {
-    this.selectedFile = "";
+    // this.selectedFile = "";
     this.fileInput.nativeElement.value = '';
     this.ImgUrl = "";
   }
