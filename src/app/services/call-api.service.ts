@@ -44,7 +44,7 @@ export class CallAPIService {
   }
 
   setHttp(type: string, url: string, isHeader: Boolean, obj: any, params: any, baseUrl: any) {
-    this.logOutAfterOneHour();
+    //this.logOutAfterOneHour();
     isHeader = false;
     // check user is login or not 
     try {
