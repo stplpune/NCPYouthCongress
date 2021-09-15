@@ -217,10 +217,10 @@
                                 <p class="form-data text-danger">{{viewPoliticleWorkDetailsById?.TotalAbuses}}</p>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-sm-6 form-container">
 
+                    <!-- <div class="col-sm-6 form-container" *ngIf="mapHideShowDiv"> -->
+                        <div class="col-sm-6 form-container">
                         <div class="mb-0" *ngIf="lat!='' && lng!=''; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
@@ -233,6 +233,7 @@
                             </div>
                         </ng-template>
                     </div>
+
                     <div class="mb-0 col-sm-12 form-container">
                         <label class="form-label">Photos</label>
                         <div class="row">
