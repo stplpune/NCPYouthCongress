@@ -155,7 +155,6 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getFeedBackData(FeedbackObj: any) {
-    debugger;
     let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
 

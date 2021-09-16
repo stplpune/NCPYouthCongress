@@ -176,7 +176,6 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.socialMediaDetailsArray = res.data1[0];
         this.HighlightRow = this.socialMediaDetailsArray.Id;
-
         let socialMediaDetailsImageArray = res.data2;
         this.programGalleryImg = socialMediaDetailsImageArray;
         this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');

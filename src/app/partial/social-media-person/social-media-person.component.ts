@@ -37,7 +37,10 @@ export class SocialMediaPersonComponent implements OnInit {
   MostOpposite:any;
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[]; 
-
+  lat: any;
+  lng: any;
+  zoom: any = 16;
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -204,6 +207,14 @@ export class SocialMediaPersonComponent implements OnInit {
     this.comUserdetImg = this.getDatabyPersonId.ImagePath.split(',');
     this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
     this.gallery.ref().load(this.comUserdetImg);
+
+    // for map 
+    let latLong: any = (this.getDatabyPersonId.ActivityLocation);
+    if (latLong != "" && latLong != undefined && latLong != null) {
+      let getLatLong = latLong.split(',');
+      this.lat = Number(getLatLong[0]);
+      this.lng = Number(getLatLong[1]);
+    } 
   }
 
   onClickPagintion(pageNo: number) {
