@@ -41,9 +41,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   total: any;
   pageSize: number = 10;
   resultBodyMemActDetails: any;
-  lat: any = 19.75117687556874;
-  lng: any = 75.71630325927731;
-  zoom: any = 5;
+  lat: any = 19.663280;
+  lng: any = 75.300293;
+  zoom: any = 7;
   resultFeedBack: any;
   checkUserBlock!: string;
   dateTime = new FormControl();
