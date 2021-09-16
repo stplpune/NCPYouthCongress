@@ -1,1 +1,147 @@
-<p>election-profile works!</p>
+<div class="container-fluid">
+    <div class="row" id="membername">
+        <div class="col-sm-6">
+            Election Name <small class="ms-3 text-secondary">[Election Type]</small>
+        </div>
+        <div class="col-sm-6 text-end">
+            <button type="button" class="btn btn-sm btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row" id="dash-stats">
+        <div class="col-sm-3">
+            <div class="card card-body bg-cyan">
+                <i class="fas fa-th-large"></i>
+                <p>No. of Wards</p>
+                <h3>34</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-green">
+                <i class="fas fa-th"></i>
+                <p>No. of Booths</p>
+                <h3>34</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-blue">
+                <i class="fas fa-user-shield"></i>
+                <p>No. of Candidates</p>
+                <h3>34</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-gold">
+                <i class="far fa-id-card"></i>
+                <p>No. of Voters</p>
+                <h3>34</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header">Important Dates
+                    <span class="float-end">
+                        <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#ImportantDatesModal">
+                            Update Information
+                        </a>
+                    </span>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="form-container">
+                        <div class="mb-2">
+                            <label class="form-label">Announcement & issue of Press Note</label>
+                            <div class="form-data">Saturday, 21 September, 2019</div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Issue of Notification</label>
+                            <div class="form-data">Friday, 28 September, 2019</div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Last Date of filing Nominations</label>
+                            <div class="form-data">Monday, 12 October, 2019</div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Scrutiny of Nominations</label>
+                            <div class="form-data">Wednesday, 14 October, 2019</div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Last date of withdrawal of Candidature</label>
+                            <div class="form-data">Saturday, 18 October, 2019</div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Date of Poll</label>
+                            <div class="form-data">Tuesday, 21 October, 2019</div>
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Counting of Votes</label>
+                            <div class="form-data">Saturday, 24 October, 2019</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-header">
+                    Important Dates
+                </div>
+                <div class="card-body pt-0">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Important Dates -->
+<div class="modal fade" id="ImportantDatesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ImportantDatesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ImportantDatesModalLabel">Important Dates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-2">
+                        <label class="form-label">Announcement & issue of Press Note</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Issue of Notification</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Last Date of filing Nominations</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Scrutiny of Nominations</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Last date of withdrawal of Candidature</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Date of Poll</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Counting of Votes</label>
+                        <input class="form-control" type="text" placeholder="Day, Date Month, Year">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-main btn-sm">Save Information</button>
+            </div>
+        </div>
+    </div>
+</div>

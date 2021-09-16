@@ -1,0 +1,65 @@
+.election-level,
+.const-level,
+.assembly-level,
+.booth-level{
+    list-style: none;
+}
+.election-level {
+    padding-left: 0;
+}
+.election-level li:only-child{
+    line-height: 28px;
+    padding-left: 1.3em;
+    font-size: 0.85rem;
+}
+.election-level li:before {
+    font-weight: 600;
+    content: "\f772"; 
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    margin-left: -1.3em; 
+    width: 1.3em; 
+    margin-right: 5px;
+    color: #aaa;
+  }
+  .const-level li:only-child{
+    line-height: 28px;
+    padding-left: 1.3em;
+    font-weight: 300 !important;
+}
+.const-level li:before {
+    content: "\f04d"; 
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    margin-left: -1.3em; 
+    width: 1.3em; 
+    margin-right: 5px;
+    color: #aaa;
+  }
+  .assembly-level li:only-child{
+    font-weight: 500;
+    line-height: 28px;
+    padding-left: 1.3em;
+}
+.assembly-level li:before {
+    content: "\f009"; 
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    margin-left: -1.3em; 
+    width: 1.3em; 
+    margin-right: 5px;
+    color: #aaa;
+  }
+  .booth-level li:only-child{
+    font-weight: 500;
+    line-height: 28px;
+    padding-left: 1.3em;
+}
+.booth-level li:before {
+    content: "\f00a"; 
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    margin-left: -1.3em; 
+    width: 1.3em; 
+    margin-right: 5px;
+  }
