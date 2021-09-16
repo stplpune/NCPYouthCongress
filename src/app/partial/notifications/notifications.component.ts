@@ -52,6 +52,7 @@ export class NotificationsComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   schedulerFlag:boolean = false;
   minDate: any = new Date();
+  IspushedFlag:any = 0;
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -101,8 +102,8 @@ export class NotificationsComponent implements OnInit {
   get f() { return this.notificationForm.controls };
   
   onSubmit(){
+    this.valiationForScheduler();
     this.spinner.show();
-   
     this.submitted = true;
     if (this.notificationForm.invalid) {
       this.spinner.hide();
@@ -138,7 +139,16 @@ export class NotificationsComponent implements OnInit {
       }
       let id:any;
       getObj.Id ? id = getObj.Id : id = 0;
-      
+      let convertDate:any;
+      let NotificationDate:any;
+      if(getObj.NotificationDate){
+        NotificationDate = this.datePipe.transform(getObj.NotificationDate, 'dd/MM/YYYY hh:mm');
+        convertDate = NotificationDate.split(':');
+      }else{
+        NotificationDate = this.datePipe.transform(new Date, 'dd/MM/YYYY hh:mm');
+        convertDate= NotificationDate.split(':');
+      }
+
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
@@ -150,7 +160,8 @@ export class NotificationsComponent implements OnInit {
       fromData.append('AttchmentStr', this.selectedFile);
       fromData.append('NotificationType', notificationFlag);
       fromData.append('IsChangeImage',  ImageChangeFlag );
-     // fromData.append('Ispushed ',  ImageChangeFlag );
+      fromData.append('NotificationDate', convertDate[0]+":00");
+      fromData.append('Ispushed ',  this.IspushedFlag);
 
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
@@ -180,6 +191,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   addValidationOn(scodeId: any) {
+    debugger;
     if (scodeId == 2) {
       this.validationRemove();
       this.getDistrict();
@@ -198,7 +210,7 @@ export class NotificationsComponent implements OnInit {
       this.notificationForm.controls["MemberStr"].setValidators(Validators.required);
       this.notificationForm.controls["MemberStr"].updateValueAndValidity();
       this.notificationForm.controls['MemberStr'].clearValidators();
-    }else{
+    } else{
       this.validationRemove();
     }
   }
@@ -524,8 +536,22 @@ export class NotificationsComponent implements OnInit {
     clickInputFile?.click();
   }
 
-  checkBoxScheduler(event:any){
-    event.target.checked ? this.schedulerFlag = true : this.schedulerFlag = false;
+  checkBoxScheduler(event: any) {
+    if (event.target.checked) {
+      this.schedulerFlag = true;
+      this.IspushedFlag = 1;
+    } else {
+      this.IspushedFlag = 0;
+      this.schedulerFlag = false;
+    }
+  }
+
+  valiationForScheduler(){
+    if (this.schedulerFlag) {
+      this.notificationForm.controls["NotificationDate"].setValidators(Validators.required);
+      this.notificationForm.controls["NotificationDate"].updateValueAndValidity();
+      this.notificationForm.controls['NotificationDate'].clearValidators();
+    } 
   }
   
 }

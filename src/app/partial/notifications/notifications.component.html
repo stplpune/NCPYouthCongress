@@ -93,8 +93,8 @@
                                     <label for="ddlMembers" class="form-label"
                                         [ngClass]="{ 'required-field': submitted && f.MemberStr.errors }">Select
                                         Members</label>
-                                    <!--  -->
-                                    <ngx-select [allowClear]="true" [multiple]="true" (select)="addValidationOn($event)"
+                                    <!-- (select)="addValidationOn($event)" -->
+                                    <ngx-select [allowClear]="true" [multiple]="true" 
                                         [disabled]="this.notificationForm.value.ScopeId != 4" [items]="memberNameArray"
                                         optionValueField="Id" formControlName="MemberStr" optionTextField="FullName"
                                         placeholder="Select Member Name">
@@ -105,27 +105,24 @@
                                 </div>
                                 <div class="mb-3" >
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="txtScheduleDateTime"  (change)="checkBoxScheduler($event)" >
+                                        <input class="form-check-input" type="checkbox" name="txtScheduleDateTime" [checked]="schedulerFlag == true" (change)="checkBoxScheduler($event)" >
                                         <label class="form-check-label" for="txtScheduleDateTime">
                                             Schedule Notification
                                         </label>
                                       </div>
 
                                       <div class="input-group" *ngIf="schedulerFlag">
-                                        <input [owlDateTime]="dt1"  
-                                          class="form-control form-control-sm" [min]="minDate"
-                                            [owlDateTimeTrigger]="dt1" placeholder="Date Time" formControlName="NotificationDate">
+                                        <input   class="form-control form-control-sm" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time" [owlDateTime]="dt1" formControlName="NotificationDate" [ngClass]="{ 'required-field': submitted && f.NotificationDate.errors }">
                                         <owl-date-time #dt1 ></owl-date-time>
                                         <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1" >
                                             <i class="fas fa-calendar-alt"></i>
                                         </button>
+                                        <div *ngIf="submitted && f.NotificationDate.errors" class="invalid-feedback mt-4">
+                                            <div *ngIf="f.NotificationDate.errors.required">Notification Date is required</div>
+                                        </div>
                                     </div>
                                     </div>
-
-                                <div class="mb-3">
-                                    <label for="txtScheduleDateTime" class="form-label">Schedule Notification</label>
-                                    <input type="text" class="form-control" id="txtScheduleDateTime" placeholder="Schedule Date & Time">
-                                </div>
+                                    
                                 <div class="mb-3">
                                     <label for="fuPhoto" class="form-label">Attachment(s)</label>
                                     <div class="uploadimg">

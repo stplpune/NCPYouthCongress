@@ -97,7 +97,7 @@ export class EventMasterComponent implements OnInit {
     this.addEvent = this.fb.group({
       ProgramTitle: ['', Validators.required],
       ProgramDescription: ['', Validators.required],
-      ProgramDate: [['',''], Validators.required],
+      ProgramDate: ['', Validators.required],
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
       IschangeImage: [],
@@ -112,7 +112,6 @@ export class EventMasterComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     this.spinner.show();
     this.submitted = true;
     if (this.addEvent.invalid) {
