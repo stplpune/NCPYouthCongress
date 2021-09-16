@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../../dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-create-election',
@@ -19,6 +21,8 @@ export class CreateElectionComponent implements OnInit {
   subElectionAppArray = [{ id: 0, name: "Yes" }, { id: 1, name: "No" }];
   electionTypeArray: any;
   subElectionDivHide:boolean = true;
+  addSubElectionArray:any=[];
+  Id:any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -28,6 +32,7 @@ export class CreateElectionComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +49,7 @@ export class CreateElectionComponent implements OnInit {
       SubElectionId: ['[{"SubElectionId":1}]', Validators.required],
     })
   }
-
+  // [{"SubElectionId":1}]
   get f() { return this.createElectionForm.controls };
 
   onSubmitElection(){
@@ -73,7 +78,7 @@ export class CreateElectionComponent implements OnInit {
        }
      })
     }
-    console.log(this.createElectionForm.value)
+    console.log(this.createElectionForm.value);
   }
 
   clearForm() {
@@ -97,6 +102,42 @@ export class CreateElectionComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  delConfirmation(Id:any){
+    this.Id = Id;
+    this.deleteConfirmModel();
+  }
+
+  deleteConfirmModel() {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.deleteSubElection();
+      }
+    });
+  }
+
+  deleteSubElection(){
+    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+this.Id+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg);
+        //this.getNotificationData();
+      } else {
+        this.spinner.hide();
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  addSubElection(){
+          this.addSubElectionArray.push({'SubElectionId':this.createElectionForm.value.SubElectionId});
+          console.log(this.addSubElectionArray)
   }
 
 }
