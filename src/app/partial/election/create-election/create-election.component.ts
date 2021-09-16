@@ -13,11 +13,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateElectionComponent implements OnInit {
 
-  createElection!: FormGroup;
+  createElectionForm!: FormGroup;
   submitted = false;
-  boothListTypeArray = [{ id: 1, name: "Assembly Booth List" }, { id: 2, name: "User Defined Booth List" }];
-  subElectionAppArray = [{ id: 1, name: "Yes" }, { id: 2, name: "No" }];
-  webInsertEleMasterArray: any;
+  boothListTypeArray = [{ id: 0, name: "Assembly Booth List" }, { id: 1, name: "User Defined Booth List" }];
+  subElectionAppArray = [{ id: 0, name: "Yes" }, { id: 1, name: "No" }];
+  electionTypeArray: any;
+  subElectionDivHide:boolean = true;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -31,48 +32,71 @@ export class CreateElectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultProgramForm();
-   // this.getWebInsertElectionMaster();
+    this.getElectionType();
   }
 
   defaultProgramForm() {
-    this.createElection = this.fb.group({
+    this.createElectionForm = this.fb.group({
       ElectionName: ['', Validators.required],
       ElectionTypeId: ['', Validators.required],
-      IsAsemblyBoothListApplicable: [1],
-      IsSubElectionApplicable: [1],
-      SubElectionId: ['', Validators.required],
+      IsAsemblyBoothListApplicable: [0],
+      IsSubElectionApplicable: [0],
+      SubElectionId: ['[{"SubElectionId":1}]', Validators.required],
     })
   }
 
-  get f() { return this.createElection.controls };
+  get f() { return this.createElectionForm.controls };
 
-  onSubmitElectionForm(){
+  onSubmitElection(){
     this.submitted = true;
-    console.log(this.createElection.value)
+    if (this.createElectionForm.invalid) {
+      this.spinner.hide();
+      return;
+    }else{
+      this.spinner.show();
+      let formData = this.createElectionForm.value;
+     let obj = 0 + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
+      '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + formData.SubElectionId;
+     this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
+     this.callAPIService.getHttp().subscribe((res: any) => {
+       if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg);
+        //this.getProgramList();
+        this.spinner.hide();
+        this.clearForm();
+       } else {
+        //  this.toastrService.error("Data is not available");
+       }
+     }, (error: any) => {
+       if (error.status == 500) {
+         this.router.navigate(['../500'], { relativeTo: this.route });
+       }
+     })
+    }
+    console.log(this.createElectionForm.value)
   }
 
   clearForm() {
     this.submitted = false;
     this.defaultProgramForm();
+    this.subElectionDivHide = true;
   }
 
-  // getWebInsertElectionMaster() {
-  //   this.spinner.show();
-
-  //   let obj =  + 'ElectionName=' +  + '&ElectionTypeId=' +  + '&IsSubElectionApplicable=' +  + '&IsAsemblyBoothListApplicable=' +  + '&CreatedBy=' +  + '&StrSubElectionId=' + ;
-  //   this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
-  //   this.callAPIService.getHttp().subscribe((res: any) => {
-  //     if (res.data == 0) {
-  //       this.spinner.hide();
-  //       this.webInsertEleMasterArray = res.data1;
-  //     } else {
-  //       this.toastrService.error("Data is not available");
-  //     }
-  //   }, (error: any) => {
-  //     if (error.status == 500) {
-  //       this.router.navigate(['../500'], { relativeTo: this.route });
-  //     }
-  //   })
-  // }
+  getElectionType() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetElectionType?', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.electionTypeArray = res.data1;
+      } else {
+        this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
 }
