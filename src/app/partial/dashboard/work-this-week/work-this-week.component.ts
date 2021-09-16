@@ -468,14 +468,20 @@ xAxis.renderer.minGridDistance = 30;
     });
     this.mahaSVGMap();
   }
-  mahaSVGMap(){
-      this.WorkDoneByYuvakBarchart.map((ele:any)=>{
-        $('#'+ele.DistrictName).text(ele.TotalWork);
+  
+  mahaSVGMap() {
+    if (this.WorkDoneByYuvakBarchart.length != 0) {
+      this.WorkDoneByYuvakBarchart.map((ele: any) => {
+        $('#' + ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
+    } else {
+      this.showSvgMap(this.commonService.mapRegions());
     }
-  
+
+  }
+
 
   catChange(value: any) {
     this.catValue = value.name;
@@ -503,7 +509,7 @@ xAxis.renderer.minGridDistance = 30;
   redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
       let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../master/organization/details'], { relativeTo: this.route })
+      this.router.navigate(['../../master/committee/details'], { relativeTo: this.route })
   }
 
   redToMemberProfile(memberId:any,FullName:any){

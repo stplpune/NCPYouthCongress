@@ -6,6 +6,11 @@
         <div class="col-sm-6 text-end">
             <div class="row">
                 <div class="offset-7 col-sm-5 d-flex">
+                    <ng-container *ngIf="checkUserBlock == 'Unblock'">
+                        <div class="alert alert-danger" role="alert">
+                            This member is block
+                        </div>
+                    </ng-container>
                     <div class="input-group">
                         <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Date">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
@@ -193,7 +198,7 @@
                                 <td>
                                     <a class="text-primary" (click)="redirectOrgDetails(roles.Id,roles.Designation,roles.BodyOrgCellName)">{{roles?.BodyOrgCellName}}</a>
                                 </td>
-                                <td>{{roles?.PostFromDate}} ~ {{roles?.PostFromDate ? roles?.PostFromDate : 'NA'}}</td>
+                                <td>{{roles?.PostFromDate}} ~ {{roles?.PostToDate ? roles?.PostToDate : 'Till Date'}}</td>
                                 <td>{{roles?.Designation}}</td>
                             </tr>
                             <tr *ngIf="organizationRoles?.length == 0">

@@ -35,7 +35,7 @@
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
                                         <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light rounded"> <i class="fas fa-pencil-alt"></i></button>
                                         <!-- <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button> -->
-                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button>
+                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button>
                                         <button class="btn btn-sm btn-light text-danger mx-1 rounded" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
                                         <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                     </div>
