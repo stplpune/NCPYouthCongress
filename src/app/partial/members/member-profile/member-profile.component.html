@@ -5,12 +5,14 @@
         </div>
         <div class="col-sm-6 text-end">
             <div class="row">
-                <div class="offset-7 col-sm-5 d-flex">
+                <div class="col-sm-7">
                     <ng-container *ngIf="checkUserBlock == 'Unblock'">
-                        <div class="alert alert-danger" role="alert">
-                            This member is block
+                        <div class="badge bg-danger rounded-pill fw-normal">
+                            Member is Blocked
                         </div>
                     </ng-container>
+                </div>
+                <div class="col-sm-5 d-flex">                    
                     <div class="input-group">
                         <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Date">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
