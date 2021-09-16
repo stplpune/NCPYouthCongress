@@ -318,14 +318,14 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
-    // this.clearForm();
     this.paginationNo = pageNo;
     this.getBodyMemeberActivities(this.bodyId);
   }
 
   getBodyMemeberGraph(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesGraph?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
+    let obj= 'MemberId=' + this.filter.value.memberName + '&BodyId=' + id + '&CategoryId=' + this.filter.value.workType + '&FromDate=' + this.filter.value.fromTodate[0] + '&ToDate=' + this.filter.value.fromTodate[1];
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesGraph?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -501,7 +501,7 @@ export class OrganizationDetailsComponent implements OnInit {
           this.resultBodyMemActDetails = res.data1[0];
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
           this.bodyMember.reset({ BodyName: this.getCommitteeName });
-
+          this.getBodyMemeberGraph(this.bodyId);
           this.addMemberFlag = null
         } else {
           this.toastrService.error("Member is not available");

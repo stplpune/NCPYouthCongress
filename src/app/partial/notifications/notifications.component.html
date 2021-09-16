@@ -103,6 +103,25 @@
                                         <div *ngIf="f.MemberStr.errors.required">Select Members is required</div>
                                     </div>
                                 </div>
+                                <div class="mb-3" >
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="txtScheduleDateTime"  (change)="checkBoxScheduler($event)" >
+                                        <label class="form-check-label" for="txtScheduleDateTime">
+                                            Schedule Notification
+                                        </label>
+                                      </div>
+
+                                      <div class="input-group" *ngIf="schedulerFlag">
+                                        <input [owlDateTime]="dt1"  
+                                          class="form-control form-control-sm" [min]="minDate"
+                                            [owlDateTimeTrigger]="dt1" placeholder="Date Time" formControlName="NotificationDate">
+                                        <owl-date-time #dt1 ></owl-date-time>
+                                        <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1" >
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+
                                 <div class="mb-3">
                                     <label for="txtScheduleDateTime" class="form-label">Schedule Notification</label>
                                     <input type="text" class="form-control" id="txtScheduleDateTime" placeholder="Schedule Date & Time">
@@ -202,7 +221,7 @@
                                     == 1 ? 'Published' : 'Not-published'}}</span>
                                 <div class="media-title">{{notificationScope?.Title}}</div>
                                 <div class="media-scope">
-                                    {{notificationScope?.ScopeName}}
+                                    {{notificationScope?.ScopeName}} <span *ngIf="notificationScope?.MemberDetails">-  {{notificationScope?.MemberDetails}}</span>
                                 </div>
                                 <div class="media-body">
                                     {{notificationScope?.Description}}

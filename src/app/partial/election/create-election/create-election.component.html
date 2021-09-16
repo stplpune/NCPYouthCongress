@@ -55,14 +55,14 @@
                                     <label for="ddlSelectElection" class="form-label">Select Election</label>
                                     <div class="input-group">
                                         <select class="form-select rounded" id="ddlSelectElection" formControlName="SubElectionId" [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors }">
-                                            <option value="1">Select Election</option>
-                                            <option value="2">Select Election1</option>
-                                            <option value="3">Select Election2</option>
+                                            <option value="Select Election">Select Election</option>
+                                            <option value="Select Election1">Select Election1</option>
+                                            <option value="Select Election2">Select Election2</option>
                                         </select>
                                          <!-- <ngx-select [allowClear]="true" [items]="allDistrict" formControlName="SubElectionId" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select Election"
                             [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors }">
                         </ngx-select> -->
-                                        <button type="button" class="btn btn-light btn-sm ms-1 border rounded">
+                                        <button type="button" class="btn btn-light btn-sm ms-1 border rounded" (click)="addSubElection()">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
