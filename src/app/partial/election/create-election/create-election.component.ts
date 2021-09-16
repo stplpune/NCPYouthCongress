@@ -22,7 +22,12 @@ export class CreateElectionComponent implements OnInit {
   electionTypeArray: any;
   subElectionDivHide:boolean = true;
   addSubElectionArray:any=[];
-  Id:any;
+  index:any;
+  electionMasterArray: any;
+  paginationNo: number = 1;
+  pageSize: number = 10;
+  total:any;
+  electionDropArray: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -38,6 +43,8 @@ export class CreateElectionComponent implements OnInit {
   ngOnInit(): void {
     this.defaultProgramForm();
     this.getElectionType();
+    this.getElectionMaster();
+    this.getsubElection();
   }
 
   defaultProgramForm() {
@@ -46,7 +53,7 @@ export class CreateElectionComponent implements OnInit {
       ElectionTypeId: ['', Validators.required],
       IsAsemblyBoothListApplicable: [0],
       IsSubElectionApplicable: [0],
-      SubElectionId: ['[{"SubElectionId":1}]', Validators.required],
+      SubElectionId: ['', Validators.required],
     })
   }
   // [{"SubElectionId":1}]
@@ -60,13 +67,15 @@ export class CreateElectionComponent implements OnInit {
     }else{
       this.spinner.show();
       let formData = this.createElectionForm.value;
+      this.addSubElectionArray = JSON.stringify(this.addSubElectionArray);
      let obj = 0 + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
-      '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + formData.SubElectionId;
+      '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.addSubElectionArray;
      this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
      this.callAPIService.getHttp().subscribe((res: any) => {
        if (res.data == 0) {
+        this.addSubElectionArray = [];
         this.toastrService.success(res.data1[0].Msg);
-        //this.getProgramList();
+        this.getElectionMaster();
         this.spinner.hide();
         this.clearForm();
        } else {
@@ -79,12 +88,6 @@ export class CreateElectionComponent implements OnInit {
      })
     }
     console.log(this.createElectionForm.value);
-  }
-
-  clearForm() {
-    this.submitted = false;
-    this.defaultProgramForm();
-    this.subElectionDivHide = true;
   }
 
   getElectionType() {
@@ -104,8 +107,69 @@ export class CreateElectionComponent implements OnInit {
     })
   }
 
-  delConfirmation(Id:any){
-    this.Id = Id;
+    getsubElection() { // subElection Dropdown
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetElection?UserId='+ this.commonService.loggedInUserId() , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.electionDropArray = res.data1;
+      } else {
+        this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getElectionMaster() {
+    this.spinner.show();
+    let obj = '&ElectionTypeId=' + 3 + '&UserId=' + 1 + '&Search=' + '' +
+    '&nopage=' + this.paginationNo;
+    this.callAPIService.setHttp('get', 'Web_GetElectionMaster?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.electionMasterArray = res.data1;
+        this.total = res.data2[0].TotalCount;
+      } else {
+        this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  // getElectionType() {
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_GetElectionType?', false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.electionTypeArray = res.data1;
+  //     } else {
+  //       this.toastrService.error("Data is not available");
+  //     }
+  //   }, (error: any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
+  clearForm() {
+    this.submitted = false;
+    this.defaultProgramForm();
+    this.subElectionDivHide = true;
+    this.addSubElectionArray = [];
+  }
+
+  delConfirmation(index:any){
+    this.index = index;
     this.deleteConfirmModel();
   }
 
@@ -113,13 +177,13 @@ export class CreateElectionComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'Yes'){
-        this.deleteSubElection();
+       // this.deleteSubElection();
       }
     });
   }
 
   deleteSubElection(){
-    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+this.Id+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+this.index+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
@@ -138,6 +202,11 @@ export class CreateElectionComponent implements OnInit {
   addSubElection(){
           this.addSubElectionArray.push({'SubElectionId':this.createElectionForm.value.SubElectionId});
           console.log(this.addSubElectionArray)
+  }
+
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.getElectionMaster();
   }
 
 }
