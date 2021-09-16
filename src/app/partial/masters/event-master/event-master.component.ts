@@ -72,7 +72,7 @@ export class EventMasterComponent implements OnInit {
   editEventText="Publish Event";
   isDisplayFlag: any;
   submitted = false;
-
+  IsDisplayStatus:any;
 
   constructor(
     private fb:FormBuilder,
@@ -233,6 +233,18 @@ resetFile() {
   }
 
   IsDisplayEvent(flag:any) {
+  //  check Display event is greater than 4 
+  let countIsDisplayEvents =  this.eventListArray.map((ele:any)=> {
+    if(ele.IsDisplay == 1){
+      return ele
+    }
+  });
+  alert(countIsDisplayEvents.length);
+    if(countIsDisplayEvents.length > 4){
+      this.getEventList();
+      this.toastrService.error('Events not more than 4 are allowed.');
+      return
+    }
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_IsDisplayEvent?EventId=' + this.eventId + '&UserId=' + this.commonService.loggedInUserId()+ '&IsDisplay=' + flag, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

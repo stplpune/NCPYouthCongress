@@ -143,7 +143,7 @@
                                         <div class="col-sm-auto">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox"
-                                                    
+                                                    (click)="eventId = eventListData.EventId" (change)="eventListData?.IsDisplay == 1 ?  IsDisplayStatus =  0 : IsDisplayStatus = 1"
                                                     [disabled]="" data-bs-toggle="modal"
                                                     data-bs-target="#flexSwitchCheckChecked"
                                                     [checked]="eventListData?.IsDisplay == 1">
@@ -191,7 +191,7 @@
                 <h3 class="my-4">Are You Sure?</h3>
                 <button class="btn btn-secondary me-2 px-5" data-bs-dismiss="modal" (click)="getEventList()"
                     type="button">NO</button>
-                <button class="btn btn-main px-5 py-2" type="button" (click)="IsDisplayEvent(isDisplayFlag)"
+                <button class="btn btn-main px-5 py-2" type="button" (click)="IsDisplayEvent(IsDisplayStatus)"
                     data-bs-dismiss="modal" aria-label="Close">YES</button>
             </div>
         </div>

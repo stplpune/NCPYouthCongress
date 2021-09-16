@@ -37,7 +37,10 @@ export class SocialMediaPersonComponent implements OnInit {
   MostOpposite:any;
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[]; 
-
+  lat: any = 19.75117687556874;
+  lng: any = 75.71630325927731;
+  zoom: any = 5;
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
