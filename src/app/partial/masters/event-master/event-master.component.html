@@ -13,14 +13,15 @@
             <div class="card">
                 <div class="card-header">Create Event</div>
                 <div class="card-body pt-0">
-                    <form [formGroup]="addEvent"  enctype="multipart/form-data"  (ngSubmit)="onSubmit()">
+                    <form [formGroup]="addEvent" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
                         <div class="form-container">
                             <div class="row mb-3">
                                 <div class="col-sm">
                                     <div class="mb-3">
                                         <label for="txtEventTitle" class="form-label required-field">Event Title</label>
                                         <textarea class="form-control" id="txtEventTitle" rows="3"
-                                            formControlName="ProgramTitle"></textarea>
+                                            class="form-control input-group-addon" placeholder="From Date"  [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }"
+                                            formControlName="ProgramTitle" ></textarea>
                                         <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
                                             <div *ngIf="f.ProgramTitle.errors.required">Event Title required</div>
                                         </div>
@@ -28,9 +29,8 @@
                                     <div class="mb-0">
                                         <label for="txtEventDuration" class="form-label required-field">Event
                                             Duration</label>
-                                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
-                                            formControlName="ProgramDate" [selectMode]="'range'"
-                                            class="form-control input-group-addon" placeholder="From Date" />
+                                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="ProgramDate" [selectMode]="'range'"
+                                            class="form-control input-group-addon" placeholder="From Date"  [ngClass]="{'is-invalid': submitted && f.ProgramDate.errors}"/>
                                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
 
                                         <div *ngIf="submitted && f.ProgramDate.errors" class="invalid-feedback">
@@ -64,7 +64,7 @@
                                 <label for="txtEventDescription" class="form-label required-field">Event
                                     Description</label>
                                 <angular-editor [(ngModel)]="htmlContent" [config]="config"
-                                    formControlName="ProgramDescription"></angular-editor>
+                                    formControlName="ProgramDescription"  [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }" ></angular-editor>
                                 <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
                                     <div *ngIf="f.ProgramDescription.errors.required">Event Description required</div>
                                 </div>
@@ -89,9 +89,9 @@
                     <div class="row">
                         <div class="col-sm-5 offset-7">
                             <div class="input-group">
-                                <input [owlDateTime]="dt2" (dateTimeChange)="getweekRage($event.value)" [formControl]="selRange"
-                                    class="form-control form-control-sm" [selectMode]="'range'" [owlDateTimeTrigger]="dt2"
-                                    placeholder="Select Date Range">
+                                <input [owlDateTime]="dt2" (dateTimeChange)="getweekRage($event.value)"
+                                    [formControl]="selRange" class="form-control form-control-sm" [selectMode]="'range'"
+                                    [owlDateTimeTrigger]="dt2" placeholder="Select Date Range">
                                 <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
                                 <button class="btn btn-light btn-sm" type="button" *ngIf="!defaultCloseBtn"
                                     [owlDateTimeTrigger]="dt2"> <i class="fas fa-calendar-alt"></i></button>
@@ -106,26 +106,29 @@
                 <div class="card-body">
                     <table class="table table-hover">
                         <tbody>
-                            <tr *ngFor="let eventListData of eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <tr
+                                *ngFor="let eventListData of eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                 <td>
-                                    <div class="row d-flex align-items-center" >
+                                    <div class="row d-flex align-items-center">
                                         <div class="col-sm-auto">
                                             <img src="{{eventListData.ImagePath}}" class="prophoto"
                                                 *ngIf="eventListData.ImagePath!='' else defaultImg" />
                                         </div>
-        
+
                                         <ng-template #defaultImg>
-                                            <div class="col-sm-auto"><img src="assets/images/ncp-default.png" class="prophoto"></div>
+                                            <div class="col-sm-auto"><img src="assets/images/ncp-default.png"
+                                                    class="prophoto"></div>
                                         </ng-template>
-        
+
                                         <div class="col-sm">
                                             <p class="small text-muted mb-2"><i class="fas fa-calendar-alt"></i>
                                                 {{eventListData?.ProgramStartDate}} - {{eventListData?.ProgramEndDate}}
                                             </p>
-                                            <h6 class="mb-0 lh-base eventtitle">{{eventListData?.ProgramTitle | titlecase}}</h6>
+                                            <h6 class="mb-0 lh-base eventtitle">{{eventListData?.ProgramTitle |
+                                                titlecase}}</h6>
                                         </div>
                                         <div class="col-sm-auto">
-                                            <div class="btn-group"> 
+                                            <div class="btn-group">
                                                 <!-- <button class="btn btn-sm btn-light" type="button">
                                                     <i class="fas fa-eye"></i>
                                                 </button> -->
@@ -135,15 +138,16 @@
                                                 <!-- <button class="btn btn-sm btn-light text-danger"  (click)="delConfirmation(eventListData.EventId,eventListData.IsDisplay)"
                                                     type="button" data-bs-toggle="modal" data-bs-target="#delteteModal"><i
                                                         class="fas fa-trash-alt"></i></button> -->
-                                                        <button class="btn btn-sm btn-light text-danger"  (click)="delConfirmation(eventListData.EventId,eventListData.IsDisplay)"
-                                                    ><i
+                                                <button class="btn btn-sm btn-light text-danger"
+                                                    (click)="delConfirmation(eventListData.EventId,eventListData.IsDisplay)"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-sm-auto">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox"
-                                                    (click)="eventId = eventListData.EventId" (change)="eventListData?.IsDisplay == 1 ?  IsDisplayStatus =  0 : IsDisplayStatus = 1"
+                                                    (click)="eventId = eventListData.EventId"
+                                                    (change)="eventListData?.IsDisplay == 1 ?  IsDisplayStatus =  0 : IsDisplayStatus = 1"
                                                     [disabled]="" data-bs-toggle="modal"
                                                     data-bs-target="#flexSwitchCheckChecked"
                                                     [checked]="eventListData?.IsDisplay == 1">
@@ -152,7 +156,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <div class="row" *ngIf="eventListArray?.length == 0">
                                 <div class="col-sm-12">
                                     <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>

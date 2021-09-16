@@ -52,9 +52,11 @@ const routes: Routes = [
       { path: 'election/create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule) , data: { title: 'Create Election' } },
       { path: 'election/create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule) },
       { path: 'election/assign-booth', loadChildren: () => import('./partial/election/assign-booth/assign-booth.module').then(m => m.AssignBoothModule) },
+      { path: 'election/profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule) },
     ]
   },
   { path: '500', component: ServerErrorComponent },
+  
   { path: '**', component: PageNotFoundComponent },
 ];
 
