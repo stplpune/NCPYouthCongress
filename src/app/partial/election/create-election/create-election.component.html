@@ -54,43 +54,43 @@
                                         <input class="form-check-input" type="radio"
                                             formControlName="IsSubElectionApplicable" [value]="subEleApp.id"
                                             name="IsSubElectionApplicable" id="subNo"
-                                            (change)="subEleApp.id == 0 ? subElectionDivHide = true : subElectionDivHide = false">
+                                            (change)="subElectionRadiobtn(subEleApp.id)">
                                         <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3" *ngIf="subElectionDivHide">
-                                <div class="card card-body border shadow-none">
+                            <div class="mb-3">
+                                <div class="card card-body border shadow-none"  *ngIf="subElectionDivHide">
                                     <div class="mb-3">
-                                        <label for="ddlSelectElection" class="form-label">Select Election</label>
+                                        <label for="ddlSelectElection" class="form-label">Select Sub Election</label>
                                         <div class="input-group">
                                             <ngx-select [allowClear]="true" [items]="electionDropArray"
                                                 formControlName="SubElectionId" optionValueField="ElectionName"
-                                                optionTextField="ElectionName" placeholder="Select Election"
+                                                optionTextField="ElectionName" placeholder="Select Sub Election"
                                                 [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}">
                                             </ngx-select>
-                                            <button type="button" class="btn btn-light btn-sm ms-1 border rounded"
+                                            <button type="button"  [disabled]="createElectionForm.value.SubElectionId == '' " class="btn btn-light btn-sm ms-1 border rounded"
                                                 (click)="addSubElection()">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
                                         <div *ngIf="submitted && f.SubElectionId.errors" class="invalid-feedback">
-                                            <div *ngIf="f.SubElectionId.errors.required">Select Election is required
+                                            <div *ngIf="f.SubElectionId.errors.required">Select Sub Election is required
                                             </div>
                                         </div>
                                     </div>
-                                    <table class="table table-hover mb-0">
+                                    <table class="table table-hover mb-0" *ngIf="subElecTableHide">
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>Election Name</th>
+                                                <th>Sub Election Name</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let addSubElection of addSubElectionArray;let i=index">
                                                 <td>{{i+1}}</td>
-                                                <td>{{addSubElection.SubElectionId}}</td>
+                                                <td>{{addSubElection.ElectionName}}</td>
                                                 <td>
                                                     <button type="button" (click)="delConfirmation(i)"
                                                         class="btn btn-light text-danger btn-sm ms-1">
@@ -105,7 +105,7 @@
                             <div class="mb-2 mt-4">
                                 <button type="button" (click)="clearForm()"
                                     class="btn btn-secondary  float-lg-start">Clear</button>
-                                <button type="submit" class="btn btn-main float-lg-end">Create Election</button>
+                                <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
                             </div>
                         </div>
                     </div>
@@ -115,17 +115,26 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
+                    <form [formGroup]="filterForm">
                     <div class="row g-2">
                         <div class="col-sm-3 offset-5">
-                            <ngx-select [allowClear]="true" [items]="electionTypeArray" optionValueField="Id"
-                                optionTextField="ElectionType" placeholder="Election Type"
+                            <ngx-select [allowClear]="true" [items]="electionTypeArray" optionValueField="Id" 
+                            (remove)="clearFilter('electionType')" (select)="filterData()"
+                                optionTextField="ElectionType" placeholder="Election Type" formControlName="ElectionTypeId"
                                 [ngClass]="{ 'is-invalid': submitted && f.ElectionTypeId.errors }">
                             </ngx-select>
                         </div>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" placeholder="Search..." />
+                            <!-- <input class="form-control" type="text" placeholder="Search..." /> -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                        _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.Search" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -151,16 +160,16 @@
                                         routerLink="../../election/create-constituency">{{electionMaster.Constituency}}</a>
                                 </td>
                                 <td>
-                                    <ol class="mb-0 ps-3">
-                                        <li>{{electionMaster.SubElection}}</li>
-                                    </ol>
+                                    <div class="mb-0 ps-3" *ngFor="let subElection of electionMaster.SubElection.split(',');let i=index">
+                                        <span>{{i+1}}. {{subElection}}</span>
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election"
+                                        <button type="button" title="Edit Election" (click)="getElectionDetails(electionMaster.Id)"
                                             class="btn btn-sm btn-light text-edit me-1 rounded"><i
                                                 class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
+                                        <button type="button" title="Delete Election" (click)="delConfirmEleMaster(electionMaster.Id)"
                                             class="btn btn-sm btn-light text-danger rounded"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </div>
