@@ -112,12 +112,13 @@ export class EventMasterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.spinner.show();
+    // this.spinner.show();
     this.submitted = true;
-    if(this.addEvent.value.ProgramDate[0] == null && this.addEvent.value.ProgramDate[1]){
+    debugger;
+    if(this.addEvent.value.ProgramDate[0] == null && this.addEvent.value.ProgramDate[1] == null){
       this.addEvent.controls['ProgramDate'].setValue('');
     }
-
+    console.log(this.addEvent.value)
     return
     if (this.addEvent.invalid) {
       this.spinner.hide();
