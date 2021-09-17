@@ -64,12 +64,12 @@
                                     <div class="mb-3">
                                         <label for="ddlSelectElection" class="form-label">Select Sub Election</label>
                                         <div class="input-group">
-                                            <ngx-select [allowClear]="true" [items]="electionDropArray"
+                                                <ngx-select [allowClear]="true" [items]="electionDropArray"
                                                 formControlName="SubElectionId" optionValueField="ElectionName"
                                                 optionTextField="ElectionName" placeholder="Select Sub Election"
-                                                [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}">
+                                                [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}" style="width: 90%;">
                                             </ngx-select>
-                                            <button type="button"  [disabled]="createElectionForm.value.SubElectionId == '' " class="btn btn-light btn-sm ms-1 border rounded"
+                                                <button type="button"  [disabled]="createElectionForm.value.SubElectionId == '' " class="btn btn-light btn-sm ms-1 border rounded"
                                                 (click)="addSubElection()">
                                                 <i class="fas fa-plus"></i>
                                             </button>
