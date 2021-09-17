@@ -275,6 +275,7 @@ export class OrganizationMasterComponent implements OnInit {
       filterDistrict: [0],
       searchText: [''],
       AllotedDesignation: [],
+      LevelId: [0],
     })
   }
 
@@ -288,7 +289,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.spinner.show();
     let filterData = this.filterForm.value;
     (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
-    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation;
+    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation+'&LevelId='+filterData.LevelId;
     this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0' + data, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -504,6 +505,8 @@ export class OrganizationMasterComponent implements OnInit {
       this.filterForm.controls['searchText'].setValue('');
     } else if (flag == 'member') {
       this.filterForm.controls['AllotedDesignation'].setValue('');
+    } else if (flag == 'level') {
+      this.filterForm.controls['LevelId'].setValue(0);
     }
     this.paginationNo = 1;
     this.getOrganizationList();

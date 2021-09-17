@@ -97,7 +97,7 @@ export class EventMasterComponent implements OnInit {
     this.addEvent = this.fb.group({
       ProgramTitle: ['', Validators.required],
       ProgramDescription: ['', Validators.required],
-      ProgramDate: ['', Validators.required],
+      ProgramDate: [['',''], Validators.required],
       Id: [0],
       CreatedBy: [this.commonService.loggedInUserId()],
       IschangeImage: [],
@@ -114,6 +114,11 @@ export class EventMasterComponent implements OnInit {
   onSubmit() {
     this.spinner.show();
     this.submitted = true;
+    if(this.addEvent.value.ProgramDate[0] == null && this.addEvent.value.ProgramDate[1]){
+      this.addEvent.controls['ProgramDate'].setValue('');
+    }
+
+    return
     if (this.addEvent.invalid) {
       this.spinner.hide();
       return;
@@ -131,7 +136,7 @@ export class EventMasterComponent implements OnInit {
 
       let fromDate: any = this.datePipe.transform(data.ProgramDate[0], 'dd/MM/yyyy');
       let toDate: any = this.datePipe.transform(data.ProgramDate[1], 'dd/MM/yyyy');
-
+      return
       let fromData = new FormData();
       fromData.append('ProgramTitle', data.ProgramTitle);
       fromData.append('ProgramDescription', data.ProgramDescription);

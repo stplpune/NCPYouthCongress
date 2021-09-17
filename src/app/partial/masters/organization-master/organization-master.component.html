@@ -96,8 +96,12 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-1">
-
-                            <div class="col-sm-3 offset-3">
+                            <div class="col-sm-3">
+                                <ngx-select [allowClear]="true" (remove)="clearFilter('level')" [items]="allLevels" (select)="filterData()" formControlName="LevelId"  placeholder="Select Level" optionValueField="Id" optionTextField="LevelName"
+                               >
+                            </ngx-select>
+                            </div>
+                            <div class="col-sm-3">
                                 <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('member')" (select)="filterData()" formControlName="AllotedDesignation" [items]="allotedDesignationArray" optionValueField="id" optionTextField="name" placeholder="Is Members Assigned">
                                 </ngx-select>
                             </div>
