@@ -112,14 +112,11 @@ export class EventMasterComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.spinner.show();
+    this.spinner.show();
     this.submitted = true;
-    debugger;
-    if(this.addEvent.value.ProgramDate[0] == null && this.addEvent.value.ProgramDate[1] == null){
+    if((this.addEvent.value.ProgramDate[0] == null || this.addEvent.value.ProgramDate[0] == "") && (this.addEvent.value.ProgramDate[1] == null || this.addEvent.value.ProgramDate[0] == "")){
       this.addEvent.controls['ProgramDate'].setValue('');
     }
-    console.log(this.addEvent.value)
-    return
     if (this.addEvent.invalid) {
       this.spinner.hide();
       return;
@@ -137,7 +134,6 @@ export class EventMasterComponent implements OnInit {
 
       let fromDate: any = this.datePipe.transform(data.ProgramDate[0], 'dd/MM/yyyy');
       let toDate: any = this.datePipe.transform(data.ProgramDate[1], 'dd/MM/yyyy');
-      return
       let fromData = new FormData();
       fromData.append('ProgramTitle', data.ProgramTitle);
       fromData.append('ProgramDescription', data.ProgramDescription);
@@ -231,12 +227,12 @@ export class EventMasterComponent implements OnInit {
   }
 
   deleteConfirmModel() {
-    this.addEvent.reset();
     const dialogRef = this.dialog.open(DeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-        this.IsDisplayEvent(2)
+        this.IsDisplayEvent(2);
       }
+      this.resetEventForm();
     });
   }
 

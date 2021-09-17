@@ -98,7 +98,6 @@ export class ForwardActivitiesComponent implements OnInit {
       return;
     }
     else {
-      debugger;
       this.globalMemberId = [];
       let fromData = new FormData();
       let imageChangeFlag:any;

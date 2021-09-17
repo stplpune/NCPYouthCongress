@@ -58,14 +58,13 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
           let logInUserType =  this.commonService.loggedInUserType();
-          debugger;
           this.toastrService.success('login successfully');
-          // this.router.navigate(['../dashboard'], { relativeTo: this.route })
-          if(logInUserType == 1){
-            this.router.navigate(['../dashboard'],{ relativeTo: this.route });
-          }else {
-            this.router.navigate(['../e-dashboard'],{ relativeTo: this.route });
-          }
+          this.router.navigate(['../dashboard'], { relativeTo: this.route })
+          // if(logInUserType == 1){
+          //   this.router.navigate(['../dashboard'],{ relativeTo: this.route });
+          // }else {
+          //   this.router.navigate(['../e-dashboard'],{ relativeTo: this.route });
+          // }
         } else {
           if (res.data == 1) {
             this.toastrService.error("Invalid Credentials");

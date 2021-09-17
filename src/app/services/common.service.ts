@@ -47,7 +47,6 @@ export class CommonService {
   }
 
   dateFormatChangeWithTime(date_string:any) {
-    debugger;
     var date_components = date_string.split("/");
     var day = date_components[0];
     var month = date_components[1];

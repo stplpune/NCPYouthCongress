@@ -50,7 +50,6 @@ export class CommitteesOnMapComponent implements OnInit {
 
   ngAfterViewInit() {
     $(document).on('click', 'path', (e: any) => {
-      debugger;
       // $('path#'+this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
@@ -64,7 +63,6 @@ export class CommitteesOnMapComponent implements OnInit {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_1_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      debugger;
       if (res.data == 0) {
         this.defaultCloseBtn = true;
          if(id == 0){
