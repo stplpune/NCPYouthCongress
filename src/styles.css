@@ -137,14 +137,6 @@ tr.active {
 .dateRangePicker-wrapper .dateRangePicker.open-left {
     z-index: 1;
 }
-
-.chartbox .card .card-header .form-control,
-.chartbox .card .card-header .form-select {
-    font-size: 0.85rem;
-    box-shadow: none;
-    border: 1px solid #ced4da;
-}
-
 .owl-dt-inline-container,
 .owl-dt-popup-container,
 .owl-dt-timer-content .owl-dt-timer-input {
@@ -404,15 +396,20 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 .chartbox .card .card-header a {
     color: var(--main-color);
-    margin-left: 5px
+    margin-left: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
 .chartbox .card .card-header .form-control,
 .chartbox .card .card-header .form-select,
 .chartbox .card .card-body .list-group-item {
     font-size: .85rem;
-    box-shadow: none
+    box-shadow: none;
+    border: 1px solid #ced4da;
 }
+
 
 .chartbox .card .card-header .input-group .form-control {
     border-right: none;
