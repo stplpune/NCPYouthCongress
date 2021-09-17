@@ -5,11 +5,12 @@
     <nav class="nav__container">
         <div class="nava">
             <ul class="nav__list">
+                <ng-container *ngIf="logInUserType == 1">
                 <li routerLinkActive="active">
                     <input id="group-1" type="checkbox" hidden />
                     <label for="group-1" routerLink="dashboard">
                       <i class="fas fa-tachometer-alt"></i>
-                        NCP Dashboard</label>
+                        Dashboard</label>
                 </li>
                 <li routerLinkActive="active">
                     <input id="group-2" type="checkbox" hidden />
@@ -59,71 +60,23 @@
                         <li><a routerLink="help-support">Help Support</a></li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <input id="group-4" type="checkbox" hidden />
-                    <label for="group-4" routerLink="registrations">
-                      <i class="far fa-id-card"></i>
-                      Registrations</label>
-                </li> -->
-                <!-- <li routerLinkActive="active">
-                    <input id="group-5" type="checkbox" hidden />
-                    <label for="group-5" routerLink="social-media">
-                        <i class="fas fa-share-alt"></i>
-                   Social Media Perception</label>
-                </li>
-                <li routerLinkActive="active">
-                    <input id="group-6" type="checkbox" hidden />
-                    <label for="group-6" routerLink="party-works">
-                      <i class="fas fa-praying-hands"></i>
-                      Party Work</label>
-                </li> -->
-                <!-- <li routerLinkActive="active">
-                    <input id="group-7" type="checkbox" hidden />
-                    <label for="group-7" routerLink="feedbacks">
-                        <i class="fas fa-comments"></i>
-                  Feedbacks</label>
-                </li>
-                <li routerLinkActive="active">
-                    <input id="group-10" type="checkbox" hidden />
-                    <label for="group-10" routerLink="notifications">
-                        <i class="fas fa-bell"></i>
-                  Notifications</label>
-                </li>
-                <li routerLinkActive="active">
-                    <input id="group-8" type="checkbox" hidden />
-                    <label for="group-8" routerLink="help-support">
-                      <i class="fas fa-hands-helping"></i>
-                 Help Support</label>
-                </li> -->
-                <!-- <li routerLinkActive="active">
-                    <input id="group-9" type="checkbox" hidden />
-                    <label for="group-9" routerLink="forward-activities">
-                        <i class="fas fa-share"></i>
-                Forward Activities</label>
-                </li> -->
-                <!-- <li routerLinkActive="active">
-                    <input id="group-10" type="checkbox" hidden />
-                    <label for="group-10" routerLink="activity-analysis">
-                        <i class="fas fa-chart-bar"></i>
-                Activity Analysis</label>
-                </li> -->
-                <!-- <li routerLinkActive="active">
-                    <input id="group-11" type="checkbox" hidden />
-                    <label for="group-11" routerLink="create-election">
-                        <i class="fas fa-chart-bar"></i>
-                        Create Election</label>
-                </li> -->
-                <li routerLinkActive="active">
-                    <input id="group-6" type="checkbox" hidden />
-                    <label for="group-6">
-                        <i class="fas fa-vote-yea"></i>
-                        Election Management <span class="fa fa-angle-right"></span></label>
-                    <ul class="group-list">
-                        <li><a routerLink="election/create-election">Create Election</a></li>
-                        <li><a routerLink="election/create-constituency">Create Constituency</a></li>
-                        <li><a routerLink="election/assign-booth">Assign Booth</a></li>
-                    </ul>
-                </li> 
+                </ng-container>
+                <!-- for election  management -->
+                <ng-container *ngIf="logInUserType == 7">
+                    <li routerLinkActive="active"> <input id="group-1" type="checkbox" hidden />
+                        <label for="group-1" routerLink="e-dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</label>
+                    </li>
+                    <li routerLinkActive="active"> <input id="group-1" type="checkbox" hidden />
+                        <label for="group-1" routerLink="create-election"><i class="fas fa-vote-yea"></i>Create Election</label>
+                    </li>
+                    <li routerLinkActive="active"> <input id="group-1" type="checkbox" hidden />
+                        <label for="group-1"  routerLink="create-constituency"><i class="fas fa-th-large"></i>Create Constituency</label>
+                    </li>
+                    <li routerLinkActive="active"> <input id="group-1" type="checkbox" hidden />
+                        <label for="group-1" routerLink="assign-booth"><i class="fas fa-th"></i>Assign Booth</label>
+                    </li>
+                </ng-container>
+              
             </ul>
         </div>
     </nav>

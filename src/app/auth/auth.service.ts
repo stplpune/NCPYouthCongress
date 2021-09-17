@@ -8,6 +8,7 @@ export class AuthService {
   constructor() { }
 
   isLoggedIn() {
+    debugger;
     if (sessionStorage.getItem('loggedInDetails')) {
       return true;
     }

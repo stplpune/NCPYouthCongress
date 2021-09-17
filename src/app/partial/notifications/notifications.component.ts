@@ -191,7 +191,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   addValidationOn(scodeId: any) {
-    debugger;
     if (scodeId == 2) {
       this.validationRemove();
       this.getDistrict();
@@ -239,14 +238,16 @@ export class NotificationsComponent implements OnInit {
     }else if (data.ScopeId == 2){
       data.DistrictId = data.MemberStr.split(',');
     }
-
+    let dateTransForm = data.NotificationDate.toString();
+    
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
       Description: data.Description,
       Id: data.Id,
       Link: data.Link,
       MemberScope: data.MemberScope,
-      NotificationDate: data.NotificationDate,
+      // NotificationDate: this.commonService.dateFormatChangeWithTime(data.NotificationDate.toString()),
+      NotificationDate:  dateTransForm.replace(/-/g,"/"),
       NotificationType: data.NotificationType,
       ScopeId: data.ScopeId,
       ScopeName: data.ScopeName,
@@ -256,6 +257,8 @@ export class NotificationsComponent implements OnInit {
       BodyId:data.BodyId,
       DistrictId:data.DistrictId,
     })
+    debugger;
+    console.log(dateTransForm.replace(/-/g,"/"));
     if (data.ScopeId == 2) {
      this.getDistrict();
      this.notificationForm.controls["DistrictId"].setValue(this.notificationForm.value.DistrictId.map(Number))
@@ -551,7 +554,10 @@ export class NotificationsComponent implements OnInit {
       this.notificationForm.controls["NotificationDate"].setValidators(Validators.required);
       this.notificationForm.controls["NotificationDate"].updateValueAndValidity();
       this.notificationForm.controls['NotificationDate'].clearValidators();
-    } 
+    }else{
+      this.notificationForm.controls['NotificationDate'].clearValidators();
+      this.notificationForm.controls["NotificationDate"].updateValueAndValidity();
+    }
   }
   
 }

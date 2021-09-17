@@ -203,7 +203,6 @@ export class MyProfileComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   updateProfile() {
-    debugger
     this.submitted = true;
     if (this.editProfileForm.invalid) {
       this.spinner.hide();

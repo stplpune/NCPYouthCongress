@@ -26,6 +26,7 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
+    debugger;
     const allowedRoles = next.data.allowedRoles;
     const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
 
@@ -40,11 +41,12 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
+    debugger;
     const allowedRoles = next.data.allowedRoles;
     const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
     if (!isAuthorized) {
       // if not authorized, show access denied message
-      this.router.navigate(['/accessdenied']);
+      this.router.navigate(['dashboard/accessdenied']);
     }
 
     return isAuthorized;

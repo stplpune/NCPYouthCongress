@@ -50,14 +50,22 @@ export class LoginComponent implements OnInit {
     }
 
     else {
-      this.callAPIService.setHttp('get', 'Web_GetLogin_1_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
+      // this.callAPIService.setHttp('get', 'Web_GetLogin_1_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.setHttp('get', 'Web_GetLogin_2_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == '0') {
           sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
           sessionStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
-          this.router.navigate(['../dashboard'], { relativeTo: this.route })
-          this.toastrService.success('login successfully')
+          let logInUserType =  this.commonService.loggedInUserType();
+          debugger;
+          this.toastrService.success('login successfully');
+          // this.router.navigate(['../dashboard'], { relativeTo: this.route })
+          if(logInUserType == 1){
+            this.router.navigate(['../dashboard'],{ relativeTo: this.route });
+          }else {
+            this.router.navigate(['../e-dashboard'],{ relativeTo: this.route });
+          }
         } else {
           if (res.data == 1) {
             this.toastrService.error("Invalid Credentials");

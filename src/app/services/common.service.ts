@@ -32,6 +32,12 @@ export class CommonService {
     return Username.Username;
   }
   
+  loggedInUserType() {
+    let UserTypeId  = this.getsessionStorageData();
+    return UserTypeId.UserTypeId ;
+  }
+  
+
   dateFormatChange(date_string:any) {
     var date_components = date_string.split("/");
     var day = date_components[0];
@@ -39,6 +45,16 @@ export class CommonService {
     var year = date_components[2];
     return new Date(year, month, day);
   }
+
+  dateFormatChangeWithTime(date_string:any) {
+    debugger;
+    var date_components = date_string.split("/");
+    var day = date_components[0];
+    var month = date_components[1];
+    var year = date_components[2];
+    return new Date(year, month, day);
+  }
+
 
  dateTransformPipe(date_string:any) {
     let dateFormtchange:any;

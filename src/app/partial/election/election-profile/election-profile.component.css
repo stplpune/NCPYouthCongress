@@ -1,65 +1,34 @@
-.election-level,
-.const-level,
-.assembly-level,
-.booth-level{
-    list-style: none;
+.candidate-photo{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  box-shadow: 0px 0px 3px 0px #aaa;
 }
-.election-level {
-    padding-left: 0;
+.cand-photo{
+  width: 200px;
+  /* height:200px; */
+  position: relative;
+  margin: 0 auto;
 }
-.election-level li:only-child{
-    line-height: 28px;
-    padding-left: 1.3em;
-    font-size: 0.85rem;
+.cand-photo img{  
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.05);
+  padding:3px;
 }
-.election-level li:before {
-    font-weight: 600;
-    content: "\f772"; 
-    font-family: 'Font Awesome 5 Free';
-    display: inline-block;
-    margin-left: -1.3em; 
-    width: 1.3em; 
-    margin-right: 5px;
-    color: #aaa;
-  }
-  .const-level li:only-child{
-    line-height: 28px;
-    padding-left: 1.3em;
-    font-weight: 300 !important;
+.actions{
+  position: absolute;
+  top: -12px;
+    right: -12px;
 }
-.const-level li:before {
-    content: "\f04d"; 
-    font-family: 'Font Awesome 5 Free';
-    display: inline-block;
-    margin-left: -1.3em; 
-    width: 1.3em; 
-    margin-right: 5px;
-    color: #aaa;
-  }
-  .assembly-level li:only-child{
-    font-weight: 500;
-    line-height: 28px;
-    padding-left: 1.3em;
+.actions .btn{
+  border-radius: 50%;
+  width:32px;
+  height:32px;
+  text-align: center;
+  font-size: 0.75rem;
 }
-.assembly-level li:before {
-    content: "\f009"; 
-    font-family: 'Font Awesome 5 Free';
-    display: inline-block;
-    margin-left: -1.3em; 
-    width: 1.3em; 
-    margin-right: 5px;
-    color: #aaa;
-  }
-  .booth-level li:only-child{
-    font-weight: 500;
-    line-height: 28px;
-    padding-left: 1.3em;
-}
-.booth-level li:before {
-    content: "\f00a"; 
-    font-family: 'Font Awesome 5 Free';
-    display: inline-block;
-    margin-left: -1.3em; 
-    width: 1.3em; 
-    margin-right: 5px;
-  }
