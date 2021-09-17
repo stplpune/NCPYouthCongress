@@ -28,6 +28,8 @@ import { ActivityDetailsComponent } from './partial/dialogs/activity-details/act
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
 import { DeleteComponent } from './partial/dialogs/delete/delete.component';
+import { NoAuthGuardService } from './auth/no-auth-guard.service';
+import { AuthorizationService } from './auth/authorization.service';
 
 
 @NgModule({
@@ -70,7 +72,7 @@ import { DeleteComponent } from './partial/dialogs/delete/delete.component';
       libraries: ['geometry','places']
     }),
   ],
-  providers: [DatePipe,AuthService, AuthGuard],
+  providers: [DatePipe, AuthorizationService, NoAuthGuardService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

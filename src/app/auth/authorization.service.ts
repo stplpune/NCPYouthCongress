@@ -12,11 +12,10 @@ export class AuthorizationService {
     if (allowedRoles == null || allowedRoles.length === 0) {
       return true;
     }
-
     // get token from local storage or state management
     let getsessionStorageData: any = sessionStorage.getItem('loggedInDetails');
-    let userRole = JSON.parse(getsessionStorageData)
-    const token = userRole.responseData[0].userType;
+    let userRole = JSON.parse(JSON.parse(getsessionStorageData).data1[0].UserTypeId)
+    const token = userRole.toString();
 
     // decode token to read the payload details
     // const decodeToken = this.jwtHelperService.decodeToken(token);
