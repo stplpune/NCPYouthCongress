@@ -38,7 +38,6 @@ export class CreateElectionComponent implements OnInit {
   filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
   searchFilter = "";
-  subElectionDetailsArray: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -102,7 +101,6 @@ export class CreateElectionComponent implements OnInit {
     })
     this.addSubElectionArray.push({ 'SubElectionId': Id, 'ElectionName': this.createElectionForm.value.SubElectionId });
     this.createElectionForm.controls.SubElectionId.reset();
-    // this.createElectionForm.controls['SubElectionId'].setValue('');
   }
 
   onSubmitElection() {
@@ -142,7 +140,6 @@ export class CreateElectionComponent implements OnInit {
         }
       })
     }
-    console.log(this.createElectionForm.value);
   }
 
 
@@ -204,7 +201,6 @@ export class CreateElectionComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionMasterArray = res.data1;
-        console.log(this.electionMasterArray)
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -225,12 +221,10 @@ export class CreateElectionComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionDetailsArray = res.data1[0];
-        // this.subElectionDetailsArray = res.data2;
         this.addSubElectionArray = res.data2;
-        console.log(this.addSubElectionArray);
+        console.log("aaaa",this.electionDetailsArray);
+        console.log("bbb",this.addSubElectionArray);
         this.patchElectionRecord();
-        console.log("electionDetailsArray", this.electionDetailsArray)
-        console.log("subElectionDetailsArray", this.subElectionDetailsArray)
       } else {
         this.toastrService.error("Data is not available");
       }
@@ -246,17 +240,17 @@ export class CreateElectionComponent implements OnInit {
     if(this.electionDetailsArray.IsSubElectionApplicable == 0){
       this.subElecTableHide = true;
       this.subElectionDivHide = true;
-      this.createElectionForm.patchValue({
-        Id: this.electionDetailsArray.Id,
-        ElectionName: this.electionDetailsArray.ElectionName,
-        ElectionTypeId: this.electionDetailsArray.ElectionTypeId,
-        IsAsemblyBoothListApplicable: this.electionDetailsArray.IsAsemblyBoothListApplicable,
-        IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
-      })
     }else{
       this.subElecTableHide = false;
       this.subElectionDivHide = false;
     }
+    this.createElectionForm.patchValue({
+      Id: this.electionDetailsArray.Id,
+      ElectionName: this.electionDetailsArray.ElectionName,
+      ElectionTypeId: this.electionDetailsArray.ElectionTypeId,
+      IsAsemblyBoothListApplicable: this.electionDetailsArray.IsAsemblyBoothListApplicable,
+      IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
+    })
   }
 
   clearForm() {
@@ -280,6 +274,7 @@ export class CreateElectionComponent implements OnInit {
       if (result == 'Yes') {
         if (flag == 'electionMasterDelFlag') {
           this.deleteElectionMasterData();
+          
         } else {
           this.addSubElectionArray.splice(this.index, 1);
         }
