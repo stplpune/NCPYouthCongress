@@ -107,7 +107,6 @@ export class CreateElectionComponent implements OnInit {
 
   onSubmitElection() {
     this.validationSubElection();
-    debugger;
     this.submitted = true;
     if (this.createElectionForm.invalid) {
       this.spinner.hide();

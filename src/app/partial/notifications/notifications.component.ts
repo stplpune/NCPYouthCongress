@@ -257,7 +257,6 @@ export class NotificationsComponent implements OnInit {
       BodyId:data.BodyId,
       DistrictId:data.DistrictId,
     })
-    debugger;
     console.log(dateTransForm.replace(/-/g,"/"));
     if (data.ScopeId == 2) {
      this.getDistrict();
