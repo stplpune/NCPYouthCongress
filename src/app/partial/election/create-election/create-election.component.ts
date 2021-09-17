@@ -101,7 +101,6 @@ export class CreateElectionComponent implements OnInit {
     })
     this.addSubElectionArray.push({ 'SubElectionId': Id, 'ElectionName': this.createElectionForm.value.SubElectionId });
     this.createElectionForm.controls.SubElectionId.reset();
-    // this.createElectionForm.controls['SubElectionId'].setValue('');
   }
 
   onSubmitElection() {
@@ -223,7 +222,8 @@ export class CreateElectionComponent implements OnInit {
         this.spinner.hide();
         this.electionDetailsArray = res.data1[0];
         this.addSubElectionArray = res.data2;
-        console.log(this.addSubElectionArray);
+        console.log("aaaa",this.electionDetailsArray);
+        console.log("bbb",this.addSubElectionArray);
         this.patchElectionRecord();
       } else {
         this.toastrService.error("Data is not available");
@@ -240,17 +240,17 @@ export class CreateElectionComponent implements OnInit {
     if(this.electionDetailsArray.IsSubElectionApplicable == 0){
       this.subElecTableHide = true;
       this.subElectionDivHide = true;
-      this.createElectionForm.patchValue({
-        Id: this.electionDetailsArray.Id,
-        ElectionName: this.electionDetailsArray.ElectionName,
-        ElectionTypeId: this.electionDetailsArray.ElectionTypeId,
-        IsAsemblyBoothListApplicable: this.electionDetailsArray.IsAsemblyBoothListApplicable,
-        IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
-      })
     }else{
       this.subElecTableHide = false;
       this.subElectionDivHide = false;
     }
+    this.createElectionForm.patchValue({
+      Id: this.electionDetailsArray.Id,
+      ElectionName: this.electionDetailsArray.ElectionName,
+      ElectionTypeId: this.electionDetailsArray.ElectionTypeId,
+      IsAsemblyBoothListApplicable: this.electionDetailsArray.IsAsemblyBoothListApplicable,
+      IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
+    })
   }
 
   clearForm() {
@@ -274,6 +274,7 @@ export class CreateElectionComponent implements OnInit {
       if (result == 'Yes') {
         if (flag == 'electionMasterDelFlag') {
           this.deleteElectionMasterData();
+          
         } else {
           this.addSubElectionArray.splice(this.index, 1);
         }
