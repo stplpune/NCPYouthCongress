@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -23,6 +24,9 @@ export class CommitteesOnMapComponent implements OnInit {
   defaultMembersFlag:boolean = false;
   globalBodyId:any;
   defaultCloseBtn:boolean = false;
+  allDistrict:any;
+  selectedDistrictId:any;
+  selDistrict = new FormControl();
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
@@ -36,6 +40,9 @@ export class CommitteesOnMapComponent implements OnInit {
   clearFilter(){
     this.districtName="Maharashtra State";
     this.showSvgMap(this.commonService.mapRegions());
+    this.defaultMembersFlag = false;
+    this.selectedDistrictId="";
+    this.selDistrict.reset();
     this.getOrganizationByDistrictId(0);
     this.defaultCloseBtn = false;
  
@@ -43,30 +50,38 @@ export class CommitteesOnMapComponent implements OnInit {
 
   ngAfterViewInit() {
     $(document).on('click', 'path', (e: any) => {
+      debugger;
+      // $('path#'+this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
-      var DistrictId = $(getClickedId).attr('id');
-      this.getOrganizationByDistrictId(DistrictId);
+      let distrctId = $(getClickedId).attr('id');
+      this.getOrganizationByDistrictId(distrctId);
     });
   }
+
 
   getOrganizationByDistrictId(id: any) {
     this.getDistrict(id)
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_1_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      debugger;
       if (res.data == 0) {
-        if(id != 0){
-          this.defaultCloseBtn = true;
+        this.defaultCloseBtn = true;
+         if(id == 0){
+          this.defaultCloseBtn = false;
         }
         this.defaultCommitteesFlag = true;
         this.spinner.hide();
         this.resultCommittees = res.data1;
-     
+        this.selDistrict.setValue(Number(id));
       } else {
+        this.defaultMembersFlag = false;
         this.defaultCommitteesFlag = true;
-        this.defaultCloseBtn = false;
+        this.defaultCloseBtn = true;
         this.resultCommittees = [];
+        this.selDistrict.setValue('');
         this.spinner.hide();
+        this.selDistrict.setValue(Number(id));
       }
    
     } ,(error:any) => {
@@ -77,14 +92,26 @@ export class CommitteesOnMapComponent implements OnInit {
     })
   }
 
+  selectDistrict(event:any){
+    $('path').css('fill', '#7289da');
+    this.selectedDistrictId = event;
+    $('path#'+this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
+    this.getOrganizationByDistrictId(this.selectedDistrictId);
+  }
+
+  removeDistrictFilter(){
+    this.clearFilter();
+  }
+
   getDistrict(id:any) {
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
+        this.allDistrict = res.data1;
         res.data1.find((ele:any)=>{
           if(ele.DistrictId == id){
-            this.districtName = ele.DistrictName
+            this.districtName = ele.DistrictName;
           }
         })
       } else {

@@ -191,7 +191,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   addValidationOn(scodeId: any) {
-    debugger;
     if (scodeId == 2) {
       this.validationRemove();
       this.getDistrict();
