@@ -10,6 +10,8 @@ export class SidebarComponent implements OnInit {
   hide:boolean =true;
   isShowMenu:boolean=false;
   logInUserType:any;
+  loginAfterPages:any;
+
   @Input() set showMenu(value: boolean) {
     this.isShowMenu = value
   }
@@ -21,6 +23,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.logInUserType =  this.commonService.loggedInUserType();
+    this.loginAfterPages =  this.commonService.getAllPageName();
+    console.log(this.loginAfterPages);
   }
 
 }
