@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-notifications',
@@ -64,7 +65,8 @@ export class NotificationsComponent implements OnInit {
     private router: Router,
     private datePipe:DatePipe,
     public dialog: MatDialog,
-    ) { }
+    public dateTimeAdapter: DateTimeAdapter<any>) {
+      {dateTimeAdapter.setLocale('en-IN');} }
 
   ngOnInit(): void {
     this.customForm();
@@ -227,19 +229,22 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
+    console.log(data);
     this.NotificationText = "Update";
     this.getImgPath = data.AttachmentPath;
+   
     this.addValidationOn(data.ScopeId);
 
     if(data.ScopeId == 4){
-      data.MemberStr = data.MemberStr.split(',');
+      data.MemberStr = data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
     }else if (data.ScopeId == 3){
-      data.BodyId = data.MemberStr.split(',');
+      data.BodyId =  data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
     }else if (data.ScopeId == 2){
-      data.DistrictId = data.MemberStr.split(',');
+      data.DistrictId =  data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
     }
-    let dateTransForm = data.NotificationDate.toString();
-    
+    let dateTransForm:any = data.NotificationDate.split(" ");
+    let datefomratChange:any = this.datePipe.transform(this.commonService.dateFormatChange(dateTransForm[0]), 'yyyy/MM/dd');
+
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
       Description: data.Description,
@@ -252,21 +257,22 @@ export class NotificationsComponent implements OnInit {
       SrNo: data.SrNo,
       Title: data.Title,
       MemberStr:data.MemberStr,
+      NotificationDate:new Date(Date.parse(datefomratChange+" "+dateTransForm[1])),
       BodyId:data.BodyId,
       DistrictId:data.DistrictId,
     })
-    console.log(dateTransForm.replace(/-/g,"/"));
+ 
     if (data.ScopeId == 2) {
      this.getDistrict();
-     this.notificationForm.controls["DistrictId"].setValue(this.notificationForm.value.DistrictId.map(Number))
+     this.notificationForm.controls["DistrictId"].setValue(Number(this.notificationForm.value.DistrictId))
     } else if (data.ScopeId == 3) {
       this.notificationForm.controls["BodyId"].setValidators(Validators.required);
       this.notificationForm.controls["BodyId"].updateValueAndValidity();
       this.notificationForm.controls['BodyId'].clearValidators();
-      this.notificationForm.controls["BodyId"].setValue(this.notificationForm.value.BodyId.map(Number))
+      this.notificationForm.controls["BodyId"].setValue(Number(this.notificationForm.value.BodyId))
     } else if (data.ScopeId == 4) {
       this.getMemberName();
-      this.notificationForm.controls["MemberStr"].setValue(this.notificationForm.value.MemberStr.map(Number))
+      this.notificationForm.controls["MemberStr"].setValue(Number(this.notificationForm.value.MemberStr))
     }  
   }
 
@@ -539,7 +545,7 @@ export class NotificationsComponent implements OnInit {
   checkBoxScheduler(event: any) {
     if (event.target.checked) {
       this.schedulerFlag = true;
-      this.IspushedFlag = 1;
+      this.IspushedFlag = 2;
     } else {
       this.IspushedFlag = 0;
       this.schedulerFlag = false;
