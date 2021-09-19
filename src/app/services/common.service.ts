@@ -50,6 +50,7 @@ export class CommonService {
     var month = date_components[1];
     var year = date_components[2];
     return new Date(year, month, day);
+    
   }
   
 
