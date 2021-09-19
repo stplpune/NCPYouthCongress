@@ -65,11 +65,11 @@
                                         <label for="ddlSelectElection" class="form-label">Select Sub Election</label>
                                         <div class="input-group">
                                                 <ngx-select [allowClear]="true" [items]="electionDropArray"
-                                                formControlName="SubElectionId" optionValueField="ElectionName"
+                                                formControlName="SubElectionId" optionValueField="ElectionName" (select)="addBtndisabledEnabled()"
                                                 optionTextField="ElectionName" placeholder="Select Sub Election"
                                                 [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}" style="width: 90%;">
                                             </ngx-select>
-                                                <button type="button"  [disabled]="createElectionForm.value.SubElectionId == '' " class="btn btn-light btn-sm ms-1 border rounded"
+                                                <button type="button"  [disabled]="SubElectionDisabled" class="btn btn-light btn-sm ms-1 border rounded"
                                                 (click)="addSubElection()">
                                                 <i class="fas fa-plus"></i>
                                             </button>
@@ -159,11 +159,14 @@
                                     <a class="fw-bold text-primary"
                                         routerLink="../../election/create-constituency">{{electionMaster.Constituency}}</a>
                                 </td>
-                                <td>
+                                <td *ngIf="electionMaster.IsSubElectionApplicable == 0;else otherContent">
                                     <div class="mb-0 ps-3" *ngFor="let subElection of electionMaster.SubElection.split(',');let i=index">
                                         <span>{{i+1}}. {{subElection}}</span>
                                     </div>
                                 </td>
+                                <ng-template #otherContent>
+                                    <td class="text-center">-</td>
+                                </ng-template>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" title="Edit Election" (click)="getElectionDetails(electionMaster.Id)"

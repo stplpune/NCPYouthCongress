@@ -38,6 +38,7 @@ export class CreateElectionComponent implements OnInit {
   filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
   searchFilter = "";
+  SubElectionDisabled = true;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -82,6 +83,7 @@ export class CreateElectionComponent implements OnInit {
   subElectionRadiobtn(subEleId: any) {
     if (subEleId == 0) {
       this.subElectionDivHide = true;
+      this.addSubElectionArray = [];
     } else {
       this.createElectionForm.controls.SubElectionId.reset();
       this.subElectionDivHide = false;
@@ -90,8 +92,12 @@ export class CreateElectionComponent implements OnInit {
     }
   }
 
-  addSubElection() {
+  addBtndisabledEnabled() {// when dropdown value select
+    this.SubElectionDisabled = false; // add btn enabled
+  }
 
+  addSubElection() {
+    this.SubElectionDisabled = true; // add btn disabled
     this.subElecTableHide = true;
     let Id;
     this.electionDropArray.filter((ele: any) => {
@@ -112,11 +118,16 @@ export class CreateElectionComponent implements OnInit {
     } else {
       this.spinner.show();
       let formData = this.createElectionForm.value;
-      this.addSubElectionArray.map((ele: any) => {
-        delete ele['Id'];
-        return ele;
-      })
-      this.addSubElectionArray = JSON.stringify(this.addSubElectionArray);
+      if (formData.IsSubElectionApplicable == 0) {
+        this.addSubElectionArray.map((ele: any) => {
+          delete ele['Id'];
+          return ele;
+        })
+        this.addSubElectionArray = JSON.stringify(this.addSubElectionArray);
+      } else {
+        this.addSubElectionArray = "";
+      }
+
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
       let obj = id + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
@@ -222,8 +233,8 @@ export class CreateElectionComponent implements OnInit {
         this.spinner.hide();
         this.electionDetailsArray = res.data1[0];
         this.addSubElectionArray = res.data2;
-        console.log("aaaa",this.electionDetailsArray);
-        console.log("bbb",this.addSubElectionArray);
+        console.log("aaaa", this.electionDetailsArray);
+        console.log("bbb", this.addSubElectionArray);
         this.patchElectionRecord();
       } else {
         this.toastrService.error("Data is not available");
@@ -236,11 +247,12 @@ export class CreateElectionComponent implements OnInit {
   }
 
   patchElectionRecord() {
+
     this.btnText = 'Update Election';
-    if(this.electionDetailsArray.IsSubElectionApplicable == 0){
+    if (this.electionDetailsArray.IsSubElectionApplicable == 0) {
       this.subElecTableHide = true;
       this.subElectionDivHide = true;
-    }else{
+    } else {
       this.subElecTableHide = false;
       this.subElectionDivHide = false;
     }
@@ -274,7 +286,7 @@ export class CreateElectionComponent implements OnInit {
       if (result == 'Yes') {
         if (flag == 'electionMasterDelFlag') {
           this.deleteElectionMasterData();
-          
+
         } else {
           this.addSubElectionArray.splice(this.index, 1);
         }
