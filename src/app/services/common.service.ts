@@ -12,9 +12,15 @@ export class CommonService {
     
    }
   regions_m:any;
+
   getsessionStorageData() {
     let loginObj = JSON.parse(sessionStorage.loggedInDetails).data1[0];
     return loginObj;
+  }
+
+  getAllPageName() {
+    let getAllPageName = JSON.parse(sessionStorage.loggedInDetails).data2;
+    return getAllPageName;
   }
 
   loggedInUserId() {
