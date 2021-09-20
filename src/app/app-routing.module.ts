@@ -65,7 +65,6 @@ const routes: Routes = [
   },
   { path: '500', component: ServerErrorComponent },
   
-  
   { path: '**', component: PageNotFoundComponent },
 ];
 
