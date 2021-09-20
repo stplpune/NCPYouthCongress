@@ -66,7 +66,6 @@ export class PoliticalWorkComponent implements OnInit {
     this.getSocialMedia();
     this.getCategory();
   }
-
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       memberName: [0],
