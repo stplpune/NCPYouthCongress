@@ -58,7 +58,6 @@ const routes: Routes = [
       { path: 'election/assign-booth', loadChildren: () => import('./partial/election/assign-booth/assign-booth.module').then(m => m.AssignBoothModule) , data: { title: 'Assign Booth'} },
       { path: 'election/profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Profile'} },
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Dashboard'} },
-
     
      { path: 'access-denied', component: AccessDeniedComponent },
     ]
