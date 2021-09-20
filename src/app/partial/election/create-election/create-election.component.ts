@@ -141,7 +141,8 @@ export class CreateElectionComponent implements OnInit {
           this.spinner.hide();
           this.defaultProgramForm();
           this.submitted = false;
-          this.subElectionDivHide = false
+          this.subElectionDivHide = false;
+          this.btnText = 'Create Election';
         } else {
           //  this.toastrService.error("Data is not available");
         }

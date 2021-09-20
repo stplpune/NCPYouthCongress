@@ -66,6 +66,7 @@ export class PoliticalWorkComponent implements OnInit {
     this.getSocialMedia();
     this.getCategory();
   }
+  
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       memberName: [0],
@@ -215,14 +216,6 @@ export class PoliticalWorkComponent implements OnInit {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
     this.HighlightRow = this.viewPoliticleWorkDetailsById.Id;
-
-    // console.log("asd", this.viewPoliticleWorkDetailsById)
-    // if (this.viewPoliticleWorkDetailsById.CategoryId == 1 || this.viewPoliticleWorkDetailsById.CategoryId == 5) {
-    //   this.mapHideShowDiv = true;
-    // } else {
-    //   this.mapHideShowDiv = false;
-    // }
-
     this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
     this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
     this.gallery.ref().load(this.comUserdetImg);
