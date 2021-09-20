@@ -842,6 +842,7 @@ mapsvg-layers-wrap+svg {
         columns: 2;
         -webkit-columns: 2;
         -moz-columns: 2;
+        column-gap: 10px;
 }
 .uploadimg{
     position: relative;

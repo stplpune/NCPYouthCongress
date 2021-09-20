@@ -153,9 +153,9 @@
                             <tr
                                 *ngFor="let electionMaster of electionMasterArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                 <td>{{electionMaster.SrNo}}</td>
-                                <td>{{electionMaster.ElectionName}}</td>
+                                <td><a routerLink="../profile">{{electionMaster.ElectionName}}</a></td>
                                 <td>{{electionMaster.ElectionType}}</td>
-                                <td>
+                                <td class="text-center">
                                     <a class="fw-bold text-primary"
                                         routerLink="../../election/create-constituency">{{electionMaster.Constituency}}</a>
                                 </td>

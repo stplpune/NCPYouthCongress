@@ -153,8 +153,6 @@ export class CreateElectionComponent implements OnInit {
     }
   }
 
-
-
   validationSubElection() {
     if (!this.subElectionDivHide || this.addSubElectionArray.length >= 1) {
       this.createElectionForm.controls["SubElectionId"].clearValidators();
@@ -232,9 +230,7 @@ export class CreateElectionComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionDetailsArray = res.data1[0];
-        this.addSubElectionArray = res.data2;
-        console.log("aaaa", this.electionDetailsArray);
-        console.log("bbb", this.addSubElectionArray);
+        this.addSubElectionArray = res.data2; // same array name add and edit record
         this.patchElectionRecord();
       } else {
         this.toastrService.error("Data is not available");
@@ -247,7 +243,6 @@ export class CreateElectionComponent implements OnInit {
   }
 
   patchElectionRecord() {
-
     this.btnText = 'Update Election';
     if (this.electionDetailsArray.IsSubElectionApplicable == 0) {
       this.subElecTableHide = true;
@@ -264,6 +259,7 @@ export class CreateElectionComponent implements OnInit {
       IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
     })
   }
+
 
   clearForm() {
     this.submitted = false;
