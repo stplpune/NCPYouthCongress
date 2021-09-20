@@ -170,7 +170,7 @@ export class ActivityAnalysisComponent implements OnInit {
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../members/profile'], {relativeTo:this.route})
+    this.router.navigate(['/members/profile'], {relativeTo:this.route})
   }
 
 
