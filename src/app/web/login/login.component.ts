@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.reCaptcha();
     this.defaultLoginForm();
+    if(sessionStorage.getItem('loggedInDetails')){
+      //this.commonService.getAllPageName()
+    }
   }
 
   defaultLoginForm() {
@@ -57,9 +60,9 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
           sessionStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
-          let logInUserType =  this.commonService.loggedInUserType();
           this.toastrService.success('login successfully');
-          this.router.navigate(['../dashboard'], { relativeTo: this.route })
+         
+          this.router.navigate(['../'+this.commonService.redirectToDashborad()], { relativeTo: this.route })
           // if(logInUserType == 1){
           //   this.router.navigate(['../dashboard'],{ relativeTo: this.route });
           // }else {

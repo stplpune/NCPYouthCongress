@@ -134,7 +134,7 @@ export class NotificationsComponent implements OnInit {
         fillSelection = getObj.DistrictId
       }
       
-      if(getObj.ScopeId != 1){
+      if(getObj.ScopeId == 0){
         fillSelection.map((ele:any)=>{
           this.globalMemberId.push({"MemberId":ele});
         })
@@ -150,7 +150,6 @@ export class NotificationsComponent implements OnInit {
         NotificationDate = this.datePipe.transform(new Date, 'dd/MM/YYYY hh:mm');
         convertDate= NotificationDate.split(':');
       }
-
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
@@ -178,6 +177,7 @@ export class NotificationsComponent implements OnInit {
           this.toastrService.success(res.data1[0].Msg);
           this.pushMotificationStatus(res.data1[0].ID, res.data1[0].ScopeId);
           // this.pushMotificationStatus(getObj?.Id, getObj?.ScopeId)
+          this.schedulerFlag = false;
           this.getNotificationData();
           this.resetNotificationForm();
         } else {
@@ -229,7 +229,12 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
-    console.log(data);
+    if(data.IsPushed == 2){
+      this.schedulerFlag = true;
+    }else{
+      this.schedulerFlag = false;
+    }
+    
     this.NotificationText = "Update";
     this.getImgPath = data.AttachmentPath;
    
