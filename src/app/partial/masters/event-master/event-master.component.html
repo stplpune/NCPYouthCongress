@@ -20,7 +20,7 @@
                                     <div class="mb-3">
                                         <label for="txtEventTitle" class="form-label required-field">Event Title</label>
                                         <textarea class="form-control" id="txtEventTitle" rows="3"
-                                            class="form-control input-group-addon" placeholder="From Date"  [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }"
+                                            class="form-control input-group-addon" placeholder="Event Title"  [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }"
                                             formControlName="ProgramTitle" ></textarea>
                                         <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
                                             <div *ngIf="f.ProgramTitle.errors.required">Event Title required</div>
