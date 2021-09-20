@@ -163,9 +163,8 @@ export class PoliticalWorkComponent implements OnInit {
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../member/profile'], { relativeTo: this.route })
+    this.router.navigate(['/members/profile'], { relativeTo: this.route })
   }
-
 
   clearFilter(flag: any) {
     if (flag == 'member') {

@@ -478,15 +478,13 @@ export class DashboardComponent implements OnInit {
     series.columns.template.adapter.add("fill", function (fill, target: any) {
       return chart.colors.getIndex(target.dataItem.index);
     });
-
   }
-
 
   redirectCountingPage(status: any) {
     if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
-      this.router.navigate(['/member/executive'], { relativeTo: this.route })
+      this.router.navigate(['/members/executive'], { relativeTo: this.route })
     } else if (status == 'YouthMembers' && this.dashboardCount1Array?.YouthMembers !== 0) {
-      this.router.navigate(['/member/all'], { relativeTo: this.route })
+      this.router.navigate(['/members/all'], { relativeTo: this.route })
     } else if (status == 'activeMembers' && this.dashboardCount1Array?.ActiveMembers !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.error("Page Not Avaliable...!!!");
