@@ -277,10 +277,12 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         console.log(this.getPreDesMembersArray)
         this.getPreDesMembersArray.push(res.data1);
-        this.getPreDesMembersArray.map((ele:any)=>{
-          debugger;
-          this.designationArray.push(ele.DesignationName)
-        })
+        setTimeout(() => {
+          this.getPreDesMembersArray.map((ele:any)=>{
+            debugger;
+            this.designationArray.push(ele.DesignationName)
+          })
+        }, 2000);
         console.log(this.designationArray);
       } else {
         this.spinner.hide();

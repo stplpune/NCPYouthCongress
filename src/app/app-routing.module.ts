@@ -58,11 +58,14 @@ const routes: Routes = [
       { path: 'election/assign-booth', loadChildren: () => import('./partial/election/assign-booth/assign-booth.module').then(m => m.AssignBoothModule) , data: { title: 'Assign Booth', allowedRoles: ['3'] } },
       { path: 'election/profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Profile', allowedRoles: ['3'] } },
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Dashboard', allowedRoles: ['3'] } },
+      { path: 'election/add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule) , data: { title: 'Dashboard', allowedRoles: ['3'] } },
     
      { path: 'access-denied', component: AccessDeniedComponent },
     ]
   },
   { path: '500', component: ServerErrorComponent },
+  
+  
   
   { path: '**', component: PageNotFoundComponent },
 ];
