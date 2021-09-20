@@ -66,6 +66,7 @@ export class OrganizationDetailsComponent implements OnInit {
   periodicChart: any;
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
+  designationArray: any[] = [];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -276,6 +277,11 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         console.log(this.getPreDesMembersArray)
         this.getPreDesMembersArray.push(res.data1);
+        this.getPreDesMembersArray.map((ele:any)=>{
+          debugger;
+          this.designationArray.push(ele.DesignationName)
+        })
+        console.log(this.designationArray);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");

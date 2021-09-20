@@ -76,7 +76,7 @@
                 <li routerLinkActive="active" *ngFor="let pages of loginPages; let i = index"> 
                     <input id="group-{{i}}" type="checkbox" hidden />
                     <label for="group-{{i}}"  *ngIf="pages.PageURL.length <= 1"  [routerLink]="pages.PageURL"><i [innerHtml]="pages.PageIcon"></i>{{pages.PageGroup}} </label>
-                    <label for="group-{{i}}"  *ngIf="pages.PageURL.length > 1"><i class="fas fa-tachometer-alt"></i>{{pages.PageGroup}} <span class="fa fa-angle-right"></span> </label>
+                    <label for="group-{{i}}"  *ngIf="pages.PageURL.length > 1"><i [innerHtml]="pages.PageIcon"></i>{{pages.PageGroup}} <span class="fa fa-angle-right"></span> </label>
                     <ng-container *ngIf="pages.PageURL.length > 1">
                     <ul class="group-list">
                         <li><a *ngFor="let page of pages.PageURL; let pageUrlIndex = index" routerLink="{{pages.PageGroup.replace(' ','-') | lowercase}}/{{page}}">
