@@ -18,7 +18,6 @@
                         <i class="fas fa-tools"></i>
                         Masters <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list" [class.d-none]="hide ? false : true">
-                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
                         <li><a routerLink="master/committee">Committee Master</a></li>
                         <li><a routerLink="master/party-program">Party Program Master</a></li>
                         <li><a routerLink="master/event-master">Event Master</a></li>
@@ -41,7 +40,6 @@
                         <i class="fas fa-network-wired"></i>
                         Activity Management <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list" [class.d-none]="hide ? false : true">
-                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
                         <li><a routerLink="social-media">Social Media Perception</a></li>
                         <li><a routerLink="party-works">Party Work</a></li>
                         <li><a routerLink="forward-activities">Forward Activities</a></li>
@@ -54,14 +52,12 @@
                         <i class="fas fa-comments"></i>
                         Communications <span class="fa fa-angle-right"></span></label>
                     <ul class="group-list" [class.d-none]="hide ? false : true">
-                        <!-- <li><a routerLink="masters/designation-master">Designation Master</a></li> -->
                         <li><a routerLink="feedbacks">Feedbacks</a></li>
                         <li><a routerLink="notifications">Notifications</a></li>
                         <li><a routerLink="help-support">Help Support</a></li>
                     </ul>
                 </li>
                 </ng-container>
-                <!-- for election  management -->
                 <ng-container>
                     <li routerLinkActive="active"> <input id="group-1" type="checkbox" hidden />
                         <label for="group-1" routerLink="e-dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</label>
@@ -77,6 +73,19 @@
                     </li>
                 </ng-container>
               
+                <!-- <li routerLinkActive="active" *ngFor="let pages of loginPages; let i = index"> 
+                    <input id="group-{{i}}" type="checkbox" hidden />
+                    <label for="group-{{i}}"  *ngIf="pages.PageURL.length <= 1"  [routerLink]="pages.PageURL"><i class="fas fa-tachometer-alt"></i>{{pages.PageGroup}} </label>
+                    <label for="group-{{i}}"  *ngIf="pages.PageURL.length > 1"><i class="fas fa-tachometer-alt"></i>{{pages.PageGroup}} <span class="fa fa-angle-right"></span> </label>
+                    
+                    <ng-container *ngIf="pages.PageURL.length > 1">
+                    <ul class="group-list">
+                        <li><a *ngFor="let page of pages.PageURL" routerLink="{{pages.PageGroup | lowercase}}/{{page}}">{{page}}</a></li>
+                       
+                    </ul>
+                    </ng-container>
+                </li> -->
+
             </ul>
         </div>
     </nav>

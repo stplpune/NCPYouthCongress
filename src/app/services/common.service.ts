@@ -12,9 +12,15 @@ export class CommonService {
     
    }
   regions_m:any;
+
   getsessionStorageData() {
     let loginObj = JSON.parse(sessionStorage.loggedInDetails).data1[0];
     return loginObj;
+  }
+
+  getAllPageName() {
+    let getAllPageName = JSON.parse(sessionStorage.loggedInDetails).data2;
+    return getAllPageName;
   }
 
   loggedInUserId() {
@@ -44,16 +50,9 @@ export class CommonService {
     var month = date_components[1];
     var year = date_components[2];
     return new Date(year, month, day);
+    
   }
-
-  dateFormatChangeWithTime(date_string:any) {
-    var date_components = date_string.split("/");
-    var day = date_components[0];
-    var month = date_components[1];
-    var year = date_components[2];
-    return new Date(year, month, day);
-  }
-
+  
 
  dateTransformPipe(date_string:any) {
     let dateFormtchange:any;
