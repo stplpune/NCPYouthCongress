@@ -160,7 +160,7 @@
                                         routerLink="../../election/create-constituency">{{electionMaster.Constituency}}</a>
                                 </td>
                                 <td *ngIf="electionMaster.IsSubElectionApplicable == 0;else otherContent">
-                                    <ol class="mb-0" >
+                                    <ol class="mb-0">
                                         <li *ngFor="let subElection of electionMaster.SubElection.split(',');let i=index">{{subElection}}</li>
                                     </ol>
                                 </td>
