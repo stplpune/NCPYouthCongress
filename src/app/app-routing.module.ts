@@ -29,7 +29,7 @@ const routes: Routes = [
     canActivateChild: [AuthorizationGuard],
     component: PartialComponent, children: [
       // NCP Admin
-      { path: 'dashboard', loadChildren: () => import('./partial/dashboard/dashboard.module').then(m => m.DashboardModule), data: { title: 'Dashboard'} },
+      { path: 'dashboard', loadChildren: () => import('./partial/dashboard/dashboard.module').then(m => m.DashboardModule), data: { title: 'Dashboard',  allowedRoles: ['1']  }},
       
       { path: 'masters/committee', loadChildren: () => import('./partial/masters/organization-master/organization-master.module').then(m => m.OrganizationMasterModule), data: { title: 'Committee Master',  allowedRoles: ['1']  }},
       { path: 'masters/committees-on-map', loadChildren: () => import('./partial/masters/committees-on-map/committees-on-map.module').then(m => m.CommitteesOnMapModule), data: { title: 'Executive Members',  allowedRoles: ['1']  }},
