@@ -41,6 +41,7 @@ export class SidebarComponent implements OnInit {
         this.loginPages.push(item);
       }
     });
+    console.log(this.loginPages);
   }
 
 }

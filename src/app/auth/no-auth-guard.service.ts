@@ -16,7 +16,8 @@ export class NoAuthGuardService {
     canActivate(): any {
       if(this.auth.isLoggedIn()){
         if(this.logInUserType){
-          this.router.navigate(['/dashboard']);
+          // this.router.navigate(['/dashboard']);
+          this.router.navigate(['/'+this.commonService.redirectToDashborad()]);
         }
       }else{
         return true;

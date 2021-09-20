@@ -23,6 +23,12 @@ export class CommonService {
     return getAllPageName;
   }
 
+  redirectToDashborad(){
+    let logInUserType:any =  this.getAllPageName();
+    let redirectToDashboard = logInUserType[0].PageURL;
+    return redirectToDashboard;
+  }
+
   loggedInUserId() {
     let userId = this.getsessionStorageData();
     return userId.Id;

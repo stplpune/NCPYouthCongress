@@ -30,7 +30,7 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
     const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
 
     if (!isAuthorized) {
-      this.router.navigate(['accessdenied']);
+      this.router.navigate(['access-denied']);
     }
 
     return isAuthorized;
@@ -44,7 +44,7 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
     const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
     if (!isAuthorized) {
       // if not authorized, show access denied message
-      this.router.navigate(['dashboard/accessdenied']);
+      this.router.navigate(['access-denied']);
     }
 
     return isAuthorized;
