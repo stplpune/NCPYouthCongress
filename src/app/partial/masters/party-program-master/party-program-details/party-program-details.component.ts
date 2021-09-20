@@ -276,7 +276,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../../member/profile'], { relativeTo: this.route })
+    this.router.navigate(['../../../members/profile'], { relativeTo: this.route })
   }
 
   onClickPagintion(pageNo: number, paginationFlag: any) {
@@ -323,7 +323,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../../master/committee/details'], { relativeTo: this.route })
+      this.router.navigate(['../../../masters/committee/details'], { relativeTo: this.route })
     }
   }
 

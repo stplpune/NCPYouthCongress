@@ -57,9 +57,9 @@
                         </div>
                         <table class="table table-hover">
                             <tbody>
-                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]; let first = first">
+                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]">
                                     <!-- <ng-container *ngIf="designationName.DesignationName == desMembers.DesignationName">
-                                        <th  colspan="5"> <div class="text-center bg-light py-2 fw-bold border-bottom">{{desMembers.DesignationName}}</div></th>
+                                        <th> <div class="text-center bg-light py-2 fw-bold border-bottom">{{desMembers.DesignationName}}</div></th>
                                     </ng-container> -->
                                         <td><a>{{desMembers.MemberName}}</a></td>
                                         <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
