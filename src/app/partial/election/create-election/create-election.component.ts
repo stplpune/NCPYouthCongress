@@ -265,6 +265,7 @@ export class CreateElectionComponent implements OnInit {
     })
   }
 
+
   clearForm() {
     this.submitted = false;
     this.btnText = 'Create Election'
