@@ -233,8 +233,6 @@ export class CreateElectionComponent implements OnInit {
         this.spinner.hide();
         this.electionDetailsArray = res.data1[0];
         this.addSubElectionArray = res.data2;
-        console.log("aaaa", this.electionDetailsArray);
-        console.log("bbb", this.addSubElectionArray);
         this.patchElectionRecord();
       } else {
         this.toastrService.error("Data is not available");
