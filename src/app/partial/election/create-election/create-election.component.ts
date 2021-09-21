@@ -105,7 +105,7 @@ export class CreateElectionComponent implements OnInit {
 
       this.electionDropArray.filter((ele: any) => { // filter Id
         if (ele.ElectionName == this.createElectionForm.value.SubElectionId) {
-          Id = ele.Id
+          Id = ele.Id;
         }
       })
 
@@ -122,7 +122,7 @@ export class CreateElectionComponent implements OnInit {
         this.toastrService.error("Please Different Select");
       }
     } else {
-      this.toastrService.error("Election Name & Sub Election Name is Different");
+      this.toastrService.error("Select Election Name & Sub Election Name is Different");
     }
   }
 
@@ -185,7 +185,6 @@ export class CreateElectionComponent implements OnInit {
       this.createElectionForm.controls["SubElectionId"].updateValueAndValidity();
       this.createElectionForm.controls["SubElectionId"].clearValidators();
     }
-
   }
 
   getElectionType() {
