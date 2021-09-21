@@ -100,24 +100,45 @@ export class CreateElectionComponent implements OnInit {
     this.SubElectionDisabled = true; // add btn disabled
     this.subElecTableHide = true;
     let Id;
-    this.electionDropArray.filter((ele: any) => {
-      if (ele.ElectionName == this.createElectionForm.value.SubElectionId) {
-        Id = ele.Id
+    let subElectionName;
+    if (this.createElectionForm.value.ElectionName != this.createElectionForm.value.SubElectionId) {
+
+      this.electionDropArray.filter((ele: any) => { // filter Id
+        if (ele.ElectionName == this.createElectionForm.value.SubElectionId) {
+          Id = ele.Id
+        }
+      })
+
+      this.addSubElectionArray.filter((ele: any) => { // filter Sub ElectionName
+        if (ele.ElectionName == this.createElectionForm.value.SubElectionId) {
+          subElectionName = ele.ElectionName;
+        }
+      })
+
+      if (!subElectionName) {
+        this.addSubElectionArray.push({ 'SubElectionId': Id, 'ElectionName': this.createElectionForm.value.SubElectionId });
+        this.createElectionForm.controls.SubElectionId.reset();
+      } else {
+        this.toastrService.error("Please Different Select");
       }
-    })
-    this.addSubElectionArray.push({ 'SubElectionId': Id, 'ElectionName': this.createElectionForm.value.SubElectionId });
-    this.createElectionForm.controls.SubElectionId.reset();
+    } else {
+      this.toastrService.error("Election Name & Sub Election Name is Different");
+    }
   }
 
   onSubmitElection() {
     this.validationSubElection();
     this.submitted = true;
+    let formData = this.createElectionForm.value;
     if (this.createElectionForm.invalid) {
       this.spinner.hide();
       return;
-    } else {
+    }
+    else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {
+      this.toastrService.error("please Add Sub Election");
+    }
+    else {
       this.spinner.show();
-      let formData = this.createElectionForm.value;
       if (formData.IsSubElectionApplicable == 0) {
         this.addSubElectionArray.map((ele: any) => {
           delete ele['Id'];
