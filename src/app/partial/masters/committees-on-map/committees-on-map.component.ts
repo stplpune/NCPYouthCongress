@@ -50,7 +50,7 @@ export class CommitteesOnMapComponent implements OnInit {
 
   ngAfterViewInit() {
     $(document).on('click', 'path', (e: any) => {
-      // $('path#'+this.selectedDistrictId).css('fill', '#7289da');
+      $('path#'+this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
       this.getOrganizationByDistrictId(distrctId);
@@ -95,6 +95,7 @@ export class CommitteesOnMapComponent implements OnInit {
     this.selectedDistrictId = event;
     $('path#'+this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
+    this.defaultMembersFlag = false;
   }
 
   removeDistrictFilter(){
@@ -137,7 +138,7 @@ export class CommitteesOnMapComponent implements OnInit {
       } else {
         this.defaultMembersFlag = true;
         this.resultOrganizationMember = [];
-        this.selCommitteeName ="";
+        this.selCommitteeName = committeeName;
         this.spinner.hide();
       }
     } ,(error:any) => {
