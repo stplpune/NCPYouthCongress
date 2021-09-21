@@ -50,7 +50,7 @@ export class EventMasterComponent implements OnInit {
   };
   addEvent!: FormGroup;
   getImgExt: any;
-  selectedFile!: any;
+  selectedFile: any;
   ImgUrl: any;
   imgName: any;
   @ViewChild('myInput') myInput!: ElementRef;
@@ -124,6 +124,7 @@ export class EventMasterComponent implements OnInit {
       return;
     }
     else {
+      debugger;
       let ImageChangeFlag: any;
       this.submitted = false;
       let data = this.addEvent.value;
@@ -150,13 +151,13 @@ export class EventMasterComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_EventMaster', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          this.submitted = false;
+          this.removePhoto();
           this.IsChangeImage = false;
+          this.addEvent.reset();
+          this.submitted = false;
           this.spinner.hide();
           this.toastrService.success("Event Addeed Successfully");
-          this.addEvent.reset();
           this.getEventList();
-          this.removePhoto();
           this.editEventText = "Publish Event";
         } else {
           this.spinner.hide();
@@ -171,9 +172,6 @@ export class EventMasterComponent implements OnInit {
     }
   }
 
-  resetFile() {
-    this.fileInput.nativeElement.value = '';
-  }
   choosePhoto() {
     let clickPhoto: any = document.getElementById('my_file')
     clickPhoto.click();
