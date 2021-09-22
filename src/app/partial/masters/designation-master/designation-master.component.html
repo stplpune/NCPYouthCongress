@@ -16,7 +16,21 @@
                     <div class="form-container">
                         <div class="mb-3">
                             <label for="txtDesignationName" class="form-label">Designation Name</label>
-                            <input type="text" class="form-control" id="txtDesignationName" placeholder="Designation Name">
+                            <input type="text" class="form-control" id="txtDesignationName"
+                                placeholder="Designation Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDesignationLevel" class="form-label">Designation Level</label>
+                            <input type="number" class="form-control" id="txtDesignationLevel"
+                                placeholder="Designation Level">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="chkLoginAllowed">
+                                <label class="form-check-label" for="chkLoginAllowed">
+                                    Is Login Allowed
+                                </label>
+                            </div>
                         </div>
                         <div class="mb-2 text-end">
                             <button type="button" class="btn btn-main">Create Designation</button>
@@ -32,8 +46,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>#ID</th>
+                            <th>Sr. No.</th>
                             <th>Designation Name</th>
+                            <th>Designation Level</th>
+                            <th>Is Login Allowed</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -41,9 +57,30 @@
                         <tr>
                             <td>1</td>
                             <td>President</td>
-                            <th>
-                                <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
-                            </th>
+                            <td>1</td>
+                            <td>
+                                <i class="fas fa-check text-success"></i>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" title="Edit Designation" class="btn btn-sm btn-light text-edit me-1 rounded"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Delete Designation" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Vice President</td>
+                            <td>2</td>
+                            <td>
+                                <i class="fas fa-times text-danger"></i>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" title="Edit Designation" class="btn btn-sm btn-light text-edit me-1 rounded"><i class="far fa-edit"></i></button>
+                                    <button type="button" title="Delete Designation" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
