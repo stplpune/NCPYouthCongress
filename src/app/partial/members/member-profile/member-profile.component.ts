@@ -256,7 +256,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../masters/committee/details'], { relativeTo: this.route })
+      this.router.navigate(['../../committee/details'], { relativeTo: this.route })
     }
   }
 

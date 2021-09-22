@@ -6,7 +6,7 @@ import { EventMasterComponent } from './event-master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { TooltipModule } from 'src/app/partial/directive/tooltip.module';
 @NgModule({
   declarations: [
     EventMasterComponent
@@ -20,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxPaginationModule,
+    TooltipModule,
   ]
 })
 export class EventMasterModule { }

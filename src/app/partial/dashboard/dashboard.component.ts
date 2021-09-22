@@ -482,9 +482,9 @@ export class DashboardComponent implements OnInit {
 
   redirectCountingPage(status: any) {
     if (status == 'executiveMember' && this.dashboardCount1Array?.ExcecutiveMembers !== 0) {
-      this.router.navigate(['/members/executive'], { relativeTo: this.route })
+      this.router.navigate(['/executive-members'], { relativeTo: this.route })
     } else if (status == 'YouthMembers' && this.dashboardCount1Array?.YouthMembers !== 0) {
-      this.router.navigate(['/members/all'], { relativeTo: this.route })
+      this.router.navigate(['/all-members'], { relativeTo: this.route })
     } else if (status == 'activeMembers' && this.dashboardCount1Array?.ActiveMembers !== 0) {
       // this.router.navigate(['/dashboard'], {relativeTo:this.route})
       this.toastrService.error("Page Not Avaliable...!!!");
