@@ -872,3 +872,7 @@ mapsvg-layers-wrap+svg {
     box-shadow: none;
     border:solid 1px #ccc;
 }
+.angular-editor-textarea:focus-visible,
+.angular-editor-wrapper:focus-visible{
+    outline: 1px solid #ced4da !important;
+}
