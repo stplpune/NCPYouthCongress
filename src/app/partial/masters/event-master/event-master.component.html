@@ -72,7 +72,7 @@
                             <div class="mb-2">
                                 <span class="float-start">
                                     <button type="button" class="btn btn-secondary btn-sm"
-                                        (click)="resetEventForm()">Cancel</button>
+                                        (click)="resetEventForm(); removePhoto();">Cancel</button>
                                 </span>
                                 <span class="float-end">
                                     <button type="submit" class="btn btn-main btn-sm">{{editEventText}}</button>
@@ -193,7 +193,7 @@
                         stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
                 </svg>
                 <h3 class="my-4">Are You Sure?</h3>
-                <p>Do you really want to publish this event?</p>
+                <p>Do you really want to {{publishText}} this event?</p>
                 <button class="btn btn-secondary me-2 px-5" data-bs-dismiss="modal" (click)="getEventList()"
                     type="button">NO</button>
                 <button class="btn btn-main px-5 py-2" type="button" (click)="IsDisplayEvent(IsDisplayStatus)"
