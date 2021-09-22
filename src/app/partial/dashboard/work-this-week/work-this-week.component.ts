@@ -509,13 +509,13 @@ xAxis.renderer.minGridDistance = 30;
   redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
       let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../masters/committee/details'], { relativeTo: this.route })
+      this.router.navigate(['../../committee/details'], { relativeTo: this.route })
   }
 
   redToMemberProfile(memberId:any,FullName:any){
     let obj = {'memberId':memberId, 'FullName':FullName}
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../members/profile'], {relativeTo:this.route})
+    this.router.navigate(['../../profile'], {relativeTo:this.route})
   }
 
   getMemberName() {
