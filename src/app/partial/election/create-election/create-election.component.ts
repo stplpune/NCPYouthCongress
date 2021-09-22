@@ -40,6 +40,8 @@ export class CreateElectionComponent implements OnInit {
   searchFilter = "";
   SubElectionDisabled = true;
 
+   subEleArray:any
+
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -146,15 +148,15 @@ export class CreateElectionComponent implements OnInit {
           delete ele['Id'];
           return ele;
         })
-        this.addSubElectionArray = JSON.stringify(this.addSubElectionArray);
+        this.subEleArray = JSON.stringify(this.addSubElectionArray);
       } else {
-        this.addSubElectionArray = "";
+        this.subEleArray = "";
       }
 
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
       let obj = id + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
-        '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.addSubElectionArray;
+        '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subEleArray;
       this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
