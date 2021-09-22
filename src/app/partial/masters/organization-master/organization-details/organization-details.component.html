@@ -10,19 +10,120 @@
         </div>
     </div>
 
+    <div class="row" id="dash-stats">
+        <div class="col-sm-3">
+            <div class="card card-body bg-cyan">
+                <i class="fas fa-network-wired"></i>
+                <p>Total Work Done</p>
+                <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-green">
+                <i class="fab fa-apple"></i>
+                <p>Total Committees</p>
+                <h3>333</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-blue">
+                <i class="fab fa-android"></i>
+                <p>Total Executives</p>
+                <h3>333</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-gold">
+                <i class="fab fa-android"></i>
+                <p>Total Members</p>
+                <h3>333</h3>
+            </div>
+        </div>
+        <!-- <div class="col-sm-3">
+            <div class="card card-body bg-green">
+                <i class="fab fa-apple"></i>
+                <p>iOS Downloads</p>
+                <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card card-body bg-blue">
+                <i class="fab fa-android"></i>
+                <p>Android Downloads</p>
+                <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
+            </div>
+        </div> -->
+    </div>
+
     <div class="row chartbox">
         <div class="col-sm-4">
+            <div class="card mb-3">
+                <div class="card-header pb-0">
+                    Sub-Committees
+                </div>
+                <div class="card-body">
+                    <h6 class="title">Committee Name</h6>
+                    <ul class="wtree">
+                        <li>
+                            <span><a routerLink="">Level 1</a></span>
+                        </li>
+                        <li>
+                            <span>Level 1</span>
+                            <ul>
+                                <li>
+                                    <span>Level 2</span>
+                                </li>
+                                <li>
+                                    <span>Level 2</span>
+                                </li>
+                                <li>
+                                    <span>Level 2</span>
+                                </li>
+                                <li>
+                                    <span>Level 2</span>
+                                </li>
+                                <li>
+                                    <span>Level 2</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span>Level 1</span>
+                            <ul>
+                                <li>
+                                    <span>Level 2</span>
+                                    <ul>
+                                        <li>
+                                            <span>Level 3</span>
+                                            <ul>
+                                                <li>
+                                                    <span>Level 4</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <!-- Current Designated Members -->
             <div class="card mb-3">
                 <div class="card-header pb-0">
                     Current Designated Members
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover mb-0">
                         <thead>
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>Member Name</th>
                                 <th>Designation</th>
+                                <th>Appointed On</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -30,14 +131,26 @@
                             <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
                                 <td>{{designatedMembers.SrNo}}</td>
                                 <td>{{designatedMembers.MemberName | titlecase}}</td>
-                                <td>{{designatedMembers.DesignationName}} <br/><small> (From :{{designatedMembers.PostFromDate}})</small></td>
-                                <td>
+                                <td>{{designatedMembers.DesignationName}} </td>
+                                <td>{{designatedMembers.PostFromDate}}</td>
+                                <td class="text-end">
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
-                                        <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light rounded"> <i class="fas fa-pencil-alt"></i></button>
+                                        <button *ngIf="designatedMembers.MemberName"
+                                            (click)="addEditMember(designatedMembers,'Edit')"
+                                            class="btn btn-sm btn-light rounded"> <i
+                                                class="fas fa-pencil-alt"></i></button>
                                         <!-- <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button> -->
-                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button>
-                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
-                                        <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
+                                        <button
+                                            *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1"
+                                            (click)="addEditMember(designatedMembers,'Add')"
+                                            class="rounded btn btn-sm btn-light mx-1"> <i
+                                                class="fas fa-plus"></i></button>
+                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded"
+                                            *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
+                                            (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
+                                            data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
+                                        <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal
+                                            style="display: none;"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -46,7 +159,8 @@
                 </div>
             </div>
 
-            <div class="card" *ngIf="getPreDesMembersArray.length !=0 ">
+            <!-- Previous Designated Members -->
+            <div class="card mb-3" *ngIf="getPreDesMembersArray.length !=0 ">
                 <div class="card-header pb-0">
                     Previous Designated Members
                 </div>
@@ -61,9 +175,15 @@
                                     <!-- <ng-container *ngIf="designationName.DesignationName == desMembers.DesignationName">
                                         <th> <div class="text-center bg-light py-2 fw-bold border-bottom">{{desMembers.DesignationName}}</div></th>
                                     </ng-container> -->
-                                        <td><a>{{desMembers.MemberName}}</a></td>
-                                        <td>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}</td>
-                                   
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-sm-6"><a>{{desMembers.MemberName}}</a></div>
+                                            <div class="col-sm-6">{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' :
+                                                desMembers.PostToDate}}</div>
+                                        </div>
+                                    </td>
+                                    
+
                                 </tr>
                             </tbody>
                         </table>
@@ -71,33 +191,7 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="col-sm-8">
-            <div class="row" id="dash-stats">
-                <div class="col-sm-3">
-                    <div class="card card-body bg-cyan">
-                        <i class="fas fa-network-wired"></i>
-                        <p>Work Done</p>
-                        <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card card-body bg-green">
-                        <i class="fab fa-apple"></i>
-                        <p>iOS Downloads</p>
-                        <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card card-body bg-blue">
-                        <i class="fab fa-android"></i>
-                        <p>Android Downloads</p>
-                        <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
-                    </div>
-                </div>
-            </div>
-            <hr>
+            <!-- Individual Members Progress -->
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="row">
@@ -108,19 +202,30 @@
                             <form [formGroup]="filter">
                                 <div class="row g-2 form-container">
                                     <div class="col-sm-4">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')"
+                                            (select)="filterData()" [items]="bodyMemberFilterDetails"
+                                            optionValueField="ID" optionTextField="FullName"
+                                            formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')"
+                                            (select)="filterData()" [items]="resWorkcategory" optionValueField="Id"
+                                            optionTextField="Category" formControlName="workType"
+                                            placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)"
+                                                class="form-control" [max]="maxDate" [selectMode]="'range'"
+                                                [owlDateTimeTrigger]="dt1" placeholder="Select range"
+                                                formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar-alt"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -145,18 +250,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <tr
+                                *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                 <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                 <td>{{bodyMemActivity.ActivityDate}}</td>
                                 <td>
-                                    <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)" class="text-primary">{{bodyMemActivity.FullName}}</a>
+                                    <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)"
+                                        class="text-primary">{{bodyMemActivity.FullName}}</a>
                                 </td>
-                                <td><span class="text-ellipsis-150px" [appTooltip]  title={{bodyMemActivity.Category}}>{{bodyMemActivity.Category}}</span></td>
-                                <td><span class="text-ellipsis-150px" [appTooltip]  title={{bodyMemActivity.Title}}>{{bodyMemActivity.Title}}</span></td>
+                                <td><span class="text-ellipsis-150px" [appTooltip]
+                                        title={{bodyMemActivity.Category}}>{{bodyMemActivity.Category}}</span></td>
+                                <td><span class="text-ellipsis-150px" [appTooltip]
+                                        title={{bodyMemActivity.Title}}>{{bodyMemActivity.Title}}</span></td>
                                 <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
                                             class="far fa-eye"></i></button> -->
-                                            <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light"
+                                        (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i
+                                            class="far fa-eye"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="resBodyMemAct?.length == 0">
@@ -168,11 +279,13 @@
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
             </div>
 
+            <!-- Work in a Year -->
             <div class="card mb-3">
                 <div class="card-header">Work in a Year</div>
                 <div class="card-body">
@@ -185,13 +298,15 @@
 </div>
 
 <!-- Modal for Add/Update/Delete Member for any Designation -->
-<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form [formGroup]="bodyMember">
                 <div class="modal-header">
                     <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="height: 341px">
                     <div class="form-container">
@@ -205,7 +320,11 @@
 
                                     <label for="txtMemberName" class="form-label required-field">Member Name</label>
                                     <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
+                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId"
+                                        optionValueField="id" optionTextField="fullname"
+                                        (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
+                                        placeholder="Select Member Name"
+                                        [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
                                     </ngx-select>
                                     <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
                                         <div *ngIf="f.bodyId.errors.required">Body Member is required
@@ -219,11 +338,15 @@
                                 <div class="mb-3">
                                     <label for="txtMemberName" class="form-label required-field">
                                         Post From Date</label>
-                                    <div class="input-group" [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
-                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [max]="maxDate" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
+                                    <div class="input-group"
+                                        [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
+                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control"
+                                            [max]="maxDate" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                        <button class="btn btn-light border btn-sm" type="button"
+                                            [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
                                             <i class="fas fa-calendar-alt"></i></button>
-                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
+                                        <button class="btn btn-light border btn-sm" type="button"
+                                            *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
                                             <i class="fas fa-times"></i></button>
 
                                     </div>
@@ -247,7 +370,8 @@
                                         {{bodyMemberDetails?.MobileNo}}</div>
                                     <label class="form-label mb-0">Location</label>
                                     <div class="form-control-plaintext py-0">
-                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}
+                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
+                                        {{bodyMemberDetails?.VillageName}}
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +503,8 @@
 
 
 <!-- Delete Confirmation modal pop up -->
-<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="DeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-transparent border-bottom-0">
@@ -399,7 +524,8 @@
                 <p class="mb-4">Do you really want to delete this record? This process can not be undone.
                 </p>
                 <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
-                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal" type="button">Delete</button>
+                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal"
+                    type="button">Delete</button>
             </div>
         </div>
     </div>

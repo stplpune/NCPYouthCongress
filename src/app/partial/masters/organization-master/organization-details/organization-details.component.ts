@@ -268,6 +268,8 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
+  
+
   getPreviousDesignatedMembers(id: any, DesignationId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
