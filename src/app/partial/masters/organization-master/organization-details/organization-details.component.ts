@@ -67,7 +67,8 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
   designationArray: any[] = [];
-
+  subCommittessRes:any;
+  
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
@@ -110,6 +111,23 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     this.getBodyMemeberActivities(this.bodyId);
 
+  }
+
+  subCommittess(bodyId:any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+114, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.subCommittessRes = res.data1;
+      } else {
+        // this.toastrService.error("Body member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
   }
 
 
