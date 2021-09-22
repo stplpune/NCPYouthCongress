@@ -147,7 +147,7 @@
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox"
                                                     (click)="eventId = eventListData.EventId"
-                                                    (change)="eventToggle(eventListData)"
+                                                    (change)="eventToggle(eventListData)" [appTooltip] title="{{eventListData?.IsDisplay == 1 ? 'Published' : 'Not published'}}"
                                                     [disabled]="" data-bs-toggle="modal"
                                                     data-bs-target="#flexSwitchCheckChecked"
                                                     [checked]="eventListData?.IsDisplay == 1">
@@ -178,7 +178,7 @@
 
 <div class="modal fade" id="flexSwitchCheckChecked" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="LogoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-transparent border-bottom-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="getEventList()"></button>

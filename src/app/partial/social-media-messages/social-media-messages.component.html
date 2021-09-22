@@ -167,14 +167,14 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.MemberMobileNo">
                                 <label class="form-label">Members Name</label>
                             <div id="txtMembersName" class="form-data">
                                 {{socialMediaDetailsArray?.MemberName}}
                                 <span class="text-muted ms-2">[{{socialMediaDetailsArray?.MemberMobileNo}}]</span>
                             </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.SocialMediaName">
                                 <label class="form-label">Social Media Source</label>
                                 <div id="txtSocialMediaSource" class="form-data">
                                     <i class="fab fa-whatsapp me-1"></i> {{socialMediaDetailsArray?.SocialMediaName}}
@@ -182,40 +182,40 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.PersonName">
                                 <label class="form-label">Posted By</label>
                                 <div id="txtMobileNo" class="form-data">
                                     {{socialMediaDetailsArray?.PersonName}}
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.PersonMobileNo">
                                 <label class="form-label">Person's Mobile No.</label>
                                 <div id="txtMobileNo" class="form-data">
                                     {{socialMediaDetailsArray?.PersonMobileNo}}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="socialMediaDetailsArray?.Description">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
                                 {{socialMediaDetailsArray?.Description}}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.InFavorOf">
                                 <label class="form-label">Message in Favour</label>
                                 <div id="txtMessageFavour" class="form-data">
                                     {{socialMediaDetailsArray?.InFavorOf}}
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.InOppositionOf">
                                 <label class="form-label">Message in Oppose</label>
                                 <div id="txtMessageOppse" class="form-data">
                                     {{socialMediaDetailsArray?.InOppositionOf}}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="socialMediaDetailsArray?.PartyInSupport">
                             <label class="form-label">Party in Support</label>
                             <div id="txtPartyInSupport" class="form-data">
                                 <img src="{{socialMediaDetailsArray?.PartyIconImage}}" class="partylogo" />
