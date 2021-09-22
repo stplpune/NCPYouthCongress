@@ -97,6 +97,7 @@ export class CreateElectionComponent implements OnInit {
   }
 
   addSubElection() {
+    debugger
     this.SubElectionDisabled = true; // add btn disabled
     this.subElecTableHide = true;
     let Id;
@@ -105,7 +106,7 @@ export class CreateElectionComponent implements OnInit {
 
       this.electionDropArray.filter((ele: any) => { // filter Id
         if (ele.ElectionName == this.createElectionForm.value.SubElectionId) {
-          Id = ele.Id
+          Id = ele.Id;
         }
       })
 
@@ -119,10 +120,11 @@ export class CreateElectionComponent implements OnInit {
         this.addSubElectionArray.push({ 'SubElectionId': Id, 'ElectionName': this.createElectionForm.value.SubElectionId });
         this.createElectionForm.controls.SubElectionId.reset();
       } else {
-        this.toastrService.error("Please Different Select");
+        this.createElectionForm.controls.SubElectionId.reset();
+        this.toastrService.error("Please choose different Election Name");
       }
     } else {
-      this.toastrService.error("Election Name & Sub Election Name is Different");
+      this.toastrService.error("Election Name & Sub Election Name should be Different");
     }
   }
 
@@ -185,7 +187,6 @@ export class CreateElectionComponent implements OnInit {
       this.createElectionForm.controls["SubElectionId"].updateValueAndValidity();
       this.createElectionForm.controls["SubElectionId"].clearValidators();
     }
-
   }
 
   getElectionType() {
@@ -269,6 +270,7 @@ export class CreateElectionComponent implements OnInit {
     if (this.electionDetailsArray.IsSubElectionApplicable == 0) {
       this.subElecTableHide = true;
       this.subElectionDivHide = true;
+      this.createElectionForm.controls.SubElectionId.reset();
     } else {
       this.subElecTableHide = false;
       this.subElectionDivHide = false;
@@ -281,7 +283,6 @@ export class CreateElectionComponent implements OnInit {
       IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
     })
   }
-
 
   clearForm() {
     this.submitted = false;
