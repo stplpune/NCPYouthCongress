@@ -314,8 +314,9 @@ export class NotificationsComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Delete_Notification_Web_1_0?NewsId='+this.NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.toastrService.success(res.data1[0].Msg)
+        this.toastrService.success(res.data1[0].Msg);
         this.getNotificationData();
+        this.resetNotificationForm();
       } else {
         // this.toastrService.error(res.data1[0].Msg)
         this.spinner.hide();
