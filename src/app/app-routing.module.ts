@@ -36,7 +36,8 @@ const routes: Routes = [
       { path: 'masters/party-program', loadChildren: () => import('./partial/masters/party-program-master/party-program-master.module').then(m => m.PartyProgramMasterModule), data: { title: 'Executive Members',  allowedRoles: ['1'] }},
       { path: 'masters/event-master', loadChildren: () => import('./partial/masters/event-master/event-master.module').then(m => m.EventMasterModule) },
       { path: 'masters/party-program/details', loadChildren: () => import('./partial/masters/party-program-master/party-program-details/party-program-details.module').then(m => m.PartyProgramDetailsModule), data: { title: 'Executive Members',  allowedRoles: ['1']  } },
-
+      { path: 'masters/designation-master', loadChildren: () => import('./partial/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule), data: { title: 'Designation Master',  allowedRoles: ['1']}},
+      
       { path: 'members/executive', loadChildren: () => import('./partial/members/executive-members/executive-members.module').then(m => m.ExecutiveMembersModule), data: { title: 'Executive Members',  allowedRoles: ['1']  } },
       { path: 'members/all', loadChildren: () => import('./partial/members/view-members/view-members.module').then(m => m.ViewMembersModule), data: { title: 'View Members',  allowedRoles: ['1']  } },
       { path: 'members/profile', loadChildren: () => import('./partial/members/member-profile/member-profile.module').then(m => m.MemberProfileModule), data: { title: 'Member Profile',  allowedRoles: ['1']  } },
