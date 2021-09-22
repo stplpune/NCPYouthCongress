@@ -73,6 +73,7 @@ export class EventMasterComponent implements OnInit {
   isDisplayFlag: any;
   submitted = false;
   IsDisplayStatus: any;
+  publishText ="publish";
 
   constructor(
     private fb: FormBuilder,
@@ -305,4 +306,6 @@ export class EventMasterComponent implements OnInit {
     this.ImgUrl = "";
     this.IsChangeImage = true;
   }
+
+
 }
