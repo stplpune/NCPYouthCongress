@@ -45,7 +45,7 @@ export class ForwardActivitiesComponent implements OnInit {
   selectedFile: any;
   NewsId: any;
   IsChangeImage:boolean = false;
-  @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef;   
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -165,6 +165,7 @@ export class ForwardActivitiesComponent implements OnInit {
     this.submitted = false;
     this.getImgPath = null;
     this.forwardActivitiForm.reset();
+    this.NotificationText =  "Push";
   }
 
   deleteImg(){
@@ -192,7 +193,8 @@ export class ForwardActivitiesComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Delete_News_Web_1_0?NewsId='+this.NewsId+'&CreatedBy='+this.commonService.loggedInUserId(), false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.toastrService.success(res.data1[0].Msg)
+        this.toastrService.success(res.data1[0].Msg);
+        this.resetNotificationForm();
         this.getNewsData();
       } else {
         this.spinner.hide();

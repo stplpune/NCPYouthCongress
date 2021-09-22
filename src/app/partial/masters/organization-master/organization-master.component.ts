@@ -481,7 +481,6 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
 
-
   clearForm() {
     this.HighlightRow = null;
     this.submitted = false;
@@ -490,8 +489,8 @@ export class OrganizationMasterComponent implements OnInit {
     });
     this.getOrganizationList();
     this.selectLevelClear();
+    this.btnText = "Create Committee";
   }
-
 
   filterData() {
     this.paginationNo = 1;
