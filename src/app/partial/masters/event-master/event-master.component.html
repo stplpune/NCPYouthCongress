@@ -147,7 +147,7 @@
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox"
                                                     (click)="eventId = eventListData.EventId"
-                                                    (change)="eventListData?.IsDisplay == 1 ?  IsDisplayStatus =  0 : IsDisplayStatus = 1"
+                                                    (change)="eventToggle(eventListData)"
                                                     [disabled]="" data-bs-toggle="modal"
                                                     data-bs-target="#flexSwitchCheckChecked"
                                                     [checked]="eventListData?.IsDisplay == 1">
@@ -174,16 +174,14 @@
     </div>
 </div>
 
-
 <!-- delete Modal -->
 
-<!-- toggle Modal -->
 <div class="modal fade" id="flexSwitchCheckChecked" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="LogoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content">
             <div class="modal-header bg-transparent border-bottom-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="getEventList()"></button>
             </div>
             <div class="modal-body text-center pb-5">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">

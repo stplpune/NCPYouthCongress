@@ -307,5 +307,9 @@ export class EventMasterComponent implements OnInit {
     this.IsChangeImage = true;
   }
 
+  eventToggle(eventListData:any){
+    eventListData?.IsDisplay == 1 ? this.IsDisplayStatus =  0 : this.IsDisplayStatus = 1;
+    eventListData?.IsDisplay == 1 ? this.publishText ="unpublish": this.publishText ="publish";
+  }
 
 }
