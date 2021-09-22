@@ -618,6 +618,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_postmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+          this.addDesignation = 'Add';
           this.submitted = false;
           this.clearAddDesignationForm();
           this.spinner.hide();

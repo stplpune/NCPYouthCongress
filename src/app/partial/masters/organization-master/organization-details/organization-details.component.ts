@@ -466,6 +466,7 @@ export class OrganizationDetailsComponent implements OnInit {
       this.toastrService.error("Please select member and try again");
     }
     else {
+      // console.log(data.PostFromDate);
       this.dataAddEditMember = data
       let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
       openMemberModal.click();
@@ -473,16 +474,20 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
+    debugger;
     this.submitted = true;
     if (this.bodyMember.invalid) {
       this.spinner.hide();
       return;
     }
+    // else if(this.dataAddEditMember.PostFromDate == postFromDate){
+
+    // }
     else {
       let UserPostBodyId: any;
       this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
       let fromData = new FormData();
-      let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
       fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
       fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
