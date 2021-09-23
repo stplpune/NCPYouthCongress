@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-organization-details',
@@ -67,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
   designationArray: any[] = [];
-  subCommittessRes:any;
+  subCommittessResult:any;
   
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -93,6 +94,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.getBodyMemeberGraph(this.bodyId);
     this.getWorkcategoryFilterDetails(this.bodyId);
     this.activitiesPerodicGraph(this.bodyId);
+    this.subCommittess(this.bodyId);
   }
 
   defaultFilterForm() {
@@ -113,13 +115,17 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
+  openSubCommittees(bodyId:any){
+    this.subCommittess(bodyId);
+  };
+
   subCommittess(bodyId:any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+114, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+bodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.subCommittessRes = res.data1;
+        this.subCommittessResult = res.data1;
       } else {
         // this.toastrService.error("Body member is not available");
       }

@@ -123,6 +123,7 @@ export class NotificationsComponent implements OnInit {
         notificationFlag = 1;
         ImageChangeFlag = 0
       }
+      debugger;
       let getObj:any = this.notificationForm.value;
 
       let fillSelection:any;
@@ -134,7 +135,7 @@ export class NotificationsComponent implements OnInit {
         fillSelection = getObj.DistrictId
       }
       
-      if(getObj.ScopeId == 0){
+      if(getObj.ScopeId == 4){
         fillSelection.map((ele:any)=>{
           this.globalMemberId.push({"MemberId":ele});
         })
@@ -145,24 +146,28 @@ export class NotificationsComponent implements OnInit {
       let NotificationDate:any;
       if(getObj.NotificationDate){
         NotificationDate = this.datePipe.transform(getObj.NotificationDate, 'dd/MM/YYYY hh:mm');
-        convertDate = NotificationDate.split(':');
+        // convertDate = NotificationDate.split(':');
+        convertDate = NotificationDate;
       }else{
         NotificationDate = this.datePipe.transform(new Date, 'dd/MM/YYYY hh:mm');
-        convertDate= NotificationDate.split(':');
+        // convertDate= NotificationDate.split(':');
+        convertDate= NotificationDate;
       }
+      debugger;
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
       fromData.append('Title', getObj.Title);
       fromData.append('Description', getObj.Description);
-      fromData.append('ImageUrl', getObj.ImageUrl);
-      fromData.append('Link', getObj.Link);
+      fromData.append('ImageUrl', getObj.ImageUrl ? this.selectedFile : '');
+      fromData.append('Link', getObj.Link? this.selectedFile : '');
       fromData.append('MemberStr', JSON.stringify(this.globalMemberId));
-      fromData.append('AttchmentStr', this.selectedFile);
+      fromData.append('AttchmentStr', this.selectedFile ? this.selectedFile : '');
       fromData.append('NotificationType', notificationFlag);
       fromData.append('IsChangeImage',  ImageChangeFlag );
-      fromData.append('NotificationDate', convertDate[0]+":00");
-      fromData.append('Ispushed ',  this.IspushedFlag);
+      // fromData.append('NotificationDate', convertDate[0]+":00");
+      fromData.append('NotificationDate', convertDate);
+      fromData.append('IsPushed ',  this.IspushedFlag);
 
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
@@ -353,20 +358,20 @@ export class NotificationsComponent implements OnInit {
   }
 
   getLevel() {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0', false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.allLevels = res.data1;
-      } else {
-          this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
+    // this.spinner.show();
+    // this.callAPIService.setHttp('get', 'Web_GetLevel_1_0', false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.getHttp().subscribe((res: any) => {
+    //   if (res.data == 0) {
+    //     this.spinner.hide();
+    //     this.allLevels = res.data1;
+    //   } else {
+    //       this.toastrService.error("Data is not available");
+    //   }
+    // } ,(error:any) => {
+    //   if (error.status == 500) {
+    //     this.router.navigate(['../500'], { relativeTo: this.route });
+    //   }
+    // })
   }
 
   getMemberName() {
