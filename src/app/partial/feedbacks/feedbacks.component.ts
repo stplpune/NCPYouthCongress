@@ -32,11 +32,11 @@ export class FeedbacksComponent implements OnInit {
   memberNameArray: any;
   defaultToDate = Date.now();
   defaultFromDate = new Date(Date.now() + - 30 * 24 * 60 * 60 * 1000);
-  @ViewChild('txtReply') txtReply:any;
+  @ViewChild('txtReply') txtReply: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
-    private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
+    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
@@ -65,14 +65,14 @@ export class FeedbacksComponent implements OnInit {
         this.allDistrict = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available 2");
+        this.toastrService.error("Data is not available 2");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
-    } )
+    })
   }
 
   getTaluka(districtId: any) {
@@ -90,9 +90,9 @@ export class FeedbacksComponent implements OnInit {
         // this.details(1)
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -113,9 +113,9 @@ export class FeedbacksComponent implements OnInit {
 
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available1");
+        this.toastrService.error("Data is not available1");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -137,9 +137,9 @@ export class FeedbacksComponent implements OnInit {
         this.memberNameArray = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -171,6 +171,11 @@ export class FeedbacksComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
+
+        if (this.FeedbackObj.statusId == 0) {
+            this.resultAllFeedBackData = this.resultAllFeedBackData.filter((ele:any)=> ele.FeedbackStatus == 0 || ele.FeedbackStatus == 1)
+           }
+
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -181,7 +186,7 @@ export class FeedbacksComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -199,7 +204,7 @@ export class FeedbacksComponent implements OnInit {
     } else if (flag == 'Read') {
       this.FeedbackObj.statusId = 1;
     }
-    this.paginationNo  = 1;
+    this.paginationNo = 1;
     this.getFeedBackData(this.FeedbackObj);
   }
 
@@ -210,8 +215,8 @@ export class FeedbacksComponent implements OnInit {
 
   filterClear(flag: any) {
     if (flag == 'district') {
-      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0}
-      this.filterForm.reset({MemberId: this.filterForm.value.MemberId});
+      this.FeedbackObj = { DistrictId: 0, Talukaid: 0, villageid: 0, MemberId: 0 }
+      this.filterForm.reset({ MemberId: this.filterForm.value.MemberId });
     } else if (flag == 'taluka') {
       this.filterForm.reset({ DistrictId: this.FeedbackObj.DistrictId });
       this.FeedbackObj = { 'DistrictId': this.FeedbackObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, MemberId: this.filterForm.value.MemberId }
@@ -241,11 +246,11 @@ export class FeedbacksComponent implements OnInit {
     this.getFeedBackData(this.FeedbackObj)
   }
 
-  details(data: any, flag:any) {
+  details(data: any, flag: any) {
     this.spinner.show();
     this.detailsData = data;
     this.defualtHideFeedback = true;
-    if(flag == 'true'){
+    if (flag == 'true') {
       this.defaultFeebackReply(this.detailsData.Id, this.detailsData.FeedbackStatus);
     }
     this.callAPIService.setHttp('get', 'GetFeedbackReplyById_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FeedbackId=' + data.Id, false, false, false, 'ncpServiceForWeb');
@@ -256,14 +261,14 @@ export class FeedbacksComponent implements OnInit {
       } else {
         this.spinner.hide();
         // if (res.data == 1) {
-          this.resultAllFeedBackDetails = [];
+        this.resultAllFeedBackDetails = [];
 
-          // this.toastrService.error("Feedback is not available");
+        // this.toastrService.error("Feedback is not available");
         // } else {
         //   this.toastrService.error("Please try again something went wrong");
         // }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
@@ -283,9 +288,9 @@ export class FeedbacksComponent implements OnInit {
         } else {
           this.spinner.hide();
           this.defualtHideFeedback = false;
-            this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available");
         }
-      } ,(error:any) => {
+      }, (error: any) => {
         this.spinner.hide();
         if (error.status == 500) {
           this.router.navigate(['../500'], { relativeTo: this.route });
@@ -320,9 +325,9 @@ export class FeedbacksComponent implements OnInit {
         } else {
           this.spinner.hide();
           // this.defualtHideFeedback = false;
-            this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available");
         }
-      } ,(error:any) => {
+      }, (error: any) => {
         this.spinner.hide();
         if (error.status == 500) {
           this.router.navigate(['../500'], { relativeTo: this.route });
