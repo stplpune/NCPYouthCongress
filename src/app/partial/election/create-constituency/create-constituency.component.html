@@ -19,27 +19,35 @@
                             <label for="ddlElectionName" class="form-label">Election Name</label>
                             <ngx-select [allowClear]="true" [items]="electionName"
                             formControlName="ElectionId" optionValueField="Id"
-                            optionTextField="ElectionName" placeholder="Election Type">
+                            optionTextField="ElectionName" placeholder="Election Type" [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
                             </ngx-select>
-                           
+                            <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
+                                <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="txtConstituencyName" class="form-label">Constituency Name</label>
-                            <input type="text" class="form-control" id="txtMembersNos" placeholder="Constituency Name" formControlName="ConstituencyName">
+                            <input type="text" class="form-control" id="txtMembersNos" placeholder="Constituency Name" formControlName="ConstituencyName"  [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
+                            <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
+                                <div *ngIf="f.ConstituencyName.errors.required">Constituency Name is required</div>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="rblMembers" class="form-label">Members</label>
                             <div class="d-block">
                                 <div class="form-check form-check-inline" *ngFor="let Member of allembers">
-                                    <input class="form-check-input" type="radio" name="NoofMembers" [value]="Member.id "  formControlName="Members" id="MemberSingle" (change)="selMembers(Member.id)" >
-                                    <label class="form-check-label" for="MemberSingle">{{Member.name}}</label>
+                                    <input class="form-check-input" type="radio" name="Members" [value]="Member.id"  formControlName="Members" id="MemberSingle" (change)="selMembers(Member.id)" >
+                                    <label class="form-check-label" for="MemberSingle">{{Member?.name}}</label>
                                 </div>
                                 
                             </div>
                         </div>
                         <div class="mb-2" *ngIf="noOfMembersDiv">
                             <label for="txtMembersNos" class="form-label">No. of Members</label>
-                            <input type="number" class="form-control" id="txtMembersNos" placeholder="No. of Members" formControlName="NoofMembers">
+                            <input type="number" class="form-control" id="txtMembersNos" placeholder="No. of Members" formControlName="NoofMembers"  [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
+                            <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">
+                                <div *ngIf="f.NoofMembers.errors.required">No. of Members is required</div>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="rblSubConstituency" class="form-label">Sub Constituency</label>
@@ -58,37 +66,44 @@
                             <div class="card card-body border shadow-none">
                                 <div class="mb-2">
                                     <label for="ddlSelectElection" class="form-label">Select Election</label>
-                                    <ngx-select [allowClear]="true" [items]="electionName"
-                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Type" (select)="GetConstituencyName($event)">
+                                    <ngx-select [allowClear]="true" [items]="electionName" formControlName="subEleName"
+                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Type" (select)="GetConstituencyName($event)"  [ngClass]="{ 'is-invalid': submitted && f.subEleName.errors}">
                                     </ngx-select>
+                                    <div *ngIf="submitted && f.subEleName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.subEleName.errors.required">Sub Election names is required</div>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtSubWardName" class="form-label">constituency Name</label>
-                                    <ngx-select [allowClear]="true" [items]="constituencyArray"
-                                      optionValueField="id" optionTextField="ConstituencyName" placeholder="Constituency Name">
-                            </ngx-select>
+                                    <ngx-select [allowClear]="true" [items]="constituencyArray" formControlName="subEleConstName"
+                                      optionValueField="id" optionTextField="ConstituencyName"  [disabled]="(!createConstituencyForm.value.subEleName || constituencyArray?.length == 0) ? true : false" placeholder="Constituency Name" [ngClass]="{ 'is-invalid': submitted && f.subEleConstName.errors}">
+                                     
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.subEleConstName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.subEleConstName.errors.required">Sub Constituency is required</div>
+                                    </div>
                                 </div>
                                 <div class="mb-3 text-end">
-                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" [disabled]="(!createConstituencyForm.value.subEleName || !createConstituencyForm.value.subEleConstName) ? true : false" (click)="addSubConstituency()">
                                         Add
                                     </button>
                                 </div>
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0" *ngIf="subConstituencyTableDiv">
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
                                             <th>Election Name</th>
-                                            <th>constituency Name</th>
+                                            <th>Constituency Name</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody *ngIf="let election">
+                                    <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
                                         <tr>
-                                            <td>1</td>
-                                            <td>Satara ZP Elections 2021</td>
-                                            <td>constituency No. 32</td>
+                                            <td>{{i+1}}</td>
+                                            <td>{{resSubCons.electionName}}</td>
+                                            <td>{{resSubCons.subConsElectionName}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-light text-danger btn-sm ms-1">
+                                                <button type="button" class="btn btn-light text-danger btn-sm ms-1" (click)="delConfirmation(i)">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>
@@ -101,8 +116,8 @@
                             <a href="#" class="btn btn-link btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#CreateGeoFenceModal">Create Geofence</a>
                         </div>
-                        <div class="mb-2 mt-4">
-                            <button type="button" class="btn btn-secondary  float-lg-start">Clear</button>
+                        <div class="mb-5 mt-4">
+                            <button type="button" class="btn btn-secondary  float-lg-start" (click)="resetConstituencyName()">Clear</button>
                             <button type="submit" class="btn btn-main float-lg-end">Create Constituency</button>
                         </div>
                     </div>
@@ -114,10 +129,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row g-2">
-                        <div class="col-sm-3 offset-5">
-                            <select class="form-select">
-                                <option value="">Select Election Name</option>
-                            </select>
+                        <div class="col-sm-4 offset-4">
+                            <ngx-select [allowClear]="true" [items]="electionName"
+                            formControlName="ElectionId" optionValueField="Id"
+                            optionTextField="ElectionName" placeholder="Election Type">
+                            </ngx-select>
                         </div>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" placeholder="Search..." />
