@@ -69,7 +69,7 @@ export class EventMasterComponent implements OnInit {
   editObjectData: any;
   eventId: any;
   isDisplay: any;
-  editEventText = "Publish Event";
+  editEventText = "Create Event";
   isDisplayFlag: any;
   submitted = false;
   IsDisplayStatus: any;
@@ -108,7 +108,7 @@ export class EventMasterComponent implements OnInit {
   get f() { return this.addEvent.controls };
 
   resetEventForm() {
-    this.editEventText = "Publish Event";
+    this.editEventText = "Create Event";
     this.removePhoto();
     this.submitted = false;
     this.addEvent.reset();
@@ -159,7 +159,7 @@ export class EventMasterComponent implements OnInit {
           this.spinner.hide();
           this.toastrService.success("Event Addeed Successfully");
           this.getEventList();
-          this.editEventText = "Publish Event";
+          this.editEventText = "Create Event";
         } else {
           this.spinner.hide();
           // this.toastrService.error("Data is not available 1");

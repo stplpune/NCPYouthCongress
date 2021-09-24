@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from '@angular/router';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { Alert } from 'selenium-webdriver';
 @Component({
   selector: 'app-social-media-messages',
   templateUrl: './social-media-messages.component.html',
@@ -25,21 +26,20 @@ export class SocialMediaMessagesComponent implements OnInit {
   memberNameArray: any;
   socialMediaMessagesArray: any;
   socialMediaDetailsArray: any;
-  lat: any = 19.75117687556874;
-  lng: any = 75.71630325927731;
+  lat: any;
+  lng: any;
   zoom: any = 5;
   socialMediaDetailsImageArray: any;
   defaultToDate: string = '';
   defaultFromDate: string = '';
-  TotalMsg:any; 
-  FacebookCount:any;
-   WhtasAppCount:any;  
-   socialMediaCount:any;
-   Twitter:any;
-   comUserdetImg:any;
-   programGalleryImg!: GalleryItem[]; 
-   HighlightRow: any;
-
+  TotalMsg: any;
+  FacebookCount: any;
+  WhtasAppCount: any;
+  socialMediaCount: any;
+  Twitter: any;
+  comUserdetImg: any;
+  programGalleryImg!: GalleryItem[];
+  HighlightRow: any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -92,15 +92,15 @@ export class SocialMediaMessagesComponent implements OnInit {
         // this.toastrService.error("Data is not available");
       }
 
-    }, (error:any) => {
-      this.spinner.hide();  
+    }, (error: any) => {
+      this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
 
-  filterData(){
+  filterData() {
     this.paginationNo = 1;
     this.GetSocialMediaMessages()
   }
@@ -118,16 +118,16 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   getMemberName() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -135,16 +135,16 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   getDistrict() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrictArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
@@ -152,25 +152,25 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   getSocialMedia() {
-    this.spinner.show();    
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'GetSocialMediaddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
 
-  getSocialMediaDetails(id:any) {
-    this.spinner.show();    
-    this.callAPIService.setHttp('get', 'GetSocialMediaMessage_Details_Web_1_0?UserId=' + this.commonService.loggedInUserId() +'&Id=' + id, false, false, false, 'ncpServiceForWeb');
+  getSocialMediaDetails(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'GetSocialMediaMessage_Details_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&Id=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -178,35 +178,45 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.HighlightRow = this.socialMediaDetailsArray.Id;
         let socialMediaDetailsImageArray = res.data2;
         this.programGalleryImg = socialMediaDetailsImageArray;
-        this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
+        this.programGalleryImg = this.commonService.imgesDataTransform(this.programGalleryImg, 'obj');
         this.gallery.ref().load(this.programGalleryImg);
 
         let socialMediaDetailsLatLongArray = res.data3[0];
-        this.lat = socialMediaDetailsLatLongArray.Latitude;
-        this.lng = socialMediaDetailsLatLongArray.Longitude;
+        this.latitudeLongitude(socialMediaDetailsLatLongArray);
       } else {
-          this.toastrService.error("Data is not available");
+        this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
 
-  onClickPagintion(pageNo: number) {
-    this.paginationNo = pageNo;
-    this.GetSocialMediaMessages()
+  latitudeLongitude(latlagData: any) { // only Add latLong Array formate
+    if (latlagData != "" && latlagData != undefined && latlagData != null) {
+      let latLong = [latlagData.Latitude ,latlagData.Longitude]
+      this.lat = Number(latLong[0]);
+      this.lng = Number(latLong[1]);
+    } else {
+      this.lat = 19.663280;
+      this.lng = 75.300293;
+    }
   }
 
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.GetSocialMediaMessages();
+  }
+
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../profile'])
   }
 
-  redToSocialMediaPerson(PersonName:any,MemberMobileNo:any){
-    let obj = {'PersonName':PersonName, 'MemberMobileNo':MemberMobileNo}
+  redToSocialMediaPerson(PersonName: any, MemberMobileNo: any) {
+    let obj = { 'PersonName': PersonName, 'MemberMobileNo': MemberMobileNo }
     sessionStorage.setItem('SocialMediaDataPM', JSON.stringify(obj));
     this.router.navigate(['../social-media/person-profile'], { relativeTo: this.route });
   }

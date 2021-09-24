@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           // }
         } else {
           if (res.data == 1) {
-            this.toastrService.error("Invalid Credentials");
+            this.toastrService.error("Login Failed.Please check UserName and Password");
           } else {
             this.toastrService.error("Please try again something went wrong");
           }

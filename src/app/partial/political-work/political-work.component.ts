@@ -38,7 +38,7 @@ export class PoliticalWorkComponent implements OnInit {
   viewPoliticleWorkDetailsById: any;
   lat: any;
   lng: any;
-  zoom: any = 12;
+  zoom: any = 5;
   comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
   HighlightRow: any;
@@ -87,8 +87,6 @@ export class PoliticalWorkComponent implements OnInit {
 
   clearValue() {
     this.defaultCloseBtn = false;
-    // this.defaultToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-    // this.defaultFromDate = new Date(Date.now() + - 365 * 24 * 60 * 60 * 1000);
     this.filterForm.controls['fromTo'].setValue(['', '']);
     this.paginationNo = 1;
     this.getPoliticalWork();
