@@ -73,7 +73,7 @@ export class EventMasterComponent implements OnInit {
   isDisplayFlag: any;
   submitted = false;
   IsDisplayStatus: any;
-  publishText ="publish";
+  publishText ="Create";
 
   constructor(
     private fb: FormBuilder,

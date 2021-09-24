@@ -76,9 +76,6 @@
                                     </div> -->
                                 </div>
 
-
-
-
                                 <div class="mb-2 mt-4">
                                     <button type="button" class="btn btn-secondary float-lg-start" (click)="resetNotificationForm()">Clear</button>
                                     <button type="submit" class="btn btn-main float-lg-end">{{NotificationText}}
@@ -90,10 +87,6 @@
                     <div class="col-8 border-start" id="notifications">
                         <form [formGroup]="filterForm">
                             <div class="row g-1 mb-2 border-bottom pb-2">
-                                <!-- <div class="col-sm-4">
-                                    <ngx-select [allowClear]="true" (remove)="clearFilter('newsType')" formControlName="newstypeId" [items]="newstypeArray" optionValueField="Id" optionTextField="NewsType" placeholder="News Type" (select)="filterData(false)">
-                                    </ngx-select>
-                                </div> -->
                                 <div class="offset-sm-4 col-sm-4">
                                     <div class="input-group">
                                         <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromTo" [selectMode]="'range'" (dateTimeChange)="filterData('range')" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">

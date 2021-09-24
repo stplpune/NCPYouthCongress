@@ -172,7 +172,7 @@ export class FeedbacksComponent implements OnInit {
         this.spinner.hide();
         this.resultAllFeedBackData = res.data1;
 
-        if (this.FeedbackObj.statusId == 0) {
+        if (this.FeedbackObj.statusId == 0) { 
             this.resultAllFeedBackData = this.resultAllFeedBackData.filter((ele:any)=> ele.FeedbackStatus == 0 || ele.FeedbackStatus == 1)
            }
 
