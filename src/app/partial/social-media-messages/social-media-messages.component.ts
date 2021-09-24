@@ -206,7 +206,7 @@ export class SocialMediaMessagesComponent implements OnInit {
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
-    this.GetSocialMediaMessages()
+    this.GetSocialMediaMessages();
   }
 
   redToMemberProfile(memberId: any, FullName: any) {
