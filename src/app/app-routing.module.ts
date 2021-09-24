@@ -58,7 +58,7 @@ const routes: Routes = [
       { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule) , data: { title: 'Create Election', allowedRoles: ['7','1'] } }, //, 
       { path: 'create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule) , data: { title: 'Create Constituency', allowedRoles: ['7','1'] } },
       { path: 'assign-booth', loadChildren: () => import('./partial/election/assign-booth/assign-booth.module').then(m => m.AssignBoothModule) , data: { title: 'Assign Booth', allowedRoles: ['7','1'] } },
-      { path: 'profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Profile', allowedRoles: ['7','1'] } },
+      { path: 'election-profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Profile', allowedRoles: ['7','1'] } },
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Dashboard', allowedRoles: ['7','1'] } },
       { path: 'add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule), data: { title: 'Dashboard', allowedRoles: ['7','1'] } },
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule) , data: { title: 'Dashboard', allowedRoles: ['8','1'] }},
