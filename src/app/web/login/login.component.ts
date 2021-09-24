@@ -51,9 +51,7 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       this.toastrService.error("Invalid Captcha. Please try Again");
     }
-
     else {
-      // this.callAPIService.setHttp('get', 'Web_GetLogin_1_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.setHttp('get', 'Web_GetLogin_2_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == '0') {
@@ -63,11 +61,6 @@ export class LoginComponent implements OnInit {
           this.toastrService.success('login successfully');
          
           this.router.navigate(['../'+this.commonService.redirectToDashborad()], { relativeTo: this.route })
-          // if(logInUserType == 1){
-          //   this.router.navigate(['../dashboard'],{ relativeTo: this.route });
-          // }else {
-          //   this.router.navigate(['../e-dashboard'],{ relativeTo: this.route });
-          // }
         } else {
           if (res.data == 1) {
             this.toastrService.error("Login Failed.Please check UserName and Password");
@@ -82,7 +75,6 @@ export class LoginComponent implements OnInit {
   }
 
   reCaptcha(){
-    // this.loginForm.controls['recaptchaReactive'].reset();
     this.commonService.createCaptchaCarrerPage();
   }
 
@@ -90,7 +82,6 @@ export class LoginComponent implements OnInit {
     this.show_button = !this.show_button;
     this.show_eye = !this.show_eye;
   }
-
   
   passwordValid(controls:any) {
     const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
