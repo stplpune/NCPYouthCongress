@@ -139,7 +139,7 @@ export class CreateElectionComponent implements OnInit {
       return;
     }
     else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {
-      this.toastrService.error("please Add Sub Election");
+      this.toastrService.error("Please Add Sub Election");
     }
     else {
       this.spinner.show();
