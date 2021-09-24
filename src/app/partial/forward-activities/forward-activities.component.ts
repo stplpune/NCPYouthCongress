@@ -105,7 +105,7 @@ export class ForwardActivitiesComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    else if(!activityTitleName){ //check Activity Title Name Same or Not
+    else if(!activityTitleName || this.forwardActivitiForm.value.Id > 0){ //check Activity Title Name Same or Not
       this.globalMemberId = [];
       let fromData = new FormData();
       let imageChangeFlag:any;
