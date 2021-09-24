@@ -93,11 +93,19 @@ export class ForwardActivitiesComponent implements OnInit {
   onSubmit(){
     this.spinner.show();
     this.submitted = true;
+    let activityTitleName;
+
+    this.getnewsArray.filter((ele: any) => { // filter ActivityTitle Name
+      if (ele.Title == this.forwardActivitiForm.value.activityTitle) {
+        activityTitleName = ele.Title;
+      }
+    })
+
     if (this.forwardActivitiForm.invalid) {
       this.spinner.hide();
       return;
     }
-    else {
+    else if(!activityTitleName){ //check Activity Title Name Same or Not
       this.globalMemberId = [];
       let fromData = new FormData();
       let imageChangeFlag:any;
@@ -133,7 +141,7 @@ export class ForwardActivitiesComponent implements OnInit {
           this.resetNotificationForm();
           this.IsChangeImage = false;
           this.spinner.hide();
-          this.toastrService.success(res.data1[0].Msg)
+          this.toastrService.success(res.data1[0].Msg);
           this.getNewsData();
         } else {
           this.spinner.hide();
@@ -144,6 +152,10 @@ export class ForwardActivitiesComponent implements OnInit {
           this.router.navigate(['../500'], { relativeTo: this.route });
         }
       })
+    }
+    else{
+      this.spinner.hide();
+      this.toastrService.error("Please Choose Different Activity Title Name");
     }
   }
 
