@@ -4,9 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-constituency',
@@ -22,6 +24,7 @@ export class CreateConstituencyComponent implements OnInit {
   subConstituencyArray = [{ id: 1, name: "Yes" }, { id: 0, name: "No" }];
   constituencyDetailsArray:any;
   createConstituencyForm!:FormGroup;
+  filterForm!:FormGroup;
   noOfMembersDiv:boolean = false;
   subConstituencyDivHide:boolean = false;
   electionName:any;
@@ -30,7 +33,11 @@ export class CreateConstituencyComponent implements OnInit {
   addSubConstituencyArray: any = [];
   subConstituencyTableDiv:boolean = false;
   index:any;
-  
+  subject: Subject<any> = new Subject();
+  searchFilter:any;
+  paginationNo: number = 1;
+  pageSize: number = 10;
+
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -45,6 +52,8 @@ export class CreateConstituencyComponent implements OnInit {
   ngOnInit(): void {
     this.defaultConstituencyForm();
     this.getElection();
+    this.defaultFilterForm();
+    this.searchFilters('false');
   }
 
   defaultConstituencyForm() {
@@ -58,6 +67,13 @@ export class CreateConstituencyComponent implements OnInit {
       StrSubElectionId: [''],
       subEleName: [''],
       subEleConstName: [''],
+    })
+  }
+
+  defaultFilterForm() {
+    this.filterForm = this.fb.group({
+      ElectionNameId: [0],
+      Search: [''],
     })
   }
 
@@ -90,7 +106,7 @@ export class CreateConstituencyComponent implements OnInit {
     if(this.createConstituencyForm.value.IsSubConstituencyApplicable == 1 && this.addSubConstituencyArray.length == 0){
       this.validationSubElectionForm();
     }
-    
+
     this.submitted = true;
     if (this.createConstituencyForm.invalid) {
       this.spinner.hide();
@@ -206,7 +222,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.subConsTableHideShowOnArray();
     }
     else {
-        this.toastrService.error("Election Name & Sub constituency  Name should be Different");
+        this.toastrService.error("Election Name & Sub Election Name should be Different");
     }
   }
 
@@ -283,5 +299,43 @@ export class CreateConstituencyComponent implements OnInit {
     // })
   }
 
+
+  // filter form 
+
+  filterData() {
+    // this.paginationNo = 1;
+    // this.getElectionMaster();
+  }
+
+  clearFilter(flag: any) {
+    if (flag == 'electionType') {
+      this.filterForm.controls['ElectionNameId'].setValue(0);
+    } else if (flag == 'search') {
+      this.filterForm.controls['Search'].setValue('');
+    }
+    this.paginationNo = 1;
+    // this.getElectionMaster();
+  }
+
+  onKeyUpFilter() {
+    this.subject.next();
+  }
+
+  searchFilters(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.Search == "" || this.filterForm.value.Search == null) {
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
+    this.subject
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+        this.searchFilter = this.filterForm.value.Search;
+        this.paginationNo = 1;
+        // this.getElectionMaster();
+      }
+      );
+  }
 }
 

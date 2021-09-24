@@ -128,17 +128,24 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
+                    <form [formGroup]="filterForm">
                     <div class="row g-2">
                         <div class="col-sm-4 offset-4">
                             <ngx-select [allowClear]="true" [items]="electionName"
-                            formControlName="ElectionId" optionValueField="Id"
-                            optionTextField="ElectionName" placeholder="Election Type">
+                            formControlName="ElectionNameId" optionValueField="Id"
+                            optionTextField="ElectionName" placeholder="Election Name">
                             </ngx-select>
                         </div>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" placeholder="Search..." />
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                        _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.Search" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
