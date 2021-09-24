@@ -165,6 +165,7 @@ export class CreateElectionComponent implements OnInit {
           this.getElectionMaster();
           this.spinner.hide();
           this.defaultProgramForm();
+          this.getsubElection() 
           this.submitted = false;
           this.subElectionDivHide = false;
           this.btnText = 'Create Election';
