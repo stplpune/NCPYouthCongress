@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-c-dashboard',
   templateUrl: './c-dashboard.component.html',
-  styleUrls: ['./c-dashboard.component.css']
+  styleUrls: ['./c-dashboard.component.css', '../../partial.component.css']
 })
 export class CDashboardComponent implements OnInit {
 
