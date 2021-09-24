@@ -215,7 +215,7 @@
                                 <!-- <span class="media-date" *ngIf="{{'notificationScope?.NotificationDate' == 1}}"></span> -->
                                 <span class="media-date"
                                     [ngClass]="{'badge text-white bg-success fw-bolder':notificationScope?.IsPushed == 1}">{{notificationScope?.IsPushed
-                                    == 1 ? 'Published' : 'Not-published'}}</span>
+                                    == 1 ? 'Published' : notificationScope?.IsPushed == 2 ? 'Schedule Notification' :  'Not-published'}}</span>
                                 <div class="media-title">{{notificationScope?.Title}}</div>
                                 <div class="media-scope">
                                     {{notificationScope?.ScopeName}} <span *ngIf="notificationScope?.MemberDetails">-  {{notificationScope?.MemberDetails}}</span>

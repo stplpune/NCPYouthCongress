@@ -12,66 +12,61 @@
         <div class="col-sm-4">
             <div class="card mb-3">
                 <div class="card-header">Create Constituency</div>
+                <form [formGroup]="createConstituencyForm" (ngSubmit)="onSubmit()">
                 <div class="card-body pt-0">
                     <div class="form-container">
                         <div class="mb-2">
                             <label for="ddlElectionName" class="form-label">Election Name</label>
-                            <select class="form-select" id="ddlElectionName">
-                                <option value="">Select Election Name</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="electionName"
+                            formControlName="ElectionId" optionValueField="Id"
+                            optionTextField="ElectionName" placeholder="Election Type">
+                            </ngx-select>
+                           
                         </div>
                         <div class="mb-2">
                             <label for="txtConstituencyName" class="form-label">Constituency Name</label>
-                            <input type="text" class="form-control" id="txtConstituencyName"
-                                placeholder="Constituency Name">
+                            <input type="text" class="form-control" id="txtMembersNos" placeholder="Constituency Name" formControlName="ConstituencyName">
                         </div>
                         <div class="mb-2">
                             <label for="rblMembers" class="form-label">Members</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblMembers" id="MemberSingle"
-                                        value="Single">
-                                    <label class="form-check-label" for="MemberSingle">Single</label>
+                                <div class="form-check form-check-inline" *ngFor="let Member of allembers">
+                                    <input class="form-check-input" type="radio" name="NoofMembers" [value]="Member.id "  formControlName="Members" id="MemberSingle" (change)="selMembers(Member.id)" >
+                                    <label class="form-check-label" for="MemberSingle">{{Member.name}}</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblMembers" id="MemberMultiple"
-                                        value="Multiple">
-                                    <label class="form-check-label" for="MemberMultiple">Multiple</label>
-                                </div>
+                                
                             </div>
                         </div>
-                        <div class="mb-2">
+                        <div class="mb-2" *ngIf="noOfMembersDiv">
                             <label for="txtMembersNos" class="form-label">No. of Members</label>
-                            <input type="number" class="form-control" id="txtMembersNos" placeholder="No. of Members">
+                            <input type="number" class="form-control" id="txtMembersNos" placeholder="No. of Members" formControlName="NoofMembers">
                         </div>
                         <div class="mb-2">
                             <label for="rblSubConstituency" class="form-label">Sub Constituency</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblSubConstituency" id="subYes"
-                                        value="Yes">
-                                    <label class="form-check-label" for="subYes">Yes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblSubConstituency" id="subNo"
-                                        value="No">
-                                    <label class="form-check-label" for="subNo">No</label>
+                                <div class="form-check form-check-inline"
+                                    *ngFor="let subEleApp of subConstituencyArray">
+                                    <input class="form-check-input" type="radio"
+                                        formControlName="IsSubConstituencyApplicable" [value]="subEleApp.id"
+                                        name="IsSubConstituencyApplicable" id="subNo"
+                                        (change)="subConstituencyRadiobtn(subEleApp.id)">
+                                    <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-2">
+                        <div class="mb-2"  *ngIf="subConstituencyDivHide">
                             <div class="card card-body border shadow-none">
                                 <div class="mb-2">
                                     <label for="ddlSelectElection" class="form-label">Select Election</label>
-                                    <select class="form-select rounded" id="ddlSelectElection">
-                                        <option value="">Select Election</option>
-                                    </select>
+                                    <ngx-select [allowClear]="true" [items]="electionName"
+                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Type" (select)="GetConstituencyName($event)">
+                                    </ngx-select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="txtSubWardName" class="form-label">Ward Name</label>
-                                    <select class="form-select" id="ddlWardName">
-                                        <option value="">Select Ward Name</option>
-                                    </select>
+                                    <label for="txtSubWardName" class="form-label">constituency Name</label>
+                                    <ngx-select [allowClear]="true" [items]="constituencyArray"
+                                      optionValueField="id" optionTextField="ConstituencyName" placeholder="Constituency Name">
+                            </ngx-select>
                                 </div>
                                 <div class="mb-3 text-end">
                                     <button type="button" class="btn btn-outline-primary btn-sm">
@@ -83,15 +78,15 @@
                                         <tr>
                                             <th>Sr. No.</th>
                                             <th>Election Name</th>
-                                            <th>Ward Name</th>
+                                            <th>constituency Name</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody *ngIf="let election">
                                         <tr>
                                             <td>1</td>
                                             <td>Satara ZP Elections 2021</td>
-                                            <td>Ward No. 32</td>
+                                            <td>constituency No. 32</td>
                                             <td>
                                                 <button type="button" class="btn btn-light text-danger btn-sm ms-1">
                                                     <i class="fas fa-trash-alt"></i>
@@ -112,6 +107,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
         <div class="col-sm-8">
