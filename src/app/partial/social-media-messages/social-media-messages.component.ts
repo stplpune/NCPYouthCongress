@@ -195,9 +195,9 @@ export class SocialMediaMessagesComponent implements OnInit {
 
   latitudeLongitude(latlagData: any) { // only Add latLong Array formate
     if (latlagData != "" && latlagData != undefined && latlagData != null) {
-      let asd = [latlagData.Latitude ,latlagData.Longitude]
-      this.lat = Number(asd[0]);
-      this.lng = Number(asd[1]);
+      let latLong = [latlagData.Latitude ,latlagData.Longitude]
+      this.lat = Number(latLong[0]);
+      this.lng = Number(latLong[1]);
     } else {
       this.lat = 19.663280;
       this.lng = 75.300293;
