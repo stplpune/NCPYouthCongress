@@ -174,7 +174,6 @@ export class CreateConstituencyComponent implements OnInit {
     this.createConstituencyForm.patchValue({
       Id:data.Id,
     })
-
   }
 
   resetConstituencyName(){
