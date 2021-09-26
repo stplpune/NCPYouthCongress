@@ -160,22 +160,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ward No. 33</td>
-                                <td>ZP Satara 2021</td>
-                                <td>12</td>
-                                <td>
-                                    <ol class="mb-0 ps-3">
-                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small>
-                                        </li>
-                                        <li>Punchayat Samity Kharadi<br><small class="text-muted">[Ward No. 33]</small>
-                                        </li>
-                                    </ol>
-                                </td>
+                            <tr *ngFor="let constituency of constituencynName">
+                                <td>{{constituency?.SrNo}}</td>
+                                <td>{{constituency?.ConstituencyName}}</td>
+                                <td>{{constituency?.ElectionName}}</td>
+                                <td>{{constituency?.NoofMembers}}</td>
+                                <td>{{constituency?.SubConstituency ? constituency?.SubConstituency : '-'}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election"
+                                        <button type="button" title="Edit Election" (click)="editConstituency(constituency)"
                                             class="btn btn-sm btn-light text-edit me-1 rounded"><i
                                                 class="far fa-edit"></i></button>
                                         <button type="button" title="Delete Election"
@@ -184,28 +177,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>ZP</td>
-                                <td>ZP Satara 2020</td>
-                                <td>1</td>
-                                <td>
-                                    <ol class="mb-0 ps-3">
-                                        <li>Panchayat Samiti Swargate<br><small class="text-muted">[Ward No. 33]</small>
-                                        </li>
-                                    </ol>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-edit me-1 rounded"><i
-                                                class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
-                                            class="btn btn-sm btn-light text-danger rounded"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
