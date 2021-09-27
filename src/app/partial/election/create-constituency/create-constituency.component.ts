@@ -188,8 +188,9 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   patchCreateConstituency(data: any) {
+    console.log(data);
     this.btnText = 'Update Constituency';
-    data.NoofMembers == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
+    data.Members == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
     data.IsSubConstituencyApplicable == 1 ? (this.subConstituencyDivHide = true, this.subConstituencyTableDiv = true) : (this.subConstituencyDivHide = false, this.subConstituencyTableDiv = false);
     this.createConstituencyForm.patchValue({
       Id: data.Id,
@@ -207,6 +208,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.addSubConstituencyArray = [];
     this.subConsTableHideShowOnArray();
     this.subConstituencyDivHide = false;
+    this.noOfMembersDiv = false;
   }
 
   GetConstituencyName(ElectionId: any) {

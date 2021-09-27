@@ -61,11 +61,12 @@ const routes: Routes = [
       // Client
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
       { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
-
+      { path: 'election-details', loadChildren: () => import('./partial/election/election-details/election-details.module').then(m => m.ElectionDetailsModule) },
       { path: 'access-denied', component: AccessDeniedComponent },
     ]
   },
   { path: '500', component: ServerErrorComponent },
+  
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
