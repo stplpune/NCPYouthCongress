@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AssignBoothRoutingModule } from './assign-booth-routing.module';
 import { AssignBoothComponent } from './assign-booth.component';
-
+import { NgxSelectModule } from 'ngx-select-ex';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,11 @@ import { AssignBoothComponent } from './assign-booth.component';
   ],
   imports: [
     CommonModule,
-    AssignBoothRoutingModule
+    AssignBoothRoutingModule,
+    NgxSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class AssignBoothModule { }

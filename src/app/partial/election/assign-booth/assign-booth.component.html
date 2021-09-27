@@ -12,87 +12,78 @@
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-header">Assign Booths</div>
-                <div class="card-body pt-0">
-                    <div class="form-container">
-                        <div class="mb-2">
-                            <label for="ddlElection" class="form-label">Election</label>
-                            <select class="form-select" id="ddlElection">
-                                <option value="">Select Election</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label for="ddlConstituency" class="form-label">Constituency</label>
-                            <select class="form-select" id="ddlConstituency">
-                                <option value="">Select Constituency</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtSearchAssembly" class="form-label">Assembly</label>
-                            <div class="card border shadow-none">
-                                <div class="card-header p-0 pt-1">
-                                    <input class="form-control border-0 border-bottom rounded-0" id="txtSearchAssembly" type="text" placeholder="Search Assembly" />
-                                </div>
-                                <div class="card-body py-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                          Assembly 212
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Assembly 213
-                                        </label>
-                                      </div>
+                <form [formGroup]="assignBoothForm" (ngSubmit)="onSubmitElection()">
+                    <div class="card-body pt-0">
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="ddlElection" class="form-label">Election</label>
+                                <ngx-select [allowClear]="true" [items]="electionNameArray" formControlName="ElectionId"
+                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Select Election"
+                                    (select)="GetConstituencyName($event)"
+                                    [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtSearchBooth" class="form-label">Booth</label>
-                            <div class="card border shadow-none">
-                                <div class="card-header p-0 pt-1">
-                                    <input class="form-control border-0 border-bottom rounded-0" id="txtSearchBooth" type="text" placeholder="Search Booth" />
-                                </div>
-                                <div class="card-body py-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                          Booth 212
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Booth 213
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                          Booth 212
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Booth 213
-                                        </label>
-                                      </div>
+                            <div class="mb-2">
+                                <label for="ddlConstituency" class="form-label">Constituency</label>
+                                <ngx-select [allowClear]="true" [items]="constituencyNameArray"
+                                    formControlName="ConstituencyId" optionValueField="id" optionTextField="ConstituencyName" placeholder="Select Constituency"
+                                    [disabled]="(!assignBoothForm.value.ElectionId || constituencyNameArray?.length == 0) ? true : false"
+                                    [ngClass]="{ 'is-invalid': submitted && f.ConstituencyId.errors}">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.ConstituencyId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ConstituencyId.errors.required">Sub Constituency is required
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-2 mt-4">
-                            <button type="button" class="btn btn-secondary  float-lg-start">Clear</button>
-                            <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+
+
+                            <div class="mb-2">
+                                <label for="txtSearchAssembly" class="form-label">Assembly</label>
+                                <div class="card border shadow-none">
+                                    <div class="card-header p-0 pt-1">
+                                    <div class="card-body py-2 ChekBox">
+                                        <div class="form-check" *ngFor="let assemblyData of assemblyArray">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{assemblyData.ConstituencyName}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            
+                            <div class="mb-2">
+                                <label for="txtSearchBooth" class="form-label">Booth</label>
+                                <div class="card border shadow-none">
+                                    <div class="card-body py-2 ChekBox">
+                                        <div class="form-check" *ngFor="let boothListData of boothListArray">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{boothListData.BoothNickName}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 mt-4">
+                                <button type="button" class="btn btn-secondary  float-lg-start">Clear</button>
+                                <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="col-sm-9">
             <div class="card">
-                <div class="card-header">
+                <!-- <div class="card-header">
                     <div class="row g-2">
                         <div class="col-sm-3 offset-5">
                             <select class="form-select">
@@ -103,7 +94,34 @@
                             <input class="form-control" type="text" placeholder="Search..." />
                         </div>
                     </div>
+                </div> -->
+
+
+                <div class="card-header">
+                    <form [formGroup]="filterForm">
+                    <div class="row g-2">
+                        <div class="col-sm-3 offset-5">
+                            <ngx-select [allowClear]="true" [items]="electionNameArray" optionValueField="ElectionName" 
+                            (remove)="clearFilter('electionType')" (select)="filterData()"
+                                optionTextField="ElectionType" placeholder="Election Type" formControlName="ElectionTypeId"
+                                [ngClass]="{ 'is-invalid': submitted && f.ElectionTypeId.errors }">
+                            </ngx-select>
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- <input class="form-control" type="text" placeholder="Search..." /> -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                        _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.Search" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 </div>
+
+
+
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
@@ -118,43 +136,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Pune ZP Elections 2021</td>
-                                <td>Kondhawa</td>
-                                <td>Bibwewadi</td>
-                                <td>23</td>
-                                <td>5678</td>
+                            <tr *ngFor="let assBoothEleArray of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" 
+                            [class.active]="assBoothEleArray.Id == HighlightRow">
+                                <td>{{assBoothEleArray.SrNo}}</td>
+                                <td>{{assBoothEleArray.ElectionName}}</td>
+                                <td>{{assBoothEleArray.ConstituencyName}}</td>
+                                <td>{{assBoothEleArray.Assembly}}</td>
+                                <td>{{assBoothEleArray.NoOfBooths}}</td>
+                                <td>{{assBoothEleArray.TotalVoters}}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal" data-bs-target="#viewBoothsModal"><i
-                                                class="far fa-eye"></i></button>
+                                            class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
+                                            data-bs-target="#viewBoothsModal"><i class="far fa-eye"></i></button>
                                         <button type="button" title="Edit Election"
                                             class="btn btn-sm btn-light text-edit mx-1 rounded"><i
                                                 class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
-                                            class="btn btn-sm btn-light text-danger rounded"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pune NagarPalika Elections 2021</td>
-                                <td>Swargate</td>
-                                <td>Tukaram Nagar, Mukund Nagar, Rasta Peth</td>
-                                <td>23</td>
-                                <td>23456</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal" data-bs-target="#viewBoothsModal"><i
-                                                class="far fa-eye"></i></button>
-                                        <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-edit mx-1 rounded"><i
-                                                class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
+                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(assBoothEleArray.ElectionId)"
                                             class="btn btn-sm btn-light text-danger rounded"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </div>
@@ -169,57 +167,58 @@
 </div>
 
 
-<div class="modal fade" id="viewBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewBoothsModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="viewBoothsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="viewBoothsModalLabel">Booth Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-container">
-              <div class="row mb-3">
-                <div class="col-sm-6">
-                    <div class="form-label">Election</div>
-                    <div class="form-data">Pune ZP Elections 2021</div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-label">Constituency</div>
-                    <div class="form-data">Swargate</div>
-                  </div>
-              </div>
-              <div class="mb-3">
-                <div class="form-label">Assembly</div>
-                <div class="form-data">Bibwewadi</div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-6">
-                    <div class="form-label">No. of Booths</div>
-                    <div class="form-data">21</div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-label">No. of Voters</div>
-                    <div class="form-data">846513</div>
-                  </div>
-              </div>
-              <div class="mb-0">
-                <div class="form-label">Booths</div>
-                <div class="form-data">
-                    <ul class="mb-0 ps-3 list-column">
-                        <li>Booth - 12 - Mukund Nagar</li>
-                        <li>Booth - 12 - Mukund Nagar</li>
-                        <li>Booth - 12 - Mukund Nagar</li>
-                        <li>Booth - 12 - Mukund Nagar</li>
-                        <li>Booth - 12 - Mukund Nagar</li>
-                        <li>Booth - 12 - Mukund Nagar</li>
-                    </ul>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewBoothsModalLabel">Booth Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <div class="form-label">Election</div>
+                            <div class="form-data">Pune ZP Elections 2021</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-label">Constituency</div>
+                            <div class="form-data">Swargate</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-label">Assembly</div>
+                        <div class="form-data">Bibwewadi</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <div class="form-label">No. of Booths</div>
+                            <div class="form-data">21</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-label">No. of Voters</div>
+                            <div class="form-data">846513</div>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="form-label">Booths</div>
+                        <div class="form-data">
+                            <ul class="mb-0 ps-3 list-column">
+                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li>Booth - 12 - Mukund Nagar</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-              </div>
-          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
