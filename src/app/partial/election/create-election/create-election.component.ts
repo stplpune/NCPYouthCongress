@@ -57,9 +57,9 @@ export class CreateElectionComponent implements OnInit {
     this.defaultProgramForm();
     this.defaultFilterForm();
     this.getElectionType();
-    this.getElectionMaster();
-    this.getsubElection();
-    this.searchFilters('false');
+     this.getElectionMaster();
+     this.getsubElection();
+     this.searchFilters('false');
   }
 
   defaultProgramForm() {
