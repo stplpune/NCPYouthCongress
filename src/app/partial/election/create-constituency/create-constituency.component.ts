@@ -37,6 +37,7 @@ export class CreateConstituencyComponent implements OnInit {
   searchFilter:any;
   paginationNo: number = 1;
   pageSize: number = 10;
+  constituencynName:any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -53,6 +54,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.defaultConstituencyForm();
     this.getElection();
     this.defaultFilterForm();
+    this.getConstituency();
     this.searchFilters('false');
   }
 
@@ -99,6 +101,29 @@ export class CreateConstituencyComponent implements OnInit {
     })
   }
 
+  getConstituency() {
+    let data = this.filterForm.value;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Election_GetConstituency?ElectionId='+data.ElectionNameId+'&UserId='+this.commonService.loggedInUserId()+'&Search='+data.Search+'&nopage='+this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.constituencynName = res.data1;
+      } else {
+        this.spinner.hide();
+        this.constituencynName = [];
+        // this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  
+
   onSubmit() {
     this.validationNoofMembers();
     let formData = this.createConstituencyForm.value;
@@ -113,8 +138,10 @@ export class CreateConstituencyComponent implements OnInit {
       return;
     }
     else if (formData.IsSubConstituencyApplicable == 1) {
-      this.toastrService.error("Please Add Sub Constituency");
-      return;
+      if(this.subConsArray =="" || this.subConsArray == null){
+        this.toastrService.error("Please Add Sub Constituency");
+        return;
+      }
     }
  
     this.spinner.show();
@@ -122,7 +149,7 @@ export class CreateConstituencyComponent implements OnInit {
     let NoofMembers; 
     formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
     formData.NoofMembers == "" || formData.NoofMembers == null ? NoofMembers = 0 : NoofMembers = formData.NoofMembers;
-    
+    this.subConsArray ? this.subConsArray : this.subConsArray ="";
     let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyName=' + formData.ConstituencyName + '&Members=' + formData.Members +
       '&NoofMembers=' + NoofMembers  + '&IsSubConstituencyApplicable=' + formData.IsSubConstituencyApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subConsArray;
     this.callAPIService.setHttp('get', 'Web_Insert_ElectionConstituency?Id=' + obj, false, false, false, 'ncpServiceForWeb');
@@ -140,6 +167,13 @@ export class CreateConstituencyComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     });
+  }
+
+  editConstituency(data:any){
+    console.log(data);
+    this.createConstituencyForm.patchValue({
+      Id:data.Id,
+    })
   }
 
   resetConstituencyName(){

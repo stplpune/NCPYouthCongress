@@ -63,21 +63,21 @@
                                 <div class="card card-body border shadow-none"  *ngIf="subElectionDivHide">
                                     <div class="mb-3">
                                         <label for="ddlSelectElection" class="form-label">Select Sub Election</label>
-                                        <div class="input-group">
                                                 <ngx-select [allowClear]="true" [items]="electionDropArray"
                                                 formControlName="SubElectionId" optionValueField="ElectionName" (select)="addBtndisabledEnabled()"
                                                 optionTextField="ElectionName" placeholder="Select Sub Election"
                                                 [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}" style="width: 90%;">
-                                            </ngx-select>
-                                                <button type="button"  [disabled]="SubElectionDisabled" class="btn btn-light btn-sm ms-1 border rounded"
-                                                (click)="addSubElection()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
+                                            </ngx-select>                                            
                                         <div *ngIf="submitted && f.SubElectionId.errors" class="invalid-feedback">
                                             <div *ngIf="f.SubElectionId.errors.required">Select Sub Election is required
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="mb-0 text-end">
+                                        <button type="button"  [disabled]="SubElectionDisabled" class="btn btn-outline-primary btn-sm"
+                                                (click)="addSubElection()">
+                                                Add
+                                            </button>
                                     </div>
                                     <table class="table table-hover mb-0" *ngIf="subElecTableHide">
                                         <thead>
