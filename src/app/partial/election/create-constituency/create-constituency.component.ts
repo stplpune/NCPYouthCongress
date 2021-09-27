@@ -42,6 +42,7 @@ export class CreateConstituencyComponent implements OnInit {
   total: any;
   btnText = "Create Constituency";
   highlightedRow:any;
+  
 
   constructor(
     private spinner: NgxSpinnerService,
