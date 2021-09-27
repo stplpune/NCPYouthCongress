@@ -132,7 +132,6 @@ export class CreateConstituencyComponent implements OnInit {
   onSubmit() {
     this.validationNoofMembers();
     let formData = this.createConstituencyForm.value;
-    debugger;
     if (this.createConstituencyForm.value.IsSubConstituencyApplicable == 1 && this.addSubConstituencyArray.length == 0) {
       this.validationSubElectionForm();
     }
@@ -153,20 +152,22 @@ export class CreateConstituencyComponent implements OnInit {
       this.addSubConstituencyArray.map((ele: any) => {
         delete ele['ConstituencyName'];
         delete ele['SubElection'];
+        if(ele['SrNo']){
+          delete ele['SrNo'];
+        }
         return ele;
       })
       this.subConsArray = JSON.stringify(this.addSubConstituencyArray);
     } else {
       this.subConsArray = "";
     }
-    debugger;
     this.spinner.show();
     let id;
     let NoofMembers;
     formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
     // formData.NoofMembers == "" || formData.NoofMembers == null ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
     formData.Members == 0 ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
-    this.subConsArray ? this.subConsArray : this.subConsArray = "";
+    // this.subConsArray ? this.subConsArray : this.subConsArray = "";
     let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyName=' + formData.ConstituencyName + '&Members=' + formData.Members +
       '&NoofMembers=' + NoofMembers + '&IsSubConstituencyApplicable=' + formData.IsSubConstituencyApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subConsArray;
     this.callAPIService.setHttp('get', 'Web_Insert_ElectionConstituency?Id=' + obj, false, false, false, 'ncpServiceForWeb');
@@ -270,10 +271,10 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   addSubConstituency() {
+    let electionNameByEleId:any;
+    let subElectionNameBySubEleId:any;
+    
     if (this.createConstituencyForm.value.ElectionId != this.createConstituencyForm.value.subEleName) {
-      let electionNameByEleId;
-      let subElectionNameBySubEleId;
-
       this.electionName.find((ele: any) => { // find election name by ele id
         if (this.createConstituencyForm.value.subEleName == ele.Id) {
           electionNameByEleId = ele.ElectionName;
@@ -285,7 +286,18 @@ export class CreateConstituencyComponent implements OnInit {
           subElectionNameBySubEleId = ele.ConstituencyName;
         }
       });
+
+    //  let data =  this.addSubConstituencyArray.find((ele:any)=>{
+    //      if((ele.SubElectionId ==  this.createConstituencyForm.value.subEleName) &&  (ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName)){
+    //       this.toastrService.error("Election Name & Constituency Name	already exists");  
+    //       return true;
+    //      }
+    //      return false;
+    //    });
+    //    console.log(data);
+
       this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+    
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();
@@ -294,6 +306,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.toastrService.error("Election Name & Sub Election Name should be Different");
     }
   }
+
 
   selMembers(id: any) {
     id == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
