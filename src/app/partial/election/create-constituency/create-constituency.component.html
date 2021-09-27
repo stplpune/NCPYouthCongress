@@ -13,139 +13,161 @@
             <div class="card mb-3">
                 <div class="card-header">Create Constituency</div>
                 <form [formGroup]="createConstituencyForm" (ngSubmit)="onSubmit()">
-                <div class="card-body pt-0">
-                    <div class="form-container">
-                        <div class="mb-2">
-                            <label for="ddlElectionName" class="form-label">Election Name</label>
-                            <ngx-select [allowClear]="true" [items]="electionName"
-                            formControlName="ElectionId" optionValueField="Id"
-                            optionTextField="ElectionName" placeholder="Election Type" [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
-                            </ngx-select>
-                            <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
-                                <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtConstituencyName" class="form-label">Constituency Name</label>
-                            <input type="text" class="form-control" id="txtMembersNos" placeholder="Constituency Name" formControlName="ConstituencyName"  [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
-                            <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
-                                <div *ngIf="f.ConstituencyName.errors.required">Constituency Name is required</div>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="rblMembers" class="form-label">Members</label>
-                            <div class="d-block">
-                                <div class="form-check form-check-inline" *ngFor="let Member of allembers">
-                                    <input class="form-check-input" type="radio" name="Members" [value]="Member.id"  formControlName="Members" id="MemberSingle" (change)="selMembers(Member.id)" >
-                                    <label class="form-check-label" for="MemberSingle">{{Member?.name}}</label>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="mb-2" *ngIf="noOfMembersDiv">
-                            <label for="txtMembersNos" class="form-label">No. of Members</label>
-                            <input type="number" class="form-control" id="txtMembersNos" placeholder="No. of Members" formControlName="NoofMembers"  [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
-                            <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">
-                                <div *ngIf="f.NoofMembers.errors.required">No. of Members is required</div>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="rblSubConstituency" class="form-label">Sub Constituency</label>
-                            <div class="d-block">
-                                <div class="form-check form-check-inline"
-                                    *ngFor="let subEleApp of subConstituencyArray">
-                                    <input class="form-check-input" type="radio"
-                                        formControlName="IsSubConstituencyApplicable" [value]="subEleApp.id"
-                                        name="IsSubConstituencyApplicable" id="subNo"
-                                        (change)="subConstituencyRadiobtn(subEleApp.id)">
-                                    <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
+                    <div class="card-body pt-0">
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="ddlElectionName" class="form-label">Election Name</label>
+                                <ngx-select [allowClear]="true" [items]="electionName" formControlName="ElectionId"
+                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Name"
+                                    [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-2"  *ngIf="subConstituencyDivHide">
-                            <div class="card card-body border shadow-none">
-                                <div class="mb-2">
-                                    <label for="ddlSelectElection" class="form-label">Select Election</label>
-                                    <ngx-select [allowClear]="true" [items]="electionName" formControlName="subEleName"
-                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Type" (select)="GetConstituencyName($event)"  [ngClass]="{ 'is-invalid': submitted && f.subEleName.errors}">
-                                    </ngx-select>
-                                    <div *ngIf="submitted && f.subEleName.errors" class="invalid-feedback">
-                                        <div *ngIf="f.subEleName.errors.required">Sub Election names is required</div>
+                            <div class="mb-2">
+                                <label for="txtConstituencyName" class="form-label">Constituency Name</label>
+                                <input type="text" class="form-control" id="txtMembersNos"
+                                    placeholder="Constituency Name" formControlName="ConstituencyName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
+                                <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ConstituencyName.errors.required">Constituency Name is required</div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="rblMembers" class="form-label">Members</label>
+                                <div class="d-block">
+                                    <div class="form-check form-check-inline" *ngFor="let Member of allembers">
+                                        <input class="form-check-input" type="radio" name="Members" [value]="Member.id"
+                                            formControlName="Members" id="MemberSingle"
+                                            (change)="selMembers(Member.id)">
+                                        <label class="form-check-label" for="MemberSingle">{{Member?.name}}</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="mb-2" *ngIf="noOfMembersDiv">
+                                <label for="txtMembersNos" class="form-label">No. of Members</label>
+                                <input type="number" class="form-control" id="txtMembersNos"
+                                    placeholder="No. of Members" formControlName="NoofMembers"
+                                    [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
+                                <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">
+                                    <div *ngIf="f.NoofMembers.errors.required">No. of Members is required</div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="rblSubConstituency" class="form-label">Sub Constituency</label>
+                                <div class="d-block">
+                                    <div class="form-check form-check-inline"
+                                        *ngFor="let subEleApp of subConstituencyArray">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="IsSubConstituencyApplicable" [value]="subEleApp.id"
+                                            name="IsSubConstituencyApplicable" id="subNo"
+                                            (change)="subConstituencyRadiobtn(subEleApp.id)">
+                                        <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="txtSubWardName" class="form-label">constituency Name</label>
-                                    <ngx-select [allowClear]="true" [items]="constituencyArray" formControlName="subEleConstName"
-                                      optionValueField="id" optionTextField="ConstituencyName"  [disabled]="(!createConstituencyForm.value.subEleName || constituencyArray?.length == 0) ? true : false" placeholder="Constituency Name" [ngClass]="{ 'is-invalid': submitted && f.subEleConstName.errors}">
-                                     
-                                    </ngx-select>
-                                    <div *ngIf="submitted && f.subEleConstName.errors" class="invalid-feedback">
-                                        <div *ngIf="f.subEleConstName.errors.required">Sub Constituency is required</div>
-                                    </div>
-                                </div>
-                                <div class="mb-3 text-end">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" [disabled]="(!createConstituencyForm.value.subEleName || !createConstituencyForm.value.subEleConstName) ? true : false" (click)="addSubConstituency()">
-                                        Add
-                                    </button>
-                                </div>
-                                <table class="table table-hover mb-0" *ngIf="subConstituencyTableDiv">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr. No.</th>
-                                            <th>Election Name</th>
-                                            <th>Constituency Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
-                                        <tr>
-                                            <td>{{i+1}}</td>
-                                            <td>{{resSubCons.electionName}}</td>
-                                            <td>{{resSubCons.subConsElectionName}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-light text-danger btn-sm ms-1" (click)="delConfirmation(i)">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
-                        </div>
-                        <div class="mb-2 text-end">
-                            <a href="#" class="btn btn-link btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#CreateGeoFenceModal">Create Geofence</a>
-                        </div>
-                        <div class="mb-5 mt-4">
-                            <button type="button" class="btn btn-secondary  float-lg-start" (click)="resetConstituencyName()">Clear</button>
-                            <button type="submit" class="btn btn-main float-lg-end">Create Constituency</button>
+                            <div class="mb-2" *ngIf="subConstituencyDivHide">
+                                <div class="card card-body border shadow-none">
+                                    <div class="mb-2">
+                                        <label for="ddlSelectElection" class="form-label">Select Election</label>
+                                        <ngx-select [allowClear]="true" [items]="electionName"
+                                            formControlName="subEleName" optionValueField="Id"
+                                            optionTextField="ElectionName" placeholder="Election Type"
+                                            (select)="GetConstituencyName($event)"
+                                            [ngClass]="{ 'is-invalid': submitted && f.subEleName.errors}">
+                                        </ngx-select>
+                                        <div *ngIf="submitted && f.subEleName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.subEleName.errors.required">Sub Election names is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtSubWardName" class="form-label">constituency Name</label>
+                                        <ngx-select [allowClear]="true" [items]="constituencyArray"
+                                            formControlName="subEleConstName" optionValueField="id"
+                                            optionTextField="ConstituencyName"
+                                            [disabled]="(!createConstituencyForm.value.subEleName || constituencyArray?.length == 0) ? true : false"
+                                            placeholder="Constituency Name"
+                                            [ngClass]="{ 'is-invalid': submitted && f.subEleConstName.errors}">
+
+                                        </ngx-select>
+                                        <div *ngIf="submitted && f.subEleConstName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.subEleConstName.errors.required">Sub Constituency is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 text-end">
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                            [disabled]="(!createConstituencyForm.value.subEleName || !createConstituencyForm.value.subEleConstName) ? true : false"
+                                            (click)="addSubConstituency()">
+                                            Add
+                                        </button>
+                                    </div>
+                                    <table class="table table-hover mb-0" *ngIf="subConstituencyTableDiv">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Election Name</th>
+                                                <th>Constituency Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>{{resSubCons.SubElection}}</td>
+                                                <td>{{resSubCons.ConstituencyName}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-light text-danger btn-sm ms-1"
+                                                        (click)="delConfirmation(i)">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="mb-2 text-end">
+                                <a href="#" class="btn btn-link btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#CreateGeoFenceModal">Create Geofence</a>
+                            </div>
+                            <div class="mb-5 mt-4">
+                                <button type="button" class="btn btn-secondary  float-lg-start"
+                                    (click)="resetConstituencyName()">Clear</button>
+                                <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
                     <form [formGroup]="filterForm">
-                    <div class="row g-2">
-                        <div class="col-sm-4 offset-4">
-                            <ngx-select [allowClear]="true" [items]="electionName"
-                            formControlName="ElectionNameId" optionValueField="Id"
-                            optionTextField="ElectionName" placeholder="Election Name">
-                            </ngx-select>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
-                                <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
-                                        _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
-                                <button type="button" *ngIf="!filterForm.value.Search" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                        <div class="row g-2">
+                            <div class="col-sm-4 offset-4">
+                                <ngx-select [allowClear]="true" [items]="electionName" (select)="filterData()"  (remove)="clearFilter('electionName')"  formControlName="ElectionNameId"
+                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Name">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="Search"
+                                        placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm"
+                                        (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.Search"
+                                        class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -160,7 +182,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let constituency of constituencynName">
+                            <tr
+                                *ngFor="let constituency of constituencynName | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                 <td>{{constituency?.SrNo}}</td>
                                 <td>{{constituency?.ConstituencyName}}</td>
                                 <td>{{constituency?.ElectionName}}</td>
@@ -168,18 +191,27 @@
                                 <td>{{constituency?.SubConstituency ? constituency?.SubConstituency : '-'}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election" (click)="editConstituency(constituency)"
+                                        <button type="button" title="Edit Election"
+                                            (click)="editConstituency(constituency?.Id)"
                                             class="btn btn-sm btn-light text-edit me-1 rounded"><i
                                                 class="far fa-edit"></i></button>
                                         <button type="button" title="Delete Election"
-                                            class="btn btn-sm btn-light text-danger rounded"><i
+                                            class="btn btn-sm btn-light text-danger rounded"
+                                            (click)="delConfirmEleMaster(constituency.Id)"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
                             </tr>
-                           
+
                         </tbody>
                     </table>
+                    <div class="mt-2 text-end" *ngIf="constituencynName?.length == 0">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
+                    <div class="mt-2 text-end" *ngIf="constituencynName?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
@@ -204,11 +236,13 @@
                                 <label class="form-check-label" for="rbLatLong">
                                     Enter Lat-Long
                                 </label>
-                              </div>
+                            </div>
                             <!-- <label for="txtLatLong" class="form-label">Enter Lat-Long</label> -->
                             <div class="input-group">
                                 <input type="text" id="txtLatLong" class="form-control" placeholder="Enter Lat-Long" />
-                                <button type="button" title="Draw Geo-Fence" class="btn btn-light border text-primary"><i class="fas fa-draw-polygon"></i></button>
+                                <button type="button" title="Draw Geo-Fence"
+                                    class="btn btn-light border text-primary"><i
+                                        class="fas fa-draw-polygon"></i></button>
                             </div>
                         </div>
                         <div class="col-sm-4 border-end">
@@ -217,11 +251,13 @@
                                 <label class="form-check-label" for="rbKMLUpload">
                                     Upload KML File
                                 </label>
-                              </div>
+                            </div>
                             <!-- <label for="txtKMLUpload" class="form-label">Upload KML File</label> -->
                             <div class="input-group">
-                                <input type="file" id="txtKMLUpload" class="form-control"  />
-                                <button type="button" title="Draw Geo-Fence" class="btn btn-light border text-primary"><i class="fas fa-draw-polygon"></i></button>
+                                <input type="file" id="txtKMLUpload" class="form-control" />
+                                <button type="button" title="Draw Geo-Fence"
+                                    class="btn btn-light border text-primary"><i
+                                        class="fas fa-draw-polygon"></i></button>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -230,7 +266,7 @@
                                 <label class="form-check-label" for="rbManualDraw">
                                     Geo-Fence Lat-Long (Manual)
                                 </label>
-                              </div>
+                            </div>
                             <!-- <label class="form-label">Geo-Fence Lat-Long (Manual)</label> -->
                             <div class="input-group">
                                 <input type="text" id="txtKMLUpload" class="form-control" readonly />
@@ -243,8 +279,8 @@
                         <input class="form-control" type="text" placeholder="Search Location">
                     </div>
                     <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas"
-                            src="https://maps.google.com/maps?t=&z=17&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                            src="https://maps.google.com/maps?t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                            scrolling="no" marginheight="0" marginwidth="0"></iframe>
                     </div>
                 </div>
             </div>
