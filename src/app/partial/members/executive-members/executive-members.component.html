@@ -103,7 +103,7 @@
                                 <td>
                                     <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">{{designation}}</p>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <ng-container *ngIf="resultExeMember.DeviceType == 0">
                                         No Device
                                     </ng-container>
@@ -113,12 +113,20 @@
                                     <ng-container *ngIf="resultExeMember.DeviceType == 2">
                                         <img src="assets/images/dashboard-images/Apple_logo.svg" class="devicelogo">
                                     </ng-container>
+                                </td> -->
+
+                                <td>
+                                    <ng-container *ngIf="resultExeMember.IsUserBlock == 1 else userUnblock">
+                                        <span class="badge bg-danger">Blocked</span>
+                                    </ng-container>
+                                    <ng-template #userUnblock> <span class="badge bg-success">Active</span></ng-template>
                                 </td>
                                 <td>
+                                    <span [appTooltip] title="{{resultExeMember?.UserStatus == 1 ? 'Member Active' : 'Member InActive'}}">
                                     <i class="fas fa-user-shield text-success" *ngIf="resultExeMember.UserStatus != 0; else elseStatus"></i>
                                     <ng-template #elseStatus>
-                                        <i class="fas fa-ban text-danger"></i>
-                                    </ng-template>
+                                        <i class="fas fa-ban text-danger"></i> 
+                                    </ng-template></span>
                                 </td>
                             </tr>
                             <tr *ngIf="resultAllExeMembers?.length == 0">
