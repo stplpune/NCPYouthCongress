@@ -42,7 +42,6 @@ export class CreateConstituencyComponent implements OnInit {
   total: any;
   btnText = "Create Constituency";
   highlightedRow:any;
-  
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -272,10 +271,10 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   addSubConstituency() {
+    let electionNameByEleId:any;
+    let subElectionNameBySubEleId:any;
+    
     if (this.createConstituencyForm.value.ElectionId != this.createConstituencyForm.value.subEleName) {
-      let electionNameByEleId;
-      let subElectionNameBySubEleId;
-
       this.electionName.find((ele: any) => { // find election name by ele id
         if (this.createConstituencyForm.value.subEleName == ele.Id) {
           electionNameByEleId = ele.ElectionName;
@@ -288,17 +287,15 @@ export class CreateConstituencyComponent implements OnInit {
         }
       });
 
-      // if(this.addSubConstituencyArray.length >= 1){
-      //   this.addSubConstituencyArray = this.addSubConstituencyArray.filter((ele:any)=>{
-      //     if(ele.SubElectionId ==  this.createConstituencyForm.value.subEleName &&  ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName){
-      //       this.toastrService.error("Election Name & Constituency Name	already exists");
-      //       return 
-      //     }
-      //   })
-      // };
-
-      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
-
+      if(this.addSubConstituencyArray.length > 0){
+       let checkValue =  this.addSubConstituencyArray.find((ele:any)=>{
+          ele.SubElectionId ==  this.createConstituencyForm.value.subEleName &&  ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName
+          this.toastrService.error("Election Name & Constituency Name	already exists");    
+       });
+      }
+      else{
+        this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+      }
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();

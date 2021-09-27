@@ -153,7 +153,6 @@ export class NotificationsComponent implements OnInit {
         // convertDate= NotificationDate.split(':');
         convertDate= NotificationDate;
       }
-      debugger;
       fromData.append('Id', id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('ScopeId', getObj.ScopeId);
@@ -167,7 +166,7 @@ export class NotificationsComponent implements OnInit {
       fromData.append('IsChangeImage',  ImageChangeFlag );
       // fromData.append('NotificationDate', convertDate[0]+":00");
       fromData.append('NotificationDate', convertDate);
-      fromData.append('IsPushed ',  this.IspushedFlag);
+      fromData.append('IsPushed',  this.IspushedFlag);
 
 
       this.callAPIService.setHttp('post', 'InsertNotification_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
@@ -234,6 +233,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
+    debugger;
     if(data.IsPushed == 2){
       this.schedulerFlag = true;
     }else{
@@ -246,11 +246,11 @@ export class NotificationsComponent implements OnInit {
     this.addValidationOn(data.ScopeId);
 
     if(data.ScopeId == 4){
-      data.MemberStr = data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
+      data.MemberStr = data.MemberStr.split(",");
     }else if (data.ScopeId == 3){
-      data.BodyId =  data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
+      data.BodyId =   data.MemberStr.split(",") ;
     }else if (data.ScopeId == 2){
-      data.DistrictId =  data.MemberStr.length > 1 ? data.MemberStr.split(',') : data.MemberStr;
+      data.DistrictId =   data.MemberStr.split(",");
     }
     let dateTransForm:any = data.NotificationDate.split(" ");
     let datefomratChange:any = this.datePipe.transform(this.commonService.dateFormatChange(dateTransForm[0]), 'yyyy/MM/dd');
