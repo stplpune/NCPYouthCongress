@@ -158,12 +158,13 @@ export class CreateConstituencyComponent implements OnInit {
     } else {
       this.subConsArray = "";
     }
-
+    debugger;
     this.spinner.show();
     let id;
     let NoofMembers;
     formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
-    formData.NoofMembers == "" || formData.NoofMembers == null ? NoofMembers = 0 : NoofMembers = formData.NoofMembers;
+    // formData.NoofMembers == "" || formData.NoofMembers == null ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
+    formData.Members == 0 ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
     this.subConsArray ? this.subConsArray : this.subConsArray = "";
     let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyName=' + formData.ConstituencyName + '&Members=' + formData.Members +
       '&NoofMembers=' + NoofMembers + '&IsSubConstituencyApplicable=' + formData.IsSubConstituencyApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subConsArray;
@@ -188,7 +189,6 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   patchCreateConstituency(data: any) {
-    console.log(data);
     this.btnText = 'Update Constituency';
     data.Members == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
     data.IsSubConstituencyApplicable == 1 ? (this.subConstituencyDivHide = true, this.subConstituencyTableDiv = true) : (this.subConstituencyDivHide = false, this.subConstituencyTableDiv = false);
@@ -209,6 +209,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.subConsTableHideShowOnArray();
     this.subConstituencyDivHide = false;
     this.noOfMembersDiv = false;
+    this.btnText = 'Create Constituency';
   }
 
   GetConstituencyName(ElectionId: any) {
@@ -256,7 +257,10 @@ export class CreateConstituencyComponent implements OnInit {
   subConstituencyRadiobtn(subEleId: any) {
     if (subEleId == 1) {
       this.subConstituencyDivHide = true;
+      this.subConstituencyTableDiv = true;
     } else {
+      this.addSubConstituencyArray = [];
+      this.subConstituencyTableDiv = false;
       this.subConstituencyDivHide = false;
     }
 
@@ -355,6 +359,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
+        this.resetConstituencyName();
         this.getConstituency();
       } else {
         this.toastrService.error('Something went wrong please try again');
