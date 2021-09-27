@@ -150,8 +150,8 @@ export class CreateConstituencyComponent implements OnInit {
 
     if (formData.IsSubConstituencyApplicable == 1) {
       this.addSubConstituencyArray.map((ele: any) => {
-        delete ele['electionName'];
-        delete ele['subConsElectionName'];
+        delete ele['ConstituencyName'];
+        delete ele['SubElection'];
         return ele;
       })
       this.subConsArray = JSON.stringify(this.addSubConstituencyArray);
@@ -282,7 +282,7 @@ export class CreateConstituencyComponent implements OnInit {
           subElectionNameBySubEleId = ele.ConstituencyName;
         }
       });
-      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConElectionId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();
