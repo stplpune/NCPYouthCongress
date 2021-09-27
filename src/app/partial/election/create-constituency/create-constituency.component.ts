@@ -41,6 +41,7 @@ export class CreateConstituencyComponent implements OnInit {
   constId: any;
   total: any;
   btnText = "Create Constituency";
+  highlightedRow:any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -189,6 +190,7 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   patchCreateConstituency(data: any) {
+    this.highlightedRow = data.Id;
     this.btnText = 'Update Constituency';
     data.Members == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
     data.IsSubConstituencyApplicable == 1 ? (this.subConstituencyDivHide = true, this.subConstituencyTableDiv = true) : (this.subConstituencyDivHide = false, this.subConstituencyTableDiv = false);
@@ -258,6 +260,7 @@ export class CreateConstituencyComponent implements OnInit {
     if (subEleId == 1) {
       this.subConstituencyDivHide = true;
       this.subConstituencyTableDiv = true;
+      this.addSubConstituencyArray = [];
     } else {
       this.addSubConstituencyArray = [];
       this.subConstituencyTableDiv = false;

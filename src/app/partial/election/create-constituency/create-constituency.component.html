@@ -113,7 +113,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
+                                        <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index" >
                                             <tr>
                                                 <td>{{i+1}}</td>
                                                 <td>{{resSubCons.SubElection}}</td>
@@ -182,7 +182,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let constituency of constituencynName | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                *ngFor="let constituency of constituencynName | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="constituency.Id == highlightedRow">
                                 <td>{{constituency?.SrNo}}</td>
                                 <td>{{constituency?.ConstituencyName}}</td>
                                 <td>{{constituency?.ElectionName}}</td>
