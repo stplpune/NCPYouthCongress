@@ -99,7 +99,6 @@ export class CreateElectionComponent implements OnInit {
   }
 
   addSubElection() {
-    debugger
     this.SubElectionDisabled = true; // add btn disabled
     this.subElecTableHide = true;
     let Id;
