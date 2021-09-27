@@ -249,7 +249,7 @@ export class CreateElectionComponent implements OnInit {
   }
 
   getElectionDetails(masterId: any) {//Edit api
-    this.HighlightRow = masterId; 
+    this.HighlightRow = masterId;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Get_ElectionDetails?ElectionId=' + masterId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
