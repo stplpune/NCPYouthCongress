@@ -287,15 +287,17 @@ export class CreateConstituencyComponent implements OnInit {
         }
       });
 
-      if(this.addSubConstituencyArray.length > 0){
-       let checkValue =  this.addSubConstituencyArray.find((ele:any)=>{
-          ele.SubElectionId ==  this.createConstituencyForm.value.subEleName &&  ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName
-          this.toastrService.error("Election Name & Constituency Name	already exists");    
-       });
-      }
-      else{
-        this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
-      }
+    //  let data =  this.addSubConstituencyArray.find((ele:any)=>{
+    //      if((ele.SubElectionId ==  this.createConstituencyForm.value.subEleName) &&  (ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName)){
+    //       this.toastrService.error("Election Name & Constituency Name	already exists");  
+    //       return true;
+    //      }
+    //      return false;
+    //    });
+    //    console.log(data);
+
+      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+    
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();
