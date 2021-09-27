@@ -6,7 +6,7 @@ import { ExecutiveMembersComponent } from './executive-members.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
-
+import { TooltipModule } from '../../directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    TooltipModule,
   ]
 })
 export class ExecutiveMembersModule { }

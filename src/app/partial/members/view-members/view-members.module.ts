@@ -6,7 +6,7 @@ import { ViewMembersComponent } from './view-members.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { TooltipModule } from '../../directive/tooltip.module';
 @NgModule({
   declarations: [
     ViewMembersComponent
@@ -18,6 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    TooltipModule,
   ]
 })
 export class ViewMembersModule { }
