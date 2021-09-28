@@ -440,13 +440,17 @@ export class OrganizationMasterComponent implements OnInit {
   get f() { return this.orgMasterForm.controls };
 
   onSubmit() {
-    this.spinner.show();
     this.submitted = true;
     if (this.orgMasterForm.invalid) {
       this.spinner.hide();
       return;
     }
+    else if (this.orgMasterForm.value.BodyOrgCellName.trim() == '' || this.orgMasterForm.value.BodyOrgCellName ==  null || this.orgMasterForm.value.BodyOrgCellName == undefined) {
+      this.toastrService.error("Committee Name can not contain space");
+      return;
+    }
     else {
+      this.spinner.show();
       let fromData: any = new FormData();
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
       
@@ -525,7 +529,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.selectLevel(this.selEditOrganization.BodyLevel, this.editLevalFlag);
         this.getDistrict();
         this.orgMasterForm.patchValue({
-          BodyOrgCellName: this.selEditOrganization.BodyOrgCellName,
+          BodyOrgCellName: this.selEditOrganization.BodyOrgCellName.trim(),
           StateId: this.selEditOrganization.StateId,
           DistrictId: this.selEditOrganization.DistrictId,
           IsRural: this.selEditOrganization.IsRural,
@@ -605,10 +609,11 @@ export class OrganizationMasterComponent implements OnInit {
   submitDesignationForm() {
     this.spinner.show();
     this.addDesFormSubmitted = true;
+    debugger;
     if (this.AddDesignationForm.invalid) {
       this.spinner.hide();
       return;
-    }
+    } 
     else {
       let fromData: any = new FormData();
       this.AddDesignationForm.value['BodyId'] = this.desBodyId;

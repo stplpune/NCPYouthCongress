@@ -145,9 +145,9 @@
                                 <td>{{result.SrNo}}</td>
                                 <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result?.BodyOrgCellName | titlecase}}</a></td>
                                 <td>{{result.LevelName}}</td>
-                                <td><span class="text-ellipsis-150px" [appTooltip] title={{result?.Area}}>{{result?.Area}}</span></td>
+                                <td><span class="text-ellipsis-150px" [appTooltip] title="{{result?.Area}}">{{result?.Area}}</span></td>
                                 <td>
-                                    <span class="text-ellipsis-150px" [appTooltip] title={{result?.DesignationAssigned}}>{{result?.DesignationAssigned}}</span>
+                                    <span class="text-ellipsis-150px" [appTooltip] title="{{result?.DesignationAssigned}}">{{result?.DesignationAssigned}}</span>
                                 </td>
                                
                                 <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id);" data-bs-target="#AddDesignationModal">
@@ -209,7 +209,7 @@
                                     <label class="form-label d-block">Is Multiple</label>
 
                                     <div class="form-check form-check-inline" *ngFor="let isMultiple of IsMultiple">
-                                        <input class="form-check-input" name="IsMultiple" type="radio" id="chkIsMultipleYes" formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
+                                        <input class="form-check-input" name="IsMultiple" type="radio"  formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
                                         <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
                                     </div>
                                     <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback" style="margin-top: -6px;">

@@ -104,13 +104,22 @@ export class PartyProgramMasterComponent implements OnInit {
   get f() { return this.createProgram.controls };
 
   onSubmitProgramForm() {
+    let getObj = this.createProgram.value;
     this.submitted = true;
     if (this.createProgram.invalid) {
       this.spinner.hide();
       return;
     }
+    else if (getObj.ProgramTitle.trim() == '' || getObj.ProgramTitle ==  null || getObj.ProgramTitle == undefined) {
+      this.toastrService.error("Program Title can not contain space");
+      return;
+    }
+    else if (getObj.ProgramDescription.trim() == '' || getObj.ProgramDescription ==  null || getObj.ProgramDescription == undefined) {
+      this.toastrService.error("Program Description can not contain space");
+      return;
+    }
     else {
-      let getObj = this.createProgram.value;
+     
       this.createProgram.value['ProgramStartDate'] = this.datepipe.transform(this.createProgram.value.ProgramStartDate, 'dd/MM/yyyy');
       let fromData: any = new FormData();
 
