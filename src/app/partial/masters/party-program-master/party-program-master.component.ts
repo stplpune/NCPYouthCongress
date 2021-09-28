@@ -52,8 +52,8 @@ export class PartyProgramMasterComponent implements OnInit {
   defaultProgramForm() {
     this.createProgram = this.fb.group({
       Id: [0],
-      ProgramTitle: ['', Validators.required],
-      ProgramDescription: ['', Validators.required],
+      ProgramTitle: ['',  [Validators.required,  Validators.pattern(/^\S*$/)]],
+      ProgramDescription: ['', [Validators.required,  Validators.pattern(/^\S*$/)]],
       ProgramStartDate: ['', Validators.required],
       CreatedBy: [this.commonService.loggedInUserId()]
     })

@@ -31,6 +31,7 @@
                                     [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
                                 <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
                                     <div *ngIf="f.ConstituencyName.errors.required">Constituency Name is required</div>
+                                    <div *ngIf="f.ConstituencyName.errors.pattern">Constituency Name can not contain space</div>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -70,10 +71,10 @@
                             <div class="mb-2" *ngIf="subConstituencyDivHide">
                                 <div class="card card-body border shadow-none">
                                     <div class="mb-2">
-                                        <label for="ddlSelectElection" class="form-label">Select Election</label>
+                                        <label for="ddlSelectElection" class="form-label">Select Sub Election Name</label>
                                         <ngx-select [allowClear]="true" [items]="electionName"
                                             formControlName="subEleName" optionValueField="Id"
-                                            optionTextField="ElectionName" placeholder="Election Type"
+                                            optionTextField="ElectionName" placeholder="Select Sub Election"
                                             (select)="GetConstituencyName($event)"
                                             [ngClass]="{ 'is-invalid': submitted && f.subEleName.errors}">
                                         </ngx-select>
@@ -83,12 +84,12 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="txtSubWardName" class="form-label">constituency Name</label>
+                                        <label for="txtSubWardName" class="form-label">Select Sub Constituency Name</label>
                                         <ngx-select [allowClear]="true" [items]="constituencyArray"
                                             formControlName="subEleConstName" optionValueField="id"
                                             optionTextField="ConstituencyName"
                                             [disabled]="(!createConstituencyForm.value.subEleName || constituencyArray?.length == 0) ? true : false"
-                                            placeholder="Constituency Name"
+                                            placeholder="Select Sub Constituency Name"
                                             [ngClass]="{ 'is-invalid': submitted && f.subEleConstName.errors}">
 
                                         </ngx-select>
@@ -108,8 +109,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>Election Name</th>
-                                                <th>Constituency Name</th>
+                                                <th>Sub Election Name</th>
+                                                <th>Sub Constituency Name</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
