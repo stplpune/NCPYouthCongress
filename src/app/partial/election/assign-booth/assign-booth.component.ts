@@ -254,10 +254,10 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  // onClickPagintion(pageNo: number) {
-  //   this.paginationNo = pageNo;
-  //   this.getElectionMaster();
-  // }
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.getAssignedBoothToElection();
+  }
 
   clearFilter(flag: any) {
     if (flag == 'electionType') {
@@ -266,12 +266,12 @@ export class AssignBoothComponent implements OnInit {
       this.filterForm.controls['Search'].setValue('');
     }
     this.paginationNo = 1;
-   // this.getElectionMaster();
+    this.getAssignedBoothToElection();
   }
 
   filterData() {
     this.paginationNo = 1;
-   // this.getElectionMaster();
+    this.getAssignedBoothToElection();
   }
 
   onKeyUpFilter() {
@@ -290,7 +290,7 @@ export class AssignBoothComponent implements OnInit {
       .subscribe(() => {
         this.searchFilter = this.filterForm.value.Search;
         this.paginationNo = 1;
-       // this.getElectionMaster();
+        this.getAssignedBoothToElection();
       }
       );
   }

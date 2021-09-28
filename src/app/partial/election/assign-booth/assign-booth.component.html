@@ -83,20 +83,6 @@
         </div>
         <div class="col-sm-9">
             <div class="card">
-                <!-- <div class="card-header">
-                    <div class="row g-2">
-                        <div class="col-sm-3 offset-5">
-                            <select class="form-select">
-                                <option value="">Select</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="text" placeholder="Search..." />
-                        </div>
-                    </div>
-                </div> -->
-
-
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                     <div class="row g-2">
@@ -108,7 +94,6 @@
                             </ngx-select>
                         </div>
                         <div class="col-sm-4">
-                            <!-- <input class="form-control" type="text" placeholder="Search..." /> -->
                             <div class="input-group">
                                 <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
                                 <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
@@ -160,6 +145,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length == 0">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
+                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
