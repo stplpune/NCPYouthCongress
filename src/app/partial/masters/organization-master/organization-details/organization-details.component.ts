@@ -69,6 +69,8 @@ export class OrganizationDetailsComponent implements OnInit {
   comUserdetImg: any;
   designationArray: any[] = [];
   subCommittessResult:any;
+  HighlightRow:any;
+  indiMembersProgHighlight:any;
   
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -292,8 +294,6 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  
-
   getPreviousDesignatedMembers(id: any, DesignationId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
@@ -301,7 +301,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1);
-        console.log(this.getPreDesMembersArray);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
@@ -368,6 +367,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getBodyMemeberActivitiesDetails(id: any) {
+    this.indiMembersProgHighlight = id;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -486,6 +486,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addEditMember(data: any, flag: any) {
+    this.HighlightRow = data.SrNo;
     this.addMemberFlag = flag;
     if (data.UserId == "" || data.UserId == "") {
       this.toastrService.error("Please select member and try again");

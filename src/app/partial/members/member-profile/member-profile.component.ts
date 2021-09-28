@@ -49,6 +49,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   dateTime = new FormControl();
   FullName: any;
   selUserpostbodyId:any;
+  HighlightRow: any;
 
   constructor(
     public dialog: MatDialog,
@@ -266,6 +267,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   getBodyMemeberActivitiesDetails(id: any) {
+    this.HighlightRow = id;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

@@ -148,7 +148,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let workList of resWorkList | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                            <tr *ngFor="let workList of resWorkList | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
+                            [class.active]="workList.Id == HighlightRow">
                                 <td>{{workList?.SrNo}}</td>
                                 <td>{{workList?.ActivityDate}}</td>
                                 <td>{{workList?.Category}}</td>

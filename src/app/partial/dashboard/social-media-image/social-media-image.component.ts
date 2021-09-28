@@ -151,7 +151,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     // });
   }
 
-
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       DistrictId: [0],

@@ -74,6 +74,7 @@ export class EventMasterComponent implements OnInit {
   submitted = false;
   IsDisplayStatus: any;
   publishText ="publish";
+  HighlightRow: any;
 
   constructor(
     private fb: FormBuilder,
@@ -258,6 +259,7 @@ export class EventMasterComponent implements OnInit {
   }
 
   editEventForm(data: any) {
+    this.HighlightRow = data.EventId;
     this.editEventText = "Update Event";
     let startDate = this.changeDateFormat(data.ProgramStartDate);
     let endDate = this.changeDateFormat(data.ProgramEndDate);

@@ -263,9 +263,8 @@ export class AssignBoothComponent implements OnInit {
     this.assignBoothForm.patchValue({
       Id: objData.SrNo,
       ElectionId: objData.ElectionId,
-      //ConstituencyId: objData.ConstiId,
     })
-    this.GetConstituencyName(objData.ElectionId)
+    this.GetConstituencyName(objData.ElectionId);
   }
 
   clearForm() {
