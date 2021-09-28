@@ -67,7 +67,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.createConstituencyForm = this.fb.group({
       Id: [0],
       ElectionId: ['', Validators.required],
-      ConstituencyName: ['', Validators.required],
+      ConstituencyName: ['', [Validators.required]],
       Members: [0],
       NoofMembers: [''],
       IsSubConstituencyApplicable: [0],
@@ -132,14 +132,22 @@ export class CreateConstituencyComponent implements OnInit {
 
   onSubmit() {
     this.validationNoofMembers();
+    debugger;
     let formData = this.createConstituencyForm.value;
     if (this.createConstituencyForm.value.IsSubConstituencyApplicable == 1 && this.addSubConstituencyArray.length == 0) {
       this.validationSubElectionForm();
     }
-
     this.submitted = true;
     if (this.createConstituencyForm.invalid) {
       this.spinner.hide();
+      return;
+    }
+    else if ((formData.NoofMembers == 0) && (formData.Members == 1)) {
+      this.toastrService.error("0 No. of Member is not allowed");
+      return;
+    }
+    else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName ==  null || formData.ConstituencyName == undefined) {
+      this.toastrService.error("Constituency Name can not contain space");
       return;
     }
     else if (formData.IsSubConstituencyApplicable == 1) {

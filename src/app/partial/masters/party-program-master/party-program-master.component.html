@@ -20,6 +20,7 @@
                             <input type="text" class="form-control" formControlName="ProgramTitle" placeholder="Program Title" [ngClass]="{ 'is-invalid': submitted && f.ProgramTitle.errors }" />
                             <div *ngIf="submitted && f.ProgramTitle.errors" class="invalid-feedback">
                                 <div *ngIf="f.ProgramTitle.errors.required">Program title is required</div>
+                                <!-- <div *ngIf="f.ProgramTitle.errors.pattern">Program Duration can not contain space</div> -->
                             </div>
                         </div>
                         <div class="mb-3">
@@ -28,6 +29,7 @@
                             <textarea rows="5" class="form-control" formControlName="ProgramDescription" placeholder="Program Description" [ngClass]="{ 'is-invalid': submitted && f.ProgramDescription.errors }"></textarea>
                             <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
                                 <div *ngIf="f.ProgramDescription.errors.required">Program Description is required</div>
+                                <!-- <div *ngIf="f.ProgramDescription.errors.pattern">Program Description can not contain space</div> -->
                             </div>
                         </div>
                         <div class="mb-4">

@@ -65,7 +65,7 @@ export class CreateElectionComponent implements OnInit {
   defaultProgramForm() {
     this.createElectionForm = this.fb.group({
       Id: [0],
-      ElectionName: ['', Validators.required],
+      ElectionName: ['', [Validators.required]],
       ElectionTypeId: ['', Validators.required],
       IsAsemblyBoothListApplicable: [0],
       IsSubElectionApplicable: [1],
@@ -135,6 +135,10 @@ export class CreateElectionComponent implements OnInit {
     let formData = this.createElectionForm.value;
     if (this.createElectionForm.invalid) {
       this.spinner.hide();
+      return;
+    }
+    else if (formData.ElectionName.trim() == '' || formData.ElectionName ==  null || formData.ElectionName == undefined) {
+      this.toastrService.error("Election  Name can not contain space");
       return;
     }
     else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {

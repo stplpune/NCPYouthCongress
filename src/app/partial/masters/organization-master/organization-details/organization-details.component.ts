@@ -301,6 +301,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray.push(res.data1);
+        console.log(this.getPreDesMembersArray);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
@@ -551,6 +552,7 @@ export class OrganizationDetailsComponent implements OnInit {
       ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
     })
     this.getBodyMemeberActivities(this.bodyId);
+    this.getBodyMemeberGraph(this.bodyId);
   }
 
   activitiesPerodicGraph(id: any) {

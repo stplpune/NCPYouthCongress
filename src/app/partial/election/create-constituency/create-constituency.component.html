@@ -26,7 +26,7 @@
                             </div>
                             <div class="mb-2">
                                 <label for="txtConstituencyName" class="form-label">Constituency Name</label>
-                                <input type="text" class="form-control" id="txtMembersNos"
+                                <input type="text" class="form-control" 
                                     placeholder="Constituency Name" formControlName="ConstituencyName"
                                     [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
                                 <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
@@ -38,7 +38,7 @@
                                 <div class="d-block">
                                     <div class="form-check form-check-inline" *ngFor="let Member of allembers">
                                         <input class="form-check-input" type="radio" name="Members" [value]="Member.id"
-                                            formControlName="Members" id="MemberSingle"
+                                            formControlName="Members"
                                             (change)="selMembers(Member.id)">
                                         <label class="form-check-label" for="MemberSingle">{{Member?.name}}</label>
                                     </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="mb-2" *ngIf="noOfMembersDiv">
                                 <label for="txtMembersNos" class="form-label">No. of Members</label>
-                                <input type="number" class="form-control" id="txtMembersNos"
+                                <input type="number" class="form-control"  min="1" max="1000" value="1"
                                     placeholder="No. of Members" formControlName="NoofMembers"
                                     [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
                                 <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">
@@ -61,7 +61,7 @@
                                         *ngFor="let subEleApp of subConstituencyArray">
                                         <input class="form-check-input" type="radio"
                                             formControlName="IsSubConstituencyApplicable" [value]="subEleApp.id"
-                                            name="IsSubConstituencyApplicable" id="subNo"
+                                            name="IsSubConstituencyApplicable" 
                                             (change)="subConstituencyRadiobtn(subEleApp.id)">
                                         <label class="form-check-label" for="subNo">{{subEleApp.name}}</label>
                                     </div>
@@ -70,10 +70,10 @@
                             <div class="mb-2" *ngIf="subConstituencyDivHide">
                                 <div class="card card-body border shadow-none">
                                     <div class="mb-2">
-                                        <label for="ddlSelectElection" class="form-label">Select Election</label>
+                                        <label for="ddlSelectElection" class="form-label">Select Sub Election Name</label>
                                         <ngx-select [allowClear]="true" [items]="electionName"
                                             formControlName="subEleName" optionValueField="Id"
-                                            optionTextField="ElectionName" placeholder="Election Type"
+                                            optionTextField="ElectionName" placeholder="Select Sub Election"
                                             (select)="GetConstituencyName($event)"
                                             [ngClass]="{ 'is-invalid': submitted && f.subEleName.errors}">
                                         </ngx-select>
@@ -83,12 +83,12 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="txtSubWardName" class="form-label">constituency Name</label>
+                                        <label for="txtSubWardName" class="form-label">Select Sub Constituency Name</label>
                                         <ngx-select [allowClear]="true" [items]="constituencyArray"
                                             formControlName="subEleConstName" optionValueField="id"
                                             optionTextField="ConstituencyName"
                                             [disabled]="(!createConstituencyForm.value.subEleName || constituencyArray?.length == 0) ? true : false"
-                                            placeholder="Constituency Name"
+                                            placeholder="Select Sub Constituency Name"
                                             [ngClass]="{ 'is-invalid': submitted && f.subEleConstName.errors}">
 
                                         </ngx-select>
@@ -108,8 +108,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>Election Name</th>
-                                                <th>Constituency Name</th>
+                                                <th>Sub Election Name</th>
+                                                <th>Sub Constituency Name</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -157,7 +157,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input type="text" class="form-control" formControlName="Search"
-                                        placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                        placeholder="Constituency Name..." (keyup)="onKeyUpFilter()" />
                                     <button type="button" class="btn btn-light border btn-sm"
                                         (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
                                             _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
@@ -188,7 +188,7 @@
                                 <td>{{constituency?.ElectionName}}</td>
                                 <td>{{constituency?.NoofMembers}}</td>
                                 <!--<td>{{constituency?.SubConstituency ? constituency?.SubConstituency : '-'}}</td>-->
-                                <td  *ngIf="constituency.SubConstituency != '';else otherContent">
+                                <td *ngIf="constituency.SubConstituency != '';else otherContent">
                                     <ol class="mb-0">
                                         <li *ngFor="let const of constituency.SubConstituency.split(',');let i=index">{{const}}</li>
                                     </ol>

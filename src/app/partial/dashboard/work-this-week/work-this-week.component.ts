@@ -171,6 +171,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if (flag == 'workType'){
       // this.bestPerformance();
       this.getBestPerKaryMember();
+      this.showSvgMap(this.commonService.mapRegions());
       this.geWeekReport();
     }
     // district talka committee
@@ -181,6 +182,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.defaultCloseBtn = true;
     this.bestPerformance();
     this.getBestPerKaryMember();
+    this.showSvgMap(this.commonService.mapRegions());
     this.geWeekReport();
   }
 
@@ -281,6 +283,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.filterBestPer.controls['BodyId'].setValue(0);
       this.filterBestPer.controls['IsBody'].setValue(1);
     } 
+    
     this.bestPerformance();
   }
 
@@ -471,7 +474,7 @@ xAxis.renderer.minGridDistance = 30;
   
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
-      this.WorkDoneByYuvakBarchart.map((ele: any) => {
+      this.WorkDoneByYuvakBarchart.filter((ele: any) => {
         $('#' + ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
@@ -479,9 +482,7 @@ xAxis.renderer.minGridDistance = 30;
     } else {
       this.showSvgMap(this.commonService.mapRegions());
     }
-
   }
-
 
   catChange(value: any) {
     this.catValue = value.name;
