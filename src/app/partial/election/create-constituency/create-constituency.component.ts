@@ -42,6 +42,7 @@ export class CreateConstituencyComponent implements OnInit {
   total: any;
   btnText = "Create Constituency";
   highlightedRow:any;
+  prevArrayData : any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -261,13 +262,13 @@ export class CreateConstituencyComponent implements OnInit {
     if (subEleId == 1) {
       this.subConstituencyDivHide = true;
       this.subConstituencyTableDiv = true;
-      this.addSubConstituencyArray = [];
+      this.prevArrayData.length != 0 ?   this.addSubConstituencyArray = this.prevArrayData : this.addSubConstituencyArray = [];
     } else {
+      this.prevArrayData = this.addSubConstituencyArray;
       this.addSubConstituencyArray = [];
       this.subConstituencyTableDiv = false;
       this.subConstituencyDivHide = false;
     }
-
   }
 
   addSubConstituency() {
@@ -287,17 +288,13 @@ export class CreateConstituencyComponent implements OnInit {
         }
       });
 
-    //  let data =  this.addSubConstituencyArray.find((ele:any)=>{
-    //      if((ele.SubElectionId ==  this.createConstituencyForm.value.subEleName) &&  (ele.SubConstituencyId == this.createConstituencyForm.value.subEleConstName)){
-    //       this.toastrService.error("Election Name & Constituency Name	already exists");  
-    //       return true;
-    //      }
-    //      return false;
-    //    });
-    //    console.log(data);
-
-      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
-    
+      let arrayOfObj =  this.subConstArrayCheck(this.createConstituencyForm.value.subEleName,this.createConstituencyForm.value.subEleConstName);
+      if(arrayOfObj == false){
+        this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+      }else{
+        this.toastrService.error("Election Name & Constituency Name	already exists"); 
+      }
+     
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();
@@ -307,6 +304,11 @@ export class CreateConstituencyComponent implements OnInit {
     }
   }
 
+  subConstArrayCheck(eleName:any, subEleCostName:any) {
+    return this.addSubConstituencyArray.some((el:any)=> {
+      return el.SubElectionId === eleName && el.SubConstituencyId === subEleCostName;
+    }); 
+  }
 
   selMembers(id: any) {
     id == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;

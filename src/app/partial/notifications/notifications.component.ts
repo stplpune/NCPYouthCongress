@@ -135,7 +135,7 @@ export class NotificationsComponent implements OnInit {
         fillSelection = getObj.DistrictId
       }
       
-      if(getObj.ScopeId == 4){
+      if(getObj.ScopeId == 4 || getObj.ScopeId == 3  || getObj.ScopeId == 2){
         fillSelection.map((ele:any)=>{
           this.globalMemberId.push({"MemberId":ele});
         })
@@ -245,16 +245,22 @@ export class NotificationsComponent implements OnInit {
    
     this.addValidationOn(data.ScopeId);
 
-    if(data.ScopeId == 4){
-      data.MemberStr = data.MemberStr.split(",");
+     if(data.ScopeId == 4){
+      data.MemberStr = data.MemberStr.split(",").map((item:any)=> {
+        return parseInt(item);
+    });
     }else if (data.ScopeId == 3){
-      data.BodyId =   data.MemberStr.split(",") ;
+      data.BodyId =   data.MemberStr.split(",").map((item:any)=> {
+        return parseInt(item);
+    });
     }else if (data.ScopeId == 2){
-      data.DistrictId =   data.MemberStr.split(",");
+      data.DistrictId =   data.MemberStr.split(",").map((item:any)=> {
+        return parseInt(item);
+    });
     }
     let dateTransForm:any = data.NotificationDate.split(" ");
     let datefomratChange:any = this.datePipe.transform(this.commonService.dateFormatChange(dateTransForm[0]), 'yyyy/MM/dd');
-
+    debugger;
     this.notificationForm.patchValue({
       AttachmentPath: data.AttachmentPath,
       Description: data.Description,
@@ -274,15 +280,15 @@ export class NotificationsComponent implements OnInit {
  
     if (data.ScopeId == 2) {
      this.getDistrict();
-     this.notificationForm.controls["DistrictId"].setValue(Number(this.notificationForm.value.DistrictId))
+     this.notificationForm.controls["DistrictId"].setValue(this.notificationForm.value.DistrictId)
     } else if (data.ScopeId == 3) {
       this.notificationForm.controls["BodyId"].setValidators(Validators.required);
       this.notificationForm.controls["BodyId"].updateValueAndValidity();
       this.notificationForm.controls['BodyId'].clearValidators();
-      this.notificationForm.controls["BodyId"].setValue(Number(this.notificationForm.value.BodyId))
+      this.notificationForm.controls["BodyId"].setValue(this.notificationForm.value.BodyId)
     } else if (data.ScopeId == 4) {
       this.getMemberName();
-      this.notificationForm.controls["MemberStr"].setValue(Number(this.notificationForm.value.MemberStr))
+      this.notificationForm.controls["MemberStr"].setValue(this.notificationForm.value.MemberStr)
     }  
   }
 
