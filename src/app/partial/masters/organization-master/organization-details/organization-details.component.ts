@@ -551,6 +551,7 @@ export class OrganizationDetailsComponent implements OnInit {
       ToDate: this.datepipe.transform(event.value[1], 'dd/MM/yyyy')
     })
     this.getBodyMemeberActivities(this.bodyId);
+    this.getBodyMemeberGraph(this.bodyId);
   }
 
   activitiesPerodicGraph(id: any) {
