@@ -115,7 +115,11 @@ export class CommonService {
       }
     } 
 
- 
+ stringToInt(data:any){
+    data.map((item:any)=>{
+        return parseInt(item);
+    });
+ }
 
 mapRegions():Observable<any>{
   this.regions_m = {
