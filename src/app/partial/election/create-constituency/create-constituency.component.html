@@ -31,7 +31,6 @@
                                     [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
                                 <div *ngIf="submitted && f.ConstituencyName.errors" class="invalid-feedback">
                                     <div *ngIf="f.ConstituencyName.errors.required">Constituency Name is required</div>
-                                    <div *ngIf="f.ConstituencyName.errors.pattern">Constituency Name can not contain space</div>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -48,7 +47,7 @@
                             </div>
                             <div class="mb-2" *ngIf="noOfMembersDiv">
                                 <label for="txtMembersNos" class="form-label">No. of Members</label>
-                                <input type="number" class="form-control" id="txtMembersNos"
+                                <input type="number" class="form-control" id="txtMembersNos" min="1" max="1000" value="1"
                                     placeholder="No. of Members" formControlName="NoofMembers"
                                     [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
                                 <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">

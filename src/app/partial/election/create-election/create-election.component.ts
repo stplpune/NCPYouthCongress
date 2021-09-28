@@ -65,7 +65,7 @@ export class CreateElectionComponent implements OnInit {
   defaultProgramForm() {
     this.createElectionForm = this.fb.group({
       Id: [0],
-      ElectionName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      ElectionName: ['', [Validators.required]],
       ElectionTypeId: ['', Validators.required],
       IsAsemblyBoothListApplicable: [0],
       IsSubElectionApplicable: [1],

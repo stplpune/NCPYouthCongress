@@ -67,7 +67,7 @@ export class CreateConstituencyComponent implements OnInit {
     this.createConstituencyForm = this.fb.group({
       Id: [0],
       ElectionId: ['', Validators.required],
-      ConstituencyName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      ConstituencyName: ['', [Validators.required]],
       Members: [0],
       NoofMembers: [''],
       IsSubConstituencyApplicable: [0],
