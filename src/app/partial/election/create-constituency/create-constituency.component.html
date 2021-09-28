@@ -188,7 +188,7 @@
                                 <td>{{constituency?.ElectionName}}</td>
                                 <td>{{constituency?.NoofMembers}}</td>
                                 <!--<td>{{constituency?.SubConstituency ? constituency?.SubConstituency : '-'}}</td>-->
-                                <td  *ngIf="constituency.SubConstituency != '';else otherContent">
+                                <td *ngIf="constituency.SubConstituency != '';else otherContent">
                                     <ol class="mb-0">
                                         <li *ngFor="let const of constituency.SubConstituency.split(',');let i=index">{{const}}</li>
                                     </ol>

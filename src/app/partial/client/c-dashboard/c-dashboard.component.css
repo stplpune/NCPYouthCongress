@@ -1,7 +1,7 @@
 .client-photo{
     border-radius: 10px;
-    width: 260px;
-    height:260px;
+    width: 200px;
+    height:200px;
     object-fit: cover;
     object-position:center;
 }
@@ -25,13 +25,12 @@
 .client-stats{
     text-align: center;
 }
-.client-stats h3{
+.client-stats h1{
     font-weight: 600;
     color: #888;
 }
 .client-stats p{
     font-size: .85rem;
-    margin-bottom:0px;
 }
 .candidate-photo{
     width: 80px;
