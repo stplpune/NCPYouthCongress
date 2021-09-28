@@ -245,7 +245,7 @@ export class DashboardComponent implements OnInit {
     series1.dataFields.categoryX = "Date";
     series1.name = "Activities";
     series1.bullets.push(new am4charts.CircleBullet());
-    series1.tooltipText = "{name} in {categoryX}: {valueY}";
+    series1.tooltipText = "Count: {valueY}";
     series1.legendSettings.valueText = "{valueY}";
     series1.visible = false;
 
@@ -254,7 +254,7 @@ export class DashboardComponent implements OnInit {
     series2.dataFields.categoryX = "Date";
     series2.name = 'Active Member';
     series2.bullets.push(new am4charts.CircleBullet());
-    series2.tooltipText = "{name} in {categoryX}: {valueY}";
+    series2.tooltipText = "Count: {valueY}";
     series2.legendSettings.valueText = "{valueY}";
 
     let series3 = chart.series.push(new am4charts.LineSeries());
@@ -262,12 +262,12 @@ export class DashboardComponent implements OnInit {
     series3.dataFields.categoryX = "Date";
     series3.name = 'New Member Count';
     series3.bullets.push(new am4charts.CircleBullet());
-    series3.tooltipText = "{name} in {categoryX}: {valueY}";
+    series3.tooltipText = "Count: {valueY}";
     series3.legendSettings.valueText = "{valueY}";
 
-    // Add chart cursor
-    // chart.cursor = new am4charts.XYCursor();
-    // chart.cursor.behavior = "zoomY";
+    //Add chart cursor
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.behavior = "zoomY";
 
 
     let hs1 = series1.segments.template.states.create("hover")

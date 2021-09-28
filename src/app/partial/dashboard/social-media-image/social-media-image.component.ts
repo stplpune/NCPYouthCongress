@@ -151,7 +151,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     // });
   }
 
-
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       DistrictId: [0],
@@ -269,6 +268,17 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
         this.perOnSocialMedArray = res.data2;
         this.trendOnSocialMediaArray = res.data1;
+
+
+        this.trendOnSocialMediaArray.map((ele: any) => {
+          if (ele.Date) {
+            let DateFormate = this.changeDateFormat(ele.Date);
+            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
+            ele.Date = transformDate;
+          }
+        })
+
+        console.log(this.trendOnSocialMediaArray)
         this.trendSocialMediaLineChart();
         this.socialMediaChart();
         this.spinner.hide();
@@ -287,6 +297,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         }
       }
     })
+  }
+
+  changeDateFormat(date: string) {
+    const dateParts = date.substring(0, 10).split("/");
+    const ddMMYYYYDate = new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0]);
+    return ddMMYYYYDate;
   }
 
   getPoliticalParty() {
@@ -433,7 +449,8 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     // Create category axis
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "SrNo";
+    categoryAxis.dataFields.category = "Date";
+    categoryAxis.renderer.minGridDistance = 20;
     categoryAxis.renderer.opposite = false;
     // categoryAxis.title.text = "X-Axis";
 
@@ -446,7 +463,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     // Create series
     let series1 = chart.series.push(new am4charts.LineSeries());
     series1.dataFields.valueY = "NCP";
-    series1.dataFields.categoryX = "SrNo";
+    series1.dataFields.categoryX = "Date";
     series1.name = "NCP";
     series1.bullets.push(new am4charts.CircleBullet());
     series1.tooltipText = "{name} in {categoryX}: {valueY}";
@@ -455,7 +472,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     let series2 = chart.series.push(new am4charts.LineSeries());
     series2.dataFields.valueY = "SHIVSENA";
-    series2.dataFields.categoryX = "SrNo";
+    series2.dataFields.categoryX = "Date";
     series2.name = 'SS';
     series2.bullets.push(new am4charts.CircleBullet());
     series2.tooltipText = "{name} in {categoryX}: {valueY}";
@@ -463,7 +480,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     let series3 = chart.series.push(new am4charts.LineSeries());
     series3.dataFields.valueY = "BJP";
-    series3.dataFields.categoryX = "SrNo";
+    series3.dataFields.categoryX = "Date";
     series3.name = 'BJP';
     series3.bullets.push(new am4charts.CircleBullet());
     series3.tooltipText = "{name} in {categoryX}: {valueY}";
@@ -471,7 +488,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     let series4 = chart.series.push(new am4charts.LineSeries());
     series4.dataFields.valueY = "INC";
-    series4.dataFields.categoryX = "SrNo";
+    series4.dataFields.categoryX = "Date";
     series4.name = 'INC';
     series4.bullets.push(new am4charts.CircleBullet());
     series4.tooltipText = "{name} in {categoryX}: {valueY}";
@@ -479,7 +496,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     let series5 = chart.series.push(new am4charts.LineSeries());
     series5.dataFields.valueY = "Other";
-    series5.dataFields.categoryX = "SrNo";
+    series5.dataFields.categoryX = "SrDateNo";
     series5.name = 'OTR';
     series5.bullets.push(new am4charts.CircleBullet());
     series5.tooltipText = "{name} in {categoryX}: {valueY}";

@@ -111,7 +111,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index">
+                            <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index" [class.active]="designatedMembers.SrNo == HighlightRow">
                                 <td>{{designatedMembers.SrNo}}</td>
                                 <td>{{designatedMembers.MemberName | titlecase}}</td>
                                 <td>{{designatedMembers.DesignationName}} </td>
@@ -248,7 +248,8 @@
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" 
+                                [class.active]="bodyMemActivity.Id == indiMembersProgHighlight">
                                 <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                 <td>{{bodyMemActivity.ActivityDate}}</td>
                                 <td>

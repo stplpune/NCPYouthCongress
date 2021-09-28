@@ -107,7 +107,8 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr
-                                *ngFor="let eventListData of eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                *ngFor="let eventListData of eventListArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" 
+                                [class.active]="eventListData.EventId == HighlightRow">
                                 <td>
                                     <div class="row d-flex align-items-center">
                                         <div class="col-sm-auto">
