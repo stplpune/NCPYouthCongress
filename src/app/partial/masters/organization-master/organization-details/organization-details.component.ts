@@ -69,7 +69,8 @@ export class OrganizationDetailsComponent implements OnInit {
   comUserdetImg: any;
   designationArray: any[] = [];
   subCommittessResult:any;
-  
+  DesignationNameBYBodyArray: any[] = [];
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
@@ -250,8 +251,10 @@ export class OrganizationDetailsComponent implements OnInit {
         this.DesignationNameBYBodyId = res.data3;
         this.getPreDesMembersArray = [];
         this.DesignationNameBYBodyId.forEach((ele: any) => {
-          this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId);
+          this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
         });
+      
+        // this.DesignationNameBYBodyId1 = res.data3;
       } else {
         // this.spinner.hide();
         // if (res.data == 1) {
@@ -294,14 +297,13 @@ export class OrganizationDetailsComponent implements OnInit {
 
   
 
-  getPreviousDesignatedMembers(id: any, DesignationId: any) {
+  getPreviousDesignatedMembers(id: any, DesignationId: any, desName:any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.getPreDesMembersArray.push(res.data1);
-        console.log(this.getPreDesMembersArray);
+        this.DesignationNameBYBodyArray.push(desName);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
@@ -500,7 +502,6 @@ export class OrganizationDetailsComponent implements OnInit {
 
   onSubmit() {
     let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
-    debugger;
     this.submitted = true;
     if (this.bodyMember.invalid) {
       this.spinner.hide();

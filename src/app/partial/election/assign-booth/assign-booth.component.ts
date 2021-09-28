@@ -42,6 +42,7 @@ export class AssignBoothComponent implements OnInit {
   ConstituencyId: any;
   AssBoothListDetailArray: any;
 
+
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -255,19 +256,38 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  patchAssBoothElection(objData: any) {
-    this.btnText = 'Update Booths';
-    this.HighlightRow = objData.SrNo;
-    this.boothDivHide = true;
-    this.ConstituencyId = objData.ConstiId;
-    this.assignBoothForm.patchValue({
-      Id: objData.SrNo,
-      ElectionId: objData.ElectionId,
-      //ConstituencyId: objData.ConstiId,
+  patchAssBoothElection(HeaderId: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListbyHeaderId?HeaderId=' + HeaderId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+      this.editAssignBoothsPatchValue(res.data1[0]);
+      this.btnText = 'Update Booths';
+  
+    } else {
+      this.spinner.hide();
+      this.toastrService.error("Data is not available");
+    }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
     })
-    this.GetConstituencyName(objData.ElectionId)
   }
 
+  editAssignBoothsPatchValue(objData:any){
+    console.log(objData);
+      this.HighlightRow = objData.SrNo;
+      this.boothDivHide = true;
+      this.ConstituencyId = objData.ConstituencyId;
+      this.assignBoothForm.patchValue({
+        Id: objData.Id,
+        ElectionId: objData.ElectionId,
+        Assembly:objData.Assembly
+      });
+      this.GetConstituencyName(objData.ElectionId);
+  }
+  
   clearForm() {
     this.submitted = false;
     this.btnText = 'Assign Booths'
@@ -276,9 +296,8 @@ export class AssignBoothComponent implements OnInit {
     this.boothDivHide = false;
   }
 
-  delConfirmAssBothEle(ElectionId: any, ConstiId: any) {
+  delConfirmAssBothEle(ElectionId: any) {
     this.ElectionId = ElectionId;
-    this.ConstiId = ConstiId;
     this.deleteConfirmModel();
   }
 
@@ -292,7 +311,7 @@ export class AssignBoothComponent implements OnInit {
   }
 
   deleteElectionMasterData() {
-    this.callAPIService.setHttp('get', 'Web_Insert_Election_DeleteBoothToElection?ElectionId=' + this.ElectionId + '&CreatedBy=' + this.commonService.loggedInUserId() + '&ConstituencyId=' + this.ConstiId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Insert_Election_DeleteBoothToElection?HeaderId=' + this.ElectionId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);

@@ -149,9 +149,9 @@
                 </div>
                 <div class="card-body">
                     <div *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
-                        <!-- <div class="text-center bg-light py-2 fw-bold border-bottom">
+                        <div class="text-center bg-light py-2 fw-bold border-bottom">
                             {{designationName.DesignationName}}
-                        </div> -->
+                        </div>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -256,9 +256,9 @@
                                         class="text-primary">{{bodyMemActivity.FullName}}</a>
                                 </td>
                                 <td><span class="text-ellipsis-150px" [appTooltip]
-                                        title={{bodyMemActivity.Category}}>{{bodyMemActivity.Category}}</span></td>
+                                        title="{{bodyMemActivity.Category}}">{{bodyMemActivity.Category}}</span></td>
                                 <td><span class="text-ellipsis-150px" [appTooltip]
-                                        title={{bodyMemActivity.Title}}>{{bodyMemActivity.Title}}</span></td>
+                                        title="{{bodyMemActivity.Title}}">{{bodyMemActivity.Title}}</span></td>
                                 <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
                                             class="far fa-eye"></i></button> -->

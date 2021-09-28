@@ -45,9 +45,9 @@
                                     <div class="card-header p-0 pt-1">
                                     <div class="card-body py-2 ChekBox">
                                         <div class="form-check" *ngFor="let assemblyData of assemblyArray">
-                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" formControlName="Assembly" (change)="onCheckChangeAssembly($event)">
+                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" [checked]="assemblyData.Id == this.assignBoothForm.value.Assembly ? true : null" formControlName="Assembly" (change)="onCheckChangeAssembly($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                {{assemblyData.ConstituencyName}}
+                                                {{assemblyData.ConstituencyName}}{{this.assignBoothForm.value.Assembly }}
                                             </label>
                                         </div>
                                     </div>
@@ -135,9 +135,9 @@
                                         <button type="button" title="Edit Election" (click)="getAssignedBoothListDetail(assBoothEle.ConstiId,assBoothEle.ElectionId)"
                                             class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
                                             data-bs-target="#viewBoothsModal"><i class="far fa-eye"></i></button>
-                                        <button type="button" title="Edit Election" (click)="patchAssBoothElection(assBoothEle)"
+                                        <button type="button" title="Edit Election" (click)="patchAssBoothElection(assBoothEle.AsignId)"
                                             class="btn btn-sm btn-light text-edit mx-1 rounded"><i class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(assBoothEle.ElectionId,assBoothEle.ConstiId)"
+                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(assBoothEle.AsignId)"
                                             class="btn btn-sm btn-light text-danger rounded">
                                             <i class="fas fa-trash-alt"></i></button>
                                     </div>
