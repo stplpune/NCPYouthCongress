@@ -68,15 +68,11 @@ export class OrganizationDetailsComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   comUserdetImg: any;
   designationArray: any[] = [];
-  subCommittessResult:any;
-<<<<<<< HEAD
   DesignationNameBYBodyArray: any[] = [];
-
-=======
+  subCommittessResult:any;
   HighlightRow:any;
   indiMembersProgHighlight:any;
   
->>>>>>> 354fa950d3a6112185a074a475adbe21cd6708cd
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
@@ -301,23 +297,15 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-<<<<<<< HEAD
   
 
   getPreviousDesignatedMembers(id: any, DesignationId: any, desName:any) {
-=======
-  getPreviousDesignatedMembers(id: any, DesignationId: any) {
->>>>>>> 354fa950d3a6112185a074a475adbe21cd6708cd
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-<<<<<<< HEAD
         this.DesignationNameBYBodyArray.push(desName);
-=======
-        this.getPreDesMembersArray.push(res.data1);
->>>>>>> 354fa950d3a6112185a074a475adbe21cd6708cd
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
