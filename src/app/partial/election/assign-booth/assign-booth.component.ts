@@ -17,7 +17,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class AssignBoothComponent implements OnInit {
 
- 
+
   assignBoothForm!: FormGroup;
   submitted = false;
   paginationNo: number = 1;
@@ -34,6 +34,13 @@ export class AssignBoothComponent implements OnInit {
   constituencyNameArray: any;
   assignedBoothToElectionArray: any;
   ElectionId: any;
+  AssemblyBoothArray: any = [];
+  AssemblyId: any;
+  assemblyBoothJSON: any;
+  boothDivHide: boolean = false;
+  ConstiId: any;
+  ConstituencyId: any;
+  AssBoothListDetailArray: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -48,20 +55,20 @@ export class AssignBoothComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultAssignBoothForm();
+    this.getAssembly();
+    this.getElection();
     this.defaultFilterForm();
-    this.GetBoothList();
-     this.getAssembly();
-     this.getElection();
-     this.getAssignedBoothToElection();
-     this.searchFilters('false');
+    this.getAssignedBoothToElection();
+    this.searchFilters('false');
   }
 
   defaultAssignBoothForm() {
     this.assignBoothForm = this.fb.group({
       Id: [0],
-      ElectionId: [0, Validators.required],
+      ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
-      strAssmblyBoothId: ['[[{"AssemblyId":9,"BoothId":9}]]'],
+      Assembly: ['', Validators.required],
+      Booths: ['', Validators.required],
     })
   }
 
@@ -69,10 +76,23 @@ export class AssignBoothComponent implements OnInit {
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      ElectionId: [0],
+      ElectionNameId: [0],
       Search: [''],
     })
   }
+
+  onCheckChangeAssembly(event: any) {
+    this.AssemblyId = event.target.value;
+    if (this.AssemblyId) {
+      this.GetBoothList(this.AssemblyId);
+    }
+  }
+
+  onCheckChangeBooths(event: any) {
+    let BoothId = event.target.value;
+    this.AssemblyBoothArray.push({ 'AssemblyId': this.AssemblyId, 'BoothId': BoothId });
+  }
+
 
   onSubmitElection() {
     this.submitted = true;
@@ -81,26 +101,27 @@ export class AssignBoothComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    else  {
+    else {
       this.spinner.show();
-  
+      this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
       let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyId=' + formData.ConstituencyId
-       + '&strAssmblyBoothId=' + formData.strAssmblyBoothId +'&CreatedBy=' + this.commonService.loggedInUserId() ;
+        + '&strAssmblyBoothId=' + this.assemblyBoothJSON + '&CreatedBy=' + this.commonService.loggedInUserId();
       this.callAPIService.setHttp('get', 'Web_Insert_Election_AssignBoothToElection?Id=' + obj, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.toastrService.success(res.data1[0].Msg);
-          //this.getElectionMaster();
+          this.AssemblyBoothArray = [];
+          this.getAssignedBoothToElection();
           this.spinner.hide();
-          this.defaultAssignBoothForm();
+          this.clearForm();
           this.submitted = false;
           this.btnText = 'Assign Booths';
         } else {
           this.spinner.hide();
-           this.toastrService.error("Data is not available");
+          this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -117,6 +138,9 @@ export class AssignBoothComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionNameArray = res.data1;
+        if (this.btnText == 'Update Booths') {
+          this.GetBoothList(this.AssemblyId);
+        }
       } else {
         this.spinner.hide();
         this.electionNameArray = [];
@@ -134,8 +158,10 @@ export class AssignBoothComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_Election_Get_ConstituencyName?UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + ElectionId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.assignBoothForm.controls['ConstituencyId'].setValue(this.ConstituencyId);
         this.spinner.hide();
         this.constituencyNameArray = res.data1;
+
       } else {
         this.spinner.hide();
         this.constituencyNameArray = [];
@@ -167,14 +193,18 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  GetBoothList() {
+  GetBoothList(AssemblyId: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Election_GetBoothList?ConstituencyId=' + 258 + '&UserId=' + this.commonService.loggedInUserId() , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Election_GetBoothList?ConstituencyId=' + AssemblyId + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+
         this.spinner.hide();
+        this.boothDivHide = true;
         this.boothListArray = res.data1;
+
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
@@ -184,10 +214,10 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  getAssignedBoothToElection() {
+  getAssignedBoothToElection() {//get TableRecord
     this.spinner.show();
     let formData = this.filterForm.value;
-    let obj = '&ElectionId=' + formData.ElectionId + '&UserId=' + this.commonService.loggedInUserId() + '&Search=' + formData.Search +
+    let obj = '&ElectionId=' + formData.ElectionNameId + '&UserId=' + this.commonService.loggedInUserId() + '&Search=' + formData.Search +
       '&nopage=' + this.paginationNo;
     this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothToElection?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -207,38 +237,62 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  patchElectionRecord() {
+  getAssignedBoothListDetail(ConstituencyId: any, ElectionId: any) {//modelRecord
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListDetail?ConstituencyId=' + ConstituencyId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + ElectionId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.AssBoothListDetailArray = res.data1;
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  patchAssBoothElection(objData: any) {
     this.btnText = 'Update Booths';
-    // this.createElectionForm.patchValue({
-    //   Id: this.electionDetailsArray.Id,
-    //   ElectionName: this.electionDetailsArray.ElectionName,
-    //   ElectionTypeId: this.electionDetailsArray.ElectionTypeId,
-    //   IsAsemblyBoothListApplicable: this.electionDetailsArray.IsAsemblyBoothListApplicable,
-    //   IsSubElectionApplicable: this.electionDetailsArray.IsSubElectionApplicable,
-    // })
+    this.HighlightRow = objData.SrNo;
+    this.boothDivHide = true;
+    this.ConstituencyId = objData.ConstiId;
+    this.assignBoothForm.patchValue({
+      Id: objData.SrNo,
+      ElectionId: objData.ElectionId,
+      //ConstituencyId: objData.ConstiId,
+    })
+    this.GetConstituencyName(objData.ElectionId)
   }
 
   clearForm() {
     this.submitted = false;
     this.btnText = 'Assign Booths'
     this.defaultAssignBoothForm();
+    this.boothListArray = [];
+    this.boothDivHide = false;
   }
 
-
-  delConfirmAssBothEle(event: any) {
-    this.ElectionId = event;
+  delConfirmAssBothEle(ElectionId: any, ConstiId: any) {
+    this.ElectionId = ElectionId;
+    this.ConstiId = ConstiId;
     this.deleteConfirmModel();
   }
 
   deleteConfirmModel() {
     const dialogRef = this.dialog.open(DeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
-          this.deleteElectionMasterData();
+      if (result == 'Yes') {
+        this.deleteElectionMasterData();
+      }
     });
   }
 
   deleteElectionMasterData() {
-    this.callAPIService.setHttp('get', 'Web_Insert_Election_DeleteBoothToElection?ElectionId=' + this.ElectionId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Insert_Election_DeleteBoothToElection?ElectionId=' + this.ElectionId + '&CreatedBy=' + this.commonService.loggedInUserId() + '&ConstituencyId=' + this.ConstiId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
@@ -261,7 +315,7 @@ export class AssignBoothComponent implements OnInit {
 
   clearFilter(flag: any) {
     if (flag == 'electionType') {
-      this.filterForm.controls['ElectionTypeId'].setValue(0);
+      this.filterForm.controls['ElectionNameId'].setValue(0);
     } else if (flag == 'search') {
       this.filterForm.controls['Search'].setValue('');
     }

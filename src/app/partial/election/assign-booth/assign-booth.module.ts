@@ -5,6 +5,7 @@ import { AssignBoothComponent } from './assign-booth.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatCheckboxModule
   ]
 })
 export class AssignBoothModule { }
