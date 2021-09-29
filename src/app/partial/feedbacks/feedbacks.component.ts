@@ -40,10 +40,12 @@ export class FeedbacksComponent implements OnInit {
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
-    this.getFeedBackData(this.FeedbackObj);
+    
     this.getDistrict();
     this.defaultFilterForm();
     this.getMemberName();
+    this.getFeedBackData(this.FeedbackObj);
+    this.defualtHideFeedback = false;
   }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
@@ -41,7 +41,7 @@ export class AssignBoothComponent implements OnInit {
   ConstiId: any;
   ConstituencyId: any;
   AssBoothListDetailArray: any;
-
+  assembly='';
 
   constructor(
     private spinner: NgxSpinnerService,

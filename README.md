@@ -37,4 +37,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     npm i @ngx-gallery/lightbox 
     npm i @ngx-gallery/core
     npm i @kolkov/angular-editor
+    npm i ng2-search-filter
  -->

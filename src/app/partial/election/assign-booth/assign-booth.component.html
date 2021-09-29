@@ -40,14 +40,16 @@
                             </div>
 
                             <div class="mb-2">
+                                
                                 <label for="txtSearchAssembly" class="form-label">Assembly</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header p-0 pt-1">
-                                    <div class="card-body py-2 ChekBox">
+                                    <div class="card-body py-2 ChekBox">      
+                                        <!-- <input type="text"  [(ngModel)]="assembly" class="form-control">  |filter:assembly -->
                                         <div class="form-check" *ngFor="let assemblyData of assemblyArray">
-                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" [checked]="assemblyData.Id == this.assignBoothForm.value.Assembly ? true : null" (change)="onCheckChangeAssembly($event)">
+                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" formControlName="Assembly" [checked]="assemblyData.Id == this.assignBoothForm.value.Assembly ? true : null" (change)="onCheckChangeAssembly($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                {{assemblyData.ConstituencyName}}{{this.assignBoothForm.value.Assembly }}
+                                                {{assemblyData.ConstituencyName}}
                                             </label>
                                         </div>
                                     </div>

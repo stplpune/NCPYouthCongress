@@ -37,7 +37,7 @@ export class OrganizationMasterComponent implements OnInit {
   setVillOrCityId = "VillageId";
   submitted = false;
   addDesFormSubmitted = false;
-  btnText = "Create  Committee";
+  btnText = "Create Committee";
   organizationRes: any;
   searchText: any;
   districtId: any = "";
@@ -461,7 +461,7 @@ export class OrganizationMasterComponent implements OnInit {
       })
       // this.orgMasterForm.value.Id == null ? this.orgMasterForm.value.Id = 0 : this.orgMasterForm.value.Id = this.orgMasterForm.value.Id;
       let btnTextFlag:any;
-      this.btnText == "Create  Committee" ? btnTextFlag =  0 : btnTextFlag =  this.HighlightRow;
+      this.btnText == "Create Committee" ? btnTextFlag =  0 : btnTextFlag =  this.HighlightRow;
       fromData.append('Id', btnTextFlag);
 
       this.callAPIService.setHttp('Post', 'Web_Insert_Bodycellorgmaster_1_0', false, fromData, false, 'ncpServiceForWeb');

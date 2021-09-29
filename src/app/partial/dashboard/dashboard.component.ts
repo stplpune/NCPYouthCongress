@@ -375,6 +375,7 @@ export class DashboardComponent implements OnInit {
     pieSeries.dataFields.value = "ActivityCount";
     pieSeries.dataFields.category = "Category";
 
+
     // Let's cut a hole in our Pie chart the size of 30% the radius
     // chart.innerRadius = am4core.percent(30);
 
@@ -382,8 +383,7 @@ export class DashboardComponent implements OnInit {
     pieSeries.slices.template.stroke = am4core.color("#fff");
     pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
-    pieSeries.slices.template
-      // change the cursor on hover to make it apparent the object can be interacted with
+    pieSeries.slices.template 
       .cursorOverStyle = [
         {
           "property": "cursor",
@@ -394,7 +394,7 @@ export class DashboardComponent implements OnInit {
     // Create a base filter effect (as if it's not there) for the hover to return to
     let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
     shadow.opacity = 0;
-
+    
     // Create hover state
     let hoverState: any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
 
