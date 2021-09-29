@@ -148,11 +148,16 @@
                                                         </div>
                                                     </div>
                                                     <hr />
-                                                    <button type="button" (click)="getProfileData();this.disabledEditForm = true;" class="btn btn-main btn-sm">Clear</button>
-                                                    <div class="text-end">
-                                                        <button type="submit" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
-
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" (click)="getProfileData();this.disabledEditForm = true;" class="btn btn-main btn-sm">Clear</button>
+                                                        </div>
+                                                        <div class="col-sm-6 text-end">
+                                                            <button type="submit" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>
+                                                        </div>
                                                     </div>
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </div>

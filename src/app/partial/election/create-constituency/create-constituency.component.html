@@ -131,13 +131,17 @@
                                 </div>
                             </div>
                             <div class="mb-2 text-end">
-                                <a href="#" class="btn btn-link btn-sm" data-bs-toggle="modal"
+                                <a href="#" class="btn btn-link btn-sm shadow-none" data-bs-toggle="modal"
                                     data-bs-target="#CreateGeoFenceModal">Create Geofence</a>
                             </div>
-                            <div class="mb-5 mt-4">
-                                <button type="button" class="btn btn-secondary  float-lg-start"
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-secondary  float-lg-start"
                                     (click)="resetConstituencyName()">Clear</button>
-                                <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                                </div>
+                                <div class="col-sm-6 text-end">
+                                    <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
