@@ -6,6 +6,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    Ng2SearchPipeModule
   ]
 })
 export class AssignBoothModule { }

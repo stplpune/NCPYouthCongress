@@ -30,6 +30,7 @@ import { GalleryModule } from '@ngx-gallery/core';
 import { DeleteComponent } from './partial/dialogs/delete/delete.component';
 import { NoAuthGuardService } from './auth/no-auth-guard.service';
 import { AuthorizationService } from './auth/authorization.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { AuthorizationService } from './auth/authorization.service';
     MatDialogModule,
     LightboxModule,
     GalleryModule,
+    Ng2SearchPipeModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
