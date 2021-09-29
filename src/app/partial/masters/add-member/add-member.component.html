@@ -1,1 +1,171 @@
-<p>add-member works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="pageheader">
+                <span class="page-name">Manage Member
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row chartbox mb-3">
+        <div class="col-md-6">
+            <div class="card card-body">
+                <div class="form-container">
+                    <div class="row mb-3 text-center">
+                        <div class="col-sm-4 offset-4">
+                            <img src="assets/images/dashboard-images/ncp-default.png"
+                                class="img-fluid img-thumbnail profile-photo">
+                            <a class="update-photo">
+                                <i class="fas fa-camera"></i>
+                            </a>
+                            <a class="update-photo">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="txtFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="txtMiddleName" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="txtMiddleName" placeholder="Middle Name">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="txtLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="txtEmailID" class="form-label">Email ID</label>
+                            <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="txtContactNo" class="form-label">Contact No</label>
+                            <input type="number" class="form-control" id="txtContactNo" placeholder="Contact No">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="rblGender" class="form-label">Gender</label>
+                            <div class="d-block">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblGender" id="rbMale" checked>
+                                    <label class="form-check-label" for="rbMale">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblGender" id="rbFemale">
+                                    <label class="form-check-label" for="rbFemale">
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblGender" id="rbOther">
+                                    <label class="form-check-label" for="rbOther">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="rblArea" class="form-label">Area</label>
+                            <div class="d-block">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblArea" id="rbRural" checked>
+                                    <label class="form-check-label" for="rbRural">
+                                        Rural
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rblArea" id="rbUrban">
+                                    <label class="form-check-label" for="rbUrban">
+                                        Urban
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="ddlDistrict" class="form-label">District</label>
+                            <select class="form-select" id="ddlDistrict">
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="ddlTaluka" class="form-label">Taluka</label>
+                            <select class="form-select" id="ddlTaluka">
+                                <option value="">Select Taluka</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="ddlVillageTown" class="form-label">Village/Town</label>
+                            <select class="form-select" id="ddlVillageTown">
+                                <option value="">Select Village/Town</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtAddress" class="form-label">Address</label>
+                        <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button class="btn btn-secondary btn-sm">Cancel</button>
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button class="btn btn-main btn-sm">Submit Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-6 offset-6">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search.." />
+                                <button type="button" class="btn btn-light btn-sm"><i class="fas fa-times"></i></button>
+                                <button type="button" class="btn btn-light btn-sm"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Members Name</th>
+                                <th>Mobile No.</th>
+                                <th>Location</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <a routerLink="../profile">Sangli District Admin</a>
+                                </td>
+                                <td>9128000000</td>
+                                <td>Village, Taluka, District</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-edit"><i class="fas fa-pen"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
