@@ -156,11 +156,11 @@
                                 <td>{{electionMaster.SrNo}}</td>
                                 <td><a routerLink="../election-profile">{{electionMaster.ElectionName}}</a></td>
                                 <td>{{electionMaster.ElectionType}}</td>
-                                <td class="text-center">
+                                <td>
                                     <a class="fw-bold text-primary" routerLink="../create-constituency">{{electionMaster.Constituency}}</a>
                                 </td>
                                 <td *ngIf="electionMaster.IsSubElectionApplicable == 0;else otherContent">
-                                    <ol class="mb-0">
+                                    <ol class="mb-0 ps-3">
                                         <li *ngFor="let subElection of electionMaster.SubElection.split(',');let i=index">{{subElection}}</li>
                                     </ol>
                                 </td>
