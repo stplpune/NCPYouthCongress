@@ -466,7 +466,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     series1.dataFields.categoryX = "Date";
     series1.name = "NCP";
     series1.bullets.push(new am4charts.CircleBullet());
-    series1.tooltipText = "{name} in {categoryX}: {valueY}";
+    series1.tooltipText = "Count: {valueY}";
     series1.legendSettings.valueText = "{valueY}";
     series1.visible = false;
 
@@ -475,7 +475,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     series2.dataFields.categoryX = "Date";
     series2.name = 'SS';
     series2.bullets.push(new am4charts.CircleBullet());
-    series2.tooltipText = "{name} in {categoryX}: {valueY}";
+    series2.tooltipText = "Count: {valueY}";
     series2.legendSettings.valueText = "{valueY}";
 
     let series3 = chart.series.push(new am4charts.LineSeries());
@@ -483,7 +483,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     series3.dataFields.categoryX = "Date";
     series3.name = 'BJP';
     series3.bullets.push(new am4charts.CircleBullet());
-    series3.tooltipText = "{name} in {categoryX}: {valueY}";
+    series3.tooltipText = "Count: {valueY}";
     series3.legendSettings.valueText = "{valueY}";
 
     let series4 = chart.series.push(new am4charts.LineSeries());
@@ -491,7 +491,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     series4.dataFields.categoryX = "Date";
     series4.name = 'INC';
     series4.bullets.push(new am4charts.CircleBullet());
-    series4.tooltipText = "{name} in {categoryX}: {valueY}";
+    series4.tooltipText = "Count: {valueY}";
     series4.legendSettings.valueText = "{valueY}";
 
     let series5 = chart.series.push(new am4charts.LineSeries());
@@ -499,7 +499,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     series5.dataFields.categoryX = "SrDateNo";
     series5.name = 'OTR';
     series5.bullets.push(new am4charts.CircleBullet());
-    series5.tooltipText = "{name} in {categoryX}: {valueY}";
+    series5.tooltipText = "Count: {valueY}";
     series5.legendSettings.valueText = "{valueY}";
 
     // Add chart cursor
