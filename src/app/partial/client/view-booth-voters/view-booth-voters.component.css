@@ -1,0 +1,7 @@
+.list-group-item.active{
+    background-color: var(--main-color);
+    color: #fff;
+}
+.form-check-input{
+    margin-top: 10px;
+}

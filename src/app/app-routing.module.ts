@@ -66,7 +66,7 @@ const routes: Routes = [
       //{ path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule) },
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
       { path: 'election-details', loadChildren: () => import('./partial/client/election-details/election-details.module').then(m => m.ElectionDetailsModule), data: { title: 'Election Details', allowedRoles: ['8', '1'] } },
-      { path: 'view-booth-voters', loadChildren: () => import('./partial/client/view-booth-voters/view-booth-voters.module').then(m => m.ViewBoothVotersModule), data: { title: 'view booth voters', allowedRoles: ['8', '1'] } },
+      { path: 'view-booth-voters', loadChildren: () => import('./partial/client/view-booth-voters/view-booth-voters.module').then(m => m.ViewBoothVotersModule), data: { title: 'View Booth Voters', allowedRoles: ['8', '1'] } },
 
       { path: 'access-denied', component: AccessDeniedComponent },
     ]
