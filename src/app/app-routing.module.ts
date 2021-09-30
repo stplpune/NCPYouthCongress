@@ -62,15 +62,17 @@ const routes: Routes = [
       { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Elections', allowedRoles: ['7', '1'] } },
       
       // Client
-      { path: 'assign-voters', loadChildren: () => import('./partial/client/assign-voters/assign-voters.module').then(m => m.AssignVotersModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
+      { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
+      //{ path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule) },
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
       { path: 'election-details', loadChildren: () => import('./partial/client/election-details/election-details.module').then(m => m.ElectionDetailsModule), data: { title: 'Election Details', allowedRoles: ['8', '1'] } },
       { path: 'view-booth-voters', loadChildren: () => import('./partial/client/view-booth-voters/view-booth-voters.module').then(m => m.ViewBoothVotersModule), data: { title: 'view booth voters', allowedRoles: ['8', '1'] } },
- 
+
       { path: 'access-denied', component: AccessDeniedComponent },
     ]
   },
   { path: '500', component: ServerErrorComponent },
+  
  
   { path: '**', component: PageNotFoundComponent },
 ];
