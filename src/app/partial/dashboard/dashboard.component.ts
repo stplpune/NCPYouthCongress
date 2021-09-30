@@ -10,7 +10,6 @@ import { CommonService } from '../../services/common.service';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment'
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -87,7 +86,6 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
@@ -195,7 +193,6 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
-        // this.weeklyColumnChart();
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available");
@@ -269,7 +266,6 @@ export class DashboardComponent implements OnInit {
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.behavior = "zoomY";
 
-
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
@@ -286,6 +282,11 @@ export class DashboardComponent implements OnInit {
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 70;
     chart.legend.fontSize = 10;
+
+   //Show Single Tooltip At a Time
+
+   chart.cursor = new am4charts.XYCursor()
+   chart.cursor.maxTooltipDistance = -1
   }
 
   weeklyColumnChart() {
@@ -335,8 +336,8 @@ export class DashboardComponent implements OnInit {
     series.columns.template.column.cornerRadiusTopLeft = 10;
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.fill = am4core.color("#00000");
-    labelBullet.label.verticalCenter = "bottom";
-    labelBullet.label.dy = -10;
+    labelBullet.label.verticalCenter = "top";
+    labelBullet.label.dy = 5;
     labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
 
     chart.zoomOutButton.disabled = true;

@@ -48,8 +48,9 @@ const routes: Routes = [
       { path: 'feedbacks', loadChildren: () => import('./partial/feedbacks/feedbacks.module').then(m => m.FeedbacksModule), data: { title: 'Feedbacks', allowedRoles: ['1', '2', '5'] } },
       { path: 'notifications', loadChildren: () => import('./partial/notifications/notifications.module').then(m => m.NotificationsModule), data: { title: 'Notifications', allowedRoles: ['1', '2'] } },
       { path: 'help-support', loadChildren: () => import('./partial/help-support/help-support.module').then(m => m.HelpSupportModule), data: { title: 'Help Support', allowedRoles: ['1', '2', '5'] } },
-      { path: 'my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule), data: { title: 'Help Support', allowedRoles: ['1', '2', '5', '7', '8'] } },
-      
+      { path: 'my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule), data: { title: 'My Profile', allowedRoles: ['1', '2', '5', '7', '8'] } },
+      { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Add Member', allowedRoles: ['7', '1'] }  },
+
       // Election
       { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule), data: { title: 'Create Election', allowedRoles: ['7', '1'] } }, //, 
       { path: 'create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule), data: { title: 'Create Constituency', allowedRoles: ['7', '1'] } },
@@ -63,7 +64,7 @@ const routes: Routes = [
       // Client
       { path: 'assign-voters', loadChildren: () => import('./partial/client/assign-voters/assign-voters.module').then(m => m.AssignVotersModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
-      { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
+      { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Assign Agents to Booth', allowedRoles: ['8', '1'] } },
       { path: 'election-details', loadChildren: () => import('./partial/client/election-details/election-details.module').then(m => m.ElectionDetailsModule), data: { title: 'Election Details', allowedRoles: ['8', '1'] } },
       { path: 'access-denied', component: AccessDeniedComponent },
     ]
