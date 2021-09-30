@@ -111,11 +111,11 @@ export class PartyProgramMasterComponent implements OnInit {
       return;
     }
     else if (getObj.ProgramTitle.trim() == '' || getObj.ProgramTitle ==  null || getObj.ProgramTitle == undefined) {
-      this.toastrService.error("Program Title can not contain space");
+      this.toastrService.error("Program Title can not contain space only");
       return;
     }
     else if (getObj.ProgramDescription.trim() == '' || getObj.ProgramDescription ==  null || getObj.ProgramDescription == undefined) {
-      this.toastrService.error("Program Description can not contain space");
+      this.toastrService.error("Program Description can not contain space only");
       return;
     }
     else {

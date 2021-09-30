@@ -204,7 +204,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-
+ 
   /* Chart code */
   workLineChart() {
     am4core.useTheme(am4themes_animated);
