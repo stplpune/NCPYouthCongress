@@ -45,13 +45,14 @@
                                 <div class="card border shadow-none">
                                     <div class="card-header p-0 pt-1">
                                     <div class="card-body py-2 ChekBox">      
-                                        <!-- <input type="text"  [(ngModel)]="assembly" class="form-control">  |filter:assembly -->
-                                        <div class="form-check" *ngFor="let assemblyData of assemblyArray">
-                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" formControlName="Assembly" [checked]="assemblyData.Id == this.assignBoothForm.value.Assembly ? true : null" (change)="onCheckChangeAssembly($event)">
+                                        <!-- <input type="text"  [(ngModel)]="assembly" class="form-control"> [(ngModel)]="item.isChecked"   |filter:assembly -->
+                                        <div class="form-check" *ngFor="let assemblyData of assemblyArray; let i = index">
+                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" formControlName="Assembly" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{assemblyData.ConstituencyName}}
                                             </label>
                                         </div>
+                                       
                                     </div>
                                     <div *ngIf="submitted && f.Assembly.errors" class="invalid-feedback" style="margin-top: -10px;">
                                         <div *ngIf="f.Assembly.errors.required">Assembly is required

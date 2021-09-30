@@ -58,8 +58,10 @@ const routes: Routes = [
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] } },      
       { path: 'add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] } },
       { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] }  },
-
+      { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Elections', allowedRoles: ['7', '1'] } },
+      
       // Client
+      { path: 'assign-voters', loadChildren: () => import('./partial/client/assign-voters/assign-voters.module').then(m => m.AssignVotersModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
       { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
       { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
       { path: 'election-details', loadChildren: () => import('./partial/client/election-details/election-details.module').then(m => m.ElectionDetailsModule), data: { title: 'Election Details', allowedRoles: ['8', '1'] } },
@@ -67,7 +69,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
-  
+ 
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
