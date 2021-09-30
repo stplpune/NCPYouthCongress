@@ -10,7 +10,6 @@ import { CommonService } from '../../services/common.service';
 import { DatePipe } from '@angular/common';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment'
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -87,7 +86,6 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
@@ -195,7 +193,6 @@ export class DashboardComponent implements OnInit {
         this.spinner.hide();
         this.newMemberInThisWeekArray = res.data1;
         this.weeklyColumnChart();
-        // this.weeklyColumnChart();
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available");
