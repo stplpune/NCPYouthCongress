@@ -339,8 +339,8 @@ export class DashboardComponent implements OnInit {
     series.columns.template.column.cornerRadiusTopLeft = 10;
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.fill = am4core.color("#00000");
-    labelBullet.label.verticalCenter = "bottom";
-    labelBullet.label.dy = -10;
+    labelBullet.label.verticalCenter = "top";
+    labelBullet.label.dy = 5;
     labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
 
     chart.zoomOutButton.disabled = true;
