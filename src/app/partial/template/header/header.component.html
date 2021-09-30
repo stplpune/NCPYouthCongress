@@ -9,19 +9,26 @@
 
 <header class="header">
     <div class="header__container">
-        <h5 class="mb-0">महाराष्ट्र प्रदेश राष्ट्रवादी युवक कॉंग्रेस</h5>
-        <div class="dropdown">
-            <button class="btn btn-primary-new dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Welcome {{userName | titlecase}}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal" ><i class="fas fa-user"></i>Profile</a></li>
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><i class="fas fa-key"></i>Change Password</a></li> -->
-                <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user"></i>Profile</a></li>
-                <!-- <li><a class="dropdown-item" routerLink="user/change-password"><i class="fas fa-key"></i>Change Password</a></li> -->
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
-                <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal" (click)="logOut()"><i class="fas fa-sign-out-alt"></i>Logout</a></li> -->
-            </ul>
+        <h5 class="mb-0"><div class="header-mp">महाराष्ट्र प्रदेश</div> राष्ट्रवादी युवक कॉंग्रेस</h5>
+        <div class="rightmenu">
+            <div class="me-3">
+                <span class="text-yellow">
+                    Committee/Admin/Client Name
+                </span>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-primary-new dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Welcome {{userName | titlecase}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal" ><i class="fas fa-user"></i>Profile</a></li>
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><i class="fas fa-key"></i>Change Password</a></li> -->
+                    <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user"></i>Profile</a></li>
+                    <!-- <li><a class="dropdown-item" routerLink="user/change-password"><i class="fas fa-key"></i>Change Password</a></li> -->
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal" (click)="logOut()"><i class="fas fa-sign-out-alt"></i>Logout</a></li> -->
+                </ul>
+            </div>
         </div>
         <div class="header__toggle">
             <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>

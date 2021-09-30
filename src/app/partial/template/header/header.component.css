@@ -159,3 +159,13 @@
     color: #7289da;
     background-color: #fdfdfd;
 }
+.header-mp{
+    font-size: 0.85rem;
+}
+.rightmenu{
+    display: flex;
+    align-items: center;
+}
+.text-yellow{
+    color: #c8ff00;
+}
