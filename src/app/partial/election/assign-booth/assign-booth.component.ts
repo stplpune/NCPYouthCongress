@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { cos } from '@amcharts/amcharts4/.internal/core/utils/Math';
 
 @Component({
   selector: 'app-assign-booth',
@@ -40,6 +41,7 @@ export class AssignBoothComponent implements OnInit {
   boothDivHide: boolean = false;
   ConstiId: any;
   ConstituencyId: any;
+  ConstituencyIdArray: any = [];
   AssBoothListDetailArray: any;
   assembly='';
 
@@ -68,7 +70,7 @@ export class AssignBoothComponent implements OnInit {
       Id: [0],
       ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
-      Assembly: [''],
+      Assembly: [0],
       Booths: ['', Validators.required],
     })
   }
@@ -279,13 +281,26 @@ export class AssignBoothComponent implements OnInit {
     console.log(objData);
       this.HighlightRow = objData.SrNo;
       this.boothDivHide = true;
-      this.ConstituencyId = objData.ConstituencyId;
+      this.ConstituencyIdArray  = objData.Assembly.split('');
+      this.getSel(['258'])
+      // this.assignBoothForm.controls['Assembly'].setValue(this.ConstituencyId);
       this.assignBoothForm.patchValue({
         Id: objData.Id,
         ElectionId: objData.ElectionId,
         Assembly:objData.Assembly
       });
       this.GetConstituencyName(objData.ElectionId);
+  }
+
+  getSel(ConstituencyId:any) {
+    for(let i=0;i<ConstituencyId.length; i++){
+      for(let j=0;j<this.assemblyArray.length;j++){
+        if(this.assemblyArray[j].ConstituencyNo === ConstituencyId[i]) {
+          this.assemblyArray[j].checked = true;
+        }
+      }
+    }
+    console.log(this.assemblyArray);
   }
   
   clearForm() {
@@ -367,4 +382,5 @@ export class AssignBoothComponent implements OnInit {
       }
       );
   }
+
 }
