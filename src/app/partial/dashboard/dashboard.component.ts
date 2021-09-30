@@ -269,7 +269,6 @@ export class DashboardComponent implements OnInit {
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.behavior = "zoomY";
 
-
     let hs1 = series1.segments.template.states.create("hover")
     hs1.properties.strokeWidth = 5;
     series1.segments.template.strokeWidth = 1;
@@ -286,6 +285,11 @@ export class DashboardComponent implements OnInit {
     chart.legend = new am4charts.Legend();
     chart.legend.maxWidth = 70;
     chart.legend.fontSize = 10;
+
+   //Show Single Tooltip At a Time
+
+   chart.cursor = new am4charts.XYCursor()
+   chart.cursor.maxTooltipDistance = -1
   }
 
   weeklyColumnChart() {

@@ -543,6 +543,11 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       })
     })
 
+      //Show Single Tooltip At a Time
+
+   chart.cursor = new am4charts.XYCursor()
+   chart.cursor.maxTooltipDistance = -1
+
   }
 
   ngOnDestroy() {
