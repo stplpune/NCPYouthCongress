@@ -127,19 +127,14 @@ export class AssignBoothComponent implements OnInit {
     if (this.assignBoothForm.invalid) {
       this.spinner.hide();
       return;
+    }else if (this.AssemblyBoothArray.length == 0){
+      this.toastrService.error("Assembly Or Booth is required");
+      return;
     }
-    // else if (this.assemblyIdArray.length == 0){
-    //   this.toastrService.error("Assembly  is required");
-    //   return;
-    // }else if (this.AssemblyBoothArray.length == 0){
-    //   this.toastrService.error("Booth is required");
-    //   return;
-    // }
     else {
       // this.spinner.show();
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
       console.log(this.AssemblyBoothArray);
-      return
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
@@ -331,9 +326,9 @@ export class AssignBoothComponent implements OnInit {
     this.ConstituencyIdArray = objData.Assembly.split('');
     this.assemblyCheckBoxCheck = true;
     let assemblyArray = objData.Assembly.split(',');
-    let boothArray = objData.BoothId.split(',');
 
     this.checkBoxCehckAssemblyArray(assemblyArray);
+
     assemblyArray.forEach((ele: any) => {
       this.GetBoothList(ele)
     });
@@ -343,20 +338,21 @@ export class AssignBoothComponent implements OnInit {
       ElectionId: objData.ElectionId,
     });
     this.GetConstituencyName(objData.ElectionId);
-
-
-    // setTimeout(() => {
-    //   this.boothListArray.find((ele:any)=>{
-    //     boothArray.find((el:any,i:any)=>{
-    //       if(ele.Id == el){
-    //         this.AssemblyBoothArray.push({ 'AssemblyId': el.ConstituencyId, 'BoothId': el.Id });
-    //         console.log(this.AssemblyBoothArray);
-    //       }
-    //     })
-    //   })
-    // }, 5000);
- 
+    setTimeout(() => { this.editAssemblyBoothArray()}, 1000);
   }
+
+  editAssemblyBoothArray() {
+    let boothArray = this.selBoothId.split(',');
+    this.boothListMergeArray.find((ele: any) => {
+      boothArray.find((el: any) => {
+        if (ele.Id == Number(el)) {
+          this.AssemblyBoothArray.push({ 'AssemblyId': ele.ConstituencyId, 'BoothId': ele.Id });
+        }
+      })
+    });
+    console.log(this.AssemblyBoothArray);
+  }
+
 
   checkBoxCehckAssemblyArray(ConstituencyId: any) {
     for (let i = 0; i < ConstituencyId.length; i++) {
