@@ -54,10 +54,10 @@
                                         </div>
                                        
                                     </div>
-                                    <div *ngIf="submitted && f.Assembly.errors" class="invalid-feedback" style="margin-top: -10px;">
+                                    <!-- <div *ngIf="submitted && f.Assembly.errors" class="invalid-feedback" style="margin-top: -10px;">
                                         <div *ngIf="f.Assembly.errors.required">Assembly is required
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             </div>
@@ -69,16 +69,16 @@
                                     <div class="card-body py-2 ChekBox">
                                         <div class="form-check" *ngFor="let boothListData of boothListMergeArray">
                                             <!-- [value]="boothListData.Id"   -->
-                                            <input class="form-check-input" type="checkbox"  [checked]="boothListData.checked" (change)="onCheckChangeBooths($event,boothListData.ConstituencyId,boothListData.Id)">
+                                            <input class="form-check-input" type="checkbox"   [checked]="boothListData.checked" (change)="onCheckChangeBooths($event,boothListData.ConstituencyId,boothListData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{boothListData.BoothNickName}}
                                             </label>
                                         </div>
                                     </div>
-                                    <div *ngIf="submitted && f.Booths.errors" class="invalid-feedback" style="margin-top: -10px;">
+                                    <!-- <div *ngIf="submitted && f.Booths.errors" class="invalid-feedback" style="margin-top: -10px;">
                                         <div *ngIf="f.Booths.errors.required">Booths is required
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="mb-2 mt-4">
