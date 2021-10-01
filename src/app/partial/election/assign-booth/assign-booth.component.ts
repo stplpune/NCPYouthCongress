@@ -120,7 +120,6 @@ export class AssignBoothComponent implements OnInit {
 
 
   onSubmitElection() {
-
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
