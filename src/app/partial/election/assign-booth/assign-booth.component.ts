@@ -139,7 +139,6 @@ export class AssignBoothComponent implements OnInit {
       this.spinner.show();
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
       console.log(this.AssemblyBoothArray);
-      return
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
