@@ -126,7 +126,6 @@ export class EventMasterComponent implements OnInit {
       return;
     }
     else {
-      debugger;
       let ImageChangeFlag: any;
       this.submitted = false;
       let data = this.addEvent.value;

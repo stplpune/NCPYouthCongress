@@ -205,10 +205,10 @@
                             <tr>
                                 <th scope="col">Sr. No.</th>
                                 <th scope="col">Committee Name</th>
-                                <th scope="col">Mobile Number</th>
                                 <th scope="col">District Name</th>
                                 <th scope="col">Taluka Name</th>
                                 <th scope="col">Head of Committee</th>
+                                <th scope="col">Mobile Number</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -216,11 +216,10 @@
                                 <td>{{committeesData.SrNo}}</td>
                                 <td><a class="text-primary" (click)="redirectOrgDetails(committeesData.Id,committeesData.BodyOrgCellName)">{{committeesData.BodyOrgCellName}}</a>
                                 </td>
-                                <td> <a href="tel:{{committeesData.CommitteeHeadMobile}}">{{committeesData.CommitteeHeadMobile}}</a></td>
                                 <td>{{committeesData.districtName}}</td>
                                 <td>{{committeesData.TalukaName}}</td>
                                 <td>{{committeesData?.CommitteeHeadDetails}}</td>
-
+                                <td> <a href="tel:{{committeesData.CommitteeHeadMobile}}">{{committeesData.CommitteeHeadMobile}}</a></td>
                             </tr>
                             <tr *ngIf="NonComityDataArray?.length == 0">
                                 <td colspan="5">
