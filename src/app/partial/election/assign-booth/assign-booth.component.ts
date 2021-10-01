@@ -49,7 +49,7 @@ export class AssignBoothComponent implements OnInit {
   assemblyCheckBoxCheck!: boolean;
   selBoothId: any;
   BoothListDetailData:any;
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -75,8 +75,8 @@ export class AssignBoothComponent implements OnInit {
       Id: [0],
       ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
-      Assembly: ['', Validators.required],
-      Booths: ['', Validators.required],
+      Assembly: [''],
+      Booths: [''],
     })
   }
 
