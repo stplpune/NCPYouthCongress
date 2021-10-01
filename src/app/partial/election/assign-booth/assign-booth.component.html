@@ -47,7 +47,7 @@
                                     <div class="card-body py-2 ChekBox">      
                                         <!-- <input type="text"  [(ngModel)]="assembly" class="form-control"> [(ngModel)]="item.isChecked"   |filter:assembly -->
                                         <div class="form-check" *ngFor="let assemblyData of assemblyArray; let i = index">
-                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id" formControlName="Assembly" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event)">
+                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id"  [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{assemblyData.ConstituencyName}}
                                             </label>
@@ -66,8 +66,8 @@
                                 <label for="txtSearchBooth" class="form-label">Booth</label>
                                 <div class="card border shadow-none" *ngIf="boothDivHide">
                                     <div class="card-body py-2 ChekBox">
-                                        <div class="form-check" *ngFor="let boothListData of boothListArray">
-                                            <input class="form-check-input" type="checkbox" [value]="boothListData.Id" formControlName="Booths" (change)="onCheckChangeBooths($event)">
+                                        <div class="form-check" *ngFor="let boothListData of boothListMergeArray">
+                                            <input class="form-check-input" type="checkbox"  [value]="boothListData.Id"  [checked]="boothListData.checked" (change)="onCheckChangeBooths($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{boothListData.BoothNickName}}
                                             </label>
