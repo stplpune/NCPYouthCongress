@@ -10,36 +10,41 @@
 
     <div class="row chartbox">
         <div class="col-sm-4">
+            <form [formGroup]="DesigMasterForm" (ngSubmit)="onSubmitDesigMaster()">
             <div class="card">
                 <div class="card-header">Create Designation</div>
                 <div class="card-body pt-0">
                     <div class="form-container">
                         <div class="mb-3">
                             <label for="txtDesignationName" class="form-label">Designation Name</label>
-                            <input type="text" class="form-control" id="txtDesignationName"
-                                placeholder="Designation Name">
+                            <input type="text" class="form-control" formControlName="DesignationName"
+                                placeholder="Designation Name" [ngClass]="{ 'is-invalid': submitted && f.DesignationName.errors }">
+                            <div *ngIf="submitted && f.DesignationName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.DesignationName.errors.required">Designation Name is required</div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="txtDesignationLevel" class="form-label">Designation Level</label>
-                            <input type="number" class="form-control" id="txtDesignationLevel"
-                                placeholder="Designation Level">
+                            <input type="number" class="form-control" formControlName="DesignationLevel" placeholder="Designation Level"
+                            [ngClass]="{ 'is-invalid': submitted && f.DesignationLevel.errors }">
+                            <div *ngIf="submitted && f.DesignationLevel.errors" class="invalid-feedback">
+                                <div *ngIf="f.DesignationLevel.errors.required">Designation Level is required</div>
+                        </div>
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="chkLoginAllowed">
-                                <label class="form-check-label" for="chkLoginAllowed">
-                                    Is Login Allowed
-                                </label>
+                                <input class="form-check-input" type="checkbox" value="" formControlName="chkLoginAllowed">
+                                <label class="form-check-label" for="chkLoginAllowed"> Is Login Allowed </label>
                             </div>
                         </div>
                         <div class="mb-2 text-end">
-                            <button type="button" class="btn btn-main">Create Designation</button>
-                            <button type="button" class="btn btn-warning mx-1">Update</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" (click)="clearForm()" class="btn btn-secondary  float-lg-start">Clear</button>
+                            <button type="submit" class="btn btn-main">{{btnText}}</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         </div>
         <div class="col-sm-8">
             <div class="card card-body">
@@ -55,35 +60,35 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <!-- <tr *ngFor="let electionMaster of electionMasterArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, 
+                                totalItems:total}; let i = index" [class.active]="electionMaster.Id == HighlightRow"> -->
                             <td>1</td>
                             <td>President</td>
                             <td>1</td>
+                            <!-- <td *ngIf="constituency.SubConstituency != '';else otherContent"> -->
                             <td>
                                 <i class="fas fa-check text-success"></i>
                             </td>
+                                <ng-template #otherContent>
+                                    <td><i class="fas fa-times text-danger"></i></td>
+                                </ng-template>   
                             <td>
                                 <div class="btn-group">
                                     <button type="button" title="Edit Designation" class="btn btn-sm btn-light text-edit me-1 rounded"><i class="far fa-edit"></i></button>
-                                    <button type="button" title="Delete Designation" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Vice President</td>
-                            <td>2</td>
-                            <td>
-                                <i class="fas fa-times text-danger"></i>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" title="Edit Designation" class="btn btn-sm btn-light text-edit me-1 rounded"><i class="far fa-edit"></i></button>
-                                    <button type="button" title="Delete Designation" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" title="Delete Designation" class="btn btn-sm btn-light text-danger rounded" 
+                                    (click)="delConfirmation('asd')"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <!-- <div class="mt-2 text-end" *ngIf="electionMasterArray?.length == 0">
+                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                </div>
+                <div class="mt-2 text-end" *ngIf="electionMasterArray?.length != 0">
+                    <pagination-controls previousLabel="" nextLabel=""
+                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                </div> -->
             </div>
         </div>
     </div>

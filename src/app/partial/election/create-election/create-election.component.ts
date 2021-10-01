@@ -72,7 +72,7 @@ export class CreateElectionComponent implements OnInit {
       SubElectionId: [''],
     })
   }
-  // [{"SubElectionId":1}]
+  
   get f() { return this.createElectionForm.controls };
 
   defaultFilterForm() {
