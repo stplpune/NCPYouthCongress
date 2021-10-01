@@ -45,7 +45,8 @@ export class AssignBoothComponent implements OnInit {
   boothListMergeArray: any = [];
   assemblyIdArray: any = [];
   AssBoothListDetailArray: any;
-  assembly = '';
+  searchAssembly = '';
+  searchboothList = '';
   assemblyCheckBoxCheck!: boolean;
   selBoothId: any;
   BoothListDetailData:any;
@@ -75,6 +76,8 @@ export class AssignBoothComponent implements OnInit {
       Id: [0],
       ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
+      assembly: [''],
+      boothList: [''],
       // Assembly: [false,  Validators.requiredTrue],
       // Booths: [false, Validators.requiredTrue],
     })

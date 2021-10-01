@@ -12,6 +12,7 @@
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-header">Assign Booths</div>
+            
                 <form [formGroup]="assignBoothForm" (ngSubmit)="onSubmitElection()">
                     <div class="card-body pt-0">
                         <div class="form-container">
@@ -40,34 +41,44 @@
                             </div>
 
                             <div class="mb-2">
-                                
+                               
                                 <label for="txtSearchAssembly" class="form-label">Assembly</label>
                                 <div class="card border shadow-none">
-                                    <div class="card-header p-0 pt-1">
-                                    <div class="card-body py-2 ChekBox">      
-                                        <!-- <input type="text"  [(ngModel)]="assembly" class="form-control"> [(ngModel)]="item.isChecked"   |filter:assembly [value]="assemblyData.Id"  -->
-                                        <div class="form-check" *ngFor="let assemblyData of assemblyArray; let i = index">
-                                            <input class="form-check-input" type="checkbox"  [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{assemblyData.ConstituencyName}}
-                                            </label>
-                                        </div>
-                                       
-                                    </div>
+                                    <div class="card-header border-bottom p-0 py-1">
+                                        <input type="text" formControlName="assembly"  [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"> 
+                                    
                                     <!-- <div *ngIf="submitted && f.Assembly.errors" class="invalid-feedback" style="margin-top: -10px;">
                                         <div *ngIf="f.Assembly.errors.required">Assembly is required
                                         </div>
                                     </div> -->
                                 </div>
+                                <div class="card-body py-2 ChekBox">     
+                                        
+                                    <!-- <input type="text"  [(ngModel)]="assembly" class="form-control"> [(ngModel)]="item.isChecked"   |filter:assembly [value]="assemblyData.Id"  -->
+                                    <div class="form-check" *ngFor="let assemblyData of assemblyArray | filter:searchAssembly; let i = index">
+                                        <input class="form-check-input" type="checkbox"  [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            {{assemblyData.ConstituencyName}}
+                                        </label>
+                                       
+                                    </div>
+                                    <div *ngIf="assemblyArray.length == 0">
+                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                    </div>
+                                </div>
                             </div>
                             </div>
 
                             
-                            <div class="mb-2">
+                            <div class="mb-3"  *ngIf="boothDivHide">
                                 <label for="txtSearchBooth" class="form-label">Booth</label>
-                                <div class="card border shadow-none" *ngIf="boothDivHide">
+                                <div class="card border shadow-none">
+                                    <div class="card-header border-bottom p-0 py-1">
+                                        <input type="text" formControlName="boothList" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"> 
+                                    </div>
                                     <div class="card-body py-2 ChekBox">
-                                        <div class="form-check" *ngFor="let boothListData of boothListMergeArray">
+                                        
+                                        <div class="form-check" *ngFor="let boothListData of boothListMergeArray | filter:searchboothList">
                                             <!-- [value]="boothListData.Id"   -->
                                             <input class="form-check-input" type="checkbox"   [checked]="boothListData.checked" (change)="onCheckChangeBooths($event,boothListData.ConstituencyId,boothListData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -81,9 +92,14 @@
                                     </div> -->
                                 </div>
                             </div>
-                            <div class="mb-2 mt-4">
-                                <button type="button" (click)="clearForm()" class="btn btn-secondary  float-lg-start">Clear</button>
-                                <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" (click)="clearForm()" class="btn btn-secondary  float-lg-start">Clear</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
