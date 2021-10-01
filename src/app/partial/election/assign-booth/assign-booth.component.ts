@@ -387,6 +387,8 @@ export class AssignBoothComponent implements OnInit {
     this.defaultAssignBoothForm();
     this.boothListArray = [];
     this.boothDivHide = false;
+    this.searchAssembly = '';
+    this.searchboothList = '';
     this.getAssembly();
   }
 
