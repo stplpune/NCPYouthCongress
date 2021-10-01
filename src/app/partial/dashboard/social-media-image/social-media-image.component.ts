@@ -447,6 +447,14 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     // Add data
     chart.data = this.trendOnSocialMediaArray;
 
+    chart.colors.list = [
+      am4core.color("#80DEEA"),
+      am4core.color("#FF8A65"),
+      am4core.color("#E57373"),
+      am4core.color("#7986CB"),
+      am4core.color("#4DB6AC"),
+    ];
+
     // Create category axis
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "Date";
