@@ -47,7 +47,7 @@
                                     <div class="card-body py-2 ChekBox">      
                                         <!-- <input type="text"  [(ngModel)]="assembly" class="form-control"> [(ngModel)]="item.isChecked"   |filter:assembly -->
                                         <div class="form-check" *ngFor="let assemblyData of assemblyArray; let i = index">
-                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id"  [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event)">
+                                            <input class="form-check-input" type="checkbox" [value]="assemblyData.Id"   [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{assemblyData.ConstituencyName}}
                                             </label>
@@ -68,7 +68,7 @@
                                 <div class="card border shadow-none" *ngIf="boothDivHide">
                                     <div class="card-body py-2 ChekBox">
                                         <div class="form-check" *ngFor="let boothListData of boothListMergeArray">
-                                            <input class="form-check-input" type="checkbox"  [value]="boothListData.Id"  [checked]="boothListData.checked" (change)="onCheckChangeBooths($event)">
+                                            <input class="form-check-input" type="checkbox"  [value]="boothListData.Id"   [checked]="boothListData.checked" (change)="onCheckChangeBooths($event,boothListData.ConstituencyId,boothListData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{boothListData.BoothNickName}}
                                             </label>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="mb-2 mt-4">
                                 <button type="button" (click)="clearForm()" class="btn btn-secondary  float-lg-start">Clear</button>
-                                <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+                                <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
                             </div>
                         </div>
                     </div>
