@@ -95,7 +95,10 @@ export class AssignBoothComponent implements OnInit {
     if (event.target.checked == false) {
       let index = this.assemblyIdArray.indexOf(this.AssemblyId);
       this.assemblyIdArray.splice(index, 1);
-
+  
+      let indexBoothArray = this.AssemblyBoothArray.findIndex((x:any)=> x.AssemblyId == this.AssemblyId);
+      this.AssemblyBoothArray.splice(indexBoothArray, 1);
+     
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
         if (ele.ConstituencyId !== Number(this.AssemblyId)) {
           return ele;
@@ -103,6 +106,7 @@ export class AssignBoothComponent implements OnInit {
       });
     }
     else {
+      
       this.assemblyIdArray.push(this.AssemblyId);
       this.GetBoothList(this.AssemblyId);
     };
@@ -120,6 +124,7 @@ export class AssignBoothComponent implements OnInit {
 
 
   onSubmitElection() {
+    debugger;
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
@@ -131,9 +136,10 @@ export class AssignBoothComponent implements OnInit {
       return;
     }
     else {
-      // this.spinner.show();
+      this.spinner.show();
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
       console.log(this.AssemblyBoothArray);
+      return
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
@@ -243,7 +249,7 @@ export class AssignBoothComponent implements OnInit {
         }
 
       } else {
-        this.boothListMergeArray = [];
+        this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
