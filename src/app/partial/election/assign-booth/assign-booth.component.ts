@@ -48,7 +48,8 @@ export class AssignBoothComponent implements OnInit {
   assembly = '';
   assemblyCheckBoxCheck!: boolean;
   selBoothId: any;
-
+  BoothListDetailData:any;
+  
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -74,6 +75,8 @@ export class AssignBoothComponent implements OnInit {
       Id: [0],
       ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
+      Assembly: ['', Validators.required],
+      Booths: ['', Validators.required],
     })
   }
 
@@ -87,7 +90,6 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeAssembly(event: any) {
-    debugger;
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = event.target.value;
     if (event.target.checked == false) {
@@ -278,9 +280,10 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  getAssignedBoothListDetail(ConstituencyId: any, ElectionId: any) {//modelRecord
+  getAssignedBoothListDetail(HeaderId: any,obj:any) {//modelRecord
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListDetail?ConstituencyId=' + ConstituencyId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + ElectionId, false, false, false, 'ncpServiceForWeb');
+    this.BoothListDetailData = obj;
+    this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListDetail?HeaderId=' + HeaderId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -295,7 +298,6 @@ export class AssignBoothComponent implements OnInit {
       }
     })
   }
-
   patchAssBoothElection(HeaderId: any) {
     this.btnText = 'Update Booths';
     this.spinner.show();
@@ -327,7 +329,6 @@ export class AssignBoothComponent implements OnInit {
     
     let assemblyArray = objData.Assembly.split(',');
     this.checkBoxCehckAssemblyArray(assemblyArray);
-    debugger;
     assemblyArray.forEach((ele: any) => {
       this.GetBoothList(ele)
     });
@@ -350,7 +351,6 @@ export class AssignBoothComponent implements OnInit {
   }
 
   checkBoxCehckBoothArray(ConstituencyId: any) {
-    debugger;
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j < this.boothListArray.length; j++) {
         if (this.boothListArray[j].Id == Number(ConstituencyId[i])) {

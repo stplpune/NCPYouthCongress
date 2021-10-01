@@ -136,7 +136,7 @@
                                 <td>{{assBoothEle.TotalVoters}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election" (click)="getAssignedBoothListDetail(assBoothEle.ConstiId,assBoothEle.ElectionId)"
+                                        <button type="button" title="Edit Election"  (click)="getAssignedBoothListDetail(assBoothEle.AsignId,assBoothEle)"
                                             class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
                                             data-bs-target="#viewBoothsModal"><i class="far fa-eye"></i></button>
                                         <button type="button" title="Edit Election" (click)="patchAssBoothElection(assBoothEle.AsignId)"
@@ -176,37 +176,32 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <div class="form-label">Election</div>
-                            <div class="form-data">Pune ZP Elections 2021</div>
+                            <div class="form-data">{{BoothListDetailData?.ElectionName}}</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-label">Constituency</div>
-                            <div class="form-data">Swargate</div>
+                            <div class="form-data">{{BoothListDetailData?.ConstituencyName}}</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="form-label">Assembly</div>
-                        <div class="form-data">Bibwewadi</div>
+                        <div class="form-data">{{BoothListDetailData?.Assembly}}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <div class="form-label">No. of Booths</div>
-                            <div class="form-data">21</div>
+                            <div class="form-data">{{BoothListDetailData?.NoOfBooths}}</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-label">No. of Voters</div>
-                            <div class="form-data">846513</div>
+                            <div class="form-data">{{BoothListDetailData?.TotalVoters}}</div>
                         </div>
                     </div>
                     <div class="mb-0">
                         <div class="form-label">Booths</div>
                         <div class="form-data">
                             <ul class="mb-0 ps-3 list-column">
-                                <li>Booth - 12 - Mukund Nagar</li>
-                                <li>Booth - 12 - Mukund Nagar</li>
-                                <li>Booth - 12 - Mukund Nagar</li>
-                                <li>Booth - 12 - Mukund Nagar</li>
-                                <li>Booth - 12 - Mukund Nagar</li>
-                                <li>Booth - 12 - Mukund Nagar</li>
+                                <li *ngFor="let AssBoothListDetail of AssBoothListDetailArray">{{AssBoothListDetail.BoothNickName}}</li>
                             </ul>
                         </div>
                     </div>
