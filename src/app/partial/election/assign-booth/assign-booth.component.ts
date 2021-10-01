@@ -89,9 +89,9 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-  onCheckChangeAssembly(event: any) {
+  onCheckChangeAssembly(event: any, assemblyId:any) {
     this.assemblyCheckBoxCheck = event.target.checked;
-    this.AssemblyId = event.target.value;
+    this.AssemblyId = assemblyId;
     if (event.target.checked == false) {
       let index = this.assemblyIdArray.indexOf(this.AssemblyId);
       this.assemblyIdArray.splice(index, 1);
@@ -123,11 +123,18 @@ export class AssignBoothComponent implements OnInit {
 
 
   onSubmitElection() {
+
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
     if (this.assignBoothForm.invalid) {
       this.spinner.hide();
+      return;
+    }else if (this.assemblyIdArray.length == 0){
+      this.toastrService.error("Assembly  is required");
+      return;
+    }else if (this.AssemblyBoothArray.length == 0){
+      this.toastrService.error("Booth is required");
       return;
     }
     else {
@@ -169,13 +176,6 @@ export class AssignBoothComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionNameArray = res.data1;
-        // if (this.btnText == 'Update Booths') {
-        //   let assemblyId =  this.AssemblyId.split(',');
-        //     assemblyId.forEach((ele:any) => {
-        //     this.GetBoothList(ele);
-        //   });
-
-        // }
       } else {
         this.spinner.hide();
         this.electionNameArray = [];
@@ -219,10 +219,12 @@ export class AssignBoothComponent implements OnInit {
         this.spinner.hide();
         this.assemblyArray = res.data1;
       } else {
+        this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
+        this.spinner.hide();
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
@@ -247,12 +249,14 @@ export class AssignBoothComponent implements OnInit {
         }
 
       } else {
+        this.boothListMergeArray = [];
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
-        // this.router.navigate(['../500'], { relativeTo: this.route });
+        this.spinner.hide();
+        this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
   }
