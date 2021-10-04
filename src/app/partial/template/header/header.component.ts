@@ -50,7 +50,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   show_button2: Boolean = false;
   show_eye2: Boolean = false;
   fullName:any;
-
+  nameImgObj:any;
+  pic:any;
+  
   constructor(private router: Router,
     private route: ActivatedRoute,
     private callAPIService: CallAPIService,
@@ -63,7 +65,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   get f() { return this.editProfileForm.controls };
 
   ngOnInit(): void {
-     this.fullName = this.commonService.getFullName();
+     this.nameImgObj = this.commonService.getFullName();
+     this.fullName = this.nameImgObj.fullName;
+     this.pic = this.nameImgObj.ProfilePhoto;
   }
 
   ngAfterViewInit(){

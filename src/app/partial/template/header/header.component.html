@@ -15,10 +15,11 @@
         <div class="rightmenu">
             <div class="dropdown">
                 <button class="btn text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="assets/images/executive-members/SunilChavan.jpg" class="header__img"> {{fullName | titlecase}}
+                  <img src="{{pic == '' ? 'assets/images/executive-members/SunilChavan.jpg' : pic}}" class="header__img"> 
+                  {{fullName | titlecase}}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user-cog me-2"></i>Profile</a></li>
+                  <!-- <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user-cog me-2"></i>Profile</a></li> -->
                   <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                 </ul>
               </div>

@@ -45,9 +45,12 @@ export class CommonService {
   }
 
   getFullName() {
-    let FullName = this.getsessionStorageData();
-    return FullName.FullName;
+    let localStorage = this.getsessionStorageData();
+    let obj = {'fullName':localStorage.FullName, 'ProfilePhoto':localStorage.ProfilePhoto}
+    return obj;
   }
+
+ 
   
   loggedInUserType() {
     let UserTypeId  = this.getsessionStorageData();
