@@ -62,8 +62,9 @@
                             <div class="mb-3">
                                 <label for="txtEventDescription" class="form-label required-field">Event
                                     Description</label>
+                                    <!-- [ngClass]="{'is-invalid': submitted && f.ProgramDescription.errors}" -->
                                 <angular-editor [(ngModel)]="htmlContent" [config]="config"
-                                    formControlName="ProgramDescription" ></angular-editor>
+                                    formControlName="ProgramDescription"/></angular-editor>
                                 <div *ngIf="submitted && f.ProgramDescription.errors" class="invalid-feedback">
                                     <div *ngIf="f.ProgramDescription.errors.required">Event Description required</div>
                                 </div>
