@@ -209,7 +209,7 @@
                                     <label class="form-label d-block">Is Multiple</label>
 
                                     <div class="form-check form-check-inline" *ngFor="let isMultiple of IsMultiple">
-                                        <input class="form-check-input" name="IsMultiple" type="radio"  formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" value="{{isMultiple.id}}">
+                                        <input class="form-check-input" name="IsMultiple" type="radio"  formControlName="IsMultiple" [checked]="isMultiple.id == editRadioBtnClick" [value]="isMultiple.id">
                                         <label class="form-check-label" for="chkIsMultipleYes">{{isMultiple.name}}</label>
                                     </div>
                                     <div *ngIf="addDesFormSubmitted && d.IsMultiple.errors" class="invalid-feedback" style="margin-top: -6px;">
@@ -218,7 +218,7 @@
                                 </div>
                                 <button class="btn btn-secondary me-2 " type="button " (click)="clearAddDesignationForm() ">
                                     Clear </button>
-                                <button type="submit " class="btn btn-main ml-2" (click)="submitDesignationForm() ">{{addDesignation}} Designation</button>
+                                <button type="submit " class="btn btn-main ml-2" (click)="submitDesignationForm()">{{addDesignation}} Designation</button>
 
                             </div>
                             <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2 mt-3">
@@ -232,7 +232,7 @@
                                 <div class="col-sm-1"></div>
                             </div>
                             <div cdkDropList class="example-list" (cdkDropListDropped)="swingDesignation($event)">
-                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag>
+                                <div class="row example-box g-1 py-1 px-2 d-flex align-items-center" *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag [class.active]="bodyAssignedDesignation.SrNo == heightedRow">
                                     <div class="col-sm-2">
                                         {{bodyAssignedDesignation.SrNo}}
                                     </div>
@@ -272,7 +272,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations" class="example-box">
+                                <tr *ngFor="let resOfAssignedDesignations of allAssignedDesignations" [class.active]="resOfAssignedDesignations.SrNo == heightedRow" class="example-box">
                                     <td>{{resOfAssignedDesignations.SrNo}}</td>
                                     <td>{{resOfAssignedDesignations.DesignationName}}</td>
                                     <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>

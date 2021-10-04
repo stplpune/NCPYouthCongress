@@ -129,7 +129,6 @@
                             <tr>
                                 <th>Sr. No. </th>
                                 <th>Program Title</th>
-                                <!-- <th>District</th> -->
                                 <th>Program Duration</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -149,7 +148,6 @@
                                 <td>
                                     <span class="mb-0 h6">
                                         <span class="badge rounded-pill" [ngClass]="{'bg-success':programList.ProgramStatus == 1, 'bg-warning': programList.ProgramStatus == 2, 'bg-info':programList.ProgramStatus == 3, 'bg-danger':programList.ProgramStatus ==  4}">
-                                          
                                             <ng-container class="bg-success" *ngIf="programList.ProgramStatus == 1">
                                                 Upcomimg</ng-container>
                                             <ng-container class="bg-warning" *ngIf="programList.ProgramStatus == 2">
