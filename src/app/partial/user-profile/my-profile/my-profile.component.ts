@@ -104,10 +104,6 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  // updateProfileDate() {
-  //   this.profileFormPathValue(this.resProfileData);
-  // }
-
   profileFormPathValue(data: any) {
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
@@ -137,7 +133,7 @@ export class MyProfileComponent implements OnInit {
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
         }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
-          this.getTaluka(this.editProfileForm.value.DistrictId)
+          this.getTaluka(this.editProfileForm.value.DistrictId);
         }
       } else {
         this.spinner.hide();
