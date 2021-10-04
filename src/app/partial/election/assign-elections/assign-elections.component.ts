@@ -28,6 +28,9 @@ export class AssignElectionsComponent implements OnInit {
   searchFilter = "";
   HighlightRow: any;
   assElectionId: any;
+  electionNameArray: any;
+  constituencyNameArray: any;
+  ConstituencyId: any;
 
 
   constructor(
@@ -45,14 +48,15 @@ export class AssignElectionsComponent implements OnInit {
     this.defaultAssElectionForm();
     this.defaultFilterForm();
     this.searchFilters('false');
+    this.getElection();
   }
 
   defaultAssElectionForm() {
     this.assignElectionForm = this.fb.group({
       Id: [0],
-      clientId: ['', Validators.required],
-      electionId: ['', Validators.required],
-      constituencyId: ['', Validators.required],
+      clientId: [''],
+      ElectionId: ['', Validators.required],
+      ConstituencyId: ['', Validators.required],
     })
   }
 
@@ -60,7 +64,7 @@ export class AssignElectionsComponent implements OnInit {
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      id1: [0],
+      ElectionId: [0],
       id2: [0],
       Search: [''],
     })
@@ -120,6 +124,46 @@ export class AssignElectionsComponent implements OnInit {
   //     })
   //   }
    }
+
+   getElection() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Election_Get_ElectionNameHaveConstituency?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.electionNameArray = res.data1;
+      } else {
+        this.spinner.hide();
+        this.electionNameArray = [];
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  GetConstituencyName(ElectionId: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Election_Get_ConstituencyName?UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + ElectionId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.assignElectionForm.controls['ConstituencyId'].setValue(this.ConstituencyId);
+        this.spinner.hide();
+        this.constituencyNameArray = res.data1;
+      } else {
+        this.spinner.hide();
+        this.constituencyNameArray = [];
+        this.toastrService.error("Constituency Name is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
   clearForm() {
     this.submitted = false;

@@ -8,6 +8,7 @@
     <div class="row chartbox mb-3">
         <div class="col-sm-4">
             <div class="card mb-3">
+                <form [formGroup]="assignElectionForm" (ngSubmit)="onSubmitAssElection()">
                 <div class="card-header">Add Elections to Client</div>
                 <div class="card-body pt-2">
                     <div class="form-container">
@@ -19,37 +20,51 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select Election</label>
-                            <select class="form-select">
-                                <option value="">Select Election</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="electionNameArray" formControlName="ElectionId"
+                            optionValueField="id" optionTextField="ElectionName" placeholder="Select Election"
+                            (select)="GetConstituencyName($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
+                        </ngx-select>
+                        <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
+                            <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
+                        </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select Constituency</label>
-                            <select class="form-select">
-                                <option value="">Select Constituency</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="constituencyNameArray"
+                            formControlName="ConstituencyId" optionValueField="id"
+                            optionTextField="ConstituencyName" placeholder="Select Constituency"
+                            [disabled]="(!assignElectionForm.value.ElectionId || constituencyNameArray?.length == 0) ? true : false"
+                            [ngClass]="{ 'is-invalid': submitted && f.ConstituencyId.errors}">
+                        </ngx-select>
+                        <div *ngIf="submitted && f.ConstituencyId.errors" class="invalid-feedback">
+                            <div *ngIf="f.ConstituencyId.errors.required">Constituency is required
+                            </div>
+                        </div>
                         </div>
                         <hr>
                         <div class="row mb-1">
                             <div class="col-sm-6">
-                                <button class="btn btn-secondary btn-sm" type="button">Cancel</button>
+                                <button class="btn btn-secondary btn-sm" type="button" (click)="clearForm()">Cancel</button>
                             </div>
                             <div class="col-sm-6 text-end">
-                                <button class="btn btn-main btn-sm" type="button">Add Election</button>
+                                <button class="btn btn-main btn-sm" type="submit">Add Election</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
+                    <form [formGroup]="filterForm">
                     <div class="row g-2">
                         <div class="col-sm-4">
-                            <select class="form-select">
-                                <option value="">Select Election</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="electionNameArray" optionValueField="id" (remove)="clearFilter('electionType')" 
+                            (select)="filterData()" optionTextField="ElectionName" placeholder="Election Name" formControlName="ElectionId">
+                            </ngx-select>
                         </div>
                         <div class="col-sm-4">
                             <select class="form-select">
@@ -58,13 +73,17 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search..">
-                                <button class="btn btn-light btn-sm" type="button">
-                                    <i class="fas fa-times"></i>
-                                </button>
+                                <input type="text" class="form-control" formControlName="Search"
+                                    placeholder="Search ..." (keyup)="onKeyUpFilter()" />
+                                <button type="button" class="btn btn-light border btn-sm"
+                                    (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                        _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                <button type="button" *ngIf="!filterForm.value.Search"
+                                    class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -79,6 +98,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
+                            [class.active]="assBoothEle.SrNo == HighlightRow"> -->
                             <tr>
                                 <td>1</td>
                                 <td>Anil Rajesh Sawant</td>
@@ -94,6 +115,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <!-- <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length == 0">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
+                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div> -->
                 </div>
             </div>
         </div>
