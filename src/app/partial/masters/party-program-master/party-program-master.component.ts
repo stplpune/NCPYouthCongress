@@ -104,6 +104,7 @@ export class PartyProgramMasterComponent implements OnInit {
   get f() { return this.createProgram.controls };
 
   onSubmitProgramForm() {
+    this.spinner.show();
     let getObj = this.createProgram.value;
     this.submitted = true;
     if (this.createProgram.invalid) {
@@ -132,11 +133,11 @@ export class PartyProgramMasterComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_PartyProgram_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-          this.submitted = false;
+          this.clearForm();
           this.toastrService.success(res.data1[0].Msg);
           this.getProgramList();
           this.spinner.hide();
-          this.clearForm();
+       
         } else {
             // this.toastrService.error("Data is not available 1");
         }
