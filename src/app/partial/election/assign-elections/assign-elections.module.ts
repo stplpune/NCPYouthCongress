@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AssignElectionsRoutingModule } from './assign-elections-routing.module';
 import { AssignElectionsComponent } from './assign-elections.component';
-
+import { NgxSelectModule } from 'ngx-select-ex';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,13 @@ import { AssignElectionsComponent } from './assign-elections.component';
   ],
   imports: [
     CommonModule,
-    AssignElectionsRoutingModule
+    AssignElectionsRoutingModule,
+    NgxSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    MatCheckboxModule,
+    Ng2SearchPipeModule
   ]
 })
 export class AssignElectionsModule { }

@@ -4,95 +4,146 @@
             <span class="page-name">Add Client</span>
         </div>
         <div class="col-sm-8 text-end">
-
         </div>
     </div>
 
     <div class="row chartbox mb-3">
         <div class="col-sm-4">
             <div class="card">
+                <form [formGroup]="addClientForm" (ngSubmit)="onSubmitAddClient()">
                 <div class="card-header">Add Client</div>
                 <div class="card-body pt-0">
                     <div class="form-container">
                         <div class="mb-3">
-                            <label for="txtClientName" class="form-label">Client Name</label>
-                            <input type="text" class="form-control" id="txtClientName" placeholder="Client Full Name">
+                            <label class="form-label required-field">Client Name</label>
+                            <input type="text" class="form-control" id="txtClientName" formControlName="clientName" placeholder="Client Full Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
+                            <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
+                                <div *ngIf="f.clientName.errors.required">Client Name is required</div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="txtAddress" class="form-label">Address</label>
-                            <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                            <label class="form-label required-field">Address</label>
+                            <textarea class="form-control" id="txtAddress" formControlName="address" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
+                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                <div *ngIf="f.address.errors.required">Address is required</div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="txtLandlineNo" class="form-label">Landline No.</label>
-                            <input type="text" class="form-control" id="txtLandlineNo" placeholder="Landline No.">
+                            <label class="form-label required-field">Landline No.</label>
+                            <input type="text" class="form-control" id="txtLandlineNo" formControlName="landlineNo" placeholder="Landline No."
+                            [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
+                            <div *ngIf="submitted && f.landlineNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.landlineNo.errors.required">Landline No. is required</div>
+                            </div>
                         </div>
                         <div class="row mb-2 g-2">
                             <div class="col-sm-6">
-                                <label for="txtContactNo1" class="form-label">Contact No. 1</label>
-                                <input type="text" class="form-control" id="txtContactNo1" placeholder="Contact No. 1">
+                                <label class="form-label required-field">Contact No. 1</label>
+                                <input type="text" class="form-control" id="txtContactNo1" maxlength="10" formControlName="contactNo1" placeholder="Contact No. 1"
+                                [ngClass]="{ 'is-invalid': submitted && f.contactNo1.errors }">
+                                <div *ngIf="submitted && f.contactNo1.errors" class="invalid-feedback">
+                                    <div *ngIf="f.contactNo1.errors.required">Contact No. is required</div>
+                                    <div *ngIf="f.contactNo1.errors.pattern">Please, Enter 10 digit Mobile Number.</div> 
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="txtContactNo2" class="form-label">Contact No. 2</label>
-                                <input type="text" class="form-control" id="txtContactNo2" placeholder="Contact No. 2">
+                                <input type="text" class="form-control" id="txtContactNo2" formControlName="contactNo2" placeholder="Contact No. 2">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="txtEmailID" class="form-label">Email ID</label>
-                            <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label for="ddlDistrict" class="form-label">Select District</label>
-                                <select class="form-select">
-                                    <option value="">Select District</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="ddlTaluka" class="form-label">Select Taluka</label>
-                                <select class="form-select">
-                                    <option value="">Select Taluka</option>
-                                </select>
+                            <label class="form-label required-field">Email ID</label>
+                            <input type="email" class="form-control" id="txtEmailID" formControlName="emailID" placeholder="Email ID" [ngClass]="{ 'is-invalid': submitted && f.emailID.errors }">
+                            <div *ngIf="submitted && f.emailID.errors" class="invalid-feedback">
+                                <div *ngIf="f.emailID.errors.required">Email Id is required</div>
+                                <div *ngIf="f.emailID.errors.email">Enter Valid Email Id</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label for="ddlCityVillage" class="form-label">Select City/Village</label>
-                                <select class="form-select">
-                                    <option value="">Select City/Village</option>
-                                </select>
+                                <label class="form-label required-field">Select District</label>
+                                <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.addClientForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
+                                [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                            </ngx-select>
+                            <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                <div *ngIf="f.DistrictId.errors.required">District is required
+                                </div>
+                            </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="ddlPartyMember" class="form-label">Client's Party</label>
+                                <label class="form-label required-field">Select Taluka</label>
+                                <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.addClientForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                                   (select)="getVillage(this.addClientForm.value.TalukaId);" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
+                                   <div *ngIf="f.TalukaId.errors.required">Taluka is required
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-12">
+                                <label class="form-label required-field">Select Village</label>
+                                <ngx-select [allowClear]="true" [items]="resultVillage" placeholder="Select Village" formControlName="VillageId" optionValueField="VillageId" optionTextField="VillageName" [disabled]="!this.addClientForm.value.TalukaId"
+                                placeholder="Select Village" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.VillageId.errors.required">
+                                        Village is required</div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                                <label for="ddlPartyMember" formControlName="clientPartyId" class="form-label">Client's Party</label>
                                 <select class="form-select">
                                     <option value="">Select Party Name</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="mb-2 mt-4">
-                            <button type="button" class="btn btn-secondary float-lg-start">Clear</button>
+                            <button type="button" (click)="clearForm()" class="btn btn-secondary float-lg-start">Clear</button>
                             <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
-                    <div class="row g-2">
-                        <div class="col-sm-3 offset-5">
+                    <form [formGroup]="filterForm">
+                        <div class="row g-2">
+                            <div class="col-sm-3 offset-5">
+                                <!-- <ngx-select [allowClear]="true" [items]="" optionValueField=""
+                                (remove)="clearFilter('electionType')" (select)="filterData()"
+                                optionTextField="" placeholder="Election Type"
+                                formControlName="">
+                            </ngx-select> -->
                             <select class="form-select">
                                 <option value="">Select</option>
                             </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="Search"
+                                        placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm"
+                                        (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.Search"
+                                        class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="text" placeholder="Search..." />
-                        </div>
-                    </div>
+                    </form>
+    
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
+                            <!-- <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
+                            [class.active]="assBoothEle.SrNo == HighlightRow"> -->
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>Client Name</th>
@@ -104,25 +155,6 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>Mr. Adhar Poonawala</td>
-                                <td>9876543210<br>12134567890</td>
-                                <td>Bibwewadi, Kondhawa</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
-                                            data-bs-target="#viewClientModal"><i class="far fa-eye"></i></button>
-                                        <button type="button" title="Edit Election"
-                                            class="btn btn-sm btn-light text-edit mx-1 rounded"><i
-                                                class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
-                                            class="btn btn-sm btn-light text-danger rounded"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
                                 <td>Mr. Anil Nagarpalika</td>
                                 <td>9876543210</td>
                                 <td>Tukaram Nagar, Mukund Nagar, Rasta Peth</td>
@@ -134,7 +166,7 @@
                                         <button type="button" title="Edit Election"
                                             class="btn btn-sm btn-light text-edit mx-1 rounded"><i
                                                 class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
+                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(1)"
                                             class="btn btn-sm btn-light text-danger rounded"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </div>
@@ -142,6 +174,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <!-- <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length == 0">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
+                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                    </div> -->
                 </div>
             </div>
         </div>
