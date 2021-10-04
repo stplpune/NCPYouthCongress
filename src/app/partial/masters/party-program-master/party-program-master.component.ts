@@ -168,6 +168,7 @@ export class PartyProgramMasterComponent implements OnInit {
 
   ViewProgramList(programDetails: any) {
     this.programDetails = programDetails;
+    console.log(this.programDetails);
   }
 
   editrogramList(programDetails: any) {

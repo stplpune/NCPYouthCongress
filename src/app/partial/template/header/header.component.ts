@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   show_eye1: Boolean = false;
   show_button2: Boolean = false;
   show_eye2: Boolean = false;
+  fullName:any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -62,7 +63,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   get f() { return this.editProfileForm.controls };
 
   ngOnInit(): void {
-
+     this.fullName = this.commonService.getFullName();
   }
 
   ngAfterViewInit(){

@@ -114,6 +114,7 @@ export class CreateConstituencyComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.constituencynName = res.data1;
+        console.log(this.constituencynName);
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -132,7 +133,6 @@ export class CreateConstituencyComponent implements OnInit {
 
   onSubmit() {
     this.validationNoofMembers();
-    debugger;
     let formData = this.createConstituencyForm.value;
     if (this.createConstituencyForm.value.IsSubConstituencyApplicable == 1 && this.addSubConstituencyArray.length == 0) {
       this.validationSubElectionForm();
@@ -142,8 +142,8 @@ export class CreateConstituencyComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    else if ((formData.NoofMembers == 0) && (formData.Members == 1)) {
-      this.toastrService.error("0 No. of Member is not allowed");
+    else if ((formData.NoofMembers < 2) && (formData.Members == 1)) {
+      this.toastrService.error("No. of Member is  greater than or equal to  2");
       return;
     }
     else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName ==  null || formData.ConstituencyName == undefined) {
