@@ -120,7 +120,6 @@ export class PartyProgramMasterComponent implements OnInit {
       return;
     }
     else {
-     
       this.createProgram.value['ProgramStartDate'] = this.datepipe.transform(this.createProgram.value.ProgramStartDate, 'dd/MM/yyyy');
       let fromData: any = new FormData();
 
