@@ -125,9 +125,7 @@ export class AssignBoothComponent implements OnInit {
     }
   }
 
-
   onSubmitElection() {
-    debugger;
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
