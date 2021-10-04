@@ -20,7 +20,6 @@ import { $ } from 'protractor';
 })
 export class AssignBoothComponent implements OnInit {
 
-
   assignBoothForm!: FormGroup;
   submitted = false;
   paginationNo: number = 1;
