@@ -120,12 +120,21 @@ export class EventMasterComponent implements OnInit {
 
   onSubmit() {
     this.spinner.show();
+    debugger;
     this.submitted = true;
     if((this.addEvent.value.ProgramDate[0] == null || this.addEvent.value.ProgramDate[0] == "") && (this.addEvent.value.ProgramDate[1] == null || this.addEvent.value.ProgramDate[0] == "")){
       this.addEvent.controls['ProgramDate'].setValue('');
     }
     if (this.addEvent.invalid) {
       this.spinner.hide();
+      return;
+    }else if (this.addEvent.value.ProgramTitle.trim()  == '' || this.addEvent.value.ProgramTitle  == null) {
+      this.spinner.hide();
+      this.toastrService.error('Program Title can not contain space')
+      return;
+    }else if (this.addEvent.value.ProgramDescription.trim()  == '' || this.addEvent.value.ProgramDescription  == null) {
+      this.spinner.hide();
+      this.toastrService.error('Program Description can not contain space')
       return;
     }
     else {

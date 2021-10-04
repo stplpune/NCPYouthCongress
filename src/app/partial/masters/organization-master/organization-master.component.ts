@@ -70,6 +70,8 @@ export class OrganizationMasterComponent implements OnInit {
   globalselLevelFlag!: string;
   editLevalFlag: any;
   deletebodyId!:number;
+  heightedRow :any;
+
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService,public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
@@ -646,7 +648,8 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   editDesignationForm(data: any) {
-    this.editRadioBtnClick = data.IsMultiple;
+    debugger;
+    this.heightedRow = data.SrNo;
     this.addDesignation = 'Edit';
     this.AddDesignationForm.patchValue({
       Id: data.Id,
@@ -655,6 +658,7 @@ export class OrganizationMasterComponent implements OnInit {
       IsMultiple: data.IsMultiple,
       CreatedBy: this.commonService.loggedInUserId(),
     })
+    this.editRadioBtnClick = data.IsMultiple;
   }
 
   clearAddDesignationForm() {
