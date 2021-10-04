@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { cos } from '@amcharts/amcharts4/.internal/core/utils/Math';
 import { time } from 'console';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-assign-booth',
@@ -108,12 +109,13 @@ export class AssignBoothComponent implements OnInit {
           return ele;
         }
       });
+      this.boothListMergeArray.length == 0 ?   this.boothDivHide = false : this.boothDivHide = true;
     }
     else {
-      
       this.assemblyIdArray.push(this.AssemblyId);
       this.GetBoothList(this.AssemblyId);
     };
+    // this.GetBoothList(this.AssemblyId);
   }
 
   onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
@@ -251,7 +253,8 @@ export class AssignBoothComponent implements OnInit {
         }
 
       } else {
-        this.boothListMergeArray.length == 0 ?  (this.boothListMergeArray = [], this.boothDivHide = false) : (this.boothDivHide = true);
+        debugger;
+        this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }
@@ -333,7 +336,6 @@ export class AssignBoothComponent implements OnInit {
     this.ConstituencyIdArray = objData.Assembly.split('');
     this.assemblyCheckBoxCheck = true;
     let assemblyArray = objData.Assembly.split(',');
-
     this.checkBoxCehckAssemblyArray(assemblyArray);
 
     assemblyArray.forEach((ele: any) => {

@@ -142,8 +142,8 @@ export class CreateConstituencyComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    else if ((formData.NoofMembers == 0) && (formData.Members == 1)) {
-      this.toastrService.error("0 No. of Member is not allowed");
+    else if ((formData.NoofMembers < 2) && (formData.Members == 1)) {
+      this.toastrService.error("No. of Member is  greater than or equal to  2");
       return;
     }
     else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName ==  null || formData.ConstituencyName == undefined) {

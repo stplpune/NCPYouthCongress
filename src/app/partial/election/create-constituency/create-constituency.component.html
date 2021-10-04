@@ -47,7 +47,7 @@
                             </div>
                             <div class="mb-2" *ngIf="noOfMembersDiv">
                                 <label for="txtMembersNos" class="form-label">No. of Members</label>
-                                <input type="number" class="form-control"  min="1" max="1000" value="1"
+                                <input type="number" class="form-control"  min="2" max="1000" value="1"
                                     placeholder="No. of Members" formControlName="NoofMembers"
                                     [ngClass]="{ 'is-invalid': submitted && f.NoofMembers.errors}">
                                 <div *ngIf="submitted && f.NoofMembers.errors" class="invalid-feedback">
