@@ -10,6 +10,7 @@ import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { cos } from '@amcharts/amcharts4/.internal/core/utils/Math';
+import { time } from 'console';
 
 @Component({
   selector: 'app-assign-booth',
@@ -127,7 +128,6 @@ export class AssignBoothComponent implements OnInit {
 
 
   onSubmitElection() {
-    debugger;
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
@@ -251,7 +251,7 @@ export class AssignBoothComponent implements OnInit {
         }
 
       } else {
-        this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
+        this.boothListMergeArray.length == 0 ?  (this.boothListMergeArray = [], this.boothDivHide = false) : (this.boothDivHide = true);
         this.spinner.hide();
         this.toastrService.error("Data is not available");
       }

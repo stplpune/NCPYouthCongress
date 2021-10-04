@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location} from  '@angular/common';
 @Component({
   selector: 'app-election-profile',
   templateUrl: './election-profile.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ElectionProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor( public location:Location) { }
 
   ngOnInit(): void {
   }
