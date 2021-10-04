@@ -20,7 +20,7 @@ export class CreateElectionComponent implements OnInit {
   createElectionForm!: FormGroup;
   submitted = false;
   boothListTypeArray = [{ id: 0, name: "Assembly Booth List" }, { id: 1, name: "User Defined Booth List" }];
-  subElectionAppArray = [{ id: 0, name: "Yes" }, { id: 1, name: "No" }];
+  subElectionAppArray = [{ id: 1, name: "Yes" }, { id: 0, name: "No" }];
   electionTypeArray: any;
   subElectionDivHide: boolean = false;
   subElecTableHide: boolean = false;
@@ -68,7 +68,7 @@ export class CreateElectionComponent implements OnInit {
       ElectionName: ['', [Validators.required]],
       ElectionTypeId: ['', Validators.required],
       IsAsemblyBoothListApplicable: [0],
-      IsSubElectionApplicable: [1],
+      IsSubElectionApplicable: [0],
       SubElectionId: [''],
     })
   }
@@ -83,7 +83,7 @@ export class CreateElectionComponent implements OnInit {
   }
 
   subElectionRadiobtn(subEleId: any) {
-    if (subEleId == 0) {
+    if (subEleId == 1) {
       this.subElectionDivHide = true;
       this.addSubElectionArray = [];
     } else {
@@ -141,12 +141,12 @@ export class CreateElectionComponent implements OnInit {
       this.toastrService.error("Election  Name can not contain space");
       return;
     }
-    else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {
+    else if (formData.IsSubElectionApplicable == 1 && this.addSubElectionArray.length == 0) {
       this.toastrService.error("Please Add Sub Election");
     }
     else {
       this.spinner.show();
-      if (formData.IsSubElectionApplicable == 0) {
+      if (formData.IsSubElectionApplicable == 1) {
         this.addSubElectionArray.map((ele: any) => {
           delete ele['Id'];
           return ele;
@@ -274,7 +274,7 @@ export class CreateElectionComponent implements OnInit {
 
   patchElectionRecord() {
     this.btnText = 'Update Election';
-    if (this.electionDetailsArray.IsSubElectionApplicable == 0) {
+    if (this.electionDetailsArray.IsSubElectionApplicable == 1) {
       this.subElecTableHide = true;
       this.subElectionDivHide = true;
       this.createElectionForm.controls.SubElectionId.reset();
