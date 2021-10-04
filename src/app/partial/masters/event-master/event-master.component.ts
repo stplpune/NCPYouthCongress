@@ -21,6 +21,7 @@ export class EventMasterComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   config: AngularEditorConfig = {
+
     editable: true,
     spellcheck: true,
     height: '15rem',
@@ -94,6 +95,8 @@ export class EventMasterComponent implements OnInit {
     this.defaultEventForm();
     this.getEventList();
   }
+
+
 
   defaultEventForm() {
     this.addEvent = this.fb.group({
