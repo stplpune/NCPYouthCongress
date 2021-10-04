@@ -43,6 +43,11 @@ export class CommonService {
     let Username = this.getsessionStorageData();
     return Username.Username;
   }
+
+  getFullName() {
+    let FullName = this.getsessionStorageData();
+    return FullName.FullName;
+  }
   
   loggedInUserType() {
     let UserTypeId  = this.getsessionStorageData();

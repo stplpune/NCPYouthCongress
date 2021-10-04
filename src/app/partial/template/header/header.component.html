@@ -13,22 +13,15 @@
         <div class="rightmenu">
             <div class="me-3">
                 <span class="text-white">
-                    Committee/Admin/Client Name
+                    {{fullName | titlecase}}
                 </span>
             </div>
-            <div class="dropdown">
-                <button class="btn btn-primary-new dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Welcome {{userName | titlecase}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal" ><i class="fas fa-user"></i>Profile</a></li>
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><i class="fas fa-key"></i>Change Password</a></li> -->
-                    <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user"></i>Profile</a></li>
-                    <!-- <li><a class="dropdown-item" routerLink="user/change-password"><i class="fas fa-key"></i>Change Password</a></li> -->
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
-                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal" (click)="logOut()"><i class="fas fa-sign-out-alt"></i>Logout</a></li> -->
-                </ul>
+            <div class="me-3">
+                <span class="text-white">
+                    <a  data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </span>
             </div>
+           
         </div>
         <div class="header__toggle">
             <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>

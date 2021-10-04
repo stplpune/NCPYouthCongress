@@ -228,6 +228,11 @@
                         <p class="form-data"> {{programDetails?.ProgramStartDate}} ~ {{programDetails?.ProgramEndDate}}
                         </p>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Program Status Show</label>
+                        <p class="form-data"> <span class="badge" [ngClass]="{'bg-success':programDetails.ProgramStatus == 1,'bg-warning':programDetails.ProgramStatus == 2,'bg-info':programDetails.ProgramStatus == 3,'bg-danger':programDetails.ProgramStatus == 4}">{{programDetails?.ProgramStatusShow}}</span>
+                        </p>
+                    </div>
 
                 </div>
                 <hr>

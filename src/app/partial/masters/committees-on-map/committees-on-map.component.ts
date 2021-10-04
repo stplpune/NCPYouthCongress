@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Location} from '@angular/common';
 declare var $: any
 
 @Component({
@@ -30,7 +31,7 @@ export class CommitteesOnMapComponent implements OnInit {
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
-    private route: ActivatedRoute,  private callAPIService: CallAPIService) { }
+    private route: ActivatedRoute,  private callAPIService: CallAPIService, public location:Location) { }
 
   ngOnInit(): void {
     this.showSvgMap(this.commonService.mapRegions());
