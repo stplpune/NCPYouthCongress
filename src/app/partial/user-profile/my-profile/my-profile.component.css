@@ -77,3 +77,9 @@
 .disable-close-btn {
     pointer-events: none;
 }
+
+.form-control.ng-dirty.ng-invalid.ng-touched.is-invalid {
+    border: solid 1px red;
+}
+
+
