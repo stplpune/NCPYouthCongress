@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { debounceTime } from 'rxjs/operators';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-create-constituency',
@@ -44,6 +45,11 @@ export class CreateConstituencyComponent implements OnInit {
   highlightedRow:any;
   prevArrayData : any;
   SubElectionName: any;
+  lat: any = 19.75117687556874;
+  long: any = 75.71630325927731;
+  zoom = 14;
+  @ViewChild('search') searchElementRef: any;
+  geoCoder: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -54,6 +60,8 @@ export class CreateConstituencyComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +70,11 @@ export class CreateConstituencyComponent implements OnInit {
     this.defaultFilterForm();
     this.getConstituency();
     this.searchFilters('false');
+
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder;
+    });
+    this.searchAutoComplete();
   }
 
   defaultConstituencyForm() {
@@ -76,6 +89,28 @@ export class CreateConstituencyComponent implements OnInit {
       subEleName: [''],
       subEleConstName: [''],
     })
+  }
+
+  searchAutoComplete() {
+    debugger;
+    this.mapsAPILoader.load().then(() => {
+      // this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          this.lat = place.geometry.location.lat();
+          this.long = place.geometry.location.lng();
+        });
+      });
+    });
   }
 
   defaultFilterForm() {
