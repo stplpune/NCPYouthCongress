@@ -24,7 +24,7 @@ export class OrganizationMasterComponent implements OnInit {
   filterForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
   IsMultiple = [{ id: 1, name: "Yes" }, { id: 0, name: "No" }];
-  allotedDesignationArray = [{ id: 0, name: "All" }, { id: 1, name: "Yes" }, { id: 2, name: "No" }];
+  allotedDesignationArray = [{ id: 0, name: "All" }, , { id: 2, name: "No" }, { id: 5, name: "1 To 5" },{ id: 10, name: "5 To 10"}, ,{ id: 11, name: "Above 10"}];
   defultCategory = "Rural";
   selCityFlag: boolean = false;
   selVillageFlag: boolean = true;
@@ -611,7 +611,6 @@ export class OrganizationMasterComponent implements OnInit {
   submitDesignationForm() {
     this.spinner.show();
     this.addDesFormSubmitted = true;
-    debugger;
     if (this.AddDesignationForm.invalid) {
       this.spinner.hide();
       return;
@@ -648,7 +647,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   editDesignationForm(data: any) {
-    debugger;
     this.heightedRow = data.SrNo;
     this.addDesignation = 'Edit';
     this.AddDesignationForm.patchValue({
