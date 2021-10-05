@@ -125,7 +125,6 @@ export class CreateConstituencyComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.constituencynName = res.data1;
-        console.log(this.constituencynName);
         this.total = res.data2[0].TotalCount;
       } else {
         this.spinner.hide();
@@ -242,7 +241,6 @@ export class CreateConstituencyComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.constituencyArray = res.data1;
-        console.log(this.constituencyArray);
       } else {
         this.spinner.hide();
         this.constituencyArray = [];
