@@ -7,6 +7,7 @@
     z-index: 9999;
     transition: .4s;
     border-right: solid 1px #c4c4c4;
+    /* overflow-x: hidden; */
 }
 
 .nav span {
