@@ -59,7 +59,7 @@ const routes: Routes = [
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] } },      
       { path: 'add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] } },
       { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] }  },
-      { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Elections', allowedRoles: ['7', '1'] } },
+      { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Election to Client', allowedRoles: ['7', '1'] } },
       { path: 'candidate-registration', loadChildren: () => import('./partial/election/candidate-registration/candidate-registration.module').then(m => m.CandidateRegistrationModule), data: { title: 'Candidate Registration', allowedRoles: ['7', '1'] } }, 
   
       // Client
