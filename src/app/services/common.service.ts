@@ -141,6 +141,11 @@ export class CommonService {
     private imgUrlPath = new BehaviorSubject('');
     imageChange = this.imgUrlPath.asObservable();
 
+  //change url header
+    pathchange(imagePath: string) {
+        this.imgUrlPath.next(imagePath)
+      }
+
 mapRegions():Observable<any>{
   this.regions_m = {
     'path3109': {

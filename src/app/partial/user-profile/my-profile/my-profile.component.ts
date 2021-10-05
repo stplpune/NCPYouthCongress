@@ -105,6 +105,15 @@ export class MyProfileComponent implements OnInit {
   }
 
   profileFormPathValue(data: any) {
+    // for img upload 
+    let loginObj: any = sessionStorage.getItem('loggedInDetails');
+    loginObj = JSON.parse(loginObj);
+    loginObj.data1[0].ProfilePhoto = data.ProfilePhoto;
+    sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj));
+    this.commonService.pathchange(this.ImgUrl);
+    localStorage.setItem('imgUrl', this.ImgUrl);
+
+
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getDistrict();
@@ -158,6 +167,10 @@ export class MyProfileComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
+    if(this.editProfileForm.value.IsRural == 0){
+      this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
+      return
+    }
     this.spinner.show();
     (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
@@ -237,14 +250,11 @@ export class MyProfileComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-
          //set username in session storage
           this.commonService.sendFullName(this.editProfileForm.value.Name);
           let loginObj: any = sessionStorage.getItem('loggedInDetails');
           loginObj = JSON.parse(loginObj);
           loginObj.data1[0].FullName = this.editProfileForm.value.Name;
-          loginObj.data1[0].ProfilePhoto = this.editProfileForm.value.ProfilePhoto;
-          sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj));
 
           this.disabledEditForm = true;
           this.profilePhotoChange = null;

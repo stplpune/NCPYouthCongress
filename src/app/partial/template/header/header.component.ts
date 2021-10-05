@@ -66,24 +66,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   get f() { return this.editProfileForm.controls };
 
   ngOnInit(): void {
-     this.nameImgObj = this.commonService.getFullName();
-     this.fullName = this.nameImgObj.fullName;
-     this.pic = this.nameImgObj.ProfilePhoto;
+    this.nameImgObj = this.commonService.getFullName();
+    this.fullName = this.nameImgObj.fullName;
+    this.pic = this.nameImgObj.ProfilePhoto;
+    this.commonService.imageChange.subscribe((imagePath:any) => {
+     if (!!imagePath) {
+       this.pic = imagePath;
+     } else {
+       this.pic = this.nameImgObj.ProfilePhoto;
+     }
+   });
 
-    //  this.commonService.imageChange.subscribe((imagePath:any) => {
-    //   if (!!imagePath) {
-    //     this.pic = imagePath;
-    //   } else {
-    //     this.pic = localStorage.getItem('imgUrl');
-    //   }
-    // });
-     this.commonService.getNameOnChange.subscribe(message => {if (message) this.fullName = message });
+    this.commonService.getNameOnChange.subscribe(message => {if (message) this.fullName = message });
   }
 
   ngAfterViewInit(){
-    // this.myProfileForm();
-    // this.getProfileData();
-    // this.customFormChangePassword();
+    
   }
 
   getProfileData() {
