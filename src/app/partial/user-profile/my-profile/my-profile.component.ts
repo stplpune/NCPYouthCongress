@@ -237,6 +237,15 @@ export class MyProfileComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Update_UserProfile_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+
+         //set username in session storage
+          this.commonService.sendFullName(this.editProfileForm.value.Name);
+          let loginObj: any = sessionStorage.getItem('loggedInDetails');
+          loginObj = JSON.parse(loginObj);
+          loginObj.data1[0].FullName = this.editProfileForm.value.Name;
+          loginObj.data1[0].ProfilePhoto = this.editProfileForm.value.ProfilePhoto;
+          sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj));
+
           this.disabledEditForm = true;
           this.profilePhotoChange = null;
           this.submitted = false;

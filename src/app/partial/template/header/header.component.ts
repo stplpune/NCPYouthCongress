@@ -52,7 +52,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   fullName:any;
   nameImgObj:any;
   pic:any;
-  
+  // fullname:any;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private callAPIService: CallAPIService,
@@ -68,6 +69,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
      this.nameImgObj = this.commonService.getFullName();
      this.fullName = this.nameImgObj.fullName;
      this.pic = this.nameImgObj.ProfilePhoto;
+
+    //  this.commonService.imageChange.subscribe((imagePath:any) => {
+    //   if (!!imagePath) {
+    //     this.pic = imagePath;
+    //   } else {
+    //     this.pic = localStorage.getItem('imgUrl');
+    //   }
+    // });
+     this.commonService.getNameOnChange.subscribe(message => {if (message) this.fullName = message });
   }
 
   ngAfterViewInit(){

@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ImageItem } from '@ngx-gallery/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -128,6 +128,18 @@ export class CommonService {
         return parseInt(item);
     });
  }
+
+    // set full name in edit profile page 
+    private setName = new BehaviorSubject('');
+    getNameOnChange = this.setName.asObservable();
+
+    sendFullName(fullName: string) {
+        this.setName.next(fullName);
+    }
+
+     //img url path
+    private imgUrlPath = new BehaviorSubject('');
+    imageChange = this.imgUrlPath.asObservable();
 
 mapRegions():Observable<any>{
   this.regions_m = {
