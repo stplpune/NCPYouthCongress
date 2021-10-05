@@ -159,7 +159,7 @@ export class NotificationsComponent implements OnInit {
       fromData.append('Title', getObj.Title);
       fromData.append('Description', getObj.Description);
       fromData.append('ImageUrl', getObj.ImageUrl ? this.selectedFile : '');
-      fromData.append('Link', getObj.Link? this.selectedFile : '');
+      fromData.append('Link', getObj.Link);
       fromData.append('MemberStr', JSON.stringify(this.globalMemberId));
       fromData.append('AttchmentStr', this.selectedFile ? this.selectedFile : '');
       fromData.append('NotificationType', notificationFlag);

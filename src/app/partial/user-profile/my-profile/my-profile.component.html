@@ -38,14 +38,14 @@
                                                     <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
                                                 </div>
                                                 
-
                                             </div>
                                             <div class="col-sm-9">
                                                 <div class="form-container">
                                                     <div class="mb-3 row">
                                                         <div class="col-sm-4">
-                                                            <label for="txtFullName" class="form-label required-field">First Name</label>
-                                                            <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                                            <label class="form-label required-field">First Name</label>
+                                                            <input type="text" class="form-control" formControlName="FName" placeholder="First Name" 
+                                                            [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
                                                             <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.FName.errors.required">First name is required
                                                                 </div>
@@ -54,7 +54,7 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <label for="txtFullName" class="form-label required-field">Middle Name</label>
-                                                            <input type="text" class="form-control" id="txtFullName" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
+                                                            <input type="text" class="form-control" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
                                                             <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.MName.errors.required">Middle name is required
                                                                 </div>
@@ -63,7 +63,7 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <label for="txtFullName" class="form-label required-field">Last Name</label>
-                                                            <input type="text" class="form-control" id="txtFullName" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
+                                                            <input type="text" class="form-control" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
                                                             <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.LName.errors.required">Last name is required
                                                                 </div>
@@ -74,7 +74,7 @@
                                                     <div class="mb-3 row">
                                                         <div class="col-sm-6">
                                                             <label for="txtEmailID" class="form-label required-field">Email ID</label>
-                                                            <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
+                                                            <input type="email" class="form-control" placeholder="Email ID" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
                                                             <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.EmailId.errors.required">Email is required
                                                                 </div>
@@ -84,7 +84,7 @@
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label for="txtContactNo" class="form-label required-field">Contact No</label>
-                                                            <input type="text" class="form-control" id="txtContactNo" placeholder="Contact No" disabled value="{{resProfileData?.MobileNo}}">
+                                                            <input type="text" class="form-control" placeholder="Contact No" disabled value="{{resProfileData?.MobileNo}}">
                                                         </div>
                                                     </div>
 
@@ -98,7 +98,7 @@
                                                             <div class="d-block">
                                                                 <!-- [checked]="defultCategory == category.name" -->
                                                                 <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                                                    <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender" id="rgender">
+                                                                    <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender">
                                                                     <label class="form-check-label" for="rgender">{{gender.name}}</label>
                                                                 </div>
                                                             </div>
@@ -106,7 +106,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="txtAddress" class="form-label">Address</label>
-                                                        <textarea class="form-control" id="txtAddress" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                                                        <textarea class="form-control" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
                                                         <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
                                                             <div *ngIf="f.Address.errors.required">Address is required
                                                             </div>
@@ -115,13 +115,13 @@
                                                     <div class="mb-2">
                                                         <!-- [checked]="defultCategory == category.name"GenderArray -->
                                                         <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
-                                                            <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" id="rblRural" (change)='onRadioChangeCategory(category.name)'>
+                                                            <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id" name="IsRural" (change)='onRadioChangeCategory(category.name)'>
                                                             <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <div class="col-sm-4">
-                                                            <label for="ddlDistrict" class="form-label required-field">District</label>
+                                                            <label class="form-label required-field">District</label>
                                                             <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
                                                                 [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                                             </ngx-select>
@@ -179,7 +179,7 @@
                                 <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" autocomplete="off">
                                     <div class="mb-3">
                                         <label class="form-label" for="txtUserName">UserName</label>
-                                        <input type="email" class="form-control" [readonly]="true" formControlName="userName" id="txtUserName" placeholder="UserName">
+                                        <input type="email" class="form-control" [readonly]="true" formControlName="userName" placeholder="UserName">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="txtOldPassword">Old Password<span
