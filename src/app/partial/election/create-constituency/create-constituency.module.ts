@@ -6,6 +6,7 @@ import { CreateConstituencyComponent } from './create-constituency.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    AgmCoreModule,
   ]
 })
 export class CreateConstituencyModule { }
