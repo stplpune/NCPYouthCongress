@@ -611,7 +611,6 @@ export class OrganizationMasterComponent implements OnInit {
   submitDesignationForm() {
     this.spinner.show();
     this.addDesFormSubmitted = true;
-    debugger;
     if (this.AddDesignationForm.invalid) {
       this.spinner.hide();
       return;
@@ -648,7 +647,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   editDesignationForm(data: any) {
-    debugger;
     this.heightedRow = data.SrNo;
     this.addDesignation = 'Edit';
     this.AddDesignationForm.patchValue({

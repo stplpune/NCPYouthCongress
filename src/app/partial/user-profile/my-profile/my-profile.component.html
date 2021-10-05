@@ -45,7 +45,8 @@
                                                     <div class="mb-3 row">
                                                         <div class="col-sm-4">
                                                             <label for="txtFullName" class="form-label required-field">First Name</label>
-                                                            <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                                            <input type="text" class="form-control" id="txtFullName" formControlName="FName" placeholder="First Name" 
+                                                            [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
                                                             <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
                                                                 <div *ngIf="f.FName.errors.required">First name is required
                                                                 </div>
