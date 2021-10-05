@@ -56,7 +56,7 @@ export class AddClientComponent implements OnInit {
       Id: [0],
       clientName: ['', Validators.required],
       address: ['', Validators.required],
-      landlineNo: ['', Validators.required],
+      landlineNo:  ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8}$")]],  
       contactNo1: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],  
       contactNo2: [''],
       emailID: ['', [Validators.required, Validators.email]],
