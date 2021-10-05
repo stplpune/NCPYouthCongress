@@ -25,16 +25,19 @@
                                 <form [formGroup]="editProfileForm" enctype="multipart/form-data">
                                     <fieldset [disabled]="disabledEditForm">
                                         <div class="row">
-                                            <div class="col-sm-3">
-                                                <a class="update-photo" (click)="choosePhoto()">
-                                                    <i class="fas fa-camera"></i>
-                                                </a>
-                                                <a class="update-photo" *ngIf="ImgUrl" [class.disable-close-btn]="disabledEditForm" (click)="removePhoto();">
-                                                    <i class="fas fa-times"></i>
-                                                </a>
-                                                <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)" #fileInput>
-                                                <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid img-thumbnail profile-photo">
-                                                <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
+                                            <div class="col-sm-3">                                                
+                                                <div class="position-relative">
+                                                    <a class="update-photo" (click)="choosePhoto()">
+                                                        <i class="fas fa-camera"></i>
+                                                    </a>
+                                                    <a class="update-photo" *ngIf="ImgUrl" [class.disable-close-btn]="disabledEditForm" (click)="removePhoto();">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                    <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)" #fileInput>
+                                                    <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid img-thumbnail profile-photo">
+                                                    <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
+                                                </div>
+                                                
 
                                             </div>
                                             <div class="col-sm-9">
