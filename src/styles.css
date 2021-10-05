@@ -49,6 +49,7 @@ label.form-label.is-invalid {
     color: #dc3545!important;
     font-size: 18px;
     margin-left: 2px;
+    line-height: 21px;
 }
 
 ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
