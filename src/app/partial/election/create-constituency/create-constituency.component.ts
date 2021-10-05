@@ -174,8 +174,6 @@ export class CreateConstituencyComponent implements OnInit {
     })
   }
 
-
-
   onSubmit() {
     this.validationNoofMembers();
     let formData = this.createConstituencyForm.value;
