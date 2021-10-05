@@ -38,7 +38,7 @@
                                 <div *ngIf="f.landlineNo.errors.pattern">Please, Enter 8 digit Landline No.</div> 
                             </div>
                         </div>
-                        <div class="row mb-2 g-2">
+                        <div class="row mb-3 g-2">
                             <div class="col-sm-6">
                                 <label class="form-label required-field">Contact No. 1</label>
                                 <input type="text" class="form-control" id="txtContactNo1" maxlength="10" formControlName="contactNo1" placeholder="Contact No. 1"
@@ -61,7 +61,7 @@
                                 <div *ngIf="f.emailID.errors.email">Enter Valid Email Id</div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3 g-2">
                             <div class="col-sm-6">
                                 <label class="form-label required-field">Select District</label>
                                 <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.addClientForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
@@ -101,9 +101,13 @@
                                 </select>
                             </div> -->
                         </div>
-                        <div class="mb-2 mt-4">
-                            <button type="button" (click)="clearForm()" class="btn btn-secondary float-lg-start">Clear</button>
-                            <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+                        <div class="row mt-4">
+                            <div class="col-sm-3">
+                                <button type="button" (click)="clearForm()" class="btn btn-secondary float-lg-start">Clear</button>
+                            </div>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+                            </div>
                         </div>
                     </div>
                 </div>
