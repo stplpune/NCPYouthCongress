@@ -91,7 +91,7 @@ export class MyProfileComponent implements OnInit {
       UserId: [this.commonService.loggedInUserId()],
       StateId: [1],
       DistrictId: [0, [Validators.required]],
-      TalukaId: ['', [Validators.required]],
+      TalukaId: [''],
       VillageId: ['', [Validators.required]],
       FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
@@ -121,6 +121,17 @@ export class MyProfileComponent implements OnInit {
       TalukaId: data.TalukaId,
       VillageId: data.VillageId
     });
+  }
+
+  addValiditonTaluka(IsRural:any){
+    if(IsRural == 1){
+      this.editProfileForm.controls["TalukaId"].setValidators(Validators.required);
+      this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
+      this.editProfileForm.controls['TalukaId'].clearValidators();
+    }else{
+      this.editProfileForm.controls["TalukaId"].clearValidators();
+      this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
+    }
   }
 
   getDistrict() {
@@ -199,6 +210,7 @@ export class MyProfileComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   updateProfile() {
+    this.addValiditonTaluka(this.editProfileForm.value.IsRural)
     this.submitted = true;
     if (this.editProfileForm.invalid) {
       this.spinner.hide();
