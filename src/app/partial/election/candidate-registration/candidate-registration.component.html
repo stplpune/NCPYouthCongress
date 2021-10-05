@@ -10,16 +10,80 @@
             <div class="card mb-3">
                 <div class="card-body form-container">
                     <div class="mb-3">
-                        <label class="form-label" for="ddlCandidateName">Candidate Name</label>
-                        <select class="form-select" id="ddlCandidateName">
-                            <option value="">Select Candidate</option>
+                        <label class="form-label" for="ddlClientName">Select Client Name</label>
+                        <select class="form-select" id="ddlClientName">
+                            <option value="">Select Client</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="ddlParty">Candidate's Party</label>
-                        <select class="form-select" id="ddlParty">
-                            <option value="">Select Party</option>
-                        </select>
+                    <div class="card shadow-none border mb-3">
+                        <div class="card-header py-1 fw-normal">
+                            <div class="form-check">
+                                <input class="form-check-input mt-2" type="checkbox" value="" id="chkIsClient">
+                                <label class="form-check-label" for="chkIsClient">
+                                    Is Client also Candidate?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="mb-3">
+                                <label class="form-label required-field">Candidate's Name</label>
+                                <input type="text" class="form-control" id="txtCandidateName"
+                                    placeholder="Candidate's Full Name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label required-field">Address</label>
+                                <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label required-field">Landline No.</label>
+                                <input type="text" class="form-control" id="txtLandlineNo" placeholder="Landline No.">
+                            </div>
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Contact No. 1</label>
+                                    <input type="text" class="form-control" id="txtContactNo1"
+                                        placeholder="Contact No. 1">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtContactNo2" class="form-label">Contact No. 2</label>
+                                    <input type="text" class="form-control" id="txtContactNo2"
+                                        placeholder="Contact No. 2">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label required-field">Email ID</label>
+                                <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                            </div>
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Select District</label>
+                                    <select class="form-select">
+                                        <option value="">Select District</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Select Taluka</label>
+                                    <select class="form-select">
+                                        <option value="">Select Taluka</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Select Village</label>
+                                    <select class="form-select">
+                                        <option value="">Select Village</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="ddlPartyMember" formControlName="clientPartyId"
+                                        class="form-label">Client's Party</label>
+                                    <select class="form-select">
+                                        <option value="">Select Party Name</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
@@ -55,10 +119,14 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-light text-danger rounded me-1" title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
-                                        <button class="btn btn-light text-success rounded me-1" title="Unblock Candidate"><i class="fas fa-check"></i></button>
-                                        <button class="btn btn-light text-dark rounded" title="Block Candidate"><i class="fas fa-ban"></i></button>
+                                        <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i
+                                                class="fas fa-pen"></i></button>
+                                        <button class="btn btn-light text-danger rounded me-1"
+                                            title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-light text-success rounded me-1"
+                                            title="Unblock Candidate"><i class="fas fa-check"></i></button>
+                                        <button class="btn btn-light text-dark rounded" title="Block Candidate"><i
+                                                class="fas fa-ban"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -71,10 +139,14 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-light text-danger rounded me-1" title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
-                                        <button class="btn btn-light text-success rounded me-1" title="Unblock Candidate"><i class="fas fa-check"></i></button>
-                                        <button class="btn btn-light text-dark rounded" title="Block Candidate"><i class="fas fa-ban"></i></button>
+                                        <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i
+                                                class="fas fa-pen"></i></button>
+                                        <button class="btn btn-light text-danger rounded me-1"
+                                            title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-light text-success rounded me-1"
+                                            title="Unblock Candidate"><i class="fas fa-check"></i></button>
+                                        <button class="btn btn-light text-dark rounded" title="Block Candidate"><i
+                                                class="fas fa-ban"></i></button>
                                     </div>
                                 </td>
                             </tr>
