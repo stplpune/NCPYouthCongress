@@ -876,3 +876,6 @@ mapsvg-layers-wrap+svg {
 .angular-editor-wrapper:focus-visible{
     outline: 1px solid #ced4da !important;
 }
+ngx-select.ng-untouched.ng-invalid.is-invalid  .ngx-select__toggle {
+    border: solid 1px red !important;
+}
