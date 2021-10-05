@@ -11,7 +11,7 @@
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Political Work" (select)="filterData()" formControlName="workType">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('media')" [items]="categoryArray" optionValueField="id" optionTextField="category" placeholder="Select Party Work" (select)="filterData()" formControlName="workType">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -46,7 +46,7 @@
         <div class="col-sm">
             <div class="card card-body bg-blue">
                 <i class="fas fa-award"></i>
-                <p>Political Works</p>
+                <p>Party Works</p>
                 <h3>{{PoliticalWork}}</h3>
             </div>
         </div>
