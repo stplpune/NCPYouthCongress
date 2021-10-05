@@ -17,7 +17,7 @@
                             <div class="mb-2">
                                 <label for="ddlElectionName" class="form-label">Election Name</label>
                                 <ngx-select [allowClear]="true" [items]="electionName" formControlName="ElectionId"
-                                    optionValueField="Id" optionTextField="ElectionName" placeholder="Election Name"
+                                    optionValueField="Id" optionTextField="ElectionName" (remove)="getElection()" (select)="selectGetElection()" placeholder="Election Name"
                                     [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
@@ -71,7 +71,7 @@
                                 <div class="card card-body border shadow-none">
                                     <div class="mb-2">
                                         <label for="ddlSelectElection" class="form-label">Select Sub Election Name</label>
-                                        <ngx-select [allowClear]="true" [items]="electionName"
+                                        <ngx-select [allowClear]="true" [items]="SubElectionName"
                                             formControlName="subEleName" optionValueField="Id"
                                             optionTextField="ElectionName" placeholder="Select Sub Election"
                                             (select)="GetConstituencyName($event)"

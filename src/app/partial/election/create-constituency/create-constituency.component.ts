@@ -43,6 +43,7 @@ export class CreateConstituencyComponent implements OnInit {
   btnText = "Create Constituency";
   highlightedRow:any;
   prevArrayData : any;
+  SubElectionName: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -93,6 +94,8 @@ export class CreateConstituencyComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionName = res.data1;
+        this.SubElectionName = res.data1;
+       
       } else {
         this.spinner.hide();
         this.electionName = [];
@@ -102,6 +105,14 @@ export class CreateConstituencyComponent implements OnInit {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  selectGetElection() {
+    this.SubElectionName = this.electionName.filter((ele: any) => {
+      if (ele.Id != this.createConstituencyForm.value.ElectionId) {
+        return ele;
       }
     })
   }
@@ -283,7 +294,7 @@ export class CreateConstituencyComponent implements OnInit {
     let electionNameByEleId:any;
     let subElectionNameBySubEleId:any;
     
-    if (this.createConstituencyForm.value.ElectionId != this.createConstituencyForm.value.subEleName) {
+    // if (this.createConstituencyForm.value.ElectionId != this.createConstituencyForm.value.subEleName) {
       this.electionName.find((ele: any) => { // find election name by ele id
         if (this.createConstituencyForm.value.subEleName == ele.Id) {
           electionNameByEleId = ele.ElectionName;
@@ -306,10 +317,10 @@ export class CreateConstituencyComponent implements OnInit {
       this.createConstituencyForm.controls.subEleName.reset();
       this.createConstituencyForm.controls.subEleConstName.reset();
       this.subConsTableHideShowOnArray();
-    }
-    else {
-      this.toastrService.error("Election Name & Sub Election Name should be Different");
-    }
+    // }
+    // else {
+    //   this.toastrService.error("Election Name & Sub Election Name should be Different");
+    // }
   }
 
   subConstArrayCheck(eleName:any, subEleCostName:any) {
