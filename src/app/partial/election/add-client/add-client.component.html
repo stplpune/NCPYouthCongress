@@ -31,6 +31,15 @@
                         </div>
                         <div class="row mb-3 g-2">
                             <div class="col-sm-6">
+                                <label class="form-label required-field">Landline No.</label>
+                                <input type="text" class="form-control" id="txtLandlineNo" maxlength="8" formControlName="landlineNo" placeholder="Landline No."
+                                [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
+                                <div *ngIf="submitted && f.landlineNo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.landlineNo.errors.required">Landline No. is required</div>
+                                    <div *ngIf="f.landlineNo.errors.pattern">Please, Enter 8 digit Landline No.</div> 
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <label class="form-label required-field">Gender</label>
                                 <div class="d-block">
                                   <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
@@ -41,15 +50,6 @@
                                   <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
                                     <div *ngIf="f.Gender.errors.required">Gender is required</div>
                                 </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Landline No.</label>
-                                <input type="text" class="form-control" id="txtLandlineNo" maxlength="8" formControlName="landlineNo" placeholder="Landline No."
-                                [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
-                                <div *ngIf="submitted && f.landlineNo.errors" class="invalid-feedback">
-                                    <div *ngIf="f.landlineNo.errors.required">Landline No. is required</div>
-                                    <div *ngIf="f.landlineNo.errors.pattern">Please, Enter 8 digit Landline No.</div> 
                                 </div>
                             </div>
                         </div>

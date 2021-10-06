@@ -9,11 +9,15 @@
         <div class="col-sm-4">
             <div class="card mb-3">
                 <div class="card-body form-container">
+                    <form [formGroup]="candidateRegForm" (ngSubmit)="onSubmitCandidateReg()">
                     <div class="mb-3">
-                        <label class="form-label" for="ddlClientName">Select Client Name</label>
-                        <select class="form-select" id="ddlClientName">
+                    <label class="form-label" for="ddlClientName">Select Client Name</label>
+                    <select class="form-select" id="ddlClientName" formControlName="clientName" [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
                             <option value="">Select Client</option>
-                        </select>
+                    </select>
+                   <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
+                   <div *ngIf="f.clientName.errors.required">Client Name is required</div>
+                   </div>
                     </div>
                     <div class="card shadow-none border mb-3">
                         <div class="card-header py-1 fw-normal">
@@ -27,53 +31,101 @@
                         <div class="card-body pt-0">
                             <div class="mb-3">
                                 <label class="form-label required-field">Candidate's Name</label>
-                                <input type="text" class="form-control" id="txtCandidateName"
-                                    placeholder="Candidate's Full Name">
+                                <input type="text" class="form-control" id="txtCandidateName" placeholder="Candidate's Full Name" formControlName="candidateName"
+                                [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
+                                <div *ngIf="submitted && f.candidateName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required-field">Address</label>
-                                <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                            <textarea class="form-control" id="txtAddress" formControlName="address" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
+                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                <div *ngIf="f.address.errors.required">Address is required</div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label required-field">Landline No.</label>
-                                <input type="text" class="form-control" id="txtLandlineNo" placeholder="Landline No.">
                             </div>
+
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Landline No.</label>
+                                    <input type="text" class="form-control" id="txtLandlineNo" maxlength="8" formControlName="landlineNo" placeholder="Landline No."
+                                    [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
+                                    <div *ngIf="submitted && f.landlineNo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.landlineNo.errors.required">Landline No. is required</div>
+                                        <div *ngIf="f.landlineNo.errors.pattern">Please, Enter 8 digit Landline No.</div> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Gender</label>
+                                    <div class="d-block">
+                                      <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
+                                        <input class="form-check-input" type="radio" formControlName="Gender" [value]="gender.id" name="Gender"
+                                        [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }">
+                                        <label class="form-check-label" for="rgender">{{gender.name}}</label>
+                                      </div>
+                                      <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Gender.errors.required">Gender is required</div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row mb-3 g-2">
                                 <div class="col-sm-6">
                                     <label class="form-label required-field">Contact No. 1</label>
-                                    <input type="text" class="form-control" id="txtContactNo1"
-                                        placeholder="Contact No. 1">
+                                    <input type="text" class="form-control" id="txtContactNo1" maxlength="10" formControlName="contactNo1" placeholder="Contact No. 1"
+                                    [ngClass]="{ 'is-invalid': submitted && f.contactNo1.errors }">
+                                    <div *ngIf="submitted && f.contactNo1.errors" class="invalid-feedback">
+                                        <div *ngIf="f.contactNo1.errors.required">Contact No. is required</div>
+                                        <div *ngIf="f.contactNo1.errors.pattern">Please, Enter 10 digit Mobile Number.</div> 
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="txtContactNo2" class="form-label">Contact No. 2</label>
-                                    <input type="text" class="form-control" id="txtContactNo2"
-                                        placeholder="Contact No. 2">
+                                    <input type="text" class="form-control" id="txtContactNo2" formControlName="contactNo2" placeholder="Contact No. 2">
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label required-field">Email ID</label>
-                                <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+
+                             <div class="mb-3">
+                            <label class="form-label required-field">Email ID</label>
+                            <input type="email" class="form-control" id="txtEmailID" formControlName="emailID" placeholder="Email ID" [ngClass]="{ 'is-invalid': submitted && f.emailID.errors }">
+                            <div *ngIf="submitted && f.emailID.errors" class="invalid-feedback">
+                                <div *ngIf="f.emailID.errors.required">Email Id is required</div>
+                                <div *ngIf="f.emailID.errors.email">Enter Valid Email Id</div>
                             </div>
-                            <div class="row mb-3 g-2">
-                                <div class="col-sm-6">
-                                    <label class="form-label required-field">Select District</label>
-                                    <select class="form-select">
-                                        <option value="">Select District</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="form-label required-field">Select Taluka</label>
-                                    <select class="form-select">
-                                        <option value="">Select Taluka</option>
-                                    </select>
+                        </div>
+                        <div class="row mb-3 g-2">
+                            <div class="col-sm-6">
+                                <label class="form-label required-field">Select District</label>
+                                <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.candidateRegForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
+                                [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                            </ngx-select>
+                            <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                <div *ngIf="f.DistrictId.errors.required">District is required
                                 </div>
                             </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label required-field">Select Taluka</label>
+                                <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.candidateRegForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                                   (select)="getVillage(this.candidateRegForm.value.TalukaId);" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
+                                   <div *ngIf="f.TalukaId.errors.required">Taluka is required
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
                             <div class="row g-2">
                                 <div class="col-sm-6">
                                     <label class="form-label required-field">Select Village</label>
-                                    <select class="form-select">
-                                        <option value="">Select Village</option>
-                                    </select>
+                                    <ngx-select [allowClear]="true" [items]="resultVillage" placeholder="Select Village" formControlName="VillageId" optionValueField="VillageId" optionTextField="VillageName" [disabled]="!this.candidateRegForm.value.TalukaId"
+                                    placeholder="Select Village" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.VillageId.errors.required">
+                                            Village is required</div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="ddlPartyMember" formControlName="clientPartyId"
@@ -87,12 +139,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <button class="btn btn-secondary btn-sm" type="button">Clear</button>
+                            <button class="btn btn-secondary btn-sm" type="button" (click)="clearForm()">Clear</button>
                         </div>
                         <div class="col-sm-9 text-end">
-                            <button class="btn btn-main btn-sm" type="button">Register Candidate</button>
+                            <button class="btn btn-main btn-sm" type="submit">{{btnText}}</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -122,27 +175,7 @@
                                         <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i
                                                 class="fas fa-pen"></i></button>
                                         <button class="btn btn-light text-danger rounded me-1"
-                                            title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
-                                        <button class="btn btn-light text-success rounded me-1"
-                                            title="Unblock Candidate"><i class="fas fa-check"></i></button>
-                                        <button class="btn btn-light text-dark rounded" title="Block Candidate"><i
-                                                class="fas fa-ban"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Anil Rajesh Sawant</td>
-                                <td>Nationalist Congress Party</td>
-                                <td>
-                                    <h6 class="mb-0"><span class="badge bg-danger rounded-pill">Blocked</span></h6>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-light text-edit rounded me-1" title="Edit Candidate"><i
-                                                class="fas fa-pen"></i></button>
-                                        <button class="btn btn-light text-danger rounded me-1"
-                                            title="Remove Candidate"><i class="fas fa-trash-alt"></i></button>
+                                            title="Remove Candidate" (click)="delConfirmCanReg('1')"><i class="fas fa-trash-alt"></i></button>
                                         <button class="btn btn-light text-success rounded me-1"
                                             title="Unblock Candidate"><i class="fas fa-check"></i></button>
                                         <button class="btn btn-light text-dark rounded" title="Block Candidate"><i
