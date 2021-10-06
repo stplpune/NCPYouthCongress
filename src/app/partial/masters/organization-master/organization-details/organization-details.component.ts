@@ -14,7 +14,6 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 import { $ } from 'protractor';
-
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
@@ -129,6 +128,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.subCommittessResult = res.data1;
+
       } else {
         // this.toastrService.error("Body member is not available");
       }
@@ -139,6 +139,25 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
+  list_to_tree(list:any) {
+    var map:any = {}, node, roots = [], i;
+    
+    for (i = 0; i < list.length; i += 1) {
+      map[list[i].CommitteeId] = i; // initialize the map
+      list[i].children = []; // initialize the children
+    }
+    
+    for (i = 0; i < list.length; i += 1) {
+      node = list[i];
+      if (node.SubParentCommitteeId !== "0") {
+        // if you have dangling branches check that map[node.parentId] exists
+        list[map[node.CommitteeId]].children.push(node);
+      } else {
+        roots.push(node);
+      }
+    }
+    return roots;
+  }
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
@@ -623,3 +642,4 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
 }
+// https://codesandbox.io/s/sparkling-feather-r6j3v?fontsize=14&hidenavigation=1&theme=dark&file=/src/index.js:15-227

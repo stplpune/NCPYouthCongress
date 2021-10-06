@@ -63,32 +63,18 @@
                 </div>
                 <div class="card-body">
                     <h6 class="title">Committee Name</h6>
-                    <ul class="wtree">
-                        <li >
+                    <!-- <ul class="wtree">
+                        <li>
                             <span><a>{{getCommitteeName | titlecase}}</a></span>
                         </li>
-                        <li *ngFor="let subCommittessResult of subCommittessResult" (click)="openSubCommittees(subCommittessResult.id)">
-                            <span>{{subCommittessResult?.BodyOrgCellName | titlecase}}</span>
-                            <ul></ul>
-                            <!--<ul>
-                                <li>
-                                    <span>Level 2</span>
-                                </li>
-                                <li>
-                                    <span>Level 2</span>
-                                </li>
-                                <li>
-                                    <span>Level 2</span>
-                                </li>
-                                <li>
-                                    <span>Level 2</span>
-                                </li>
-                                <li>
-                                    <span>Level 2</span>
-                                </li>
-                            </ul> -->
+                        <li *ngFor="let subCommittess of subCommittessResult" (click)="openSubCommittees(subCommittess.SubParentCommitteeId)">
+                            <span>{{subCommittess?.CommitteeName | titlecase}}</span>
+                            <ul  class="wtree" *ngIf="subCommittessResult.length != 0">
+                                <li *ngFor="let sub of subCommittess.children"> <span>{{sub?.CommitteeName | titlecase}}</span></li>
+                            </ul>
+                           
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>

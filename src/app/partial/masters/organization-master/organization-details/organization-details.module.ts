@@ -11,6 +11,8 @@ import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
 import { ShareModule } from 'src/app/web/share/share.module';
 import { TooltipModule } from '../../..//directive/tooltip.module';
+
+
 @NgModule({
   declarations: [
     OrganizationDetailsComponent
