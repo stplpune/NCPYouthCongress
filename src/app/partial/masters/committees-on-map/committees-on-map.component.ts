@@ -6,7 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Location} from '@angular/common';
+import { Subject } from 'rxjs';
 declare var $: any
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-committees-on-map',
@@ -28,6 +30,9 @@ export class CommitteesOnMapComponent implements OnInit {
   allDistrict:any;
   selectedDistrictId:any;
   selDistrict = new FormControl();
+  Search = new FormControl();
+  subject: Subject<any> = new Subject();
+  searchFilter = "";
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
@@ -36,6 +41,7 @@ export class CommitteesOnMapComponent implements OnInit {
   ngOnInit(): void {
     this.showSvgMap(this.commonService.mapRegions());
     this.getOrganizationByDistrictId(0);
+    this.searchFilters('false');
   }
 
   clearFilter(){
@@ -62,7 +68,7 @@ export class CommitteesOnMapComponent implements OnInit {
   getOrganizationByDistrictId(id: any) {
     this.getDistrict(id)
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_1_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id, false, false , false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId='+this.commonService.loggedInUserId()+'&DistrictId='+id+'&Search='+this.searchFilter, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.defaultCloseBtn = true;
@@ -252,5 +258,31 @@ redirectOrgDetails(){
   let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
   sessionStorage.setItem('bodyId', JSON.stringify(obj))
   this.router.navigate(['../committee/details'], { relativeTo: this.route })
+}
+
+
+onKeyUpFilter() {
+  this.subject.next();
+}
+
+searchFilters(flag: any) {
+  if (flag == 'true') {
+    if (this.Search.value == "" || this.Search.value  == null) {
+      this.toastrService.error("Please search and try again");
+      return
+    }
+  }
+  this.subject
+    .pipe(debounceTime(700))
+    .subscribe(() => {
+      this.searchFilter = this.Search.value ;
+      this.getOrganizationByDistrictId(0);
+    }
+    );
+}
+clearFilterByCommitteesName() {
+  this.searchFilter = "";
+  this.Search.reset();
+  this.getOrganizationByDistrictId(0);
 }
 }

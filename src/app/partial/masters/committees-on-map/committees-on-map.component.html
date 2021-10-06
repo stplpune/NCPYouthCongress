@@ -5,9 +5,23 @@
                 </span>
             </div>
         <div class="col-sm-6 text-end">
-            <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+            <div class="row">
+                <div class="offset-sm-6 col-sm-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control" [formControl]="Search"
+                            placeholder="Search Committees..." (keyup)="onKeyUpFilter()" />
+                        <button type="button" class="btn btn-light border btn-sm"
+                            (click)="clearFilterByCommitteesName()"  *ngIf="Search.value"><i
+                                _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                        <button type="button" *ngIf="!Search.value"
+                            class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-sm-1"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button></div>
+            </div>
+           
         </div>
     </div>
 
