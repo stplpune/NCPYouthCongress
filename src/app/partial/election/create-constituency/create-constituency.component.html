@@ -238,6 +238,7 @@
                 <h5 class="modal-title" id="CreateGeoFenceModalLabel">Create Geofence</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form [formGroup]="createGeofence" (ngSubmit)="onSubmitCreGeofence()">
             <div class="modal-body p-0">
                 <!-- <input class="form-control" type="text" placeholder="Search Location"  (keydown.enter)="$event.preventDefault()"
                 placeholder="Search Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
@@ -246,7 +247,7 @@
                     <div class="row form-container">
                         <div class="col-sm-4 border-end">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" id="rbLatLong" (change)="selGeofenceType('Enter Lat-Long')">
+                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" id="rbLatLong" formControlName="rbLatLong" (change)="selGeofenceType('Enter Lat-Long')">
                                 <label class="form-check-label" for="rbLatLong">
                                     Enter Lat-Long
                                 </label>
@@ -268,7 +269,7 @@
                             </div>
                             <!-- <label for="txtKMLUpload" class="form-label">Upload KML File</label> -->
                             <div class="input-group">
-                                <input type="file" id="txtKMLUpload" class="form-control" />
+                                <input type="file" id="txtKMLUpload" class="form-control"  formControlName="rbKMLUpload" />
                                 <button type="button" title="Draw Geo-Fence"
                                     class="btn btn-light border text-primary"><i
                                         class="fas fa-draw-polygon"></i></button>
@@ -276,7 +277,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rblCreateGeoFence"   (change)="selGeofenceType('Lat-Long (Manual)')">
+                                <input class="form-check-input" type="radio" name="rblCreateGeoFence" formControlName="rbManualDraw"   (change)="selGeofenceType('Lat-Long (Manual)')">
                                 <label class="form-check-label" for="rbManualDraw">
                                     Geo-Fence Lat-Long (Manual)
                                 </label>
@@ -299,7 +300,6 @@
                             <agm-marker [latitude]="lat" [longitude]="long">
                             </agm-marker>
                         </agm-map>   
-                        
                     </div>
                 </div>
             </div>
@@ -307,6 +307,7 @@
                 
                 <button type="button" class="btn btn-main btn-sm">Submit Geo-Fence Data</button>
             </div>
+        </form>
         </div>
     </div>
 </div>

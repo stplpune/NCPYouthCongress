@@ -45,11 +45,12 @@ export class CreateConstituencyComponent implements OnInit {
   highlightedRow:any;
   prevArrayData : any;
   SubElectionName: any;
-  lat: any = 19.75117687556874;
-  long: any = 75.71630325927731;
+  lat: any = 19.7515;
+  long: any = 75.7139;
   zoom = 14;
   @ViewChild('search') searchElementRef: any;
   geoCoder: any;
+  createGeofence!: FormGroup;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -75,6 +76,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.geoCoder = new google.maps.Geocoder;
     });
     this.searchAutoComplete();
+    this.defaultcreateGeofenceForm();
   }
 
   defaultConstituencyForm() {
@@ -92,7 +94,6 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   searchAutoComplete() {
-    debugger;
     this.mapsAPILoader.load().then(() => {
       // this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -485,15 +486,28 @@ export class CreateConstituencyComponent implements OnInit {
       );
   }
 
-  selGeofenceType(flag:any){
-    alert(flag);
-    if(flag == 'Enter Lat-Long'){
+  // create geo fance modal 
 
-    }else if(flag == 'KML File'){
+  selGeofenceType(flag: any) {
+    if (flag == 'Enter Lat-Long') {
 
-    }else{
+    } else if (flag == 'KML File') {
+
+    } else {
 
     }
+  }
+
+  defaultcreateGeofenceForm() {
+    this.createGeofence = this.fb.group({
+      rbLatLong:[''],
+      rbKMLUpload:[''],
+      rbManualDraw:['']
+    })
+  }
+
+  onSubmitCreGeofence() {
+    console.log(this.createGeofence.value);
   }
 }
 
