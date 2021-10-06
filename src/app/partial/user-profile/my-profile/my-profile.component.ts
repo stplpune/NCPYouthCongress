@@ -153,7 +153,7 @@ export class MyProfileComponent implements OnInit {
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
         }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
-          this.getTaluka(this.editProfileForm.value.DistrictId);
+          this.getTaluka(this.editProfileForm.value.DistrictId,false);
         }
       } else {
         this.spinner.hide();
@@ -166,8 +166,8 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  getTaluka(districtId: any) {
-    debugger;
+  getTaluka(districtId: any,flag:any) {
+    if(districtId ==""){return};
     if(this.editProfileForm.value.IsRural == 0){
       this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
       return
@@ -184,7 +184,9 @@ export class MyProfileComponent implements OnInit {
           this.editProfileForm.patchValue({
             TalukaId: this.editProfileForm.value.TalukaId,
           });
-          // this.editProfileForm.controls['VillageId'].setValue('');
+          if(flag == 'select'){
+            this.editProfileForm.controls['VillageId'].setValue('');
+          }
           let selValueCityOrVillage: any = "";
           this.editProfileForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
           if (this.editProfileForm.value.TalukaId) {
@@ -203,6 +205,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
+   if(talukaID ==""){return};
     this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
@@ -286,15 +289,14 @@ export class MyProfileComponent implements OnInit {
     if (category == "Rural") {
       this.villageDisabled = true;
       this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName"
-      this.getTaluka(this.editProfileForm.value.DistrictId);
+      this.getTaluka(this.editProfileForm.value.DistrictId, false);
       this.editProfileForm.controls['VillageId'].setValue(this.globalVillageOrCityId);
     } else {
-      this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
-      this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
-      this.getVillageOrCity(this.editProfileForm.value.DistrictId,'City',);
-      this.editProfileForm.controls['VillageId'].setValue(null);
+        this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
+        this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
+        this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City',);
+        this.editProfileForm.controls['VillageId'].setValue(null);
     }
-    // this.getDistrict();
   }
 
   districtClear(text: any) {

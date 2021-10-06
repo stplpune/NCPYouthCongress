@@ -122,7 +122,7 @@
                                                     <div class="mb-3 row">
                                                         <div class="col-sm-4">
                                                             <label class="form-label required-field">District</label>
-                                                            <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
+                                                            <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId,'select')" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
                                                                 [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
                                                             </ngx-select>
                                                             <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
