@@ -4,23 +4,21 @@
     height:200px;
     object-fit: cover;
     object-position:center;
+    margin-bottom: 10px;
 }
+
 .client-info p{
     font-size: .85rem;
     color: #353535;
 }
-.client-info p i{
+.client-info i{
     background-color: #eee;
     width: 34px;
     height: 34px;
     text-align: center;
     line-height: 34px;
     border-radius: 4px;
-}
-.party-logo img{
-    width: 30px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .client-stats{
     text-align: center;

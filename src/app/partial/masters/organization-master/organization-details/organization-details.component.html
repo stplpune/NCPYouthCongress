@@ -99,7 +99,11 @@
                         <tbody>
                             <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index" [class.active]="designatedMembers.SrNo == HighlightRow">
                                 <td>{{designatedMembers.SrNo}}</td>
-                                <td>{{designatedMembers.MemberName | titlecase}}</td>
+                                <!-- <td>{{designatedMembers.MemberName | titlecase}}</td> -->
+                                <td>
+                                    <a (click)="redToMemberProfile(designatedMembers.DesignationId, designatedMembers.MemberName)"
+                                        class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
+                                </td>
                                 <td>{{designatedMembers.DesignationName}} </td>
                                 <td>{{designatedMembers.PostFromDate}}</td>
                                 <td class="text-end">
