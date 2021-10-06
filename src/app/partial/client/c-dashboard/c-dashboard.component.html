@@ -9,127 +9,91 @@
     </div>
 
     <div class="row chartbox">
-        <div class="col-sm-9">
+        <div class="col-sm-4">
             <div class="card mb-3">
-                <div class="card-body p-4">
-                    <div class="d-flex">
-                        <div class="flex-shrink-0">
+                <div class="card-body">
+                    <div class="client-info">
+                        <div class="text-center">
                             <img src="assets/images/executive-members/RavikantVarpe.jpg" class="client-photo" alt="...">
+                        <h5>Mr. Ravikant Varpe</h5>
                         </div>
-                        <div class="flex-grow-1 ms-3">
-                            <div class="client-info">
-                                <span class="party-logo">
-                                    <img src="assets/images/logos/ncp.png" />
-                                </span>
-                                <h5>Mr. Ravikant Varpe</h5>
-                                <hr class="my-2">
-                                <p class="mb-2">
-                                    <i class="fas fa-map-marker-alt me-2"></i> House No. 23, A Group, Aadhar Poonawala
-                                    Road,
-                                    Bibwewadi, Pune - 411040
-                                </p>
-                                <p class="mb-2">
-                                    <i class="fas fa-phone-alt me-2"></i> 123456334, 2123456781, 84652342213
-                                </p>
-                                <p class="mb-0">
-                                    <i class="fas fa-envelope me-2"></i> swargate@gamil.com
-                                </p>
+                        <div class="border-bottom mb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt me-1"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    <p>House No. 23, A Group, Aadhar Poonawala Road, Bibwewadi, Pune - 411040</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-
-                </div>
-            </div>            
-        </div>
-        <div class="col-sm-3">
-            <div class="card card-body py-4">
-                <div class="client-stats">
-                    <div class="mb-3 border-bottom">
-                        <h1>12</h1>
-                        <p>Elections Contested</p>
-                    </div>
-                    <div class="mb-0">
-                        <h1>12</h1>
-                        <p>Presence in Constituencies</p>
+                        <div class="border-bottom mb-2 pb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-phone-alt me-1"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    <p class="mb-0">123456334, 2123456781, 84652342213</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-envelope me-1"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    <p class="mb-0">swargate@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-sm-8">
+            <div class="card card-body mb-3">
+                <div class="row client-stats">
+                    <div class="col-sm-3 border-end">
+                        <h1>12</h1>
+                        <p class="mb-0">Candidates</p>
+                    </div>
+                    <div class="col-sm-3 border-end">
+                        <h1>12</h1>
+                        <p class="mb-0">Constituencies</p>
+                    </div>
+                    <div class="col-sm-3 border-end">
+                        <h1>1342</h1>
+                        <p class="mb-0">Booths</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <h1>1234672</h1>
+                        <p class="mb-0">Voters</p>
+                    </div>
+                </div>
+            </div>
 
-    <div class="row chartbox mb-3">
-        <div class="col-sm-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    My Elections
+                    My Constituencies
                 </div>
                 <div class="card-body pt-0">
                     <div class="card card-body mb-3 border shadow-none">
                         <div class="row align-items-center">
                             <div class="col-sm border-end">
-                                <h6 class="text-primary">Election Name
-                                    <span class="ms-3 badge bg-secondary rounded-pill">
-                                        Election Type
-                                    </span>
+                                <h6 class="text-primary">Constituency Name                                    
                                     <small class="float-end badge rounded-pill bg-light text-muted">
                                         Election Date : 23-12-2021
                                     </small>
                                 </h6>
                                 <div class="row form-container">
                                     <div class="col-sm">
-                                        <label class="form-label">Constituency</label>
+                                        <label class="form-label">Election</label>
                                         <div class="form-data">Pune</div>
                                     </div>
                                     <div class="col-sm">
                                         <label class="form-label">Assembly</label>
                                         <div class="form-data">Pune Vidhansabha Assembly</div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <label class="form-label">Contestants</label>
-                                        <div class="form-data">23</div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <label class="form-label">Booths</label>
-                                        <div class="form-data">12345</div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <label class="form-label">Voters</label>
-                                        <div class="form-data">23456789</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-auto">
-                                <a routerLink="../election-details" class="btn btn-main">
-                                    View Details <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card card-body mb-3 border shadow-none">
-                        <div class="row align-items-center">
-                            <div class="col-sm  border-end">
-                                <h6 class="text-primary">Election Name
-                                    <span class="ms-3 badge bg-secondary rounded-pill">
-                                        Election Type
-                                    </span>
-                                    <small class="float-end badge rounded-pill bg-light text-muted">
-                                        Election Date : 23-12-2021
-                                    </small>
-                                </h6>
-                                <div class="row form-container">
-                                    <div class="col-sm">
-                                        <label class="form-label">Constituency</label>
-                                        <div class="form-data">Pune</div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <label class="form-label">Assembly</label>
-                                        <div class="form-data">Pune Vidhansabha Assembly</div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <label class="form-label">Contestants</label>
-                                        <div class="form-data">23</div>
                                     </div>
                                     <div class="col-sm">
                                         <label class="form-label">Booths</label>
@@ -152,17 +116,14 @@
                     <div class="card card-body mb-3 border shadow-none">
                         <div class="row align-items-center">
                             <div class="col-sm border-end">
-                                <h6 class="text-primary">Election Name
-                                    <span class="ms-3 badge bg-secondary rounded-pill">
-                                        Election Type
-                                    </span>
+                                <h6 class="text-primary">Constituency Name                                    
                                     <small class="float-end badge rounded-pill bg-light text-muted">
                                         Election Date : 23-12-2021
                                     </small>
                                 </h6>
                                 <div class="row form-container">
                                     <div class="col-sm">
-                                        <label class="form-label">Constituency</label>
+                                        <label class="form-label">Election</label>
                                         <div class="form-data">Pune</div>
                                     </div>
                                     <div class="col-sm">
@@ -170,8 +131,39 @@
                                         <div class="form-data">Pune Vidhansabha Assembly</div>
                                     </div>
                                     <div class="col-sm">
-                                        <label class="form-label">Contestants</label>
-                                        <div class="form-data">23</div>
+                                        <label class="form-label">Booths</label>
+                                        <div class="form-data">12345</div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <label class="form-label">Voters</label>
+                                        <div class="form-data">23456789</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto">
+                                <a routerLink="../election-details" class="btn btn-main">
+                                    View Details <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-body border shadow-none">
+                        <div class="row align-items-center">
+                            <div class="col-sm border-end">
+                                <h6 class="text-primary">Constituency Name                                    
+                                    <small class="float-end badge rounded-pill bg-light text-muted">
+                                        Election Date : 23-12-2021
+                                    </small>
+                                </h6>
+                                <div class="row form-container">
+                                    <div class="col-sm">
+                                        <label class="form-label">Election</label>
+                                        <div class="form-data">Pune</div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <label class="form-label">Assembly</label>
+                                        <div class="form-data">Pune Vidhansabha Assembly</div>
                                     </div>
                                     <div class="col-sm">
                                         <label class="form-label">Booths</label>
