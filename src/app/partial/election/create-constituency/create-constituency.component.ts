@@ -484,5 +484,16 @@ export class CreateConstituencyComponent implements OnInit {
       }
       );
   }
+
+  selGeofenceType(flag:any){
+    alert(flag);
+    if(flag == 'Enter Lat-Long'){
+
+    }else if(flag == 'KML File'){
+
+    }else{
+
+    }
+  }
 }
 
