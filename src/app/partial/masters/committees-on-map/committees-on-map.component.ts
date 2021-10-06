@@ -98,6 +98,7 @@ export class CommitteesOnMapComponent implements OnInit {
   }
 
   selectDistrict(event:any){
+   this.clearFilterByCommitteesName();
     $('path').css('fill', '#7289da');
     this.selectedDistrictId = event;
     $('path#'+this.selectedDistrictId).css('fill', 'rgb(39 40 72)');

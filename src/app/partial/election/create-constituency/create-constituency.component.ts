@@ -19,6 +19,7 @@ import { MapsAPILoader } from '@agm/core';
 export class CreateConstituencyComponent implements OnInit {
   defaultNoMembers = 0;
   submitted: boolean = false;
+  submittedCreGeofence: boolean = false;
   electionTypeArray: any;
   addconstituencyArray: any[] = [];
   allembers = [{ id: 0, name: "Single" }, { id: 1, name: "Multiple" }];
@@ -490,11 +491,32 @@ export class CreateConstituencyComponent implements OnInit {
 
   selGeofenceType(flag: any) {
     if (flag == 'Enter Lat-Long') {
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
 
+      this.createGeofence.controls["rbLatLong"].setValidators(Validators.required);
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
     } else if (flag == 'KML File') {
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
 
+      this.createGeofence.controls["rbKMLUpload"].setValidators(Validators.required);
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
     } else {
-
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
+      
+      this.createGeofence.controls["rbManualDraw"].setValidators(Validators.required);
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
     }
   }
 
@@ -506,8 +528,24 @@ export class CreateConstituencyComponent implements OnInit {
     })
   }
 
+  get g() { return this.createGeofence.controls };
+
   onSubmitCreGeofence() {
-    console.log(this.createGeofence.value);
+    debugger;
+    this.submittedCreGeofence = true;
+    let data = this.createGeofence.value;
+    if (this.createGeofence.invalid) {
+      this.spinner.hide();
+      return;
+    } else {
+      if (data.rbLatLong == "" || data.rbLatLong == undefined && data.rbKMLUpload == "" || data.rbKMLUpload == undefined && data.rbManualDraw == "" || data.rbManualDraw == undefined) {
+        this.toastrService.error('Please select Geofence');
+        return;
+      }
+    }
+
+
+    
   }
 }
 

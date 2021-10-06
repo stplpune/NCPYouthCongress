@@ -17,7 +17,7 @@
                             <div class="card-header">
                                 Edit Profile
                                 <span class="float-end">
-                                    <button class="btn-profileedit" [disabled]="!disabledEditForm"
+                                    <button class="btn-profileedit text-edit" [disabled]="!disabledEditForm"
                                         (click)="this.disabledEditForm = false">Edit Profile</button>
                                 </span>
                             </div>
@@ -153,7 +153,7 @@
                                                     <hr />
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <button type="button" (click)="getProfileData();this.disabledEditForm = true;" class="btn btn-main btn-sm">Clear</button>
+                                                            <button type="button" (click)="getProfileData();this.disabledEditForm = true;" class="btn btn-secondary  btn-sm">Clear</button>
                                                         </div>
                                                         <div class="col-sm-6 text-end">
                                                             <button type="submit" (click)="updateProfile()" class="btn btn-main btn-sm">Update Profile</button>

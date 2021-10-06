@@ -61,6 +61,7 @@ const routes: Routes = [
       { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] }  },
       { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Election to Client', allowedRoles: ['7', '1'] } },
       { path: 'candidate-registration', loadChildren: () => import('./partial/election/candidate-registration/candidate-registration.module').then(m => m.CandidateRegistrationModule), data: { title: 'Candidate Registration', allowedRoles: ['7', '1'] } }, 
+      { path: 'asssign-constituency-to-candidate', loadChildren: () => import('./partial/election/asssign-constituency-to-candidate/asssign-constituency-to-candidate.module').then(m => m.AsssignConstituencyToCandidateModule), data: { title: 'Asssign Constituency To Candidate', allowedRoles: ['7', '1'] } }, 
   
       // Client
       { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
@@ -73,7 +74,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
-  
+ 
  
   { path: '**', component: PageNotFoundComponent },
 ];
