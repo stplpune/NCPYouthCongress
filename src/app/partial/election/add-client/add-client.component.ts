@@ -32,6 +32,7 @@ export class AddClientComponent implements OnInit {
   villageDisabled!:boolean;
   editFlag: boolean = true;
   clientId: any;
+  GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -56,6 +57,7 @@ export class AddClientComponent implements OnInit {
       Id: [0],
       clientName: ['', Validators.required],
       address: ['', Validators.required],
+      Gender: ['', Validators.required],
       landlineNo:  ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8}$")]],  
       contactNo1: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],  
       contactNo2: [''],
