@@ -11,123 +11,164 @@
         <div class="col-sm-4">
             <div class="card">
                 <form [formGroup]="addClientForm" (ngSubmit)="onSubmitAddClient()">
-                <div class="card-header">Add Client</div>
-                <div class="card-body pt-0">
-                    <div class="form-container">
-                        <div class="mb-3">
-                            <label class="form-label required-field">Client Name</label>
-                            <input type="text" class="form-control" id="txtClientName" formControlName="clientName" placeholder="Client Full Name"
-                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
-                            <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
-                                <div *ngIf="f.clientName.errors.required">Client Name is required</div>
+                    <div class="card-header">Add Client</div>
+                    <div class="card-body pt-0">
+                        <div class="form-container">
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-4">
+                                    <label class="form-label required-field">First Name</label>
+                                    <input type="text" class="form-control" formControlName="FName"
+                                        placeholder="First Name"
+                                        [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                    <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.FName.errors.required">First Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="form-label required-field">Middle Name</label>
+                                    <input type="text" class="form-control" formControlName="MName"
+                                        placeholder="Middle Name"
+                                        [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
+                                    <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.MName.errors.required">Middle Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="form-label required-field">Last Name</label>
+                                    <input type="text" class="form-control" formControlName="LName"
+                                        placeholder="Last Name"
+                                        [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
+                                    <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.LName.errors.required">Last Name is required</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label required-field">Address</label>
-                            <textarea class="form-control" id="txtAddress" formControlName="address" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
-                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-                                <div *ngIf="f.address.errors.required">Address is required</div>
+                            <div class="mb-3">
+                                <label class="form-label required-field">Address</label>
+                                <textarea class="form-control" id="txtAddress" formControlName="Address"
+                                    placeholder="Address"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                                <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Address.errors.required">Address is required</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3 g-2">
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Landline No.</label>
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <!-- <label class="form-label required-field">Landline No.</label>
                                 <input type="text" class="form-control" id="txtLandlineNo" maxlength="8" formControlName="landlineNo" placeholder="Landline No."
                                 [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors }">
                                 <div *ngIf="submitted && f.landlineNo.errors" class="invalid-feedback">
                                     <div *ngIf="f.landlineNo.errors.required">Landline No. is required</div>
                                     <div *ngIf="f.landlineNo.errors.pattern">Please, Enter 8 digit Landline No.</div> 
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Gender</label>
-                                <div class="d-block">
-                                  <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                    <input class="form-check-input" type="radio" formControlName="Gender" [value]="gender.id" name="Gender"
-                                    [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }">
-                                    <label class="form-check-label" for="rgender">{{gender.name}}</label>
-                                  </div>
-                                  <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Gender.errors.required">Gender is required</div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
+                                </div> -->
 
-                        <div class="row mb-3 g-2">
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Contact No. 1</label>
-                                <input type="text" class="form-control" id="txtContactNo1" maxlength="10" formControlName="contactNo1" placeholder="Contact No. 1"
-                                [ngClass]="{ 'is-invalid': submitted && f.contactNo1.errors }">
-                                <div *ngIf="submitted && f.contactNo1.errors" class="invalid-feedback">
-                                    <div *ngIf="f.contactNo1.errors.required">Contact No. is required</div>
-                                    <div *ngIf="f.contactNo1.errors.pattern">Please, Enter 10 digit Mobile Number.</div> 
+                                    <label class="form-label required-field">Email ID</label>
+                                    <input type="email" class="form-control" id="txtEmailID" formControlName="EmailId"
+                                        placeholder="Email ID"
+                                        [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }">
+                                    <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.EmailId.errors.required">Email Id is required</div>
+                                        <div *ngIf="f.EmailId.errors.email">Enter Valid Email Id</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Gender</label>
+                                    <div class="d-block">
+                                        <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
+                                            <input class="form-check-input" type="radio" formControlName="Gender"
+                                                [value]="gender.id" name="Gender"
+                                                [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }">
+                                            <label class="form-check-label" for="rgender">{{gender.name}}</label>
+                                        </div>
+                                        <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Gender.errors.required">Gender is required</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="txtContactNo2" class="form-label">Contact No. 2</label>
-                                <input type="text" class="form-control" id="txtContactNo2" formControlName="contactNo2" placeholder="Contact No. 2">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label required-field">Email ID</label>
-                            <input type="email" class="form-control" id="txtEmailID" formControlName="emailID" placeholder="Email ID" [ngClass]="{ 'is-invalid': submitted && f.emailID.errors }">
-                            <div *ngIf="submitted && f.emailID.errors" class="invalid-feedback">
-                                <div *ngIf="f.emailID.errors.required">Email Id is required</div>
-                                <div *ngIf="f.emailID.errors.email">Enter Valid Email Id</div>
-                            </div>
-                        </div>
-                        <div class="row mb-3 g-2">
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Select District</label>
-                                <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.addClientForm.value.DistrictId)" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District"
-                                [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
-                            </ngx-select>
-                            <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
-                                <div *ngIf="f.DistrictId.errors.required">District is required
+
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Contact No. 1</label>
+                                    <input type="text" class="form-control" id="txtContactNo1" maxlength="10"
+                                        formControlName="MobileNo" placeholder="Contact No. 1"
+                                        [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors }">
+                                    <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.MobileNo.errors.required">Contact No. is required</div>
+                                        <div *ngIf="f.MobileNo.errors.pattern">Please, Enter 10 digit Mobile Number.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtContactNo2" class="form-label">Contact No. 2</label>
+                                    <input type="text" class="form-control" id="txtContactNo2"
+                                        formControlName="ContactNo2" placeholder="Contact No. 2">
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label required-field">Select Taluka</label>
-                                <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.addClientForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
-                                   (select)="getVillage(this.addClientForm.value.TalukaId);" [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
-                                   <div *ngIf="f.TalukaId.errors.required">Taluka is required
-                                   </div>
+                            <div class="row mb-3 g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Select District</label>
+                                    <ngx-select [allowClear]="true" (remove)="districtClear('district')"
+                                        [items]="allDistrict" formControlName="DistrictId"
+                                        (select)="getTaluka(this.addClientForm.value.DistrictId)"
+                                        optionValueField="DistrictId" optionTextField="DistrictName"
+                                        placeholder="Select District"
+                                        [ngClass]="{ 'is-invalid': submitted && f.DistrictId.errors }">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.DistrictId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.DistrictId.errors.required">District is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label required-field">Select Taluka</label>
+                                    <ngx-select [allowClear]="true" (remove)="districtClear('taluka')"
+                                        [items]="getTalkaByDistrict" [disabled]="!this.addClientForm.value.DistrictId"
+                                        formControlName="TalukaId" optionValueField="TalukaId"
+                                        optionTextField="TalukaName" placeholder="Select Taluka"
+                                        (select)="getVillage(this.addClientForm.value.TalukaId);"
+                                        [ngClass]="{ 'is-invalid': submitted && f.TalukaId.errors }">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.TalukaId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.TalukaId.errors.required">Taluka is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-12">
-                                <label class="form-label required-field">Select Village</label>
-                                <ngx-select [allowClear]="true" [items]="resultVillage" placeholder="Select Village" formControlName="VillageId" optionValueField="VillageId" optionTextField="VillageName" [disabled]="!this.addClientForm.value.TalukaId"
-                                placeholder="Select Village" [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
-                                </ngx-select>
-                                <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.VillageId.errors.required">
-                                        Village is required</div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label class="form-label required-field">Select Village</label>
+                                    <ngx-select [allowClear]="true" [items]="resultVillage" placeholder="Select Village"
+                                        formControlName="VillageId" optionValueField="VillageId"
+                                        optionTextField="VillageName" [disabled]="!this.addClientForm.value.TalukaId"
+                                        placeholder="Select Village"
+                                        [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
+                                    </ngx-select>
+                                    <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.VillageId.errors.required">
+                                            Village is required</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- <div class="col-sm-6">
+                                <!-- <div class="col-sm-6">
                                 <label for="ddlPartyMember" formControlName="clientPartyId" class="form-label">Client's Party</label>
                                 <select class="form-select">
                                     <option value="">Select Party Name</option>
                                 </select>
                             </div> -->
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-sm-3">
-                                <button type="button" (click)="clearForm()" class="btn btn-secondary float-lg-start">Clear</button>
                             </div>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-main float-lg-end">Assign Booths</button>
+                            <div class="row mt-4">
+                                <div class="col-sm-3">
+                                    <button type="button" (click)="clearForm()"
+                                        class="btn btn-secondary float-lg-start">Clear</button>
+                                </div>
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
         <div class="col-sm-8">
@@ -136,14 +177,11 @@
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
                             <div class="col-sm-3 offset-5">
-                                <!-- <ngx-select [allowClear]="true" [items]="" optionValueField=""
-                                (remove)="clearFilter('electionType')" (select)="filterData()"
-                                optionTextField="" placeholder="Election Type"
-                                formControlName="">
-                            </ngx-select> -->
-                            <select class="form-select">
-                                <option value="">Select</option>
-                            </select>
+                                <ngx-select [allowClear]="true" [items]="allDistrict" optionValueField="DistrictId"
+                                    (remove)="clearFilter('DistrictFlag')" (select)="filterData()"
+                                    optionTextField="DistrictName" placeholder="Select District"
+                                    formControlName="DistrictId">
+                                </ngx-select>
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group">
@@ -158,36 +196,38 @@
                             </div>
                         </div>
                     </form>
-    
+
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
-                            <!-- <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
-                            [class.active]="assBoothEle.SrNo == HighlightRow"> -->
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>Client Name</th>
                                 <th>Contact No.</th>
-                                <th>Location</th>
+                                <th>Address</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mr. Anil Nagarpalika</td>
-                                <td>9876543210</td>
-                                <td>Tukaram Nagar, Mukund Nagar, Rasta Peth</td>
+                            <tr *ngFor="let clientData of clientDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
+                                [class.active]="clientData.SrNo == HighlightRow">
+                                <td>{{clientData.SrNo}}</td>
+                                <td>{{clientData.FullName}}</td>
+                                <td>{{clientData.MobileNo}}</td>
+                                <td>{{clientData.Address}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election"
+                                        <button type="button" title="Election"
                                             class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
-                                            data-bs-target="#viewClientModal"><i class="far fa-eye"></i></button>
+                                            (click)="modelObjectData=clientData" data-bs-target="#viewClientModal"><i
+                                                class="far fa-eye"></i></button>
                                         <button type="button" title="Edit Election"
+                                            (click)="getClientDetails(clientData.Id)"
                                             class="btn btn-sm btn-light text-edit mx-1 rounded"><i
                                                 class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(1)"
+                                        <button type="button" title="Delete Election"
+                                            (click)="delConfirmAssBothEle(clientData.Id)"
                                             class="btn btn-sm btn-light text-danger rounded"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </div>
@@ -195,13 +235,13 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length == 0">
+                    <div class="mt-2 text-end" *ngIf="clientDataArray?.length == 0">
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </div>
-                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
+                    <div class="mt-2 text-end" *ngIf="clientDataArray?.length != 0">
                         <pagination-controls previousLabel="" nextLabel=""
                             (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,37 +259,35 @@
             </div>
             <div class="modal-body">
                 <div class="form-container">
-                    <div class="mb-3">
+                    <div class="row mb-3">
                         <div class="form-label">Client's Name</div>
-                        <div class="form-data">Mr. Aadhar Poonawala</div>
+                        <div class="form-data">{{modelObjectData?.FullName}}</div>
                     </div>
-                    <div class="mb-3">
-                        <div class="form-label">Address</div>
-                        <div class="form-data">House No. 23, A Group, Aadhar Poonawala Road, Bibwewadi, Pune - 411040</div>
-                    </div>
+
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <div class="form-label">Landline No.</div>
-                            <div class="form-data">123456334</div>
+                            <div class="form-label">Email ID</div>
+                            <div class="form-data">{{modelObjectData?.EmailId}}</div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-label">Email ID</div>
-                            <div class="form-data">Swargate@gamil.com</div>
+                            <div class="form-label">Address</div>
+                            <div class="form-data">{{modelObjectData?.Address}}</div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <div class="form-label">Contact No. 1</div>
-                            <div class="form-data">2123456781</div>
+                            <div class="form-data">{{modelObjectData?.MobileNo}}</div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" *ngIf="modelObjectData?.ContactNo">
                             <div class="form-label">Contact No. 2</div>
-                            <div class="form-data">84652342213</div>
+                            <div class="form-data">{{modelObjectData?.ContactNo}}</div>
                         </div>
                     </div>
                     <div class="mb-0">
                         <div class="form-label">Location</div>
-                        <div class="form-data">Poonawala, Bibwewadi, Pune</div>
+                        <div class="form-data">{{modelObjectData?.Location}}</div>
                     </div>
                 </div>
             </div>

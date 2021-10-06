@@ -361,7 +361,6 @@ export class AssignBoothComponent implements OnInit {
     console.log(this.AssemblyBoothArray);
   }
 
-
   checkBoxCehckAssemblyArray(ConstituencyId: any) {
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j < this.assemblyArray.length; j++) {

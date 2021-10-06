@@ -21,7 +21,7 @@ export class AddClientComponent implements OnInit {
   paginationNo: number = 1;
   pageSize: number = 10;
   total: any;
-  btnText = 'Assign Booths';
+  btnText = 'Add Client';
   filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
   searchFilter = "";
@@ -29,10 +29,13 @@ export class AddClientComponent implements OnInit {
   resultVillage: any;
   allDistrict: any;
   getTalkaByDistrict: any;
-  villageDisabled!:boolean;
+  villageDisabled!: boolean;
   editFlag: boolean = true;
   clientId: any;
-  GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }];
+  GenderArray = [{ id: 0, name: "Male" }, { id: 1, name: "Female" }];
+  clientDataArray: any;
+  modelObjectData: any;
+  globalEditData: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -50,18 +53,23 @@ export class AddClientComponent implements OnInit {
     this.defaultFilterForm();
     this.getDistrict();
     this.searchFilters('false');
+    this.getClientData();
+    console.log(this.modelObjectData)
   }
 
   defaultAddClientForm() {
     this.addClientForm = this.fb.group({
       Id: [0],
-      clientName: ['', Validators.required],
-      address: ['', Validators.required],
+      Name: [''],
+      FName: ['', Validators.required],
+      MName: ['', Validators.required],
+      LName: ['', Validators.required],
+      Address: ['', Validators.required],
       Gender: ['', Validators.required],
-      landlineNo:  ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8}$")]],  
-      contactNo1: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],  
-      contactNo2: [''],
-      emailID: ['', [Validators.required, Validators.email]],
+      // landlineNo:  ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8}$")]],  
+      MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      ContactNo2: [''],
+      EmailId: ['', [Validators.required, Validators.email]],
       // emailID: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       DistrictId: ['', Validators.required],
       TalukaId: ['', Validators.required],
@@ -74,7 +82,7 @@ export class AddClientComponent implements OnInit {
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      ElectionNameId: [0],
+      DistrictId: [0],
       Search: [''],
     })
   }
@@ -84,49 +92,37 @@ export class AddClientComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.spinner.hide();
-        this.allDistrict = res.data1;
-        if (this.editFlag && this.addClientForm.value.IsRural == 0) {
-          this.getVillage(this.addClientForm.value.DistrictId)
-        }else  if (this.editFlag && this.addClientForm.value.IsRural == 1) {
+        if (this.btnText == 'Update Client') {
           this.getTaluka(this.addClientForm.value.DistrictId)
         }
+        this.spinner.hide();
+        this.allDistrict = res.data1;
       } else {
         this.spinner.hide();
-        if (res.data == 1) {
-          this.toastrService.error("Data is not available 2");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
 
   getTaluka(districtId: any) {
+    if(districtId == ''){return}
     this.spinner.show();
-    (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        if (this.editFlag) {
-          this.addClientForm.patchValue({
-            TalukaId: this.addClientForm.value.TalukaId,
-          });
-          let selValueCityOrVillage: any = "";
-          this.addClientForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
-          if (this.addClientForm.value.TalukaId) {
-            this.getVillage(this.addClientForm.value.TalukaId)
-          }
+        if (this.btnText == 'Update Client') {
+          this.addClientForm.controls['TalukaId'].setValue(this.globalEditData.TalukaId);
+          this.getVillage(this.globalEditData.TalukaId)
         }
-      } else {
-        this.spinner.hide();
-        if (res.data == 1) {
-          this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -134,18 +130,20 @@ export class AddClientComponent implements OnInit {
   getVillage(talukaID: any) {
     this.villageDisabled = false;
     this.spinner.show();
-  this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultVillage = res.data1;
+        if (this.btnText == 'Update Client') {
+          this.addClientForm.controls['VillageId'].setValue(this.globalEditData.VillageId);
+        }
       } else {
         this.spinner.hide();
-        if (res.data == 1) {
-          this.toastrService.error("Data is not available1");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
@@ -162,64 +160,111 @@ export class AddClientComponent implements OnInit {
     }
   }
 
+  getClientData() {//get TableRecord
+    this.spinner.show();
+    let formData = this.filterForm.value;
+    let obj = '&DistrictId=' + formData.DistrictId + '&UserId=' + this.commonService.loggedInUserId() + '&Search=' + formData.Search +
+      '&nopage=' + this.paginationNo;
+    this.callAPIService.setHttp('get', 'Web_get_Client?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.clientDataArray = res.data1;
+        this.total = res.data2[0].TotalCount;
+      } else {
+        this.spinner.hide();
+        this.clientDataArray = [];
+        // this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
-   onSubmitAddClient() {
+  onSubmitAddClient() {
     this.submitted = true;
-    console.log(this.addClientForm.value)
-  //   let formData = this.createElectionForm.value;
-  //   if (this.createElectionForm.invalid) {
-  //     this.spinner.hide();
-  //     return;
-  //   }
-  //   else if (formData.ElectionName.trim() == '' || formData.ElectionName ==  null || formData.ElectionName == undefined) {
-  //     this.toastrService.error("Election  Name can not contain space");
-  //     return;
-  //   }
-  //   else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {
-  //     this.toastrService.error("Please Add Sub Election");
-  //   }
-  //   else {
-  //     this.spinner.show();
-  //     if (formData.IsSubElectionApplicable == 0) {
-  //       this.addSubElectionArray.map((ele: any) => {
-  //         delete ele['Id'];
-  //         return ele;
-  //       })
-  //       this.subEleArray = JSON.stringify(this.addSubElectionArray);
-  //     } else {
-  //       this.subEleArray = "";
-  //     }
+    if (this.addClientForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+      this.spinner.show();
+      let data = this.addClientForm.value;
+      let FullName = data.FName + " " + data.MName + " " + data.LName;
+      data.Name = FullName;
 
-  //     let id;
-  //     formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
-  //     let obj = id + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
-  //       '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subEleArray;
-  //     this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
-  //     this.callAPIService.getHttp().subscribe((res: any) => {
-  //       if (res.data == 0) {
-  //         this.addSubElectionArray = [];
-  //         this.toastrService.success(res.data1[0].Msg);
-  //         this.getElectionMaster();
-  //         this.spinner.hide();
-  //         this.defaultProgramForm();
-  //         this.getsubElection() 
-  //         this.submitted = false;
-  //         this.subElectionDivHide = false;
-  //         this.btnText = 'Create Election';
-  //       } else {
-  //         //  this.toastrService.error("Data is not available");
-  //       }
-  //     }, (error: any) => {
-  //       if (error.status == 500) {
-  //         this.router.navigate(['../500'], { relativeTo: this.route });
-  //       }
-  //     })
-  //   }
-   }
+      let fromData: any = new FormData();
+      Object.keys(data).forEach((cr: any, ind: any) => {
+        let value = Object.values(data)[ind] != null ? Object.values(data)[ind] : 0;
+        fromData.append(cr, value)
+      })
+
+      this.callAPIService.setHttp('Post', 'Web_Insert_Client', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.toastrService.success(res.data1[0].Msg);
+          this.getClientData();
+          this.spinner.hide();
+          this.defaultAddClientForm();
+          this.submitted = false;
+          this.btnText = 'Add Client';
+        } else {
+          this.spinner.hide();
+          //  this.toastrService.error("Data is not available");
+        }
+      }, (error: any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../500'], { relativeTo: this.route });
+        }
+      })
+    }
+  }
+
+  getClientDetails(ClientId: any) {//Edit Api
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetClientDetails?Id=' + ClientId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        let ClientDetailsArray = res.data1[0];
+        this.editPatchValue(ClientDetailsArray);
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  editPatchValue(objData: any) {
+    this.globalEditData = objData;
+    this.btnText = 'Update Client';
+
+    this.addClientForm.patchValue({
+      Id: objData.Id,
+      FName: objData.FName,
+      MName: objData.MName,
+      LName: objData.LName,
+      Address: objData.Address,
+      EmailId: objData.EmailId,
+      Gender: objData.Gender,
+      MobileNo: objData.MobileNo,
+      ContactNo2: objData.ContactNo,
+      DistrictId: objData.DistrictId,
+      // TalukaId: objData.TalukaId,
+      // VillageId : objData.VillageId,
+    });
+    this.getDistrict();
+  }
+
 
   clearForm() {
     this.submitted = false;
-    this.btnText = 'Assign Booths'
+    this.btnText = 'Add Client'
     this.defaultAddClientForm();
   }
 
@@ -238,11 +283,11 @@ export class AddClientComponent implements OnInit {
   }
 
   deleteClientData() {
-    this.callAPIService.setHttp('get', 'Web_Insert_Election_DeleteBoothToElection?HeaderId=' + this.clientId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_DeleteClient?ClientId=' + this.clientId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
-        //this.getAssignedBoothToElection();
+        this.getClientData();
       } else {
         this.spinner.hide();
       }
@@ -256,22 +301,22 @@ export class AddClientComponent implements OnInit {
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
-    //this.getAssignedBoothToElection();
+    this.getClientData();
   }
 
   clearFilter(flag: any) {
-    if (flag == 'electionType') {
-      this.filterForm.controls['ElectionNameId'].setValue(0);
+    if (flag == 'DistrictFlag') {
+      this.filterForm.controls['DistrictId'].setValue(0);
     } else if (flag == 'search') {
       this.filterForm.controls['Search'].setValue('');
     }
     this.paginationNo = 1;
-    //this.getAssignedBoothToElection();
+    this.getClientData();
   }
 
   filterData() {
     this.paginationNo = 1;
-    //this.getAssignedBoothToElection();
+    this.getClientData();
   }
 
   onKeyUpFilter() {
@@ -290,9 +335,8 @@ export class AddClientComponent implements OnInit {
       .subscribe(() => {
         this.searchFilter = this.filterForm.value.Search;
         this.paginationNo = 1;
-        //this.getAssignedBoothToElection();
+        this.getClientData();
       }
       );
   }
-
 }
