@@ -113,10 +113,12 @@ export class PartyProgramMasterComponent implements OnInit {
     }
     else if (getObj.ProgramTitle.trim() == '' || getObj.ProgramTitle ==  null || getObj.ProgramTitle == undefined) {
       this.toastrService.error("Program Title can not contain space only");
+      this.spinner.hide();
       return;
     }
     else if (getObj.ProgramDescription.trim() == '' || getObj.ProgramDescription ==  null || getObj.ProgramDescription == undefined) {
       this.toastrService.error("Program Description can not contain space only");
+      this.spinner.hide();
       return;
     }
     else {
@@ -138,10 +140,12 @@ export class PartyProgramMasterComponent implements OnInit {
           this.spinner.hide();
        
         } else {
+          this.spinner.hide();
             // this.toastrService.error("Data is not available 1");
         }
       } ,(error:any) => {
         if (error.status == 500) {
+          this.spinner.hide();
           this.router.navigate(['../../500'], { relativeTo: this.route });
         }
       })

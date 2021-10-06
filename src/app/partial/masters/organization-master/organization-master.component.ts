@@ -449,6 +449,7 @@ export class OrganizationMasterComponent implements OnInit {
     }
     else if (this.orgMasterForm.value.BodyOrgCellName.trim() == '' || this.orgMasterForm.value.BodyOrgCellName ==  null || this.orgMasterForm.value.BodyOrgCellName == undefined) {
       this.toastrService.error("Committee Name can not contain space only");
+      this.spinner.hide();
       return;
     }
     else {

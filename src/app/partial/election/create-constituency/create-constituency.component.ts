@@ -19,6 +19,7 @@ import { MapsAPILoader } from '@agm/core';
 export class CreateConstituencyComponent implements OnInit {
   defaultNoMembers = 0;
   submitted: boolean = false;
+  submittedCreGeofence: boolean = false;
   electionTypeArray: any;
   addconstituencyArray: any[] = [];
   allembers = [{ id: 0, name: "Single" }, { id: 1, name: "Multiple" }];
@@ -45,11 +46,12 @@ export class CreateConstituencyComponent implements OnInit {
   highlightedRow:any;
   prevArrayData : any;
   SubElectionName: any;
-  lat: any = 19.75117687556874;
-  long: any = 75.71630325927731;
+  lat: any = 19.7515;
+  long: any = 75.7139;
   zoom = 14;
   @ViewChild('search') searchElementRef: any;
   geoCoder: any;
+  createGeofence!: FormGroup;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -75,6 +77,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.geoCoder = new google.maps.Geocoder;
     });
     this.searchAutoComplete();
+    this.defaultcreateGeofenceForm();
   }
 
   defaultConstituencyForm() {
@@ -92,7 +95,6 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   searchAutoComplete() {
-    debugger;
     this.mapsAPILoader.load().then(() => {
       // this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -485,15 +487,65 @@ export class CreateConstituencyComponent implements OnInit {
       );
   }
 
-  selGeofenceType(flag:any){
-    alert(flag);
-    if(flag == 'Enter Lat-Long'){
+  // create geo fance modal 
 
-    }else if(flag == 'KML File'){
+  selGeofenceType(flag: any) {
+    if (flag == 'Enter Lat-Long') {
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
 
-    }else{
+      this.createGeofence.controls["rbLatLong"].setValidators(Validators.required);
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
+    } else if (flag == 'KML File') {
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
 
+      this.createGeofence.controls["rbKMLUpload"].setValidators(Validators.required);
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
+    } else {
+      this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
+      this.createGeofence.controls["rbLatLong"].clearValidators();
+      this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
+      this.createGeofence.controls["rbKMLUpload"].clearValidators();
+      
+      this.createGeofence.controls["rbManualDraw"].setValidators(Validators.required);
+      this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
+      this.createGeofence.controls["rbManualDraw"].clearValidators();
     }
+  }
+
+  defaultcreateGeofenceForm() {
+    this.createGeofence = this.fb.group({
+      rbLatLong:[''],
+      rbKMLUpload:[''],
+      rbManualDraw:['']
+    })
+  }
+
+  get g() { return this.createGeofence.controls };
+
+  onSubmitCreGeofence() {
+    debugger;
+    this.submittedCreGeofence = true;
+    let data = this.createGeofence.value;
+    if (this.createGeofence.invalid) {
+      this.spinner.hide();
+      return;
+    } else {
+      if (data.rbLatLong == "" || data.rbLatLong == undefined && data.rbKMLUpload == "" || data.rbKMLUpload == undefined && data.rbManualDraw == "" || data.rbManualDraw == undefined) {
+        this.toastrService.error('Please select Geofence');
+        return;
+      }
+    }
+
+
+    
   }
 }
 
