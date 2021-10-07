@@ -102,16 +102,6 @@ export class AddMemberComponent implements OnInit {
   }
 
   profileFormPathValue(data: any) {
-    // for img upload 
-    this.profileFlag = "Update";
-    let loginObj: any = sessionStorage.getItem('loggedInDetails');
-    loginObj = JSON.parse(loginObj);
-    loginObj.data1[0].ProfilePhoto = data.ProfilePhoto;
-    sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj));
-    this.commonService.pathchange(this.ImgUrl);
-    localStorage.setItem('imgUrl', this.ImgUrl);
-
-
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getDistrict();
