@@ -15,7 +15,7 @@
                     <div class="card-body pt-0">
                         <div class="form-container">
                             <div class="mb-3">
-                                <label for="txtElectionName" class="form-label">Election Name</label>
+                                <label for="txtElectionName" class="form-label required-field">Election Name</label>
                                 <input type="text" class="form-control" formControlName="ElectionName"
                                     id="txtElectionName" placeholder="Election Name"
                                     [ngClass]="{ 'is-invalid': submitted && f.ElectionName.errors }">
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="ddlElectionType" class="form-label">Election Type</label>
+                                <label for="ddlElectionType" class="form-label required-field">Election Type</label>
                                 <ngx-select [allowClear]="true" [items]="electionTypeArray"
                                     formControlName="ElectionTypeId" optionValueField="Id"
                                     optionTextField="ElectionType" placeholder="Election Type"
@@ -63,7 +63,7 @@
                                 <div class="card card-body border shadow-none" *ngIf="subElectionDivHide">
                                     <div class="row g-1">
                                         <div class="col-sm-12">                                            
-                                            <label for="ddlSelectElection" class="form-label">Select Sub
+                                            <label for="ddlSelectElection" class="form-label" [ngClass]="addSubElectionArray.length ==0 ? 'required-field' : ''">Select Sub
                                                 Election</label>
                                         </div>
                                         <div class="col-sm">
@@ -74,6 +74,10 @@
                                                 [ngClass]="{ 'is-invalid': submitted && f.SubElectionId.errors}"
                                                 style="width: 90%;">
                                             </ngx-select>
+                                            <div *ngIf="submitted && f.SubElectionId.errors" class="invalid-feedback" >
+                                                <div *ngIf="f.SubElectionId.errors.required">Select Sub Election is required
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm-auto">
                                             <button type="button" [disabled]="SubElectionDisabled"
@@ -81,11 +85,9 @@
                                                 Add
                                             </button>
                                         </div>
+                                       
                                     </div>
-                                    <div *ngIf="submitted && f.SubElectionId.errors" class="invalid-feedback">
-                                        <div *ngIf="f.SubElectionId.errors.required">Select Sub Election is required
-                                        </div>
-                                    </div>
+                                   
 
                                     <table class="table table-hover mb-0" *ngIf="subElecTableHide">
                                         <thead>

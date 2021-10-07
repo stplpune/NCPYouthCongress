@@ -33,7 +33,7 @@ export class AddClientComponent implements OnInit {
   villageDisabled!: boolean;
   editFlag: boolean = true;
   clientId: any;
-  GenderArray = [{ id: 0, name: "Male" }, { id: 1, name: "Female" }];
+  GenderArray = [{ id: 0, name: "Male" }, { id: 1, name: "Female" },{ id: 2, name: "Other" }];
   clientDataArray: any;
   modelObjectData: any;
   globalEditData: any;
@@ -69,7 +69,7 @@ export class AddClientComponent implements OnInit {
       Gender: ['', Validators.required],
       // landlineNo:  ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8}$")]],  
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      ContactNo2: [''],
+      ContactNo2: ['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       EmailId: ['', [Validators.required, Validators.email]],
       // emailID: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       DistrictId: ['', Validators.required],
@@ -168,6 +168,7 @@ export class AddClientComponent implements OnInit {
 
   getClientData() {//get TableRecord
     this.spinner.show();
+    this.clearForm();
     let formData = this.filterForm.value;
     let obj = '&DistrictId=' + formData.DistrictId + '&UserId=' + this.commonService.loggedInUserId() + '&Search=' + formData.Search +
       '&nopage=' + this.paginationNo;
@@ -195,6 +196,10 @@ export class AddClientComponent implements OnInit {
       this.spinner.hide();
       return;
     }
+    // else if(this.addClientForm.value.ContactNo2.length < 9){ 
+    //   this.spinner.hide();
+    //   this.toastrService.error("Please Enter 10 Digit Mobile No.");
+    // }
     else {
       this.spinner.show();
       let data = this.addClientForm.value;
@@ -342,6 +347,7 @@ export class AddClientComponent implements OnInit {
         this.searchFilter = this.filterForm.value.Search;
         this.paginationNo = 1;
         this.getClientData();
+        this.clearForm();
       }
       );
   }

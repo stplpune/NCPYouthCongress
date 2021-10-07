@@ -7,7 +7,9 @@
     z-index: 9999;
     transition: .4s;
     border-right: solid 1px #c4c4c4;
-    /* overflow-x: hidden; */
+    /* overflow-x: hidden;
+    display: flex;
+    flex-direction: column; */
 }
 
 .nav span {
@@ -30,8 +32,6 @@
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 3rem;
-    overflow: auto !important;
-    scrollbar-width: none
 }
 
 .nav__container::-webkit-scrollbar {
@@ -211,3 +211,67 @@ label>span {
     position: absolute;
     right: 15px;
 }
+/* .accordion-item{
+    flex-wrap: nowrap;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    font-size: .85rem;
+    white-space: nowrap;
+    box-shadow: none !important;
+    border-bottom: none;
+}
+.accordion-button:focus{
+    box-shadow: none !important;
+}
+.accordion-button:hover{
+    background-color:var(--main-color);
+    color: #fff;
+    cursor: pointer;
+}
+.accordion-button{
+    padding: 10px 15px;
+    color: #000;
+    font-size: 0.85rem;
+    background-color:transparent;
+    box-shadow: none !important;
+}
+.accordion-button i{
+    background: #eee;
+    color: #333;
+    margin-right: 20px;
+    padding: 12px 11px;
+    border-radius: 5px;
+}
+.accordion-button:hover i{
+    color: var(--main-color);
+    background-color: #fff;
+}
+.no-sub::after{
+    background-image: none !important;
+    content: "" !important;
+}
+.accordion-button::after{
+    background-image: none;
+    content: "\f078";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transform:none;
+    transition: rotate 1s ease-in;
+}
+.accordion-button:not(.collapsed)::after {
+    content: "\f077";
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    transform:none;
+    transition: rotate 1s ease-in;
+}
+.accordion-body{
+    background-color: var(--main-color);
+}
+.accordion-body .list-group .list-group-item{
+    padding-left: 4.3rem;
+    border-bottom: 0;
+    background-color:transparent;
+    color: #fff;
+} */
