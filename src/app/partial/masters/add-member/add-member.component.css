@@ -18,8 +18,8 @@
     font-size: 0.85rem;
     color: #000;
     opacity: 0.9;
-    top: 3px;
-    right: 265px;
+    top: -11px;
+    right: 15px;
     z-index: 9;
     object-fit: cover;
 }
