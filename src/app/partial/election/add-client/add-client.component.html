@@ -211,7 +211,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let clientData of clientDataArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
-                                [class.active]="clientData.SrNo == HighlightRow">
+                                [class.active]="clientData.Id == HighlightRow">
                                 <td>{{clientData.SrNo}}</td>
                                 <td>{{clientData.FullName}}</td>
                                 <td>{{clientData.MobileNo}}</td>
