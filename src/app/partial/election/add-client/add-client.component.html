@@ -43,15 +43,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label required-field">Address</label>
-                                <textarea class="form-control" id="txtAddress" formControlName="Address"
-                                    placeholder="Address"
-                                    [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
-                                <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Address.errors.required">Address is required</div>
-                                </div>
-                            </div>
+
                             <div class="row mb-3 g-2">
                                 <div class="col-sm-6">
                                     <!-- <label class="form-label required-field">Landline No.</label>
@@ -156,6 +148,15 @@
                                     <option value="">Select Party Name</option>
                                 </select>
                             </div> -->
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label required-field">Address</label>
+                                <textarea class="form-control" id="txtAddress" formControlName="Address"
+                                    placeholder="Address"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                                <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Address.errors.required">Address is required</div>
+                                </div>
                             </div>
                             <div class="row mt-4">
                                 <div class="col-sm-3">

@@ -63,10 +63,10 @@
                 </div>
                 <div class="card-body">
                     <h6 class="title">Committee Name</h6>
-                    <!-- <ul class="wtree">
-                        <li>
+                    <ul class="wtree">
+                        <!-- <li>
                             <span><a>{{getCommitteeName | titlecase}}</a></span>
-                        </li>
+                        </li> -->
                         <li *ngFor="let subCommittess of subCommittessResult" (click)="openSubCommittees(subCommittess.SubParentCommitteeId)">
                             <span>{{subCommittess?.CommitteeName | titlecase}}</span>
                             <ul  class="wtree" *ngIf="subCommittessResult.length != 0">
@@ -74,7 +74,7 @@
                             </ul>
                            
                         </li>
-                    </ul> -->
+                    </ul>
                 </div>
             </div>
         </div>
