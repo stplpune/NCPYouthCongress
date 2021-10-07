@@ -15,44 +15,30 @@
             <div class="card card-body bg-cyan">
                 <i class="fas fa-network-wired"></i>
                 <p>Total Work Done</p>
-                <h3>{{TotalWorkAndIosCount?.TotalWork}}</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalWork ? TotalWorkAndIosCount?.TotalWork  : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-green">
                 <i class="fab fa-apple"></i>
                 <p>Total Committees</p>
-                <h3>333</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalCommittees ? TotalWorkAndIosCount?.TotalCommittees  : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-blue">
                 <i class="fab fa-android"></i>
                 <p>Total Executives</p>
-                <h3>333</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalExecutives ? TotalWorkAndIosCount?.TotalExecutives  : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-gold">
                 <i class="fab fa-android"></i>
                 <p>Total Members</p>
-                <h3>333</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers  : '0'}}</h3>
             </div>
         </div>
-        <!-- <div class="col-sm-3">
-            <div class="card card-body bg-green">
-                <i class="fab fa-apple"></i>
-                <p>iOS Downloads</p>
-                <h3>{{TotalWorkAndIosCount?.TotaliOs}}</h3>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card card-body bg-blue">
-                <i class="fab fa-android"></i>
-                <p>Android Downloads</p>
-                <h3>{{TotalWorkAndIosCount?.TotalAndroid}}</h3>
-            </div>
-        </div> -->
     </div>
 
     <div class="row chartbox">
@@ -65,11 +51,11 @@
                     <h6 class="title">Committee Name</h6>
                 
                     <ul class="wtree">
-                        <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.SubParentCommitteeId)">
+                        <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId, subCommittess.CommitteeName)" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
                             <span>{{subCommittess?.CommitteeName | titlecase}}</span>
-                            <ul  class="wtree" *ngIf="subCommittessResult.length > 0">
+                            <!-- <ul  class="wtree" *ngIf="subCommittessResult.length > 0">
                                 <li *ngFor="let sub of subCommittess.children"> <span>{{sub?.CommitteeName | titlecase}}</span></li>
-                            </ul>
+                            </ul> -->
                            
                         </li>
                     </ul>
@@ -150,9 +136,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <ng-container *ngFor="let  designationName of DesignationNameBYBodyId; let i = index"> -->
-                                    
-                                <tr *ngFor="let desMembers of getPreDesMembersArray[i]; let m = index">
+                                <tr *ngFor="let desMembers of DesignationNameBYBodyId; let m = index">
                                     <td>{{m+1}}</td>
                                     <ng-container>
                                         

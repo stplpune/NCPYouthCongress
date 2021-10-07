@@ -71,7 +71,9 @@ export class OrganizationDetailsComponent implements OnInit {
   subCommittessResult:any;
   HighlightRow:any;
   indiMembersProgHighlight:any;
-  
+  subCommittessId:number = 0;
+  HighlightRowTree:any;
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
@@ -97,6 +99,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.getWorkcategoryFilterDetails(this.bodyId);
     this.activitiesPerodicGraph(this.bodyId);
     this.subCommittess(this.bodyId);
+    this.HighlightRowTree = this.bodyId;
   }
 
   defaultFilterForm() {
@@ -117,61 +120,50 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
-  openSubCommittees(bodyId:any){
+  openSubCommittees(bodyId:any, committeeName:any){
+    this.getCommitteeName =  committeeName;
+    this.subCommittessId = 1;
+    this.bodyId = bodyId;
+    this.HighlightRowTree = bodyId;
+    this.ngOnInit();
     this.subCommittess(bodyId);
   };
 
-  subCommittess(bodyId:any) {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+bodyId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        // console.log(res.data1);
-        // let result:any = res.data1;
-        // if(result !=0){
-        //   this.subCommittessResult = result.filter((ele:any)=>{
-        //   if(ele.CommitteeId == ele.SubParentCommitteeId){
-        //     ele['SubParentCommitteeId'] = null;
-        //   }
-        //   return ele 
-        // });
-        //   this.list_to_tree( this.subCommittessResult);
-        // }else{
-        //   this.subCommittessResult = result;
-        // }
-    this.subCommittessResult = [
-    {
-        "CommitteeId": 132,
-        "CommitteeName": "Org A",
-        "SubParentCommitteeId": null,
-        "SubParentCommitteeName": "Org A",
-        "children": [
-            {
-                "CommitteeId": 135,
-                "CommitteeName": "Child1 A",
-                "SubParentCommitteeId": 132,
-                "SubParentCommitteeName": "Org A",
-                "children": [
-                    {
-                        "CommitteeId": 137,
-                        "CommitteeName": "Child1 B",
-                        "SubParentCommitteeId": 135,
-                        "SubParentCommitteeName": "Child1 A"
-                    }
-                ]
-            }
-        ]
+  subCommittess(bodyId: any) {
+    if (this.subCommittessId == 0) {
+      this.spinner.show();
+      this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId=' + this.commonService.loggedInUserId() + '&CommitteeId=' + bodyId, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.spinner.hide();
+          this.subCommittessResult = res.data1;
+          // let result: any = res.data1;
+          // if (result != 0) {
+          //   this.subCommittessResult = result.filter((ele: any) => {
+          //     if (ele.CommitteeId == ele.SubParentCommitteeId) {
+          //       ele['SubParentCommitteeId'] = null;
+          //     }
+          //     return ele
+          //   });
+          // };
+          // setTimeout(() => {
+          //   if(this.subCommittessResult.length !=0){
+          //     this.list_to_tree( this.subCommittessResult);
+
+          //   }else{
+          //     this.subCommittessResult = result;
+          //   }
+          //  }, 5000);
+
+        } else {
+          // this.toastrService.error("Body member is not available");
+        }
+      }, (error: any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../../../500'], { relativeTo: this.route });
+        }
+      })
     }
-]
-      } else {
-        // this.toastrService.error("Body member is not available");
-      }
-    }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../../500'], { relativeTo: this.route });
-      }
-    })
   }
 
 
