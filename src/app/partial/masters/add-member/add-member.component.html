@@ -185,7 +185,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let allUsers of resAllUsers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                                *ngFor="let allUsers of resAllUsers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="allUsers.Id == highlightedRow">
                                 <td>{{allUsers?.SrNo}}</td>
                                 <td>
                                     <a routerLink="../profile">{{allUsers?.FullName}}</a>
