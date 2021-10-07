@@ -93,7 +93,7 @@ export class AddClientComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         if (this.btnText == 'Update Client') {
-          this.getTaluka(this.addClientForm.value.DistrictId)
+          this.getTaluka(this.addClientForm.value.DistrictId,false)
         }
         this.spinner.hide();
         this.allDistrict = res.data1;
@@ -107,18 +107,23 @@ export class AddClientComponent implements OnInit {
     })
   }
 
-  getTaluka(districtId: any) {
+  getTaluka(districtId: any,flag:any) {
     if(districtId == ''){return}
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        debugger;
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
-        if (this.btnText == 'Update Client') {
+        if(flag == 'select'){
+          this.addClientForm.controls['VillageId'].setValue('');
+        }
+        if (this.btnText == 'Update Client' && flag != 'select') {
           this.addClientForm.controls['TalukaId'].setValue(this.globalEditData.TalukaId);
           this.getVillage(this.globalEditData.TalukaId)
         }
+        
       }
     }, (error: any) => {
       if (error.status == 500) {
