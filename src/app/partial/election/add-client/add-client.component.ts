@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
@@ -248,6 +249,7 @@ export class AddClientComponent implements OnInit {
   editPatchValue(objData: any) {
     this.globalEditData = objData;
     this.btnText = 'Update Client';
+    this.HighlightRow = objData.Id;
 
     this.addClientForm.patchValue({
       Id: objData.Id,
