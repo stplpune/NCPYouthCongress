@@ -266,7 +266,6 @@ export class AddClientComponent implements OnInit {
     this.getDistrict();
   }
 
-
   clearForm() {
     this.submitted = false;
     this.btnText = 'Add Client'
