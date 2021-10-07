@@ -127,18 +127,20 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.subCommittessResult = res.data1;
+        let result:any = res.data1;
         debugger;
-        // if(this.subCommittessResult >=1){
-        //   this.subCommittessResult = this.subCommittessResult.map((ele:any)=>{
-        //   if(ele.CommitteeId == ele.SubParentCommitteeId){
-        //     ele['SubParentCommitteeId'] = null;
-        //     return ele
-        //   }
-        // });
-        //   this.list_to_tree( this.subCommittessResult);
-        // }
-        
+        if(result !=0){
+          this.subCommittessResult = result.filter((ele:any)=>{
+          if(ele.CommitteeId == ele.SubParentCommitteeId){
+            ele['SubParentCommitteeId'] = null;
+            return ele
+          }
+        });
+          this.list_to_tree( this.subCommittessResult);
+        }else{
+          this.subCommittessResult = result;
+        }
+        console.log(this.subCommittessResult);
       } else {
         // this.toastrService.error("Body member is not available");
       }
