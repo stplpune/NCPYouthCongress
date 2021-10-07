@@ -267,6 +267,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       if (res.data == 0) {
 
         this.perOnSocialMedArray = res.data2;
+
         this.trendOnSocialMediaArray = res.data1;
 
 
@@ -504,7 +505,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
     let series5 = chart.series.push(new am4charts.LineSeries());
     series5.dataFields.valueY = "Other";
-    series5.dataFields.categoryX = "SrDateNo";
+    series5.dataFields.categoryX = "Date";
     series5.name = 'OTR';
     series5.bullets.push(new am4charts.CircleBullet());
     series5.tooltipText = "Count: {valueY}";
