@@ -472,4 +472,11 @@ export class AddMemberComponent implements OnInit {
     this.paginationNo = 1;
     this.getAllUsers();
   }
+
+
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../profile'], { relativeTo: this.route })
+  }
 }

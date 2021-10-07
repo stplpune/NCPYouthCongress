@@ -187,9 +187,7 @@
                             <tr
                                 *ngFor="let allUsers of resAllUsers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="allUsers.Id == highlightedRow">
                                 <td>{{allUsers?.SrNo}}</td>
-                                <td>
-                                    <a routerLink="../profile">{{allUsers?.FullName}}</a>
-                                </td>
+                                <td><a class="text-primary" (click)="redToMemberProfile(allUsers?.Id,allUsers?.FullName)">{{allUsers.FullName | titlecase}}</a></td>
                                 <td>{{allUsers?.MobileNo}}</td>
                                 <td>{{allUsers?.Address}}</td>
                                 <td>
