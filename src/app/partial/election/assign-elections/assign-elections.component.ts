@@ -31,6 +31,7 @@ export class AssignElectionsComponent implements OnInit {
   electionNameArray: any;
   constituencyNameArray: any;
   ConstituencyId: any;
+  highlightedRow: any;
 
 
   constructor(
@@ -70,60 +71,74 @@ export class AssignElectionsComponent implements OnInit {
     })
   }
 
-  
-  onSubmitAssElection() {
-    this.submitted = true;
-    console.log(this.assignElectionForm.value)
-  //   let formData = this.createElectionForm.value;
-  //   if (this.createElectionForm.invalid) {
-  //     this.spinner.hide();
-  //     return;
-  //   }
-  //   else if (formData.ElectionName.trim() == '' || formData.ElectionName ==  null || formData.ElectionName == undefined) {
-  //     this.toastrService.error("Election  Name can not contain space");
-  //     return;
-  //   }
-  //   else if (formData.IsSubElectionApplicable == 0 && this.addSubElectionArray.length == 0) {
-  //     this.toastrService.error("Please Add Sub Election");
-  //   }
-  //   else {
-  //     this.spinner.show();
-  //     if (formData.IsSubElectionApplicable == 0) {
-  //       this.addSubElectionArray.map((ele: any) => {
-  //         delete ele['Id'];
-  //         return ele;
-  //       })
-  //       this.subEleArray = JSON.stringify(this.addSubElectionArray);
-  //     } else {
-  //       this.subEleArray = "";
-  //     }
 
-  //     let id;
-  //     formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
-  //     let obj = id + '&ElectionName=' + formData.ElectionName + '&ElectionTypeId=' + formData.ElectionTypeId + '&IsSubElectionApplicable=' + formData.IsSubElectionApplicable +
-  //       '&IsAsemblyBoothListApplicable=' + formData.IsAsemblyBoothListApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subEleArray;
-  //     this.callAPIService.setHttp('get', 'Web_Insert_ElectionMaster?Id=' + obj, false, false, false, 'ncpServiceForWeb');
-  //     this.callAPIService.getHttp().subscribe((res: any) => {
-  //       if (res.data == 0) {
-  //         this.addSubElectionArray = [];
-  //         this.toastrService.success(res.data1[0].Msg);
-  //         this.getElectionMaster();
-  //         this.spinner.hide();
-  //         this.defaultProgramForm();
-  //         this.getsubElection() 
-  //         this.submitted = false;
-  //         this.subElectionDivHide = false;
-  //         this.btnText = 'Create Election';
-  //       } else {
-  //         //  this.toastrService.error("Data is not available");
-  //       }
-  //     }, (error: any) => {
-  //       if (error.status == 500) {
-  //         this.router.navigate(['../500'], { relativeTo: this.route });
-  //       }
-  //     })
-  //   }
-   }
+    onSubmitAssElection() {
+      this.validationNoofMembers();
+      // let formData = this.createConstituencyForm.value;
+      // if (this.createConstituencyForm.value.IsSubConstituencyApplicable == 1 && this.addSubConstituencyArray.length == 0) {
+      //   this.validationSubElectionForm();
+      // }
+      // this.submitted = true;
+      // if (this.createConstituencyForm.invalid) {
+      //   this.spinner.hide();
+      //   return;
+      // }
+      // else if ((formData.NoofMembers < 2) && (formData.Members == 1)) {
+      //   this.toastrService.error("No. of Member is  greater than or equal to  2");
+      //   return;
+      // }
+      // else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName ==  null || formData.ConstituencyName == undefined) {
+      //   this.toastrService.error("Constituency Name can not contain space");
+      //   return;
+      // }
+      // else if (formData.IsSubConstituencyApplicable == 1) {
+      //   if (this.addSubConstituencyArray.length == 0) {
+      //     this.toastrService.error("Please Add Sub Constituency");
+      //     return;
+      //   }
+      // }
+  
+      // if (formData.IsSubConstituencyApplicable == 1) {
+      //   this.addSubConstituencyArray.map((ele: any) => {
+      //     delete ele['ConstituencyName'];
+      //     delete ele['SubElection'];
+      //     if(ele['SrNo']){
+      //       delete ele['SrNo'];
+      //     }
+      //     return ele;
+      //   })
+      //   this.subConsArray = JSON.stringify(this.addSubConstituencyArray);
+      // } else {
+      //   this.subConsArray = "";
+      // }
+      // this.spinner.show();
+      // let id;
+      // let NoofMembers;
+      // formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
+      // // formData.NoofMembers == "" || formData.NoofMembers == null ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
+      // formData.Members == 0 ? NoofMembers = 1 : NoofMembers = formData.NoofMembers;
+      // // this.subConsArray ? this.subConsArray : this.subConsArray = "";
+      // let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyName=' + formData.ConstituencyName + '&Members=' + formData.Members +
+      //   '&NoofMembers=' + NoofMembers + '&IsSubConstituencyApplicable=' + formData.IsSubConstituencyApplicable + '&CreatedBy=' + this.commonService.loggedInUserId() + '&StrSubElectionId=' + this.subConsArray;
+      // this.callAPIService.setHttp('get', 'Web_Insert_ElectionConstituency?Id=' + obj, false, false, false, 'ncpServiceForWeb');
+      // this.callAPIService.getHttp().subscribe((res: any) => {
+      //   if (res.data == 0) {
+      //     this.spinner.hide();
+      //     this.toastrService.success(res.data1[0].Msg);
+      //     this.btnText = "Create Constituency";
+      //     this.resetConstituencyName();
+      //     this.getConstituency();
+      //   } else {
+      //     this.spinner.hide();
+      //     //  this.toastrService.error("Data is not available");
+      //   }
+      // }, (error: any) => {
+      //   this.spinner.hide();
+      //   if (error.status == 500) {
+      //     this.router.navigate(['../500'], { relativeTo: this.route });
+      //   }
+      // });
+    }
 
    getElection() {
     this.spinner.show();
@@ -163,6 +178,50 @@ export class AssignElectionsComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  // patchCreateConstituency(data: any) {
+  //   this.highlightedRow = data.Id;
+  //   this.btnText = 'Update Constituency';
+  //   data.Members == 1 ? this.noOfMembersDiv = true : this.noOfMembersDiv = false;
+  //   data.IsSubConstituencyApplicable == 1 ? (this.subConstituencyDivHide = true, this.subConstituencyTableDiv = true) : (this.subConstituencyDivHide = false, this.subConstituencyTableDiv = false);
+  //   this.createConstituencyForm.patchValue({
+  //     Id: data.Id,
+  //     ElectionId: data.ElectionId,
+  //     ConstituencyName: data.ConstituencyName,
+  //     Members: data.Members,
+  //     NoofMembers: data.NoofMembers,
+  //     IsSubConstituencyApplicable: data.IsSubConstituencyApplicable,
+  //   });
+  // }
+
+  validationNoofMembers() {
+    if (this.assignElectionForm.value.Members == 1) {
+      this.assignElectionForm.controls["NoofMembers"].setValidators(Validators.required);
+      this.assignElectionForm.controls["NoofMembers"].updateValueAndValidity();
+      this.assignElectionForm.controls["NoofMembers"].clearValidators();
+    }
+    else {
+      this.assignElectionForm.controls["NoofMembers"].clearValidators();
+      this.assignElectionForm.controls["NoofMembers"].updateValueAndValidity();
+    }
+  }
+
+  validationSubElectionForm() {
+    if (this.assignElectionForm.value.IsSubConstituencyApplicable == 1) {
+      this.assignElectionForm.controls["subEleName"].setValidators(Validators.required);
+      this.assignElectionForm.controls["subEleConstName"].setValidators(Validators.required);
+      this.assignElectionForm.controls["subEleName"].updateValueAndValidity();
+      this.assignElectionForm.controls["subEleConstName"].updateValueAndValidity();
+      this.assignElectionForm.controls["subEleName"].clearValidators();
+      this.assignElectionForm.controls["subEleConstName"].clearValidators();
+    }
+    else {
+      this.assignElectionForm.controls["subEleName"].clearValidators();
+      this.assignElectionForm.controls["subEleName"].updateValueAndValidity();
+      this.assignElectionForm.controls["subEleConstName"].clearValidators();
+      this.assignElectionForm.controls["subEleConstName"].updateValueAndValidity();
+    }
   }
 
   clearForm() {
