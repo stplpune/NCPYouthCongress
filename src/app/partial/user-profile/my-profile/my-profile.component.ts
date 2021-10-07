@@ -177,7 +177,6 @@ export class MyProfileComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        debugger;
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
         if (this.editFlag) {
