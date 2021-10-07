@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-feedbacks',
@@ -40,12 +41,18 @@ export class FeedbacksComponent implements OnInit {
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
-    
     this.getDistrict();
     this.defaultFilterForm();
     this.getMemberName();
     this.getFeedBackData(this.FeedbackObj);
     this.defualtHideFeedback = false;
+  }
+
+  refresh(){
+    let clickNewbtn = document.getElementById('btnradio2');
+    clickNewbtn?.click();
+    this.filterClear('district');
+    this.feedBackDataResult('New');
   }
 
 
@@ -157,6 +164,7 @@ export class FeedbacksComponent implements OnInit {
   }
 
   getFeedBackData(FeedbackObj: any) {
+    debugger;
     let fromDate: any = this.datepipe.transform(this.defaultFromDate, 'dd/MM/yyyy');
     let toDate: any = this.datepipe.transform(this.defaultToDate, 'dd/MM/yyyy');
 
