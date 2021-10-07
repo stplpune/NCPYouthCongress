@@ -138,39 +138,38 @@
 
         <div class="col-sm-6">
             <div class="card">
-                <div class="form-container">
-                    <form [formGroup]="filterForm">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="form-label">District</label>
-                                <ngx-select [allowClear]="true" (remove)="clearFilter('f_DistrictId')"
-                                    formControlName="f_DistrictId" [items]="allDistrict"
-                                    (select)="filterData();getTalukaByFilter()" optionValueField="DistrictId"
-                                    optionTextField="DistrictName" placeholder="Select District">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="form-label">Taluka</label>
-                                <ngx-select [allowClear]="true" (remove)="clearFilter('f_TalukaId')"
-                                    formControlName="f_TalukaId" [items]="getTalkaByDistrict"
-                                    (select)="filterData()" optionValueField="TalukaId" [disabled]="!this.filterForm.value.f_DistrictId"
-                                    optionTextField="TalukaName" placeholder="Select District">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="form-label">Search..</label>
-                                <div class="input-group">
-                                    <input class="form-control" formControlName="f_search" (keyup)="onKeyUpFilter()"
-                                        type="text" placeholder="Search.." />
-                                    <button type="button" class="btn btn-light btn-sm"
-                                        (click)="clearFilter('f_search')" *ngIf="filterForm.value.f_search"><i
-                                            class="fas fa-times"></i></button>
-                                    <button type="button" class="btn btn-light btn-sm"
-                                        *ngIf="!filterForm.value.f_search"><i class="fas fa-search"></i></button>
+                <div class="card-header">
+                    <div class="form-container">
+                        <form [formGroup]="filterForm">
+                            <div class="row g-2">
+                                <div class="col-sm-4">
+                                    <ngx-select [allowClear]="true" (remove)="clearFilter('f_DistrictId')"
+                                        formControlName="f_DistrictId" [items]="allDistrict"
+                                        (select)="filterData();getTalukaByFilter()" optionValueField="DistrictId"
+                                        optionTextField="DistrictName" placeholder="Select District">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <ngx-select [allowClear]="true" (remove)="clearFilter('f_TalukaId')"
+                                        formControlName="f_TalukaId" [items]="getTalkaByDistrict"
+                                        (select)="filterData()" optionValueField="TalukaId" [disabled]="!this.filterForm.value.f_DistrictId"
+                                        optionTextField="TalukaName" placeholder="Select Taluka">
+                                    </ngx-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input class="form-control" formControlName="f_search" (keyup)="onKeyUpFilter()"
+                                            type="text" placeholder="Search.." />
+                                        <button type="button" class="btn btn-light btn-sm"
+                                            (click)="clearFilter('f_search')" *ngIf="filterForm.value.f_search"><i
+                                                class="fas fa-times"></i></button>
+                                        <button type="button" class="btn btn-light btn-sm"
+                                            *ngIf="!filterForm.value.f_search"><i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover mb-0">
