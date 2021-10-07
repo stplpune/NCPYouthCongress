@@ -62,6 +62,7 @@ export class AddMemberComponent implements OnInit {
   subject: Subject<any> = new Subject();
   searchFilter = "";
   profileFlag ="Create";
+  highlightedRow:any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -102,6 +103,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   profileFormPathValue(data: any) {
+    this.highlightedRow =  data.Id
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getDistrict();
@@ -156,7 +158,7 @@ export class AddMemberComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        debugger;
+        
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
         if (this.editFlag) {
@@ -210,7 +212,7 @@ export class AddMemberComponent implements OnInit {
   updateProfile() {
     // this.addValiditonTaluka(this.editProfileForm.value.IsRural)
     this.submitted = true;
-    debugger;
+    
     if (this.editProfileForm.invalid) {
       this.spinner.hide();
       return;
@@ -247,6 +249,7 @@ export class AddMemberComponent implements OnInit {
           this.toastrService.success(result.Msg);
           this.getAllUsers();
           this.myProfileForm();
+          this.ImgUrl="";
         } else {
           this.spinner.hide();
           if (res.data == 1) {
@@ -374,7 +377,6 @@ export class AddMemberComponent implements OnInit {
   }
 
   getTalukaByFilter() {
-    debugger;
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + this.filterForm.value.f_DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
