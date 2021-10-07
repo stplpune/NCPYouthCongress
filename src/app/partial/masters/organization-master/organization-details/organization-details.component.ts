@@ -127,20 +127,43 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        let result:any = res.data1;
-        debugger;
-        if(result !=0){
-          this.subCommittessResult = result.filter((ele:any)=>{
-          if(ele.CommitteeId == ele.SubParentCommitteeId){
-            ele['SubParentCommitteeId'] = null;
-            return ele
-          }
-        });
-          this.list_to_tree( this.subCommittessResult);
-        }else{
-          this.subCommittessResult = result;
-        }
-        console.log(this.subCommittessResult);
+        // console.log(res.data1);
+        // let result:any = res.data1;
+        // if(result !=0){
+        //   this.subCommittessResult = result.filter((ele:any)=>{
+        //   if(ele.CommitteeId == ele.SubParentCommitteeId){
+        //     ele['SubParentCommitteeId'] = null;
+        //   }
+        //   return ele 
+        // });
+        //   this.list_to_tree( this.subCommittessResult);
+        // }else{
+        //   this.subCommittessResult = result;
+        // }
+    this.subCommittessResult = [
+    {
+        "CommitteeId": 132,
+        "CommitteeName": "Org A",
+        "SubParentCommitteeId": null,
+        "SubParentCommitteeName": "Org A",
+        "children": [
+            {
+                "CommitteeId": 135,
+                "CommitteeName": "Child1 A",
+                "SubParentCommitteeId": 132,
+                "SubParentCommitteeName": "Org A",
+                "children": [
+                    {
+                        "CommitteeId": 137,
+                        "CommitteeName": "Child1 B",
+                        "SubParentCommitteeId": 135,
+                        "SubParentCommitteeName": "Child1 A"
+                    }
+                ]
+            }
+        ]
+    }
+]
       } else {
         // this.toastrService.error("Body member is not available");
       }
@@ -153,7 +176,6 @@ export class OrganizationDetailsComponent implements OnInit {
 
 
   list_to_tree(list:any) {
-    console.log(list)
     var map:any = {}, node, roots = [], i;
     
     for (i = 0; i < list.length; i += 1) {

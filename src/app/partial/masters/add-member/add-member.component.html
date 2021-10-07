@@ -128,16 +128,39 @@
 
         <div class="col-sm-6">
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-sm-6 offset-6">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Search.." />
-                                <button type="button" class="btn btn-light btn-sm"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-light btn-sm"><i class="fas fa-search"></i></button>
+                <div class="form-container">
+                    <form [formGroup]="filterForm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="form-label">District</label>
+                                <ngx-select [allowClear]="true" (remove)="clearFilter('f_DistrictId')"
+                                    formControlName="f_DistrictId" [items]="allDistrict"
+                                    (select)="filterData();getTalukaByFilter()" optionValueField="DistrictId"
+                                    optionTextField="DistrictName" placeholder="Select District">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Taluka</label>
+                                <ngx-select [allowClear]="true" (remove)="clearFilter('f_TalukaId')"
+                                    formControlName="f_TalukaId" [items]="getTalkaByDistrict"
+                                    (select)="filterData()" optionValueField="TalukaId" [disabled]="!this.filterForm.value.f_DistrictId"
+                                    optionTextField="TalukaName" placeholder="Select District">
+                                </ngx-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Search..</label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="f_search" (keyup)="onKeyUpFilter()"
+                                        type="text" placeholder="Search.." />
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        (click)="clearFilter('f_search')" *ngIf="filterForm.value.f_search"><i
+                                            class="fas fa-times"></i></button>
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        *ngIf="!filterForm.value.f_search"><i class="fas fa-search"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover mb-0">
@@ -151,19 +174,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
+                            <tr
+                                *ngFor="let allUsers of resAllUsers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }">
+                                <td>{{allUsers?.SrNo}}</td>
                                 <td>
-                                    <a routerLink="../profile">Sangli District Admin</a>
+                                    <a routerLink="../profile">{{allUsers?.FullName}}</a>
                                 </td>
-                                <td>9128000000</td>
-                                <td>Village, Taluka, District</td>
+                                <td>{{allUsers?.MobileNo}}</td>
+                                <td>{{allUsers?.Address}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-light text-edit"><i class="fas fa-pen"></i></button>
                                 </td>
                             </tr>
+                            <tr *ngIf="resAllUsers?.length == 0">
+                                <td colspan="5">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div class="mt-2 text-right float-lg-end" *ngIf="resAllUsers?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <!-- <pagination-controls previousLabel="" nextLabel="" (pageChange)="pageSize = $event" (click)="onClickPagintion(pageSize)"> </pagination-controls> -->
+                    </div>
                 </div>
             </div>
         </div>
