@@ -90,13 +90,13 @@ export class AddMemberComponent implements OnInit {
       TalukaId: [''],
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
-      FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      FName: ['',],
       MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       IsRural: [1],
       ConstituencyNo: [''],
       Gender: [''],
-      EmailId: [''],
+      EmailId: ['',  [Validators.email]],
       Address: [''],
       CreatedBy: [this.commonService.loggedInUserId()]
     })

@@ -15,7 +15,7 @@
                     <div class="card-body pt-0">
                         <div class="form-container">
                             <div class="mb-2">
-                                <label for="ddlElection" class="form-label">Election</label>
+                                <label for="ddlElection" class="form-label required-field">Election</label>
                                 <ngx-select [allowClear]="true" [items]="electionNameArray" formControlName="ElectionId"
                                     optionValueField="id" optionTextField="ElectionName" placeholder="Select Election"
                                     (select)="GetConstituencyName($event)"
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label for="ddlConstituency" class="form-label">Constituency</label>
+                                <label for="ddlConstituency" class="form-label required-field">Constituency</label>
                                 <ngx-select [allowClear]="true" [items]="constituencyNameArray"
                                     formControlName="ConstituencyId" optionValueField="id"
                                     optionTextField="ConstituencyName" placeholder="Select Constituency"
@@ -40,14 +40,14 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="txtSearchAssembly" class="form-label">Assembly</label>
+                                <label for="txtSearchAssembly" class="form-label required-field">Assembly</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
                                         <input type="text" formControlName="assembly" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"> 
                                 </div>
                                 <div class="card-body py-2 ChekBox" *ngIf="( assemblyArray | filter:searchAssembly ) as assemblyResult">     
                                     <div class="form-check" *ngFor="let assemblyData of assemblyResult">
-                                        <input class="form-check-input" type="checkbox"  [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
+                                        <input class="form-check-input" type="checkbox" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             {{assemblyData.ConstituencyName}}
                                         </label> 
@@ -57,10 +57,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div *ngIf="submitted && f.assembly.errors" class="invalid-feedback">
+                                <div *ngIf="f.assembly.errors.required">Assembly is required</div>
+                           </div>
+
                             </div>
 
                             <div class="mb-3" *ngIf="boothDivHide">
-                                <label for="txtSearchBooth" class="form-label">Booth</label>
+                                <label for="txtSearchBooth" class="form-label required-field">Booth</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
                                         <input type="text" formControlName="boothList" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"> 

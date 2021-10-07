@@ -63,8 +63,6 @@
                             <label for="txtEmailID" class="form-label">Email ID</label>
                             <input type="email" class="form-control" placeholder="Email ID" formControlName="EmailId">
                             <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
-                                <div *ngIf="f.EmailId.errors.required">Email is required
-                                </div>
                                 <div *ngIf="f.EmailId.errors.email">Enter Valid email id
                                 </div>
                             </div>

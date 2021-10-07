@@ -15,7 +15,7 @@
                     <div class="card-body pt-0">
                         <div class="form-container">
                             <div class="mb-2">
-                                <label for="ddlElectionName" class="form-label">Election Name</label>
+                                <label for="ddlElectionName" class="form-label required-field">Election Name</label>
                                 <ngx-select [allowClear]="true" [items]="electionName" formControlName="ElectionId"
                                     optionValueField="Id" optionTextField="ElectionName" (remove)="getElection()" (select)="selectGetElection()" placeholder="Election Name"
                                     [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label for="txtConstituencyName" class="form-label">Constituency Name</label>
+                                <label for="txtConstituencyName" class="form-label required-field">Constituency Name</label>
                                 <input type="text" class="form-control" 
                                     placeholder="Constituency Name" formControlName="ConstituencyName"
                                     [ngClass]="{ 'is-invalid': submitted && f.ConstituencyName.errors }">
@@ -70,7 +70,7 @@
                             <div class="mb-2" *ngIf="subConstituencyDivHide">
                                 <div class="card card-body border shadow-none">
                                     <div class="mb-2">
-                                        <label for="ddlSelectElection" class="form-label">Select Sub Election Name</label>
+                                        <label for="ddlSelectElection" class="form-label" [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select Sub Election Name</label>
                                         <ngx-select [allowClear]="true" [items]="SubElectionName"
                                             formControlName="subEleName" optionValueField="Id"
                                             optionTextField="ElectionName" placeholder="Select Sub Election"
@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="txtSubWardName" class="form-label">Select Sub Constituency Name</label>
+                                        <label for="txtSubWardName" class="form-label" [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select Sub Constituency Name</label>
                                         <ngx-select [allowClear]="true" [items]="constituencyArray"
                                             formControlName="subEleConstName" optionValueField="id"
                                             optionTextField="ConstituencyName"

@@ -77,8 +77,8 @@ export class AssignBoothComponent implements OnInit {
       Id: [0],
       ElectionId: ['', Validators.required],
       ConstituencyId: ['', Validators.required],
-      assembly: [''],
-      boothList: [''],
+      assembly: ['', Validators.required],
+      boothList: ['', Validators.required],
       // Assembly: [false,  Validators.requiredTrue],
       // Booths: [false, Validators.requiredTrue],
     })
