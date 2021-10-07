@@ -128,7 +128,17 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.subCommittessResult = res.data1;
-
+        debugger;
+        // if(this.subCommittessResult >=1){
+        //   this.subCommittessResult = this.subCommittessResult.map((ele:any)=>{
+        //   if(ele.CommitteeId == ele.SubParentCommitteeId){
+        //     ele['SubParentCommitteeId'] = null;
+        //     return ele
+        //   }
+        // });
+        //   this.list_to_tree( this.subCommittessResult);
+        // }
+        
       } else {
         // this.toastrService.error("Body member is not available");
       }
@@ -139,7 +149,9 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
+
   list_to_tree(list:any) {
+    console.log(list)
     var map:any = {}, node, roots = [], i;
     
     for (i = 0; i < list.length; i += 1) {
@@ -268,7 +280,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
-        console.log("111",this.allDesignatedMembers)
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         this.getPreDesMembersArray = [];
@@ -517,7 +528,6 @@ export class OrganizationDetailsComponent implements OnInit {
       this.toastrService.error("Please select member and try again");
     }
     else {
-      // console.log(data.PostFromDate);
       this.dataAddEditMember = data
       let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
       openMemberModal.click();
