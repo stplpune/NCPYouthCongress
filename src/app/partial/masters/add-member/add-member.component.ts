@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -35,7 +35,7 @@ export class AddMemberComponent implements OnInit {
   resProfileData: any;
   showingUserName: any;
   showingMobileNo: any;
-  villageCityLabel: any;
+  villageCityLabel = "Village";
   setVillOrCityId: any;
   setVillOrcityName: any;
   globalVillageOrCityId: any;
@@ -61,6 +61,7 @@ export class AddMemberComponent implements OnInit {
   total: any;
   subject: Subject<any> = new Subject();
   searchFilter = "";
+  profileFlag ="Create";
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -72,12 +73,298 @@ export class AddMemberComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.myProfileForm();
     this.defaultFilterForm();
     this.getAllUsers();
     this.getDistrictByFilter();
     this.searchFilters('false');
   }
-  
+
+  myProfileForm() {
+    this.editProfileForm = this.fb.group({
+      Name: [''],
+      UserId: [],
+      StateId: [1],
+      DistrictId: [0],
+      TalukaId: [''],
+      MobileNo:['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      VillageId: [''],
+      FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      IsRural: [1],
+      ConstituencyNo: [''],
+      Gender: [''],
+      EmailId: [''],
+      Address: [''],
+      CreatedBy:[this.commonService.loggedInUserId()]
+    })
+  }
+
+  profileFormPathValue(data: any) {
+    // for img upload 
+    this.profileFlag = "Update";
+    let loginObj: any = sessionStorage.getItem('loggedInDetails');
+    loginObj = JSON.parse(loginObj);
+    loginObj.data1[0].ProfilePhoto = data.ProfilePhoto;
+    sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj));
+    this.commonService.pathchange(this.ImgUrl);
+    localStorage.setItem('imgUrl', this.ImgUrl);
+
+
+    this.selGender = data.Gender;
+    data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
+    this.getDistrict();
+    this.ImgUrl = data.ProfilePhoto;
+    this.editProfileForm.patchValue({
+      UserId: data.Id,
+      FName: data.FName,
+      MName: data.MName,
+      MobileNo: data.MobileNo,
+      LName: data.LName,
+      IsRural: data.IsRural,
+      Gender: data.Gender,
+      EmailId: data.Emailid,
+      Address: data.Address,
+      DistrictId: data.DistrictId,
+      TalukaId: data.TalukaId,
+      VillageId: data.VillageId
+    });
+  }
+
+  getDistrict() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDistrict = res.data1;
+        if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
+          this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
+        }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
+          this.getTaluka(this.editProfileForm.value.DistrictId,false);
+        }
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available 2");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getTaluka(districtId: any,flag:any) {
+    if(districtId ==""){return};
+    if(this.editProfileForm.value.IsRural == 0){
+      this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
+      return
+    }
+    this.spinner.show();
+    (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
+    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        debugger;
+        this.spinner.hide();
+        this.getTalkaByDistrict = res.data1;
+        if (this.editFlag) {
+          this.editProfileForm.patchValue({
+            TalukaId: this.editProfileForm.value.TalukaId,
+          });
+          if(flag == 'select'){
+            this.editProfileForm.controls['VillageId'].setValue('');
+          }
+          let selValueCityOrVillage: any = "";
+          this.editProfileForm.value.IsRural == 1 ? (selValueCityOrVillage = "Village") : (selValueCityOrVillage = "City");
+          if (this.editProfileForm.value.TalukaId) {
+            this.getVillageOrCity(this.editProfileForm.value.TalukaId, selValueCityOrVillage)
+          }
+        }
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  getVillageOrCity(talukaID: any, selType: any) {
+   if(talukaID ==""){return};
+    this.villageDisabled = false;
+    this.spinner.show();
+    let appendString = "";
+    selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.editProfileForm.value.DistrictId;
+    this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resultVillageOrCity = res.data1;
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available1");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  get f() { return this.editProfileForm.controls };
+
+  updateProfile() {
+    // this.addValiditonTaluka(this.editProfileForm.value.IsRural)
+    this.submitted = true;
+    debugger;
+    if (this.editProfileForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else {
+      this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
+      if(this.editProfileForm.value.IsRural == 0){
+        this.editProfileForm.value.TalukaId = "";
+      }
+
+      let fromData = new FormData();
+      let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
+      this.editProfileForm.value.Name = FullName;
+      Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
+        let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
+        fromData.append(cr, value)
+      });
+      fromData.append('ProfilePhoto', this.selectedFile == undefined ? '' : this.selectedFile);
+      if (this.profilePhotoChange != 2) {
+        this.selectedFile ? this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
+      }
+      
+      fromData.append('IsPhotoChange', this.profilePhotoChange);
+
+      this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+           this.disabledEditForm = true;
+          this.profilePhotoChange = null;
+          this.submitted = false;
+          this.resetFile();
+          this.spinner.hide();
+          let result = res.data1[0];
+          this.toastrService.success(result.Msg);
+          this.getAllUsers();
+          this.myProfileForm();
+        } else {
+          this.spinner.hide();
+          if (res.data == 1) {
+          } else {
+            this.toastrService.error("Please try again something went wrong");
+          }
+        }
+      })
+    }
+  }
+
+  getProfileData(id:any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetUserDetails?Id=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resProfileData = res.data1[0];
+        console.log(this.resProfileData);
+        this.profileFormPathValue(this.resProfileData);
+      } else {
+        this.spinner.hide();
+        if (res.data == 1) {
+          this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  resetFile() {
+    this.profileFlag = "Create";
+    this.myInputVariable.nativeElement.value = '';
+  }
+
+  onRadioChangeCategory(category: any) {
+    if (category == "Rural") {
+      this.villageDisabled = true;
+      this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName"
+      this.getTaluka(this.editProfileForm.value.DistrictId, false);
+      this.editProfileForm.controls['VillageId'].setValue(this.globalVillageOrCityId);
+    } else {
+        this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
+        this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
+        this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City',);
+        this.editProfileForm.controls['VillageId'].setValue(null);
+    }
+  }
+
+  districtClear(text: any) {
+    if (text == 'district') {
+      this.editProfileForm.controls['DistrictId'].setValue(''), this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
+      this.villageDisabled = true;
+    } else if (text == 'taluka') {
+      this.editProfileForm.controls['TalukaId'].setValue(''), this.editProfileForm.controls['VillageId'].setValue('');
+
+    } else if (text == 'village') {
+      this.editProfileForm.controls['VillageId'].setValue('');
+    }
+  }
+
+  choosePhoto() {
+    this.profilePhotoChange = 1;
+    let clickPhoto: any = document.getElementById('my_file')
+    clickPhoto.click();
+  }
+
+  readUrl(event: any) {
+    let selResult = event.target.value.split('.');
+    this.getImgExt = selResult.pop();
+    this.getImgExt.toLowerCase();
+    if (this.getImgExt == "png" || this.getImgExt == "jpg" || this.getImgExt == "jpeg") {
+      this.selectedFile = <File>event.target.files[0];
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.ImgUrl = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        this.imgName = event.target.files[0].name;
+      }
+    }
+    else {
+      this.toastrService.error("Profile image allowed only jpg or png format");
+    }
+  }
+
+  removePhoto() {
+    this.selectedFile = "";
+    this.fileInput.nativeElement.value = '';
+    this.profilePhotoChange = 2;
+    this.ImgUrl = null;
+  }
+
+  addValiditonTaluka(IsRural:any){
+    if(IsRural == 1){
+      this.editProfileForm.controls["TalukaId"].setValidators(Validators.required);
+      this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
+      this.editProfileForm.controls['TalukaId'].clearValidators();
+    }else{
+      this.editProfileForm.controls["TalukaId"].clearValidators();
+      this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
+    }
+  }
+
+  // filter and table contant 
+
   getDistrictByFilter() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');

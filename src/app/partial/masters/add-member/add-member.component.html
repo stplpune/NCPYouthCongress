@@ -11,81 +11,92 @@
     <div class="row chartbox mb-3">
         <div class="col-md-6">
             <div class="card card-body">
+                <form [formGroup]="editProfileForm" enctype="multipart/form-data">
                 <div class="form-container">
                     <div class="row mb-3 text-center">
                         <div class="col-sm-4 offset-4">
-                            <img src="assets/images/dashboard-images/ncp-default.png"
-                                class="img-fluid img-thumbnail profile-photo">
-                            <a class="update-photo">
-                                <i class="fas fa-camera"></i>
-                            </a>
-                            <a class="update-photo">
-                                <i class="fas fa-times"></i>
-                            </a>
+                            <div class="position-relative">
+                                <a class="update-photo" (click)="choosePhoto()">
+                                    <i class="fas fa-camera"></i>
+                                </a>
+                                <a class="update-photo" *ngIf="ImgUrl" [class.disable-close-btn]="disabledEditForm" (click)="removePhoto();">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                                <input type="file" id="my_file" #myInput class="d-none" (change)="readUrl($event)" #fileInput>
+                                <img src="assets/images/dashboard-images/ncp-default.png" *ngIf="!ImgUrl" class="img-fluid img-thumbnail profile-photo">
+                                <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                         <div class="col-sm-4">
-                            <label for="txtFirstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                            <label class="form-label required-field">First Name</label>
+                            <input type="text" class="form-control" formControlName="FName" placeholder="First Name" 
+                            [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                            <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
+                                <div *ngIf="f.FName.errors.required">First name is required
+                                </div>
+                                <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
+                            </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for="txtMiddleName" class="form-label">Middle Name</label>
-                            <input type="text" class="form-control" id="txtMiddleName" placeholder="Middle Name">
+                            <label for="txtFullName" class="form-label required-field">Middle Name</label>
+                            <input type="text" class="form-control" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
+                            <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
+                                <div *ngIf="f.MName.errors.required">Middle name is required
+                                </div>
+                                <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
+                            </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for="txtLastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                            <label for="txtFullName" class="form-label required-field">Last Name</label>
+                            <input type="text" class="form-control" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
+                            <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
+                                <div *ngIf="f.LName.errors.required">Last name is required
+                                </div>
+                                <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                         <div class="col-sm-6">
                             <label for="txtEmailID" class="form-label">Email ID</label>
-                            <input type="email" class="form-control" id="txtEmailID" placeholder="Email ID">
+                            <input type="email" class="form-control" placeholder="Email ID" formControlName="EmailId">
+                            <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
+                                <div *ngIf="f.EmailId.errors.required">Email is required
+                                </div>
+                                <div *ngIf="f.EmailId.errors.email">Enter Valid email id
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="txtContactNo" class="form-label">Contact No</label>
-                            <input type="number" class="form-control" id="txtContactNo" placeholder="Contact No">
+                            <label for="txtEmailID" class="form-label required-field">Contact No</label>
+                            <input type="text" class="form-control" placeholder="Contact No"  maxlength="10" formControlName="MobileNo"  [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors }">
+                            <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.MobileNo.errors.required">Contact No is required
+                                </div>
+                                <div *ngIf="f.MobileNo.errors.pattern">Please, Enter 10 digit Mobile Number.
+                                        </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="rblGender" class="form-label">Gender</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblGender" id="rbMale" checked>
-                                    <label class="form-check-label" for="rbMale">
-                                        Male
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblGender" id="rbFemale">
-                                    <label class="form-check-label" for="rbFemale">
-                                        Female
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblGender" id="rbOther">
-                                    <label class="form-check-label" for="rbOther">
-                                        Other
-                                    </label>
+                                <!-- [checked]="defultCategory == category.name" -->
+                                <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
+                                    <input class="form-check-input" type="radio" formControlName="Gender" [checked]="selGender == gender.id" [value]="gender.id" name="Gender">
+                                    <label class="form-check-label" for="rgender">{{gender.name}}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label for="rblArea" class="form-label">Area</label>
                             <div class="d-block">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblArea" id="rbRural" checked>
-                                    <label class="form-check-label" for="rbRural">
-                                        Rural
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="rblArea" id="rbUrban">
-                                    <label class="form-check-label" for="rbUrban">
-                                        Urban
-                                    </label>
+                                <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
+                                    <input class="form-check-input" type="radio" formControlName="IsRural" [value]="category.id"   name="IsRural" (change)='onRadioChangeCategory(category.name)'>
+                                    <label class="form-check-label" for="rblRural">{{category.name}}</label>
                                 </div>
                             </div>
                         </div>
@@ -93,36 +104,35 @@
                     <div class="row mb-3">
                         <div class="col-sm-4">
                             <label for="ddlDistrict" class="form-label">District</label>
-                            <select class="form-select" id="ddlDistrict">
-                                <option value="">Select District</option>
-                            </select>
+                            <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict" formControlName="DistrictId" (select)="getTaluka(this.editProfileForm.value.DistrictId,'select')" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" >
+                             </ngx-select>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" *ngIf="this.editProfileForm.value.IsRural == 1">
                             <label for="ddlTaluka" class="form-label">Taluka</label>
-                            <select class="form-select" id="ddlTaluka">
-                                <option value="">Select Taluka</option>
-                            </select>
+                            <ngx-select [allowClear]="true" (remove)="districtClear('taluka')" [items]="getTalkaByDistrict" [disabled]="!this.editProfileForm.value.DistrictId" formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName" placeholder="Select Taluka"
+                            (select)="getVillageOrCity(this.editProfileForm.value.TalukaId, villageCityLabel)" >
+                        </ngx-select>
                         </div>
                         <div class="col-sm-4">
-                            <label for="ddlVillageTown" class="form-label">Village/Town</label>
-                            <select class="form-select" id="ddlVillageTown">
-                                <option value="">Select Village/Town</option>
-                            </select>
+                            <label for="ddlVillageTown" class="form-label">{{villageCityLabel}}</label>
+                            <ngx-select [allowClear]="true" [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}" [optionValueField]="setVillOrCityId" formControlName="VillageId" [optionTextField]="setVillOrcityName" [disabled]="villageDisabled  || !this.editProfileForm.value.TalukaId">
+                            </ngx-select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="txtAddress" class="form-label">Address</label>
-                        <textarea class="form-control" id="txtAddress" placeholder="Address"></textarea>
+                        <textarea class="form-control" placeholder="Address" formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <button class="btn btn-secondary btn-sm">Cancel</button>
                         </div>
                         <div class="col-sm-6 text-end">
-                            <button class="btn btn-main btn-sm">Submit Profile</button>
+                            <button class="btn btn-main btn-sm" type="submit" (click)="updateProfile()">{{profileFlag}} Profile</button>
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
 
@@ -183,7 +193,7 @@
                                 <td>{{allUsers?.MobileNo}}</td>
                                 <td>{{allUsers?.Address}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-edit"><i class="fas fa-pen"></i></button>
+                                    <button class="btn btn-sm btn-light text-edit" (click)="getProfileData(allUsers?.Id)"><i class="fas fa-pen"></i></button>
                                 </td>
                             </tr>
                             <tr *ngIf="resAllUsers?.length == 0">
