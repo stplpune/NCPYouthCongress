@@ -28,7 +28,7 @@ export class SocialMediaMessagesComponent implements OnInit {
   socialMediaDetailsArray: any;
   lat: any;
   lng: any;
-  zoom: any = 5;
+  zoom: any = 15;
   socialMediaDetailsImageArray: any;
   defaultToDate: string = '';
   defaultFromDate: string = '';
