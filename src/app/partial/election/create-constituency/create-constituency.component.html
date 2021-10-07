@@ -108,16 +108,17 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>Sub Election Name</th>
-                                                <th>Sub Constituency Name</th>
+                                                <th>Sub Election / Sub Constituency Name</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index" >
                                             <tr>
                                                 <td>{{i+1}}</td>
-                                                <td>{{resSubCons.SubElection}}</td>
-                                                <td>{{resSubCons.ConstituencyName}}</td>
+                                                <td>
+                                                    <p class="mb-0">{{resSubCons.SubElection}}</p>
+                                                    <small class="text-muted">{{resSubCons.ConstituencyName}}</small>
+                                                </td>
                                                 <td>
                                                     <button type="button" class="btn btn-light text-danger btn-sm ms-1"
                                                         (click)="delConfirmation(i)">

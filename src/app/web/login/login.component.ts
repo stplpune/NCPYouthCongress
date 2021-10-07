@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
         }
       })
     }
-    // this.reCaptcha();
+     this.reCaptcha();
   }
 
   reCaptcha(){

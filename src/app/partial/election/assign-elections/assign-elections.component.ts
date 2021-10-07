@@ -207,11 +207,14 @@ export class AssignElectionsComponent implements OnInit {
     //this.getAssignedBoothToElection();
   }
 
-  clearFilter(flag: any) {
-    if (flag == 'electionType') {
-      this.filterForm.controls['ElectionNameId'].setValue(0);
-    } else if (flag == 'search') {
-      this.filterForm.controls['Search'].setValue('');
+
+  clearFilter(flag:any){
+    if(flag ==  'notifications'){
+      this.filterForm.controls['ScopeId'].setValue(0);
+    }else  if(flag ==  'search'){
+      this.filterForm.controls['searchText'].setValue('');
+    }else  if(flag ==  'Type'){
+      this.filterForm.controls['fromTo'].setValue(['','']);
     }
     this.paginationNo = 1;
     //this.getAssignedBoothToElection();
