@@ -61,8 +61,8 @@ export class AddMemberComponent implements OnInit {
   total: any;
   subject: Subject<any> = new Subject();
   searchFilter = "";
-  profileFlag ="Create";
-  highlightedRow:any;
+  profileFlag = "Create";
+  highlightedRow: any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -88,7 +88,7 @@ export class AddMemberComponent implements OnInit {
       StateId: [1],
       DistrictId: [0],
       TalukaId: [''],
-      MobileNo:['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
       FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
@@ -98,12 +98,12 @@ export class AddMemberComponent implements OnInit {
       Gender: [''],
       EmailId: [''],
       Address: [''],
-      CreatedBy:[this.commonService.loggedInUserId()]
+      CreatedBy: [this.commonService.loggedInUserId()]
     })
   }
 
   profileFormPathValue(data: any) {
-    this.highlightedRow =  data.Id
+    this.highlightedRow = data.Id
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getDistrict();
@@ -116,7 +116,7 @@ export class AddMemberComponent implements OnInit {
       LName: data.LName,
       IsRural: data.IsRural,
       Gender: data.Gender,
-      EmailId: data.Emailid,
+      EmailId: data.EmailId,
       Address: data.Address,
       DistrictId: data.DistrictId,
       TalukaId: data.TalukaId,
@@ -133,8 +133,8 @@ export class AddMemberComponent implements OnInit {
         this.allDistrict = res.data1;
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
-        }else  if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
-          this.getTaluka(this.editProfileForm.value.DistrictId,false);
+        } else if (this.editFlag && this.editProfileForm.value.IsRural == 1) {
+          this.getTaluka(this.editProfileForm.value.DistrictId, false);
         }
       } else {
         this.spinner.hide();
@@ -147,9 +147,9 @@ export class AddMemberComponent implements OnInit {
     })
   }
 
-  getTaluka(districtId: any,flag:any) {
-    if(districtId ==""){return};
-    if(this.editProfileForm.value.IsRural == 0){
+  getTaluka(districtId: any, flag: any) {
+    if (districtId == "") { return };
+    if (this.editProfileForm.value.IsRural == 0) {
       this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
       return
     }
@@ -158,14 +158,14 @@ export class AddMemberComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        
+
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
         if (this.editFlag) {
           this.editProfileForm.patchValue({
             TalukaId: this.editProfileForm.value.TalukaId,
           });
-          if(flag == 'select'){
+          if (flag == 'select') {
             this.editProfileForm.controls['VillageId'].setValue('');
           }
           let selValueCityOrVillage: any = "";
@@ -186,7 +186,13 @@ export class AddMemberComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-   if(talukaID ==""){return};
+    if (talukaID == "") { return };
+
+    if(this.villageCityLabel == "Village"){
+      this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName";
+    }else{
+      this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
+    }
     this.villageDisabled = false;
     this.spinner.show();
     let appendString = "";
@@ -212,14 +218,14 @@ export class AddMemberComponent implements OnInit {
   updateProfile() {
     // this.addValiditonTaluka(this.editProfileForm.value.IsRural)
     this.submitted = true;
-    
+
     if (this.editProfileForm.invalid) {
       this.spinner.hide();
       return;
     }
     else {
       this.editProfileForm.value['Name'] = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName
-      if(this.editProfileForm.value.IsRural == 0){
+      if (this.editProfileForm.value.IsRural == 0) {
         this.editProfileForm.value.TalukaId = "";
       }
 
@@ -234,13 +240,13 @@ export class AddMemberComponent implements OnInit {
       if (this.profilePhotoChange != 2) {
         this.selectedFile ? this.profilePhotoChange = 1 : this.profilePhotoChange = 0;
       }
-      
+
       fromData.append('IsPhotoChange', this.profilePhotoChange);
 
       this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
-           this.disabledEditForm = true;
+          this.disabledEditForm = true;
           this.profilePhotoChange = null;
           this.submitted = false;
           this.resetFile();
@@ -249,7 +255,8 @@ export class AddMemberComponent implements OnInit {
           this.toastrService.success(result.Msg);
           this.getAllUsers();
           this.myProfileForm();
-          this.ImgUrl="";
+          this.ImgUrl = "";
+          this.highlightedRow="";
         } else {
           this.spinner.hide();
           if (res.data == 1) {
@@ -261,7 +268,7 @@ export class AddMemberComponent implements OnInit {
     }
   }
 
-  getProfileData(id:any) {
+  getProfileData(id: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetUserDetails?Id=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -289,14 +296,14 @@ export class AddMemberComponent implements OnInit {
   onRadioChangeCategory(category: any) {
     if (category == "Rural") {
       this.villageDisabled = true;
-      this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName"
+      this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName";
       this.getTaluka(this.editProfileForm.value.DistrictId, false);
       this.editProfileForm.controls['VillageId'].setValue(this.globalVillageOrCityId);
     } else {
-        this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
-        this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
-        this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City',);
-        this.editProfileForm.controls['VillageId'].setValue(null);
+      this.globalVillageOrCityId = this.editProfileForm.value.VillageId;
+      this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
+      this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City',);
+      this.editProfileForm.controls['VillageId'].setValue(null);
     }
   }
 
@@ -345,12 +352,12 @@ export class AddMemberComponent implements OnInit {
     this.ImgUrl = null;
   }
 
-  addValiditonTaluka(IsRural:any){
-    if(IsRural == 1){
+  addValiditonTaluka(IsRural: any) {
+    if (IsRural == 1) {
       this.editProfileForm.controls["TalukaId"].setValidators(Validators.required);
       this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
       this.editProfileForm.controls['TalukaId'].clearValidators();
-    }else{
+    } else {
       this.editProfileForm.controls["TalukaId"].clearValidators();
       this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
     }
