@@ -10,26 +10,27 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
+                    <form [formGroup]="filterForm">
                     <div class="row g-2">
                         <div class="col-sm-2 offset-1">
-                            <select class="form-select">
-                                <option value="">Select Client</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="clientNameArray" formControlName="ClientId" (select)="getElectionName()"
+                                    optionValueField="id" optionTextField="Fullname" placeholder="Select Client" (remove)="clearFilter('clientName')" >
+                                </ngx-select>
                         </div>
                         <div class="col-sm-2">
-                            <select class="form-select">
-                                <option value="">Select Election</option>
-                            </select>
+                        <ngx-select [allowClear]="true" [items]="electionNameArray" [disabled]="!this.filterForm.value.ClientId" (select)="getConstituencyName()"  (remove)="clearFilter('electionName')"  formControlName="ElectionId"
+                            optionValueField="ElectionId" optionTextField="ElectionName" placeholder="Select Election">
+                        </ngx-select>
                         </div>
                         <div class="col-sm-2">
-                            <select class="form-select">
-                                <option value="">Select Constituency</option>
-                            </select>
+                        <ngx-select [allowClear]="true" [items]="constituencyNameArray" [disabled]="!this.filterForm.value.ElectionId" (select)="getAssemblyName()"  (remove)="clearFilter('constituencyName')"  formControlName="ConstituencyId"
+                            optionValueField="ConstituencyId" optionTextField="ConstituencyName" placeholder="Select Constituency">
+                        </ngx-select>
                         </div>
                         <div class="col-sm-2">
-                            <select class="form-select">
-                                <option value="">Select Assembly</option>
-                            </select>
+                            <ngx-select [allowClear]="true" [items]="AssemblyNameArray" (select)="getBoothSubelection()" [disabled]="!this.filterForm.value.ConstituencyId" (remove)="clearFilter('assemblyName')"  formControlName="AssemblyId"
+                            optionValueField="Id" optionTextField="ConstituencyName" placeholder="Select Assembly">
+                        </ngx-select>
                         </div>
                         <div class="col-sm-3">
                             <div class="input-group">
@@ -41,6 +42,7 @@
                             </div>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -163,19 +165,3 @@
         </div>
     </div>
 </div>
-
-<!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      {{node.name}}
-    </mat-tree-node>
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      {{node.name}}
-    </mat-tree-node>
-  </mat-tree> -->

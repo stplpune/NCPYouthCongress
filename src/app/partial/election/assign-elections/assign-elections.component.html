@@ -51,7 +51,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && f.strConstituency.errors}">
                                     </ngx-select>
                                     <div *ngIf="submitted && f.strConstituency.errors" class="invalid-feedback">
-                                        <div *ngIf="f.strConstituency.errors.required">Constituency is required
+                                        <div *ngIf="f.strConstituency.errors.required">Constituency name is required
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
-                                        <tr [class.active]="resSubCons.HeaderId == highlightedRow" >
+                                        <tr>
                                             <td>{{i+1}}</td>
                                             <td>
                                                 <p class="mb-0">{{resSubCons.ElectionName  | titlecase}}</p>
@@ -94,10 +94,10 @@
                             <div class="row mb-1">
                                 <div class="col-sm-3">
                                     <button class="btn btn-secondary btn-sm" type="button"
-                                        (click)="clearForm()">Cancel</button>
+                                        (click)="resetAssignElectionForm()">Cancel</button>
                                 </div>
                                 <div class="col-sm-9 text-end">
-                                    <button class="btn btn-main btn-sm" type="submit">Add Assign Election</button>
+                                    <button class="btn btn-main btn-sm" type="submit">{{btnText}}  Election To Client</button>
                                 </div>
                             </div>
                         </div>
@@ -110,22 +110,22 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
-                            <div class="offset-4 col-sm-4">
+                            <div class="offset-8 col-sm-4">
                                 <ngx-select [allowClear]="true" [items]="getClientName" formControlName="ClientId" (select)="filterData()"
                                     optionValueField="id" optionTextField="Fullname" placeholder="Select Client Name"    (remove)="clearFilter('ClientId')" >
                                 </ngx-select>
                             </div>
-                            <div class="col-sm-4">
+                            <!-- <div class="col-sm-4">
                                 <div class="input-group">
                                     <input type="text" class="form-control" formControlName="Search"
-                                        placeholder="Election / Sub Election Name" (keyup)="onKeyUpFilter()" />
+                                        placeholder="Election / Constituency Name" (keyup)="onKeyUpFilter()" />
                                     <button type="button" class="btn btn-light border btn-sm"
                                         (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
                                             _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                                     <button type="button" *ngIf="!filterForm.value.Search"
                                         class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -141,7 +141,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let result of resAssignedConstituencytoClient  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                                *ngFor="let result of resAssignedConstituencytoClient  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="result.HeaderId == highlightedRow" >
                                 <!-- [class.active]="assBoothEle.SrNo == HighlightRow"  -->
                                 <td>{{result?.SrNo }}</td>
                                 <td>{{result?.Fullname | titlecase}}</td>
