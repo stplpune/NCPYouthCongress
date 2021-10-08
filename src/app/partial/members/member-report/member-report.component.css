@@ -1,0 +1,19 @@
+#letterhead{
+    font-family: 'Yatra One', sans-serif !important;
+    font-size:1.2rem ;
+}
+#letterhead img{
+    width: 40px;
+}
+#personaldetails h4{
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+#personaldetails .prof-photo{
+    width: 150px;
+    border-radius: 5px;
+}
+#personaldetails p{
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}

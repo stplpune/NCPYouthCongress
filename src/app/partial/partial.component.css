@@ -48,7 +48,10 @@
     box-shadow: none;
     outline: none;
 }
-
+#pageheader .input-group span.input-group-text{
+    font-size: .85rem;
+    line-height: 20px;
+}
 #pageheader .btn {
     width: 34px;
     height: 34px;

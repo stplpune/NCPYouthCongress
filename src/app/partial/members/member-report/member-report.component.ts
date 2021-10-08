@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-member-report',
   templateUrl: './member-report.component.html',
-  styleUrls: ['./member-report.component.css']
+  styleUrls: ['./member-report.component.css', '../../partial.component.css']
 })
 export class MemberReportComponent implements OnInit {
 
@@ -11,5 +11,4 @@ export class MemberReportComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
