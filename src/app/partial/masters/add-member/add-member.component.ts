@@ -90,7 +90,7 @@ export class AddMemberComponent implements OnInit {
       TalukaId: [''],
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
-      FName: ['',],
+      FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       IsRural: [1],
@@ -103,6 +103,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   profileFormPathValue(data: any) {
+    this.profileFlag = 'Update';
     this.highlightedRow = data.Id
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
@@ -122,6 +123,13 @@ export class AddMemberComponent implements OnInit {
       TalukaId: data.TalukaId,
       VillageId: data.VillageId
     });
+  }
+
+  clearForm() {
+    this.submitted = false;
+    this.profileFlag = 'Create'
+    this.myProfileForm();
+    this.removePhoto();
   }
 
   getDistrict() {

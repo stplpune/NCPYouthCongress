@@ -94,7 +94,7 @@ export class AddClientComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         if (this.btnText == 'Update Client') {
-          this.getTaluka(this.addClientForm.value.DistrictId,false)
+          this.getTaluka(this.addClientForm.value.DistrictId,false);
         }
         this.spinner.hide();
         this.allDistrict = res.data1;
