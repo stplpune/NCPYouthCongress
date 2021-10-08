@@ -137,21 +137,21 @@ export class OrganizationDetailsComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.subCommittessResult = res.data1;
-          let result: any = res.data1;
-          if (result != 0) {
-            this.subCommittessResult = result.filter((ele: any) => {
-              if (ele.CommitteeId == ele.SubParentCommitteeId) {
-                ele['SubParentCommitteeId'] = null;
-              }
-              return ele
-            });
-          };
-            if(this.subCommittessResult.length !=0){
-              this.list_to_tree( this.subCommittessResult);
+          // let result: any = res.data1;
+          // if (result != 0) {
+          //   this.subCommittessResult = result.filter((ele: any) => {
+          //     if (ele.CommitteeId == ele.SubParentCommitteeId) {
+          //       ele['SubParentCommitteeId'] = null;
+          //     }
+          //     return ele
+          //   });
+          // };
+          //   if(this.subCommittessResult.length !=0){
+          //     this.list_to_tree( this.subCommittessResult);
 
-            }else{
-              this.subCommittessResult = result;
-            }
+          //   }else{
+          //     this.subCommittessResult = result;
+          //   }
           console.log(this.subCommittessResult);
         } else {
           // this.toastrService.error("Body member is not available");
@@ -296,6 +296,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.allDesignatedMembers = res.data1;
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
+        console.log(this.DesignationNameBYBodyId);
         this.getPreDesMembersArray = [];
         this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
@@ -350,7 +351,8 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.DesignationNameBYBodyArray.push(desName);
+        // this.DesignationNameBYBodyArray.push(desName);
+        // console.log(this.DesignationNameBYBodyArray);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
