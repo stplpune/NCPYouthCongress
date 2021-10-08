@@ -14,21 +14,22 @@
                         <div class="form-container">
                             <div class="mb-3">
                                 <label class="form-label required-field">Select Client Name</label>
-                                <ngx-select [allowClear]="true" [items]="getClientName"
-                                formControlName="ClientId" optionValueField="Id"
-                                optionTextField="FullName" placeholder="Select Client Name"
-                                [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
-                            </ngx-select>
-                            <div *ngIf="submitted && f.ClientId.errors" class="invalid-feedback">
-                                <div *ngIf="f.ClientId.errors.required">Client Name is required</div>
-                            </div>
+                                <ngx-select [allowClear]="true" [items]="getClientName" formControlName="ClientId"
+                                    optionValueField="id" optionTextField="Fullname" placeholder="Select Client Name"
+                                    [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
+                                </ngx-select>
+                                <div *ngIf="submitted && f.ClientId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ClientId.errors.required">Client Name is required</div>
+                                </div>
                                 <!--  (select)="GetConstituencyName($event)" <select class="form-select">
                                     <option value="">Select Client</option>
                                 </select> getClientName -->
                             </div>
                             <div class="card card-body shadow-none border">
                                 <div class="mb-3">
-                                    <label class="form-label" [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select Election</label>
+                                    <label class="form-label"
+                                        [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select
+                                        Election</label>
                                     <ngx-select [allowClear]="true" [items]="electionNameArray"
                                         formControlName="ElectionId" optionValueField="Id"
                                         optionTextField="ElectionName" placeholder="Select Election"
@@ -40,20 +41,24 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select Constituency</label>
+                                    <label class="form-label"
+                                        [ngClass]="addSubConstituencyArray.length ==0 ? 'required-field' : ''">Select
+                                        Constituency</label>
                                     <ngx-select [allowClear]="true" [items]="constituencyNameArray"
                                         formControlName="strConstituency" optionValueField="id"
                                         optionTextField="ConstituencyName" placeholder="Select Constituency"
                                         [disabled]="(!assignElectionForm.value.ElectionId || constituencyNameArray?.length == 0) ? true : false"
-                                        [ngClass]="{ 'is-invalid': submitted && f.Constituency.errors}">
+                                        [ngClass]="{ 'is-invalid': submitted && f.strConstituency.errors}">
                                     </ngx-select>
                                     <div *ngIf="submitted && f.strConstituency.errors" class="invalid-feedback">
-                                        <div *ngIf="f.strConstituency.errors.required">Constituency is required
+                                        <div *ngIf="f.strConstituency.errors.required">Constituency name is required
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button class="btn btn-outline-primary btn-sm" type="button" (click)="addSubConstituency()" [disabled]="(!assignElectionForm.value.ElectionId || !assignElectionForm.value.strConstituency) ? true : false">Add</button>
+                                    <button class="btn btn-outline-primary btn-sm" type="button"
+                                        (click)="addSubConstituency()"
+                                        [disabled]="(!assignElectionForm.value.ElectionId || !assignElectionForm.value.strConstituency) ? true : false">Add</button>
                                 </div>
                                 <hr>
                                 <table class="table table-hover" *ngIf="addSubConstituencyArray != 0 ">
@@ -64,12 +69,12 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index" >
+                                    <tbody *ngFor="let resSubCons of addSubConstituencyArray; let i = index">
                                         <tr>
                                             <td>{{i+1}}</td>
                                             <td>
-                                                <p class="mb-0">{{resSubCons.selElectionName}}</p>
-                                                <small class="text-muted">{{resSubCons.selConstituencyName}}</small>
+                                                <p class="mb-0">{{resSubCons.ElectionName  | titlecase}}</p>
+                                                <small class="text-muted">{{resSubCons.ConstituencyName  | titlecase}}</small>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-light text-danger btn-sm ms-1"
@@ -80,15 +85,19 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!-- <div class="mt-2 text-end" *ngIf="addSubConstituencyArray?.length != 0">
+                                    <pagination-controls previousLabel="" nextLabel=""
+                                        (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                                </div> -->
                             </div>
                             <hr>
                             <div class="row mb-1">
                                 <div class="col-sm-3">
                                     <button class="btn btn-secondary btn-sm" type="button"
-                                        (click)="clearForm()">Cancel</button>
+                                        (click)="resetAssignElectionForm()">Cancel</button>
                                 </div>
                                 <div class="col-sm-9 text-end">
-                                    <button class="btn btn-main btn-sm" type="submit">Add Election</button>
+                                    <button class="btn btn-main btn-sm" type="submit">{{btnText}} Assign Election</button>
                                 </div>
                             </div>
                         </div>
@@ -101,20 +110,10 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
-                            <div class="col-sm-4">
-                                <ngx-select [allowClear]="true" [items]="electionNameArray" optionValueField="id"
-                                    (remove)="clearFilter('electionType')" (select)="filterData()"
-                                    optionTextField="ElectionName" placeholder="Election Name"
-                                    formControlName="ElectionId">
+                            <div class="offset-4 col-sm-4">
+                                <ngx-select [allowClear]="true" [items]="getClientName" formControlName="ClientId" (select)="filterData()"
+                                    optionValueField="id" optionTextField="Fullname" placeholder="Select Client Name"    (remove)="clearFilter('ClientId')" >
                                 </ngx-select>
-                            </div>
-                            <div class="col-sm-4">
-                                <ngx-select [allowClear]="true" [items]="getClientName"
-                                formControlName="clientId" optionValueField="Id"
-                                optionTextField="FullName" placeholder="Select Election"
-                                (select)="GetConstituencyName($event)"
-                                [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }"></ngx-select>
-                               
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group">
@@ -136,39 +135,43 @@
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>Clients Name</th>
-                                <th>Election</th>
-                                <th>Constituency</th>
-                                <th>Added On</th>
+                                <th>Election(Constituency)</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
-                            [class.active]="assBoothEle.SrNo == HighlightRow"> -->
-                            <tr>
-                                <td>1</td>
-                                <td>Anil Rajesh Sawant</td>
-                                <td>Satara ZP Elections 2021</td>
-                                <td>Satara Zilla Parishad</td>
-                                <td>12-02-2021</td>
+                            <tr
+                                *ngFor="let result of resAssignedConstituencytoClient  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="result.HeaderId == highlightedRow" >
+                                <!-- [class.active]="assBoothEle.SrNo == HighlightRow"  -->
+                                <td>{{result?.SrNo }}</td>
+                                <td>{{result?.Fullname | titlecase}}</td>
+                                <td>
+                                    <ol class="mb-0 ps-3">
+                                        <li *ngFor="let subElection of result?.Constituency.split(',');let i=index">
+                                            {{subElection}}</li>
+                                    </ol>
+                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-light text-edit rounded me-1"><i
+                                        <button class="btn btn-light text-edit rounded me-1"   (click)="editConstituency(result?.HeaderId)"><i
                                                 class="fas fa-pen"></i></button>
-                                        <button class="btn btn-light text-danger rounded"
-                                            (click)="delConfirmAssEle(1)"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-light text-danger rounded"  [disabled]="result?.IsAssignBoothAgent == 1 ? true : false"
+                                            (click)="delConfirmAssElection(result?.ClientId,result?.HeaderId)"><i class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr *ngIf="resAssignedConstituencytoClient?.length == 0">
+                                <td colspan="4"><div class="alert alert-danger text-center py-2">No Data Found..!</div></td>
                             </tr>
                         </tbody>
                     </table>
                     <!-- <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length == 0">
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                    </div>
-                    <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
+                    </div> -->
+                    <div class="mt-2 text-end" *ngIf="resAssignedConstituencytoClient?.length != 0">
                         <pagination-controls previousLabel="" nextLabel=""
                             (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
