@@ -186,7 +186,7 @@
                                 <td>{{allUsers?.SrNo}}</td>
                                 <td><a class="text-primary" (click)="redToMemberProfile(allUsers?.Id,allUsers?.FullName)">{{allUsers.FullName | titlecase}}</a></td>
                                 <td>{{allUsers?.MobileNo}}</td>
-                                <td>{{allUsers?.Address}}</td>
+                                <td>{{allUsers?.Location ? allUsers?.Location : '-'}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-light text-edit" (click)="getProfileData(allUsers?.Id)"><i class="fas fa-pen"></i></button>
                                 </td>
