@@ -138,7 +138,7 @@ export class CreateElectionComponent implements OnInit {
       return;
     }
     else if (formData.ElectionName.trim() == '' || formData.ElectionName ==  null || formData.ElectionName == undefined) {
-      this.toastrService.error("Election  Name can not contain space");
+      this.toastrService.error("Election  Name can not contain space only");
       return;
     }
     else if (formData.IsSubElectionApplicable == 1 && this.addSubElectionArray.length == 0) {
