@@ -883,3 +883,14 @@ ngx-select.ng-untouched.ng-invalid.is-invalid  .ngx-select__toggle {
 .pac-container{
     z-index: 9999 !important;
 }
+@media print{
+    @page {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      body  {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+    .doNotPrint{display:none !important;}
+  }
