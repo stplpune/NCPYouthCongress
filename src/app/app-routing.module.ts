@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'privacy-policy', loadChildren: () => import('./web/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule) },
       { path: 'share/:id', loadChildren: () => import('./web/share/share.module').then(m => m.ShareModule) },
       { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule) },
+      { path: 'help', loadChildren: () => import('./web/help/help.module').then(m => m.HelpModule) },
     ]
   },
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
       { path: 'my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule), data: { title: 'My Profile', allowedRoles: ['1', '2', '5', '7', '8'] } },
       { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Manage Member', allowedRoles: ['7', '1'] }  },
       { path: 'member-report', loadChildren: () => import('./partial/members/member-report/member-report.module').then(m => m.MemberReportModule), data: { title: 'Member Report', allowedRoles: ['2', '1'] }  },
+
       // Election
       { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule), data: { title: 'Create Election', allowedRoles: ['7', '1'] } }, //, 
       { path: 'create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule), data: { title: 'Create Constituency', allowedRoles: ['7', '1'] } },
@@ -74,6 +76,7 @@ const routes: Routes = [
     ]
   },
   { path: '500', component: ServerErrorComponent },
+
 
  
  

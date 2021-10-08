@@ -48,14 +48,14 @@
                     Sub-Committees
                 </div>
                 <div class="card-body">
-                    <h6 class="title">Committee Name</h6>
-                
+                    <!-- <h6 class="title">Committee Name</h6> -->
+                    <h6 class="title">{{getCommitteeName}}</h6>
+                    <!-- <p>  <span><a (click)="openSubCommittees(bodyId)" >{{getCommitteeName | titlecase}}</a></span></p> *ngIf="getCommitteeName !== subCommittess?.CommitteeName" -->
                     <ul class="wtree">
-                        <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId, subCommittess.CommitteeName)" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
+                        <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId,subCommittess?.CommitteeName )" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
+                           <ng-container >
                             <span>{{subCommittess?.CommitteeName | titlecase}}</span>
-                            <!-- <ul  class="wtree" *ngIf="subCommittessResult.length > 0">
-                                <li *ngFor="let sub of subCommittess.children"> <span>{{sub?.CommitteeName | titlecase}}</span></li>
-                            </ul> -->
+                           </ng-container>
                            
                         </li>
                     </ul>
@@ -65,6 +65,11 @@
 
         <div class="col-sm-8">
             <!-- Current Designated Members -->
+            <div class="alert alert-secondary" role="alert">
+                {{subCommitteeName}}
+              </div>
+
+
             <div class="card mb-3">
                 <div class="card-header pb-0">
                     Current Designated Members
@@ -122,10 +127,10 @@
                     Previous Designated Members
                 </div>
                 <div class="card-body">
-                    <div *ngFor="let  designationName of DesignationNameBYBodyId; let i = index">
+                    <!-- <div *ngFor="let  designationName of DesignationNameBYBodyId1; let i = index">
                         <div class="text-center bg-light py-2 fw-bold border-bottom">
-                            {{designationName.DesignationName}}
-                        </div>
+                            {{designationName.DesignationNameBYBodyId}}
+                        </div> -->
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -136,12 +141,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let desMembers of DesignationNameBYBodyId; let m = index">
-                                    <td>{{m+1}}</td>
+                                <tr *ngFor="let desMembers of getPreDesMembersArray; let m = index">
+                                    <!-- *ngIf="designationName.DesignationNameBYBodyId == desMembers.DesignationName" -->
                                     <ng-container>
+                                        <td>{{m+1}}</td>
+                                  
                                         
                                         <td> <div>{{desMembers.DesignationName}}</div></td>
-                                    </ng-container>
+                                  
                                     <td>
                                         <div class="row">
                                             <div><a>{{desMembers.MemberName}}</a></div>
@@ -152,12 +159,13 @@
                                         <div>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' :
                                             desMembers.PostToDate}}</div>
                                     </td>
+                                    </ng-container>
                                 </tr>
                             <!-- </ng-container> -->
                             </tbody>
                         </table>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
 
             <!-- Individual Members Progress -->

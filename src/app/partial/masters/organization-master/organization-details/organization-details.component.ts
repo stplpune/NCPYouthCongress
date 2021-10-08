@@ -40,9 +40,11 @@ export class OrganizationDetailsComponent implements OnInit {
   resultBodyMemActGraph: any;
   imgStringToArray: any;
   DesignationNameBYBodyId: any;
+  DesignationNameBYBodyId1: any[] = [];
   bodyId: any;
   resultPrevDesMembers: any;
   getPreDesMembersArray: any[] = [];
+  getPreDesMembersArray1: any[] = [];
   resultBodyMemActDetails: any;
   paginationNo: number = 1;
   total: any;
@@ -73,6 +75,8 @@ export class OrganizationDetailsComponent implements OnInit {
   indiMembersProgHighlight:any;
   subCommittessId:number = 0;
   HighlightRowTree:any;
+  prevDesignFlag:boolean = false;
+  subCommitteeName:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -100,6 +104,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.activitiesPerodicGraph(this.bodyId);
     this.subCommittess(this.bodyId);
     this.HighlightRowTree = this.bodyId;
+    this.subCommitteeName =  this.getCommitteeName;
   }
 
   defaultFilterForm() {
@@ -120,13 +125,13 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
-  openSubCommittees(bodyId:any, committeeName:any){
-    this.getCommitteeName =  committeeName;
+  openSubCommittees(bodyId:any,committeeName:any){
     this.subCommittessId = 1;
     this.bodyId = bodyId;
     this.HighlightRowTree = bodyId;
     this.ngOnInit();
     this.subCommittess(bodyId);
+    this.subCommitteeName =  committeeName;
   };
 
   subCommittess(bodyId: any) {
@@ -152,7 +157,6 @@ export class OrganizationDetailsComponent implements OnInit {
           //   }else{
           //     this.subCommittessResult = result;
           //   }
-          console.log(this.subCommittessResult);
         } else {
           // this.toastrService.error("Body member is not available");
         }
@@ -296,8 +300,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.allDesignatedMembers = res.data1;
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
-        console.log(this.DesignationNameBYBodyId);
-        this.getPreDesMembersArray = [];
+        // this.getPreDesMembersArray = [];
         this.DesignationNameBYBodyId.forEach((ele: any) => {
           this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
         });
@@ -346,13 +349,26 @@ export class OrganizationDetailsComponent implements OnInit {
   
 
   getPreviousDesignatedMembers(id: any, DesignationId: any, desName:any) {
+    this.getPreDesMembersArray = [];
+    // this.DesignationNameBYBodyId1 = [];
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        // this.DesignationNameBYBodyArray.push(desName);
-        // console.log(this.DesignationNameBYBodyArray);
+        this.getPreDesMembersArray1 = res.data1;
+        
+        let result:any = res.data1;
+        result.filter((ele:any)=>{
+          if(ele.DesignationId == DesignationId){
+            let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
+            if(arrayOfObj){
+              this.getPreDesMembersArray.push(ele);
+              // this.DesignationNameBYBodyId1.push({'DesignationNameBYBodyId':ele.DesignationName})
+            }
+            // return ele;
+          }
+        });
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
@@ -364,6 +380,12 @@ export class OrganizationDetailsComponent implements OnInit {
       }
     })
   }
+
+  checkPreviousDesignatedMembers(DesignationId: any, desName: any) {
+    return this.getPreDesMembersArray1.some((el: any) => {
+      return el.DesignationId === DesignationId && el.DesignationName === desName;
+    });
+}
 
   getBodyMemeberActivities(id: any) {
     let filterData = this.filter.value;
