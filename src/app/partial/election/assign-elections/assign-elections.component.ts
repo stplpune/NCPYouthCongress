@@ -110,6 +110,7 @@ export class AssignElectionsComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_Insert_Assign_Constituency_to_Client?Id=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        this.addSubConstituencyArray = [];
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
         this.btnText = "Add";
@@ -224,6 +225,7 @@ export class AssignElectionsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.clientDetailsArray = res.data1[0];
+        debugger;
         this.addSubConstituencyArray = res.data2;
         this.patchCreateConstituency(this.clientDetailsArray);
       } else {
@@ -280,9 +282,11 @@ export class AssignElectionsComponent implements OnInit {
     this.submitted = false;
     this.btnText = 'Add'
     this.defaultAssElectionForm();
+    this.addSubConstituencyArray = [];
   }
 
   delConfirmAssElection(ClientId: any, HeaderId:any){
+    debugger;
     this.assElectionId = ClientId;
     this.HeaderId = HeaderId;
     this.deleteConfirmModel('clientDelete');
@@ -313,11 +317,12 @@ export class AssignElectionsComponent implements OnInit {
   }
 
   deleteClientData() {
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Election_Delete_ClientConstituency?ClientId='+this.assElectionId+'&HeaderId=' + this.HeaderId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
-        //this.getAssignedBoothToElection();
+        this.getAssignedConstituencytoClient();
       } else {
         this.spinner.hide();
       }
@@ -387,6 +392,7 @@ export class AssignElectionsComponent implements OnInit {
     });
 
     let arrayOfObj = this.subConstArrayCheck(this.assignElectionForm.value.ElectionId, this.assignElectionForm.value.strConstituency);
+    debugger;
     if (arrayOfObj == false) {
       this.addSubConstituencyArray.push({ 'ElectionName': eleName, 'ConstituencyName': subElectionNameBySubEleId, 'ElectionId': this.assignElectionForm.value.ElectionId, 'ConstituencyId': this.assignElectionForm.value.strConstituency });
       console.log(this.addSubConstituencyArray);
@@ -399,9 +405,9 @@ export class AssignElectionsComponent implements OnInit {
   }
 
   subConstArrayCheck(eleName: any, subEleCostName: any) {
-    return this.addSubConstituencyArray.some((el: any) => {
-      return el.ElectionId === eleName && el.ConstituencyId === subEleCostName;
-    });
+      return this.addSubConstituencyArray.some((el: any) => {
+        return el.ElectionId === eleName && el.ConstituencyId === subEleCostName;
+      });
   }
 
   //right side filter with table 
