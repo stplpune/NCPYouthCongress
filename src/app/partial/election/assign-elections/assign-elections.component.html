@@ -97,7 +97,7 @@
                                         (click)="resetAssignElectionForm()">Cancel</button>
                                 </div>
                                 <div class="col-sm-9 text-end">
-                                    <button class="btn btn-main btn-sm" type="submit">{{btnText}} Assign Election</button>
+                                    <button class="btn btn-main btn-sm" type="submit">{{btnText}}  Election To Client</button>
                                 </div>
                             </div>
                         </div>
@@ -110,22 +110,22 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
-                            <div class="offset-4 col-sm-4">
+                            <div class="offset-8 col-sm-4">
                                 <ngx-select [allowClear]="true" [items]="getClientName" formControlName="ClientId" (select)="filterData()"
                                     optionValueField="id" optionTextField="Fullname" placeholder="Select Client Name"    (remove)="clearFilter('ClientId')" >
                                 </ngx-select>
                             </div>
-                            <div class="col-sm-4">
+                            <!-- <div class="col-sm-4">
                                 <div class="input-group">
                                     <input type="text" class="form-control" formControlName="Search"
-                                        placeholder="Election / Sub Election Name" (keyup)="onKeyUpFilter()" />
+                                        placeholder="Election / Constituency Name" (keyup)="onKeyUpFilter()" />
                                     <button type="button" class="btn btn-light border btn-sm"
                                         (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
                                             _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                                     <button type="button" *ngIf="!filterForm.value.Search"
                                         class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
