@@ -11,7 +11,12 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row g-2">
-                        <div class="col-sm-2 offset-3">
+                        <div class="col-sm-2 offset-1">
+                            <select class="form-select">
+                                <option value="">Select Client</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
                             <select class="form-select">
                                 <option value="">Select Election</option>
                             </select>
@@ -67,10 +72,13 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-light text-edit rounded me-1" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
+                                        <button type="button" class="btn btn-light text-dark rounded" title="Add Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-light text-edit rounded mx-1" title="Edit Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-light text-danger rounded">
+                                        <button type="button" class="btn btn-light text-danger rounded" title="Remove Client">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
