@@ -12,7 +12,16 @@
                 <div class="card-header">Assign Agent to Booth</div>
                 <div class="card-body">
                     <div class="form-container">
-                        <form [formGroup]="filterForm">
+                        <form [formGroup]="assAgentToBoothForm">
+
+                            <div class="mb-3">
+                                <label class="form-label">Select Client</label>
+                                <ngx-select [allowClear]="true" [items]="clientNameArray" formControlName="ClientId"
+                                    (select)="getElectionName()" optionValueField="id" optionTextField="Fullname"
+                                    placeholder="Select Client" (remove)="clearAggentToBooth('clientName')">
+                                </ngx-select>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Select Agent</label>
                                 <div class="input-group">
@@ -26,17 +35,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Select Client</label>
-                                <ngx-select [allowClear]="true" [items]="clientNameArray" formControlName="ClientId"
-                                    (select)="getElectionName()" optionValueField="id" optionTextField="Fullname"
-                                    placeholder="Select Client" (remove)="clearFilter('clientName')">
-                                </ngx-select>
-                            </div>
-                            <div class="mb-3">
                                 <label class="form-label">Select Election</label>
                                 <ngx-select [allowClear]="true" [items]="electionNameArray"
-                                    [disabled]="!this.filterForm.value.ClientId" (select)="getConstituencyName()"
-                                    (remove)="clearFilter('electionName')" formControlName="ElectionId"
+                                    [disabled]="!this.assAgentToBoothForm.value.ClientId" (select)="getConstituencyName()"
+                                    (remove)="clearAggentToBooth('electionName')" formControlName="ElectionId"
                                     optionValueField="ElectionId" optionTextField="ElectionName"
                                     placeholder="Select Election">
                                 </ngx-select>
@@ -44,8 +46,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Select Constituency</label>
                                 <ngx-select [allowClear]="true" [items]="constituencyNameArray"
-                                    [disabled]="!this.filterForm.value.ElectionId" (select)="getAssemblyName()"
-                                    (remove)="clearFilter('constituencyName')" formControlName="ConstituencyId"
+                                    [disabled]="!this.assAgentToBoothForm.value.ElectionId" (select)="getAssemblyName()"
+                                    (remove)="clearAggentToBooth('constituencyName')" formControlName="ConstituencyId"
                                     optionValueField="ConstituencyId" optionTextField="ConstituencyName"
                                     placeholder="Select Constituency">
                                 </ngx-select>
@@ -53,8 +55,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Select Assembly</label>
                                 <ngx-select [allowClear]="true" [items]="AssemblyNameArray"
-                                    (select)="getBoothSubelection()" [disabled]="!this.filterForm.value.ConstituencyId"
-                                    (remove)="clearFilter('assemblyName')" formControlName="AssemblyId"
+                                    (select)="getBoothSubelection()" [disabled]="!this.assAgentToBoothForm.value.ConstituencyId"
+                                    (remove)="clearAggentToBooth('assemblyName')" formControlName="AssemblyId"
                                     optionValueField="Id" optionTextField="ConstituencyName"
                                     placeholder="Select Assembly">
                                 </ngx-select>
@@ -99,43 +101,22 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="clientNameArray" formControlName="ClientId"
-                                    (select)="getElectionName()" optionValueField="id" optionTextField="Fullname"
-                                    placeholder="Select Client" (remove)="clearFilter('clientName')">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="electionNameArray"
-                                    [disabled]="!this.filterForm.value.ClientId" (select)="getConstituencyName()"
-                                    (remove)="clearFilter('electionName')" formControlName="ElectionId"
-                                    optionValueField="ElectionId" optionTextField="ElectionName"
-                                    placeholder="Select Election">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="constituencyNameArray"
-                                    [disabled]="!this.filterForm.value.ElectionId" (select)="getAssemblyName()"
-                                    (remove)="clearFilter('constituencyName')" formControlName="ConstituencyId"
-                                    optionValueField="ConstituencyId" optionTextField="ConstituencyName"
-                                    placeholder="Select Constituency">
-                                </ngx-select>
-                            </div>
-                            <div class="col-sm">
-                                <ngx-select [allowClear]="true" [items]="AssemblyNameArray"
-                                    (select)="getBoothSubelection()" [disabled]="!this.filterForm.value.ConstituencyId"
-                                    (remove)="clearFilter('assemblyName')" formControlName="AssemblyId"
-                                    optionValueField="Id" optionTextField="ConstituencyName"
-                                    placeholder="Select Assembly">
-                                </ngx-select>
+                            <div class="col-sm-3 offset-6">
+                                <ngx-select [allowClear]="true" [items]="clientNameArray" optionValueField="id"
+                                (remove)="clearAggentToBooth('clientName')" (select)="filterData()"
+                                optionTextField="Fullname" placeholder="Select Client" formControlName="ClientId">
+                            </ngx-select>
+
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..">
-                                    <button class="btn btn-light btn-sm border-end-0" type="button"><i
-                                            class="fas fa-times"></i></button>
-                                    <button class="btn btn-light btn-sm border-start-0" type="button"><i
-                                            class="fas fa-search"></i></button>
+                                    <input type="text" class="form-control" formControlName="Search"
+                                        placeholder="Search..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm"
+                                        (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                            _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.Search"
+                                        class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -153,17 +134,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Aravind Rajesh Sawant</td>
-                                <td>9876543210</td>
+                            <tr *ngFor="let clientABooths of clientAgentWithBoothArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
+                                [class.active]="clientABooths.SrNo == HighlightRow">
+                                <td>{{clientABooths.SrNo}}</td>
+                                <td>{{clientABooths.FullName}}</td>
+                                <td>{{clientABooths.MobileNo}}</td>
                                 <td>
                                     <ul class="mb-0 ps-3">
-                                        <li>325 - Kailash Nagar (३२५ - कैलाश नगर)</li>
-                                        <li>325 - Kailash Nagar (३२५ - कैलाश नगर)</li>
-                                        <li>325 - Kailash Nagar (३२५ - कैलाश नगर)</li>
-                                        <li>325 - Kailash Nagar (३२५ - कैलाश नगर)</li>
-                                        <li>325 - Kailash Nagar (३२५ - कैलाश नगर)</li>
+                                        <li
+                                        *ngFor="let clientAbooth of clientABooths.BoothsAssigned.split(',')">
+                                        {{clientAbooth}}</li>
                                     </ul>
                                 </td>
                                 <td>
@@ -178,13 +158,20 @@
                                             <i class="fas fa-pen"></i>
                                         </button>
                                         <button type="button" class="btn btn-light text-danger rounded"
-                                            title="Remove Client">
+                                            title="Remove Client" (click)="delConfirmation(i)">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
+                        <div class="mt-2 text-end" *ngIf="clientAgentWithBoothArray?.length == 0">
+                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        </div>
+                        <div class="mt-2 text-end" *ngIf="clientAgentWithBoothArray?.length != 0">
+                            <pagination-controls previousLabel="" nextLabel=""
+                                (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        </div>
                     </table>
                 </div>
             </div>
@@ -198,29 +185,71 @@
     aria-labelledby="AddAgentsToBoothModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <form [formGroup]="assignAgentForm">
             <div class="modal-header">
                 <h5 class="modal-title" id="AddAgentsToBoothModalLabel">Add Agent</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body chartbox">
                 <div class="form-container">
-                    <div class="mb-2">
-                        <label for="txtFullName" class="form-label">Full Name</label>
-                        <input type="text" id="txtFullName" class="form-control" placeholder="Full Name">
-                    </div>
+         
+                        <div class="row mb-3 g-2">
+                            <div class="col-sm-4">
+                                <label class="form-label required-field">First Name</label>
+                                <input type="text" class="form-control" formControlName="FName" placeholder="First Name" 
+                                [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
+                                <div *ngIf="submitted && f.FName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.FName.errors.required">First name is required
+                                    </div>
+                                    <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="txtFullName" class="form-label required-field">Middle Name</label>
+                                <input type="text" class="form-control" formControlName="MName" placeholder="Middle Name" [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
+                                <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.MName.errors.required">Middle name is required
+                                    </div>
+                                    <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="txtFullName" class="form-label required-field">Last Name</label>
+                                <input type="text" class="form-control" formControlName="LName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
+                                <div *ngIf="submitted && f.LName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.LName.errors.required">Last name is required
+                                    </div>
+                                    <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
+                                </div>
+                            </div>
+                        </div>
+
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <label for="txtContactNo" class="form-label">Contact No.</label>
-                            <input type="text" id="txtContactNo" class="form-control" placeholder="Contact No.">
+                            <label for="txtContactNo" class="form-label required-field">Contact No.</label>
+                            <input type="text" class="form-control" id="txtContactNo1" maxlength="10"
+                            formControlName="MobileNo" placeholder="Contact No."
+                            [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors }">
+                        <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.MobileNo.errors.required">Contact No. is required</div>
+                            <div *ngIf="f.MobileNo.errors.pattern">Please, Enter 10 digit Mobile Number.
+                            </div>
                         </div>
+                        </div>
+
                         <div class="col-sm-6">
-                            <label for="txtAlternateNo" class="form-label">Alternate No.</label>
-                            <input type="text" id="txtAlternateNo" class="form-control" placeholder="Alternate No.">
+                            <label for="Address1" class="form-label required-field">Address</label>
+                                <textarea class="form-control" id="txtAddress" formControlName="Address"
+                                    placeholder="Address"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                                <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Address.errors.required">Address is required</div>
+                                </div>
                         </div>
                     </div>
                     <div class="mb-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" formControlName="IsMemberAddAllow" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Allow Sub Member
                             </label>
@@ -228,10 +257,10 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Clear</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  (click)="clearAggentForm()">Clear</button>
                         </div>
                         <div class="col-sm-6 text-end">
-                            <button type="button" class="btn btn-outline-primary btn-sm">Add Agent</button>
+                            <button type="button" class="btn btn-primary btn-main btn-sm" (click)="insertBoothAgent()">{{btnText}}</button>
                         </div>
                     </div>
                     <div class="mb-0">
@@ -259,10 +288,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-main btn-sm">Submit</button>
-            </div>
+        </form>
         </div>
     </div>
 </div>
