@@ -74,7 +74,7 @@
                                         <div class="form-check" *ngFor="let boothData of boothResult">
                                             <input class="form-check-input" type="checkbox"
                                                 [checked]="boothData.checked"
-                                                (change)="onCheckChangeBooths($event,boothData.ConstituencyId,boothData.Id)">
+                                                (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{boothData.BoothNickName}}
                                             </label>

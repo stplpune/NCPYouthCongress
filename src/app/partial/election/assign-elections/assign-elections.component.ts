@@ -55,10 +55,9 @@ export class AssignElectionsComponent implements OnInit {
     this.getClient();
     this.defaultAssElectionForm();
     this.defaultFilterForm();
-    this.searchFilters('false');
-  
     this.getElection();
     this.getAssignedConstituencytoClient();
+    this.searchFilters('false');
   }
 
   defaultAssElectionForm() {

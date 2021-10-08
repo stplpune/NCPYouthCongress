@@ -123,11 +123,13 @@ export class AssignBoothComponent implements OnInit {
       this.AssemblyBoothArray.splice(index, 1);
     }
     else {
+      debugger;
       this.AssemblyBoothArray.push({ 'AssemblyId': assemblyId, 'BoothId': boothId });
     }
   }
 
   onSubmitElection() {
+    debugger;
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
