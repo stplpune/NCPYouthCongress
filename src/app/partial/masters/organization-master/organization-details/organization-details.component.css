@@ -70,3 +70,8 @@ border: 1px solid var(--main-color);
 .wtree li span:hover + ul li:after, .wtree li span:hover + ul li:before, .wtree li span:focus + ul li:after, .wtree li span:focus + ul li:before {
 border-color: #aaa;
 }
+
+.wtree li.active span {
+    background: #7289da;
+    color: #fff;
+}
