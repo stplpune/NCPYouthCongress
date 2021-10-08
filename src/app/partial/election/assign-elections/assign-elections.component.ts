@@ -22,7 +22,7 @@ export class AssignElectionsComponent implements OnInit {
   paginationNo: number = 1;
   pageSize: number = 10;
   total: any;
-  btnText = 'Assign Booths';
+  btnText = 'Add';
   filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
   searchFilter = "";
@@ -82,7 +82,6 @@ export class AssignElectionsComponent implements OnInit {
 
 
   onSubmitAssElection() {
-    debugger;
     // this.validationNoofMembers();
     let formData:any = this.assignElectionForm.value;
     this.submitted = true;
@@ -94,16 +93,14 @@ export class AssignElectionsComponent implements OnInit {
       this.spinner.hide();
       return;
     }
+    debugger;
     this.addSubConstituencyArray.map((ele: any) => {
       delete ele['ElectionName'];
       delete ele['ConstituencyName'];
-      if(ele['SrNo']){
-        delete ele['SrNo'];
-      }
-      return ele;
+      ele['SrNo'] ?   delete ele['SrNo'] : ''; // if sr no is assign del sr no 
+      ele['HeaderId'] ?   delete ele['HeaderId'] : ''; // if HeaderId no is assign del sr no 
     })
     this.subConsArray = JSON.stringify(this.addSubConstituencyArray);
-    debugger;
     this.spinner.show();
     let id;
     let NoofMembers;
@@ -115,7 +112,7 @@ export class AssignElectionsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        this.btnText = "Create Constituency";
+        this.btnText = "Add";
         this.getAssignedConstituencytoClient();
         this.resetAssignElectionForm();
       } else {
@@ -242,9 +239,10 @@ export class AssignElectionsComponent implements OnInit {
   }
   
   patchCreateConstituency(data: any) {
+    this.btnText="Update";
     this.highlightedRow = data.HeaderId;
     this.assignElectionForm.patchValue({
-      Id: data.Id,
+      Id: data.HeaderId,
       ClientId: data.Clientid,
     });
   }
@@ -262,7 +260,6 @@ export class AssignElectionsComponent implements OnInit {
   }
 
   validationSubElectionForm() { 
-    debugger;
     if (this.addSubConstituencyArray.length == 0) {
       this.assignElectionForm.controls["strConstituency"].setValidators(Validators.required);
       this.assignElectionForm.controls["ElectionId"].setValidators(Validators.required);
@@ -281,7 +278,7 @@ export class AssignElectionsComponent implements OnInit {
 
   clearForm() {
     this.submitted = false;
-    this.btnText = 'Assign Booths'
+    this.btnText = 'Add'
     this.defaultAssElectionForm();
   }
 
@@ -402,7 +399,6 @@ export class AssignElectionsComponent implements OnInit {
   }
 
   subConstArrayCheck(eleName: any, subEleCostName: any) {
-    debugger;
     return this.addSubConstituencyArray.some((el: any) => {
       return el.ElectionId === eleName && el.ConstituencyId === subEleCostName;
     });
