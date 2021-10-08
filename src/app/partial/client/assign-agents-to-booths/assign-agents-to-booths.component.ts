@@ -28,6 +28,9 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   HighlightRow: any;
   electionNameArray: any;
   clientNameArray: any;
+  constituencyNameArray: any;
+  AssemblyNameArray: any;
+  BoothSubelectionArray: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -63,21 +66,23 @@ export class AssignAgentsToBoothsComponent implements OnInit {
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      DistrictId: [0],
+      ClientId: [''],
+      ElectionId: [''],
+      ConstituencyId: [''],
+      AssemblyId: [''],
       Search: [''],
     })
   }
 
-  getClientName() {
+  getClientName(){
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Get_Election_byClientId_ddl?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Get_Client_ddl?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.clientNameArray = res.data1;
       } else {
         this.spinner.hide();
-        this.clientNameArray = [];
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -87,16 +92,33 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  getElection() {
+  getElectionName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetElection?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Get_Election_byClientId_ddl?ClientId=' + this.filterForm.value.ClientId +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionNameArray = res.data1;
       } else {
         this.spinner.hide();
-        this.electionNameArray = [];
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }  
+
+  getConstituencyName(){
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Get_Constituency_byClientId_ddl?ClientId=' + this.filterForm.value.ClientId +'&UserId='+this.commonService.loggedInUserId() +'&ElectionId='+this.filterForm.value.ElectionId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.constituencyNameArray = res.data1;
+      } else {
+        this.spinner.hide();
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -106,7 +128,56 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
+  getAssemblyName(){
+    this.spinner.show();
+    let data = this.filterForm.value;
+    this.callAPIService.setHttp('get', 'Web_Get_Assembly_byClientId_ddl?ClientId=' + data.ClientId +'&UserId='+this.commonService.loggedInUserId() +'&ElectionId='+ data.ElectionId
+    +'&ConstituencyId='+ data.ConstituencyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.AssemblyNameArray = res.data1;
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
+  getIsSubElectionApplicable(){
+    let eleIsSubElectionApplicable :any;
+    this.electionNameArray.filter((ele:any)=>{
+      if(ele.ElectionId == this.filterForm.value.ElectionId){
+        eleIsSubElectionApplicable =  ele.IsSubElectionApplicable
+      };
+    })
+   return  eleIsSubElectionApplicable;
+  }
+
+  getBoothSubelection(){
+    this.spinner.show();
+    let data = this.filterForm.value;
+   this.callAPIService.setHttp('get', 'Web_Get_Booths_Subelection_byClientId?ClientId=' + data.ClientId +'&UserId='+this.commonService.loggedInUserId() +'&ElectionId='+ data.ElectionId
+    +'&ConstituencyId='+ data.ConstituencyId +'&AssemblyId='+ data.AssemblyId +'&Search='+ '' +'&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.BoothSubelectionArray = res.data1;
+        console.log("avi",this.BoothSubelectionArray);
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
 
   filterData() {
@@ -115,9 +186,20 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   }
 
   clearFilter(flag: any) {
-    if (flag == 'electionName') {
+    if (flag == 'clientName') {
       this.filterForm.controls['ElectionNameId'].setValue(0);
-    } else if (flag == 'search') {
+    } else  if (flag == 'clientName') {
+      this.filterForm.controls['ElectionNameId'].setValue(0);
+    } else  if (flag == 'clientName') {
+      this.filterForm.controls['ElectionNameId'].setValue(0);
+    } else  if (flag == 'clientName') {
+      this.filterForm.controls['ElectionNameId'].setValue(0);
+    }
+    
+    
+    
+    
+    else if (flag == 'search') {
       this.filterForm.controls['Search'].setValue('');
     }
     this.paginationNo = 1;

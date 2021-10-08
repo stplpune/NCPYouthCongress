@@ -94,6 +94,7 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeAssembly(event: any, assemblyId:any) {
+    debugger;
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
     if (event.target.checked == false) {
@@ -118,6 +119,7 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
+    debugger;
     if (event.target.checked == false) {
       let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
       this.AssemblyBoothArray.splice(index, 1);
