@@ -121,7 +121,7 @@ export class AddClientComponent implements OnInit {
           this.addClientForm.controls['VillageId'].setValue('');
         }
         if (this.btnText == 'Update Client' && flag != 'select') {
-          this.addClientForm.controls['TalukaId'].setValue(this.globalEditData.TalukaId);
+           this.addClientForm.controls['TalukaId'].setValue(this.globalEditData.TalukaId);
           this.getVillage(this.globalEditData.TalukaId)
         }
         
