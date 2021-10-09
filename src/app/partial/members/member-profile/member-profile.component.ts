@@ -350,4 +350,12 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       data:this.resultBodyMemActDetails
     });
   }
+
+  redToMemberReport(){
+    let obj = {'memberId':this.memberId, 'FullName':this.FullName}
+    sessionStorage.setItem('memberData', JSON.stringify(obj));
+    this.router.navigate(['../member-report'], {relativeTo:this.route})
+  }
+
+
 }

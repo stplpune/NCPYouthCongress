@@ -10,7 +10,11 @@ import { CommonService } from 'src/app/services/common.service';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { Lightbox } from '@ngx-gallery/lightbox';
 declare var $: any;
-// import { jsPDF } from "jspdf";
+import jspdf from 'jspdf';
+ import html2canvas from 'html2canvas';
+
+
+
 
 @Component({
   selector: 'app-member-report',
@@ -27,11 +31,20 @@ export class MemberReportComponent implements OnInit {
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[];
   @ViewChild('content') content!: ElementRef;
+  memberId = 0;
+  FullName = 0;
 
   constructor(  private spinner: NgxSpinnerService, private route: ActivatedRoute,    private datePipe: DatePipe,
     private toastrService: ToastrService, private router: Router, private commonService: CommonService,public gallery: Gallery,
     private _lightbox: Lightbox,
-    private callAPIService: CallAPIService, public datepipe: DatePipe, private fb:FormBuilder) { }
+    private callAPIService: CallAPIService, public datepipe: DatePipe, private fb:FormBuilder) { 
+      
+      let getsessionStorageData: any = sessionStorage.getItem('memberData');
+      let sessionStorageData = JSON.parse(getsessionStorageData);
+      this.memberId = sessionStorageData.memberId;
+      this.FullName = sessionStorageData.FullName;
+
+    }
 
   ngOnInit(): void {
     this.getMemberName();
@@ -41,7 +54,7 @@ export class MemberReportComponent implements OnInit {
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      MemberId: [28],
+      MemberId: [this.memberId],
       FromDate: [''],
       ToDate: [''],
       fromToDate: [''],
@@ -116,13 +129,14 @@ export class MemberReportComponent implements OnInit {
     window.print();
   }
 
-
-
-  // makePdf() {
-  //   console.log(this.content.nativeElement);
-  //   let doc: any = new jsPDF('p', 'pt', 'a4');
-  //   doc.addHTML(this.content.nativeElement, function() {
-  //     doc.save("obrz.pdf");
-  //   });
-  // }
+  PdfDownload(){
+    var element = document.getElementById('printarea');
+    html2canvas(element!).then((canvas) => {
+      var imgData = canvas.toDataURL('image/png')
+      var doc = new jspdf();
+      var imgHeight = canvas.height * 208 / canvas.width;
+      doc.addImage(imgData, 0, 0, 208, imgHeight)
+      doc.save("Form.pdf");
+    })
+  }
 }
