@@ -7,22 +7,15 @@
             <form [formGroup]="filterForm">
                 <div class="row g-2">
                     <div class="col-sm-3 offset-6">
-                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray"
-                            optionValueField="Id" formControlName="MemberId" (select)="filterData()"
-                            optionTextField="FullName" placeholder="Select Member Name">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-3 d-flex">
                         <div class="input-group">
-                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
-                                formControlName="fromToDate" [selectMode]="'range'"
-                                (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)"
-                                class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3"
-                                *ngIf="!defaultCloseBtn">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar-alt"></i></button>
-                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn"
-                                (click)="clearFilter('dateRangePIcker')">
+                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
                                 <i class="fas fa-times"></i></button>
                         </div>
                         <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
@@ -32,7 +25,7 @@
         </div>
     </div>
 
-    <div class="row chartbox"  #content id="printarea">
+    <div class="row chartbox" #content id="printarea">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
@@ -50,6 +43,7 @@
                                 </div>
                                 <div class="col-sm-auto">
                                     <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
+                                    <img *ngIf="!profileInfo?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="prof-photo">
                                 </div>
                                 <!-- <div class="col-sm-auto">
                                     <img src="assets/images/NCP-logo.svg" class="prof-photo">
@@ -145,12 +139,36 @@
                     </div> -->
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <div class="card  shadow-none border">
+                            <div class="card shadow-none border">
                                 <div class="card-header">
                                     Party Work
                                 </div>
                                 <div class="card-body pt-1">
-                                    <table class="table table-hover mb-0">
+                                    <div class="card card-body shadow-none border" *ngFor="let res of resActivitiesReport">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <h6 class="mb-0"><span class="badge rounded-pill bg-light text-dark">{{res?.Category}}</span></h6>
+                                                    </div>
+                                                    <div class="col-sm-8"><span class="small">{{res?.Activitylocation}}</span></div>
+                                                    <div class="col-sm-2 text-end small">{{res?.ActivityDate}}</div>
+
+                                                    <hr class="my-1">
+                                                    <div class="col-sm-12">
+                                                        <p>{{res?.Description}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 text-end">
+                                                <div *ngFor="let img of programGalleryImg; index as i">
+                                                    <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- <table class="table table-hover mb-0">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Sr. No.</th>
@@ -168,14 +186,14 @@
                                                 <td>{{res?.SrNo}}</td>
                                                 <td>{{res?.Description}}</td>
                                                 <td>
-                                            <div  *ngFor="let img of programGalleryImg; index as i">
-                                                 <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
-                                            </div>
-                                            </td>
+                                                    <div *ngFor="let img of programGalleryImg; index as i">
+                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                    </div>
+                                                </td>
                                             </tr>
-                                           
+
                                         </tbody>
-                                    </table>
+                                    </table> -->
                                 </div>
                             </div>
                         </div>
