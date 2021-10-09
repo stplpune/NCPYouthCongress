@@ -7,7 +7,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  hide:boolean =true;
+  hide:boolean=true;
   isShowMenu:boolean=false;
   logInUserType:any;
   loginAfterPages:any;
@@ -43,4 +43,13 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  hideSubMenu() {
+    let elements: any = document.getElementsByClassName('accordion-has-submenu') || [];
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i]) {
+        elements[i].querySelector('.accordion-button').classList.add('collapsed');
+        elements[i].querySelector('.accordion-collapse').classList.remove('show');
+      }
+    }
+  }
 }
