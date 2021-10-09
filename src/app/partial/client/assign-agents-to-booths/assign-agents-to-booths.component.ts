@@ -31,11 +31,13 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   clientNameArray: any;
   constituencyNameArray: any;
   AssemblyNameArray: any;
-  BoothSubelectionArray: any;
+  BoothSubeleNonSubEleArray: any;
   insertBoothAgentArray: any;
   globalClientId:any;
   clientAgentWithBoothArray: any;
   index: any;
+  searchboothList = '';
+  AssemblyBoothArray: any = [];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -63,6 +65,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       ElectionId: [''],
       ConstituencyId: [''],
       AssemblyId: [''],
+      boothId: [''],
     })
   }
 
@@ -121,12 +124,13 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   getElectionName() {
     this.spinner.show();
     this.globalClientId = this.assAgentToBoothForm.value.ClientId;
-
+    
     this.callAPIService.setHttp('get', 'Web_Get_Election_byClientId_ddl?ClientId=' + this.assAgentToBoothForm.value.ClientId +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionNameArray = res.data1;
+        this.getIsSubElectionApplicable();
       } else {
         this.spinner.hide();
       }
@@ -179,34 +183,44 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   getIsSubElectionApplicable(){
     let eleIsSubElectionApplicable :any;
     this.electionNameArray.filter((ele:any)=>{
-      if(ele.ElectionId == this.filterForm.value.ElectionId){
+      if(ele.ElectionId == this.assAgentToBoothForm.value.ElectionId){
         eleIsSubElectionApplicable =  ele.IsSubElectionApplicable
       };
     })
    return  eleIsSubElectionApplicable;
   }
 
-  getBoothSubelection(){
-  //   this.spinner.show();
-  //   let data = this.assAgentToBoothForm.value;
-  //  this.callAPIService.setHttp('get', 'Web_Get_Booths_Subelection_byClientId?ClientId=' + data.ClientId +'&UserId='+this.commonService.loggedInUserId() +'&ElectionId='+ data.ElectionId
-  //   +'&ConstituencyId='+ data.ConstituencyId +'&AssemblyId='+ data.AssemblyId +'&Search='+ '' +'&nopage='+ this.paginationNo, false, false, false, 'ncpServiceForWeb');
-  //   this.callAPIService.getHttp().subscribe((res: any) => {
-  //     if (res.data == 0) {
-  //       this.spinner.hide();
-  //       this.BoothSubelectionArray = res.data1;
-  //       console.log("avi",this.BoothSubelectionArray);
-  //     } else {
-  //
-  
-  this.spinner.hide();
-  //     }
-  //   }, (error: any) => {
-  //     this.spinner.hide();
-  //     if (error.status == 500) {
-  //       this.router.navigate(['../500'], { relativeTo: this.route });
-  //     }
-  //   })
+  getBoothSubEleNonSubEle(){
+    this.spinner.show();
+    let data = this.assAgentToBoothForm.value;
+    let url;
+    this.getIsSubElectionApplicable() ==1 ?  url = 'Web_Get_Booths_by_Subelection_ddl_1_0?' : url = 'Web_Get_Booths_NonSubElection_ddl?' ;
+
+   this.callAPIService.setHttp('get',  url  +'ClientId=' + data.ClientId +'&UserId='+this.commonService.loggedInUserId() +'&ElectionId='+ data.ElectionId
+    +'&ConstituencyId='+ data.ConstituencyId +'&AssemblyId='+ data.AssemblyId , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.BoothSubeleNonSubEleArray = res.data1;
+      } else {
+         this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
+    if (event.target.checked == false) {
+      let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
+      this.AssemblyBoothArray.splice(index, 1);
+    }
+    else {
+      this.AssemblyBoothArray.push({'BoothId': boothId });
+    }
   }
 
   insertBoothAgent(){
