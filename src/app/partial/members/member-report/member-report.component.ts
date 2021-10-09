@@ -22,6 +22,7 @@ export class MemberReportComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   resActivitiesReport:any;
   profileInfo:any;
+  @ViewChild('content') content!: ElementRef;
 
   constructor(  private spinner: NgxSpinnerService, private route: ActivatedRoute,    private datePipe: DatePipe,
     private toastrService: ToastrService, private router: Router,    private commonService: CommonService,
@@ -105,21 +106,13 @@ export class MemberReportComponent implements OnInit {
     window.print();
   }
 
-  downloadPdf() {
-    // let doc:any = new jsPDF();
-    // const specialElementHandlers = {
-    //   '#editor': (element:any, renderer:any)=>{
-    //     return true;
-    //   }
-    // };
 
-    // const pdfTable = this.pdfTable.nativeElement;
 
-    // doc.fromHTML(pdfTable.innerHTML, 15, 15, {
-    //   width: 190,
-    //   'elementHandlers': specialElementHandlers
-    // });
-
-    // doc.save('tableToPdf.pdf');
-  }
+  // makePdf() {
+  //   console.log(this.content.nativeElement);
+  //   let doc: any = new jsPDF('p', 'pt', 'a4');
+  //   doc.addHTML(this.content.nativeElement, function() {
+  //     doc.save("obrz.pdf");
+  //   });
+  // }
 }

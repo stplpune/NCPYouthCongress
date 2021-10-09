@@ -39,5 +39,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     npm i @kolkov/angular-editor
     npm i ng2-search-filter
     npm install @types/googlemaps --save-dev
-    npm i jspdf
  -->
