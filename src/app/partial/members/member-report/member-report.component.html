@@ -168,9 +168,9 @@
                                                 <td>{{res?.SrNo}}</td>
                                                 <td>{{res?.Description}}</td>
                                                 <td>
-                                                    <ng-container *ngFor="let result of res.ImagePath.split(',')">
-                                                    <img src="{{result}}" class="img-thumbnail h-150">
-                                                    </ng-container>
+                                            <div class="col-sm-6" *ngFor="let img of programGalleryImg; index as i">
+                                                 <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                                            </div>
                                             </td>
                                             </tr>
                                            

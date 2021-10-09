@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 declare var $: any;
 // import { jsPDF } from "jspdf";
 
@@ -22,10 +24,13 @@ export class MemberReportComponent implements OnInit {
   defaultCloseBtn: boolean = false;
   resActivitiesReport:any;
   profileInfo:any;
+  comUserdetImg:any;
+  programGalleryImg!: GalleryItem[];
   @ViewChild('content') content!: ElementRef;
 
   constructor(  private spinner: NgxSpinnerService, private route: ActivatedRoute,    private datePipe: DatePipe,
-    private toastrService: ToastrService, private router: Router,    private commonService: CommonService,
+    private toastrService: ToastrService, private router: Router, private commonService: CommonService,public gallery: Gallery,
+    private _lightbox: Lightbox,
     private callAPIService: CallAPIService, public datepipe: DatePipe, private fb:FormBuilder) { }
 
   ngOnInit(): void {
@@ -52,6 +57,11 @@ export class MemberReportComponent implements OnInit {
         this.spinner.hide();
         this.profileInfo = res.data1[0];
         this.resActivitiesReport = res.data2;
+
+        let programDetailsImagesArray = res.data2;
+        this.programGalleryImg = programDetailsImagesArray;
+        this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
+        this.gallery.ref().load(this.programGalleryImg);
       } else {
         this.toastrService.error("Data is not available 2");
       }

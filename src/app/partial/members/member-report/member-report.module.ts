@@ -8,6 +8,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { TooltipModule } from '../../directive/tooltip.module';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     TooltipModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    LightboxModule,
+    GalleryModule,
   ]
 })
 export class MemberReportModule { }
