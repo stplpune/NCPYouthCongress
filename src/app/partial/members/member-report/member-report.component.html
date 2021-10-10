@@ -144,7 +144,7 @@
                                     Party Work
                                 </div>
                                 <div class="card-body pt-1">
-                                    <div class="card card-body shadow-none border" *ngFor="let res of resActivitiesReport">
+                                    <div class="card card-body shadow-none border mb-3" *ngFor="let res of resActivitiesReport">
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <div class="row">
@@ -156,13 +156,15 @@
 
                                                     <hr class="my-1">
                                                     <div class="col-sm-12">
-                                                        <p>{{res?.Description}}</p>
+                                                        <p class="mb-0">{{res?.Description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 text-end">
-                                                <div *ngFor="let img of programGalleryImg; index as i">
-                                                    <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                <div class="row g-2">
+                                                    <div class="col-sm-4" *ngFor="let img of programGalleryImg; index as i">
+                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                    </div>
                                                 </div>
                                             </div>
 
