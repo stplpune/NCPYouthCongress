@@ -222,7 +222,7 @@
                                         <button type="button" class="btn btn-light text-edit rounded mx-1" title="Edit Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-light text-danger rounded" title="Remove Client" (click)="delConfirmation(i)">
+                                        <button type="button" class="btn btn-light text-danger rounded" title="Remove Client" data-bs-toggle="modal" data-bs-target="#agentBlock">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
@@ -311,8 +311,8 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" formControlName="IsMemberAddAllow" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
-                                Allow Sub Member
-                            </label>
+                                    Allow Sub Member
+                                </label>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -338,9 +338,9 @@
                                         <td>{{agentList.FullName}}<small>{{agentList?.MobileNo}}</small></td>
                                         <td>
                                             <button type="button" class="btn btn-light text-edit btn-sm me-1"><i
-                                                class="fas fa-pen"></i></button>
+                                                    class="fas fa-pen"></i></button>
                                             <button type="button" class="btn btn-light text-danger btn-sm"><i
-                                                class="fas fa-trash-alt"></i></button>
+                                                    class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -361,50 +361,62 @@
 </div>
 
 
-<!-- Modal to show boots of agents assigned  -->
-<div class="modal fade" id="ShowBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShowBoothsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ShowBoothsModalLabel">Show Booths</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-container">
-                    <div class="mb-2">
-                        <label class="form-label">Agent Details</label>
-                        <div class="form-data">
-                            <p class="mb-0 fw-bold">Agent Name <span class="small text-muted">[9876543210]</span></p>
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <label class="form-label">Booths Assigned</label>
-                        <div class="form-data">
-                            <ul class="mb-0 ps-3 list-column">
-                                <li class="ng-star-inserted"> 258 - 155-पळसावडे</li>
-                                <li class="ng-star-inserted"> 258 - 156-देवापूर</li>
-                                <li class="ng-star-inserted"> 258 - 157-देवापूर</li>
-                                <li class="ng-star-inserted"> 258 - 158-शिरताव</li>
-                                <li class="ng-star-inserted"> 258 - 159-पुळकोटी</li>
-                                <li class="ng-star-inserted"> 258 - 177-जांभूळणी</li>
-                                <li class="ng-star-inserted"> 258 - 178-जांभूळणी</li>
-                                <li class="ng-star-inserted"> 258 - 179-बनगरवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 180-कूरणेवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 181-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 182-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 183-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 184-महाबळेश्वर वाडी</li>
-                                <li class="ng-star-inserted"> 258 - 185-शेनवडी</li>
-                                <li class="ng-star-inserted"> 258 - 186-शेनवडी</li>
-                                <li class="ng-star-inserted"> 258 - 204-आगासवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 203-पुकळेवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 202-कुकुडवाड</li>
-                                <li class="ng-star-inserted"> </li>
-                            </ul>
-                        </div>
-                    </div>
+<<<<<<< HEAD <!-- Modal to show boots of agents assigned -->
+    <div class="modal fade" id="ShowBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShowBoothsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ShowBoothsModalLabel">Show Booths</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="modal-body">
+                    <div class="form-container">
+                        <div class="mb-2">
+                            <label class="form-label">Agent Details</label>
+                            <div class="form-data">
+                                <p class="mb-0 fw-bold">Agent Name <span class="small text-muted">[9876543210]</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Booths Assigned</label>
+                            <div class="form-data">
+                                <ul class="mb-0 ps-3 list-column">
+                                    <li class="ng-star-inserted"> 258 - 155-पळसावडे</li>
+                                    <li class="ng-star-inserted"> 258 - 156-देवापूर</li>
+                                    <li class="ng-star-inserted"> 258 - 157-देवापूर</li>
+                                    <li class="ng-star-inserted"> 258 - 158-शिरताव</li>
+                                    <li class="ng-star-inserted"> 258 - 159-पुळकोटी</li>
+                                    <li class="ng-star-inserted"> 258 - 177-जांभूळणी</li>
+                                    <li class="ng-star-inserted"> 258 - 178-जांभूळणी</li>
+                                    <li class="ng-star-inserted"> 258 - 179-बनगरवाडी</li>
+                                    <li class="ng-star-inserted"> 258 - 180-कूरणेवाडी</li>
+                                    <li class="ng-star-inserted"> 258 - 181-वर मलवडी</li>
+                                    <li class="ng-star-inserted"> 258 - 182-वर मलवडी</li>
+                                    <li class="ng-star-inserted"> 258 - 183-वर मलवडी</li>
+                                    <li class="ng-star-inserted"> 258 - 184-महाबळेश्वर वाडी</li>
+                                    <li class="ng-star-inserted"> 258 - 185-शेनवडी</li>
+                                    <li class="ng-star-inserted"> 258 - 186-शेनवडी</li>
+                                    <li class="ng-star-inserted"> 258 - 204-आगासवाडी</li>
+                                    <li class="ng-star-inserted"> 258 - 203-पुकळेवाडी</li>
+                                    <li class="ng-star-inserted"> 258 - 202-कुकुडवाड</li>
+                                    <li class="ng-star-inserted"> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    =======
+                    <!-- Modal to  Agent block -->
+                    <div class="modal fade" id="agentBlock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agentBlockLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="agentBlockLabel">User Block</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body chartbox">
+                                    <button>No</button>
+                                    <button (click)="blockUser(userId,ClientId)">Yes</button> >>>>>>> 21f840cbee59b216edde44eccc371422a3121864
+                                </div>
+                            </div>
+                        </div>
+                    </div>

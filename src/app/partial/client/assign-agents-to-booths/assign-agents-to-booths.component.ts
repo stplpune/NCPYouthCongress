@@ -42,6 +42,8 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   clientAgentListFlag: boolean = false;
   ClientAgentListddl = [];
   constituencyData = '';
+  userId:any;
+  ClientId:any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -248,7 +250,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     console.log(this.assAgentToBoothForm.value);
   }
 
-  onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
+  onCheckChangeBooths(event: any,boothId: any) {
     if (event.target.checked == false) {
       let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
       this.AssemblyBoothArray.splice(index, 1);
@@ -256,6 +258,25 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     else {
       this.AssemblyBoothArray.push({ 'BoothId': boothId });
     }
+  }
+
+  blockUser(userId:any,ClientId:any){
+    debugger;
+    this.spinner.show();
+    let data = this.assAgentToBoothForm.value;
+    this.callAPIService.setHttp('get', 'Web_Insert_Election_BlockBoothAgent?UserId='+userId+'&ClientId='+ClientId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg);
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
   }
 
   insertBoothAgent() {
