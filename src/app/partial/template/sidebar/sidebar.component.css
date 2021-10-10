@@ -220,7 +220,7 @@ label>span {
     align-items: center;
     text-decoration: none;
     position: relative;
-    font-size: .85rem;
+    font-size: .85rem !important;
     white-space: nowrap;
     box-shadow: none !important;
     border-bottom: none;
@@ -243,22 +243,19 @@ label>span {
 .accordion-button {
     padding: 17px 15px;
     color: #000;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     background-color: transparent;
     box-shadow: none !important;
 }
 
 .accordion-button i {
-    background: #eee;
     color: #333;
     margin-right: 20px;
     padding: 12px 11px;
-    border-radius: 5px;
 }
 
 .accordion-button:hover i {
-    color: var(--main-color);
-    background-color: #fff;
+    color: #fff;
 }
 
 .no-sub::after {
@@ -284,12 +281,17 @@ label>span {
 }
 
 .accordion-body {
-    background-color: var(--main-color);
+    background-color: #eee;
 }
 
 .accordion-body .list-group .list-group-item {
-    padding-left: 4.3rem;
+    padding-left: 2.3rem;
     border-bottom: 0;
     background-color: transparent;
+    font-size: 0.8rem;
+}
+
+.accordion-body .list-group .list-group-item:hover {
+    background-color: var(--main-color);
     color: #fff;
 }
