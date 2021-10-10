@@ -42,7 +42,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   clientAgentListFlag: boolean = false;
   ClientAgentListddl = [];
   constituencyData = '';
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -282,6 +282,8 @@ export class AssignAgentsToBoothsComponent implements OnInit {
           this.clientAgentListFlag = true;
           this.spinner.hide();
           this.toastrService.success(res.data1[0].Msg);
+          this.getClientAgentListddl();
+          this.resetAassignAgentForm();
           this.Client_AgentList();
         } else {
           this.spinner.hide();
@@ -296,6 +298,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   }
 
   resetAassignAgentForm() {
+    this.submitted = false;
     this.AgentForm();
   }
 
