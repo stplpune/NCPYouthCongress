@@ -47,12 +47,18 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Select Constituency</label>
-                                <ngx-select [allowClear]="true" [items]="constituencyNameArray"
+                                <div class="card border shadow-none">
+                                    <div class="card-header border-bottom p-0 py-1">
+                                        <input type="text" formControlName="ConstituencyId" placeholder="Select Constituency"   class="form-control border-0 form-control-sm"> 
+                                    </div>
+                                   
+                                </div>
+                                <!-- <ngx-select [allowClear]="true" [items]="constituencyNameArray"
                                     [disabled]="!this.assAgentToBoothForm.value.ElectionId" (select)="getAssemblyName()"
                                     (remove)="clearAggentToBooth('constituencyName')" formControlName="ConstituencyId"
                                     optionValueField="ConstituencyId" optionTextField="ConstituencyName"
                                     placeholder="Select Constituency">
-                                </ngx-select>
+                                </ngx-select> -->
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Select Assembly</label>

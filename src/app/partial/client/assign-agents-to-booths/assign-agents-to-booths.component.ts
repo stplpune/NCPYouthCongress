@@ -41,7 +41,8 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   getAllClientAgentList: any;
   clientAgentListFlag: boolean = false;
   ClientAgentListddl = [];
-
+  constituencyData = '';
+  
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,

@@ -931,3 +931,9 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
         display: none !important;
     }
 }
+
+.accordion-button {
+    padding: 17px 15px;
+    color: #000;
+    font-size: 12px !important;
+}
