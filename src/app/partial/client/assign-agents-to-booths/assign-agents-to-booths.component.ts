@@ -250,7 +250,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     console.log(this.assAgentToBoothForm.value);
   }
 
-  onCheckChangeBooths(event: any,boothId: any) {
+  onCheckChangeBooths(event: any,boothId: any,test:any) {
     if (event.target.checked == false) {
       let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
       this.AssemblyBoothArray.splice(index, 1);

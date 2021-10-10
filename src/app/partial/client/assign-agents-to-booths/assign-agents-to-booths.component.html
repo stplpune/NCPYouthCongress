@@ -45,10 +45,10 @@
                                         </div>
                                         <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
                                             <div class="form-check" *ngFor="let boothData of boothResult">
-                                                <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
+                                                <!-- <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{boothData.BoothNickName}}
-                                                </label>
+                                                </label> -->
                                             </div>
                                             <div *ngIf="boothResult.length === 0">
                                                 <div class="alert alert-danger text-center py-2">No Data Found..!</div>
@@ -72,12 +72,12 @@
                                             <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
                                         </div>
                                         <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
-                                            <div class="form-check" *ngFor="let boothData of boothResult">
+                                            <!-- <div class="form-check" *ngFor="let boothData of boothResult">
                                                 <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{boothData.BoothNickName}}
                                                 </label>
-                                            </div>
+                                            </div> -->
                                             <div *ngIf="boothResult.length === 0">
                                                 <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                             </div>
@@ -95,7 +95,7 @@
                                         <div class="card-header border-bottom p-0 py-1">
                                             <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
                                         </div>
-                                        <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
+                                        <!-- <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
                                             <div class="form-check" *ngFor="let boothData of boothResult">
                                                 <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
                                                 <label class="form-check-label" for="flexCheckDefault">
@@ -105,7 +105,7 @@
                                             <div *ngIf="boothResult.length === 0">
                                                 <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <!-- <div class="mb-3">
