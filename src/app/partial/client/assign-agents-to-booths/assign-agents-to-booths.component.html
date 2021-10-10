@@ -22,13 +22,12 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Select Agent</label>
-                                <div class="input-group">
-                                    <ngx-select [allowClear]="true" [items]="ClientAgentListddl" formControlName="UserId" optionValueField="AgentId" [disabled]="!this.assAgentToBoothForm.value.ClientId" optionTextField="FullName" class="w-75" (select)="getElectionName()" placeholder="Select Agent"
-                                        (remove)="clearAggentToBooth('clientName')">
-                                    </ngx-select>
-                                    <!-- this.assAgentToBoothForm.value.ClientId -->
-                                    <button type="button" [disabled]="!this.assAgentToBoothForm.value.ClientId" class="btn btn-light btn-sm ms-1 border" (click)="Client_AgentList()" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal"><i
-                                            class="fas fa-plus"></i></button>
+                                <ngx-select [allowClear]="true" [items]="ClientAgentListddl" formControlName="UserId" optionValueField="AgentId" [disabled]="!this.assAgentToBoothForm.value.ClientId" optionTextField="FullName" class="w-75" (select)="getElectionName()" placeholder="Select Agent"
+                                    (remove)="clearAggentToBooth('clientName')">
+                                </ngx-select>
+                                <div class="text-end">
+                                    <button type="button" [disabled]="!this.assAgentToBoothForm.value.ClientId" class="btn btn-link btn-sm" (click)="Client_AgentList()" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
+                                        Add Agents</button>
                                 </div>
                             </div>
 
@@ -42,9 +41,9 @@
                                 <label class="form-label">Select Constituency</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
-                                        <input type="text" formControlName="ConstituencyId" placeholder="Select Constituency"   class="form-control border-0 form-control-sm"> 
+                                        <input type="text" formControlName="ConstituencyId" placeholder="Select Constituency" class="form-control border-0 form-control-sm">
                                     </div>
-                                   
+
                                 </div>
                                 <!-- <ngx-select [allowClear]="true" [items]="constituencyNameArray"
                                     [disabled]="!this.assAgentToBoothForm.value.ElectionId" (select)="getAssemblyName()"
