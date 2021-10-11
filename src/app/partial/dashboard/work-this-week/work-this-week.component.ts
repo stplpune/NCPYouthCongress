@@ -374,16 +374,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // chart DIv 
-  WorkDoneByYuvak() {
- 
+  WorkDoneByYuvak() {  
 
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
       am4core.useTheme(am4themes_material);
       let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
       chart.colors.list = [
-        am4core.color("#515ee6"),
-        am4core.color("#515ee6"),
         am4core.color("#b959e0"),
         am4core.color("#b959e0"),
       ];
@@ -404,8 +401,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-// xAxis.renderer.labels.template.rotation = -45;
-xAxis.renderer.minGridDistance = 30;
+      // xAxis.renderer.labels.template.rotation = -45;
+      xAxis.renderer.minGridDistance = 30;
 
       function createSeries(value: string | undefined, name: string) {
         let series = chart.series.push(new am4charts.ColumnSeries())
@@ -429,7 +426,7 @@ xAxis.renderer.minGridDistance = 30;
 
       chart.padding(10, 5, 5, 5);
       createSeries('MemberWork', 'Work Done by Committees');
-      createSeries('TotalWork', 'Total Work Done');
+      // createSeries('TotalWork', 'Total Work Done');
 
       function arrangeColumns() {
 
@@ -536,6 +533,11 @@ xAxis.renderer.minGridDistance = 30;
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
+  }
+ 
+  redTocommitteesOnMap(DistrictId:any){
+    sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
+    this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
   }
 }
 
