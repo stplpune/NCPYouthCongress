@@ -36,18 +36,18 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                         <label class="form-label">Select Election</label>
-                                        <div class="form-check" *ngFor="let elections of electionNameArray">
+                                        <!-- <div class="form-check" *ngFor="let elections of electionNameArray">
                                             <input class="form-check-input" type="checkbox"  (change)="getConstituencyName($event,elections.ElectionId)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{elections.ElectionName}}
                                             </label> 
-                                        </div>
-                                        <!-- <ngx-select [allowClear]="true" [items]="electionNameArray"
+                                        </div> -->
+                                        <ngx-select [allowClear]="true" [items]="electionNameArray"
                                             [disabled]="!this.assAgentToBoothForm.value.UserId" (select)="getConstituencyName()"
                                             (remove)="clearAggentToBooth('electionName')" formControlName="ElectionId"
                                             optionValueField="ElectionId" optionTextField="ElectionName"
                                             placeholder="Select Election">
-                                        </ngx-select> -->
+                                        </ngx-select>
                                     </div>
                                 <div class="col-sm-6">
                                         <label class="form-label">Select Constituency</label>
@@ -148,12 +148,12 @@
                 <div class="card-header">
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
-                            <div class="col-sm-3 offset-6">
+                            <div class="offset-2 col-sm-5">
                                 <ngx-select [allowClear]="true" [items]="clientNameArray" optionValueField="id" (remove)="clearFilter('clientName')" (select)="filterData()" optionTextField="Fullname" placeholder="Select Client" formControlName="ClientId">
                                 </ngx-select>
 
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" class="form-control" formControlName="Search" placeholder="Search..." (keyup)="onKeyUpFilter()" />
                                     <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
@@ -181,7 +181,7 @@
                                     <p class="mb-0 text-muted">{{clientABooths.MobileNo}}</p>
                                 </td>
                                 <td>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ShowBoothsModal">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ShowBoothsModal" (click)="assignedBoothModel(clientABooths)">
                                         2510
                                     </a>
                                     <!-- <ul class="mb-0 ps-3 list-column">
@@ -197,8 +197,8 @@
                                         <button type="button" class="btn btn-light text-edit rounded mx-1" title="Edit Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-light text-danger rounded" title="Remove Client" data-bs-toggle="modal" data-bs-target="#agentBlock">
-                                            <i class="fas fa-trash-alt"></i>
+                                        <button type="button"  class="btn btn-sm btn-main" title="Remove Client" [ngClass]="{'bg-danger text-white':clientABooths?.Isblock == 0 , 'btn-main' :clientABooths?.Isblock == 1}" [disabled]="clientABooths?.Isblock == 0 ? true :false" data-bs-toggle="modal" data-bs-target="#agentBlock" (click)="ClientId = clientABooths.ClientId; userId = clientABooths.UserId">
+                                            {{clientABooths?.Isblock == 0 ? 'Blocked' : 'Unblocked'}}
                                         </button>
                                     </div>
                                 </td>
@@ -314,7 +314,7 @@
                                         <td>
                                             <button type="button" class="btn btn-light text-edit btn-sm me-1"><i
                                                     class="fas fa-pen"></i></button>
-                                            <button type="button" class="btn btn-light text-danger btn-sm"><i
+                                            <button type="button" class="btn btn-light text-danger btn-sm"  (click)="blockUser(agentList.ClientId,agentList.UserId)"><i
                                                     class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
@@ -337,53 +337,37 @@
 
 
 <!-- Modal to show boots of agents assigned -->
-    <div class="modal fade" id="ShowBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShowBoothsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ShowBoothsModalLabel">Show Booths</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-container">
-                        <div class="mb-2">
-                            <label class="form-label">Agent Details</label>
-                            <div class="form-data">
-                                <p class="mb-0 fw-bold">Agent Name <span class="small text-muted">[9876543210]</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <label class="form-label">Booths Assigned</label>
+<div class="modal fade" id="ShowBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShowBoothsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+            <div class="modal-header">
+                <h5 class="modal-title" id="ShowBoothsModalLabel">Show Booths</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container">
+                    <div class="mb-2">
+                        <label class="form-label">Agent Details</label>
                         <div class="form-data">
-                            <ul class="mb-0 ps-3 list-column">
-                                <li class="ng-star-inserted"> 258 - 155-पळसावडे</li>
-                                <li class="ng-star-inserted"> 258 - 156-देवापूर</li>
-                                <li class="ng-star-inserted"> 258 - 157-देवापूर</li>
-                                <li class="ng-star-inserted"> 258 - 158-शिरताव</li>
-                                <li class="ng-star-inserted"> 258 - 159-पुळकोटी</li>
-                                <li class="ng-star-inserted"> 258 - 177-जांभूळणी</li>
-                                <li class="ng-star-inserted"> 258 - 178-जांभूळणी</li>
-                                <li class="ng-star-inserted"> 258 - 179-बनगरवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 180-कूरणेवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 181-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 182-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 183-वर मलवडी</li>
-                                <li class="ng-star-inserted"> 258 - 184-महाबळेश्वर वाडी</li>
-                                <li class="ng-star-inserted"> 258 - 185-शेनवडी</li>
-                                <li class="ng-star-inserted"> 258 - 186-शेनवडी</li>
-                                <li class="ng-star-inserted"> 258 - 204-आगासवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 203-पुकळेवाडी</li>
-                                <li class="ng-star-inserted"> 258 - 202-कुकुडवाड</li>
-                                <li class="ng-star-inserted"> </li>
-                            </ul>
+                            <p class="mb-0 fw-bold">{{assBoothObjData?.FullName}} <span class="small text-muted">[{{assBoothObjData?.MobileNo}}]</span></p>
                         </div>
                     </div>
-                 
                 </div>
+                <div class="mb-0">
+                    <label class="form-label">Booths Assigned</label>
+                    <div class="form-data">
+                        <ul class="mb-0 ps-3 list-column">
+                            <li class="ng-star-inserted"
+                            *ngFor="let boothsAssi of assBoothObjData?.BoothsAssigned.split(',')">
+                            {{boothsAssi}}</li>
+                        </ul>
+                    </div>
+                </div>
+             
             </div>
         </div>
     </div>
+</div>
 
        <!-- Modal to  Agent block -->
        <div class="modal fade" id="agentBlock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agentBlockLabel" aria-hidden="true">

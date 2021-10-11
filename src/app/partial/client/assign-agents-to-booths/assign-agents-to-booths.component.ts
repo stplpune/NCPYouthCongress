@@ -44,6 +44,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   constituencyData = '';
   userId:any;
   ClientId:any;
+  assBoothObjData:any;
   checkAssemblyArray: any = [];
 
   constructor(
@@ -176,10 +177,9 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  getConstituencyName(event:any, eleId:any) {
-    this.assAgentToBoothForm.controls['ElectionId'].setValue(eleId);
+  getConstituencyName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Get_Constituency_byClientId_ddl?ClientId=' + this.assAgentToBoothForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + eleId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Get_Constituency_byClientId_ddl?ClientId=' + this.assAgentToBoothForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + this.assAgentToBoothForm.value.ElectionId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -205,6 +205,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.AssemblyNameArray = res.data1;
+        this.onCheckAssembly(evant,ConstituencyId)
       } else {
         this.spinner.hide();
       }
@@ -214,6 +215,16 @@ export class AssignAgentsToBoothsComponent implements OnInit {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  onCheckAssembly(event: any,ConstituencyId:any) {
+    if (event.target.checked == false) {
+      let index = this.BoothSubeleNonSubEleArray.map((x: any) => { return x.AssemblyId; }).indexOf(ConstituencyId);
+      this.checkAssemblyArray.splice(index, 1);
+    }
+    else {
+      this.checkAssemblyArray.push({ 'assembleId': ConstituencyId });
+    }
   }
 
   getIsSubElectionApplicable() {
@@ -230,7 +241,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     this.spinner.show();
     this.assAgentToBoothForm.controls['AssemblyId'].setValue(assembleId);
     let data = this.assAgentToBoothForm.value;
-    this.onCheckAssembly(event,assembleId)
     let url;
     this.getIsSubElectionApplicable() == 1 ? url = 'Web_Get_Booths_by_Subelection_ddl_1_0?' : url = 'Web_Get_Booths_NonSubElection_ddl?';
 
@@ -251,16 +261,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  onCheckAssembly(event: any,assembleId:any) {
-    if (event.target.checked == false) {
-      let index = this.BoothSubeleNonSubEleArray.map((x: any) => { return x.AssemblyId; }).indexOf(assembleId);
-      this.checkAssemblyArray.splice(index, 1);
-    }
-    else {
-      this.checkAssemblyArray.push({ 'assembleId': assembleId });
-    }
-    console.log(this.checkAssemblyArray);
-  }
+ 
 
   onSubmitAssAgentToBoothForm(){
     console.log(this.assAgentToBoothForm.value);
@@ -474,6 +475,10 @@ export class AssignAgentsToBoothsComponent implements OnInit {
         this.getClientAgentWithBooths();
       }
       );
+  }
+
+  assignedBoothModel(assBoothObj:any){
+    this.assBoothObjData = assBoothObj;
   }
   
 }
