@@ -66,20 +66,12 @@ export class CommitteesOnMapComponent implements OnInit {
   clearFilter(flag:any){
     this.clearDataFlag = flag;
     if (flag == 'dateRangePIcker') {
+     this.fromToDate.setValue(['', '']);
       this.fromDate = '';
       this.toDate = '';
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     } else if(flag == 'CommitteesIn'){
-      this.districtName="Maharashtra State";
-      this.showSvgMap(this.commonService.mapRegions());
-      this.defaultMembersFlag = false;
-      this.selectedDistrictId="";
-      this.selDistrict.reset();
-      this.getOrganizationByDistrictId(0);
-      this.defaultCloseBtn = false;
-      this.DistrictWiseCommityWorkGraph();
-    } else if(flag =='DistrictClear'){
       this.districtName="Maharashtra State";
       this.showSvgMap(this.commonService.mapRegions());
       this.defaultMembersFlag = false;

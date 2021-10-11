@@ -79,10 +79,10 @@ export class MemberReportComponent implements OnInit {
         this.profileInfo = res.data1[0];
         if(res.data2.length !=0){
           this.resActivitiesReport = res.data2;
-          let programDetailsImagesArray = res.data2;
-          this.programGalleryImg = programDetailsImagesArray;
-          this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
-          this.gallery.ref().load(this.programGalleryImg);
+          // let programDetailsImagesArray = res.data2;
+          // this.programGalleryImg = programDetailsImagesArray;
+          // this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
+          // this.gallery.ref().load(this.programGalleryImg);
         }else{
           this.resActivitiesReport = [];
         }
