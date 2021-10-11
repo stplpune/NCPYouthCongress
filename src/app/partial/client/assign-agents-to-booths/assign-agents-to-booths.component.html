@@ -35,79 +35,54 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label">Select Election</label>
-                                    <!-- <ngx-select [allowClear]="true" [items]="electionNameArray" [disabled]="!this.assAgentToBoothForm.value.UserId" (select)="getConstituencyName()" (remove)="clearAggentToBooth('electionName')" formControlName="ElectionId" optionValueField="ElectionId" optionTextField="ElectionName"
-                                        placeholder="Select Election">
-                                    </ngx-select> -->
-                                    <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
+                                        <label class="form-label">Select Election</label>
+                                        <div class="form-check" *ngFor="let elections of electionNameArray">
+                                            <input class="form-check-input" type="checkbox"  (change)="getConstituencyName($event,elections.ElectionId)">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{elections.ElectionName}}
+                                            </label> 
                                         </div>
-                                        <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
-                                            <div class="form-check" *ngFor="let boothData of boothResult">
-                                                <!-- <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{boothData.BoothNickName}}
-                                                </label> -->
-                                            </div>
-                                            <div *ngIf="boothResult.length === 0">
-                                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                                            </div>
-                                        </div>
+                                        <!-- <ngx-select [allowClear]="true" [items]="electionNameArray"
+                                            [disabled]="!this.assAgentToBoothForm.value.UserId" (select)="getConstituencyName()"
+                                            (remove)="clearAggentToBooth('electionName')" formControlName="ElectionId"
+                                            optionValueField="ElectionId" optionTextField="ElectionName"
+                                            placeholder="Select Election">
+                                        </ngx-select> -->
                                     </div>
-                                </div>
                                 <div class="col-sm-6">
-                                    <label class="form-label">Select Constituency</label>
-                                    <!-- <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" formControlName="ConstituencyId" placeholder="Select Constituency" class="form-control border-0 form-control-sm">
+                                        <label class="form-label">Select Constituency</label>
+                                        <div class="form-check" *ngFor="let constituency of constituencyNameArray">
+                                            <input class="form-check-input" type="checkbox"  (change)="getAssemblyName($event,constituency.ConstituencyId)">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{constituency.ConstituencyName}}
+                                            </label> 
                                         </div>
-                                       
-                                    </div> -->
-                                    <!-- <ngx-select [allowClear]="true" [items]="constituencyNameArray" [disabled]="!this.assAgentToBoothForm.value.ElectionId" (select)="getAssemblyName()" (remove)="clearAggentToBooth('constituencyName')" formControlName="ConstituencyId" optionValueField="ConstituencyId"
-                                        optionTextField="ConstituencyName" placeholder="Select Constituency">
-                                    </ngx-select> -->
-                                    <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
-                                        </div>
-                                        <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
-                                            <!-- <div class="form-check" *ngFor="let boothData of boothResult">
-                                                <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{boothData.BoothNickName}}
-                                                </label>
-                                            </div> -->
-                                            <div *ngIf="boothResult.length === 0">
-                                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                                            </div>
-                                        </div>
+                                        <!-- <ngx-select [allowClear]="true" [items]="constituencyNameArray"
+                                            [disabled]="!this.assAgentToBoothForm.value.ElectionId" (select)="getAssemblyName()"
+                                            (remove)="clearAggentToBooth('constituencyName')" formControlName="ConstituencyId"
+                                            optionValueField="ConstituencyId" optionTextField="ConstituencyName"
+                                            placeholder="Select Constituency">
+                                        </ngx-select> -->
                                     </div>
-                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label">Select Assembly</label>
-                                    <!-- <ngx-select [allowClear]="true" [items]="AssemblyNameArray" (select)="getBoothSubEleNonSubEle()" [disabled]="!this.assAgentToBoothForm.value.ConstituencyId" (remove)="clearAggentToBooth('assemblyName')" formControlName="AssemblyId" optionValueField="Id"
-                                        optionTextField="ConstituencyName" placeholder="Select Assembly">
-                                    </ngx-select> -->
-                                    <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
+                                        <label class="form-label">Select Assembly</label>
+                                        <div class="form-check" *ngFor="let assembly of AssemblyNameArray">
+                                            <input class="form-check-input" type="checkbox"    (change)="getBoothSubEleNonSubEle($event,assembly.Id)">
+                                         
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{assembly.ConstituencyName}}
+                                            </label> 
                                         </div>
-                                        <!-- <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
-                                            <div class="form-check" *ngFor="let boothData of boothResult">
-                                                <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{boothData.BoothNickName}}
-                                                </label>
-                                            </div>
-                                            <div *ngIf="boothResult.length === 0">
-                                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                                            </div>
-                                        </div> -->
+                                        <!-- <ngx-select [allowClear]="true" [items]="AssemblyNameArray"
+                                            (select)="getBoothSubEleNonSubEle()"
+                                            [disabled]="!this.assAgentToBoothForm.value.ConstituencyId"
+                                            (remove)="clearAggentToBooth('assemblyName')" formControlName="AssemblyId"
+                                            optionValueField="Id" optionTextField="ConstituencyName"
+                                            placeholder="Select Assembly">
+                                        </ngx-select> -->
                                     </div>
-                                </div>
                                 <!-- <div class="mb-3">
                                     <label class="form-label">Select Booths</label>
                                     <div class="card border shadow-none">
@@ -361,7 +336,7 @@
 </div>
 
 
-<<<<<<< HEAD <!-- Modal to show boots of agents assigned -->
+<!-- Modal to show boots of agents assigned -->
     <div class="modal fade" id="ShowBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ShowBoothsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -404,7 +379,6 @@
                             </div>
                         </div>
                     </div>
-                    =======
                     <!-- Modal to  Agent block -->
                     <div class="modal fade" id="agentBlock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agentBlockLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -415,7 +389,7 @@
                                 </div>
                                 <div class="modal-body chartbox">
                                     <button>No</button>
-                                    <button (click)="blockUser(userId,ClientId)">Yes</button> >>>>>>> 21f840cbee59b216edde44eccc371422a3121864
+                                    <button (click)="blockUser(userId,ClientId)">Yes</button>
                                 </div>
                             </div>
                         </div>

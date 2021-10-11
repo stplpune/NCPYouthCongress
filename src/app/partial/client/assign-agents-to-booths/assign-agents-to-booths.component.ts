@@ -44,6 +44,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   constituencyData = '';
   userId:any;
   ClientId:any;
+  checkAssemblyArray: any = [];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -175,9 +176,10 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  getConstituencyName() {
+  getConstituencyName(event:any, eleId:any) {
+    this.assAgentToBoothForm.controls['ElectionId'].setValue(eleId);
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_Get_Constituency_byClientId_ddl?ClientId=' + this.assAgentToBoothForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + this.assAgentToBoothForm.value.ElectionId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_Get_Constituency_byClientId_ddl?ClientId=' + this.assAgentToBoothForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + eleId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -193,8 +195,9 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  getAssemblyName() {
+  getAssemblyName(evant:any, ConstituencyId:any) {
     this.spinner.show();
+    this.assAgentToBoothForm.controls['ConstituencyId'].setValue(ConstituencyId);
     let data = this.assAgentToBoothForm.value;
     this.callAPIService.setHttp('get', 'Web_Get_Assembly_byClientId_ddl?ClientId=' + data.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + data.ElectionId
       + '&ConstituencyId=' + data.ConstituencyId, false, false, false, 'ncpServiceForWeb');
@@ -223,9 +226,11 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     return eleIsSubElectionApplicable;
   }
 
-  getBoothSubEleNonSubEle() {
+  getBoothSubEleNonSubEle(event:any,assembleId:any) {
     this.spinner.show();
+    this.assAgentToBoothForm.controls['AssemblyId'].setValue(assembleId);
     let data = this.assAgentToBoothForm.value;
+    this.onCheckAssembly(event,assembleId)
     let url;
     this.getIsSubElectionApplicable() == 1 ? url = 'Web_Get_Booths_by_Subelection_ddl_1_0?' : url = 'Web_Get_Booths_NonSubElection_ddl?';
 
@@ -246,11 +251,22 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
+  onCheckAssembly(event: any,assembleId:any) {
+    if (event.target.checked == false) {
+      let index = this.BoothSubeleNonSubEleArray.map((x: any) => { return x.AssemblyId; }).indexOf(assembleId);
+      this.checkAssemblyArray.splice(index, 1);
+    }
+    else {
+      this.checkAssemblyArray.push({ 'assembleId': assembleId });
+    }
+    console.log(this.checkAssemblyArray);
+  }
+
   onSubmitAssAgentToBoothForm(){
     console.log(this.assAgentToBoothForm.value);
   }
 
-  onCheckChangeBooths(event: any,boothId: any,test:any) {
+  onCheckChangeBooths(event: any,boothId: any, Id:any) {
     if (event.target.checked == false) {
       let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
       this.AssemblyBoothArray.splice(index, 1);
@@ -258,7 +274,9 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     else {
       this.AssemblyBoothArray.push({ 'BoothId': boothId });
     }
+    console.log(this.AssemblyBoothArray);
   }
+
 
   blockUser(userId:any,ClientId:any){
     debugger;
