@@ -14,8 +14,6 @@ import jspdf from 'jspdf';
  import html2canvas from 'html2canvas';
 
 
-
-
 @Component({
   selector: 'app-member-report',
   templateUrl: './member-report.component.html',
@@ -136,7 +134,7 @@ export class MemberReportComponent implements OnInit {
       var doc = new jspdf();
       var imgHeight = canvas.height * 208 / canvas.width;
       doc.addImage(imgData, 0, 0, 208, imgHeight)
-      doc.save("Form.pdf");
+      doc.save(this.FullName+".pdf");
     })
   }
 }

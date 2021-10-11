@@ -163,7 +163,7 @@
                                             <div class="col-sm-4 text-end">
                                                 <div class="row g-2">
                                                     <div class="col-sm-4" *ngFor="let img of programGalleryImg; index as i">
-                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,6 +228,7 @@
                             <button class="btn btn-success btn-sm" (click)="PdfDownload()">Download As PDF</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
