@@ -195,9 +195,8 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     })
   }
 
-  getAssemblyName(evant:any, ConstituencyId:any) {
+  getAssemblyName() {
     this.spinner.show();
-    this.assAgentToBoothForm.controls['ConstituencyId'].setValue(ConstituencyId);
     let data = this.assAgentToBoothForm.value;
     this.callAPIService.setHttp('get', 'Web_Get_Assembly_byClientId_ddl?ClientId=' + data.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + data.ElectionId
       + '&ConstituencyId=' + data.ConstituencyId, false, false, false, 'ncpServiceForWeb');
@@ -205,7 +204,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.AssemblyNameArray = res.data1;
-        this.onCheckAssembly(evant,ConstituencyId)
+        // this.onCheckAssembly(evant,ConstituencyId)
       } else {
         this.spinner.hide();
       }
