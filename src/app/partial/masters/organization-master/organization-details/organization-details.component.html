@@ -48,17 +48,22 @@
                     Sub-Committees
                 </div>
                 <div class="card-body">
-                    <!-- <h6 class="title">Committee Name</h6> -->
+                   <div *ngIf="subCommittessResult.length > 1 else noSubCommittee">
+                        <!-- <h6 class="title">Committee Name</h6> -->
                     <h6 class="title">{{getCommitteeName}}</h6>
                     <!-- <p>  <span><a (click)="openSubCommittees(bodyId)" >{{getCommitteeName | titlecase}}</a></span></p> *ngIf="getCommitteeName !== subCommittess?.CommitteeName" -->
                     <ul class="">
                         <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId,subCommittess?.CommitteeName )" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
                            <ng-container >
-                            <span>{{subCommittess?.CommitteeName | titlecase}}</span>
+                            <span>{{subCommittess?.CommitteeName | titlecase}}{{subCommittessResult.length}}</span>
                            </ng-container>
                            
                         </li>
                     </ul>
+                   </div>
+                   <ng-template #noSubCommittee>
+                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                </ng-template>
                 </div>
             </div>
         </div>

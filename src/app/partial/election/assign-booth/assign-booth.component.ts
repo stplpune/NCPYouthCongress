@@ -94,7 +94,6 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeAssembly(event: any, assemblyId:any) {
-    debugger;
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
     if (event.target.checked == false) {
@@ -103,9 +102,9 @@ export class AssignBoothComponent implements OnInit {
   
       let indexBoothArray = this.AssemblyBoothArray.findIndex((x:any)=> x.AssemblyId == this.AssemblyId);
       this.AssemblyBoothArray.splice(indexBoothArray, 1);
-     
+      debugger;
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
-        if (ele.ConstituencyId !== Number(this.AssemblyId)) {
+        if (ele.AssemblyId !== Number(this.AssemblyId)) {
           return ele;
         }
       });
@@ -137,7 +136,7 @@ export class AssignBoothComponent implements OnInit {
 
     if (this.assignBoothForm.invalid) {
       this.spinner.hide();
-    }else if (this.AssemblyBoothArray.length == 0 &&  formData.Assembly &&  formData.BoothId){
+    }else if (this.AssemblyBoothArray.length == 0  ||  formData.Assembly == "" ||  formData.BoothId  == "" ){
       this.toastrService.error("Assembly Or Booth is required");
       return;
     }

@@ -34,6 +34,9 @@ export class MemberReportComponent implements OnInit {
   FullName :any;
   fromDate: any = '';
   toDate: any = '';
+  ReportRangeDateHide : boolean = false;
+  TodayDate = new Date();
+  ReportTillDateHide : boolean = true;
 
   // fromDate: any = new Date();
   // toDate: any = new Date();
@@ -118,6 +121,8 @@ export class MemberReportComponent implements OnInit {
     this.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
     this.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
     this.getMemberDetails();
+    this.ReportRangeDateHide = true;
+    this.ReportTillDateHide = false;
   }
 
   clearFilter(flag: any) {
@@ -128,6 +133,8 @@ export class MemberReportComponent implements OnInit {
       this.fromDate = '';
       this.toDate = '';
       this.defaultCloseBtn = false;
+      this.ReportRangeDateHide = false;
+      this.ReportTillDateHide = true;
     }
     this.getMemberDetails();
   }

@@ -42,6 +42,7 @@
                                     <p>{{profileInfo?.MobileNo}}</p>
                                     <p>{{profileInfo?.EmailId}}</p>
                                     <p>{{profileInfo?.Location}}</p>
+                                    <p>{{profileInfo?.Designation}}</p>
                                 </div>
                                 <div class="col-sm-auto">
                                     <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
@@ -64,8 +65,12 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-secondary text-center" role="alert">
-                        Work Report from {{fromDate}} - {{toDate}}
+                    <div class="alert alert-secondary text-center" role="alert" *ngIf='ReportRangeDateHide'>
+                        कार्य अहवाल : {{fromDate}} - {{toDate}}
+                    </div>
+
+                    <div class="alert alert-secondary text-center" role="alert" *ngIf='ReportTillDateHide'>
+                        Till Date : {{TodayDate | date:'dd-MM-yyyy'}}
                     </div>
 
                     <!-- <div class="row mb-3">
@@ -158,6 +163,7 @@
 
                                                     <hr class="my-1">
                                                     <div class="col-sm-12">
+                                                        <h5>Title: {{res?.Title}}</h5>
                                                         <p class="mb-0">{{res?.Description}}</p>
                                                     </div>
                                                 </div>
