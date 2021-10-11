@@ -48,7 +48,7 @@
                     Sub-Committees
                 </div>
                 <div class="card-body">
-                   <div *ngIf="subCommittessResult.length > 1 else noSubCommittee">
+                   <div *ngIf="subCommittessResult?.length > 1 else noSubCommittee">
                         <!-- <h6 class="title">Committee Name</h6> -->
                     <h6 class="title">{{getCommitteeName}}</h6>
                     <!-- <p>  <span><a (click)="openSubCommittees(bodyId)" >{{getCommitteeName | titlecase}}</a></span></p> *ngIf="getCommitteeName !== subCommittess?.CommitteeName" -->
@@ -95,7 +95,7 @@
                                 <td>{{designatedMembers.SrNo}}</td>
                                 <!-- <td>{{designatedMembers.MemberName | titlecase}}</td> -->
                                 <td>
-                                    <a (click)="redToMemberProfile(designatedMembers.DesignationId, designatedMembers.MemberName)"
+                                    <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)"
                                         class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
                                 </td>
                                 <td>{{designatedMembers.DesignationName}} </td>

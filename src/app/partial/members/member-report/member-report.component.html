@@ -13,8 +13,7 @@
 
                     <div class="col-sm-3 d-flex">
                         <div class="input-group">
-                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate"
-                             [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromToDate)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromToDate)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                             <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar-alt"></i></button>
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
@@ -42,7 +41,7 @@
                                     <p>{{profileInfo?.MobileNo}}</p>
                                     <p>{{profileInfo?.EmailId}}</p>
                                     <p>{{profileInfo?.Location}}</p>
-                                    <p>{{profileInfo?.Designation}}</p>
+                                    <p class="fw-bold">{{profileInfo?.Designation}}</p>
                                 </div>
                                 <div class="col-sm-auto">
                                     <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
@@ -70,7 +69,7 @@
                     </div>
 
                     <div class="alert alert-secondary text-center" role="alert" *ngIf='ReportTillDateHide'>
-                        Till Date : {{TodayDate | date:'dd-MM-yyyy'}}
+                        कार्य अहवाल : {{TodayDate | date:'dd-MM-yyyy'}}
                     </div>
 
                     <!-- <div class="row mb-3">
@@ -146,32 +145,40 @@
                     </div> -->
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <div class="card shadow-none border">
-                                <div class="card-header">
+                            <div class="card shadow-none border-0">
+                                <div class="card-header ps-0">
                                     Party Work
                                 </div>
-                                <div class="card-body pt-1">
+                                <div class="card-body p-0">
                                     <div class="card card-body shadow-none border mb-3" *ngFor="let res of resActivitiesReport">
                                         <div class="row">
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <h6 class="mb-0"><span class="badge rounded-pill bg-light text-dark">{{res?.Category}}</span></h6>
-                                                    </div>
-                                                    <div class="col-sm-8"><span class="small">{{res?.Activitylocation}}</span></div>
-                                                    <div class="col-sm-2 text-end small">{{res?.ActivityDate}}</div>
+                                                    <div class="col-sm-12 border-bottom">
+                                                        <h6 class="fw-bold print-title">{{res?.Title}}
+                                                            <span class="float-end small text-muted">{{res?.ActivityDate}}</span>
+                                                        </h6>
 
-                                                    <hr class="my-1">
-                                                    <div class="col-sm-12">
-                                                        <h5>Title: {{res?.Title}}</h5>
-                                                        <p class="mb-0">{{res?.Description}}</p>
+
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 text-end">
-                                                <div class="row g-2">
-                                                    <div class="col-sm-4" *ngFor="let img of programGalleryImg; index as i">
-                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb"/>
+                                                    <!-- <div class="col-sm-2">
+                                                        <h6 class="mb-0"><span class="badge rounded-pill bg-light text-dark">{{res?.Category}}</span></h6>
+                                                    </div> -->
+                                                    <div class="col-sm-12 p-2">
+                                                        <div class="mb-0">
+                                                            <!-- <span class="float-end" *ngFor="let img of programGalleryImg; index as i">
+                                                                *ngIf="i<4"
+                                                             <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                            </span> -->
+                                                            <span class="float-end"><img src="assets/images/ncp-default.png" class="desc-image"></span>
+                                                            <p class="print-desc">
+                                                                {{res?.Description}}
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 text-end">
+                                                        <span class="small">{{res?.Activitylocation}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,7 +187,7 @@
                                     </div>
 
                                     <div class="mt-2 text-end" *ngIf="resActivitiesReport?.length == 0">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                                     </div>
                                     <!-- <table class="table table-hover mb-0">
                                         <thead>
@@ -236,8 +243,8 @@
 
                     <div class="row doNotPrint">
                         <div class="col-sm-12 text-center">
-                            <button class="btn btn-sm btn-primary me-2" (click)="printPage()">Print</button>
-                            <button class="btn btn-success btn-sm" (click)="PdfDownload()">Download As PDF</button>
+                            <button class="btn btn-main me-2" (click)="printPage()">Print</button>
+                            <!-- <button class="btn btn-success btn-sm" (click)="PdfDownload()">Download As PDF</button> -->
                         </div>
                     </div>
 

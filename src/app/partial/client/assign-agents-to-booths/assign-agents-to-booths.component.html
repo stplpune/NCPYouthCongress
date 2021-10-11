@@ -67,61 +67,48 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                        <label class="form-label">Select Assembly</label>
-                                        <div class="form-check" *ngFor="let assembly of AssemblyNameArray">
-                                            <input class="form-check-input" type="checkbox"    (change)="getBoothSubEleNonSubEle($event,assembly.Id)">
-                                         
+                                    <label for="txtSearchAssembly" class="form-label required-field">Assembly</label>
+                                    <div class="card border shadow-none">
+                                        <div class="card-header border-bottom p-0 py-1">
+                                            <input type="text" formControlName="AssemblyId" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"   [ngClass]="{ 'is-invalid': submitted && f.AssemblyId.errors}"> 
+                                    </div>
+                                    <div class="card-body py-2 ChekBox" *ngIf="( assemblyArray | filter:searchAssembly ) as assemblyResult">     
+                                        <div class="form-check" *ngFor="let assemblyData of assemblyResult">
+                                            <input class="form-check-input" type="checkbox" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                {{assembly.ConstituencyName}}
+                                                {{assemblyData.ConstituencyName}}
                                             </label> 
                                         </div>
-                                        <!-- <ngx-select [allowClear]="true" [items]="AssemblyNameArray"
-                                            (select)="getBoothSubEleNonSubEle()"
-                                            [disabled]="!this.assAgentToBoothForm.value.ConstituencyId"
-                                            (remove)="clearAggentToBooth('assemblyName')" formControlName="AssemblyId"
-                                            optionValueField="Id" optionTextField="ConstituencyName"
-                                            placeholder="Select Assembly">
-                                        </ngx-select> -->
-                                    </div>
-                                <!-- <div class="mb-3">
-                                    <label class="form-label">Select Booths</label>
-                                    <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" placeholder="Search Booths" class="form-control form-control-sm border-0">
+                                        <div *ngIf="assemblyResult.length === 0">
+                                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                         </div>
-                                       <div class="card-body checkBox">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                              Default checkbox
-                                            </label>
-                                          </div>
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Checked checkbox
-                                            </label>
-                                          </div>
-                                       </div>
                                     </div>
-                                </div> -->
-
+                                </div>
+    
+                                <div *ngIf="submitted && f.assembly.errors" class="invalid-feedback">
+                                    <div *ngIf="f.assembly.errors.required">Assembly is required</div>
+                               </div>
+                                    </div>
 
                                 <div class="col-sm-6">
-                                    <label for="txtSearchBooth" class="form-label required-field">Booth</label>
-                                    <div class="card border shadow-none">
-                                        <div class="card-header border-bottom p-0 py-1">
-                                            <input type="text" formControlName="boothId" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm">
-                                        </div>
-                                        <div class="card-body py-2 checkBox" *ngIf="( BoothSubeleNonSubEleArray | filter:searchboothList ) as boothResult">
-                                            <div class="form-check" *ngFor="let boothData of boothResult">
-                                                <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{boothData.BoothNickName}}
-                                                </label>
+                                    <div>
+                                        <label for="txtSearchBooth" class="form-label required-field">Booth</label>
+                                        <div class="card border shadow-none">
+                                            <div class="card-header border-bottom p-0 py-1">
+                                                <input type="text" formControlName="boothId" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"  [ngClass]="{ 'is-invalid': submitted && f.boothList.errors}">  
                                             </div>
-                                            <div *ngIf="boothResult.length === 0">
-                                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                                    <div class="card-body py-2 ChekBox" *ngIf="( boothListMergeArray | filter:searchboothList ) as boothResult">
+                                                        <div class="form-check" *ngFor="let boothData of boothResult">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        [checked]="boothData.checked"
+                                                        (change)="onCheckChangeBooths($event,boothData.BoothId,boothData.ConstituencyId,boothData.AssemblyId,boothData.ElectionId)">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        {{boothData.BoothNickName}}
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="boothResult.length === 0">
+                                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +122,7 @@
                                     <button type="button" class="btn btn-secondary btn-sm">Clear</button>
                                 </div>
                                 <div class="col-sm-9 text-end">
-                                    <button type="submit" class="btn btn-main btn-sm">Assign Booths</button>
+                                    <button type="submit" class="btn btn-main btn-sm">{{btnText}}</button>
                                 </div>
                             </div>
                         </form>
@@ -182,7 +169,7 @@
                                 </td>
                                 <td>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#ShowBoothsModal" (click)="assignedBoothModel(clientABooths)">
-                                        2510
+                                        {{clientABooths.TotalBooths}}
                                     </a>
                                     <!-- <ul class="mb-0 ps-3 list-column">
                                         <li *ngFor="let clientAbooth of clientABooths.BoothsAssigned.split(',')">
@@ -194,7 +181,7 @@
                                         <button type="button" class="btn btn-light text-dark rounded" title="Add Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
                                             <i class="fas fa-plus"></i>
                                         </button>
-                                        <button type="button" class="btn btn-light text-edit rounded mx-1" title="Edit Client" data-bs-toggle="modal" data-bs-target="#AddAgentsToBoothModal">
+                                        <button type="button" class="btn btn-light text-edit rounded mx-1"  (click)="patchAssBoothElection(clientABooths.HeaderId)" title="Edit Client">
                                             <i class="fas fa-pen"></i>
                                         </button>
                                         <button type="button"  class="btn btn-sm btn-main" title="Remove Client" [ngClass]="{'bg-danger text-white':clientABooths?.Isblock == 0 , 'btn-main' :clientABooths?.Isblock == 1}" [disabled]="clientABooths?.Isblock == 0 ? true :false" data-bs-toggle="modal" data-bs-target="#agentBlock" (click)="ClientId = clientABooths.ClientId; userId = clientABooths.UserId">
