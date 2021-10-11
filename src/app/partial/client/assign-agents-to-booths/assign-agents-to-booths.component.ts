@@ -297,7 +297,6 @@ delConfirmation(index: any) { //subElection data remove
     });
   }
 
-
   deleteElectionMasterData() {
     this.callAPIService.setHttp('get', 'Delete_Election?ElectionId=' + this.index + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
