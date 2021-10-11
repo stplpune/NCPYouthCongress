@@ -170,7 +170,8 @@
                                                                 *ngIf="i<4"
                                                              <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                                                             </span> -->
-                                                            <span class="float-end"><img src="assets/images/ncp-default.png" class="desc-image"></span>
+                                                            <span class="float-end"><img [src]="res?.ImagePath.split(',')[0]" class="desc-image">
+                                                            </span>
                                                             <p class="print-desc">
                                                                 {{res?.Description}}
                                                             </p>
