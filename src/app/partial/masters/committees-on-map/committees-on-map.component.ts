@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class CommitteesOnMapComponent implements OnInit {
-  graphInstance: any;
+  graphInstance1: any;
   resultCommittees:any;
   resultOrganizationMember:any;
   activeRow:any;
@@ -54,13 +54,14 @@ export class CommitteesOnMapComponent implements OnInit {
       let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
       let DistrictId = JSON.parse(getsessionStorageData);
       this.DistrictId = DistrictId;
+     
     }
 
   ngOnInit(): void {
-    this.showSvgMap(this.commonService.mapRegions());
     this.getOrganizationByDistrictId(0);
     this.searchFilters('false');
     this.DistrictWiseCommityWorkGraph();
+   
   }
   
   clearFilter(flag:any){
@@ -84,6 +85,14 @@ export class CommitteesOnMapComponent implements OnInit {
   };
 
   ngAfterViewInit() {
+
+    if(this.DistrictId){
+      setTimeout(() => {
+        this.showSvgMap(this.commonService.mapRegions());
+       this.selectDistrict(this.DistrictId);
+      }, 1000);
+    
+     }
     $(document).on('click', 'path', (e: any) => {
       $('path#'+this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
@@ -182,17 +191,12 @@ export class CommitteesOnMapComponent implements OnInit {
     })
 
   }
-  ngOnDestroy() {
-    // sessionStorage.removeItem('weekRange');
-    this.graphInstance.destroy();
-  }
-
 
   showSvgMap(regions_m: any) {
-    if (this.graphInstance) {
-      this.graphInstance.destroy();
+    if (this.graphInstance1) {
+      this.graphInstance1.destroy();
     }
-    this.graphInstance = $("#mapsvg").mapSvg({
+    this.graphInstance1 = $("#mapsvg").mapSvg({
       width: 550,
       height: 430,
       colors: {
@@ -435,6 +439,11 @@ xAxis.renderer.minGridDistance = 30;
     }
   });
   //this.mahaSVGMap();
+}
+
+ngOnDestroy() {
+  // sessionStorage.removeItem('weekRange');
+  this.graphInstance1.destroy();
 }
 
 }
