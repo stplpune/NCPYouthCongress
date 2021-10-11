@@ -94,7 +94,6 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeAssembly(event: any, assemblyId:any) {
-
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
     if (event.target.checked == false) {
@@ -107,8 +106,6 @@ export class AssignBoothComponent implements OnInit {
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
         if (ele.AssemblyId !== Number(this.AssemblyId)) {
           return ele;
-        }else{
-          ele.checked = false
         }
       });
       this.boothListMergeArray.length == 0 ?   this.boothDivHide = false : this.boothDivHide = true;
