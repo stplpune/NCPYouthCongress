@@ -103,9 +103,9 @@ export class AssignBoothComponent implements OnInit {
   
       let indexBoothArray = this.AssemblyBoothArray.findIndex((x:any)=> x.AssemblyId == this.AssemblyId);
       this.AssemblyBoothArray.splice(indexBoothArray, 1);
-     
+      debugger;
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
-        if (ele.ConstituencyId !== Number(this.AssemblyId)) {
+        if (ele.AssemblyId !== Number(this.AssemblyId)) {
           return ele;
         }
       });
