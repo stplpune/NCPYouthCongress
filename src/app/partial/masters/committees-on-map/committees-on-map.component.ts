@@ -33,10 +33,15 @@ export class CommitteesOnMapComponent implements OnInit {
   Search = new FormControl();
   subject: Subject<any> = new Subject();
   searchFilter = "";
+  DistrictId: any; //DistrictId fetch Work this Week
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router,
-    private route: ActivatedRoute,  private callAPIService: CallAPIService, public location:Location) { }
+    private route: ActivatedRoute,  private callAPIService: CallAPIService, public location:Location) {
+      let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
+      let DistrictId = JSON.parse(getsessionStorageData);
+      this.DistrictId = DistrictId;
+    }
 
   ngOnInit(): void {
     this.showSvgMap(this.commonService.mapRegions());
