@@ -21,7 +21,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ReactiveFormsModule,
     NgxPaginationModule,
     MatCheckboxModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
   ]
 })
 export class AssignAgentsToBoothsModule { }
