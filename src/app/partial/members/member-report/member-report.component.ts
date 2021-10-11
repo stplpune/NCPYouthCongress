@@ -12,6 +12,7 @@ import { Lightbox } from '@ngx-gallery/lightbox';
 declare var $: any;
 import jspdf from 'jspdf';
  import html2canvas from 'html2canvas';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 
 @Component({
@@ -31,11 +32,18 @@ export class MemberReportComponent implements OnInit {
   @ViewChild('content') content!: ElementRef;
   memberId = 0;
   FullName = 0;
+  fromDate: any = '';
+  toDate: any = '';
+
+  // fromDate: any = new Date();
+  // toDate: any = new Date();
 
   constructor(  private spinner: NgxSpinnerService, private route: ActivatedRoute,    private datePipe: DatePipe,
     private toastrService: ToastrService, private router: Router, private commonService: CommonService,public gallery: Gallery,
     private _lightbox: Lightbox,
-    private callAPIService: CallAPIService, public datepipe: DatePipe, private fb:FormBuilder) { 
+    private callAPIService: CallAPIService, public datepipe: DatePipe, private fb:FormBuilder,
+    public dateTimeAdapter: DateTimeAdapter<any>) {
+      {dateTimeAdapter.setLocale('en-IN');} 
       
       let getsessionStorageData: any = sessionStorage.getItem('memberData');
       let sessionStorageData = JSON.parse(getsessionStorageData);
@@ -53,26 +61,28 @@ export class MemberReportComponent implements OnInit {
   defaultFilterForm() {
     this.filterForm = this.fb.group({
       MemberId: [this.memberId],
-      FromDate: [''],
-      ToDate: [''],
-      fromToDate: [''],
+      fromToDate: ['',''],
     })
   }
 
   getMemberDetails(){
     this.spinner.show();
     let data = this.filterForm.value;
-    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesReport?MemberId=' + data.MemberId+'&FromDate='+ data.FromDate+'&ToDate='+ data.ToDate, false, false, false, 'ncpServiceForWeb');
+    console.log(data)
+    this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesReport?MemberId=' + data.MemberId+'&FromDate='+ this.fromDate+'&ToDate='+ this.toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.profileInfo = res.data1[0];
-        this.resActivitiesReport = res.data2;
-
-        let programDetailsImagesArray = res.data2;
-        this.programGalleryImg = programDetailsImagesArray;
-        this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
-        this.gallery.ref().load(this.programGalleryImg);
+        if(res.data2.length !=0){
+          this.resActivitiesReport = res.data2;
+          let programDetailsImagesArray = res.data2;
+          this.programGalleryImg = programDetailsImagesArray;
+          this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
+          this.gallery.ref().load(this.programGalleryImg);
+        }else{
+          this.resActivitiesReport = [];
+        }
       } else {
         this.toastrService.error("Data is not available 2");
       }
@@ -104,8 +114,8 @@ export class MemberReportComponent implements OnInit {
 
   selDateRangeByFilter(getDate: any) {
     this.defaultCloseBtn = true;
-    this.filterForm.value.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
-    this.filterForm.value.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
+    this.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
+    this.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
     this.getMemberDetails();
   }
 
@@ -114,9 +124,11 @@ export class MemberReportComponent implements OnInit {
       this.filterForm.controls['member'].setValue(0);
     } else if (flag == 'dateRangePIcker') {
       this.filterForm.controls['fromToDate'].setValue(['', '']);
+      this.fromDate = '';
+      this.toDate = '';
       this.defaultCloseBtn = false;
     }
-    this.getMemberDetails()
+    this.getMemberDetails();
   }
 
   filterData() {

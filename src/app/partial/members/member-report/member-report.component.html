@@ -10,9 +10,12 @@
                         <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
+
+
                     <div class="col-sm-3 d-flex">
                         <div class="input-group">
-                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate"
+                             [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromToDate)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
                             <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
                                 <i class="fas fa-calendar-alt"></i></button>
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
@@ -63,7 +66,7 @@
                     </div>
 
                     <div class="alert alert-secondary text-center" role="alert">
-                        Work Report from 01-02-2021 - 01-10-2021
+                        Work Report from {{fromDate}} - {{toDate}}
                     </div>
 
                     <!-- <div class="row mb-3">
