@@ -926,9 +926,16 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     }
     body {
         padding: 0rem;
+        margin: 0;
     }
     .doNotPrint {
         display: none !important;
+    }
+    #printarea {
+        margin: 0;
+        left: 0;
+        top: 0;
+        position: relative;
     }
 }
 

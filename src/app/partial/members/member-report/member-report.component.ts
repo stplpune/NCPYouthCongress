@@ -81,6 +81,7 @@ export class MemberReportComponent implements OnInit {
           this.resActivitiesReport = res.data2;
           let programDetailsImagesArray = res.data2;
           this.programGalleryImg = programDetailsImagesArray;
+          console.log(this.programGalleryImg);
           this.programGalleryImg =   this.commonService.imgesDataTransform(this.programGalleryImg,'obj');
           this.gallery.ref().load(this.programGalleryImg);
         }else{

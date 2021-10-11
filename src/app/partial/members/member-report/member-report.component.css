@@ -14,10 +14,30 @@
 
 #personaldetails .prof-photo {
     width: 100px;
+    height: 100px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 #personaldetails p {
     font-size: 0.85rem;
     margin-bottom: 2px;
+}
+
+.desc-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.print-title {
+    font-size: 0.95rem;
+    color: var(--main-color);
+}
+
+.print-desc {
+    font-size: 0.85rem;
+    margin-bottom: 0;
 }
