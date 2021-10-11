@@ -1,7 +1,30 @@
-.list-group-item.active{
-    background-color: var(--main-color);
-    color: #fff;
+.list-group-item {
+    padding-block: 10px;
 }
-.form-check-input{
+
+.list-group-item.hover,
+.list-group-item.active {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}
+
+.form-check-input {
     margin-top: 10px;
 }
+
+.left-count {
+    background: #fafafa;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-inline: 2px;
+    color: #000;
+}
+
+
+/* .left-count:hover {
+    background: #eee;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+} */
