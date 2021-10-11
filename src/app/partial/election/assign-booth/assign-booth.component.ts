@@ -137,8 +137,7 @@ export class AssignBoothComponent implements OnInit {
 
     if (this.assignBoothForm.invalid) {
       this.spinner.hide();
-      return;
-    }else if (this.AssemblyBoothArray.length == 0){
+    }else if (this.AssemblyBoothArray.length == 0 &&  formData.Assembly &&  formData.BoothId){
       this.toastrService.error("Assembly Or Booth is required");
       return;
     }
@@ -348,6 +347,8 @@ export class AssignBoothComponent implements OnInit {
     this.assignBoothForm.patchValue({
       Id: objData.Id,
       ElectionId: objData.ElectionId,
+      // Id: objData.Id,
+      // ElectionId: objData.ElectionId,
     });
     this.GetConstituencyName(objData.ElectionId);
     setTimeout(() => { this.editAssemblyBoothArray()}, 1000);
@@ -358,7 +359,7 @@ export class AssignBoothComponent implements OnInit {
     this.boothListMergeArray.find((ele: any) => {
       boothArray.find((el: any) => {
         if (ele.Id == Number(el)) {
-          this.AssemblyBoothArray.push({ 'AssemblyId': ele.ConstituencyId, 'BoothId': ele.Id });
+          this.AssemblyBoothArray.push({ 'AssemblyId': ele.AssemblyId, 'BoothId': ele.Id });
         }
       })
     });

@@ -4,28 +4,28 @@
             <span class="page-name">Member Report</span>
         </div>
         <div class="col-sm-9 text-end">
-            <div class="row g-2">
-                <div class="col-sm-3 offset-4">
-                    <select class="form-select">
-                        <option value="">Select Member Name</option>
-                    </select>
-                </div>
-                <div class="col-sm-5 d-flex">
-                    <input type="date" class="form-control form-control-sm border-end" placeholder="From Date">
-                    <div class="btn-group">
-                        <button class="btn btn-sm btn-light text-dark mx-1 rounded">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <button class="btn btn-sm btn-light text-main rounded">
-                            <i class="fas fa-search"></i>
-                        </button>
+            <form [formGroup]="filterForm">
+                <div class="row g-2">
+                    <div class="col-sm-3 offset-6">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-3 d-flex">
+                        <div class="input-group">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" formControlName="fromToDate" [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(this.filterForm.value.fromTo)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                <i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
+                                <i class="fas fa-times"></i></button>
+                        </div>
+                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
-    <div class="row chartbox" id="printarea"  #pdfTable>
+    <div class="row chartbox" #content id="printarea">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
@@ -33,6 +33,19 @@
                         <div class="card-body">
                             <div class="row" id="personaldetails">
                                 <div class="col-sm-auto">
+                                    <img src="assets/images/NCP-logo.svg" class="prof-photo">
+                                </div>
+                                <div class="col-sm text-center">
+                                    <h4>{{profileInfo?.FullName}}</h4>
+                                    <p>{{profileInfo?.MobileNo}}</p>
+                                    <p>{{profileInfo?.EmailId}}</p>
+                                    <p>{{profileInfo?.Location}}</p>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
+                                    <img *ngIf="!profileInfo?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="prof-photo">
+                                </div>
+                                <!-- <div class="col-sm-auto">
                                     <img src="assets/images/NCP-logo.svg" class="prof-photo">
                                 </div>
                                 <div class="col-sm text-center">
@@ -44,16 +57,16 @@
                                 </div>
                                 <div class="col-sm-auto">
                                     <img src="assets/images/executive-members/RavikantVarpe.jpg" class="prof-photo">
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
 
                     <div class="alert alert-secondary text-center" role="alert">
                         Work Report from 01-02-2021 - 01-10-2021
-                      </div>
+                    </div>
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                         <div class="col-sm-12">
                             <div class="card shadow-none border">
                                 <div class="card-header">
@@ -123,94 +136,72 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <div class="card  shadow-none border">
+                            <div class="card shadow-none border">
                                 <div class="card-header">
                                     Party Work
                                 </div>
                                 <div class="card-body pt-1">
-                                    <table class="table table-hover mb-0">
+                                    <div class="card card-body shadow-none border mb-3" *ngFor="let res of resActivitiesReport">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <h6 class="mb-0"><span class="badge rounded-pill bg-light text-dark">{{res?.Category}}</span></h6>
+                                                    </div>
+                                                    <div class="col-sm-8"><span class="small">{{res?.Activitylocation}}</span></div>
+                                                    <div class="col-sm-2 text-end small">{{res?.ActivityDate}}</div>
+
+                                                    <hr class="my-1">
+                                                    <div class="col-sm-12">
+                                                        <p class="mb-0">{{res?.Description}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 text-end">
+                                                <div class="row g-2">
+                                                    <div class="col-sm-4" *ngFor="let img of programGalleryImg; index as i">
+                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- <table class="table table-hover mb-0">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Sr. No.</th>
                                                 <th scope="col">Work Date</th>
                                                 <th scope="col">Work Type</th>
                                                 <th scope="col">Title/Description</th>
+                                                <th scope="col">Images</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>23/09/2021</td>
-                                                <td>Political Work</td>
-                                                <td>save trees</td>
+                                            <tr *ngFor="let res of resActivitiesReport">
+                                                <td>{{res?.SrNo}}</td>
+                                                <td>{{res?.ActivityDate}}</td>
+                                                <td>{{res?.SrNo}}</td>
+                                                <td>{{res?.Description}}</td>
+                                                <td>
+                                                    <div *ngFor="let img of programGalleryImg; index as i">
+                                                        <img *ngIf="i<4" class="img-fluid img-thumbnail h-150" [lightbox]="i" [src]="img?.data?.thumb" />
+                                                    </div>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>23/09/2021</td>
-                                                <td>News Letters</td>
-                                                <td>lokmat</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>23/09/2021</td>
-                                                <td>Political Work</td>
-                                                <td>yshshsyd</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>22/09/2021</td>
-                                                <td>News Letters</td>
-                                                <td>Lokmatt Sakal</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>20/09/2021</td>
-                                                <td>Political Work</td>
-                                                <td>test50</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>20/08/2021</td>
-                                                <td>Political Work</td>
-                                                <td>Test Work</td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>07/10/2021</td>
-                                                <td>Political Work</td>
-                                                <td>Ashish Kumar Singh And All The Best For You</td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>03/09/2021</td>
-                                                <td>Personal Help</td>
-                                                <td>Personal Issues For People To Be A New Year And A A A
-                                                    A A A A A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>02/09/2021</td>
-                                                <td>News Letters</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>01/09/2021</td>
-                                                <td>Political Work</td>
-                                                <td>Savee trees</td>
-                                            </tr>
+
                                         </tbody>
-                                    </table>
+                                    </table> -->
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                         <div class="col-sm-4">
                             <div class="card shadow-none border">
                                 <div class="card-header">
@@ -229,12 +220,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row doNotPrint">
                         <div class="col-sm-12 text-center">
                             <button class="btn btn-sm btn-primary me-2" (click)="printPage()">Print</button>
-                            <button class="btn btn-success btn-sm" (click)="downloadPdf()">Download As PDF</button>
+                            <button class="btn btn-success btn-sm" (click)="PdfDownload()">Download As PDF</button>
                         </div>
                     </div>
                 </div>

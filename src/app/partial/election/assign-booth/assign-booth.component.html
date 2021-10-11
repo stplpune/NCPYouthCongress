@@ -43,7 +43,7 @@
                                 <label for="txtSearchAssembly" class="form-label required-field">Assembly</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
-                                        <input type="text" formControlName="assembly" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"> 
+                                        <input type="text" formControlName="assembly" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"   [ngClass]="{ 'is-invalid': submitted && f.assembly.errors}"> 
                                 </div>
                                 <div class="card-body py-2 ChekBox" *ngIf="( assemblyArray | filter:searchAssembly ) as assemblyResult">     
                                     <div class="form-check" *ngFor="let assemblyData of assemblyResult">
@@ -68,7 +68,7 @@
                                 <label for="txtSearchBooth" class="form-label required-field">Booth</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
-                                        <input type="text" formControlName="boothList" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"> 
+                                        <input type="text" formControlName="boothList" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"  [ngClass]="{ 'is-invalid': submitted && f.boothList.errors}">  
                                     </div>
                                     <div class="card-body py-2 ChekBox" *ngIf="( boothListMergeArray | filter:searchboothList ) as boothResult">
                                         <div class="form-check" *ngFor="let boothData of boothResult">
