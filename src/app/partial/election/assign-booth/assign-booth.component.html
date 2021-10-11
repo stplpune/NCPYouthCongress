@@ -141,7 +141,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
-                                [class.active]="assBoothEle.SrNo == HighlightRow">
+                                [class.active]="assBoothEle.AsignId == HighlightRow">
                                 <td>{{assBoothEle.SrNo}}</td>
                                 <td>{{assBoothEle.ElectionName}}</td>
                                 <td>{{assBoothEle.ConstituencyName}}</td>

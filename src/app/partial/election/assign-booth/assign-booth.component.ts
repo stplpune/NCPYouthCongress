@@ -94,6 +94,7 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeAssembly(event: any, assemblyId:any) {
+
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
     if (event.target.checked == false) {
@@ -102,10 +103,12 @@ export class AssignBoothComponent implements OnInit {
   
       let indexBoothArray = this.AssemblyBoothArray.findIndex((x:any)=> x.AssemblyId == this.AssemblyId);
       this.AssemblyBoothArray.splice(indexBoothArray, 1);
-      debugger;
+      // this.onCheckChangeBooths(event, assemblyId);
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
         if (ele.AssemblyId !== Number(this.AssemblyId)) {
           return ele;
+        }else{
+          ele.checked = false
         }
       });
       this.boothListMergeArray.length == 0 ?   this.boothDivHide = false : this.boothDivHide = true;
@@ -136,7 +139,7 @@ export class AssignBoothComponent implements OnInit {
 
     if (this.assignBoothForm.invalid) {
       this.spinner.hide();
-    }else if (this.AssemblyBoothArray.length == 0  ||  formData.Assembly == "" ||  formData.BoothId  == "" ){
+    }else if (this.AssemblyBoothArray.length == 0  ||  this.AssemblyBoothArray.length == 0){
       this.toastrService.error("Assembly Or Booth is required");
       return;
     }
@@ -331,7 +334,7 @@ export class AssignBoothComponent implements OnInit {
   editAssignBoothsPatchValue(objData: any) {
     this.boothListMergeArray = [];
     this.ConstituencyId = objData.ConstituencyId;
-    this.HighlightRow = objData.SrNo;
+    this.HighlightRow = objData.Id;
     this.boothDivHide = true;
     this.selBoothId = objData.BoothId;
     this.ConstituencyIdArray = objData.Assembly.split('');
