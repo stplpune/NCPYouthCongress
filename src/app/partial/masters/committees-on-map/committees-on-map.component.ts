@@ -81,7 +81,6 @@ export class CommitteesOnMapComponent implements OnInit {
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     }
- 
   };
 
   ngAfterViewInit() {
@@ -127,13 +126,13 @@ export class CommitteesOnMapComponent implements OnInit {
   }
 
   selectDistrict(event:any){
-   this.clearFilterByCommitteesName();
+   //this.clearFilterByCommitteesName();
     $('path').css('fill', '#7289da');
     this.selectedDistrictId = event;
+    this.DistrictWiseCommityWorkGraph();
     $('path#'+this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.defaultMembersFlag = false;
-    this.DistrictWiseCommityWorkGraph();
   }
 
   getDistrict(id:any) {
