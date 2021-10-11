@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'share/:id', loadChildren: () => import('./web/share/share.module').then(m => m.ShareModule) },
       { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule) },
       { path: 'help', loadChildren: () => import('./web/help/help.module').then(m => m.HelpModule) },
+      { path: 'help-non-member', loadChildren: () => import('./web/help-non-member/help-non-member.module').then(m => m.HelpNonMemberModule) },
     ]
   },
   {
