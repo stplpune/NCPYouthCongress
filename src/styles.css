@@ -862,6 +862,7 @@ mapsvg-layers-wrap+svg {
 
 .mat-dialog-container {
     padding: 0 !important;
+    height: none !important;
 }
 
 .modal-dialog {
@@ -943,4 +944,9 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     padding: 17px 15px;
     color: #000;
     font-size: 12px !important;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
 }
