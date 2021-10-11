@@ -30,8 +30,8 @@ export class MemberReportComponent implements OnInit {
   comUserdetImg:any;
   programGalleryImg!: GalleryItem[];
   @ViewChild('content') content!: ElementRef;
-  memberId = 0;
-  FullName = 0;
+  memberId :any;
+  FullName :any;
   fromDate: any = '';
   toDate: any = '';
 
@@ -84,7 +84,8 @@ export class MemberReportComponent implements OnInit {
           this.resActivitiesReport = [];
         }
       } else {
-        this.toastrService.error("Data is not available 2");
+       // this.toastrService.error("Data is not available 2");
+        this.spinner.hide();
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -121,7 +122,7 @@ export class MemberReportComponent implements OnInit {
 
   clearFilter(flag: any) {
     if (flag == 'member') {
-      this.filterForm.controls['member'].setValue(0);
+      this.filterForm.controls['MemberId'].setValue(0);
     } else if (flag == 'dateRangePIcker') {
       this.filterForm.controls['fromToDate'].setValue(['', '']);
       this.fromDate = '';
