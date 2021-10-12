@@ -98,8 +98,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       $('path#' + this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
-      this.selectedDistrictId = distrctId ;
-      this.DistrictWiseCommityWorkGraph();
       this.getOrganizationByDistrictId(distrctId);
     });
   }
