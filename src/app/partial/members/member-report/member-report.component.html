@@ -44,8 +44,13 @@
                                     <p class="fw-bold">{{profileInfo?.Designation}}</p>
                                 </div>
                                 <div class="col-sm-auto">
+                                   <div *ngIf="profileInfo?.ProfilePhoto ; else elseBlock"> 
                                     <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
-                                    <img *ngIf="!profileInfo?.ProfilePhoto" src="assets/images/dashboard-images/ncp-default.png" class="prof-photo">
+                                   </div>
+                                   <ng-template #elseBlock>
+                                        <img src="assets/images/dashboard-images/ncp-default.png" class="prof-photo">
+                                </ng-template>
+                                   
                                 </div>
                                 <!-- <div class="col-sm-auto">
                                     <img src="assets/images/NCP-logo.svg" class="prof-photo">
@@ -172,8 +177,14 @@
                                                                 *ngIf="i<4"
                                                              <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                                                             </span> -->
-                                                            <span class="float-end"><img [src]="res?.ImagePath.split(',')[0]" class="desc-image">
-                                                            </span>
+                                                         
+                                                                <div *ngIf="res?.ImagePath ; else elseBlock"> 
+                                                                    <span class="float-end"><img [src]="res?.ImagePath.split(',')[0]" class="desc-image"> </span>
+                                                                </div>
+                                                                <ng-template #elseBlock>
+                                                                     <span class="float-end"><img src="assets/images/dashboard-images/ncp-default.png" class="prof-photo"></span>
+                                                             </ng-template>
+                                                                
                                                             <p class="print-desc">
                                                                 {{res?.Description}}
                                                             </p>
