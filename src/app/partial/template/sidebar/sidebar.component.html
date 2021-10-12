@@ -24,7 +24,7 @@
                 <div id="collapse{{i}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body p-0">
                         <div class="list-group list-group-flush">
-                            <a class="list-group-item list-group-item-action" *ngFor="let page of pages.PageURL; let pageUrlIndex = index" routerLink="{{page}}">
+                            <a class="list-group-item list-group-item-action" routerLinkActive="active1" *ngFor="let page of pages.PageURL; let pageUrlIndex = index" routerLink="{{page}}">
                                 <ng-container *ngFor="let pageName of pages.pageName;; let pageNameIndex = index">
                                     <ng-container *ngIf="pageNameIndex == pageUrlIndex">{{pageName}}</ng-container>
                                 </ng-container>

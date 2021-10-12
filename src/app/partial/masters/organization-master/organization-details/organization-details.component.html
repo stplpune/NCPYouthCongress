@@ -55,7 +55,7 @@
                     <ul class="">
                         <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId,subCommittess?.CommitteeName )" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
                            <ng-container >
-                            <span>{{subCommittess?.CommitteeName | titlecase}}{{subCommittessResult.length}}</span>
+                            <span>{{subCommittess?.CommitteeName | titlecase}}</span>
                            </ng-container>
                            
                         </li>
