@@ -52,7 +52,7 @@
                                             [disabled]="!this.assAgentToBoothForm.value.UserId" (select)="getConstituencyName();clearAggentToBooth('constituencyName')"
                                             (remove)="clearAggentToBooth('electionName')" formControlName="ElectionId"
                                             optionValueField="ElectionId" optionTextField="ElectionName"
-                                            placeholder="Select Election"  (remove)="clearAggentToBooth('electionName')"  [ngClass]="{ 'is-invalid': aAsubmitted && a.ElectionId.errors}">
+                                            placeholder="Select Election"  [ngClass]="{ 'is-invalid': aAsubmitted && a.ElectionId.errors}">
                                         </ngx-select>
                                         <div *ngIf="aAsubmitted && a.ElectionId.errors" class="invalid-feedback">
                                             <div *ngIf="a.ElectionId.errors.required">Election is required</div>
