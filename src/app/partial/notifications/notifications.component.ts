@@ -123,7 +123,6 @@ export class NotificationsComponent implements OnInit {
         notificationFlag = 1;
         ImageChangeFlag = 0
       }
-      debugger;
       let getObj:any = this.notificationForm.value;
 
       let fillSelection:any;
@@ -233,7 +232,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   editNotification(data:any){
-    debugger;
     if(data.IsPushed == 2){
       this.schedulerFlag = true;
     }else{

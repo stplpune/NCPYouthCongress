@@ -118,19 +118,16 @@ export class AssignBoothComponent implements OnInit {
   }
 
   onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
-    debugger;
     if (event.target.checked == false) {
       let index = this.AssemblyBoothArray.map((x: any) => { return x.BoothId; }).indexOf(boothId);
       this.AssemblyBoothArray.splice(index, 1);
     }
     else {
-      debugger;
       this.AssemblyBoothArray.push({ 'AssemblyId': assemblyId, 'BoothId': boothId });
     }
   }
 
   onSubmitElection() {
-    debugger;
     this.submitted = true;
     let formData = this.assignBoothForm.value;
 
@@ -254,7 +251,6 @@ export class AssignBoothComponent implements OnInit {
         }
 
       } else {
-        debugger;
         this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
         this.spinner.hide();
         this.toastrService.error("Data is not available");

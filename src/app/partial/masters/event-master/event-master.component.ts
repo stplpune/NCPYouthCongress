@@ -120,7 +120,6 @@ export class EventMasterComponent implements OnInit {
 
   onSubmit() {
     this.spinner.show();
-    debugger;
     this.submitted = true;
     if((this.addEvent.value.ProgramDate[0] == null || this.addEvent.value.ProgramDate[0] == "") && (this.addEvent.value.ProgramDate[1] == null || this.addEvent.value.ProgramDate[0] == "")){
       this.addEvent.controls['ProgramDate'].setValue('');

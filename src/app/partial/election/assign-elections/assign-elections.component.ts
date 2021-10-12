@@ -92,7 +92,6 @@ export class AssignElectionsComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    debugger;
     this.addSubConstituencyArray.map((ele: any) => {
       delete ele['ElectionName'];
       delete ele['ConstituencyName'];
@@ -224,7 +223,6 @@ export class AssignElectionsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.clientDetailsArray = res.data1[0];
-        debugger;
         this.addSubConstituencyArray = res.data2;
         this.patchCreateConstituency(this.clientDetailsArray);
       } else {
@@ -285,7 +283,6 @@ export class AssignElectionsComponent implements OnInit {
   }
 
   delConfirmAssElection(ClientId: any, HeaderId:any){
-    debugger;
     this.assElectionId = ClientId;
     this.HeaderId = HeaderId;
     this.deleteConfirmModel('clientDelete');
@@ -391,7 +388,6 @@ export class AssignElectionsComponent implements OnInit {
     });
 
     let arrayOfObj = this.subConstArrayCheck(this.assignElectionForm.value.ElectionId, this.assignElectionForm.value.strConstituency);
-    debugger;
     if (arrayOfObj == false) {
       this.addSubConstituencyArray.push({ 'ElectionName': eleName, 'ConstituencyName': subElectionNameBySubEleId, 'ElectionId': this.assignElectionForm.value.ElectionId, 'ConstituencyId': this.assignElectionForm.value.strConstituency });
       console.log(this.addSubConstituencyArray);
