@@ -29,7 +29,7 @@
 }
 
 #founders img {
-    width: 140px;
+    width: 110px;
     margin: 0 15px;
 }
 
@@ -51,6 +51,7 @@
     right: 0;
     position: absolute;
     z-index: -1;
+    background-size: 350px;
 }
 
 #pres-msg .pres-photo {
@@ -201,7 +202,7 @@ h6.sub-head {
 }
 
 #exe-members .card .card-img-top {
-    width: 200px;
+    width: 130px;
     margin-bottom: 15px;
 }
 
