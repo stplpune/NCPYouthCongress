@@ -539,6 +539,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       this.clearAssemblyBooth();
     } 
     this.paginationNo = 1;
+    
     // this.getConstituency();
   }
 
