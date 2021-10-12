@@ -653,7 +653,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     
     // this.getAssemblyName();
     this.globalEditObj = objData;
-    // this.boothListMergeArray = [];
+    this.boothListMergeArray = [];
     this.ConstituencyId = objData.ConstituencyId;
     this.HighlightRow = objData.HeaderId;
     this.boothDivHide = true;
