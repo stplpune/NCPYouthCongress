@@ -15,28 +15,28 @@
             <div class="card card-body bg-cyan">
                 <i class="fas fa-network-wired"></i>
                 <p>Total Work Done</p>
-                <h3>{{TotalWorkAndIosCount?.TotalWork ? TotalWorkAndIosCount?.TotalWork  : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalWork ? TotalWorkAndIosCount?.TotalWork : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-green">
                 <i class="fab fa-apple"></i>
                 <p>Total Committees</p>
-                <h3>{{TotalWorkAndIosCount?.TotalCommittees ? TotalWorkAndIosCount?.TotalCommittees  : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalCommittees ? TotalWorkAndIosCount?.TotalCommittees : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-blue">
                 <i class="fab fa-android"></i>
                 <p>Total Executives</p>
-                <h3>{{TotalWorkAndIosCount?.TotalExecutives ? TotalWorkAndIosCount?.TotalExecutives  : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalExecutives ? TotalWorkAndIosCount?.TotalExecutives : '0'}}</h3>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body bg-gold">
                 <i class="fab fa-android"></i>
                 <p>Total Members</p>
-                <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers  : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers : '0'}}</h3>
             </div>
         </div>
     </div>
@@ -45,25 +45,25 @@
         <div class="col-sm-4">
             <div class="card mb-3">
                 <div class="card-header pb-0">
-                    Sub-Committees
+                    Sub-Committees of <span class="fw-bold text-primary">{{getCommitteeName}}</span>
                 </div>
                 <div class="card-body">
-                   <div *ngIf="subCommittessResult?.length > 1 else noSubCommittee">
+                    <div *ngIf="subCommittessResult?.length > 1 else noSubCommittee">
                         <!-- <h6 class="title">Committee Name</h6> -->
-                    <h6 class="title">{{getCommitteeName}}</h6>
-                    <!-- <p>  <span><a (click)="openSubCommittees(bodyId)" >{{getCommitteeName | titlecase}}</a></span></p> *ngIf="getCommitteeName !== subCommittess?.CommitteeName" -->
-                    <ul class="">
-                        <li *ngFor="let subCommittess of subCommittessResult;let i = index" (click)="openSubCommittees(subCommittess.CommitteeId,subCommittess?.CommitteeName )" [class.active]="subCommittess.CommitteeId == HighlightRowTree">
-                           <ng-container >
-                            <span>{{subCommittess?.CommitteeName | titlecase}}</span>
-                           </ng-container>
-                           
-                        </li>
-                    </ul>
-                   </div>
-                   <ng-template #noSubCommittee>
-                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
-                </ng-template>
+
+                        <!-- <p>  <span><a (click)="openSubCommittees(bodyId)" >{{getCommitteeName | titlecase}}</a></span></p> *ngIf="getCommitteeName !== subCommittess?.CommitteeName" -->
+                        <ul class="comm-list">
+                            <li *ngFor="let subCommittess of subCommittessResult;let i = index">
+                                <ng-container>
+                                    <a (click)="openSubCommittees(subCommittess.CommitteeId,subCommittess?.CommitteeName )" [class.active]="subCommittess.CommitteeId == HighlightRowTree">{{subCommittess?.CommitteeName | titlecase}}</a>
+                                </ng-container>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <ng-template #noSubCommittee>
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <!-- Current Designated Members -->
             <div class="alert alert-secondary" role="alert">
                 {{subCommitteeName}}
-              </div>
+            </div>
 
 
             <div class="card mb-3">
@@ -95,29 +95,19 @@
                                 <td>{{designatedMembers.SrNo}}</td>
                                 <!-- <td>{{designatedMembers.MemberName | titlecase}}</td> -->
                                 <td>
-                                    <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)"
-                                        class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
+                                    <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)" class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
                                 </td>
                                 <td>{{designatedMembers.DesignationName}} </td>
                                 <td>{{designatedMembers.PostFromDate}}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
-                                        <button *ngIf="designatedMembers.MemberName"
-                                            (click)="addEditMember(designatedMembers,'Edit')"
-                                            class="btn btn-sm btn-light rounded"> <i
+                                        <button *ngIf="designatedMembers.MemberName" (click)="addEditMember(designatedMembers,'Edit')" class="btn btn-sm btn-light rounded"> <i
                                                 class="fas fa-pencil-alt"></i></button>
                                         <!-- <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button> -->
-                                        <button
-                                            *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1"
-                                            (click)="addEditMember(designatedMembers,'Add')"
-                                            class="rounded btn btn-sm btn-light mx-1"> <i
+                                        <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i
                                                 class="fas fa-plus"></i></button>
-                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded"
-                                            *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
-                                            (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
-                                            data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
-                                        <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal
-                                            style="display: none;"></button>
+                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded" *ngIf="designatedMembers.MemberName" data-bs-toggle="modal" (click)="getUserPostBodyId(designatedMembers.userpostbodyId)" data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
+                                        <button data-bs-toggle="modal" data-bs-target="#AddMemberModal" #addMemberModal style="display: none;"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -136,40 +126,42 @@
                         <div class="text-center bg-light py-2 fw-bold border-bottom">
                             {{designationName.DesignationNameBYBodyId}}
                         </div> -->
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Sr. No.</th>
-                                    <th>Designation Name</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let desMembers of getPreDesMembersArray; let m = index">
-                                    <!-- *ngIf="designationName.DesignationNameBYBodyId == desMembers.DesignationName" -->
-                                    <ng-container>
-                                        <td>{{m+1}}</td>
-                                  
-                                        
-                                        <td> <div>{{desMembers.DesignationName}}</div></td>
-                                  
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Designation Name</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let desMembers of getPreDesMembersArray; let m = index">
+                                <!-- *ngIf="designationName.DesignationNameBYBodyId == desMembers.DesignationName" -->
+                                <ng-container>
+                                    <td>{{m+1}}</td>
+
+
+                                    <td>
+                                        <div>{{desMembers.DesignationName}}</div>
+                                    </td>
+
                                     <td>
                                         <div class="row">
                                             <div><a>{{desMembers.MemberName}}</a></div>
-                                            
+
                                         </div>
                                     </td>
                                     <td>
-                                        <div>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' :
-                                            desMembers.PostToDate}}</div>
+                                        <div>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}
+                                        </div>
                                     </td>
-                                    </ng-container>
-                                </tr>
+                                </ng-container>
+                            </tr>
                             <!-- </ng-container> -->
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
                 <!-- </div> -->
             </div>
 
@@ -184,30 +176,19 @@
                             <form [formGroup]="filter">
                                 <div class="row g-2 form-container">
                                     <div class="col-sm-4">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')"
-                                            (select)="filterData()" [items]="bodyMemberFilterDetails"
-                                            optionValueField="ID" optionTextField="FullName"
-                                            formControlName="memberName" placeholder="Select Member Name">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" (select)="filterData()" [items]="bodyMemberFilterDetails" optionValueField="ID" optionTextField="FullName" formControlName="memberName" placeholder="Select Member Name">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')"
-                                            (select)="filterData()" [items]="resWorkcategory" optionValueField="Id"
-                                            optionTextField="Category" formControlName="workType"
-                                            placeholder="Select Work Type">
+                                        <ngx-select [allowClear]="true" (remove)="clearFilter('workType')" (select)="filterData()" [items]="resWorkcategory" optionValueField="Id" optionTextField="Category" formControlName="workType" placeholder="Select Work Type">
                                         </ngx-select>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)"
-                                                class="form-control" [max]="maxDate" [selectMode]="'range'"
-                                                [owlDateTimeTrigger]="dt1" placeholder="Select range"
-                                                formControlName="fromTodate">
-                                            <button class="btn btn-light border btn-sm" type="button"
-                                                [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
+                                            <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event)" class="form-control" [max]="maxDate" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select range" formControlName="fromTodate">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt1" *ngIf="!defaultCloseBtn">
                                                 <i class="fas fa-calendar-alt"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button"
-                                                (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
+                                            <button class="btn btn-light border btn-sm" type="button" (click)="clearFilter('datepicker')" *ngIf="defaultCloseBtn">
                                                 <i class="fas fa-times"></i></button>
 
                                         </div>
@@ -232,24 +213,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" 
-                                [class.active]="bodyMemActivity.Id == indiMembersProgHighlight">
+                            <tr *ngFor="let bodyMemActivity of resBodyMemAct | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="bodyMemActivity.Id == indiMembersProgHighlight">
                                 <td>{{(+(paginationNo-1+"0")+i+1)}}</td>
                                 <td>{{bodyMemActivity.ActivityDate}}</td>
                                 <td>
-                                    <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)"
-                                        class="text-primary">{{bodyMemActivity.FullName}}</a>
+                                    <a (click)="redToMemberProfile(bodyMemActivity.MemberId, bodyMemActivity.FullName)" class="text-primary">{{bodyMemActivity.FullName}}</a>
                                 </td>
-                                <td><span class="text-ellipsis-150px" [appTooltip]
-                                        title="{{bodyMemActivity.Category}}">{{bodyMemActivity.Category}}</span></td>
-                                <td><span class="text-ellipsis-150px" [appTooltip]
-                                        title="{{bodyMemActivity.Title}}">{{bodyMemActivity.Title}}</span></td>
+                                <td><span class="text-ellipsis-150px" [appTooltip] title="{{bodyMemActivity.Category}}">{{bodyMemActivity.Category}}</span></td>
+                                <td><span class="text-ellipsis-150px" [appTooltip] title="{{bodyMemActivity.Title}}">{{bodyMemActivity.Title}}</span></td>
                                 <td>
                                     <!-- <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
                                             class="far fa-eye"></i></button> -->
-                                    <button class="btn btn-sm btn-light"
-                                        (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i
+                                    <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i
                                             class="far fa-eye"></i></button>
                                 </td>
                             </tr>
@@ -262,8 +237,7 @@
                         </tbody>
                     </table>
                     <div class="mt-2 text-right float-lg-end" *ngIf="resBodyMemAct?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
             </div>
@@ -281,15 +255,13 @@
 </div>
 
 <!-- Modal for Add/Update/Delete Member for any Designation -->
-<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form [formGroup]="bodyMember">
                 <div class="modal-header">
                     <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="height: 341px">
                     <div class="form-container">
@@ -303,11 +275,7 @@
 
                                     <label for="txtMemberName" class="form-label required-field">Member Name</label>
                                     <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId"
-                                        optionValueField="id" optionTextField="fullname"
-                                        (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
-                                        placeholder="Select Member Name"
-                                        [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
+                                    <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId" optionValueField="id" optionTextField="fullname" (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)" placeholder="Select Member Name" [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }">
                                     </ngx-select>
                                     <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
                                         <div *ngIf="f.bodyId.errors.required">Body Member is required
@@ -321,15 +289,11 @@
                                 <div class="mb-3">
                                     <label for="txtMemberName" class="form-label required-field">
                                         Post From Date</label>
-                                    <div class="input-group"
-                                        [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
-                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control"
-                                            [max]="maxDate" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-                                        <button class="btn btn-light border btn-sm" type="button"
-                                            [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
+                                    <div class="input-group" [ngClass]="{ 'is-invalid': submitted && f.PostfromDate.errors }">
+                                        <input [owlDateTime]="dt3" formControlName="PostfromDate" class="form-control" [max]="maxDate" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
+                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!this.bodyMember.value.PostfromDate">
                                             <i class="fas fa-calendar-alt"></i></button>
-                                        <button class="btn btn-light border btn-sm" type="button"
-                                            *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
+                                        <button class="btn btn-light border btn-sm" type="button" *ngIf="this.bodyMember.value.PostfromDate" (click)="clearValueDatePicker()">
                                             <i class="fas fa-times"></i></button>
 
                                     </div>
@@ -353,8 +317,7 @@
                                         {{bodyMemberDetails?.MobileNo}}</div>
                                     <label class="form-label mb-0">Location</label>
                                     <div class="form-control-plaintext py-0">
-                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
-                                        {{bodyMemberDetails?.VillageName}}
+                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}}, {{bodyMemberDetails?.VillageName}}
                                     </div>
                                 </div>
                             </div>
@@ -373,8 +336,7 @@
 
 
 <!-- Delete Confirmation modal pop up -->
-<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="DeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-transparent border-bottom-0">
@@ -394,8 +356,7 @@
                 <p class="mb-4">Do you really want to delete this record? This process can not be undone.
                 </p>
                 <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
-                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal"
-                    type="button">Delete</button>
+                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal" type="button">Delete</button>
             </div>
         </div>
     </div>

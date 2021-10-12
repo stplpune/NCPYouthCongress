@@ -2,6 +2,7 @@ header #topbar{
     font-size: 0.85rem;
     padding:8px 0;
 }
+
 header #topbar a{
     color: var(--main-color);
     text-decoration: none;
@@ -31,4 +32,8 @@ header .navbar-nav .donate{
     color:var(--clr-green);
     font-weight: 600;
     text-transform: uppercase;
+}
+
+#navbarSupportedContent a.nav-link.Active {
+    color: #7289da !important;
 }
