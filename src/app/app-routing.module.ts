@@ -51,7 +51,7 @@ const routes: Routes = [
       { path: 'notifications', loadChildren: () => import('./partial/notifications/notifications.module').then(m => m.NotificationsModule), data: { title: 'Notifications', allowedRoles: ['1', '2'] } },
       { path: 'help-support', loadChildren: () => import('./partial/help-support/help-support.module').then(m => m.HelpSupportModule), data: { title: 'Help Support', allowedRoles: ['1', '2', '5'] } },
       { path: 'my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule), data: { title: 'My Profile', allowedRoles: ['1', '2', '5', '7', '8'] } },
-      { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Manage Member', allowedRoles: ['7', '1'] }  },
+      { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Add Member', allowedRoles: ['7', '1'] }  },
       { path: 'member-report', loadChildren: () => import('./partial/members/member-report/member-report.module').then(m => m.MemberReportModule), data: { title: 'Member Report', allowedRoles: ['2', '1'] }  },
 
       // Election
@@ -61,7 +61,7 @@ const routes: Routes = [
       { path: 'election-profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Election Profile', allowedRoles: ['7', '1'] } },
       { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'Add Client', allowedRoles: ['7', '1'] } },      
       { path: 'add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] } },
-      { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'Dashboard', allowedRoles: ['7', '1'] }  },
+      { path: 'add-member', loadChildren: () => import('./partial/masters/add-member/add-member.module').then(m => m.AddMemberModule), data: { title: 'create regional Leader', allowedRoles: ['7', '1'] }  },
       { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Election to Client', allowedRoles: ['7', '1'] } },
       { path: 'candidate-registration', loadChildren: () => import('./partial/election/candidate-registration/candidate-registration.module').then(m => m.CandidateRegistrationModule), data: { title: 'Candidate Registration', allowedRoles: ['7', '1'] } }, 
      
