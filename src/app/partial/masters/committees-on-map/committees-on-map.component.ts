@@ -90,7 +90,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.DistrictId) {
       this.selectDistrict(this.DistrictId);
       this.showSvgMap(this.commonService.mapRegions());
-     
+    }else{
+      this.showSvgMap(this.commonService.mapRegions());
     }
 
     $(document).on('click', 'path', (e: any) => {

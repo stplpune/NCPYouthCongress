@@ -6,8 +6,8 @@
         <ng-container *ngFor="let pages of loginPages; let i = index">
             <div class="accordion-item" routerLinkActive="active" *ngIf="pages.PageURL.length <= 1">
                 <div class="accordion-header">
-                    <button class="accordion-button no-sub" type="button">
-                        <label for="group-{{i}}" [routerLink]="pages.PageURL">
+                    <button class="accordion-button no-sub" type="button"  [routerLink]="pages.PageURL">
+                        <label for="group-{{i}}">
                             <i [innerHtml]="pages.PageIcon"></i>{{pages.PageGroup}}
                         </label>
                     </button>
