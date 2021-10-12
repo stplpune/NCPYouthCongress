@@ -64,7 +64,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   eventDetails(details:any){
-    this.selEventId= details.EventId;
+    this.selEventId= details;
     this.eventListArray.forEach((element: any) => { // event Detail
       if (element.EventId == details) {
         this.eventDetalis = element;
