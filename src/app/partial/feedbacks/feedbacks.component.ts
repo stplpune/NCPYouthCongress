@@ -41,6 +41,7 @@ export class FeedbacksComponent implements OnInit {
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
+    
     this.getDistrict();
     this.defaultFilterForm();
     this.getMemberName();
