@@ -537,7 +537,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
  
   redTocommitteesOnMap(DistrictId:any){
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
-    // this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
+    this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
   }
 }
 

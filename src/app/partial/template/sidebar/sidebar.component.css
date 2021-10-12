@@ -241,9 +241,9 @@ label>span {
 }
 
 .accordion-button {
-    padding: 17px 15px;
+    padding: 15px 15px;
     color: #000;
-    font-size: 0.85rem !important;
+    font-size: 0.80rem !important;
     background-color: transparent;
     box-shadow: none !important;
 }
@@ -270,6 +270,7 @@ label>span {
     font-weight: 900;
     transform: none;
     transition: rotate 1s ease-in;
+    font-size: 10px !important;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -294,4 +295,21 @@ label>span {
 .accordion-body .list-group .list-group-item:hover {
     background-color: var(--main-color);
     color: #fff;
+}
+
+.accordion-item.accordion-has-submenu.ng-star-inserted.active, .accordion-item.ng-star-inserted.active {
+    color:#fff!important;
+    background: var(--main-color);
+}
+.accordion-item.accordion-has-submenu.ng-star-inserted.active button, .accordion-item.ng-star-inserted.active button{
+    color:#fff!important;
+}
+
+.accordion-item.accordion-has-submenu.ng-star-inserted.active i, .accordion-item.ng-star-inserted.active i {
+    color:#fff!important;
+}
+
+a.list-group-item.list-group-item-action.ng-star-inserted.active1{
+    color:#fff!important;
+    background: var(--main-color) !important;
 }
