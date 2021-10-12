@@ -243,7 +243,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
     lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
-    
       }
 
   ngOnDestroy() {
