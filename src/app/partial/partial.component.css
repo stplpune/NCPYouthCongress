@@ -14,7 +14,7 @@
 }
 
 #pageheader .page-name {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--main-color);
     font-size: .85rem;
     text-transform: uppercase;
@@ -48,10 +48,12 @@
     box-shadow: none;
     outline: none;
 }
-#pageheader .input-group span.input-group-text{
+
+#pageheader .input-group span.input-group-text {
     font-size: .85rem;
     line-height: 20px;
 }
+
 #pageheader .btn {
     width: 34px;
     height: 34px;
