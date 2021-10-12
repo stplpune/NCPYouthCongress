@@ -259,7 +259,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
 
 
   onCheckChangeAssembly(event: any, assemblyId:any) {
-    debugger;
     this.assemblyCheckBoxCheck = event == true  ?  this.assemblyCheckBoxCheck = true :  this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
     if ( this.assemblyCheckBoxCheck == false) {
@@ -673,7 +672,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   }
 
   checkBoxCehckAssemblyArray(ConstituencyId: any) {
-    debugger;
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j <this.assemblyArray.length; j++) {
         if (this.assemblyArray[j].Id == ConstituencyId[i]) {

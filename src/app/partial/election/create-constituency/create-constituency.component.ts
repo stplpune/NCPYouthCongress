@@ -531,7 +531,6 @@ export class CreateConstituencyComponent implements OnInit {
   get g() { return this.createGeofence.controls };
 
   onSubmitCreGeofence() {
-    debugger;
     this.submittedCreGeofence = true;
     let data = this.createGeofence.value;
     if (this.createGeofence.invalid) {
