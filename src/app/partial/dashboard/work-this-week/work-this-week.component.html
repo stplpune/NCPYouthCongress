@@ -67,7 +67,7 @@
                             <p class="text-success fw-bold mb-1 small">Top Performance</p>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item text-success" *ngFor="let topPerformance of WorkDoneByYuvakTP"> 
-                                    <i class="fas fa-arrow-up me-2"></i> <a class="text-primary" (click)="redTocommitteesOnMap(topPerformance.DistrictId)">{{topPerformance.DistrictName}}</a>
+                                    <i class="fas fa-arrow-up me-2"></i>{{topPerformance.DistrictName}} <a class="text-primary small float-end" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
                                     <!--</a> -->
                                 </li>
                             </ul>
@@ -76,7 +76,7 @@
                             <p class="text-danger fw-bold mb-1 small">Bottom Performance</p>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
-                                    <i class="fas fa-arrow-down me-2"></i> <a class="text-primary" (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)">{{bottomPerformance.DistrictName}}</a>
+                                    {{bottomPerformance.DistrictName}}<a class="text-primary small float-end" (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
                                     <!--</a>  -->
                                 </li>
 
