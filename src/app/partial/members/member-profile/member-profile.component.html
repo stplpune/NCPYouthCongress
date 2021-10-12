@@ -13,7 +13,10 @@
                     </ng-container>
                 </div>
                 <div class="col-sm-8 d-flex">
-                    <button class="btn btn-primary btn-sm me-2" (click)="redToMemberReport()">Print</button>
+                    <button class="btn btn-outline-primary btn-sm me-2 d-flex" (click)="redToMemberReport()">
+                        <i class="fas fa-print me-2" style="margin:5px"></i>
+                        <span style="margin:1px;">Print</span>
+                    </button>
                     <div class="input-group">
                         <input [owlDateTime]="dt1" (dateTimeChange)="getRage($event)" [formControl]="dateTime" class="form-control" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Select Date">
                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
