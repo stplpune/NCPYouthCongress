@@ -86,11 +86,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   };
 
   ngAfterViewInit() {
-    this.showSvgMap(this.commonService.mapRegions());
-    // if (this.DistrictId) {
-    //   this.showSvgMap(this.commonService.mapRegions());
-    //   this.selectDistrict(this.DistrictId);
-    // }
+    // this.showSvgMap(this.commonService.mapRegions());
+    if (this.DistrictId) {
+      this.selectDistrict(this.DistrictId);
+      this.showSvgMap(this.commonService.mapRegions());
+     
+    }
 
     $(document).on('click', 'path', (e: any) => {
       $('path#' + this.selectedDistrictId).css('fill', '#7289da');
@@ -104,7 +105,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
-    this.graphInstance = $("#mapsvg").mapSvg({
+    this.graphInstance = $("#mapsvg1").mapSvg({
       width: 550,
       height: 430,
       colors: {
