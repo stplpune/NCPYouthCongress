@@ -96,8 +96,15 @@
                         <label class="form-label">Photos</label>
                         <div class="row">
                             <div class="col-sm-2 mb-0" *ngFor="let imgs of comUserdetImg; index as i">
+                                <div *ngIf="imgs?.data?.thumb ; else elseBlock1"> 
                                 <img [lightbox]="i" [src]="imgs?.data?.thumb" class="img-thumbnail h-150">
+                               </div>
+                         </div>
+                        <ng-template #elseBlock1>
+                            <div class=" mb-0">
+                                <img src="assets/images/productimgnotavailable.png" class="img-thumbnail h-150">
                             </div>
+                     </ng-template>
                         </div>
                     </div>
                 </div>
