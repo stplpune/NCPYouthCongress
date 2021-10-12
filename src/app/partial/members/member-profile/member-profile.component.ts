@@ -351,10 +351,13 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   redToMemberReport(){
-    let obj = {'memberId':this.memberId, 'FullName':this.FullName}
-    sessionStorage.setItem('memberData', JSON.stringify(obj));
-    this.router.navigate(['../member-report'], {relativeTo:this.route})
+    if(this.resWorkList.length != '')
+    {
+      let obj = {'memberId':this.memberId, 'FullName':this.FullName}
+      sessionStorage.setItem('memberData', JSON.stringify(obj));
+      this.router.navigate(['../member-report'], {relativeTo:this.route})
+    }else{
+      this.toastrService.error("Member Record is Empty");
+    }
   }
-
-
 }
