@@ -17,7 +17,7 @@
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-sm-1"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
+                <div class="col-sm-1"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
                     <i class="fas fa-arrow-left"></i>
                 </button></div>
             </div>
@@ -91,23 +91,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-12 mt-4">
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        Camparison of Committees
+                                    </div>
+                                    <div class="col-sm-3 offset-3">
+                                        <div class="input-group">
+                                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
+                                             [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
+                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                                <i class="fas fa-calendar-alt"></i></button>
+                                            <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
+                                                <i class="fas fa-times"></i></button>
+                                        </div>
+                                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body chartHeight WorkDoneByYuvak">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="col-sm-3 d-flex">
-    <div class="input-group">
-        <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
-         [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="From To Date">
-        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
-            <i class="fas fa-calendar-alt"></i></button>
-        <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('dateRangePIcker')">
-            <i class="fas fa-times"></i></button>
-    </div>
-    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
-</div>
-
-<div class="card-body chartHeight WorkDoneByYuvak">
 </div>
