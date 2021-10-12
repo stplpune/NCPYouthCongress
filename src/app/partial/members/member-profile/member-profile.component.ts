@@ -243,7 +243,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     lineSeries.name = "Sales";
     lineSeries.strokeWidth = 3;
     lineSeries.tooltipText = "Totalwork: {valueY}, day change: {valueY.previousChange}";
-    
       }
 
   ngOnDestroy() {
@@ -257,7 +256,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     } else {
       let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../committee/details'], { relativeTo: this.route })
+      this.router.navigate(['../committee/details'], { relativeTo: this.route })
     }
   }
 
