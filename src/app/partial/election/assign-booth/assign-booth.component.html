@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-4">
-            <span class="page-name">Assign Booths</span>
+            <span class="page-name">Assign Booths to Constituency</span>
         </div>
         <div class="col-sm-8 text-end">
         </div>
@@ -10,16 +10,13 @@
     <div class="row chartbox mb-3">
         <div class="col-sm-3">
             <div class="card">
-                <div class="card-header">Assign Booths</div>
+                <div class="card-header">Assign Booths to Constituency</div>
                 <form [formGroup]="assignBoothForm" (ngSubmit)="onSubmitElection()">
                     <div class="card-body pt-0">
                         <div class="form-container">
                             <div class="mb-2">
                                 <label for="ddlElection" class="form-label required-field">Election</label>
-                                <ngx-select [allowClear]="true" [items]="electionNameArray" formControlName="ElectionId"
-                                    optionValueField="id" optionTextField="ElectionName" placeholder="Select Election"
-                                    (select)="GetConstituencyName($event)"
-                                    [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
+                                <ngx-select [allowClear]="true" [items]="electionNameArray" formControlName="ElectionId" optionValueField="id" optionTextField="ElectionName" placeholder="Select Election" (select)="GetConstituencyName($event)" [ngClass]="{ 'is-invalid': submitted && f.ElectionId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.ElectionId.errors" class="invalid-feedback">
                                     <div *ngIf="f.ElectionId.errors.required">Election Name is required</div>
@@ -27,10 +24,7 @@
                             </div>
                             <div class="mb-2">
                                 <label for="ddlConstituency" class="form-label required-field">Constituency</label>
-                                <ngx-select [allowClear]="true" [items]="constituencyNameArray"
-                                    formControlName="ConstituencyId" optionValueField="id"
-                                    optionTextField="ConstituencyName" placeholder="Select Constituency"
-                                    [disabled]="(!assignBoothForm.value.ElectionId || constituencyNameArray?.length == 0) ? true : false"
+                                <ngx-select [allowClear]="true" [items]="constituencyNameArray" formControlName="ConstituencyId" optionValueField="id" optionTextField="ConstituencyName" placeholder="Select Constituency" [disabled]="(!assignBoothForm.value.ElectionId || constituencyNameArray?.length == 0) ? true : false"
                                     [ngClass]="{ 'is-invalid': submitted && f.ConstituencyId.errors}">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.ConstituencyId.errors" class="invalid-feedback">
@@ -43,24 +37,24 @@
                                 <label for="txtSearchAssembly" class="form-label required-field">Assembly</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
-                                        <input type="text" formControlName="assembly" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0"   [ngClass]="{ 'is-invalid': submitted && f.assembly.errors}"> 
-                                </div>
-                                <div class="card-body py-2 ChekBox" *ngIf="( assemblyArray | filter:searchAssembly ) as assemblyResult">     
-                                    <div class="form-check" *ngFor="let assemblyData of assemblyResult">
-                                        <input class="form-check-input" type="checkbox" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <input type="text" formControlName="assembly" [(ngModel)]="searchAssembly" placeholder="Search Assemblies" class="form-control form-control-sm border-0" [ngClass]="{ 'is-invalid': submitted && f.assembly.errors}">
+                                    </div>
+                                    <div class="card-body py-2 ChekBox" *ngIf="( assemblyArray | filter:searchAssembly ) as assemblyResult">
+                                        <div class="form-check" *ngFor="let assemblyData of assemblyResult">
+                                            <input class="form-check-input" type="checkbox" [checked]="assemblyData.checked" (change)="onCheckChangeAssembly($event, assemblyData.Id)">
+                                            <label class="form-check-label" for="flexCheckDefault">
                                             {{assemblyData.ConstituencyName}}
-                                        </label> 
-                                    </div>
-                                    <div *ngIf="assemblyResult.length === 0">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                        </label>
+                                        </div>
+                                        <div *ngIf="assemblyResult.length === 0">
+                                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div *ngIf="submitted && f.assembly.errors" class="invalid-feedback">
-                                <div *ngIf="f.assembly.errors.required">Assembly is required</div>
-                           </div>
+                                <div *ngIf="submitted && f.assembly.errors" class="invalid-feedback">
+                                    <div *ngIf="f.assembly.errors.required">Assembly is required</div>
+                                </div>
 
                             </div>
 
@@ -68,13 +62,11 @@
                                 <label for="txtSearchBooth" class="form-label required-field">Booth</label>
                                 <div class="card border shadow-none">
                                     <div class="card-header border-bottom p-0 py-1">
-                                        <input type="text" formControlName="boothList" placeholder="Search Booths"  [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm"  [ngClass]="{ 'is-invalid': submitted && f.boothList.errors}">  
+                                        <input type="text" formControlName="boothList" placeholder="Search Booths" [(ngModel)]="searchboothList" class="form-control border-0 form-control-sm" [ngClass]="{ 'is-invalid': submitted && f.boothList.errors}">
                                     </div>
                                     <div class="card-body py-2 ChekBox" *ngIf="( boothListMergeArray | filter:searchboothList ) as boothResult">
                                         <div class="form-check" *ngFor="let boothData of boothResult">
-                                            <input class="form-check-input" type="checkbox"
-                                                [checked]="boothData.checked"
-                                                (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
+                                            <input class="form-check-input" type="checkbox" [checked]="boothData.checked" (change)="onCheckChangeBooths($event,boothData.AssemblyId,boothData.Id)">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 {{boothData.BoothNickName}}
                                             </label>
@@ -92,7 +84,7 @@
                                 <div class="col-sm-9">
                                     <button type="submit" class="btn btn-main float-lg-end">{{btnText}}</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -105,21 +97,15 @@
                     <form [formGroup]="filterForm">
                         <div class="row g-2">
                             <div class="col-sm-3 offset-5">
-                                <ngx-select [allowClear]="true" [items]="electionNameArray" optionValueField="id"
-                                    (remove)="clearFilter('electionType')" (select)="filterData()"
-                                    optionTextField="ElectionName" placeholder="Election Name"
-                                    formControlName="ElectionNameId">
+                                <ngx-select [allowClear]="true" [items]="electionNameArray" optionValueField="id" (remove)="clearFilter('electionType')" (select)="filterData()" optionTextField="ElectionName" placeholder="Election Name" formControlName="ElectionNameId">
                                 </ngx-select>
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" formControlName="Search"
-                                        placeholder="Search Constituency or Assembly..." (keyup)="onKeyUpFilter()" />
-                                    <button type="button" class="btn btn-light border btn-sm"
-                                        (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
+                                    <input type="text" class="form-control" formControlName="Search" placeholder="Search Constituency or Assembly..." (keyup)="onKeyUpFilter()" />
+                                    <button type="button" class="btn btn-light border btn-sm" (click)="clearFilter('search')" *ngIf="filterForm.value.Search"><i
                                             _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
-                                    <button type="button" *ngIf="!filterForm.value.Search"
-                                        class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                    <button type="button" *ngIf="!filterForm.value.Search" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +126,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
-                                [class.active]="assBoothEle.AsignId == HighlightRow">
+                            <tr *ngFor="let assBoothEle of assignedBoothToElectionArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="assBoothEle.AsignId == HighlightRow">
                                 <td>{{assBoothEle.SrNo}}</td>
                                 <td>{{assBoothEle.ElectionName}}</td>
                                 <td>{{assBoothEle.ConstituencyName}}</td>
@@ -150,17 +135,10 @@
                                 <td>{{assBoothEle.TotalVoters}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" title="Edit Election"
-                                            (click)="getAssignedBoothListDetail(assBoothEle.AsignId,assBoothEle)"
-                                            class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal"
-                                            data-bs-target="#viewBoothsModal"><i class="far fa-eye"></i></button>
-                                        <button type="button" title="Edit Election"
-                                            (click)="patchAssBoothElection(assBoothEle.AsignId)"
-                                            class="btn btn-sm btn-light text-edit mx-1 rounded"><i
+                                        <button type="button" title="Edit Election" (click)="getAssignedBoothListDetail(assBoothEle.AsignId,assBoothEle)" class="btn btn-sm btn-light text-dark rounded" data-bs-toggle="modal" data-bs-target="#viewBoothsModal"><i class="far fa-eye"></i></button>
+                                        <button type="button" title="Edit Election" (click)="patchAssBoothElection(assBoothEle.AsignId)" class="btn btn-sm btn-light text-edit mx-1 rounded"><i
                                                 class="far fa-edit"></i></button>
-                                        <button type="button" title="Delete Election"
-                                            (click)="delConfirmAssBothEle(assBoothEle.AsignId)"
-                                            class="btn btn-sm btn-light text-danger rounded">
+                                        <button type="button" title="Delete Election" (click)="delConfirmAssBothEle(assBoothEle.AsignId)" class="btn btn-sm btn-light text-danger rounded">
                                             <i class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
@@ -171,8 +149,7 @@
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </div>
                     <div class="mt-2 text-end" *ngIf="assignedBoothToElectionArray?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
             </div>
@@ -181,8 +158,7 @@
 </div>
 
 
-<div class="modal fade" id="viewBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="viewBoothsModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewBoothsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewBoothsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
