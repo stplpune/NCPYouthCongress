@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { AgmCoreModule } from '@agm/core';
-
+import { AgmDrawingModule } from '@agm/drawing';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,12 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    AgmCoreModule,
-  ]
+
+    AgmCoreModule.forRoot({ 
+      apiKey: 'AIzaSyBCSDtf8g7XZ9B-P20ZqzOIr1TUQAg4Fj0',
+      libraries: ['drawing','places', 'geometry'] }),
+      AgmDrawingModule,
+  ],
+
 })
 export class CreateConstituencyModule { }
