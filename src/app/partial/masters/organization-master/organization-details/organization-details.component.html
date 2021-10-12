@@ -131,7 +131,7 @@
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>Designation Name</th>
-                                <th>Name</th>
+                                <th>Member Name</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -145,13 +145,13 @@
                                     <td>
                                         <div>{{desMembers.DesignationName}}</div>
                                     </td>
-
-                                    <td>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div><a>{{desMembers.MemberName}}</a></div>
 
-                                        </div>
-                                    </td>
+                                        </div> -->
+                                        <td>
+                                            <a (click)="redToMemberProfile(desMembers.DesignationId, desMembers.MemberName)" class="text-primary">{{desMembers.MemberName}}</a>
+                                        </td>
                                     <td>
                                         <div>{{desMembers.PostFromDate}} - {{desMembers.PostToDate == null ? 'Till Date' : desMembers.PostToDate}}
                                         </div>

@@ -364,6 +364,7 @@ export class OrganizationDetailsComponent implements OnInit {
             let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
             if(arrayOfObj){
               this.getPreDesMembersArray.push(ele);
+              console.log("111",this.getPreDesMembersArray)
               // this.DesignationNameBYBodyId1.push({'DesignationNameBYBodyId':ele.DesignationName})
             }
             // return ele;
