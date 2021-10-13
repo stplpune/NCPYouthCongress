@@ -67,6 +67,7 @@ export class CreateConstituencyComponent implements OnInit {
   disabledgeoFance:boolean = true;
   disabledLatLong:boolean = true; 
   disabledKml:boolean = true;
+  defaultMapData:any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -488,6 +489,9 @@ export class CreateConstituencyComponent implements OnInit {
 
   selGeofenceType(flag: any) {
     if (flag == 'Enter Lat-Long') {
+      this.deleteAllShape();
+      // document.getElementsByClassName('remove-shape')[0].remove();
+
       this.disabledLatLong = false;
       this.disabledKml = true;
       this.disabledgeoFance = true;
@@ -499,7 +503,12 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls["rbLatLong"].setValidators(Validators.required);
       this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
       this.createGeofence.controls["rbLatLong"].clearValidators();
+
+      this.createGeofence.controls['rbManualDraw'].setValue('');
+      this.createGeofence.controls['rbKMLUpload'].setValue('');
+      this.hideDrawcircleShape();
     } else if (flag == 'KML File') {
+      this.deleteAllShape();
       this.disabledKml = false;
       this.disabledLatLong = true;
       this.disabledgeoFance = true;
@@ -507,11 +516,16 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls["rbLatLong"].clearValidators();
       this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
       this.createGeofence.controls["rbManualDraw"].clearValidators();
-
       this.createGeofence.controls["rbKMLUpload"].setValidators(Validators.required);
       this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
       this.createGeofence.controls["rbKMLUpload"].clearValidators();
+      this.createGeofence.controls['rbLatLong'].setValue('');
+      this.createGeofence.controls['rbManualDraw'].setValue('');
+      document.getElementsByClassName('remove-shape')[0].remove();
+      this.hideDrawcircleShape();
     } else {
+      this.deleteAllShape();
+      this.hideDrawcircleShape();
       this.disabledgeoFance = false;
       this.disabledKml = true;
       this.disabledLatLong = true;
@@ -523,6 +537,9 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls["rbManualDraw"].setValidators(Validators.required);
       this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
       this.createGeofence.controls["rbManualDraw"].clearValidators();
+      this.createGeofence.controls['rbLatLong'].setValue('');
+      this.createGeofence.controls['rbKMLUpload'].setValue('');
+      this.initDrawingManager(this.defaultMapData);
     }
   }
 
@@ -575,8 +592,8 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   onMapReady(map: any) {
-    this.initDrawingManager(map);
-   
+    this.defaultMapData = map;
+    this.map = map;
   }
 
   initDrawingManager(data: any) {
@@ -637,6 +654,7 @@ export class CreateConstituencyComponent implements OnInit {
       });
     this.drawingManager.setMap(this.map);
     google.maps.event.addListener(this.drawingManager, 'circlecomplete', (circle: any) => {
+      debugger;
       // this.mainf.patchValue({geofenceRadius:circle.getRadius().toFixed(2)})
       this.selectedShape = this.selectedShape;
     });
@@ -667,14 +685,17 @@ export class CreateConstituencyComponent implements OnInit {
         let _centerltlng = bounds.getCenter()
         Latitude = _centerltlng.lat();
         Longitude = _centerltlng.lng();
+      
         //$('[data-entry="longitude"]').val(Longitude.toFixed(8)); $('[data-entry="latitude"]').val(Latitude.toFixed(8));
         this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        this.createGeofence.controls['rbManualDraw'].setValue(this.ltlg);
         // this.mainf.patchValue({ltlg:this.ltlg});
         // this.mainf.patchValue({geofenceRadius:''})
       } else if (e.type == 'circle') {
         Latitude = newShape.getCenter().lat();
         Longitude = newShape.getCenter().lng();
         this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        this.createGeofence.controls['rbManualDraw'].setValue(this.ltlg);
         //$scope.Latlong = ltlg;
         // this.mainf.patchValue({ltlg:this.ltlg});
         // this.mainf.patchValue({geofenceRadius:newShape.getRadius().toFixed(2)})
@@ -715,8 +736,11 @@ export class CreateConstituencyComponent implements OnInit {
       if (this.selectedShape != undefined) {
         // $('#MapForm').removeClass('ng-hide')
       }
-    })
+    });
+    this.hideDrawcircleShape();
   }
+
+
   addDeleteButton(e: any) {};
   
   setSelection(shape: any) {
@@ -780,6 +804,7 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   deleteAllShape() {
+    this.createGeofence.controls['rbManualDraw'].setValue('');
     this.selectedShape != undefined && this.selectedShape.setMap(null);
   }
 
@@ -799,13 +824,8 @@ export class CreateConstituencyComponent implements OnInit {
 
 
   selectMarker(latlng:any) {
-    debugger;
-    let data =   latlng.split(',')
-    let latitude = +data[0];
-    let longitude = +data[1];
-    this.ltlg = latitude.toFixed(8) + ',' + longitude.toFixed(8);
-    let latlong: any = this.ltlg;
-    // this.mainf.patchValue({ltlg:this.ltlg});
+    let latlong: any = latlng;
+    this.createGeofence.controls['rbLatLong'].setValue(latlng);
     latlong && this.map.setCenter(new google.maps.LatLng(latlong.split(',')[0], latlong.split(',')[1]));
     this.Village_City_marker && this.Village_City_marker.setMap(null)
     this.Village_City_marker = new google.maps.Marker({
@@ -817,7 +837,22 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   hideDrawcircleShape(){
-    $('[title="Draw a circle"], [title="Draw a shape"]').hide();
+    $('[title="Draw a circle"], [title="Draw a shape"], [title="Stop drawing"]').hide();
+  }
+
+  initMap(): void {
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 11,
+        center: { lat: 41.876, lng: -87.624 },
+      }
+    );
+  
+    const ctaLayer = new google.maps.KmlLayer({
+      url: "https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml",
+      map: map,
+    });
   }
 }
 

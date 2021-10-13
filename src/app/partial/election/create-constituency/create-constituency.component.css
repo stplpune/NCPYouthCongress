@@ -11,11 +11,12 @@
     width: 100%;
 }
 .mapsearch{
-    position:absolute;
+    position: absolute;
     z-index: 9999;
-    top:10px;
-    left: 10px;
-    width: 500px;
+    top: 5%;
+    left: 50%;
+    width: 300px;
+    transform: translate(-50%, -50%);
 }
 .mapsearch .form-control{
     box-shadow: none !important;
@@ -47,4 +48,9 @@ ul.map-menu li a {
 .disable{
     pointer-events:none;
     background-color: #e9ecef;
+}
+
+.gmnoprint[title='Draw a circle'],
+.gmnoprint[title='Draw a shape']{
+    display: none !important;
 }

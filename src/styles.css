@@ -975,3 +975,12 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 .remove-shape:hover {
     background: rgb(235, 235, 235);
 }
+
+.gmnoprint[title='Draw a circle'],
+.gmnoprint[title='Draw a shape']{
+    display: none !important;
+}
+
+/* .gmnoprint {
+    right: 5px !important;
+} */
