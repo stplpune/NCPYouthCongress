@@ -55,14 +55,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     let DistrictId = JSON.parse(getsessionStorageData);
     this.DistrictId = DistrictId;
-
   }
 
   ngOnInit(): void {
     this.getOrganizationByDistrictId(0);
     this.searchFilters('false');
     this.DistrictWiseCommityWorkGraph();
-
   }
 
   clearFilter(flag: any) {
@@ -94,8 +92,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     }else{
       this.showSvgMap(this.commonService.mapRegions());
     }
-
-
 
     $(document).on('click', 'path', (e: any) => {
       $('path#' + this.selectedDistrictId).css('fill', '#7289da');
@@ -256,7 +252,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     })
   }
 
-
   committeeNameByOrganizationMember(bodyId: any, committeeName: any) {
     this.spinner.show();
     this.globalBodyId = bodyId;
@@ -280,7 +275,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
-
   }
 
   redToMemberProfile(memberId: any, FullName: any) {
@@ -294,7 +288,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     sessionStorage.setItem('bodyId', JSON.stringify(obj))
     this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
-
 
   onKeyUpFilter() {
     this.subject.next();
@@ -395,12 +388,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         bullet.dy = 30;
         bullet.label.text = '{valueY}'
         bullet.label.fill = am4core.color('#ffffff')
-
         return series;
       }
 
       chart.data = this.DistWiseCommityWGraphArray;
-
       chart.padding(10, 5, 5, 5);
       // createSeries('TotalWork', 'Work Done by Committees');
       createSeries('TotalWork', 'Total Work Done');
@@ -408,7 +399,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       function arrangeColumns() {
 
         var series: any = chart.series.getIndex(0);
-
         let w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
         if (series.dataItems.length > 1) {
           let x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
