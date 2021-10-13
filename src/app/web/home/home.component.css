@@ -250,6 +250,7 @@ h6.sub-head {
     display: block;
     position: relative;
     font-family: 'Inter', 'Noto Sans', sans-serif !important;
+    margin-top: 7rem;
 }
 
 .main:after {

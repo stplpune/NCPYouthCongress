@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +10,10 @@ import { CommonService } from 'src/app/services/common.service';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { debounceTime } from 'rxjs/operators';
 import { MapsAPILoader } from '@agm/core';
+// import { $ } from 'protractor';
+declare var $: any
+
+declare const google: any;
 
 @Component({
   selector: 'app-create-constituency',
@@ -43,15 +47,26 @@ export class CreateConstituencyComponent implements OnInit {
   constId: any;
   total: any;
   btnText = "Create Constituency";
-  highlightedRow:any;
-  prevArrayData : any;
+  highlightedRow: any;
+  prevArrayData: any;
   SubElectionName: any;
-  lat: any = 19.7515;
-  long: any = 75.7139;
-  zoom = 14;
+  lat: any = 19.0898177;
+  lng: any = 76.5240298;
+  zoom = 12;
   @ViewChild('search') searchElementRef: any;
   geoCoder: any;
   createGeofence!: FormGroup;
+  ploygonGeofecneArr: any[] = [];
+  geofenceCircleArr: any[] = [];
+  markers: any[] = [];
+  map: any;
+  ltlg: any;
+  drawingManager: any;
+  selectedShape: any;
+  Village_City_marker: any;
+  disabledgeoFance:boolean = true;
+  disabledLatLong:boolean = true; 
+  disabledKml:boolean = true;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -65,6 +80,7 @@ export class CreateConstituencyComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
   ) { }
+
 
   ngOnInit(): void {
     this.defaultConstituencyForm();
@@ -93,27 +109,8 @@ export class CreateConstituencyComponent implements OnInit {
       subEleConstName: [''],
     })
   }
+  // get mainf() { return this.createGeofence.controls};
 
-  searchAutoComplete() {
-    this.mapsAPILoader.load().then(() => {
-      // this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          this.lat = place.geometry.location.lat();
-          this.long = place.geometry.location.lng();
-        });
-      });
-    });
-  }
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
@@ -132,7 +129,7 @@ export class CreateConstituencyComponent implements OnInit {
         this.spinner.hide();
         this.electionName = res.data1;
         this.SubElectionName = res.data1;
-       
+
       } else {
         this.spinner.hide();
         this.electionName = [];
@@ -191,7 +188,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.toastrService.error("No. of Member is  greater than or equal to  2");
       return;
     }
-    else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName ==  null || formData.ConstituencyName == undefined) {
+    else if (formData.ConstituencyName.trim() == '' || formData.ConstituencyName == null || formData.ConstituencyName == undefined) {
       this.toastrService.error("Constituency Name can not contain space");
       return;
     }
@@ -206,7 +203,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.addSubConstituencyArray.map((ele: any) => {
         delete ele['ConstituencyName'];
         delete ele['SubElection'];
-        if(ele['SrNo']){
+        if (ele['SrNo']) {
           delete ele['SrNo'];
         }
         return ele;
@@ -314,7 +311,7 @@ export class CreateConstituencyComponent implements OnInit {
     if (subEleId == 1) {
       this.subConstituencyDivHide = true;
       this.subConstituencyTableDiv = true;
-      this.prevArrayData.length != 0 ?   this.addSubConstituencyArray = this.prevArrayData : this.addSubConstituencyArray = [];
+      this.prevArrayData.length != 0 ? this.addSubConstituencyArray = this.prevArrayData : this.addSubConstituencyArray = [];
     } else {
       this.prevArrayData = this.addSubConstituencyArray;
       this.addSubConstituencyArray = [];
@@ -324,42 +321,42 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   addSubConstituency() {
-    let electionNameByEleId:any;
-    let subElectionNameBySubEleId:any;
-    
+    let electionNameByEleId: any;
+    let subElectionNameBySubEleId: any;
+
     // if (this.createConstituencyForm.value.ElectionId != this.createConstituencyForm.value.subEleName) {
-      this.electionName.find((ele: any) => { // find election name by ele id
-        if (this.createConstituencyForm.value.subEleName == ele.Id) {
-          electionNameByEleId = ele.ElectionName;
-        }
-      });
-
-      this.constituencyArray.find((ele: any) => { // find sub election name by sub ele id
-        if (this.createConstituencyForm.value.subEleConstName == ele.id) {
-          subElectionNameBySubEleId = ele.ConstituencyName;
-        }
-      });
-
-      let arrayOfObj =  this.subConstArrayCheck(this.createConstituencyForm.value.subEleName,this.createConstituencyForm.value.subEleConstName);
-      if(arrayOfObj == false){
-        this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
-      }else{
-        this.toastrService.error("Election Name & Constituency Name	already exists"); 
+    this.electionName.find((ele: any) => { // find election name by ele id
+      if (this.createConstituencyForm.value.subEleName == ele.Id) {
+        electionNameByEleId = ele.ElectionName;
       }
-     
-      this.createConstituencyForm.controls.subEleName.reset();
-      this.createConstituencyForm.controls.subEleConstName.reset();
-      this.subConsTableHideShowOnArray();
+    });
+
+    this.constituencyArray.find((ele: any) => { // find sub election name by sub ele id
+      if (this.createConstituencyForm.value.subEleConstName == ele.id) {
+        subElectionNameBySubEleId = ele.ConstituencyName;
+      }
+    });
+
+    let arrayOfObj = this.subConstArrayCheck(this.createConstituencyForm.value.subEleName, this.createConstituencyForm.value.subEleConstName);
+    if (arrayOfObj == false) {
+      this.addSubConstituencyArray.push({ 'SubElectionId': this.createConstituencyForm.value.subEleName, 'SubConstituencyId': this.createConstituencyForm.value.subEleConstName, 'SubElection': electionNameByEleId, 'ConstituencyName': subElectionNameBySubEleId });
+    } else {
+      this.toastrService.error("Election Name & Constituency Name	already exists");
+    }
+
+    this.createConstituencyForm.controls.subEleName.reset();
+    this.createConstituencyForm.controls.subEleConstName.reset();
+    this.subConsTableHideShowOnArray();
     // }
     // else {
     //   this.toastrService.error("Election Name & Sub Election Name should be Different");
     // }
   }
 
-  subConstArrayCheck(eleName:any, subEleCostName:any) {
-    return this.addSubConstituencyArray.some((el:any)=> {
+  subConstArrayCheck(eleName: any, subEleCostName: any) {
+    return this.addSubConstituencyArray.some((el: any) => {
       return el.SubElectionId === eleName && el.SubConstituencyId === subEleCostName;
-    }); 
+    });
   }
 
   selMembers(id: any) {
@@ -491,6 +488,9 @@ export class CreateConstituencyComponent implements OnInit {
 
   selGeofenceType(flag: any) {
     if (flag == 'Enter Lat-Long') {
+      this.disabledLatLong = false;
+      this.disabledKml = true;
+      this.disabledgeoFance = true;
       this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
       this.createGeofence.controls["rbKMLUpload"].clearValidators();
       this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
@@ -500,6 +500,9 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
       this.createGeofence.controls["rbLatLong"].clearValidators();
     } else if (flag == 'KML File') {
+      this.disabledKml = false;
+      this.disabledLatLong = true;
+      this.disabledgeoFance = true;
       this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
       this.createGeofence.controls["rbLatLong"].clearValidators();
       this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
@@ -509,11 +512,14 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
       this.createGeofence.controls["rbKMLUpload"].clearValidators();
     } else {
+      this.disabledgeoFance = false;
+      this.disabledKml = true;
+      this.disabledLatLong = true;
       this.createGeofence.controls["rbLatLong"].updateValueAndValidity();
       this.createGeofence.controls["rbLatLong"].clearValidators();
       this.createGeofence.controls["rbKMLUpload"].updateValueAndValidity();
       this.createGeofence.controls["rbKMLUpload"].clearValidators();
-      
+
       this.createGeofence.controls["rbManualDraw"].setValidators(Validators.required);
       this.createGeofence.controls["rbManualDraw"].updateValueAndValidity();
       this.createGeofence.controls["rbManualDraw"].clearValidators();
@@ -522,9 +528,9 @@ export class CreateConstituencyComponent implements OnInit {
 
   defaultcreateGeofenceForm() {
     this.createGeofence = this.fb.group({
-      rbLatLong:[''],
-      rbKMLUpload:[''],
-      rbManualDraw:['']
+      rbLatLong: [''],
+      rbKMLUpload: [''],
+      rbManualDraw: ['']
     })
   }
 
@@ -542,9 +548,276 @@ export class CreateConstituencyComponent implements OnInit {
         return;
       }
     }
+  }
+
+  // ----------------------------------agm map start  coading here ----------------------------------------------//
+
+  searchAutoComplete() { // autocomplete searchbar
+    this.mapsAPILoader.load().then(() => {
+      // this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.selectMarker(this.lat+','+this.lng);
+        });
+      });
+    });
+  }
+
+  onMapReady(map: any) {
+    this.initDrawingManager(map);
+   
+  }
+
+  initDrawingManager(data: any) {
+    debugger;
+    this.map = data;
+    const options = {
+      drawingControl: true,
+      drawingControlOptions: {
+        //  position: google.maps.ControlPosition.TOP_CENTER,
+        position: 3,
+        drawingModes: ['polygon', 'circle']
+      },
+
+      polygonOptions: {
+        draggable: true,
+        editable: true,
+        visible: true,
+        strokeWeight: 2,
+        strokeColor: '#f90003', //ff0000',
+        fillColor: '#f90003', //e20d0f',
+        fillOpacity: 0.45,
+      },
+      circleOptions: {
+        draggable: true,
+        editable: true,
+        visible: true,
+        strokeWeight: 2,
+        strokeColor: '#f90003', //ff0000',
+        fillColor: '#f90003', //e20d0f',
+        fillOpacity: 0.45,
+      },
+      markerOptions: {
+
+      },
+      drawingMode: null
+    };
+
+      this.drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: null, //google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT,
+          drawingModes: [
+            google.maps.drawing.OverlayType.CIRCLE,
+            google.maps.drawing.OverlayType.POLYGON,
+          ]
+        },
+        markerOptions: {
+          draggable: true
+        },
+        polylineOptions: {
+          editable: true,
+          draggable: true
+        },
+        circleOptions: options.circleOptions,
+        polygonOptions: options.polygonOptions,
+        map: this.map
+      });
+    this.drawingManager.setMap(this.map);
+    google.maps.event.addListener(this.drawingManager, 'circlecomplete', (circle: any) => {
+      // this.mainf.patchValue({geofenceRadius:circle.getRadius().toFixed(2)})
+      this.selectedShape = this.selectedShape;
+    });
+
+    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (e: any) => {
+      debugger;
+      var newShape = e.overlay;
+      var Latitude;
+      var Longitude;
+
+      newShape.type = e.type;
+      if (e.type == 'marker') {
+        Latitude = newShape.position.lat();
+        Longitude = newShape.position.lng();
+        this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        // this.mainf.patchValue({ltlg:this.ltlg});
+        // this.mainf.patchValue({geofenceRadius:''})
+      } else if (e.type == 'polygon') {
+        let bounds = new google.maps.LatLngBounds();
+        var lngt = newShape.getPath().getLength();
+        var paths = newShape.getPaths();
+        paths.forEach((path: any) => {
+          var ar = path.getArray();
+          for (var i = 0, l = ar.length; i < l; i++) {
+            bounds.extend(ar[i]);
+          }
+        })
+        let _centerltlng = bounds.getCenter()
+        Latitude = _centerltlng.lat();
+        Longitude = _centerltlng.lng();
+        //$('[data-entry="longitude"]').val(Longitude.toFixed(8)); $('[data-entry="latitude"]').val(Latitude.toFixed(8));
+        this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        // this.mainf.patchValue({ltlg:this.ltlg});
+        // this.mainf.patchValue({geofenceRadius:''})
+      } else if (e.type == 'circle') {
+        Latitude = newShape.getCenter().lat();
+        Longitude = newShape.getCenter().lng();
+        this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        //$scope.Latlong = ltlg;
+        // this.mainf.patchValue({ltlg:this.ltlg});
+        // this.mainf.patchValue({geofenceRadius:newShape.getRadius().toFixed(2)})
+      }
+      if (!document.querySelector('.remove-shape')) {
+        this.addDeleteShapeButton();
+      }
+      if (newShape.type === google.maps.drawing.OverlayType.POLYGON) {
+        this.addDeleteButton(e);
+      }
+      if (e.type !== google.maps.drawing.OverlayType.MARKER) { this.drawingManager.setDrawingMode(null); }
+      google.maps.event.addListener(newShape, 'click', (e: any) => {
+        this.setSelection(newShape);
+      });
+      google.maps.event.addListener(newShape, 'rightclick', (e: any) => {
+        if (e.vertex !== undefined) {
+          if (newShape.type === google.maps.drawing.OverlayType.POLYGON) {
+            var path = newShape.getPaths().getAt(e.path);
+            path.removeAt(e.vertex);
+            if (path.length < 3) {
+              this.deleteSelectedShape(); /*newShape.setMap(null);*/
+            }
+          }
+        }
+        this.setSelection(newShape);
+      });
+      google.maps.event.addListener(newShape, 'radius_changed', () => {
+        this.selectedShape = newShape;
+        Latitude = newShape.getCenter().lat();
+        Longitude = newShape.getCenter().lng();
+        this.ltlg = Latitude.toFixed(8) + ',' + Longitude.toFixed(8);
+        // $scope.Latlong = ltlg;
+        // this.mainf.patchValue({ltlg:this.ltlg});
+        // if (this.selectedShape.type == 'circle') { this.mainf.patchValue({geofenceRadius:this.selectedShape.getRadius().toFixed(2)}) }
+      });
+      this.setSelection(newShape);
+      this.selectedShape = this.selectedShape
+      if (this.selectedShape != undefined) {
+        // $('#MapForm').removeClass('ng-hide')
+      }
+    })
+  }
+  addDeleteButton(e: any) {};
+  
+  setSelection(shape: any) {
+    this.clearSelection();
+    this.selectedShape = shape;
+    if (shape.type != 'marker') {
+      shape.setEditable(true);
+    }
+    //selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+  }
+
+  clearSelection() {
+    if (this.selectedShape) {
+      if (this.selectedShape.type != 'marker') {
+        this.selectedShape.setEditable(false);
+      }
+      this.selectedShape.setMap(null)
+      this.selectedShape = null;
+      // this.markers.length > 0 && this.markers.setMap(null)
+    }
+  }
 
 
-    
+  addDeleteShapeButton() {
+      let selClass = document.getElementsByClassName('gmnoprint')[1];
+      let deleteOption = document.createElement('span');
+      let htmlContent = '';
+      htmlContent += `<div  class="remove-shape" title="Remove Selected shape">`;
+      htmlContent += '<span style="display: inline-block;">';
+      htmlContent += '<div style="width: 16px; height: 16px; overflow: hidden; position: relative;">';
+      htmlContent += '<img src="assets/images/remove-selection.png" style="position: absolute; left: 0px; top: 2px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none; width: 32px; height: 16px;">';
+      htmlContent += '</div>';
+      htmlContent += '</span>';
+      htmlContent += '</div>';
+      deleteOption.innerHTML = htmlContent;
+      selClass.appendChild(deleteOption);
+      google.maps.event.addDomListener(document.querySelector('.remove-shape'), 'click', () => {
+        this.deleteSelectedShape();
+      });
+  }
+
+  deleteSelectedShape() {
+    this.ltlg = undefined;
+    this.selectedShape.setMap(null);
+    let updategeofence = [];
+    this.deleteAllShape();
+    this.removeAllcircles();
+    this.removeAllPolygons();
+    this.geofenceCircleArr.length > 0 && this.removeAllcircles();
+    this.ploygonGeofecneArr.length > 0 && this.removeAllPolygons();
+    this.selectedShape && this.selectedShape.setMap(null);
+    this.selectedShape = undefined;
+    document.getElementsByClassName('remove-shape')[0].remove();
+    // if (this.Village_City_marker) {
+    //   this.ltlg = this.Village_City_marker.position.lat() + ',' + this.Village_City_marker.position.lng();;
+    //   this.mainf.patchValue({ltlg:this.ltlg});
+    // } else {
+    //   this.mainf.patchValue({ltlg:''});
+    // }
+    // this.mainf.patchValue({geofenceRadius:''})
+  }
+
+  deleteAllShape() {
+    this.selectedShape != undefined && this.selectedShape.setMap(null);
+  }
+
+  removeAllcircles() {
+    for (var i in this.geofenceCircleArr) {
+      this.geofenceCircleArr[i].setMap(null);
+    }
+    this.geofenceCircleArr = []; // this is if you really want to remove them, so you reset the variable.
+  }
+
+  removeAllPolygons() {
+    for (var i in this.ploygonGeofecneArr) {
+      this.ploygonGeofecneArr[i].setMap(null);
+    }
+    this.ploygonGeofecneArr = [];
+  }
+
+
+  selectMarker(latlng:any) {
+    debugger;
+    let data =   latlng.split(',')
+    let latitude = +data[0];
+    let longitude = +data[1];
+    this.ltlg = latitude.toFixed(8) + ',' + longitude.toFixed(8);
+    let latlong: any = this.ltlg;
+    // this.mainf.patchValue({ltlg:this.ltlg});
+    latlong && this.map.setCenter(new google.maps.LatLng(latlong.split(',')[0], latlong.split(',')[1]));
+    this.Village_City_marker && this.Village_City_marker.setMap(null)
+    this.Village_City_marker = new google.maps.Marker({
+      map: this.map,
+      //icon:icon,
+      // title: Name,
+      position: { lat: Number(latlong.split(',')[0]), lng: Number(latlong.split(',')[1]) }
+    })
+  }
+
+  hideDrawcircleShape(){
+    $('[title="Draw a circle"], [title="Draw a shape"]').hide();
   }
 }
 

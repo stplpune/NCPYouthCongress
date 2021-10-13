@@ -951,3 +951,27 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
 }
+
+.remove-shape {
+    direction: ltr;
+    overflow: hidden;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 11px;
+    padding: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    -webkit-background-clip: padding-box;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    border-left-width: 0px;
+    font-weight: 500;
+    background-color: rgb(255, 255, 255);
+    background-clip: padding-box;
+}
+
+.remove-shape:hover {
+    background: rgb(235, 235, 235);
+}

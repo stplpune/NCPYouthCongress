@@ -31,6 +31,7 @@ import { DeleteComponent } from './partial/dialogs/delete/delete.component';
 import { NoAuthGuardService } from './auth/no-auth-guard.service';
 import { AuthorizationService } from './auth/authorization.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AgmDrawingModule } from '@agm/drawing';
 
 
 @NgModule({
@@ -71,8 +72,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',
-      libraries: ['geometry','places']
+      libraries: ['places', 'geometry'],
     }),
+    // AgmDrawingModule,
   ],
   providers: [DatePipe, AuthorizationService, NoAuthGuardService, AuthGuard],
   bootstrap: [AppComponent]

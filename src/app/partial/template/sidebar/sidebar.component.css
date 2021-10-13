@@ -271,6 +271,7 @@ label>span {
     transform: none;
     transition: rotate 1s ease-in;
     font-size: 10px !important;
+    padding-top: 5px;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -286,10 +287,10 @@ label>span {
 }
 
 .accordion-body .list-group .list-group-item {
-    padding-left: 2.3rem;
+    padding-left: 1.7rem;
     border-bottom: 0;
     background-color: transparent;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .accordion-body .list-group .list-group-item:hover {
@@ -297,19 +298,23 @@ label>span {
     color: #fff;
 }
 
-.accordion-item.accordion-has-submenu.ng-star-inserted.active, .accordion-item.ng-star-inserted.active {
-    color:#fff!important;
+.accordion-item.accordion-has-submenu.ng-star-inserted.active,
+.accordion-item.ng-star-inserted.active {
+    color: #fff!important;
     background: var(--main-color);
 }
-.accordion-item.accordion-has-submenu.ng-star-inserted.active button, .accordion-item.ng-star-inserted.active button{
-    color:#fff!important;
+
+.accordion-item.accordion-has-submenu.ng-star-inserted.active button,
+.accordion-item.ng-star-inserted.active button {
+    color: #fff!important;
 }
 
-.accordion-item.accordion-has-submenu.ng-star-inserted.active i, .accordion-item.ng-star-inserted.active i {
-    color:#fff!important;
+.accordion-item.accordion-has-submenu.ng-star-inserted.active i,
+.accordion-item.ng-star-inserted.active i {
+    color: #fff!important;
 }
 
-a.list-group-item.list-group-item-action.ng-star-inserted.active1{
-    color:#fff!important;
+a.list-group-item.list-group-item-action.ng-star-inserted.active1 {
+    color: #fff!important;
     background: var(--main-color) !important;
 }
