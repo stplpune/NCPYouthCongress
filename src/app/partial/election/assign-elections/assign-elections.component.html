@@ -79,7 +79,7 @@
                             <hr>
                             <div class="row mb-1">
                                 <div class="col-sm-3">
-                                    <button class="btn btn-secondary btn-sm" type="button" (click)="resetAssignElectionForm()">Cancel</button>
+                                    <button class="btn btn-secondary btn-sm" type="button" (click)="clearForm()">Cancel</button>
                                 </div>
                                 <div class="col-sm-9 text-end">
                                     <button class="btn btn-main btn-sm" type="submit">{{btnText}}  Election To Client</button>
@@ -136,8 +136,8 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-light text-edit rounded me-1" (click)="editConstituency(result?.HeaderId)"><i
-                                                class="fas fa-pen"></i></button>
+                                        <button class="btn btn-light text-edit rounded me-1" (click)="editConstituency(result?.HeaderId)">
+                                            <i class="fas fa-pen"></i></button>
                                         <button class="btn btn-light text-danger rounded" [disabled]="result?.IsAssignBoothAgent == 1 ? true : false" (click)="delConfirmAssElection(result?.ClientId,result?.HeaderId)"><i class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>

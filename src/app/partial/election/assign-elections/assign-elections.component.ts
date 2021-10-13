@@ -132,7 +132,6 @@ export class AssignElectionsComponent implements OnInit {
     this.defaultAssElectionForm();
     this.addSubConstituencyArray = [];
     this.submitted = false;
-
   }
 
 
@@ -322,6 +321,7 @@ export class AssignElectionsComponent implements OnInit {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
         this.getAssignedConstituencytoClient();
+        this. clearForm();
       } else {
         this.spinner.hide();
       }
