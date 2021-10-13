@@ -77,7 +77,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtName = "Maharashtra State";
       this.showSvgMap(this.commonService.mapRegions());
       this.defaultMembersFlag = false;
-      this.selectedDistrictId = "";
+      // this.selectedDistrictId = "";
       this.selDistrict.reset();
       this.getOrganizationByDistrictId(0);
       this.defaultCloseBtn = false;
@@ -90,9 +90,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.DistrictId) {
       this.selectDistrict(this.DistrictId);
       this.showSvgMap(this.commonService.mapRegions());
+    
     }else{
       this.showSvgMap(this.commonService.mapRegions());
     }
+
+
 
     $(document).on('click', 'path', (e: any) => {
       $('path#' + this.selectedDistrictId).css('fill', '#7289da');
@@ -185,11 +188,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       responsive: true
     });
     // });
+    this.DistrictId ?  $('path#' + this.DistrictId).css('fill', 'red') :  '';
   }
 
   getOrganizationByDistrictId(id: any) {
-    this.getDistrict(id)
     this.spinner.show();
+    this.getDistrict(id)
+ 
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -230,6 +235,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getDistrict(id: any) {
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
