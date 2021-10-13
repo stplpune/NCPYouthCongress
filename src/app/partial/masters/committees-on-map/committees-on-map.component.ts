@@ -283,9 +283,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   }
 
-
-
-
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
