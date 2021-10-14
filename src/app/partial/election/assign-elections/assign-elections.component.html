@@ -124,7 +124,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let result of resAssignedConstituencytoClient  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="result.HeaderId == highlightedRow">
+                            <tr *ngFor="let result of resAssignedConstituencytoClient | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="result.HeaderId == highlightedRow">
                                 <!-- [class.active]="assBoothEle.SrNo == HighlightRow"  -->
                                 <td>{{result?.SrNo }}</td>
                                 <td>{{result?.Fullname | titlecase}}</td>
