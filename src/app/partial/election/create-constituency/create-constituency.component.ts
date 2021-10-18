@@ -602,7 +602,6 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   initDrawingManager(data: any) {
-    debugger;
     this.map = data;
     const options = {
       drawingControl: true,
@@ -659,13 +658,11 @@ export class CreateConstituencyComponent implements OnInit {
       });
     this.drawingManager.setMap(this.map);
     google.maps.event.addListener(this.drawingManager, 'circlecomplete', (circle: any) => {
-      debugger;
       // this.mainf.patchValue({geofenceRadius:circle.getRadius().toFixed(2)})
       this.selectedShape = this.selectedShape;
     });
 
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (e: any) => {
-      debugger;
       var newShape = e.overlay;
       var Latitude;
       var Longitude;
