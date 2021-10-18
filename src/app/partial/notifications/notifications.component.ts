@@ -144,11 +144,11 @@ export class NotificationsComponent implements OnInit {
       let convertDate:any;
       let NotificationDate:any;
       if(getObj.NotificationDate){
-        NotificationDate = this.datePipe.transform(getObj.NotificationDate, 'dd/MM/YYYY hh:mm');
+        NotificationDate = this.datePipe.transform(getObj.NotificationDate, 'dd/MM/YYYY HH:mm');
         // convertDate = NotificationDate.split(':');
         convertDate = NotificationDate;
       }else{
-        NotificationDate = this.datePipe.transform(new Date, 'dd/MM/YYYY hh:mm');
+        NotificationDate = this.datePipe.transform(new Date, 'dd/MM/YYYY HH:mm');
         // convertDate= NotificationDate.split(':');
         convertDate= NotificationDate;
       }
