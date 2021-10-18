@@ -51,4 +51,17 @@ agm-map {
     margin-bottom: 0;
     list-style-type: none;
   }
-  
+  .mat-tree{
+      font-size: 0.85rem;
+  }
+  .mat-tree-node:hover{
+      cursor: pointer;
+      color: var(--main-color);
+  }
+  .mat-tree-node button{
+    width: 34px;
+    height: 34px;
+    line-height: 35px;
+    margin-right: 5px;
+    border-radius: 3px;
+  }
