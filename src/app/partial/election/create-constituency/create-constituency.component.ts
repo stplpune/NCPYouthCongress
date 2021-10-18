@@ -68,7 +68,9 @@ export class CreateConstituencyComponent implements OnInit {
   disabledLatLong:boolean = true; 
   disabledKml:boolean = true;
   defaultMapData:any;
-
+  geoFanceConstituencyId:any;
+  getGeofenceTypeId:any;
+  
   constructor(
     private spinner: NgxSpinnerService,
     private callAPIService: CallAPIService,
@@ -288,6 +290,7 @@ export class CreateConstituencyComponent implements OnInit {
   }
 
   editConstituency(masterId: any) {//Edit api
+    this.geoFanceConstituencyId = masterId;
     // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Election_Get_ConstituencyDetails?ConstituencyId=' + masterId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -487,7 +490,8 @@ export class CreateConstituencyComponent implements OnInit {
 
   // create geo fance modal 
 
-  selGeofenceType(flag: any) {
+  selGeofenceType(flag: any, GeofenceId:any) {
+    this.getGeofenceTypeId = GeofenceId;
     if (flag == 'Enter Lat-Long') {
       this.deleteAllShape();
       // document.getElementsByClassName('remove-shape')[0].remove();
@@ -509,6 +513,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.hideDrawcircleShape();
     } else if (flag == 'KML File') {
       this.deleteAllShape();
+      this.hideDrawcircleShape();
       this.disabledKml = false;
       this.disabledLatLong = true;
       this.disabledgeoFance = true;
@@ -522,7 +527,7 @@ export class CreateConstituencyComponent implements OnInit {
       this.createGeofence.controls['rbLatLong'].setValue('');
       this.createGeofence.controls['rbManualDraw'].setValue('');
       document.getElementsByClassName('remove-shape')[0].remove();
-      this.hideDrawcircleShape();
+   
     } else {
       this.deleteAllShape();
       this.hideDrawcircleShape();
@@ -854,5 +859,36 @@ export class CreateConstituencyComponent implements OnInit {
       map: map,
     });
   }
+
+
+  insertElectionCreateGeofence() {
+    let data = this.createGeofence.value;
+    let loginId = this.commonService.loggedInUserId();
+    let fromData = new FormData();
+    let latLongString:any;
+    this.getGeofenceTypeId == 1 ?  latLongString = data.rbLatLong :  this.getGeofenceTypeId == 2 ? latLongString = data.rbKMLUpload :  latLongString =  data.rbManualDraw; 
+
+    fromData.append('ConstituencyId', this.geoFanceConstituencyId);
+    fromData.append('CreatedBy', loginId);
+    fromData.append('GeofenceTypeId', this.getGeofenceTypeId);
+    fromData.append('IsChangeGeofence', '1');
+    fromData.append('Geofencepath', latLongString);
+
+    this.spinner.show();
+    this.callAPIService.setHttp('Post', 'Web_Insert_Election_CreateGeofence', false, fromData, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  
 }
 

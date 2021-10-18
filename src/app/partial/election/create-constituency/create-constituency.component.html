@@ -248,7 +248,7 @@
                     <div class="row form-container">
                         <div class="col-sm-4 border-end">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="checkradio"    (change)="selGeofenceType('Enter Lat-Long')">
+                                <input class="form-check-input" type="radio" name="checkradio"    (change)="selGeofenceType('Enter Lat-Long','1')">
                                 <label class="form-check-label" for="rbLatLong">
                                     Enter Lat-Long
                                 </label>
@@ -266,7 +266,7 @@
                         </div>
                         <div class="col-sm-4 border-end">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="checkradio"   (change)="selGeofenceType('KML File')">
+                                <input class="form-check-input" type="radio" name="checkradio"   (change)="selGeofenceType('KML File','2')">
                                 <label class="form-check-label" for="rblCreateGeoFence">
                                     Upload KML File
                                 </label>
@@ -284,7 +284,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="checkradio"   (change)="selGeofenceType('Lat-Long (Manual)')">
+                                <input class="form-check-input" type="radio" name="checkradio"   (change)="selGeofenceType('Lat-Long (Manual)','3')">
                                 <label class="form-check-label" for="rbManualDraw">
                                     Geo-Fence Lat-Long (Manual)
                                 </label>
@@ -324,7 +324,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-main btn-sm">Submit Geo-Fence Data</button>
+                <button type="submit" class="btn btn-main btn-sm" (click)="insertElectionCreateGeofence()">Submit Geo-Fence Data</button>
             </div>
         </form>
         </div>
