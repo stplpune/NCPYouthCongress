@@ -171,8 +171,8 @@
                                               </video>
                                                 <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
-                                            <ng-container *ngIf="getImgExt == 'pdf'">
-                                                <span  class="helpimg d-block"> {{getImgExt | titlecase}} </span>
+                                            <ng-container *ngIf="getImgExt == 'pdf' || getImgExt == 'xlsx'">
+                                                <span  class="helpimg d-block"> {{getImgExt | titlecase}} File </span>
                                                 <button class="btn" (click)="closeImg()" *ngIf="ImgUrl"><i class="fas fa-times"></i></button>
                                             </ng-container>
                                         </div>
