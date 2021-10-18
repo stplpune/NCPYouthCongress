@@ -33,3 +33,8 @@ agm-map {
 .comm-list li a:hover {
     color: var(--main-color);
 }
+
+.active{
+    color: #7289da!important;
+    font-weight: 600;
+}

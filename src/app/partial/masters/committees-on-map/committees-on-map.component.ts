@@ -87,11 +87,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   ngAfterViewInit() {
     if (this.DistrictId) {
       this.showSvgMap(this.commonService.mapRegions());
-      this.getOrganizationByDistrictId(this.DistrictId);
-      this.DistrictId  ?  this.selectDistrict(this.DistrictId) : '';
+      this.selectDistrict(this.DistrictId);
     }else{
       this.showSvgMap(this.commonService.mapRegions());
-      this.getOrganizationByDistrictId(this.DistrictId);
+      // this.getOrganizationByDistrictId(this.DistrictId);
     }
 
     $(document).on('click', 'path', (e: any) => {
@@ -188,7 +187,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       responsive: true
     });
     // });
-    this.DistrictId ?  $('path#' + this.DistrictId).css('fill', 'red') :  '';
+    // this.DistrictId ?  $('path#' + this.DistrictId).css('fill', 'red') :  '';
   }
 
   getOrganizationByDistrictId(id: any) {
@@ -198,6 +197,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
         this.defaultCloseBtn = true;
         if (id == 0) {
           this.defaultCloseBtn = false;
@@ -225,8 +225,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
-    debugger;
-    //this.clearFilterByCommitteesName();
     $('path').css('fill', '#7289da');
     this.selectedDistrictId = event;
     this.DistrictWiseCommityWorkGraph();

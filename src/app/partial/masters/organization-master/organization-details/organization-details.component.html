@@ -95,7 +95,12 @@
                                 <td>{{designatedMembers.SrNo}}</td>
                                 <!-- <td>{{designatedMembers.MemberName | titlecase}}</td> -->
                                 <td>
-                                    <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)" class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
+                                    <ng-container *ngIf="designatedMembers.MemberName else memberNotAssign">
+                                        <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)" class="text-primary">{{designatedMembers.MemberName | titlecase}}</a>
+                                    </ng-container>
+                                    <ng-template #memberNotAssign><span class="text-danger">Member Not Assign</span></ng-template>
+                                    
+                                   
                                 </td>
                                 <td>{{designatedMembers.DesignationName}} </td>
                                 <td>{{designatedMembers.PostFromDate}}</td>
