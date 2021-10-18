@@ -312,7 +312,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getCurrentDesignatedMembers(id: any) {
-    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -322,19 +321,14 @@ export class OrganizationDetailsComponent implements OnInit {
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         // this.getPreDesMembersArray = [];
-        this.DesignationNameBYBodyId.forEach((ele: any) => {
-          this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
-        });
-      
+        // this.DesignationNameBYBodyId.forEach((ele: any) => {
+        //   this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
+        // });
+        this.getPreviousDesignatedMembers(this.bodyId)
         // this.DesignationNameBYBodyId1 = res.data3;
       } else {
         this.allDesignatedMembers = [];
-        // this.spinner.hide();
-        // if (res.data == 1) {
-        // this.toastrService.error("Member is not available");
-        // } else {
-        //   this.toastrService.error("Please try again something went wrong");
-        // }
+        this.getPreviousDesignatedMembers(this.bodyId)
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -370,28 +364,26 @@ export class OrganizationDetailsComponent implements OnInit {
 
   
 
-  getPreviousDesignatedMembers(id: any, DesignationId: any, desName:any) {
+  getPreviousDesignatedMembers(id: any) {
     debugger;
-    this.getPreDesMembersArray = [];
-    // this.DesignationNameBYBodyId1 = [];
+    // this.getPreDesMembersArray = [];
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_test?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.getPreDesMembersArray1 = res.data1;
+        this.getPreDesMembersArray = res.data1;
         
-        let result:any = res.data1;
-        result.filter((ele:any)=>{
-          if(ele.DesignationId == DesignationId){
-            let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
-            if(arrayOfObj){
-              this.getPreDesMembersArray.push(ele);
-              // this.DesignationNameBYBodyId1.push({'DesignationNameBYBodyId':ele.DesignationName})
-            }
-            // return ele;
-          }
-        });
+        // let result:any = res.data1;
+        // result.filter((ele:any)=>{
+        //   if(ele.DesignationId == DesignationId){
+        //     let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
+        //     if(arrayOfObj){
+        //       this.getPreDesMembersArray.push(ele);
+        //     }
+        //   }
+        // });
       } else {
         this.getPreDesMembersArray = [];
         this.spinner.hide();

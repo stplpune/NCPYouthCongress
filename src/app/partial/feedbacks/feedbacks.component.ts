@@ -54,6 +54,7 @@ export class FeedbacksComponent implements OnInit {
     clickNewbtn?.click();
     this.filterClear('district');
     this.feedBackDataResult('New');
+    this.defaultFilterForm();
   }
 
 

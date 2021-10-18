@@ -261,7 +261,7 @@ export class AddMemberComponent implements OnInit {
           this.spinner.hide();
           let result = res.data1[0];
           if(result.Msg == "Mobile No allready exists"){
-            this.toastrService.error("Mobile No allready exist");
+            this.toastrService.error("Mobile no already exist");
           }else if(result.Msg == "Data Saved Successfully" || result.Msg == "Profile Updated Successfully"){
             this.myProfileForm();
             this.toastrService.success(result.Msg);
