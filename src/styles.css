@@ -984,3 +984,7 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 /* .gmnoprint {
     right: 5px !important;
 } */
+
+.mat-tree-node {
+    cursor: pointer;
+}
