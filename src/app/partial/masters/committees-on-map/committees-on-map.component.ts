@@ -78,27 +78,31 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       // this.selectedDistrictId = "";
       this.selDistrict.reset();
       this.getOrganizationByDistrictId(0);
+      this.selectDistrict(0);
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     }
   };
 
   ngAfterViewInit() {
-    // this.showSvgMap(this.commonService.mapRegions());
     if (this.DistrictId) {
-      this.selectDistrict(this.DistrictId);
       this.showSvgMap(this.commonService.mapRegions());
-    
+      this.getOrganizationByDistrictId(this.DistrictId);
+      this.DistrictId  ?  this.selectDistrict(this.DistrictId) : '';
     }else{
       this.showSvgMap(this.commonService.mapRegions());
+      this.getOrganizationByDistrictId(this.DistrictId);
     }
 
     $(document).on('click', 'path', (e: any) => {
       $('path#' + this.selectedDistrictId).css('fill', '#7289da');
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
+      this.selectDistrict(distrctId);
       this.getOrganizationByDistrictId(distrctId);
     });
+
+  
   }
 
   showSvgMap(regions_m: any) {
@@ -221,6 +225,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
+    debugger;
     //this.clearFilterByCommitteesName();
     $('path').css('fill', '#7289da');
     this.selectedDistrictId = event;
