@@ -231,7 +231,8 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resAllMember = res.data1;
       } else {
-        this.toastrService.error("Body member is not available");
+        this.resAllMember = [];
+        // this.toastrService.error("Body member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -265,7 +266,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberFilterDetails = res.data1;
       } else {
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -282,7 +283,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
       } else {
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -336,7 +337,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
       } else {
         this.spinner.hide();
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -432,7 +433,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.resultBodyMemActGraph = res.data1;
         this.bodyMemeberChartGraph(this.resultBodyMemActGraph);
       } else {
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -459,7 +460,7 @@ export class OrganizationDetailsComponent implements OnInit {
         // this.lng = Number(latLong[1]);
         this.openDialogBodyMemActDetails();
       } else {
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -609,7 +610,7 @@ export class OrganizationDetailsComponent implements OnInit {
           this.getBodyMemeberGraph(this.bodyId);
           this.addMemberFlag = null
         } else {
-          this.toastrService.error("Member is not available");
+          // this.toastrService.error("Member is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -639,7 +640,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.periodicChart = res.data1;
         this.WorkDoneRecentActivityGraph();
       } else {
-        this.toastrService.error("Body member is not available");
+        // this.toastrService.error("Body member is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
