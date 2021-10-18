@@ -18,11 +18,11 @@ const routes: Routes = [
       { path: 'about', loadChildren: () => import('./web/about/about.module').then(m => m.AboutModule), data: { title: 'About' } },
       { path: 'register', loadChildren: () => import('./web/register/register.module').then(m => m.RegisterModule), data: { title: 'Register' } },
       { path: 'login', loadChildren: () => import('./web/login/login.module').then(m => m.LoginModule), data: { title: 'Login' }, canActivate: [NoAuthGuardService] },
-      { path: 'privacy-policy', loadChildren: () => import('./web/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule) },
+      { path: 'privacy-policy', loadChildren: () => import('./web/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule), data: { title: 'Privacy Policy' } },
       { path: 'share/:id', loadChildren: () => import('./web/share/share.module').then(m => m.ShareModule) },
-      { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule) },
-      { path: 'help', loadChildren: () => import('./web/help/help.module').then(m => m.HelpModule) },
-      { path: 'help-non-member', loadChildren: () => import('./web/help-non-member/help-non-member.module').then(m => m.HelpNonMemberModule) },
+      { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule), data: { title: 'Events' } },
+      { path: 'help', loadChildren: () => import('./web/help/help.module').then(m => m.HelpModule), data: { title: 'Help - Members' } },
+      { path: 'help-non-member', loadChildren: () => import('./web/help-non-member/help-non-member.module').then(m => m.HelpNonMemberModule), data: { title: 'Help - Non-Members' } },
     ]
   },
   {
