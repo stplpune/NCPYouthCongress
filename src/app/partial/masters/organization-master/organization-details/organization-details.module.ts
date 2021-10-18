@@ -11,8 +11,10 @@ import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
 import { ShareModule } from 'src/app/web/share/share.module';
 import { TooltipModule } from '../../..//directive/tooltip.module';
-
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTreeModule } from '@angular/material/tree';
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     OrganizationDetailsComponent
@@ -29,6 +31,10 @@ import { TooltipModule } from '../../..//directive/tooltip.module';
     LightboxModule,
     GalleryModule,
     TooltipModule,
+    MatCheckboxModule,  
+    MatIconModule,
+    MatTreeModule,
+    MatButtonModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',

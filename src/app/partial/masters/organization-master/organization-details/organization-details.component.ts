@@ -14,6 +14,10 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 import { $ } from 'protractor';
+
+import {NestedTreeControl} from '@angular/cdk/tree';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
+
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
@@ -78,6 +82,9 @@ export class OrganizationDetailsComponent implements OnInit {
   prevDesignFlag:boolean = false;
   subCommitteeName:any;
 
+  treeControl = new NestedTreeControl<any>((node:any) => node.children);
+  dataSource = new MatTreeNestedDataSource<any>();
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
@@ -128,9 +135,9 @@ export class OrganizationDetailsComponent implements OnInit {
   openSubCommittees(bodyId:any,committeeName:any){
     this.subCommittessId = 1;
     this.bodyId = bodyId;
-    this.HighlightRowTree = bodyId;
+    this.HighlightRowTree = this.bodyId;
     this.ngOnInit();
-    this.subCommittess(bodyId);
+    this.subCommittess(this.bodyId);
     this.subCommitteeName =  committeeName;
   };
 
@@ -141,23 +148,21 @@ export class OrganizationDetailsComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.spinner.hide();
-          this.subCommittessResult = res.data1;
-          // let result: any = res.data1;
-          // if (result != 0) {
-          //   this.subCommittessResult = result.filter((ele: any) => {
-          //     if (ele.CommitteeId == ele.SubParentCommitteeId) {
-          //       ele['SubParentCommitteeId'] = null;
-          //     }
-          //     return ele
-          //   });
-          // };
-          //   if(this.subCommittessResult.length !=0){
-          //     this.list_to_tree( this.subCommittessResult);
-
-          //   }else{
-          //     this.subCommittessResult = result;
-          //   }
-        } else {
+          // this.subCommittessResult = res.data1;
+      
+          let result: any = res.data1;
+          if (result != 0) {
+            this.subCommittessResult = result.filter((ele: any) => {
+              if (ele.CommitteeId == ele.SubParentCommitteeId) {
+                ele['SubParentCommitteeId'] = null;
+              }
+              return ele
+            });
+          };
+          this.subCommittessResult = this.createTree(this.subCommittessResult);
+          console.log(this.subCommittessResult);
+          this.dataSource.data = this.subCommittessResult;
+          } else {
           // this.toastrService.error("Body member is not available");
         }
       }, (error: any) => {
@@ -168,25 +173,39 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
 
+  hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
-  list_to_tree(list:any) {
-    var map:any = {}, node, roots = [], i;
-    
-    for (i = 0; i < list.length; i += 1) {
-      map[list[i].CommitteeId] = i; // initialize the map
-      list[i].children = []; // initialize the children
+
+  createTree(arr:any) {
+    this.spinner.show();
+    var tree = [];
+        let mappedArr:any = {};
+        let arrElem;
+        let mappedElem;
+
+    // First map the nodes of the array to an object -> create a hash table.
+    for(var i = 0, len = arr.length; i < len; i++) {
+      arrElem = arr[i];
+      mappedArr[arrElem.CommitteeId] = arrElem;
+      mappedArr[arrElem.CommitteeId]['children'] = [];
     }
-    
-    for (i = 0; i < list.length; i += 1) {
-      node = list[i];
-      if (node.SubParentCommitteeId !== "0") {
-        // if you have dangling branches check that map[node.parentId] exists
-        list[map[node.CommitteeId]].children.push(node);
-      } else {
-        roots.push(node);
+
+
+    for (var CommitteeId in mappedArr) {
+      if (mappedArr.hasOwnProperty(CommitteeId)) {
+        mappedElem = mappedArr[CommitteeId];
+        // If the element is not at the root level, add it to its parent array of children.
+        if (mappedElem?.SubParentCommitteeId) {
+          mappedArr[mappedElem['SubParentCommitteeId']]['children'].push(mappedElem);
+        }
+        // If the element is at the root level, add it to first level elements array.
+        else {
+          tree.push(mappedElem);
+        }
       }
     }
-    return roots;
+              this.spinner.hide();
+    return tree;
   }
 
   defaultBodyMemForm() {
@@ -293,6 +312,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getCurrentDesignatedMembers(id: any) {
+    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -308,9 +328,10 @@ export class OrganizationDetailsComponent implements OnInit {
       
         // this.DesignationNameBYBodyId1 = res.data3;
       } else {
+        this.allDesignatedMembers = [];
         // this.spinner.hide();
         // if (res.data == 1) {
-        this.toastrService.error("Member is not available");
+        // this.toastrService.error("Member is not available");
         // } else {
         //   this.toastrService.error("Please try again something went wrong");
         // }
@@ -350,6 +371,7 @@ export class OrganizationDetailsComponent implements OnInit {
   
 
   getPreviousDesignatedMembers(id: any, DesignationId: any, desName:any) {
+    debugger;
     this.getPreDesMembersArray = [];
     // this.DesignationNameBYBodyId1 = [];
     this.spinner.show();
@@ -365,13 +387,13 @@ export class OrganizationDetailsComponent implements OnInit {
             let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
             if(arrayOfObj){
               this.getPreDesMembersArray.push(ele);
-              console.log("111",this.getPreDesMembersArray)
               // this.DesignationNameBYBodyId1.push({'DesignationNameBYBodyId':ele.DesignationName})
             }
             // return ele;
           }
         });
       } else {
+        this.getPreDesMembersArray = [];
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
       }
