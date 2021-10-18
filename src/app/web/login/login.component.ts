@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
       this.toastrService.error("Invalid Captcha. Please try Again");
     }
     else {
-      this.callAPIService.setHttp('get', 'Web_GetLogin_2_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
+      // this.callAPIService.setHttp('get', 'Web_GetLogin_2_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.setHttp('get', 'Web_GetLogin_3_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password+'&LoginType=1', false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == '0') {
           sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
