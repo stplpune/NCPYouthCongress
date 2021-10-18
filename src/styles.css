@@ -652,7 +652,7 @@ mapsvg-layers-wrap+svg {
 .form-container .form-select,
 .form-container .form-control,
 .form-container .form-data,
-.form-container .form-check-label {
+.form-container .form-check {
     font-size: .85rem;
     outline: none;
     box-shadow: none
