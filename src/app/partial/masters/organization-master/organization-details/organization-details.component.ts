@@ -15,8 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 import { $ } from 'protractor';
 
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 @Component({
   selector: 'app-organization-details',
@@ -74,15 +74,15 @@ export class OrganizationDetailsComponent implements OnInit {
   comUserdetImg: any;
   designationArray: any[] = [];
   DesignationNameBYBodyArray: any[] = [];
-  subCommittessResult:any;
-  HighlightRow:any;
-  indiMembersProgHighlight:any;
-  subCommittessId:number = 0;
-  HighlightRowTree:any;
-  prevDesignFlag:boolean = false;
-  subCommitteeName:any;
+  subCommittessResult: any;
+  HighlightRow: any;
+  indiMembersProgHighlight: any;
+  subCommittessId: number = 0;
+  HighlightRowTree: any;
+  prevDesignFlag: boolean = false;
+  subCommitteeName: any;
 
-  treeControl = new NestedTreeControl<any>((node:any) => node.children);
+  treeControl = new NestedTreeControl<any>((node: any) => node.children);
   dataSource = new MatTreeNestedDataSource<any>();
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -111,7 +111,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.activitiesPerodicGraph(this.bodyId);
     this.subCommittess(this.bodyId);
     this.HighlightRowTree = this.bodyId;
-    this.subCommitteeName =  this.getCommitteeName;
+    this.subCommitteeName = this.getCommitteeName;
   }
 
   defaultFilterForm() {
@@ -132,13 +132,13 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
-  openSubCommittees(bodyId:any,committeeName:any){
+  openSubCommittees(bodyId: any, committeeName: any) {
     this.subCommittessId = 1;
     this.bodyId = bodyId;
     this.HighlightRowTree = this.bodyId;
     this.ngOnInit();
-    this.subCommittess(this.bodyId);
-    this.subCommitteeName =  committeeName;
+    // this.subCommittess(this.bodyId);
+    this.subCommitteeName = committeeName;
   };
 
   subCommittess(bodyId: any) {
@@ -149,7 +149,7 @@ export class OrganizationDetailsComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           // this.subCommittessResult = res.data1;
-      
+
           let result: any = res.data1;
           if (result != 0) {
             this.subCommittessResult = result.filter((ele: any) => {
@@ -162,7 +162,7 @@ export class OrganizationDetailsComponent implements OnInit {
           this.subCommittessResult = this.createTree(this.subCommittessResult);
           console.log(this.subCommittessResult);
           this.dataSource.data = this.subCommittessResult;
-          } else {
+        } else {
           // this.toastrService.error("Body member is not available");
         }
       }, (error: any) => {
@@ -176,15 +176,15 @@ export class OrganizationDetailsComponent implements OnInit {
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
 
-  createTree(arr:any) {
+  createTree(arr: any) {
     this.spinner.show();
     var tree = [];
-        let mappedArr:any = {};
-        let arrElem;
-        let mappedElem;
+    let mappedArr: any = {};
+    let arrElem;
+    let mappedElem;
 
     // First map the nodes of the array to an object -> create a hash table.
-    for(var i = 0, len = arr.length; i < len; i++) {
+    for (var i = 0, len = arr.length; i < len; i++) {
       arrElem = arr[i];
       mappedArr[arrElem.CommitteeId] = arrElem;
       mappedArr[arrElem.CommitteeId]['children'] = [];
@@ -204,7 +204,7 @@ export class OrganizationDetailsComponent implements OnInit {
         }
       }
     }
-              this.spinner.hide();
+    this.spinner.hide();
     return tree;
   }
 
@@ -349,7 +349,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
         this.getCurrentDesignatedMembers(this.bodyId);
-
+        this.getBodyMemeberGraph(this.bodyId);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Member is not available");
@@ -362,10 +362,9 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  
+
 
   getPreviousDesignatedMembers(id: any) {
-    debugger;
     // this.getPreDesMembersArray = [];
     this.spinner.show();
     // this.callAPIService.setHttp('get', 'Web_GetPreviousDesignatedMembers_1_0?BodyId=' + id + '&DesignationId=' + DesignationId, false, false, false, 'ncpServiceForWeb');
@@ -374,16 +373,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.getPreDesMembersArray = res.data1;
-        
-        // let result:any = res.data1;
-        // result.filter((ele:any)=>{
-        //   if(ele.DesignationId == DesignationId){
-        //     let arrayOfObj = this.checkPreviousDesignatedMembers(ele.DesignationId, desName);
-        //     if(arrayOfObj){
-        //       this.getPreDesMembersArray.push(ele);
-        //     }
-        //   }
-        // });
       } else {
         this.getPreDesMembersArray = [];
         this.spinner.hide();
@@ -401,7 +390,7 @@ export class OrganizationDetailsComponent implements OnInit {
     return this.getPreDesMembersArray1.some((el: any) => {
       return el.DesignationId === DesignationId && el.DesignationName === desName;
     });
-}
+  }
 
   getBodyMemeberActivities(id: any) {
     let filterData = this.filter.value;
@@ -439,7 +428,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   getBodyMemeberGraph(id: any) {
     this.spinner.show();
-    let obj= 'MemberId=' + this.filter.value.memberName + '&BodyId=' + id + '&CategoryId=' + this.filter.value.workType + '&FromDate=' + this.filter.value.fromTodate[0] + '&ToDate=' + this.filter.value.fromTodate[1];
+    let obj = 'MemberId=' + this.filter.value.memberName + '&BodyId=' + id + '&CategoryId=' + this.filter.value.workType + '&FromDate=' + this.filter.value.fromTodate[0] + '&ToDate=' + this.filter.value.fromTodate[1];
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesGraph?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -447,6 +436,8 @@ export class OrganizationDetailsComponent implements OnInit {
         this.resultBodyMemActGraph = res.data1;
         this.bodyMemeberChartGraph(this.resultBodyMemActGraph);
       } else {
+        this.resultBodyMemActGraph = [];
+        this.bodyMemeberChartGraph(this.resultBodyMemActGraph);
         // this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
@@ -463,15 +454,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-
         this.resultBodyMemActDetails = res.data1[0];
-        // this.comUserdetImg = this.resultBodyMemActDetails.Images.split(',');
-        // this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');
-        // this.gallery.ref().load(this.comUserdetImg);
-
-        // let latLong = this.resultBodyMemActDetails.ActivityLocation.split(",");
-        // this.lat = Number(latLong[0]);
-        // this.lng = Number(latLong[1]);
         this.openDialogBodyMemActDetails();
       } else {
         // this.toastrService.error("Member is not available");
@@ -702,9 +685,8 @@ export class OrganizationDetailsComponent implements OnInit {
   openDialogBodyMemActDetails() {
     const dialogRef = this.dialog.open(ActivityDetailsComponent, {
       width: '1024px',
-      data:this.resultBodyMemActDetails
+      data: this.resultBodyMemActDetails
     });
   }
 
 }
-// https://codesandbox.io/s/sparkling-feather-r6j3v?fontsize=14&hidenavigation=1&theme=dark&file=/src/index.js:15-227

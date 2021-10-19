@@ -17,6 +17,7 @@ export class CommonService {
     let loginObj = JSON.parse(sessionStorage.loggedInDetails).data1[0];
     return loginObj;
   }
+  
 
   getAllPageName() {
     let getAllPageName = JSON.parse(sessionStorage.loggedInDetails).data2;
