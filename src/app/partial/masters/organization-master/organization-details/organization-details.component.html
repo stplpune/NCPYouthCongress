@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="row" id="dash-stats">
+    <!-- <div class="row" id="dash-stats">
         <div class="col-sm-3">
             <div class="card card-body bg-cyan">
                 <i class="fas fa-network-wired"></i>
@@ -39,14 +39,14 @@
                 <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers : '0'}}</h3>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row chartbox">
         <div class="col-sm-4">
             <div class="card mb-3">
-                <div class="card-header pb-0">
+                <!-- <div class="card-header pb-0">
                     <span class="fw-bold text-primary">{{getCommitteeName}}</span>
-                </div>
+                </div> -->
                 <div class="card-body">
                     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
@@ -91,10 +91,42 @@
         </div>
 
         <div class="col-sm-8">
-            <!-- Current Designated Members -->
-            <div class="alert alert-secondary" role="alert">
-                {{subCommitteeName}}
+            <div class="card mb-3" role="alert">
+                <div class="card-header">{{subCommitteeName}}</div>
             </div>
+
+            <div class="row" id="dash-stats">
+                <div class="col-sm-4">
+                    <div class="card card-body bg-cyan">
+                        <i class="fas fa-network-wired"></i>
+                        <p>Total Work Done</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalWork ? TotalWorkAndIosCount?.TotalWork : '0'}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-body bg-green">
+                        <i class="fab fa-apple"></i>
+                        <p>Total Committees</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalCommittees ? TotalWorkAndIosCount?.TotalCommittees : '0'}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-body bg-blue">
+                        <i class="fab fa-android"></i>
+                        <p>Total Executives</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalExecutives ? TotalWorkAndIosCount?.TotalExecutives : '0'}}</h3>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-3">
+                    <div class="card card-body bg-gold">
+                        <i class="fab fa-android"></i>
+                        <p>Total Members</p>
+                        <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers : '0'}}</h3>
+                    </div>
+                </div> -->
+            </div>
+            <!-- Current Designated Members -->
+            
 
 
             <div class="card mb-3">

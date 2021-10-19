@@ -71,12 +71,15 @@ export class OrganizationMasterComponent implements OnInit {
   editLevalFlag: any;
   deletebodyId!: number;
   heightedRow: any;
+  getSessionData:any;
+  getCommiteeDetails:any;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getSessionData = this.commonService.getsessionStorageData();
     this.defultFilterForm();
     this.getOrganizationList();
     this.customForm();
@@ -86,9 +89,9 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDesignation();
     this.defaultDesignationForm();
     this.searchFilters('false');
-    
-    // this.commonService.setDefaultValueinForm(this.filterForm,'AllotedDesignation',0);
+    this.getCommiteeDetails = this.commonService.getCommiteeInfo();
   }
+
 
   selectLevel(levelId: any, flag: any) {
     this.globalLevelId = levelId;
@@ -265,7 +268,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.orgMasterForm = this.fb.group({
       BodyOrgCellName: ['', Validators.required],
       StateId: ['', Validators.required],
-      DistrictId: [''],
+      DistrictId: [],
       TalukaId: [''],
       VillageId: [''],
       IsRural: [1],

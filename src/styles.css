@@ -988,3 +988,9 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 .mat-tree-node {
     cursor: pointer;
 }
+
+.notClicked{
+    pointer-events: none;
+    cursor: default;
+    background: rgb(235, 235, 235) !important;
+}

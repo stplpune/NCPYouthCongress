@@ -40,50 +40,9 @@
                             <div *ngIf="submitted && f.ProgramStartDate.errors" class="invalid-feedback">
                                 <div *ngIf="f.ProgramStartDate.errors.required">Program date is required</div>
                             </div>
-                            <!-- <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="form-control input-group-addon mt-2"
-                       placeholder="To Date" [min]="minDate" />
-                        <owl-date-time #dt2 [pickerType]="'calendar'" ></owl-date-time> -->
-
+                          
                         </div>
-                        <!-- <div class="mb-2">
-                        <label for="txtProgramDuration" class="form-label"> <span class="text-danger">*</span> </label>
-                        <input type="text" class="form-control" id="txtProgramDuration" placeholder="To Date" />
-                    </div> -->
-                        <!-- <div class="mb-2">
-                        <label for="ddlProgramLevel" class="form-label">Program Level <span class="text-danger">*</span> </label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Program Level">
-                        </ngx-select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="ddlState" class="form-label">Select State <span class="text-danger">*</span> </label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select State">
-                        </ngx-select>
-                    </div> -->
-                        <!-- <div class="mb-3">
-                        <label for="ddlDistrict" class="form-label">Select District <span class="text-danger">*</span> </label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                        </ngx-select>
-                    </div> -->
-                        <!-- <div class="mb-2">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="rblArea" id="rblAreaRural" value="Rural">
-                            <label class="form-check-label" for="rblAreaRural">Rural</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="rblArea" id="rblAreaUrban" value="Urban">
-                            <label class="form-check-label" for="rblAreaUrban">Urban</label>
-                          </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="ddlTaluka" class="form-label">Select Taluka <span class="text-danger">*</span> </label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select Taluka">
-                        </ngx-select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ddlCityVillage" class="form-label">Select City/Village <span class="text-danger">*</span> </label>
-                        <ngx-select [allowClear]="true" [items]="items" placeholder="Select City/Village">
-                        </ngx-select>
-                    </div> -->
+                       
                         <div class="mb-2">
                             <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
                             <span class="float-end">

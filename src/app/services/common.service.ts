@@ -55,12 +55,23 @@ export class CommonService {
         return obj;
     }
 
-
+    getCommiteeInfo() {
+        let localStorage = this.getsessionStorageData();
+        let obj = { 'CommiteeId': localStorage.CommiteeId, 'CommiteeName': localStorage.CommiteeName }
+        return obj;
+    }
 
     loggedInUserType() {
         let UserTypeId = this.getsessionStorageData();
         return UserTypeId.UserTypeId;
     }
+
+    loggedInSubUserTypeId() {
+        let SubUserTypeId = this.getsessionStorageData();
+        return SubUserTypeId.SubUserTypeId;
+    }
+
+    
 
 
     dateFormatChange(date_string: any) {
@@ -337,6 +348,8 @@ export class CommonService {
 
             },
         }
+
+        
         return this.regions_m;
     }
 }
