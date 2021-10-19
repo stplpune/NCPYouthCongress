@@ -84,31 +84,141 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex align-items-start">
-                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
-                            aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-booth1-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-booth1" type="button" role="tab" aria-controls="v-pills-booth1"
-                                aria-selected="true">booth1</button>
-                            <button class="nav-link" id="v-pills-booth2-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-booth2" type="button" role="tab"
-                                aria-controls="v-pills-booth2" aria-selected="false">booth2</button>
-                            <button class="nav-link" id="v-pills-booth3-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-booth3" type="button" role="tab"
-                                aria-controls="v-pills-booth3" aria-selected="false">booth3</button>
-                            <button class="nav-link" id="v-pills-booth4-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-booth4" type="button" role="tab"
-                                aria-controls="v-pills-booth4" aria-selected="false">booth4</button>
+                    <div class="row align-items-start">
+                        <div class="col-sm-3">
+                            <div class="mb-3 form-container">
+                                <select class="form-select">
+                                    <option value="">Select Village</option>
+                                </select>
+                            </div>
+                            <div class="list-group">
+                                <a href="#"
+                                    class="list-group-item d-flex justify-content-between align-items-start active"
+                                    aria-current="true">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">325 - Kailash Nagar</div>
+                                        <small>Village, Taluka, District</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">23414</span>
+                                </a>
+                                <a href="#" class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">325 - Kailash Nagar</div>
+                                        <small>Village, Taluka, District</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">3214</span>
+                                </a>
+                                <a href="#" class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">325 - Kailash Nagar</div>
+                                        <small>Village, Taluka, District</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">114</span>
+                                </a>
+                            </div>
                         </div>
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-booth1" role="tabpanel"
-                                aria-labelledby="v-pills-booth1-tab">booth1</div>
-                            <div class="tab-pane fade" id="v-pills-booth2" role="tabpanel"
-                                aria-labelledby="v-pills-booth2-tab">booth2</div>
-                            <div class="tab-pane fade" id="v-pills-booth3" role="tabpanel"
-                                aria-labelledby="v-pills-booth3-tab">booth3</div>
-                            <div class="tab-pane fade" id="v-pills-booth4" role="tabpanel"
-                                aria-labelledby="v-pills-booth4-tab">booth4</div>
+                        <div class="col-sm-9">
+                            <div class="card shadow-none border">
+                                <div class="card-header p-0">
+                                    <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="pills-analytics-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-analytics" type="button"
+                                                role="tab" aria-controls="pills-analytics"
+                                                aria-selected="true">
+                                                <h5 class="mb-0"><i class="far fa-chart-bar"></i></h5>
+                                                Booth Analytics</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-voters-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-voters" type="button" role="tab"
+                                                aria-controls="pills-voters" aria-selected="false">
+                                                <h5 class="mb-0">68721</h5>
+                                                Voters</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-family-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-family" type="button" role="tab"
+                                                aria-controls="pills-family" aria-selected="false">
+                                                <h5 class="mb-0">721</h5>
+                                                Families</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-migrated-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-migrated" type="button"
+                                                role="tab" aria-controls="pills-migrated"
+                                                aria-selected="true">
+                                                <h5 class="mb-0">721</h5>
+                                                Migrated</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-pending-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-pending" type="button" role="tab"
+                                                aria-controls="pills-pending" aria-selected="false">
+                                                <h5 class="mb-0">7321</h5>
+                                                Pending</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-agents-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-agents" type="button" role="tab"
+                                                aria-controls="pills-agents" aria-selected="false">
+                                                <h5 class="mb-0">71</h5>
+                                                Agents</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-analytics" role="tabpanel"
+                                            aria-labelledby="pills-analytics-tab">analytics</div>
+                                        <div class="tab-pane fade" id="pills-voters" role="tabpanel"
+                                            aria-labelledby="pills-voters-tab">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No.</th>
+                                                        <th>Voters Full Name</th>
+                                                        <th>Voter ID</th>
+                                                        <th>Gender</th>
+                                                        <th>Contact No</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Kailash Rajendra Sanap</td>
+                                                        <td>132034645</td>
+                                                        <td>Male</td>
+                                                        <td>97643156132</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Kailash Rajendra Sanap</td>
+                                                        <td>132034645</td>
+                                                        <td>Male</td>
+                                                        <td>97643156132</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Kailash Rajendra Sanap</td>
+                                                        <td>132034645</td>
+                                                        <td>Male</td>
+                                                        <td>97643156132</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-family" role="tabpanel"
+                                            aria-labelledby="pills-family-tab">family</div>
+                                        <div class="tab-pane fade" id="pills-migrated" role="tabpanel"
+                                            aria-labelledby="pills-migrated-tab">migrated</div>
+                                        <div class="tab-pane fade" id="pills-pending" role="tabpanel"
+                                            aria-labelledby="pills-pending-tab">pending</div>
+                                        <div class="tab-pane fade" id="pills-agents" role="tabpanel"
+                                            aria-labelledby="pills-agents-tab">agents</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
