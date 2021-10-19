@@ -235,8 +235,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   addClasscommitteeWise(){
-    this.loggedUserTypeId == 5 ?  $('path[id!="'+this.loggedDistrictId+'"]').addClass('notClicked') : '';
-    this.loggedUserTypeId == 5 ?  $('path[id!="'+this.loggedDistrictId+'"]').css('fill', '#e4e0e0') : '';
+    this.loggedUserTypeId == 5 ?  $('.mapsvg-wrap path[id!="'+this.loggedDistrictId+'"]').addClass('notClicked') : '';
+    this.loggedUserTypeId == 5 ?  $('.mapsvg-wrap path[id!="'+this.loggedDistrictId+'"]').css('fill', '#e4e0e0') : '';
     
   }
 
