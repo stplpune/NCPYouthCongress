@@ -472,6 +472,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
       this.WorkDoneByYuvakBarchart.filter((ele: any) => {
+        $('path#' + ele.DistrictId).css('fill', 'rgb(39 40 72)');
         $('#' + ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);

@@ -1,5 +1,5 @@
-<app-header (onShowMenu)="isShowMenu = $event" class="doNotPrint"></app-header>
-<app-sidebar [showMenu]="isShowMenu" class="doNotPrint"></app-sidebar>
+<app-header *ngIf="loginType == 1" (onShowMenu)="isShowMenu = $event" class="doNotPrint"></app-header>
+<app-sidebar *ngIf="loginType == 1" [showMenu]="isShowMenu" class="doNotPrint"></app-sidebar>
 <div class="main-content">
     <router-outlet></router-outlet>
 </div>
