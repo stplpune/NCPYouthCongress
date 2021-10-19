@@ -86,6 +86,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDesignation();
     this.defaultDesignationForm();
     this.searchFilters('false');
+    
     // this.commonService.setDefaultValueinForm(this.filterForm,'AllotedDesignation',0);
   }
 
@@ -288,12 +289,13 @@ export class OrganizationMasterComponent implements OnInit {
     this.searchFilter = "";
     this.getOrganizationList();
   }
+  
   getOrganizationList() {
     this.spinner.show();
     let filterData = this.filterForm.value;
     (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
     let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation + '&LevelId=' + filterData.LevelId;
-    this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0' + data, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0_Committee' + data, false, false, false, 'ncpServiceForWeb'); // old Web_GetOrganizationAssignedBody_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -408,6 +410,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ TalukaId: this.selEditOrganization.TalukaId });
         }
       } else {
+        this.spinner.hide();
         // this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
