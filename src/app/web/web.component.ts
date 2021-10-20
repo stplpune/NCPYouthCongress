@@ -25,7 +25,7 @@ export class WebComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.spinner.hide()
         window.scroll(0,0);
-        if (event.url === '/login' || event.url =='/register' || event.url =='/forgotPassword' || event.url == '/help' || event.url == '/help-non-member' || event.url == '/mobile-login') {
+        if (event.url === '/login' || event.url =='/register' || event.url =='/forgotPassword' || event.url == '/help' || event.url == '/help-non-member'  || this.router.url.includes('mobile-login')) {
           this.login= true;
          
         } else {
