@@ -194,7 +194,8 @@ export class AddMemberComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    if (talukaID == "") { return };
+    debugger;
+    if (talukaID == "" || talukaID == 0) { return };
 
     if (this.villageCityLabel == "Village") {
       this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName";

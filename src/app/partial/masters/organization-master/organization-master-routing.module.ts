@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrganizationMasterComponent } from './organization-master.component';
 
 const routes: Routes = [{ path: '', component: OrganizationMasterComponent },
-{ path: 'details', loadChildren: () => import('./organization-details/organization-details.module').then(m => m.OrganizationDetailsModule), data: { title: 'Committee Details' } },
+{ path: 'details', loadChildren: () => import('./organization-details/organization-details.module').then(m => m.OrganizationDetailsModule), data: { title: 'Committee Details' , allowedRoles: ['9']  }}
 ];
 
 @NgModule({
