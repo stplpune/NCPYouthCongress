@@ -328,6 +328,8 @@ export class OrganizationDetailsComponent implements OnInit {
         // this.DesignationNameBYBodyId1 = res.data3;
       } else {
         this.allDesignatedMembers = [];
+        this.TotalWorkAndIosCount = [];
+        this.DesignationNameBYBodyId = [];
         this.getPreviousDesignatedMembers(this.bodyId)
       }
     }, (error: any) => {
