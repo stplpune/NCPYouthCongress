@@ -217,7 +217,6 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   cancelProgramList(data: any) {
-
     this.spinner.show();
     let proStatus = 4;
     // status == 1 ?  proStatus = 0 : proStatus = 1; 
@@ -273,7 +272,7 @@ export class PartyProgramMasterComponent implements OnInit {
   }
 
   programStatus(modalFlag:any){
-    (modalFlag = "End The Program") ? this.endProgramList(this.globalProgramData) : this.cancelProgramList(this.globalProgramData);
+    (modalFlag == "End The Program") ? this.endProgramList(this.globalProgramData) : this.cancelProgramList(this.globalProgramData);
   }
 
   ModalOpenClose(){

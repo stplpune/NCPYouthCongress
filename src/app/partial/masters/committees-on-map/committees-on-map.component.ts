@@ -253,7 +253,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   getDistrict(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_Committee?StateId=' + 1+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

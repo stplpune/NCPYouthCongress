@@ -142,12 +142,12 @@
                         <tbody>
                             <!-- | filter:searchText -->
                             <tr *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }" [class.active]="result.Id == HighlightRow">
-                                <td>{{result.SrNo}}</td>
+                                <td>{{result?.SrNo}}</td>
                                 <td><a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)" class="text-primary">{{result?.BodyOrgCellName | titlecase}}</a></td>
-                                <td>{{result.LevelName}}</td>
+                                <td>{{result?.LevelName}}</td>
                                 <td><span class="text-ellipsis-150px" [appTooltip] title="{{result?.Area}}">{{result?.Area}}</span></td>
                                 <td>
-                                    <span class="text-ellipsis-150px" [appTooltip] title="{{result?.DesignationAssigned}}">{{result?.DesignationAssigned}}</span>
+                                    <span class="text-ellipsis-150px" [appTooltip]  title="{{result?.DesignationAssigned}}">{{result?.DesignationAssigned}}</span>
                                 </td>
                                
                                 <td> <button type="button" class="btn btn-sm btn-light" title="Add Designation" data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id);" data-bs-target="#AddDesignationModal">

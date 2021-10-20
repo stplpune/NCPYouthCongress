@@ -21,13 +21,13 @@ export class TooltipDirective {
   @HostListener('mouseleave')
   public onMouseLeave(): void {
     const nativeElement = this.elementRef.nativeElement;
-    $(nativeElement).tooltip('dispose');
+    $(nativeElement).tooltip('hide');
   }
 
 
   ngOnDestroy(): void {
     const nativeElement = this.elementRef.nativeElement;
-    $(nativeElement).tooltip('dispose');
+    $(nativeElement).tooltip('hide');
   }
 
 }
