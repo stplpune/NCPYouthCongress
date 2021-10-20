@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MobileLoginRoutingModule } from './mobile-login-routing.module';
 import { MobileLoginComponent } from './mobile-login.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { MobileLoginComponent } from './mobile-login.component';
   ],
   imports: [
     CommonModule,
-    MobileLoginRoutingModule
+    MobileLoginRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ToastrModule
   ]
 })
 export class MobileLoginModule { }

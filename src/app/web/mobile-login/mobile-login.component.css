@@ -1,0 +1,66 @@
+#login-box {
+    background-color: transparent;
+    border-top-right-radius: 15px;
+}
+#login-box .login-logo{
+    width: 100px;
+    margin:0 auto;
+    display:block;
+    margin-bottom: 10px;
+}
+#loginbox .login-img{    
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+#login-box h5{
+    color: var(--main-color);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Yatra One' !important;
+    line-height: 32px;
+}
+#login-box h3 {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+#login-box .form-control{
+    border:none;
+    border-radius: 0;
+    border-bottom: solid 1px rgba(0,0,0,0.125);
+}
+#login-box .form-control,
+#login-box .btn {
+    font-size: 0.85rem;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+#login-box .form-check-label {
+    font-size: 0.85rem;
+}
+
+#login-box .input-group .form-control {
+    border-right: 0;
+}
+
+#login-box .input-group .btn {
+    border: 0;
+    border-bottom: solid 1px rgba(0,0,0,0.125);
+    background-color: #fff;
+}
+
+#loginbox{
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    background-color: #fff;
+    max-width: 450px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 16px 0px #bbb;;
+}

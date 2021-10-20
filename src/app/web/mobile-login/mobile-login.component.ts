@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,10 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./mobile-login.component.css']
 })
 export class MobileLoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  submitted = false;
+  show_button: Boolean = false;
+  show_eye: Boolean = false;
 
   constructor(private callAPIService: CallAPIService, private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -20,11 +24,23 @@ export class MobileLoginComponent implements OnInit {
 
   ngOnInit(): void {
     let getDataUrl = this.route.snapshot.params;
-    this.checkLoginDetails(getDataUrl.un, getDataUrl.ps);
+    this.defaultLoginForm(getDataUrl.un, getDataUrl.ps); 
+    this.checkLoginDetails();
   }
 
-  checkLoginDetails(uname: any, password: any) {
-    this.callAPIService.setHttp('get', 'Web_GetLogin_3_0?UserName=' + uname + '&Password=' + password + '&LoginType=2', false, false, false, 'ncpServiceForWeb');
+  defaultLoginForm(uname:any, password:any) {
+    this.loginForm = this.fb.group({
+      UserName: [uname, Validators.required],
+      Password: [password,  [Validators.required, this.passwordValid]],
+    })
+  }
+
+  get f() { return this.loginForm.controls };
+
+
+  checkLoginDetails() {
+    let data = this.loginForm.value
+    this.callAPIService.setHttp('get', 'Web_GetLogin_3_0?UserName=' + data.UserName + '&Password=' + data.Password + '&LoginType=2', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == '0') {
         sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
@@ -41,5 +57,19 @@ export class MobileLoginComponent implements OnInit {
         this.spinner.hide();
       }
     })
+  }
+
+  showPassword() {
+    this.show_button = !this.show_button;
+    this.show_eye = !this.show_eye;
+  }
+
+  passwordValid(controls:any) {
+    const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { passwordValid: true }
+    }
   }
 }
