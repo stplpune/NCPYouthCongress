@@ -52,7 +52,7 @@ export class AddMemberComponent implements OnInit {
   show_eye2: Boolean = false;
   villOrcityDisabled: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  villageDisabled!: boolean;
+  villageDisabled: boolean = true;
   filterForm!: FormGroup;
   paginationNo: number = 1;
   pageSize: number = 10;
@@ -91,12 +91,12 @@ export class AddMemberComponent implements OnInit {
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
       FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
-      MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      MName: ['', [Validators.pattern(/^\S*$/)]],
       LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       IsRural: [1],
       ConstituencyNo: [''],
       Gender: [''],
-      EmailId: ['',  [Validators.email]],
+      EmailId: ['', [Validators.email]],
       Address: [''],
       CreatedBy: [this.commonService.loggedInUserId()]
     })
@@ -156,6 +156,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   getTaluka(districtId: any, flag: any) {
+    debugger;
     if (districtId == "") { return };
     if (this.editProfileForm.value.IsRural == 0) {
       this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
@@ -196,9 +197,9 @@ export class AddMemberComponent implements OnInit {
   getVillageOrCity(talukaID: any, selType: any) {
     if (talukaID == "") { return };
 
-    if(this.villageCityLabel == "Village"){
+    if (this.villageCityLabel == "Village") {
       this.villageCityLabel = "Village", this.setVillOrCityId = "VillageId", this.setVillOrcityName = "VillageName";
-    }else{
+    } else {
       this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
     }
     this.villageDisabled = false;
@@ -260,15 +261,15 @@ export class AddMemberComponent implements OnInit {
           this.resetFile();
           this.spinner.hide();
           let result = res.data1[0];
-          if(result.Msg == "Mobile No allready exists"){
+          if (result.Msg == "Mobile No allready exists") {
             this.toastrService.error("Mobile no already exist");
-          }else if(result.Msg == "Data Saved Successfully" || result.Msg == "Profile Updated Successfully"){
+          } else if (result.Msg == "Data Saved Successfully" || result.Msg == "Profile Updated Successfully") {
             this.myProfileForm();
             this.toastrService.success(result.Msg);
           }
           this.getAllUsers();
           this.ImgUrl = "";
-          this.highlightedRow="";
+          this.highlightedRow = "";
         } else {
           this.spinner.hide();
           if (res.data == 1) {
