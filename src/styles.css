@@ -994,3 +994,22 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     cursor: default;
     background: rgb(235, 235, 235) !important;
 }
+.mat-tree-node button {
+    width: 24px  !important;
+    height: 24px!important;
+}
+
+.mat-icon-button i, .mat-icon-button .mat-icon {
+    line-height: 14px!important;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18px;
+}
+
+.mat-tree{
+    font-size: 0.80rem !important;
+}
