@@ -79,9 +79,9 @@ export class CommonService {
         var day = date_components[0];
         var month = date_components[1];
         var year = date_components[2];
-        return new Date(year, month, day);
-
+        return new Date(year, month -1, day);
     }
+    
 
 
     dateTransformPipe(date_string: any) {

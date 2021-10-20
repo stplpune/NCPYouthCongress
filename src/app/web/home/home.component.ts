@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
             return ele
           }
         })
-       console.log(this.allLatestEvent)
       } else {
         this.spinner.hide();
         this.toastrService.error("Data is not available ");

@@ -160,7 +160,6 @@ export class OrganizationDetailsComponent implements OnInit {
             });
           };
           this.subCommittessResult = this.createTree(this.subCommittessResult);
-          console.log(this.subCommittessResult);
           this.dataSource.data = this.subCommittessResult;
         } else {
           // this.toastrService.error("Body member is not available");

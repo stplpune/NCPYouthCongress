@@ -172,17 +172,17 @@ export class PartyProgramMasterComponent implements OnInit {
 
   ViewProgramList(programDetails: any) {
     this.programDetails = programDetails;
-    console.log(this.programDetails);
   }
 
   editrogramList(programDetails: any) {
     this.programTitle = "Update"
     this.HighlightRow = programDetails.Id;
+    let date = this.commonService.dateFormatChange(programDetails.ProgramStartDate);
     this.createProgram.patchValue({
       Id: programDetails.Id,
       ProgramTitle: programDetails.ProgramTitle,
       ProgramDescription: programDetails.ProgramDescription,
-      ProgramStartDate: this.commonService.dateFormatChange( programDetails.ProgramStartDate),
+      ProgramStartDate: date,
       CreatedBy: this.commonService.loggedInUserId(),
     });
   }

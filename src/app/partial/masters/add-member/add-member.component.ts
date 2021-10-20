@@ -156,7 +156,6 @@ export class AddMemberComponent implements OnInit {
   }
 
   getTaluka(districtId: any, flag: any) {
-    debugger;
     if (districtId == "") { return };
     if (this.editProfileForm.value.IsRural == 0) {
       this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
@@ -288,7 +287,6 @@ export class AddMemberComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resProfileData = res.data1[0];
-        console.log(this.resProfileData);
         this.profileFormPathValue(this.resProfileData);
       } else {
         this.spinner.hide();

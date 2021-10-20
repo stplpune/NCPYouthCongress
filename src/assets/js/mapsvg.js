@@ -3709,7 +3709,6 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
                         _data.googleMaps.map.setCenter({lat: latlng[0],lng: latlng[1]});
                     }else{
                         var bounds = region.getGeoBounds();
-                        console.log(bounds);
                         var southWest = new google.maps.LatLng(bounds.sw[0], bounds.sw[1]);
                         var northEast = new google.maps.LatLng(bounds.ne[0], bounds.ne[1]);
                         var bounds = new google.maps.LatLngBounds(southWest,northEast);

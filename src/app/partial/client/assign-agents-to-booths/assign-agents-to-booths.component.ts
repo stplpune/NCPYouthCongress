@@ -356,7 +356,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       else {
       this.spinner.show();
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
-      console.log(this.AssemblyBoothArray);
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
@@ -407,7 +406,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
     else {
       this.AssemblyBoothArray.push({ 'BoothId': BoothId,"ConstituencyId":ConstituencyId,'AssemblyId':AssemblyId,'ElectionId':ElectionId });
     }
-    console.log(this.AssemblyBoothArray);
   }
 
 
@@ -691,7 +689,6 @@ export class AssignAgentsToBoothsComponent implements OnInit {
         }
       })
     });
-    console.log(this.AssemblyBoothArray);
   }
 }
 

@@ -55,7 +55,6 @@ export class AddClientComponent implements OnInit {
     this.getDistrict();
     this.searchFilters('false');
     this.getClientData();
-    console.log(this.modelObjectData)
   }
 
   defaultAddClientForm() {

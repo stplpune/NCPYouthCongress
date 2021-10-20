@@ -140,7 +140,6 @@ export class AssignBoothComponent implements OnInit {
     else {
       this.spinner.show();
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
-      console.log(this.AssemblyBoothArray);
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
 
@@ -310,7 +309,6 @@ export class AssignBoothComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListbyHeaderId?HeaderId=' + HeaderId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        console.log(res.data1[0]);
         this.editAssignBoothsPatchValue(res.data1[0]);
 
       } else {
@@ -358,7 +356,6 @@ export class AssignBoothComponent implements OnInit {
         }
       })
     });
-    console.log(this.AssemblyBoothArray);
   }
 
   checkBoxCehckAssemblyArray(ConstituencyId: any) {

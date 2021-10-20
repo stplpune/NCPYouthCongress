@@ -278,8 +278,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
             ele.Date = transformDate;
           }
         })
-
-        console.log(this.trendOnSocialMediaArray)
         this.trendSocialMediaLineChart();
         this.socialMediaChart();
         this.spinner.hide();

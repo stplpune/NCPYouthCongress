@@ -73,7 +73,6 @@ export class DesignationMasterComponent implements OnInit {
   onSubmitDesigMaster(){
     this.submitted = true;
     let formData = this.DesigMasterForm.value;
-    console.log(formData);
     if (this.DesigMasterForm.invalid) {
       this.spinner.hide();
       return;

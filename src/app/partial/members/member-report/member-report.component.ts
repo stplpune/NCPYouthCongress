@@ -71,7 +71,6 @@ export class MemberReportComponent implements OnInit {
   getMemberDetails(){
     this.spinner.show();
     let data = this.filterForm.value;
-    console.log(data)
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesReport?MemberId=' + data.MemberId+'&FromDate='+ this.fromDate+'&ToDate='+ this.toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

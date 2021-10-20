@@ -48,7 +48,6 @@ export class EventDetailComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.eventListArray = res.data1;
-        console.log(this.eventListArray);
         this.total = res.data2[0].TotalCount;
         this.eventDetails(this.getEventId);
       } else {
@@ -68,7 +67,6 @@ export class EventDetailComponent implements OnInit {
     this.eventListArray.forEach((element: any) => { // event Detail
       if (element.EventId == details) {
         this.eventDetalis = element;
-        console.log(this.eventDetalis);
       }
     });
   }

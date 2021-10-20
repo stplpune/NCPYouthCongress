@@ -393,7 +393,6 @@ export class AssignElectionsComponent implements OnInit {
     let arrayOfObj = this.subConstArrayCheck(this.assignElectionForm.value.ElectionId, this.assignElectionForm.value.strConstituency);
     if (arrayOfObj == false) {
       this.addSubConstituencyArray.push({ 'ElectionName': eleName, 'ConstituencyName': subElectionNameBySubEleId, 'ElectionId': this.assignElectionForm.value.ElectionId, 'ConstituencyId': this.assignElectionForm.value.strConstituency });
-      console.log(this.addSubConstituencyArray);
     } else {
       this.toastrService.error("Election Name & Constituency Name	already exists");
     }

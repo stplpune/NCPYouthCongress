@@ -154,7 +154,6 @@ export class CandidateRegistrationComponent implements OnInit {
 
    onSubmitCandidateReg() {
     this.submitted = true;
-    console.log(this.candidateRegForm.value)
   //   let formData = this.createElectionForm.value;
   //   if (this.createElectionForm.invalid) {
   //     this.spinner.hide();
