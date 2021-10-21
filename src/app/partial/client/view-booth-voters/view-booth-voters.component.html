@@ -124,46 +124,50 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link active" id="pills-analytics-tab"
                                                 data-bs-toggle="pill" data-bs-target="#pills-analytics" type="button"
-                                                role="tab" aria-controls="pills-analytics"
-                                                aria-selected="true">
+                                                role="tab" aria-controls="pills-analytics" aria-selected="true">
                                                 <h5 class="mb-0"><i class="far fa-chart-bar"></i></h5>
-                                                Booth Analytics</button>
+                                                Booth Analytics
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-voters-tab" data-bs-toggle="pill"
                                                 data-bs-target="#pills-voters" type="button" role="tab"
                                                 aria-controls="pills-voters" aria-selected="false">
                                                 <h5 class="mb-0">68721</h5>
-                                                Voters</button>
+                                                Voters
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-family-tab" data-bs-toggle="pill"
                                                 data-bs-target="#pills-family" type="button" role="tab"
                                                 aria-controls="pills-family" aria-selected="false">
                                                 <h5 class="mb-0">721</h5>
-                                                Families</button>
+                                                Families
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-migrated-tab"
-                                                data-bs-toggle="pill" data-bs-target="#pills-migrated" type="button"
-                                                role="tab" aria-controls="pills-migrated"
-                                                aria-selected="true">
+                                            <button class="nav-link" id="pills-migrated-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-migrated" type="button" role="tab"
+                                                aria-controls="pills-migrated" aria-selected="true">
                                                 <h5 class="mb-0">721</h5>
-                                                Migrated</button>
+                                                Migrated
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-pending-tab" data-bs-toggle="pill"
                                                 data-bs-target="#pills-pending" type="button" role="tab"
                                                 aria-controls="pills-pending" aria-selected="false">
                                                 <h5 class="mb-0">7321</h5>
-                                                Pending</button>
+                                                Pending
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-agents-tab" data-bs-toggle="pill"
                                                 data-bs-target="#pills-agents" type="button" role="tab"
                                                 aria-controls="pills-agents" aria-selected="false">
                                                 <h5 class="mb-0">71</h5>
-                                                Agents</button>
+                                                Agents
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -291,7 +295,8 @@
                                         <div class="tab-pane fade" id="pills-agents" role="tabpanel"
                                             aria-labelledby="pills-agents-tab">
                                             <div class="mb-1 text-end">
-                                                <button type="button" class="btn btn-sm btn-link">
+                                                <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal"
+                                                    data-bs-target="#AddAgentModal">
                                                     Add Agents
                                                 </button>
                                             </div>
@@ -317,7 +322,10 @@
                                                         <td>342</td>
                                                         <td>342</td>
                                                         <td>
-                                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#ViewVotersModal"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-sm btn-light" type="button"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#ViewVotersModal"><i
+                                                                    class="fas fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -328,7 +336,10 @@
                                                         <td>342</td>
                                                         <td>342</td>
                                                         <td>
-                                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#ViewVotersModal"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-sm btn-light" type="button"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#ViewVotersModal"><i
+                                                                    class="fas fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -339,7 +350,10 @@
                                                         <td>342</td>
                                                         <td>342</td>
                                                         <td>
-                                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#ViewVotersModal"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-sm btn-light" type="button"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#ViewVotersModal"><i
+                                                                    class="fas fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -384,6 +398,61 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Add agents -->
+<div class="modal fade" id="AddAgentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddAgentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddAgentModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body chartbox">
+                <div class="form-container">
+                    <div class="row mb-3 g-2">
+                        <div class="col-sm-4">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" placeholder="First Name" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" placeholder="Middle Name" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Last Name" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contact No.</label>
+                        <input type="text" class="form-control" placeholder="Contact No." />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" placeholder="Address" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" id="flexCheckDefault" class="form-check-input">
+                            <label for="flexCheckDefault" class="form-check-label"> Allow Sub Member </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button type="button" class="btn btn-main">Add Agent</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
