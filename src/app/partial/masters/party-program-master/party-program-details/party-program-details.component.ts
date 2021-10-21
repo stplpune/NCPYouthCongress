@@ -25,7 +25,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   programDetailsImagesArray: any;
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
-  zoom: any = 5;
+  zoom: any = 12;
   membersDataArray: any;
   activeFlag: boolean = true;
   NonComityDataArray: any;
@@ -66,7 +66,9 @@ export class PartyProgramDetailsComponent implements OnInit {
   comityTotal: any;
   nonComityTotal: any;
   HighlightRow: any;
-  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen:any;
+  @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen: any;
+  hideMapInfo: boolean = false;
+  previous: any;
 
   constructor(
     public location: Location,
@@ -149,7 +151,7 @@ export class PartyProgramDetailsComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -297,7 +299,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.getCommitteeUserList(this.committeeId, this.committeeNmame, 'false');
   }
 
-    getBodyMemeberActivitiesDetails(viewMemberId: any) {
+  getBodyMemeberActivitiesDetails(viewMemberId: any) {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BodyMemeber_ActivitiesDetails?WorkId=' + viewMemberId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -330,8 +332,15 @@ export class PartyProgramDetailsComponent implements OnInit {
   openDialogBodyMemActDetails() {
     const dialogRef = this.dialog.open(ActivityDetailsComponent, {
       width: '1024px',
-      data:this.resultBodyMemActDetails
+      data: this.resultBodyMemActDetails
     });
   }
 
+  clickedMarker(infowindow: any) {
+    if (this.previous) {
+      this.previous.close();
+    }
+    this.previous = infowindow;
+    // this.hideMapInfo = true;
+  }
 }

@@ -38,7 +38,7 @@ export class PoliticalWorkComponent implements OnInit {
   viewPoliticleWorkDetailsById: any;
   lat: any;
   lng: any;
-  zoom: any = 5;
+  zoom: any = 12;
   comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
   HighlightRow: any;
@@ -133,7 +133,7 @@ export class PoliticalWorkComponent implements OnInit {
 
   getMemberName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetBodyMemberListHaveWork_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API GetMemberddl_Web_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
