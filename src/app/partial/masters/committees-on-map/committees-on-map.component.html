@@ -6,7 +6,7 @@
             </div>
         <div class="col-sm-6 text-end">
             <div class="row">
-                <div class="offset-sm-6 col-sm-5">
+                <div class="offset-sm-6 col-sm-5 col">
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
                             placeholder="Search Committees..." (keyup)="onKeyUpFilter()" />
@@ -17,7 +17,7 @@
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-sm-1"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
+                <div class="col-sm-1 col-2"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
                     <i class="fas fa-arrow-left"></i>
                 </button></div>
             </div>
@@ -99,7 +99,7 @@
                                     <div class="col-sm-6">
                                         Camparison of Committees
                                     </div>
-                                    <div class="col-sm-3 offset-3">
+                                    <div class="col-sm-6 text-end">
                                         <div class="input-group">
                                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
                                              [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
