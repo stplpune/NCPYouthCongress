@@ -88,7 +88,7 @@
                             <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                                 <td>
                                     <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
-                                    <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/dashboard-images/ncplogo.png" class="prophoto" />
+                                    <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/ncp-default.png" class="prophoto" />
                                 </td>
                                 <td>
                                     <a (click)="redToMemberProfile(resultExeMember.MemberId,resultExeMember.FullName)" class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
