@@ -171,6 +171,7 @@ export class EventMasterComponent implements OnInit {
           this.toastrService.success("Event Addeed Successfully");
           this.getEventList();
           this.editEventText = "Create Event";
+          this.paginationNo = 1;
         } else {
           this.spinner.hide();
           // this.toastrService.error("Data is not available 1");

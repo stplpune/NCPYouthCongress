@@ -498,6 +498,7 @@ export class OrganizationMasterComponent implements OnInit {
   clearForm() {
     this.HighlightRow = null;
     this.submitted = false;
+    this.paginationNo = 1;
     this.orgMasterForm.reset({
       IsRural: 1
     });

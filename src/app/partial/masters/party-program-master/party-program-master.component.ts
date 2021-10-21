@@ -187,9 +187,9 @@ export class PartyProgramMasterComponent implements OnInit {
     });
   }
   
-  // 
   clearForm() {
-    this.programTitle = "Create"
+    this.programTitle = "Create";
+    this.paginationNo = 1;
     this.HighlightRow = null;
     this.submitted = false;
     this.createProgram.reset();

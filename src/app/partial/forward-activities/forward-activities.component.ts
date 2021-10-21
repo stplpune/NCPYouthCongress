@@ -175,6 +175,7 @@ export class ForwardActivitiesComponent implements OnInit {
 
   resetNotificationForm(){
     this.submitted = false;
+    this.paginationNo = 1;
     this.getImgPath = null;
     this.forwardActivitiForm.reset();
     this.NotificationText =  "Push";
