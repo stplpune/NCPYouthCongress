@@ -51,7 +51,6 @@ export class CommonService {
 
     getFullName() {
         let localStorage = this.getsessionStorageData();
-        console.log(localStorage)
         let obj = { 'FName': localStorage.FName,'LName': localStorage.LName, 'ProfilePhoto': localStorage.ProfilePhoto }
         return obj;
     }
@@ -98,7 +97,8 @@ export class CommonService {
 
         var charsArray =
             // "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
-            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            // "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var lengthOtp = 6;
         var captcha = [];
         for (var i = 0; i < lengthOtp; i++) {

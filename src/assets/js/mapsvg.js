@@ -4656,7 +4656,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
                 try{
                     func();
                 }catch(error){
-                    console.log("MapSVG user-defined function error: (line "+error.line+"): "+error.message);
+                   // console.log("MapSVG user-defined function error: (line "+error.line+"): "+error.message);
                 }
             },
             download: function(){
