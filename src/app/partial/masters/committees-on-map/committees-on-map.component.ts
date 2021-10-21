@@ -60,10 +60,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
-    this.loggedUserTypeId == 5 ?   this.loggedDistrictId = this.commonService.districtId() :   this.loggedDistrictId = 0;
-
-    this.getOrganizationByDistrictId(this.loggedDistrictId);
+    // this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
+    // this.loggedUserTypeId == 5 ?   this.loggedDistrictId = this.commonService.districtId() :   this.loggedDistrictId = 0;
+    this.getOrganizationByDistrictId(0);
     this.searchFilters('false');
     this.DistrictWiseCommityWorkGraph();
   }
@@ -82,8 +81,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.defaultMembersFlag = false;
       // this.selectedDistrictId = "";
       this.selDistrict.reset();
-      this.getOrganizationByDistrictId(this.loggedDistrictId);
-      this.selectDistrict(this.loggedDistrictId);
+      this.getOrganizationByDistrictId(0);
+      this.selectDistrict(0);
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     }
@@ -95,8 +94,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.selectDistrict(this.DistrictId);
     }else{
       this.showSvgMap(this.commonService.mapRegions());
-      this.selectDistrict(this.loggedDistrictId);
-    
+      // this.selectDistrict(this.loggedDistrictId);
       // this.getOrganizationByDistrictId(this.DistrictId);
     }
 
@@ -241,9 +239,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   selectDistrict(event: any) {
     $('path').css('fill', '#7289da');
-
     this.selectedDistrictId = event;
-    this.loggedDistrictId = event;
+    // this.loggedDistrictId = event;
     this.DistrictWiseCommityWorkGraph();
     $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);

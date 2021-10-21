@@ -57,8 +57,9 @@ export class DashboardComponent implements OnInit {
     this.getLowHighSocialMTypesOfWorks();
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
-    this.getweekRage(this.toDate)
+    this.getweekRage(this.toDate);
   }
+
 
   getweekRage(dates: any) {
     this.toDate= dates;         //selected Date
@@ -163,6 +164,13 @@ export class DashboardComponent implements OnInit {
         })
         this.workLineChart();
         this.newMemberInThisWeekArray = res.data1;
+        this.newMemberInThisWeekArray.map((ele: any) => {
+          if (ele.Date) {
+            let DateFormate = this.changeDateFormat(ele.Date);
+            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
+            ele.Date = transformDate;
+          }
+        })
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
@@ -192,6 +200,13 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.newMemberInThisWeekArray = res.data1;
+        this.newMemberInThisWeekArray.map((ele: any) => {
+          if (ele.Date) {
+            let DateFormate = this.changeDateFormat(ele.Date);
+            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
+            ele.Date = transformDate;
+          }
+        })
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
@@ -306,12 +321,12 @@ export class DashboardComponent implements OnInit {
       am4core.color("#D2B4DE")
     ];
     chart.data = this.newMemberInThisWeekArray;
-
+    console.log(this.newMemberInThisWeekArray);
     //chart.padding(5, 5, 5, 5);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "DayName";
+    categoryAxis.dataFields.category = "Date";
     categoryAxis.title.text = "Days";
     // categoryAxis.renderer.minGridDistance = 60;
     // categoryAxis.renderer.labels.template.rotation = -45;
@@ -328,7 +343,7 @@ export class DashboardComponent implements OnInit {
     valueAxis.extraMax = 0.1;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryX = "DayName";
+    series.dataFields.categoryX = "Date";
     series.dataFields.valueY = "UserCount";
     series.tooltipText = "{valueY.value}"
     series.columns.template.strokeOpacity = 0;

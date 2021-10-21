@@ -127,7 +127,8 @@ export class AddMemberComponent implements OnInit {
 
   clearForm() {
     this.submitted = false;
-    this.profileFlag = 'Create'
+    this.profileFlag = 'Create';
+    this.paginationNo = 1;
     this.myProfileForm();
     this.removePhoto();
   }

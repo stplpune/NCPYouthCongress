@@ -293,6 +293,7 @@ export class NotificationsComponent implements OnInit {
   resetNotificationForm(){
     this.NotificationText= "Push";
     this.submitted = false;
+    this.paginationNo = 1;
     this.getImgPath = null;
     this.notificationForm.reset();
   }
