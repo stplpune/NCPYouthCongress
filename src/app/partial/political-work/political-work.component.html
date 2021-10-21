@@ -182,9 +182,10 @@
                         </div>
                         <div class="row mb-1">
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.ActivityLocation">
-                                <label class="form-label">URL Link</label>
+                                <label class="form-label">Latitude and Longitude </label>
                                 <div id="txtMessageFavour" class="form-data">
-                                    <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a>
+                                    {{viewPoliticleWorkDetailsById?.ActivityLocation}}
+                                    <!-- <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a> -->
                                 </div>
                             </div>
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.PersonContactDetails">

@@ -50,14 +50,14 @@
                             {{resultBodyMemActDetails.Description}}
                         </div>
                     </div>
-                    <div class="mb-2" *ngIf="resultBodyMemActDetails?.Link">
-                        <label class="form-label">Link URL</label>
-                        <div class="form-data">
-                            <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
-                                    {{resultBodyMemActDetails.Link}}
-                                </a>
+                    <div class="mb-3">
+                            <label class="form-label">Latitude and Longitude</label>
+                            <div class="form-data">
+                                <!-- <a href="{{resultBodyMemActDetails.Link}}" target="_blank"> -->
+                                    {{resultBodyMemActDetails.ActivityLocation}}
+                                <!-- </a> -->
+                            </div>
                         </div>
-                    </div>
                     <div class="row">
                         <div class="col-sm-3">
                             <label class="form-label">Likes</label>
@@ -80,8 +80,8 @@
                 <div class="col-sm-6 form-container bg-light">
                     <div class="" *ngIf="lat!='' && lng!=''; else elseBlock">
                         <label class="form-label">Location</label>
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                        <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                            <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng"></agm-marker>
                         </agm-map>
                     </div>
                     <ng-template #elseBlock>

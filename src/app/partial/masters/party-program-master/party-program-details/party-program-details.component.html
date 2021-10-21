@@ -239,10 +239,10 @@
                 <div class="card-body border" *ngIf="MapHide">
                     <div class="mb-3" *ngIf="(membersDataArray?.length != 0 && commityDataArray?.length != 0); else NotFoundBlock">
                         <label class="form-label">Location</label>
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude">
+                        <agm-map  [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker [agmFitBounds]="true"  *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude" (markerClick)="clickedMarker(infowindow)">
 
-                                <agm-info-window>
+                                <agm-info-window  #infowindow>
                                     <table class="table table-bordered table-sm mb-0">
                                         <tbody>
                                             <tr>
@@ -335,12 +335,12 @@
                                 {{resultBodyMemActDetails.Description | titlecase}}
                             </div>
                         </div>
-                        <div class="mb-3" *ngIf="resultBodyMemActDetails?.Link">
-                            <label class="form-label">Link URL</label>
+                        <div class="mb-3">
+                            <label class="form-label">Latitude and Longitude</label>
                             <div class="form-data">
-                                <a href="{{resultBodyMemActDetails.Link}}" target="_blank">
-                                    {{resultBodyMemActDetails.Link}}
-                                </a>
+                                <!-- <a href="{{resultBodyMemActDetails.Link}}" target="_blank"> -->
+                                    {{resultBodyMemActDetails.ActivityLocation}}
+                                <!-- </a> -->
                             </div>
                         </div>
 
@@ -367,8 +367,8 @@
                     <div class="col-sm-6 form-container">
                         <div class="mb-3" *ngIf="lat!='' && lng!=''; else NotFoundBlock">
                             <label class="form-label">Location</label>
-                            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                                <agm-marker [latitude]="lat" [longitude]="lng">
+                            <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                                <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng">
                                     <agm-info-window>
                                         <table class="table table-bordered table-sm mb-0">
                                             <tbody>
@@ -502,8 +502,8 @@
                                             <div class="col-sm-6">
                                                 <div *ngIf="activitiesDetailslat!='' && activitiesDetailslng!=''; else NotFoundBlock">
                                                     <label class="form-label">Location</label>
-                                                    <agm-map [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
-                                                        <agm-marker [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
+                                                    <agm-map [fitBounds]="true" [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
+                                                        <agm-marker [agmFitBounds]="true"  [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
                                                             <agm-info-window>
                                                                 <table class="table table-bordered table-sm mb-0">
                                                                     <tbody>
