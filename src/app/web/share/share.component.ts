@@ -36,7 +36,7 @@ export class ShareComponent implements OnInit {
         this.resultOfShareData = res.data1[0];
         this.updateMetaInfo(this.resultOfShareData.ProgramTitle, 'https://ncpyouth.erpguru.in/share/' + this.WorkId, this.resultOfShareData.Images.split(',')[0]);
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

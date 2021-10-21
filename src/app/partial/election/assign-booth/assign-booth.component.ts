@@ -159,7 +159,7 @@ export class AssignBoothComponent implements OnInit {
           this.boothListMergeArray = [];
         } else {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -221,7 +221,7 @@ export class AssignBoothComponent implements OnInit {
         this.assemblyArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -252,7 +252,7 @@ export class AssignBoothComponent implements OnInit {
       } else {
         this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -276,7 +276,7 @@ export class AssignBoothComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.assignedBoothToElectionArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -295,7 +295,7 @@ export class AssignBoothComponent implements OnInit {
         this.AssBoothListDetailArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -313,7 +313,7 @@ export class AssignBoothComponent implements OnInit {
 
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

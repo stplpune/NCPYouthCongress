@@ -89,7 +89,7 @@ export class SocialMediaMessagesComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.socialMediaMessagesArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
 
     }, (error: any) => {
@@ -125,7 +125,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -142,7 +142,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.allDistrictArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -159,7 +159,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -184,7 +184,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         let socialMediaDetailsLatLongArray = res.data3[0];
         this.latitudeLongitude(socialMediaDetailsLatLongArray);
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

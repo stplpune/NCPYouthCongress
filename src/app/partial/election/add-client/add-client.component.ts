@@ -179,7 +179,7 @@ export class AddClientComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.clientDataArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -221,7 +221,7 @@ export class AddClientComponent implements OnInit {
           this.btnText = 'Add Client';
         } else {
           this.spinner.hide();
-          //  this.toastrService.error("Data is not available");
+          //  //this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {

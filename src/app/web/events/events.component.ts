@@ -46,7 +46,7 @@ export class EventsComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.eventListArray=[];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     },
       (error: any) => {

@@ -112,7 +112,7 @@ export class CandidateRegistrationComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -195,7 +195,7 @@ export class CandidateRegistrationComponent implements OnInit {
   //         this.subElectionDivHide = false;
   //         this.btnText = 'Create Election';
   //       } else {
-  //         //  this.toastrService.error("Data is not available");
+  //         //  //this.toastrService.error("Data is not available");
   //       }
   //     }, (error: any) => {
   //       if (error.status == 500) {

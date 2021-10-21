@@ -94,9 +94,6 @@
                                                          {{message?.MessageDate}} {{message.MessageTime}}
                                                 </span>
                                                     </p>
-                                                    <span class="feedback">
-                                                        {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
-                                            </span>
                                                     <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
                                                             <img src="{{message.MediaPath}}" class="helpimg">
@@ -115,6 +112,9 @@
                                                     <ng-container *ngIf="message.MediaTypeId == 5">
                                                         <a  href="{{message.MediaPath}}" download target="_blank"  class=" btn btn-info" style="width: 123px;"><small><i class="fa fa-paperclip" aria-hidden="true" ></i>  Attachment</small></a>
                                                     </ng-container>
+                                                    <span class="feedback">
+                                                        {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
+                                                    </span>
                                                     <!-- <img src="{{message.MediaPath}}" style="width: 100px;"> -->
                                                 </div>
                                             </div>
@@ -124,9 +124,7 @@
                                                     <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
                                                         <span class="float-end text-muted small"> {{message?.MessageDate}} {{message.MessageTime}}</span>
                                                     </p>
-                                                    <span class="feedback">
-                                                    {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
-                                            </span>
+                                                   
                                                     <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
                                                             <img src="{{message.MediaPath}}" class="helpimg">
@@ -145,6 +143,8 @@
                                                     <ng-container *ngIf="message.MediaTypeId == 5">
                                                         <a href="{{message.MediaPath}}" download target="_blank" class=" btn btn-info" style="width: 123px;"><small><i class="fa fa-paperclip" aria-hidden="true" ></i>  Attachment</small></a>
                                                     </ng-container>
+                                                    <span class="feedback"> {{(message.SenderMsg != 'null') ?  (message.SenderMsg | titlecase) : ''}} 
+                                                    </span>
                                                 </div>
                                             </div>
                                         </ng-container>

@@ -84,7 +84,7 @@ export class ExecutiveMembersComponent implements OnInit {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -102,7 +102,7 @@ export class ExecutiveMembersComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -152,7 +152,7 @@ export class ExecutiveMembersComponent implements OnInit {
         this.spinner.hide();
         if (res.data == 1) {
           this.resultAllExeMembers = [];
-          // this.toastrService.error("Data is not available");
+          // //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

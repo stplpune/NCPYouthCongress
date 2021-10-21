@@ -79,7 +79,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.allMemberprofile = res.data1[0];
         this.allMemberprofile.IsUserBlock == 1 ? this.checkUserBlock = "Unblock" : this.checkUserBlock = "Block";
       } else {
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -99,7 +99,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.toastrService.success(res.data1[0].Msg);
         this.getMemberprofile();
       } else {
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -121,7 +121,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.membersOverview = null;
         this.organizationRoles = [];
         this.feedbacks = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -149,7 +149,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
         this.periodicChart = [];
         this.WorkDoneByYuvak();
         this.workCountAgainstWorkType();
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

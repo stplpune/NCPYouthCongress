@@ -136,7 +136,7 @@ export class CreateConstituencyComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.electionName = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -166,7 +166,7 @@ export class CreateConstituencyComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.constituencynName = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -234,7 +234,7 @@ export class CreateConstituencyComponent implements OnInit {
         this.getConstituency();
       } else {
         this.spinner.hide();
-        //  this.toastrService.error("Data is not available");
+        //  //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -301,7 +301,7 @@ export class CreateConstituencyComponent implements OnInit {
         this.patchCreateConstituency(this.constituencyDetailsArray);
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();

@@ -188,7 +188,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -245,7 +245,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         this.perceptionTrendWeb();
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
           this.mostLikedPersonArray = [];
           this.mostHatedPersonArray = [];
         } else {
@@ -284,7 +284,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         if (res.data == 1) {
 
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
           this.perOnSocialMedArray = [];
           this.trendOnSocialMediaArray = [];
           this.trendSocialMediaLineChart();
@@ -314,7 +314,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -365,7 +365,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

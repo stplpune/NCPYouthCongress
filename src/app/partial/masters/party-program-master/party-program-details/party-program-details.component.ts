@@ -116,7 +116,7 @@ export class PartyProgramDetailsComponent implements OnInit {
 
       } else {
         this.spinner.hide();
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -143,7 +143,7 @@ export class PartyProgramDetailsComponent implements OnInit {
         if (res.data == 1) {
           this.membersDataArray = [];
           this.spinner.hide();
-          // this.toastrService.error("Data is not available");
+          // //this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -171,7 +171,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         if (res.data == 1) {
           this.spinner.hide();
-          // this.toastrService.error("Data is not available");
+          // //this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -202,7 +202,7 @@ export class PartyProgramDetailsComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.commityDataArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

@@ -52,7 +52,7 @@ export class EventDetailComponent implements OnInit {
         this.eventDetails(this.getEventId);
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     },
       (error: any) => {

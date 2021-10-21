@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
         this.allDistrictArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
         this.dashboardCount1Array = res.data1[0];
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
         this.socialMediaChart();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -166,7 +166,7 @@ export class DashboardComponent implements OnInit {
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -195,7 +195,7 @@ export class DashboardComponent implements OnInit {
         this.weeklyColumnChart();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();

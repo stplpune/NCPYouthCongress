@@ -78,7 +78,7 @@ export class MyProfileComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -195,7 +195,7 @@ export class MyProfileComponent implements OnInit {
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }

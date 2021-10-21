@@ -139,7 +139,7 @@ export class PoliticalWorkComponent implements OnInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -184,7 +184,7 @@ export class PoliticalWorkComponent implements OnInit {
         this.spinner.hide();
         this.socialMediaArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -201,7 +201,7 @@ export class PoliticalWorkComponent implements OnInit {
         this.spinner.hide();
         this.categoryArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

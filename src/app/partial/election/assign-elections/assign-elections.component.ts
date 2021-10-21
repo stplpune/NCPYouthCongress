@@ -118,7 +118,7 @@ export class AssignElectionsComponent implements OnInit {
         this.resetAssignElectionForm();
       } else {
         this.spinner.hide();
-        //  this.toastrService.error("Data is not available");
+        //  //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -229,7 +229,7 @@ export class AssignElectionsComponent implements OnInit {
         this.patchCreateConstituency(this.clientDetailsArray);
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();

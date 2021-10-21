@@ -267,7 +267,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.spinner.hide();
         this.bodyMemberDetails = res.data1[0];
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

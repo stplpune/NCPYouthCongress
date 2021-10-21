@@ -369,7 +369,7 @@ export class NotificationsComponent implements OnInit {
     //     this.spinner.hide();
     //     this.allLevels = res.data1;
     //   } else {
-    //       this.toastrService.error("Data is not available");
+    //       //this.toastrService.error("Data is not available");
     //   }
     // } ,(error:any) => {
     //   if (error.status == 500) {
@@ -390,7 +390,7 @@ export class NotificationsComponent implements OnInit {
         // }
         
       } else {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -408,7 +408,7 @@ export class NotificationsComponent implements OnInit {
         this.spinner.hide();
         this.getBodyOrgCellName = res.data1;
       } else {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       if (error.status == 500) {
@@ -419,7 +419,7 @@ export class NotificationsComponent implements OnInit {
 
   getDistrict() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_Committee?StateId=' + 1 +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -444,7 +444,7 @@ export class NotificationsComponent implements OnInit {
         this.notificationscopeArray = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       this.spinner.hide();

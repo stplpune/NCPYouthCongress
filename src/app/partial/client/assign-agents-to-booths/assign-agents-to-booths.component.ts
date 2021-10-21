@@ -320,7 +320,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       } else {
         this.boothListMergeArray.length == 0 ?  this.boothListMergeArray = [] : '';
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -376,7 +376,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
           this.boothListMergeArray = [];
         } else {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -634,7 +634,7 @@ export class AssignAgentsToBoothsComponent implements OnInit {
 
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

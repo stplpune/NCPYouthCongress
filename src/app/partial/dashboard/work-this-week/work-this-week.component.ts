@@ -195,7 +195,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.allDistrict = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -217,7 +217,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.spinner.hide();
         if (res.data == 1) {
           this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.spinner.hide();
           this.toastrService.error("Please try again something went wrong");
@@ -304,7 +304,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resBestPerKaryMember = [];
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -337,7 +337,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvak();
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -365,7 +365,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resultBestPerKaryMember =  [];
         this.spinner.hide();
         if (res.data == 1) {
-         this.toastrService.error("Data is not available");
+         //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -526,7 +526,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.memberNameArray = res.data1;
       } else {
         this.spinner.hide();
-          this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
       }
     } ,(error:any) => {
       this.spinner.hide();

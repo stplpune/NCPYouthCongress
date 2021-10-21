@@ -108,7 +108,7 @@ export class SocialMediaPersonComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.socialMediaMessagesPersonArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -131,7 +131,7 @@ export class SocialMediaPersonComponent implements OnInit {
        
         this.workCountAgainstWorkType();
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

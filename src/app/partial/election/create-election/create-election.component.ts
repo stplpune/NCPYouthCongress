@@ -173,7 +173,7 @@ export class CreateElectionComponent implements OnInit {
           this.subElectionDivHide = false;
           this.btnText = 'Create Election';
         } else {
-          //  this.toastrService.error("Data is not available");
+          //  //this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -203,7 +203,7 @@ export class CreateElectionComponent implements OnInit {
         this.spinner.hide();
         this.electionTypeArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -220,7 +220,7 @@ export class CreateElectionComponent implements OnInit {
         this.spinner.hide();
         this.electionDropArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -243,7 +243,7 @@ export class CreateElectionComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.electionMasterArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -263,7 +263,7 @@ export class CreateElectionComponent implements OnInit {
         this.addSubElectionArray = res.data2; // same array name add and edit record
         this.patchElectionRecord();
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

@@ -79,7 +79,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
       } else {
         this.spinner.hide();
         this.receiverChatListArray = [];
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -132,7 +132,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         this.chatGroupMemberArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -150,7 +150,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         this.tblchatreceivedArray = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

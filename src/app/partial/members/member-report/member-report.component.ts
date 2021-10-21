@@ -105,7 +105,7 @@ export class MemberReportComponent implements OnInit {
         this.memberNameArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();

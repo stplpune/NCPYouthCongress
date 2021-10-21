@@ -353,7 +353,7 @@ export class OrganizationMasterComponent implements OnInit {
         this.spinner.hide();
         this.allStates = res.data1;
       } else {
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -414,7 +414,7 @@ export class OrganizationMasterComponent implements OnInit {
         }
       } else {
         this.spinner.hide();
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -437,7 +437,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: VillageId });
         }
       } else {
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -485,7 +485,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.getOrganizationList();
           this.clearForm();
         } else {
-          // this.toastrService.error("Data is not available");
+          // //this.toastrService.error("Data is not available");
         }
       }, (error: any) => {
         if (error.status == 500) {
@@ -547,7 +547,7 @@ export class OrganizationMasterComponent implements OnInit {
           CreatedBy: this.commonService.loggedInUserId()
         })
       } else {
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -567,7 +567,7 @@ export class OrganizationMasterComponent implements OnInit {
           this.orgMasterForm.patchValue({ VillageId: this.selEditOrganization.VillageId });
         }
       } else {
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       if (error.status == 500) {

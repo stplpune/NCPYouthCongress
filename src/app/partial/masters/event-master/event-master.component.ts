@@ -221,7 +221,7 @@ export class EventMasterComponent implements OnInit {
       } else {
         this.eventListArray = [];
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     },
       (error: any) => {

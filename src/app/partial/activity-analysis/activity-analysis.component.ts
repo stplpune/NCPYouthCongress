@@ -147,7 +147,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.memberNameArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -195,7 +195,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.socialMediaArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -214,7 +214,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.categoryArray = res.data1;
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -271,7 +271,7 @@ export class ActivityAnalysisComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.activityLikesArray = [];
-        // this.toastrService.error("Data is not available");
+        // //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -301,7 +301,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.getPoliticalWork();
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
