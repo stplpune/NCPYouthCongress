@@ -45,7 +45,7 @@ export class MobileLoginComponent implements OnInit {
       if (res.data == '0') {
         sessionStorage.setItem('loggedInDetails', JSON.stringify(res));
         this.spinner.hide();
-        this.toastrService.success('login successfully');
+        // this.toastrService.success('login successfully');
 
         this.router.navigate(['../../../' + this.commonService.redirectToDashborad()], { relativeTo: this.route })
       } else {

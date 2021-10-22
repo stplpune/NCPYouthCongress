@@ -212,6 +212,8 @@ export class OrganizationDetailsComponent implements OnInit {
       PostfromDate: ['', Validators.required],
       BodyName: [this.getCommitteeName, Validators.required],
       bodyId: ['', Validators.required],
+      prevMember: [''],
+      currentDesignation: [''],
     })
   }
 
@@ -561,6 +563,8 @@ export class OrganizationDetailsComponent implements OnInit {
 
   addEditMember(data: any, flag: any) {
     this.HighlightRow = data.SrNo;
+    this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
+    this.bodyMember.controls['prevMember'].setValue(data.MemberName);
     this.addMemberFlag = flag;
     if (data.UserId == "" || data.UserId == "") {
       this.toastrService.error("Please select member and try again");

@@ -36,7 +36,7 @@
                                     [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.BodyLevelId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.BodyLevelId.errors.required">Body Level is required</div>
+                                    <div *ngIf="f.BodyLevelId.errors.required">Committee Level is required</div>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -258,7 +258,7 @@
                         <form [formGroup]="AddDesignationForm">
                             <div class="form-container">
                                 <div class="mb-3">
-                                    <label for="txtBodyName" class="form-label">Body Name</label>
+                                    <label for="txtBodyName" class="form-label">Committee Name</label>
                                     <input type="text" class="form-control" readonly formControlName="BodyId" />
                                 </div>
                                 <div class="mb-3">

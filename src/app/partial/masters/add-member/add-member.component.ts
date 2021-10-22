@@ -7,6 +7,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-member',
@@ -16,7 +17,7 @@ import { Subject } from 'rxjs';
 export class AddMemberComponent implements OnInit {
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
-  GenderArray = [{ id: 1, name: "Male" }, { id: 2, name: "Female" }, { id: 3, name: "Other" }];
+  GenderArray = [{ id: 1, name: "Male" }, { id: 0, name: "Female" }, { id: 2, name: "Other" }];
   selGender: any;
   getImgExt: any;
   imgName: any;
@@ -63,6 +64,10 @@ export class AddMemberComponent implements OnInit {
   searchFilter = "";
   profileFlag = "Create";
   highlightedRow: any;
+  getCommiteeName:any;
+  allDesignatedMembers:any;
+  maxDate: any = new Date();
+  resCommittees:any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -71,14 +76,17 @@ export class AddMemberComponent implements OnInit {
     private toastrService: ToastrService,
     private commonService: CommonService,
     private fb: FormBuilder,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
+    this.getCommiteeName = this.commonService.getCommiteeInfo();
     this.myProfileForm();
     this.defaultFilterForm();
     this.getAllUsers();
     this.getDistrictByFilter();
     this.searchFilters('false');
+    this.getCommitteeName();
   }
 
   myProfileForm() {
@@ -97,8 +105,13 @@ export class AddMemberComponent implements OnInit {
       ConstituencyNo: [''],
       Gender: [''],
       EmailId: ['', [Validators.email]],
-      Address: [''],
-      CreatedBy: [this.commonService.loggedInUserId()]
+      // Address: [''],
+      CreatedBy: [this.commonService.loggedInUserId()],
+      DesignationId: ['', Validators.required],
+      PostfromDate: ['', Validators.required],
+      BodyId: ['', Validators.required],
+      UserPostBodyId: [0],
+      IsMultiple:[0]
     })
   }
 
@@ -242,6 +255,9 @@ export class AddMemberComponent implements OnInit {
       let fromData = new FormData();
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
+      this.editProfileForm.value.PostfromDate =  this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
+      console.log(this.editProfileForm.value);
+      return
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
@@ -491,5 +507,50 @@ export class AddMemberComponent implements OnInit {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../profile'], { relativeTo: this.route })
+  }
+
+  getCurrentDesignatedMembers(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDesignatedMembers = res.data1;
+      } else {
+        this.allDesignatedMembers = [];
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+
+  getCommitteeName() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetBodyOrgCellName_1_0
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resCommittees = res.data1;
+      } else {
+        this.resCommittees = [];
+          //this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  clearValueDatePicker() {
+    this.editProfileForm.controls['fromTodate'].setValue(null)
+  }
+
+  clikedClose(flag:any){
+    if(flag == 'Committees'){
+      this.editProfileForm.controls['DesignationId'].setValue('');
+    }
   }
 }
