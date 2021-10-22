@@ -135,6 +135,10 @@ export class DashboardComponent implements OnInit {
         this.pieChart();
         this.socialMediaChart();
       } else {
+        this.typesOfWorksArray = [];
+        this.perceptionOnSocialMediaArray = [];
+        this.highestActivityDistrictsArray = [];
+        this.lowestActivityDistrictsArray = [];
         this.spinner.hide();
         //this.toastrService.error("Data is not available");
       }
@@ -173,6 +177,8 @@ export class DashboardComponent implements OnInit {
         })
         this.weeklyColumnChart();
       } else {
+        this.workInThisWeekArray = [];
+        this.newMemberInThisWeekArray = [];
         this.spinner.hide();
         //this.toastrService.error("Data is not available");
       }
