@@ -866,9 +866,9 @@ mapsvg-layers-wrap+svg {
     height: none !important;
 }
 
-.modal-dialog {
+/* .modal-dialog {
     margin-block: 0 !important;
-}
+} */
 
 .list-column {
     columns: 2;

@@ -11,3 +11,6 @@
 .cdk-drag.row.active {
     background: #e9ecef !important;
 }
+.modal-content{
+    max-height: 92vh;
+}
