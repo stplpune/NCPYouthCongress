@@ -196,8 +196,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     // this.DistrictId ?  $('path#' + this.DistrictId).css('fill', 'red') :  '';
   }
 
-  getOrganizationByDistrictId(id: any) {
-    debugger
+  getOrganizationByDistrictId(id: any) {    
     this.spinner.show();
     this.getDistrict(id)
 
@@ -329,7 +328,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
-        this.getOrganizationByDistrictId(0);
+        let searchText = this.searchFilter.substring(0,1).toUpperCase()+this.searchFilter.substring(1);;
+        this.allDistrict.some((ele: any) => {
+          if (ele.DistrictName == searchText) {
+            this.getOrganizationByDistrictId(ele.DistrictId);
+          }
+        });
       }
       );
   }
