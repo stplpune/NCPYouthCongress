@@ -333,7 +333,7 @@ export class DashboardComponent implements OnInit {
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = "Date";
-    categoryAxis.title.text = "Days";
+    categoryAxis.title.text = "Dates";
     // categoryAxis.renderer.minGridDistance = 60;
     // categoryAxis.renderer.labels.template.rotation = -45;
     categoryAxis.renderer.minGridDistance = 20;

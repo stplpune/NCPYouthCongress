@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { MyProfileRoutingModule } from '../../user-profile/my-profile/my-profile-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ]
 })
 export class AddMemberModule { }

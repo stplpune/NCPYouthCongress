@@ -197,6 +197,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getOrganizationByDistrictId(id: any) {
+    debugger
     this.spinner.show();
     this.getDistrict(id)
  
