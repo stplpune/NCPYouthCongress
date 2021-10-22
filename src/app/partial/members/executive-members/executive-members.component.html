@@ -6,11 +6,11 @@
         <div class="col-sm-10">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 ms-auto">
                         <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')" (select)="committee($event)" placeholder="Select Committee Name">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="clearFilter('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
@@ -31,7 +31,7 @@
                             <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-auto">
                         <button (click)="refresh();" class="btn btn-sm btn-main float-sm-end"><i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
