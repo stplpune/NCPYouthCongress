@@ -72,9 +72,9 @@ export class SocialMediaMessagesComponent implements OnInit {
   GetSocialMediaMessages() {
     this.spinner.show();
     let formData = this.filterForm.value;
-    let obj = 'Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo +
+    let obj = 'UserId='+this.commonService.loggedInUserId()+'&Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo +
       '&MemberId=' + formData.memberName + '&FromDate=' + this.defaultFromDate + '&ToDate=' + this.defaultToDate
-    this.callAPIService.setHttp('get', 'GetSocialMediaMessages_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Web_2_0_Committee?' + obj, false, false, false, 'ncpServiceForWeb'); //GetSocialMediaMessages_Web_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       res.data == 0 ? (this.TotalMsg = res.data3[4].TotalMsg) : this.TotalMsg = 0;
       res.data == 0 ? (this.FacebookCount = res.data3[1].TotalMsg) : this.FacebookCount = 0;
@@ -119,7 +119,7 @@ export class SocialMediaMessagesComponent implements OnInit {
 
   getMemberName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'GetMemberddl_Web_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetBodyMemberListHaveSocialMedia_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //GetMemberddl_Web_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

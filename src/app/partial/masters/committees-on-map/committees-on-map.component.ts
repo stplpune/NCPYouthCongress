@@ -48,6 +48,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   graphInstance: any;
   loggedDistrictId:any;
   loggedUserTypeId:any;
+  allowClear:boolean = true;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -211,7 +212,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.resultCommittees = res.data1;
         this.selDistrict.setValue(Number(id));
-        this.addClasscommitteeWise();
       } else {
         this.defaultMembersFlag = false;
         this.defaultCommitteesFlag = true;
@@ -220,7 +220,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.selDistrict.setValue('');
         this.spinner.hide();
         this.selDistrict.setValue(Number(id));
-        this.addClasscommitteeWise();
       }
 
     }, (error: any) => {
@@ -231,10 +230,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     })
   }
 
-  addClasscommitteeWise(){
-    this.loggedUserTypeId == 5 ?  $('.mapsvg-wrap path[id!="'+this.loggedDistrictId+'"]').addClass('notClicked') : '';
-    this.loggedUserTypeId == 5 ?  $('.mapsvg-wrap path[id!="'+this.loggedDistrictId+'"]').css('fill', '#e4e0e0') : '';
-    
+  addClasscommitteeWise(id:any){
+    this.allDistrict.length == 1 ?  $('.mapsvg-wrap path[id!="'+id+'"]').addClass('notClicked') : '';
+    this.allDistrict.length == 1 ?  $('.mapsvg-wrap path[id!="'+id+'"]').css('fill', '#7289da'): '';
   }
 
   selectDistrict(event: any) {
@@ -255,6 +253,14 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
+        this.allDistrict.length == 1 ? this.addClasscommitteeWise(this.allDistrict[0].DistrictId) : '';
+        if (this.allDistrict.length == 1) {
+          this.defaultCloseBtn = false;
+          this.allowClear = false;
+        } else {
+          this.defaultCloseBtn = true;
+          this.allowClear = true;
+        }
         res.data1.find((ele: any) => {
           if (ele.DistrictId == id) {
             this.districtName = ele.DistrictName;

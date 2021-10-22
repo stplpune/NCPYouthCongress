@@ -73,12 +73,14 @@ export class OrganizationMasterComponent implements OnInit {
   heightedRow: any;
   getSessionData:any;
   getCommiteeDetails:any;
+  checkUserlevel:any;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.checkUserlevel = this.commonService.getsessionStorageData();
     this.getSessionData = this.commonService.getsessionStorageData();
     this.defultFilterForm();
     this.getOrganizationList();
@@ -830,6 +832,18 @@ export class OrganizationMasterComponent implements OnInit {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  redTocommitteesOnMap(){
+    let DistrictId:any;
+    if(this.allDistrict.length == 1){
+      DistrictId =  this.allDistrict[0].DistrictId;
+    } else{
+      DistrictId = 0;
+    }
+    this.router.navigate(['../committees-on-map'], {relativeTo:this.route});
+    sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
+ 
   }
 }
 

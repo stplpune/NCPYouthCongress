@@ -112,8 +112,8 @@ export class ActivityAnalysisComponent implements OnInit {
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datePipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     this.filterForm.value.fromTo[1] != "" ? (toDate = this.datePipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
 
-    let obj = 'categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate;
-    this.callAPIService.setHttp('get', 'GetPoliticalWork_Web_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
+    let obj = 'UserId='+this.commonService.loggedInUserId()+'&categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate;
+    this.callAPIService.setHttp('get', 'Web_GetPoliticalWork_Web_1_0_Commmittee?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       res.data == 0 ? (this.PoliticalWork = res.data3[0].Totalwork) : this.PoliticalWork = 0;
       res.data == 0 ? (this.newsLetters = res.data3[1].Totalwork) : this.newsLetters = 0;
