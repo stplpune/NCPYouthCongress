@@ -256,8 +256,7 @@ export class AddMemberComponent implements OnInit {
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
       this.editProfileForm.value.PostfromDate =  this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
-      console.log(this.editProfileForm.value);
-      return
+
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)

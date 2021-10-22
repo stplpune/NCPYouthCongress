@@ -327,6 +327,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
+        this.districtName = "Maharashtra State";
         this.searchFilter = this.Search.value;
         this.getOrganizationByDistrictId(0);
       }
