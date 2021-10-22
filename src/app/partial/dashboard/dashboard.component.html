@@ -72,18 +72,23 @@
                                     class="fas fa-external-link-alt"></i></a>
                             <span class="float-end">
                                 <div class="input-group">
-                                    <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)" 
+                                    <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)"
                                         [(ngModel)]="toDate" class="form-control form-control-sm" [max]="maxDate"
                                         [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                                     <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
-                                    <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1" >
+                                    <button class="btn btn-light btn-sm" type="button" [owlDateTimeTrigger]="dt1">
                                         <i class="fas fa-calendar-alt"></i>
                                     </button>
                                 </div>
                             </span>
                         </div>
-                        <div class="card-body chartHeight workLineChartdiv p-0">
-
+                        <div class="card-body" [ngClass]="workInThisWeekArray?.length !=0 ?  'workLineChartdiv chartHeight': ''">
+                          
+                        </div>
+                        <div>
+                            <div *ngIf="workInThisWeekArray?.length ==0">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,26 +104,41 @@
                                 </ngx-select>
                             </span>
                         </div>
-                        <div class="card-body chartHeight weeklyChartdiv">
+                        <div class="card-body  weeklyChartdiv"  [ngClass]="newMemberInThisWeekArray?.length !=0 ?  'chartHeight': ''">
+                            <div>
+                                <div *ngIf="newMemberInThisWeekArray?.length ==0">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="card mb-3">
-                        <div class="card-header pb-0">
+                        <div class="card-header">
                             Types of Works
                         </div>
-                        <div class="card-body pieChartdiv pt-0">
+                        <div class="card-body pieChartdiv" [ngClass]="typesOfWorksArray?.length !=0 ?  'chartHeight': ''">
+                            <div>
+                                <div *ngIf="typesOfWorksArray?.length ==0">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card mb-3" >
+                    <div class="card mb-3">
                         <div class="card-header">
                             Perception on Social Media <a routerLink="social-media-image"><i
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
-                        <div class="card-body chartHeight socialMediaChartdiv">
+                        <div class="card-body  socialMediaChartdiv" [ngClass]="typesOfWorksArray?.length !=0 ?  'chartHeight': ''">
+                            <div>
+                                <div *ngIf="perceptionOnSocialMediaArray?.length ==0">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -126,29 +146,43 @@
         </div>
         <div class="col-sm-3 chartbox">
             <div class="card mb-3">
-                <div class="card-header"><i class="fas fa-arrow-up bounce text-success me-2"></i>Highest Activity Districts
+                <div class="card-header"><i class="fas fa-arrow-up bounce text-success me-2"></i>Highest Activity
+                    Districts
                 </div>
                 <div class="card-body pt-0 pb-1">
-                    <a class="activity-item bg-high" *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
+                    <a class="activity-item bg-high"
+                        *ngFor="let highestActivityDistricts of highestActivityDistrictsArray">
 
-                        {{highestActivityDistricts.DistrictName}}
+                        {{highestActivityDistricts?.DistrictName}}
                         <span class="float-end"><span
-                                class="badge bg-success">{{highestActivityDistricts.ActivityCount}}</span></span>
+                                class="badge bg-success">{{highestActivityDistricts?.ActivityCount}}</span></span>
                     </a>
-
+                    <div>
+                        <div *ngIf="perceptionOnSocialMediaArray?.length ==0">
+                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card mb-3">
-                <div class="card-header "><i class="fas fa-arrow-down bounce text-danger me-2"></i>Lowest Activity Districts
+                <div class="card-header "><i class="fas fa-arrow-down bounce text-danger me-2"></i>Lowest Activity
+                    Districts
                 </div>
-                <div class="card-body pt-0 pb-1" *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
-                    <a class="activity-item bg-low">
+                <div class="card-body pt-0 pb-1">
+                    <a class="activity-item bg-low"
+                        *ngFor="let lowestActivityDistricts of lowestActivityDistrictsArray">
 
                         {{lowestActivityDistricts.DistrictName}}
                         <span class="float-end"><span
                                 class="badge bg-danger">{{lowestActivityDistricts.ActivityCount}}</span></span>
                     </a>
+                    <div>
+                        <div *ngIf="lowestActivityDistrictsArray?.length ==0">
+                            <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
