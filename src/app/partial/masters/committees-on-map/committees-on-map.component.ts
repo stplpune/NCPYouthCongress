@@ -46,9 +46,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   clearDataFlag: any;
   DistWiseCommityWGraphArray: any;
   graphInstance: any;
-  loggedDistrictId:any;
-  loggedUserTypeId:any;
-  allowClear:boolean = true;
+  loggedDistrictId: any;
+  loggedUserTypeId: any;
+  allowClear: boolean = true;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -93,7 +93,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.DistrictId) {
       this.showSvgMap(this.commonService.mapRegions());
       this.selectDistrict(this.DistrictId);
-    }else{
+    } else {
       this.showSvgMap(this.commonService.mapRegions());
       // this.selectDistrict(this.loggedDistrictId);
       // this.getOrganizationByDistrictId(this.DistrictId);
@@ -107,7 +107,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.getOrganizationByDistrictId(distrctId);
     });
 
-  
+
   }
 
   showSvgMap(regions_m: any) {
@@ -200,7 +200,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     debugger
     this.spinner.show();
     this.getDistrict(id)
- 
+
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -231,9 +231,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     })
   }
 
-  addClasscommitteeWise(id:any){
-    this.allDistrict.length == 1 ?  $('.mapsvg-wrap path[id!="'+id+'"]').addClass('notClicked') : '';
-    this.allDistrict.length == 1 ?  $('.mapsvg-wrap path[id!="'+id+'"]').css('fill', '#7289da'): '';
+  addClasscommitteeWise(id: any) {
+    this.allDistrict.length == 1 ? $('.mapsvg-wrap path[id!="' + id + '"]').addClass('notClicked') : '';
+    this.allDistrict.length == 1 ? $('.mapsvg-wrap path[id!="' + id + '"]').css('fill', '#7289da') : '';
   }
 
   selectDistrict(event: any) {
@@ -244,12 +244,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.defaultMembersFlag = false;
-    
+
   }
 
   getDistrict(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -396,8 +396,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-      // xAxis.renderer.labels.template.rotation = -45;
+      //xAxis.renderer.labels.template.rotation = -45;
       xAxis.renderer.minGridDistance = 30;
+
+      let label = xAxis.renderer.labels.template;
+      label.truncate = true;
+      label.maxWidth = 80;
+      label.tooltipText = "{category}";
 
       function createSeries(value: string | undefined, name: string) {
         let series = chart.series.push(new am4charts.ColumnSeries())
