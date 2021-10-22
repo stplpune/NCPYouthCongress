@@ -234,4 +234,11 @@ export class ExecutiveMembersComponent implements OnInit {
     this.router.navigate(['../profile'], {relativeTo:this.route})
   }
 
+  refresh(){
+    this.defaultFilterForm();
+    let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+    this.getViewMembers(obj);
+    console.log(obj);
+  }
+
 }

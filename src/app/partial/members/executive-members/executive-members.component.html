@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row mx-0 px-0" id="pageheader">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <span class="page-name">Executive Members</span>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-10">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
                     <div class="col-sm-3">
@@ -14,7 +14,7 @@
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="clearFilter('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (remove)="clearFilter('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
                             optionValueField="TalukaId" optionTextField="TalukaName">
                         </ngx-select>
@@ -30,6 +30,9 @@
                             <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="clearFilter('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                             <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                         </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button (click)="refresh();" class="btn btn-sm btn-main float-sm-end"><i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
             </form>
