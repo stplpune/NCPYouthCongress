@@ -441,26 +441,15 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 .chartbox .activity-item {
-    margin-bottom: 5px;
-    border-radius: 5px;
-    padding: 8px 10px;
+    margin-bottom: 18px;
+    /*border-radius: 5px;
+    padding: 8px 10px; */
     font-size: .85rem;
     transition: all .25s ease-in;
     display: block;
     text-decoration: none;
-    color: #000
-}
-
-.chartbox .bg-high:hover {
-    background-color: #dbffd2;
-    transition: all .25s ease-in;
-    color: #009200
-}
-
-.chartbox .bg-low:hover {
-    background-color: #ffdfdf;
-    transition: all .25s ease-in;
-    color: #920000
+    color: #000;
+    align-items: center;
 }
 
 .chartbox .table {

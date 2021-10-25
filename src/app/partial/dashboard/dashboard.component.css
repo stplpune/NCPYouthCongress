@@ -2,7 +2,9 @@
 .bounce {
     animation: bounce 3s infinite;
 }
-
+.bounce-rev{
+    animation: bounce-rev 3s infinite;
+}
 @keyframes bounce {
     0%,
     20%,
@@ -12,9 +14,89 @@
         transform: translateY(0);
     }
     40% {
-        transform: translateY(-15px);
-    }
-    60% {
         transform: translateY(-10px);
     }
+    60% {
+        transform: translateY(-5px);
+    }
 }
+@keyframes bounce-rev {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(10px);
+    }
+    60% {
+        transform: translateY(5px);
+    }
+  }
+.chartbox .activity-item .act-count{
+    background-color: rgb(241, 241, 241);
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    line-height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.member-posts{
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    border-bottom: solid 1px #eee;
+}
+.member-posts .member-photo{
+    width:100%;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.member-posts .dropdown-toggle::after{
+    content:none;
+}
+.member-posts .member-name{
+    font-weight: 600;
+    margin-bottom: 1px;
+}
+.member-posts .member-name{
+    font-weight: 600;
+    margin-bottom: 1px;
+}
+.member-posts .member-address,
+.member-posts .post-date{
+    margin-bottom: 3px;
+    font-size: 0.75rem;
+    color: #777;
+}
+.member-posts .post-details {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 0.8rem;
+    color:#777;
+  }
+  .member-posts .post-title {
+    font-size: 0.85rem;
+    color:#333;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .member-posts .post-image{
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .recent-posts{
+    height: 89vh;
+        overflow-y: auto;
+        padding: 20px;
+  }
