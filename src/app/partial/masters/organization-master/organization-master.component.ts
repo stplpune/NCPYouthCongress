@@ -476,7 +476,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.btnText == "Create Committee" ? btnTextFlag = 0 : btnTextFlag = this.HighlightRow;
       fromData.append('Id', btnTextFlag);
 
-      this.callAPIService.setHttp('Post', 'Web_Insert_Bodycellorgmaster_1_0', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.setHttp('Post', 'Web_Insert_bodycellorgmaster_1_0_SubCommittee', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.btnText = "Create  Committee";

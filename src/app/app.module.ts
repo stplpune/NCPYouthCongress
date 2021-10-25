@@ -31,8 +31,8 @@ import { DeleteComponent } from './partial/dialogs/delete/delete.component';
 import { NoAuthGuardService } from './auth/no-auth-guard.service';
 import { AuthorizationService } from './auth/authorization.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { AgmDrawingModule } from '@agm/drawing';
-
+import { AddMemberComponent } from './partial/dialogs/add-member/add-member.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { AgmDrawingModule } from '@agm/drawing';
     WebFooterComponent,
     ServerErrorComponent,
     ActivityDetailsComponent,
-    DeleteComponent
+    DeleteComponent,
+    AddMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +63,8 @@ import { AgmDrawingModule } from '@agm/drawing';
     LightboxModule,
     GalleryModule,
     Ng2SearchPipeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,

@@ -86,6 +86,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="exe-memcards">
+                    <a (click)="addMember()">Add Member</a>
                     <table class="table table-hover table-borderless">
                         <tbody>
                             <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">

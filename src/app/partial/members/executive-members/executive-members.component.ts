@@ -8,6 +8,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,10 +32,10 @@ export class ExecutiveMembersComponent implements OnInit {
   memberNameArray: any;
   memberCountData: any;
   subject: Subject<any> = new Subject();
-
+  result:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService,    public dialog: MatDialog,
     private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
@@ -240,5 +242,13 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(obj);
     console.log(obj);
   }
+
+  addMember(){
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '1024px',
+      data:this.result
+    });
+  }
+
 
 }
