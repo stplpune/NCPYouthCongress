@@ -1,8 +1,8 @@
 .profile-photo{
     object-fit: cover;
-    height:150px;
-    width: 150px;
-    object-position: center;
+    height:220px;
+    width: 100%;
+    object-position: top;
     position: relative;
 }
 .update-photo {
@@ -19,7 +19,7 @@
     color: #000;
     opacity: 0.9;
     top: -11px;
-    right: 15px;
+    right: -11px;
     z-index: 9;
     object-fit: cover;
 }
