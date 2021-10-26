@@ -31,11 +31,14 @@ export class DashboardComponent implements OnInit {
   newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
   districtId: number = 0;
-
   maxDate: any = new Date();
   fromDate= new Date(Date.now() + -6 * 24 * 60 * 60 * 1000);
   toDate :any;
   weekRangeObj: any;
+  Liked:boolean =true;
+  comments:boolean =false;
+  Shared:boolean =false;
+   
 
   constructor(
     private callAPIService: CallAPIService,

@@ -936,10 +936,10 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     font-size: 12px !important;
 }
 
-.modal-body {
+/* .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
-}
+} */
 
 .remove-shape {
     direction: ltr;
