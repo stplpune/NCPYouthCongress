@@ -32,6 +32,7 @@ export class ExecutiveMembersComponent implements OnInit {
   memberCountData: any;
   subject: Subject<any> = new Subject();
   result: any;
+  highlightedRow:number = 0;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService, public dialog: MatDialog,
@@ -239,6 +240,7 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   addEditMember(flag:any,id:any) {
+    this.highlightedRow = id
     let obj = {"formStatus":flag, 'Id':id}
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',

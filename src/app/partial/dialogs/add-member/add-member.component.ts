@@ -37,7 +37,7 @@ export class AddMemberComponent implements OnInit {
     ImgUrl: any;
     isShowMenu: boolean = false;
     @Output() onShowMenu: EventEmitter<any> = new EventEmitter();
-    editFlag: boolean = true;
+    editFlag: boolean = false;
     userName = this.commonService.loggedInUserName();
     submitted = false;
     resultVillageOrCity: any;
@@ -83,6 +83,7 @@ export class AddMemberComponent implements OnInit {
     resCommittees:any;
     getConstituencyResult:any;
     memberID!:number;
+    editMemObj:any;
 
     ngOnInit(): void {
       this.profileFlag = this.data.formStatus;
@@ -109,7 +110,6 @@ export class AddMemberComponent implements OnInit {
         IsRural: [1],
         Gender: [''],
         EmailId: ['', [Validators.email]],
-        // Address: [''],
         CreatedBy: [this.commonService.loggedInUserId()],
         DesignationId: ['', Validators.required],
         PostfromDate: [new Date(), Validators.required],
@@ -125,11 +125,13 @@ export class AddMemberComponent implements OnInit {
     }
   
     profileFormPathValue(data: any) {
+      this.editFlag = true;
+      this.editMemObj = data;
       this.profileFlag = 'Update';
       this.highlightedRow = data.Id
       this.selGender = data.Gender;
       data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
-      this.getDistrict();
+      this.getCommitteeName();
       this.ImgUrl = data.ProfilePhoto;
       this.editProfileForm.patchValue({
         UserId: data.Id,
@@ -143,7 +145,10 @@ export class AddMemberComponent implements OnInit {
         Address: data.Address,
         DistrictId: data.DistrictId,
         TalukaId: data.TalukaId,
-        VillageId: data.VillageId
+        VillageId: data.VillageId,
+        FacebookLink: data.FacebookLink,
+        InstagramLink: data.InstagramLink,
+        TwitterLink: data.TwitterLink,
       });
     }
   
@@ -156,7 +161,7 @@ export class AddMemberComponent implements OnInit {
     }
   
     getDistrict() {
-      this.spinner.show();
+      //this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
@@ -184,7 +189,7 @@ export class AddMemberComponent implements OnInit {
         this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
         return
       }
-      this.spinner.show();
+      //this.spinner.show();
       (districtId == null || districtId == "") ? districtId = 0 : districtId = districtId;
       this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
@@ -225,7 +230,7 @@ export class AddMemberComponent implements OnInit {
         this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
       }
       this.villageDisabled = false;
-      this.spinner.show();
+      //this.spinner.show();
       let appendString = "";
       selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.editProfileForm.value.DistrictId;
       this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -279,6 +284,7 @@ export class AddMemberComponent implements OnInit {
         this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0_Committee', false, fromData, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           if (res.data == 0) {
+            this.editFlag = false;
             this.disabledEditForm = true;
             this.profilePhotoChange = null;
             this.submitted = false;
@@ -306,7 +312,7 @@ export class AddMemberComponent implements OnInit {
     }
   
     getProfileData(id: any) {
-      this.spinner.show();
+      //this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetUserDetails?Id=' + id, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
@@ -400,12 +406,17 @@ export class AddMemberComponent implements OnInit {
     }
   
     getCurrentDesignatedMembers(id: any) {
-      this.spinner.show();
+      //this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.spinner.hide();
           this.allDesignatedMembers = res.data1;
+          if (this.editFlag){
+            this.editMemObj.DesignationId ? (this.editProfileForm.controls['DesignationId'].setValue(this.editMemObj.DesignationId)) : '';
+            this.getConstituencylist();
+          }
+          
         } else {
           this.allDesignatedMembers = [];
         }
@@ -417,12 +428,17 @@ export class AddMemberComponent implements OnInit {
     }
   
     getConstituencylist() {
-      this.spinner.show();
+      //this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetConstituencydetails', false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.spinner.hide();
           this.getConstituencyResult = res.data1;
+          if (this.editFlag){
+            this.editMemObj.ConstituencyNo ?  (this.editProfileForm.controls['ConstituencyNo'].setValue(this.editMemObj.ConstituencyNo.toString())) : '';
+            this.getDistrict();
+          }
+          
         } else {
           this.allDesignatedMembers = [];
         }
@@ -435,12 +451,15 @@ export class AddMemberComponent implements OnInit {
   
   
     getCommitteeName() {
-      this.spinner.show();
+      //this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetBodyOrgCellName_1_0
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.spinner.hide();
           this.resCommittees = res.data1;
+          if (this.editFlag){
+            this.editMemObj.BodyId ? (this.editProfileForm.controls['BodyId'].setValue(this.editMemObj.BodyId), this.getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)) : '';
+          }
         } else {
           this.resCommittees = [];
             //this.toastrService.error("Data is not available");

@@ -331,7 +331,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
   
   getOrganizationList() {
-    this.spinner.show();
+    //this.spinner.show();
     let filterData = this.filterForm.value;
     (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
     let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation + '&LevelId=' + filterData.LevelId;
@@ -366,7 +366,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getLevel() {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -385,7 +385,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getCommitteeByLevel(bodyLevelId:any) {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId='+this.commonService.loggedInUserId()+'&BodyLevelId='+bodyLevelId, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -407,7 +407,7 @@ export class OrganizationMasterComponent implements OnInit {
 
 
   getState() {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetState_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetState_1_0 
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -430,7 +430,7 @@ export class OrganizationMasterComponent implements OnInit {
     }
   }
   getDistrict() {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_Committee?StateId=' + 1 +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -456,7 +456,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   getTaluka(districtId: any) {
     this.globalDistrictId = districtId;
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0_Committee?DistrictId=' + districtId+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API Web_GetTaluka_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -486,7 +486,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any, selType: any) {
-    this.spinner.show();
+    //this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID+'&UserId='+this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId+'&UserId='+this.commonService.loggedInUserId(); //Web_GetVillage_1_0
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
@@ -525,7 +525,7 @@ export class OrganizationMasterComponent implements OnInit {
       return;
     }
     else {
-      // this.spinner.show();
+      // //this.spinner.show();
       let fromData: any = new FormData();
       this.orgMasterForm.value.BodyLevelId == 6 ? this.orgMasterForm.value.IsRural = 0 : this.orgMasterForm.value.IsRural = 1;
 
@@ -593,7 +593,7 @@ export class OrganizationMasterComponent implements OnInit {
   editOrganization(BodyId: any) {
     this.clearForm();
     this.btnText = "Update Committee";
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Getbodycellorgmaster_1_0?BodyId=' + BodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -622,7 +622,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   getDesignation() {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Getdesignationmaster_1_0', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -661,7 +661,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   AlreadyAssignedDesignations(desBodyId: any) {
-    this.spinner.show();
+    //this.spinner.show();
     this.modalDeafult = true
     this.callAPIService.setHttp('get', 'Web_GetAssignedDesignation_1_0?BodyId=' + desBodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -682,7 +682,7 @@ export class OrganizationMasterComponent implements OnInit {
   get d() { return this.AddDesignationForm.controls };
 
   submitDesignationForm() {
-    this.spinner.show();
+    //this.spinner.show();
     this.addDesFormSubmitted = true;
     if (this.AddDesignationForm.invalid) {
       this.spinner.hide();
@@ -832,7 +832,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selCity() {
-    this.spinner.show();
+    //this.spinner.show();
     this.villageCityLabel = "City";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
@@ -848,7 +848,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selVillage() {
-    this.spinner.show();
+    //this.spinner.show();
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
       this.spinner.hide();
@@ -884,7 +884,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   deletecommittee() {
-    this.spinner.show();
+    //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Delete_bodycellorgmaster_1_0?UserId=' + this.commonService.loggedInUserId() + '&BodyId=' + this.deletebodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

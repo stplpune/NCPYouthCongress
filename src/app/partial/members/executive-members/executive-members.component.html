@@ -91,7 +91,7 @@
                     </div>
                     <table class="table table-hover table-borderless">
                         <tbody>
-                            <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="resultExeMember?.MemberId == highlightedRow">
                                 <td>
                                     <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
                                     <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/ncp-default.png" class="prophoto" />
