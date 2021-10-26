@@ -217,7 +217,6 @@ export class AddMemberComponent implements OnInit {
     }
   
     getVillageOrCity(talukaID: any, selType: any) {
-      debugger;
       if (talukaID == "" || talukaID == 0) { return };
   
       if (this.villageCityLabel == "Village") {
@@ -264,7 +263,6 @@ export class AddMemberComponent implements OnInit {
         let fromData = new FormData();
         let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
         this.editProfileForm.value.Name = FullName;
-        debugger;
         this.editProfileForm.value.PostfromDate =  this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
   
         Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {

@@ -80,7 +80,7 @@
                             <label for="ddlVillageTown" class="form-label required-field">Designation</label>
                             <ngx-select [allowClear]="true" [items]="allDesignatedMembers"
                                 (remove)="clikedClose('Designation')" placeholder="Select Designation"
-                                optionValueField="DesignationId" [disabled]="!this.editProfileForm.value.BodyId"
+                                optionValueField="DesignationId" [disabled]="!this.editProfileForm.value.BodyId || allDesignatedMembers.length ==0"
                                 formControlName="DesignationId" optionTextField="DesignationName">
                             </ngx-select>
                             <div *ngIf="submitted && f.DesignationId.errors" class="invalid-feedback">
