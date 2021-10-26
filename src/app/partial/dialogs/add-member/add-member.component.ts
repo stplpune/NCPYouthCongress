@@ -82,16 +82,16 @@ export class AddMemberComponent implements OnInit {
     maxDate: any = new Date();
     resCommittees:any;
     getConstituencyResult:any;
+    memberID!:number;
 
     ngOnInit(): void {
+      this.profileFlag = this.data.formStatus;
+      this.memberID = this.data.Id;
       this.getCommiteeName = this.commonService.getCommiteeInfo();
       this.myProfileForm();
-      this.defaultFilterForm();
-      this.getAllUsers();
-      this.getDistrictByFilter();
-      this.searchFilters('false');
       this.getCommitteeName();
       this.getConstituencylist();
+      this.profileFlag == 'Update' && this.memberID != 0 ?  this.getProfileData(this.memberID) : '';
     }
   
     myProfileForm() {
@@ -293,9 +293,9 @@ export class AddMemberComponent implements OnInit {
               this.myProfileForm();
               this.toastrService.success(result.Msg);
             }
-            this.getAllUsers();
             this.ImgUrl = "";
             this.highlightedRow = "";
+            this.onNoClick('Yes')
           } else {
             this.spinner.hide();
             if (res.data == 1) {
@@ -399,123 +399,6 @@ export class AddMemberComponent implements OnInit {
         this.editProfileForm.controls["TalukaId"].clearValidators();
         this.editProfileForm.controls["TalukaId"].updateValueAndValidity();
       }
-    }
-  
-    // filter and table contant 
-  
-    getDistrictByFilter() {
-      this.spinner.show();
-      this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
-      this.callAPIService.getHttp().subscribe((res: any) => {
-        if (res.data == 0) {
-          this.spinner.hide();
-          this.allDistrict = res.data1;
-        } else {
-          this.spinner.hide();
-          if (res.data == 1) {
-            this.toastrService.error("Data is not available 2");
-          } else {
-            this.toastrService.error("Please try again something went wrong");
-          }
-        }
-      })
-    }
-  
-    getTalukaByFilter() {
-      this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + this.filterForm.value.f_DistrictId, false, false, false, 'ncpServiceForWeb');
-      this.callAPIService.getHttp().subscribe((res: any) => {
-        if (res.data == 0) {
-          this.spinner.hide();
-          this.getTalkaByDistrict = res.data1;
-        } else {
-          this.spinner.hide();
-          if (res.data == 1) {
-            //this.toastrService.error("Data is not available");
-          } else {
-            this.toastrService.error("Please try again something went wrong");
-          }
-        }
-      })
-    }
-  
-    defaultFilterForm() {
-      this.filterForm = this.fb.group({
-        f_DistrictId: [0],
-        f_TalukaId: [0],
-        f_search: [''],
-      })
-    }
-  
-    getAllUsers() {
-      this.spinner.show();
-      let formData = this.filterForm.value;
-      let obj: any = 'DistrictId=' + formData.f_DistrictId + '&UserId=' + this.commonService.loggedInUserId() + '&Search=' + formData.f_search + '&nopage=' + this.paginationNo + '&TalukaId=' + formData.f_TalukaId;
-      this.callAPIService.setHttp('get', 'Web_get_User?' + obj, false, false, false, 'ncpServiceForWeb');
-      this.callAPIService.getHttp().subscribe((res: any) => {
-        if (res.data == 0) {
-          this.spinner.hide();
-          this.resAllUsers = res.data1;
-          this.total = res.data2[0].TotalCount;
-        } else {
-          this.spinner.hide();
-          if (res.data == 1) {
-            this.resAllUsers = [];
-          } else {
-            this.toastrService.error("Please try again something went wrong");
-          }
-        }
-      })
-    }
-  
-    onClickPagintion(pageNo: number) {
-      this.paginationNo = pageNo;
-      this.getAllUsers();
-    }
-  
-    filterData() {
-      this.paginationNo = 1;
-      this.getAllUsers();
-    }
-  
-    onKeyUpFilter() {
-      this.subject.next();
-    }
-  
-    searchFilters(flag: any) {
-      if (flag == 'true') {
-        if (this.filterForm.value.f_search == "" || this.filterForm.value.f_search == null) {
-          this.toastrService.error("Please search and try again");
-          return
-        }
-      }
-      this.subject
-        .pipe(debounceTime(700))
-        .subscribe(() => {
-          this.searchFilter = this.filterForm.value.f_search;
-          this.paginationNo = 1;
-          this.getAllUsers();
-        }
-        );
-    }
-  
-    clearFilter(flag: any) {
-      if (flag == 'f_DistrictId') {
-        this.filterForm.controls['f_DistrictId'].setValue(0);
-        this.defaultFilterForm();
-      } else if (flag == 'f_TalukaId') {
-        this.filterForm.controls['f_TalukaId'].setValue(0);
-      } else if (flag == 'f_search') {
-        this.filterForm.controls['f_search'].setValue('');
-      }
-      this.paginationNo = 1;
-      this.getAllUsers();
-    }
-  
-  
-    redToMemberProfile(memberId: any, FullName: any) {
-      let obj = { 'memberId': memberId, 'FullName': FullName }
-      sessionStorage.setItem('memberId', JSON.stringify(obj));
-      this.router.navigate(['../profile'], { relativeTo: this.route })
     }
   
     getCurrentDesignatedMembers(id: any) {

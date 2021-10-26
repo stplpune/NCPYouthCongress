@@ -10,8 +10,6 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
 import { MatDialog } from '@angular/material/dialog';
-
-
 @Component({
   selector: 'app-executive-members',
   templateUrl: './executive-members.component.html',
@@ -32,11 +30,11 @@ export class ExecutiveMembersComponent implements OnInit {
   memberNameArray: any;
   memberCountData: any;
   subject: Subject<any> = new Subject();
-  result:any;
+  result: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
-    private spinner: NgxSpinnerService,    public dialog: MatDialog,
-    private toastrService: ToastrService, private router: Router,private route: ActivatedRoute,
+    private spinner: NgxSpinnerService, public dialog: MatDialog,
+    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
     private commonService: CommonService, public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
@@ -46,8 +44,6 @@ export class ExecutiveMembersComponent implements OnInit {
     this.defaultFilterForm();
     this.searchFilter('false');
   }
-
-
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
@@ -66,9 +62,9 @@ export class ExecutiveMembersComponent implements OnInit {
         this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
-          this.toastrService.error("Data is not available 2");
+        this.toastrService.error("Data is not available 2");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -86,27 +82,26 @@ export class ExecutiveMembersComponent implements OnInit {
         this.spinner.hide();
         this.getTalkaByDistrict = res.data1;
       } else {
-          //this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
 
-
   getMemberName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetBodyOrgCellName_1_0
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetBodyOrgCellName_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-          //this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -124,9 +119,9 @@ export class ExecutiveMembersComponent implements OnInit {
         this.resultVillageOrCity = res.data1;
 
       } else {
-          this.toastrService.error("Data is not available1");
+        this.toastrService.error("Data is not available1");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -159,7 +154,7 @@ export class ExecutiveMembersComponent implements OnInit {
           this.toastrService.error("Please try again something went wrong");
         }
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
@@ -209,9 +204,9 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj)
   }
 
-  searchFilter(flag:any) {
-    if(flag == 'true'){
-      if(this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null){
+  searchFilter(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
         this.toastrService.error("Please search and try again");
         return
       }
@@ -225,30 +220,33 @@ export class ExecutiveMembersComponent implements OnInit {
       );
   }
 
-  onKeyUpFilter(){
+  onKeyUpFilter() {
     this.subject.next();
   }
 
-  
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../profile'], {relativeTo:this.route})
+    this.router.navigate(['../profile'], { relativeTo: this.route })
   }
 
-  refresh(){
+  refresh() {
     this.defaultFilterForm();
     let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
     this.getViewMembers(obj);
     console.log(obj);
   }
 
-  addMember(){
+  addEditMember(flag:any,id:any) {
+    let obj = {"formStatus":flag, 'Id':id}
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
-      data:this.result
+      data: obj
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.getMemberName();
+      }
     });
   }
-
-
 }

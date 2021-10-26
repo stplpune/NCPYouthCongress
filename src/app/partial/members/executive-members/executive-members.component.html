@@ -87,7 +87,7 @@
             <div class="card">
                 <div class="card-body" id="exe-memcards">
                     <div class="text-end form-container">
-                        <a (click)="addMember()" class="btn btn-sm btn-main">Add New Member</a>
+                        <a (click)="addEditMember('Create',0)" class="btn btn-sm btn-main">Add New Member</a>
                     </div>
                     <table class="table table-hover table-borderless">
                         <tbody>
@@ -134,6 +134,7 @@
                                         <i class="fas fa-ban text-danger"></i> 
                                     </ng-template></span>
                                 </td>
+                                <td (click)="addEditMember('Update',resultExeMember?.MemberId)" >Edit</td>
                             </tr>
                             <tr *ngIf="resultAllExeMembers?.length == 0">
                                 <td colspan="7">
