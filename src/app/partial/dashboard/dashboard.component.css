@@ -47,25 +47,26 @@
     margin-right: 10px;
 }
 .member-posts{
-    padding-bottom: 15px;
-    margin-bottom: 5px;
-    border-bottom: solid 1px #eee;
+    margin-bottom: 10px;
+}
+.member-posts a{
+    text-decoration: none !important;
+}
+.member-posts a:hover{
+    background-color: #fafafa;
+    text-decoration: none !important;
 }
 .member-posts .member-photo{
-    width:100%;
+    width:60px;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 5px;
 }
-.member-posts .dropdown-toggle::after{
-    content:none;
-}
+
 .member-posts .member-name{
     font-weight: 600;
     margin-bottom: 1px;
-}
-.member-posts .member-name{
-    font-weight: 600;
-    margin-bottom: 1px;
+    margin-bottom: 5px;
+    color: var(--main-color);
 }
 .member-posts .member-address,
 .member-posts .post-date{
@@ -85,18 +86,17 @@
     font-size: 0.85rem;
     color:#333;
     font-weight: 600;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
   }
   .member-posts .post-image{
       width: 100%;
-      height: 80px;
+      height: 100px;
       object-fit: cover;
     object-position: center;
     border-radius: 5px;
-    margin-right: 10px;
-  }
+  } 
   .recent-posts{
-    height: 89vh;
+    height: 670px;
         overflow-y: auto;
         padding: 20px;
   }
