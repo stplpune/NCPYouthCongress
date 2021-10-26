@@ -33,6 +33,7 @@ import { AuthorizationService } from './auth/authorization.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddMemberComponent } from './partial/dialogs/add-member/add-member.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { UserBlockUnblockComponent } from './partial/dialogs/user-block-unblock/user-block-unblock.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ServerErrorComponent,
     ActivityDetailsComponent,
     DeleteComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    UserBlockUnblockComponent
   ],
   imports: [
     BrowserModule,

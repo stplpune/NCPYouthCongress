@@ -14,6 +14,7 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../dialogs/activity-details/activity-details.component';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
+import { UserBlockUnblockComponent } from '../../dialogs/user-block-unblock/user-block-unblock.component';
 
 @Component({
   selector: 'app-member-profile',
@@ -88,11 +89,25 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  blockUnblockUser(blockStatus: any) {
+  blockUnblockUserModal(flag:any,id:any) {
+    const dialogRef = this.dialog.open(UserBlockUnblockComponent, {
+      width: '1024px',
+      data:flag
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.blockUnblockUser(flag,id);
+      }else if (result == 'No'){
+        this.getMemberprofile();
+      }
+    });
+  }
+
+  blockUnblockUser(blockStatus: any,memberId:number) {
     let checkBlockStatus!:number;
     blockStatus == 1 ? checkBlockStatus = 0 : checkBlockStatus = 1;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + this.memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
