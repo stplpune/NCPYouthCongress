@@ -159,11 +159,11 @@
         <div class="col-sm-6 chartbox">
             <div class="card">
                 <div class="card-header pb-1">
-                    Recent Activity News
+                    Recent Activities
                 </div>
                 <div class="card-body pt-0 recent-posts">
                     <div class="member-posts">
-                        <a class="card card-body shadow-none" >
+                        <a class="card card-body shadow-none border" data-bs-toggle="modal" data-bs-target="#PostDetailModal">
                             <div class="row">
                                 <div class="col-9">
                                     <div class="d-flex">
@@ -176,7 +176,8 @@
                                                 <h6 class="member-name">Anil Pandhare</h6>
                                             <p class="post-date"><i class="far fa-clock me-1"></i>10-02-2021 10:32 AM</p>
                                             </div>
-                                            <p class="post-title">Examination of Central Committee</p>
+                                            <div class="kkk">
+                                                <p class="post-title">Examination of Central Committee</p>
                                             <div class="row small text-muted">
                                                 <div class="col-sm-4">
                                                     <i class="far fa-thumbs-up me-2"></i>10
@@ -187,6 +188,7 @@
                                                 <div class="col-sm-4">
                                                     <i class="far fa-share-square me-2"></i>25
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -202,3 +204,23 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="PostDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PostDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="PostDetailModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
