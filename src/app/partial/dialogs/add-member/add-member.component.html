@@ -7,7 +7,7 @@
         <form [formGroup]="editProfileForm" enctype="multipart/form-data">
             <div class="row form-container">
                 <div class="col-sm-3">
-                    <div class="position-relative">
+                    <div class="position-relative mb-3">
                         <a class="update-photo" (click)="choosePhoto()">
                             <i class="fas fa-camera"></i>
                         </a>
@@ -20,6 +20,15 @@
                             class="img-fluid img-thumbnail profile-photo">
                         <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
                     </div>
+                    <label for="txtFacebookURL" class="form-label"><i class="fab fa-facebook-f me-2 text-primary"></i>Facebook URL</label>
+                    <input type="text" class="form-control mb-2" placeholder="Facebook Profile Link" formControlName="FacebookLink">
+
+                    <label for="txtTwitterURL" class="form-label"><i class="fab fa-twitter me-2 text-info"></i>Twitter URL </label>
+                    <input type="text" class="form-control mb-2" placeholder="Twitter Profile Link" formControlName="TwitterLink">
+
+                    <label for="txtInstagramURL" class="form-label"><i class="fab fa-instagram me-2 text-warning"></i>Instagram URL </label>
+                    <input type="text" class="form-control" placeholder="Instagram Profile Link" formControlName="InstagramLink">
+                    
                 </div>
                 <div class="col-sm-9">
                     <div class="mb-3 row">
@@ -54,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-sm-4">
                             <label class="form-label required-field">Committee Name</label>
                             <ngx-select [allowClear]="true" [items]="resCommittees" placeholder="Select Designation"
@@ -80,7 +89,13 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="mb-3">
+                            <label for="ddlVillageTown" class="form-label">Constituency</label>
+                            <ngx-select [allowClear]="true" [items]="getConstituencyResult"
+                                (remove)="clikedClose('Constituency')" placeholder="Select Constituency"
+                                optionValueField="ConstituencyNo"
+                                formControlName="ConstituencyNo" optionTextField="ConstituencyName">
+                            </ngx-select>
+                           <!--  <div class="mb-3">
                                 <label for="txtMemberName" class="form-label required-field">
                                     Post From Date</label>
                                 <div class="input-group">
@@ -99,12 +114,12 @@
                                 <div *ngIf="submitted && f.PostfromDate.errors" class="invalid-feedback">
                                     <div *ngIf="f.PostfromDate.errors.required">Post date is required
                                     </div>
-                                </div>
-                            </div>
+                                </div> 
+                            </div>-->
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label for="txtEmailID" class="form-label">Email ID</label>
                             <input type="email" class="form-control" placeholder="Email ID" formControlName="EmailId">
                             <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
@@ -112,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label for="txtEmailID" class="form-label required-field">Contact No</label>
                             <input type="text" class="form-control" placeholder="Contact No" maxlength="10"
                                 formControlName="MobileNo" [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors }">
@@ -123,20 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-6">
-                            <label for="rblGender" class="form-label">Gender</label>
-                            <div class="d-block">
-                                <!-- [checked]="defultCategory == category.name" -->
-                                <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
-                                    <input class="form-check-input" type="radio" formControlName="Gender"
-                                        [checked]="selGender == gender.id" [value]="gender.id" name="Gender">
-                                    <label class="form-check-label" for="rgender">{{gender.name}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label for="rblArea" class="form-label">Area</label>
                             <div class="d-block">
                                 <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
@@ -148,7 +150,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    
+                    <div class="row mb-3">
                         <div class="col-sm-4">
                             <label for="ddlDistrict" class="form-label">District</label>
                             <ngx-select [allowClear]="true" (remove)="districtClear('district')" [items]="allDistrict"
@@ -175,6 +178,23 @@
                                 [disabled]="villageDisabled">
                             </ngx-select>
                         </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <label for="rblGender" class="form-label">Gender</label>
+                            <div class="d-block">
+                                <!-- [checked]="defultCategory == category.name" -->
+                                <div class="form-check form-check-inline" *ngFor="let gender of GenderArray">
+                                    <input class="form-check-input" type="radio" formControlName="Gender"
+                                        [checked]="selGender == gender.id" [value]="gender.id" name="Gender">
+                                    <label class="form-check-label" for="rgender">{{gender.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12">
+                            <label for="txtAddress" class="form-label">Address</label>
+                            <textarea class="form-control" formControlName="Address" placeholder="Address"  rows="2"></textarea>
+                        </div> -->
                     </div>
                 </div>
 

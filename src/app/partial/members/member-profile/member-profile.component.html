@@ -96,7 +96,8 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <!-- <button class="btn btn-secondary btn-sm" type="button">Edit Profile</button> -->
+                        <button class="btn btn-light btn-sm" type="button"><i class="fas fa-pen text-edit"></i></button>
+                        
                     </div>
                     <div class="col-sm-6 text-end">
                         <button class="btn  btn-sm" [ngClass]="{'btn-danger':allMemberprofile?.IsUserBlock == 1, 'btn-main':allMemberprofile?.IsUserBlock == 0}" type="button" (click)="blockUnblockUser(allMemberprofile.IsUserBlock)">{{checkUserBlock}} Member</button>

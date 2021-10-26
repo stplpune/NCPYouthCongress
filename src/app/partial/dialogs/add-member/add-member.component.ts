@@ -81,7 +81,8 @@ export class AddMemberComponent implements OnInit {
     allDesignatedMembers:any;
     maxDate: any = new Date();
     resCommittees:any;
-  
+    getConstituencyResult:any;
+
     ngOnInit(): void {
       this.getCommiteeName = this.commonService.getCommiteeInfo();
       this.myProfileForm();
@@ -90,6 +91,7 @@ export class AddMemberComponent implements OnInit {
       this.getDistrictByFilter();
       this.searchFilters('false');
       this.getCommitteeName();
+      this.getConstituencylist();
     }
   
     myProfileForm() {
@@ -105,16 +107,20 @@ export class AddMemberComponent implements OnInit {
         MName: ['', [Validators.pattern(/^\S*$/)]],
         LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
         IsRural: [1],
-        ConstituencyNo: [''],
         Gender: [''],
         EmailId: ['', [Validators.email]],
         // Address: [''],
         CreatedBy: [this.commonService.loggedInUserId()],
         DesignationId: ['', Validators.required],
-        PostfromDate: ['', Validators.required],
+        PostfromDate: [new Date(), Validators.required],
         BodyId: ['', Validators.required],
         UserPostBodyId: [0],
-        IsMultiple:[0]
+        ConstituencyNo: [''],
+        IsMultiple:[0],
+        InstagramLink:[''],
+        TwitterLink:[''],
+        FacebookLink:[''],
+        Address:[''],
       })
     }
   
@@ -258,6 +264,7 @@ export class AddMemberComponent implements OnInit {
         let fromData = new FormData();
         let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
         this.editProfileForm.value.Name = FullName;
+        debugger;
         this.editProfileForm.value.PostfromDate =  this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
   
         Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
@@ -271,7 +278,7 @@ export class AddMemberComponent implements OnInit {
   
         fromData.append('IsPhotoChange', this.profilePhotoChange);
   
-        this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0', false, fromData, false, 'ncpServiceForWeb');
+        this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0_Committee', false, fromData, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           if (res.data == 0) {
             this.disabledEditForm = true;
@@ -518,6 +525,23 @@ export class AddMemberComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           this.allDesignatedMembers = res.data1;
+        } else {
+          this.allDesignatedMembers = [];
+        }
+      }, (error: any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../../500'], { relativeTo: this.route });
+        }
+      })
+    }
+  
+    getConstituencylist() {
+      this.spinner.show();
+      this.callAPIService.setHttp('get', 'Web_GetConstituencydetails', false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.spinner.hide();
+          this.getConstituencyResult = res.data1;
         } else {
           this.allDesignatedMembers = [];
         }

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
      private route: ActivatedRoute, private commonService: CommonService) { }
 
   ngOnInit(): void {
-    this.reCaptcha();
+    // this.reCaptcha();
     this.defaultLoginForm();
     if(sessionStorage.getItem('loggedInDetails')){
       //this.commonService.getAllPageName()
@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       UserName: ['', Validators.required],
       Password: ['',  [this.passwordValid]],
-      recaptchaReactive: ['', Validators.required],
+      recaptchaReactive: [''],
+      // , Validators.required
     })
   }
   get f() { return this.loginForm.controls };
@@ -47,10 +48,10 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    else if (this.loginForm.value.recaptchaReactive != this.commonService.checkvalidateCaptcha()) {
-      this.spinner.hide();
-      this.toastrService.error("Invalid Captcha. Please try Again");
-    }
+    // else if (this.loginForm.value.recaptchaReactive != this.commonService.checkvalidateCaptcha()) {
+    //   this.spinner.hide();
+    //   this.toastrService.error("Invalid Captcha. Please try Again");
+    // }
     else {
       // this.callAPIService.setHttp('get', 'Web_GetLogin_2_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.setHttp('get', 'Web_GetLogin_3_0?UserName=' + this.loginForm.value.UserName + '&Password=' + this.loginForm.value.Password+'&LoginType=1', false, false, false, 'ncpServiceForWeb');
@@ -72,7 +73,7 @@ export class LoginComponent implements OnInit {
         }
       })
     }
-     this.reCaptcha();
+    //  this.reCaptcha();
   }
 
   reCaptcha(){
