@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserBlockUnblockComponent } from '../../dialogs/user-block-unblock/user-block-unblock.component';
 @Component({
   selector: 'app-executive-members',
   templateUrl: './executive-members.component.html',
@@ -248,5 +249,41 @@ export class ExecutiveMembersComponent implements OnInit {
         this.getMemberName();
       }
     });
+  }
+
+  blockUnblockUserModal(flag:any,id:any) {
+    const dialogRef = this.dialog.open(UserBlockUnblockComponent, {
+      width: '1024px',
+      data:flag
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.blockUnblockUser(flag,id);
+      }else if (result == 'No'){
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers(obj);
+      }
+    });
+  }
+
+  blockUnblockUser(blockStatus:any,memberId:number) {
+    let checkBlockStatus!:number;
+    blockStatus == 1 ? checkBlockStatus = 0 : checkBlockStatus = 1;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers(obj);
+      } else {
+        // //this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }

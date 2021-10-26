@@ -125,10 +125,10 @@
                                 </td> -->
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-light text-edit rounded" title="Edit Member" (click)="addEditMember('Update',resultExeMember?.MemberId)"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded" title="Delete Member"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-sm btn-light text-edit rounded me-2" [disabled]="resultExeMember.IsUserBlock == 1" title="Edit Member" (click)="addEditMember('Update',resultExeMember?.MemberId)"><i class="fas fa-pen"></i></button>
+                                        <!-- <button class="btn btn-sm btn-light text-danger mx-1 rounded" title="Delete Member"><i class="fas fa-trash-alt"></i></button> -->
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" [checked]="resultExeMember?.IsUserBlock == 0" type="checkbox" id="flexSwitchCheckDefault">
+                                            <input class="form-check-input"    (change)="blockUnblockUserModal(resultExeMember.IsUserBlock,resultExeMember?.MemberId)" [checked]="resultExeMember?.IsUserBlock == 0" type="checkbox" id="flexSwitchCheckDefault">
                                           </div>
                                     </div>
                                 </td>
