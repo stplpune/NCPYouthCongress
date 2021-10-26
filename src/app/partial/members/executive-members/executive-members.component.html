@@ -135,10 +135,19 @@
                                     </ng-template></span>
                                 </td>
                                 <td (click)="addEditMember('Update',resultExeMember?.MemberId)" >Edit</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-light text-edit rounded" title="Edit Member"><i class="fas fa-pen"></i></button>
+                                        <button class="btn btn-sm btn-light text-danger mx-1 rounded" title="Delete Member"><i class="fas fa-trash-alt"></i></button>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                          </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr *ngIf="resultAllExeMembers?.length == 0">
-                                <td colspan="7">
-                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                <td colspan="8">
+                                    <div class="alert alert-danger text-center py-2 mb-0">No Member Assigned..!</div>
                                 </td>
                             </tr>
                         </tbody>
