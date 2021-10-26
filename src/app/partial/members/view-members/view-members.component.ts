@@ -8,6 +8,9 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserBlockUnblockComponent } from '../../dialogs/user-block-unblock/user-block-unblock.component';
 
 @Component({
   selector: 'app-view-members',
@@ -24,6 +27,7 @@ export class ViewMembersComponent implements OnInit {
   total: any;
   pageSize: number = 10;
   memberCountData: any;
+  highlightedRow:number = 0;
 
   viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
   filterForm!: FormGroup;
@@ -33,7 +37,7 @@ export class ViewMembersComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router,
     private commonService: CommonService, public datepipe: DatePipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -168,6 +172,21 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers(this.viewMembersObj);
   }
 
+  addEditMember(flag:any,id:any) {
+    this.highlightedRow = id
+    let obj = {"formStatus":flag, 'Id':id}
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '1024px',
+      data: obj
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+        this.getViewMembers(obj);
+      }
+    });
+  }
+
   searchFilter(flag: any) {
     if (flag == 'true') {
       if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
@@ -192,5 +211,41 @@ export class ViewMembersComponent implements OnInit {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../profile'], { relativeTo: this.route })
+  }
+
+  blockUnblockUserModal(flag:any,id:any) {
+    const dialogRef = this.dialog.open(UserBlockUnblockComponent, {
+      width: '1024px',
+      data:flag
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.blockUnblockUser(flag,id);
+      }else if (result == 'No'){
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers(obj);
+      }
+    });
+  }
+
+  blockUnblockUser(blockStatus:any,memberId:number) {
+    let checkBlockStatus!:number;
+    blockStatus == 1 ? checkBlockStatus = 0 : checkBlockStatus = 1;
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers(obj);
+      } else {
+        // //this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }

@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../dialogs/activity-details/activity-details.component';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { UserBlockUnblockComponent } from '../../dialogs/user-block-unblock/user-block-unblock.component';
+import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
 
 @Component({
   selector: 'app-member-profile',
@@ -375,4 +376,20 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       this.toastrService.error("Member Record is Empty");
     }
   }
+
+  addEditMember(flag:any,id:any) {
+    console.log(id);
+    let obj = {"formStatus":flag, 'Id':id}
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '1024px',
+      data: obj
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+        this.getMemberprofile();
+      }
+    });
+  }
+
 }

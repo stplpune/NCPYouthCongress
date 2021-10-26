@@ -7,16 +7,24 @@
             <form [formGroup]="filterForm">
                 <div class="row g-1">
                     <div class="col-sm-3 ms-auto">
-                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id" formControlName="BodyId" optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')" (select)="committee($event)" placeholder="Select Committee Name">
+                        <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id"
+                            formControlName="BodyId" optionTextField="BodyOrgCellName"
+                            (remove)="clearFilter('committee')" (select)="committee($event)"
+                            placeholder="Select Committee Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
-                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="clearFilter('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
+                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
+                            optionValueField="DistrictId" optionTextField="DistrictName"
+                            (remove)="clearFilter('district')" placeholder="Select District"
+                            (select)="getTaluka(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
-                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (remove)="clearFilter('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Taluka"
-                            optionValueField="TalukaId" optionTextField="TalukaName">
+                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
+                            [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId"
+                            (remove)="clearFilter('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)"
+                            placeholder="Select Taluka" optionValueField="TalukaId" optionTextField="TalukaName">
                         </ngx-select>
                     </div>
                     <!-- <div class="col-sm-3">
@@ -26,13 +34,18 @@
                     </div> -->
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" (keyup)="onKeyUpFilter()" />
-                            <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="clearFilter('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
-                            <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                            <input class="form-control" type="text" placeholder="Search Member"
+                                formControlName="searchText" (keyup)="onKeyUpFilter()" />
+                            <button type="button" class="btn btn-light border btn-sm"
+                                *ngIf="filterForm.value.searchText" (click)="clearFilter('search')"><i
+                                    _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                            <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.searchText"
+                                class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="col-sm-auto">
-                        <button (click)="refresh();" class="btn btn-sm btn-main float-sm-end"><i class="fas fa-sync-alt"></i></button>
+                        <button (click)="refresh();" class="btn btn-sm btn-main float-sm-end"><i
+                                class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
             </form>
@@ -87,34 +100,43 @@
             <div class="card">
                 <div class="card-body" id="exe-memcards">
                     <div class="text-end form-container">
-                        <a (click)="addEditMember('Create',0)" class="btn btn-sm btn-main"><i class="fas fa-plus"></i> New Member</a>
+                        <a (click)="addEditMember('Create',0)" class="btn btn-sm btn-main"><i class="fas fa-plus"></i>
+                            New Member</a>
                     </div>
                     <table class="table table-hover table-borderless">
                         <tbody>
-                            <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index" [class.active]="resultExeMember?.MemberId == highlightedRow">
+                            <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
+                                [class.active]="resultExeMember?.MemberId == highlightedRow">
                                 <td>
-                                    <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}" class="prophoto" />
-                                    <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/ncp-default.png" class="prophoto" />
+                                    <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}"
+                                        class="prophoto" />
+                                    <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/ncp-default.png"
+                                        class="prophoto" />
                                 </td>
                                 <td>
-                                    <a (click)="redToMemberProfile(resultExeMember.MemberId,resultExeMember.FullName)" class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
+                                    <a (click)="redToMemberProfile(resultExeMember.MemberId,resultExeMember.FullName)"
+                                        class="text-primary">{{resultExeMember.FullName | titlecase}}</a>
                                 </td>
                                 <td>
-                                    <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i> {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
-                                    <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i> {{resultExeMember.MobileNo ? (resultExeMember.MobileNo | titlecase) : 'NA'}}</p>
+                                    <p class="mb-1"><i class="fas fa-envelope me-2 text-muted"></i>
+                                        {{resultExeMember.EmailId ? (resultExeMember.EmailId | titlecase) : 'NA'}}</p>
+                                    <p class="mb-0"><i class="fas fa-phone-alt me-2 text-muted"></i>
+                                        {{resultExeMember.MobileNo ? (resultExeMember.MobileNo | titlecase) : 'NA'}}</p>
                                 </td>
                                 <td>
                                     <span class="mb-1">{{resultExeMember?.Location}}</span>
                                 </td>
                                 <td>
-                                    <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">{{designation}}</p>
+                                    <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">
+                                        {{designation}}</p>
                                 </td>
 
                                 <td>
                                     <ng-container *ngIf="resultExeMember.IsUserBlock == 1 else userUnblock">
                                         <span class="badge bg-danger">Blocked</span>
                                     </ng-container>
-                                    <ng-template #userUnblock> <span class="badge bg-success">Active</span></ng-template>
+                                    <ng-template #userUnblock> <span class="badge bg-success">Active</span>
+                                    </ng-template>
                                 </td>
                                 <td>
                                     <!-- <span [appTooltip] title="{{resultExeMember?.UserStatus == 1 ? 'Member Active' : 'Member InActive'}}">
@@ -125,11 +147,17 @@
                                 </td> -->
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-light text-edit rounded me-2" [disabled]="resultExeMember.IsUserBlock == 1" title="Edit Member" (click)="addEditMember('Update',resultExeMember?.MemberId)"><i class="fas fa-pen"></i></button>
+                                        <button class="btn btn-sm btn-light text-edit rounded me-2"
+                                            [disabled]="resultExeMember.IsUserBlock == 1" title="Edit Member"
+                                            (click)="addEditMember('Update',resultExeMember?.MemberId)"><i
+                                                class="fas fa-pen"></i></button>
                                         <!-- <button class="btn btn-sm btn-light text-danger mx-1 rounded" title="Delete Member"><i class="fas fa-trash-alt"></i></button> -->
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input"    (change)="blockUnblockUserModal(resultExeMember.IsUserBlock,resultExeMember?.MemberId)" [checked]="resultExeMember?.IsUserBlock == 0" type="checkbox" id="flexSwitchCheckDefault">
-                                          </div>
+                                            <input class="form-check-input"
+                                                (change)="blockUnblockUserModal(resultExeMember.IsUserBlock,resultExeMember?.MemberId)"
+                                                [checked]="resultExeMember?.IsUserBlock == 0" type="checkbox"
+                                                id="flexSwitchCheckDefault">
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -226,7 +254,8 @@
                         </tbody>
                     </table> -->
                     <div class="mt-2 float-lg-end" *ngIf="resultAllExeMembers?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
             </div>
@@ -235,7 +264,8 @@
 </div>
 
 
-<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ViewMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
