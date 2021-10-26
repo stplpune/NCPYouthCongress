@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
+import { AddDesignationComponent } from '../../dialogs/add-designation/add-designation.component';
 
 @Component({
   selector: 'app-organization-master',
@@ -652,12 +653,21 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   AddDesignation(BodyOrgCellName: any, bodyId: any) {
-    this.desBodyId = bodyId;
-    this.getBodyAssignedDesignation();
-    this.AlreadyAssignedDesignations(this.desBodyId)
-    this.AddDesignationForm.patchValue({
-      BodyId: BodyOrgCellName
-    })
+    const dialogRef = this.dialog.open(AddDesignationComponent, {
+      width: '1024px',
+      data: {committeeName:BodyOrgCellName,committeeId:bodyId}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.getOrganizationList();
+      }
+    });
+    // this.desBodyId = bodyId;
+    // this.getBodyAssignedDesignation();
+    // this.AlreadyAssignedDesignations(this.desBodyId)
+    // this.AddDesignationForm.patchValue({
+    //   BodyId: BodyOrgCellName
+    // })
   }
 
   AlreadyAssignedDesignations(desBodyId: any) {

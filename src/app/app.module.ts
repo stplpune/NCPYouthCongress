@@ -35,6 +35,7 @@ import { AddMemberComponent } from './partial/dialogs/add-member/add-member.comp
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UserBlockUnblockComponent } from './partial/dialogs/user-block-unblock/user-block-unblock.component';
 import { AddDesignationComponent } from './partial/dialogs/add-designation/add-designation.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { AddDesignationComponent } from './partial/dialogs/add-designation/add-d
     Ng2SearchPipeModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    DragDropModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
