@@ -95,11 +95,11 @@
                 </ul>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-2">
                         <button class="btn btn-light btn-sm" type="button"><i class="fas fa-pen text-edit"></i></button>
                         
                     </div>
-                    <div class="col-sm-6 text-end">
+                    <div class="col-sm-10 text-end">
                         <button class="btn  btn-sm" [ngClass]="{'btn-danger':allMemberprofile?.IsUserBlock == 1, 'btn-main':allMemberprofile?.IsUserBlock == 0}" type="button" (click)="blockUnblockUser(allMemberprofile.IsUserBlock)">{{checkUserBlock}} Member</button>
                     </div>
                 </div>
