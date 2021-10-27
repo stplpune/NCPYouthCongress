@@ -530,8 +530,14 @@ export class DashboardComponent implements OnInit {
   }
 
   changeActivitiesToogle(id:any){
-    debugger;
     id ==0 ? (this.ListView = false, this.MapView = true): (this.ListView = true, this.MapView = false); 
+  }
+
+  socialMediaCheck(flag:any){
+    debugger;
+    flag == 'Liked' ? (this.Liked = true,  this.comments = false, this.Shared = false) : '';
+    flag == 'Comments' ? (this.comments = true,  this.Liked = false, this.Shared = false) : '';
+    flag == 'Shared' ? (this.Shared = true,  this.comments = false, this.Liked = false) : '';
   }
 
 }

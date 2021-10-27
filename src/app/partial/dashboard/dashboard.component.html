@@ -163,11 +163,14 @@
 
                     <div class="float-end">
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                            <label class="btn btn-outline-secondary btn-sm shadow-none" for="btnradio1" (click)="changeActivitiesToogle(1)"><i class="far fa-list-alt"></i></label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-secondary btn-sm shadow-none" for="btnradio1"
+                                (click)="changeActivitiesToogle(1)"><i class="far fa-list-alt"></i></label>
 
                             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-secondary btn-sm shadow-none" for="btnradio2" (click)="changeActivitiesToogle(0)"><i class="fas fa-map-marked-alt"></i></label>
+                            <label class="btn btn-outline-secondary btn-sm shadow-none" for="btnradio2"
+                                (click)="changeActivitiesToogle(0)"><i class="fas fa-map-marked-alt"></i></label>
                         </div>
                     </div>
                 </div>
@@ -279,28 +282,29 @@
                             </div>
                             <div class="my-3">
                                 <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio11"
                                         autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary shadow-none" for="btnradio1"
-                                        (change)="Liked = true; comments = false; Shared = false">
+                                    <label class="btn btn-outline-primary shadow-none" for="btnradio11"
+                                        (click)="socialMediaCheck('Liked')">
                                         <i class="far fa-thumbs-up me-2"></i>10
                                     </label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio12"
                                         autocomplete="off">
-                                    <label class="btn btn-outline-success shadow-none" for="btnradio2"
-                                        (change)="comments = true; Liked = false;  Shared = false">
-                                        <i class="far fa-comments me-2"></i>15 {{comments}}
+                                    <label class="btn btn-outline-success shadow-none" for="btnradio12"
+                                        (click)="socialMediaCheck('Comments')">
+                                        <i class="far fa-comments me-2"></i>15
                                     </label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio13"
                                         autocomplete="off">
-                                    <label class="btn btn-outline-info shadow-none" for="btnradio3"
-                                        (change)="Shared = true; comments = false; Liked = false; ">
+                                    <label class="btn btn-outline-info shadow-none" for="btnradio13"
+                                        (click)="socialMediaCheck('Shared')">
                                         <i class="far fa-share-square me-2"></i>25
                                     </label>
                                 </div>
                             </div>
+
                             <div class="likesharecomment">
                                 <div class="card" *ngIf="Liked">
                                     <div class="card-header fw-bold bg-transparent text-primary">
