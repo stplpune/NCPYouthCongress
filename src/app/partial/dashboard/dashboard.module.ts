@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ShareModule } from '../share/share.module';
 @NgModule({
   declarations: [
     DashboardComponent
@@ -16,7 +17,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FormsModule,
     ReactiveFormsModule,
     OwlNativeDateTimeModule,
-    OwlDateTimeModule
+    OwlDateTimeModule,
+    ShareModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "en-IN" }, //replace "en-US" with your locale
