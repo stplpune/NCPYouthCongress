@@ -161,7 +161,9 @@
                 <div class="card-header pb-1">
                     Recent Activities
                 </div>
-                <div class="card-body pt-0 recent-posts">
+                <p *ngFor="let activities of activitiesToogle"><input type="radio" name="activities" (change)="changeActivitiesToogle(activities.id)">{{activities?.name}}</p>
+                
+                <div class="card-body pt-0 recent-posts" *ngIf="ListView">
                     <div class="member-posts">
                         <a class="card card-body shadow-none border" data-bs-toggle="modal"
                             data-bs-target="#PostDetailModal">
@@ -201,6 +203,9 @@
                             </div>
                         </a>
                     </div>
+                </div>
+                <div *ngIf="MapView">
+
                 </div>
             </div>
         </div>

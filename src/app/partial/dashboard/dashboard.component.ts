@@ -38,6 +38,9 @@ export class DashboardComponent implements OnInit {
   Liked:boolean =true;
   comments:boolean =false;
   Shared:boolean =false;
+  ListView:boolean =true;
+  MapView:boolean =false;
+  activitiesToogle:any = [{id:0, name:'Map View'},{id:1, name:'List View'}]
    
 
   constructor(
@@ -524,6 +527,11 @@ export class DashboardComponent implements OnInit {
     } else {
       this.toastrService.error("Data is not available.");
     }
+  }
+
+  changeActivitiesToogle(id:any){
+    debugger;
+    id ==0 ? (this.ListView = false, this.MapView = true): (this.ListView = true, this.MapView = false); 
   }
 
 }

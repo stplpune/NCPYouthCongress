@@ -9,6 +9,7 @@ import { Lightbox } from '@ngx-gallery/lightbox';
 import { CommonService } from 'src/app/services/common.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
+import { MaharashtraGeofanceService } from 'src/app/services/maharashtra-geofance.service';
 
 
 @Component({
@@ -81,6 +82,7 @@ export class PartyProgramDetailsComponent implements OnInit {
     private _lightbox: Lightbox,
     private _commonService: CommonService,
     public dialog: MatDialog,
+    public MaharashtraGeofance:MaharashtraGeofanceService
   ) {
     if (sessionStorage.getItem('programListIdKey') == null || sessionStorage.getItem('programListIdKey') == "") {
       this.toastrService.error("Please select Program Title  and try again");
@@ -97,6 +99,7 @@ export class PartyProgramDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.GetProgramDetails();
     this.getMembersData();
+    console.log(this.MaharashtraGeofance.MaharashtraGeofance);
   }
 
   GetProgramDetails() {
