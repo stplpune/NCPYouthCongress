@@ -13,13 +13,13 @@ import { ActivityDetailsComponent } from '../../dialogs/activity-details/activit
 @Component({
   selector: 'app-map-wise',
   templateUrl: './map-wise.component.html',
-  styleUrls: ['./map-wise.component.css']
+  styleUrls: ['./map-wise.component.css', '../../partial.component.css']
 })
 export class MapWiseComponent implements OnInit {
   resActivityLocation:any;
   lat: any = 19.7515;
   lng: any = 75.7139;
-  zoom: any = 6;
+  zoom: any = 7;
   resultBodyMemActDetails:any;
   map:any;
   paths:any;
