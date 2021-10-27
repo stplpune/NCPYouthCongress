@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   ListView:boolean =true;
   MapView:boolean =false;
   activitiesToogle:any = [{id:0, name:'Map View'},{id:1, name:'List View'}]
-   
+  loginUserType:any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit {
     this.getNewMemberAndWorkInThisWeek();
     this.getDistrictWiseMemberCount(false);
     this.getweekRage(this.toDate);
+    this.loginUserType = this.commonService.loggedInUserType();
   }
 
 
@@ -333,7 +334,6 @@ export class DashboardComponent implements OnInit {
       am4core.color("#D2B4DE")
     ];
     chart.data = this.newMemberInThisWeekArray;
-    console.log(this.newMemberInThisWeekArray);
     //chart.padding(5, 5, 5, 5);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
