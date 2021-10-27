@@ -79,7 +79,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <div class="row chartbox">
                 <div class="col-sm-12">
                     <div class="card mb-3">
@@ -172,7 +172,7 @@
             </div>
         </div> -->
 
-        <div class="col-sm-6 chartbox">
+        <div class="col-sm-4 chartbox">
             <div class="card mb-3">
                 <div class="card-header pb-1">
                     Recent Activities
@@ -196,7 +196,7 @@
                     {{activities?.name}}
                 </p> -->
 
-                <div class="card-body recent-posts" *ngIf="ListView"  (wheel)="onScroll($event)" >
+                <div class="card-body recent-posts p-2" *ngIf="ListView"  (wheel)="onScroll($event)" >
                     <app-list-wise></app-list-wise>
                 
                    
