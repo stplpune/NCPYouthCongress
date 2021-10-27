@@ -332,7 +332,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
   
   getOrganizationList() {
-    //this.spinner.show();
+    this.spinner.show();
     let filterData = this.filterForm.value;
     (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
     let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation + '&LevelId=' + filterData.LevelId;
