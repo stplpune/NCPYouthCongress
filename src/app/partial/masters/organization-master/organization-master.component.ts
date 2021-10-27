@@ -653,21 +653,21 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   AddDesignation(BodyOrgCellName: any, bodyId: any) {
-    const dialogRef = this.dialog.open(AddDesignationComponent, {
-      width: '1024px',
-      data: {committeeName:BodyOrgCellName,committeeId:bodyId}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == 'Yes') {
-        this.getOrganizationList();
-      }
-    });
-    // this.desBodyId = bodyId;
-    // this.getBodyAssignedDesignation();
-    // this.AlreadyAssignedDesignations(this.desBodyId)
-    // this.AddDesignationForm.patchValue({
-    //   BodyId: BodyOrgCellName
-    // })
+    // const dialogRef = this.dialog.open(AddDesignationComponent, {
+    //   width: '1024px',
+    //   data: {committeeName:BodyOrgCellName,committeeId:bodyId}
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result == 'Yes') {
+    //     this.getOrganizationList();
+    //   }
+    // });
+    this.desBodyId = bodyId;
+    this.getBodyAssignedDesignation();
+    this.AlreadyAssignedDesignations(this.desBodyId)
+    this.AddDesignationForm.patchValue({
+      BodyId: BodyOrgCellName
+    })
   }
 
   AlreadyAssignedDesignations(desBodyId: any) {

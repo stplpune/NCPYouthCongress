@@ -20,7 +20,7 @@
                 <h3>{{dashboardCount1Array?.ExcecutiveMembers}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" *ngIf="this.loginUserType != 2">
             <div class="card card-body bg-green" (click)="redirectCountingPage('YouthMembers')">
                 <i class="fas fa-user"></i>
                 <p>Youth Members</p>
@@ -28,23 +28,39 @@
                 <h3>{{dashboardCount1Array?.YouthMembers}}</h3>
             </div>
         </div>
+        <div class="col-sm-2" *ngIf="this.loginUserType == 2" routerLink="../committee">
+            <div class="card card-body bg-green">
+                <i class="fas fa-user"></i>
+                <p>Total Committees</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
+                <h3>{{dashboardCount1Array?.TotalCommittee}}</h3>
+            </div>
+        </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-blue" (click)="redirectCountingPage('activeMembers')">
+            <div class="card card-body bg-blue" routerLink="../executive-members">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.ActiveMembers}}</h3>
             </div>
         </div>
+        <div class="col-sm-2" *ngIf="this.loginUserType == 2"  routerLink="../executive-members">
+            <div class="card card-body bg-red">
+                <i class="fas fa-user-cog"></i>
+                <p>Non Active Members</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
+                <h3>{{dashboardCount1Array?.InActiveMembers}}</h3>
+            </div>
+        </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-gold" (click)="redirectCountingPage('committeeWork')">
+            <div class="card card-body bg-gold" routerLink="../party-work">
                 <i class="fas fa-people-arrows"></i>
                 <p>Committee Activities</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.CommitteeWork"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.CommitteeWork}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" *ngIf="this.loginUserType != 2"  routerLink="../executive-members">
             <div class="card card-body bg-red" (click)="redirectCountingPage('memberWork')">
                 <i class="fas fa-user-cog"></i>
                 <p>Members Activities</p>
@@ -53,7 +69,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-voilet" (click)="redirectCountingPage('socialMediaWork')">
+            <div class="card card-body bg-voilet"  routerLink="../social-media">
                 <i class="far fa-thumbs-up"></i>
                 <p>Perception Captured</p>
                 <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.SocialMediaWork"></i></ng-container> -->
