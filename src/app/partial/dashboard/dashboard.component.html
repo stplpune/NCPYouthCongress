@@ -180,7 +180,7 @@
                     {{activities?.name}}
                 </p> -->
 
-                <div class="card-body pt-0 recent-posts" *ngIf="ListView">
+                <div class="card-body recent-posts" *ngIf="ListView">
                     <div class="member-posts">
                         <a class="card card-body shadow-none border" data-bs-toggle="modal"
                             data-bs-target="#PostDetailModal">
@@ -221,8 +221,8 @@
                         </a>
                     </div>
                 </div>
-                <div *ngIf="MapView">
-
+                <div class="card-body recent-posts" *ngIf="MapView">
+                    asdf
                 </div>
             </div>
         </div>
@@ -311,9 +311,18 @@
                                         Liked By
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Member Name</li>
-                                        <li class="list-group-item">Member Name</li>
-                                        <li class="list-group-item">Member Name</li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="card" *ngIf="comments">
@@ -322,17 +331,17 @@
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold">Member Name</p>
+                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
                                             <p class="mb-0 small text-muted">Comment</p>
                                             <div class="form-text text-end small">10-12-2011</div>
                                         </li>
                                         <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold">Member Name</p>
+                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
                                             <p class="mb-0 small text-muted">Comment</p>
                                             <div class="form-text text-end small">10-12-2011</div>
                                         </li>
                                         <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold">Member Name</p>
+                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
                                             <p class="mb-0 small text-muted">Comment</p>
                                             <div class="form-text text-end small">10-12-2011</div>
                                         </li>
@@ -343,9 +352,18 @@
                                         Shared By
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Member Name</li>
-                                        <li class="list-group-item">Member Name</li>
-                                        <li class="list-group-item">Member Name</li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#">Member Name</a>
+                                            <span class="small text-muted float-end">12-02-2021</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

@@ -124,3 +124,8 @@
     max-height:70vh;
     overflow-y: auto;
 }
+.likesharecomment a{
+    text-decoration: none !important;
+    color: var(--main-color);
+    font-weight: 600;
+}
