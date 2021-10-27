@@ -267,19 +267,19 @@
                                 <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
                                         autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary shadow-none" for="btnradio1" (change)="Liked = true; comments = false; Shared = false">
+                                    <label class="btn btn-outline-primary shadow-none" for="btnradio1" (click)="socialMediaCheck('Liked')">
                                         <i class="far fa-thumbs-up me-2"></i>10
                                     </label>
 
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
                                         autocomplete="off">
-                                    <label class="btn btn-outline-success shadow-none" for="btnradio2" (change)="comments = true; Liked = false;  Shared = false">
+                                    <label class="btn btn-outline-success shadow-none" for="btnradio2" (click)="socialMediaCheck('Comments')">
                                         <i class="far fa-comments me-2"></i>15 {{comments}}
                                     </label>
 
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
                                         autocomplete="off">
-                                    <label class="btn btn-outline-info shadow-none" for="btnradio3" (change)="Shared = true; comments = false; Liked = false; ">
+                                    <label class="btn btn-outline-info shadow-none" for="btnradio3"  (click)="socialMediaCheck('Shared')">
                                         <i class="far fa-share-square me-2"></i>25
                                     </label>
                                 </div>
