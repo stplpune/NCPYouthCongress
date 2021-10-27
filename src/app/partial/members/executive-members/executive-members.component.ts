@@ -27,6 +27,7 @@ export class ExecutiveMembersComponent implements OnInit {
   pageSize: number = 10;
   globalBodyId: number = 0;
   viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+  clearMemberObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
   filterForm!: FormGroup;
   memberNameArray: any;
   memberCountData: any;
@@ -248,7 +249,7 @@ export class ExecutiveMembersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-        this.getMemberName();
+        this.getViewMembers(this.clearMemberObj);
       }
     });
   }
@@ -262,8 +263,7 @@ export class ExecutiveMembersComponent implements OnInit {
       if (result == 'Yes') {
         this.blockUnblockUser(flag,id);
       }else if (result == 'No'){
-        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-        this.getViewMembers(obj);
+        this.getViewMembers(this.clearMemberObj);
       }
     });
   }
@@ -277,8 +277,7 @@ export class ExecutiveMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-        this.getViewMembers(obj);
+        this.getViewMembers(this.clearMemberObj);
       } else {
         // //this.toastrService.error("Data is not available");
       }

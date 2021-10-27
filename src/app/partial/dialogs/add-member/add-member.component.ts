@@ -92,6 +92,7 @@ export class AddMemberComponent implements OnInit {
       this.myProfileForm();
       this.getCommitteeName();
       this.getConstituencylist();
+      this.getDistrict();
       this.profileFlag == 'Update' && this.memberID != 0 ?  this.getProfileData(this.memberID) : '';
     }
   
