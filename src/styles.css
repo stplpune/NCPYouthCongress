@@ -1006,3 +1006,6 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 g[shape-rendering="auto"]{
     display: none;
 }
+.cdk-overlay-pane{
+    max-width: 100vw !important;
+}
