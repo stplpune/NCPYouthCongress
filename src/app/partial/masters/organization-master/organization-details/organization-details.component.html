@@ -141,7 +141,7 @@
                 <div class="card-header pb-0">
                     Current Designated Members
                     <span class="float-end">
-                        <button class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i
+                        <button title="Add Designation" class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i
                                 class="fas fa-plus"></i></button>
                     </span>
                 </div>
@@ -186,11 +186,11 @@
                                                 (click)="addEditMember(designatedMembers,'Add')"
                                                 class="rounded btn btn-sm btn-light mx-1"> <i
                                                     class="fas fa-plus"></i></button>
-                                            <button class="btn btn-sm btn-light text-danger mx-1 rounded"
+                                            <button title="Edit Member" class="btn btn-sm btn-light text-danger mx-1 rounded"
                                                 *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
                                                 (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
                                                 data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
-                                            <button data-bs-toggle="modal" data-bs-target="#AddMemberModal"
+                                            <button title="Remove Designation" data-bs-toggle="modal" data-bs-target="#AddMemberModal"
                                                 #addMemberModal style="display: none;"></button>
                                         </div>
                                     </td>

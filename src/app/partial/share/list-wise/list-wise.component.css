@@ -55,5 +55,5 @@
 .recent-posts{
     height: 670px;
         overflow-y: auto;
-        padding: 20px;
+        padding: 1px;
   }
