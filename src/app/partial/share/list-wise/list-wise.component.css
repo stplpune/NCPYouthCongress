@@ -56,4 +56,5 @@
     height: 670px;
         overflow-y: auto;
         padding: 1px;
+        overflow-x: hidden;
   }

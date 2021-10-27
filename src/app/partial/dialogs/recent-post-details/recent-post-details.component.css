@@ -29,12 +29,13 @@
     padding-block: 5px;
 }
 .likesharecomment{
-    max-height:70vh;
+    max-height:35vh;
     overflow-y: auto;
 }
 .likesharecomment a{
     text-decoration: none !important;
-    color: var(--main-color);
+    color: #222;
+    font-size: 0.8rem;
     font-weight: 600;
 }
 .post-details .type{
