@@ -95,7 +95,7 @@
         <div class="col-sm-8">
             <div class="card mb-3" role="alert">
                 <div class="card-header">{{subCommitteeName}}</div>
-                <div class="card-body pt-0">
+                <div class="card-body pt-0 pb-0">
                     <div class="row mb-0" id="dash-stats">
                         <div class="col-sm-4 col-6">
                             <div class="card card-body bg-cyan mb-3">
@@ -204,15 +204,11 @@
 
             <!-- Previous Designated Members -->
             <!-- <div class="card mb-3" *ngIf="getPreDesMembersArray.length !=0 "> -->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
                 <div class="card-header pb-0">
                     Previous Designated Members
                 </div>
                 <div class="card-body">
-                    <!-- <div *ngFor="let  designationName of DesignationNameBYBodyId1; let i = index">
-                        <div class="text-center bg-light py-2 fw-bold border-bottom">
-                            {{designationName.DesignationNameBYBodyId}}
-                        </div> -->
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -225,16 +221,11 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let desMembers of getPreDesMembersArray; let m = index">
-                                    <!-- *ngIf="designationName.DesignationNameBYBodyId == desMembers.DesignationName" -->
                                     <ng-container>
                                         <td>{{m+1}}</td>
                                         <td>
                                             <div>{{desMembers.DesignationName}}</div>
                                         </td>
-                                        <!-- <div class="row">
-                                                <div><a>{{desMembers.MemberName}}</a></div>
-    
-                                            </div> -->
                                         <td>
                                             <a (click)="redToMemberProfile(desMembers.DesignationId, desMembers.MemberName)"
                                                 class="text-primary">{{desMembers.MemberName}}</a>
@@ -251,13 +242,11 @@
                                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                                     </td>
                                 </tr>
-                                <!-- </ng-container> -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- </div> -->
-            </div>
+            </div> -->
 
             <!-- Individual Members Progress -->
             <div class="card mb-3">
@@ -307,7 +296,7 @@
                 <div class="card-body">
                     <div class="h-400 membersProBarChart chartfont"></div>
                     <div class="table-responsive">
-                        <table class="table table-hover mt-3">
+                        <table class="table table-hover mt-3 mb-0">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
@@ -342,7 +331,7 @@
                                 </tr>
                                 <tr *ngIf="resBodyMemAct?.length == 0">
                                     <td colspan="7">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                                     </td>
                                 </tr>
 
@@ -357,13 +346,13 @@
             </div>
 
             <!-- Work in a Year -->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
                 <div class="card-header">Work in a Year</div>
                 <div class="card-body">
                     <div class="card-body recentActivityGraph chartfont h-400">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

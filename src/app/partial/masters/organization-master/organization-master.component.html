@@ -40,9 +40,9 @@
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <label class="form-label required-field">Committee</label>
+                                <label class="form-label required-field">Parent Committee</label>
                                 <ngx-select [allowClear]="true" [items]="resCommitteeByLevel"
-                                    formControlName="SubParentCommitteeId" placeholder="Select Committee" optionValueField="Id"
+                                    formControlName="SubParentCommitteeId" placeholder="Select Parent Committee" optionValueField="Id"
                                     optionTextField="BodyOrgCellName" (remove)="clearselOption('committeeName')"  [disabled]="!this.orgMasterForm.value.BodyLevelId || this.orgMasterForm.value.BodyLevelId == 2"
                                     [ngClass]="{ 'is-invalid': submitted && f.SubParentCommitteeId.errors}">
                                 </ngx-select>
