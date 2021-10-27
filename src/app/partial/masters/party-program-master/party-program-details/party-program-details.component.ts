@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDetailsComponent } from '../../../dialogs/activity-details/activity-details.component';
 import { MaharashtraGeofanceService } from 'src/app/services/maharashtra-geofance.service';
-
+import { LatLngBounds } from '@agm/core';
 
 @Component({
   selector: 'app-party-program-details',
@@ -24,9 +24,9 @@ export class PartyProgramDetailsComponent implements OnInit {
   overviewArray: any;
   programDetailsLatLongArray: any;
   programDetailsImagesArray: any;
-  lat: any = 19.75117687556874;
-  lng: any = 75.71630325927731;
-  zoom: any = 12;
+  lat: any = 19.7515;
+  lng: any = 75.7139;
+  zoom: any = 6;
   membersDataArray: any;
   activeFlag: boolean = true;
   NonComityDataArray: any;
@@ -70,6 +70,9 @@ export class PartyProgramDetailsComponent implements OnInit {
   @ViewChild('CommitteesparModalOpen') CommitteesparModalOpen: any;
   hideMapInfo: boolean = false;
   previous: any;
+  map:any;
+  markers:any;
+  paths:any;
 
   constructor(
     public location: Location,
@@ -99,7 +102,6 @@ export class PartyProgramDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.GetProgramDetails();
     this.getMembersData();
-    console.log(this.MaharashtraGeofance.MaharashtraGeofance);
   }
 
   GetProgramDetails() {
@@ -346,4 +348,43 @@ export class PartyProgramDetailsComponent implements OnInit {
     this.previous = infowindow;
     // this.hideMapInfo = true;
   }
+
+  onMapReady(map:any) {
+    this.map = map
+    this.drawPolygon()
+  }
+
+  drawPolygon() {
+    let drawState = this.MaharashtraGeofance.MaharashtraGeofance[0].polygonText.replace(/\s*,\s*/g, ",");
+
+    var AllPolyCoords: any = [];
+    var AllPolygonData = drawState.split('),(');
+
+    AllPolygonData.map((currentlatlon: any) => {
+      var drawPolygonCoords: any = [];
+      var str = currentlatlon.replace(/\)|\(/g, "").split(',')
+      str.map(function (data: any) { drawPolygonCoords.push(data.split(' ')); })//  
+
+      var PolyCoords: any = [];
+      drawPolygonCoords.map((data: any) => {
+        if (Number(data[1]) && Number(data[0])) {
+          PolyCoords.push({ "lat": Number(data[1]), "lng": Number(data[0]) });
+          AllPolyCoords.push({ "lat": Number(data[1]), "lng": Number(data[0]) });
+        }
+
+      })
+      this.paths = AllPolyCoords;
+    });
+    const polygon = new google.maps.Polygon({
+      paths: this.paths,
+      strokeColor: '#A50606',//26b86f',//FFFFFF, ff0000
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#ef7b26',//e20d0f',
+      fillOpacity: 0.35,
+  });
+  polygon.setMap(this.map);
+ }
+
+
 }

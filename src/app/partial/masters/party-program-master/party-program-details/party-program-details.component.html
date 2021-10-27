@@ -239,10 +239,10 @@
                 <div class="card-body border" *ngIf="MapHide">
                     <div class="mb-3" *ngIf="(membersDataArray?.length != 0 && commityDataArray?.length != 0); else NotFoundBlock">
                         <label class="form-label">Location</label>
-                        <agm-map  [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <!-- <agm-marker [agmFitBounds]="true"  *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude" (markerClick)="clickedMarker(infowindow)"> -->
-                            <agm-marker [agmFitBounds]="true"  *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude" (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActivityId)">
-
+                        <agm-map    [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)"> 
+                            <!-- [fitBounds]="true"  -->
+                            <agm-marker  *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude" (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActivityId)">
+                                <!-- [agmFitBounds]="true" -->
                                 <!-- <agm-info-window  #infowindow>
                                     <table class="table table-bordered table-sm mb-0">
                                         <tbody>
