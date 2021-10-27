@@ -36,6 +36,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UserBlockUnblockComponent } from './partial/dialogs/user-block-unblock/user-block-unblock.component';
 import { AddDesignationComponent } from './partial/dialogs/add-designation/add-designation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-details/recent-post-details.component';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DeleteComponent,
     AddMemberComponent,
     UserBlockUnblockComponent,
-    AddDesignationComponent
+    AddDesignationComponent,
+    RecentPostDetailsComponent,
   ],
   imports: [
     BrowserModule,
