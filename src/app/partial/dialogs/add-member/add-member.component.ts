@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { AddDesignationComponent } from '../add-designation/add-designation.comp
   templateUrl: './add-member.component.html',
   styleUrls: ['./add-member.component.css']
 })
-export class AddMemberComponent implements OnInit {
+export class AddMemberComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -492,8 +492,8 @@ export class AddMemberComponent implements OnInit {
       this.toastrService.error('Please select committee Name');
       return
     }
+    this.onNoClick('Yes')
     let dialogRefAddDesignated: any;
-    this.onNoClick('No');
     this.resCommittees.map((ele: any) => {
       if (ele.Id == bodyId) {
         let bodyName = ele.BodyOrgCellName;
@@ -504,7 +504,12 @@ export class AddMemberComponent implements OnInit {
       }
     });
     dialogRefAddDesignated.afterClosed().subscribe((result: any) => {
+      dialogRefAddDesignated = null;
       this.getCurrentDesignatedMembers(bodyId)
     });
+  }
+
+  ngOnDestroy(){
+    this.dialogRef.close();
   }
 }
