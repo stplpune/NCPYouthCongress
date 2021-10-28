@@ -3,23 +3,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="PostDetailModalLabel">Post Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onNoClick('No')"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onNoClick('No')"></button>
             </div>
             <div class="modal-body p-0">
                 <div class="row m-0 g-0">
                     <div class="col-sm-8 bg-secondary">
                         <div id="carouselImageSlideshow" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img
-                                        src="https://images.firstpost.com/wp-content/uploads/2012/11/2JDURally_PTI.jpg">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://i.ytimg.com/vi/FcMMZtH0ISs/maxresdefault.jpg">
-                                </div>
-                                <div class="carousel-item">
-                                    <img
-                                        src="https://thumbs.dreamstime.com/z/indian-rally-kolkata-february-supporters-listening-to-speakers-holding-flags-high-political-kolkata-35585937.jpg">
+                                <div class="carousel-item"
+                                    *ngFor="let img of activitieDetails.ImagePath.split(','); let i = index"
+                                    [class.active]="i == 0">
+                                    <img [src]="img">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselImageSlideshow"
@@ -38,42 +33,43 @@
                         <div class="card card-body border-0">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <img src="assets/images/executive-members/RavikantVarpe.png" class="member-photo"
-                                        alt="...">
+                                    <img src="{{activitieDetails?.UserProfilePhoto}}" class="member-photo" alt="...">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="mb-1 fw-bold">Ravikant Varpe</p>
-                                    <small class="small text-muted">10-02-2021 10:32 AM</small>
+                                    <p class="mb-1 fw-bold">{{activitieDetails?.UserFName}}
+                                        {{activitieDetails?.UserLName}}</p>
+                                    <small class="small text-muted">{{activitieDetails?.CreatedDate}}
+                                        {{activitieDetails?.CreatedTime}} </small>
                                 </div>
                             </div>
                             <div class="post-details">
                                 <div class="text-end">
-                                    <span class="type">Political Work</span>
+                                    <span class="type">{{activitieDetails?.Category}}</span>
                                 </div>
-                                <p class="title">Work Title</p>
-                                <p class="description">Work Description</p>
+                                <p class="title">{{activitieDetails?.Title}}</p>
+                                <p class="description">{{activitieDetails?.Description}}</p>
                             </div>
                             <div class="my-3">
                                 <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio11"
                                         autocomplete="off" checked>
                                     <label class="btn btn-outline-primary shadow-none" for="btnradio11"
-                                        (click)="socialMediaCheck('Liked')">
-                                        <i class="far fa-thumbs-up me-2"></i>10
+                                        (click)="socialMediaCheck('Liked');insertLikesList(activitieDetails.Id)">
+                                        <i class="far fa-thumbs-up me-2"></i>{{activitieDetails?.Likes}}
                                     </label>
 
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio12"
                                         autocomplete="off">
                                     <label class="btn btn-outline-success shadow-none" for="btnradio12"
-                                        (click)="socialMediaCheck('Comments')">
-                                        <i class="far fa-comments me-2"></i>15
+                                        (click)="socialMediaCheck('Comments');getCommentsList(activitieDetails.Id)">
+                                        <i class="far fa-comments me-2"></i>{{activitieDetails?.Comments}}
                                     </label>
 
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio13"
                                         autocomplete="off">
                                     <label class="btn btn-outline-info shadow-none" for="btnradio13"
                                         (click)="socialMediaCheck('Shared')">
-                                        <i class="far fa-share-square me-2"></i>25
+                                        <i class="far fa-share-square me-2"></i>{{activitieDetails?.Shares}}
                                     </label>
                                 </div>
                             </div>
@@ -83,49 +79,53 @@
                                     <div class="card-header fw-bold bg-transparent text-primary">
                                         Liked By
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
+                                    <ul class="list-group list-group-flush"
+                                        *ngIf="resLikesList?.length != 0 else LikedNotfound">
+                                        <li class="list-group-item" *ngFor="let LikesList of resLikesList">
+                                            <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Mname}}
+                                                {{LikesList?.LName}}</a>
+                                            <!-- <span class="small text-muted float-end">12-02-2021</span> -->
                                         </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
-                                        </li>
+
                                     </ul>
+                                    <ng-template #LikedNotfound>
+                                        <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
+                                    </ng-template>
                                 </div>
                                 <div class="card" *ngIf="comments">
                                     <div class="card-header fw-bold bg-transparent text-success">
                                         Comments
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
-                                            <p class="mb-0 small text-muted">Comment</p>
-                                            <div class="form-text text-end small">10-12-2011</div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
-                                            <p class="mb-0 small text-muted">Comment</p>
-                                            <div class="form-text text-end small">10-12-2011</div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p class="mb-1 small fw-bold"><a href="#">Member Name</a></p>
-                                            <p class="mb-0 small text-muted">Comment</p>
-                                            <div class="form-text text-end small">10-12-2011</div>
+                                    <div class="bg-light p-2">
+                                        <div class="d-flex flex-row align-items-start">
+                                            <textarea class="form-control ml-1 shadow-none textarea" [formControl]="Comment"></textarea></div>
+                                        <div class="mt-2 float-end">
+                                            <button  class="btn btn-secondary me-2 btn-sm" type="button" (click)="cancel()">Cancel</button>
+                                            <button class="btn btn-sm btn-main" type="button" (click)="submitComment()">Comment</button>
+                                        </div>
+                                    </div>
+                                    <ul class="list-group list-group-flush"
+                                        *ngIf="resCommentsList_1_0?.length != 0 else commentsNotfound">
+                                        <li class="list-group-item" *ngFor="let commentsList of resCommentsList_1_0">
+                                            <p class="mb-1 small fw-bold"><a href="#">{{commentsList?.Fname}}
+                                                    {{commentsList?.Mname}} {{commentsList?.LName}}</a></p>
+                                            <p class="mb-0 small text-muted">{{commentsList?.Comments}}
+                                                <button  *ngIf="commentsList?.UserId == loginUserId" (click)="deleteComments(commentsList.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
+                                            </p>
+                                            <div class="form-text text-end small">{{commentsList?.CreatedDate}}</div>
                                         </li>
                                     </ul>
+                                    <ng-template #commentsNotfound>
+                                        <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
+                                    </ng-template>
                                 </div>
                                 <div class="card" *ngIf="Shared">
                                     <div class="card-header fw-bold bg-transparent text-info">
                                         Shared By
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
+                                        <li class="p-2"> <a>Shared By {{activitieDetails?.Shares}} Users</a></li>
+                                        <!-- <li class="list-group-item">
                                             <a href="#">Member Name</a>
                                             <span class="small text-muted float-end">12-02-2021</span>
                                         </li>
@@ -136,7 +136,7 @@
                                         <li class="list-group-item">
                                             <a href="#">Member Name</a>
                                             <span class="small text-muted float-end">12-02-2021</span>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>

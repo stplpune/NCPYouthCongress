@@ -1,26 +1,44 @@
 <div class="card shadow-none border">
     <div class="card-header">
-        <div class="row g-2">
-            <div class="col-sm-4">
-                <select class="form-select">
-                    <option value="">Select Committee</option>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <select class="form-select">
-                    <option value="">Select Political Work Type</option>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Select Date Range" />
-                    <button type="button" class="btn btn-light btn-sm text-dark"><i class="fas fa-times"></i></button>
-                    <button type="button" class="btn btn-light btn-sm text-dark"><i class="far fa-calendar-alt"></i></button>
+        <form [formGroup]="filter">
+            <div class="row g-2 form-container">
+
+                <div class="col-sm-4">
+                    <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
+                        [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
+                        formControlName="CommitteeId" placeholder="Select Committee">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-4">
+                    <ngx-select [allowClear]="true" (remove)="clearFilter('Category')" (select)="filterData()"
+                        [items]="resWorkcategory" optionValueField="Id" optionTextField="Category"
+                        formControlName="CategoryId" placeholder="Select Category">
+                    </ngx-select>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)"
+                           class="form-control form-control-sm" [selectMode]="'range'"  formControlName="selDate" [max]="maxDate"
+                            [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                        <button class="btn btn-light btn-sm" type="button" *ngIf="deafultShowIcon" [owlDateTimeTrigger]="dt1">
+                            <i class="fas fa-calendar-alt"></i>
+                        </button>
+                        <button class="btn btn-light border btn-sm" type="button" *ngIf="!deafultShowIcon" (click)="clearFilter('dateValue')">
+                            <i class="fas fa-times"></i></button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="card-body p-0">
-        <img src="https://www.thestatesman.com/wp-content/uploads/2020/04/googl_ED.jpg" class="img-fluid w-100">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)"
+            style="width: 100vh ; height: 100vh;">
+            <agm-marker *ngFor="let latlongData of resActivityLocation" [latitude]="latlongData.Latitude"
+                [longitude]="latlongData.Longitude"
+                (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActvityId)">
+            </agm-marker>
+        </agm-map>
+        <!-- <img src="https://www.thestatesman.com/wp-content/uploads/2020/04/googl_ED.jpg" class="img-fluid w-100"> -->
     </div>
 </div>

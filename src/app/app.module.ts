@@ -39,6 +39,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-details/recent-post-details.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
