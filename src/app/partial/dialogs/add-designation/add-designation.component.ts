@@ -184,6 +184,7 @@ export class AddDesignationComponent implements OnInit {
   }
 
   swingDesignation(event: CdkDragDrop<string[]>) {
+    console.log(event);
     moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
     let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
       + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();

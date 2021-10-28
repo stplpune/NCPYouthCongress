@@ -11,7 +11,6 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
-import { AddDesignationComponent } from '../../dialogs/add-designation/add-designation.component';
 
 @Component({
   selector: 'app-organization-master',
@@ -817,6 +816,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   swingDesignation(event: CdkDragDrop<string[]>) {
+    console.log(event);
     moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
     let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
       + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();

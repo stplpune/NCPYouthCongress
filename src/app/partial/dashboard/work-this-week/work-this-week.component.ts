@@ -322,7 +322,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.spinner.show();
 
-    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.WorkDoneByYuvakTP = res.data1;

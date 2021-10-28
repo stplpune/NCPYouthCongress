@@ -139,7 +139,8 @@
 
             <div class="card mb-3">
                 <div class="card-header pb-0">
-                    Current Designated Members
+                    Current Designated Members <br/>
+                    <button  (click)="addDesignated()"  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -388,8 +389,8 @@
                                         formControlName="currentDesignation" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        <!-- </div>
+                        <div class="row"> -->
                             <div class="col-sm-6">
                                 <div class="mb-2">
 
@@ -407,7 +408,7 @@
                                     </div>
 
                                 </div>
-
+                                <button  (click)="addNewMember('Create',0)"  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted"><i class="fas fa-plus"></i></button>
                             </div>
                             <!-- <div class="col-sm-6">
                                 <div class="mb-3">

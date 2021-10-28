@@ -17,6 +17,8 @@ import { $ } from 'protractor';
 
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { AddMemberComponent } from 'src/app/partial/dialogs/add-member/add-member.component';
+import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation/add-designation.component';
 
 @Component({
   selector: 'app-organization-details',
@@ -149,7 +151,6 @@ export class OrganizationDetailsComponent implements OnInit {
         if (res.data == 0) {
           this.spinner.hide();
           // this.subCommittessResult = res.data1;
-
           let result: any = res.data1;
           if (result != 0) {
             this.subCommittessResult = result.filter((ele: any) => {
@@ -561,6 +562,31 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
+  addNewMember(flag:any,id:any) {
+    this.addEditMemberModal('close');
+    let obj = {"formStatus":flag, 'Id':id}
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '1024px',
+      data: obj
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.getAllBodyMember();
+      }
+      this.addEditMemberModal('open');
+    });
+  }
+
+  addEditMemberModal(flag:any){
+    if(flag == 'close'){
+      let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
+      closeAddMemModal.click();
+    }else if (flag == 'open'){
+      let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
+      openMemberModal.click();
+    }
+  }
+
   addEditMember(data: any, flag: any) {
     this.HighlightRow = data.SrNo;
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
@@ -571,8 +597,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     else {
       this.dataAddEditMember = data
-      let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
-      openMemberModal.click();
+      this.addEditMemberModal('open');
     }
   }
 
@@ -695,4 +720,11 @@ export class OrganizationDetailsComponent implements OnInit {
     });
   }
 
+
+  addDesignated(){
+    const dialogRef = this.dialog.open(AddDesignationComponent, {
+      // width: '1024px',
+      data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName}
+    });
+  }
 }
