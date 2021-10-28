@@ -41,6 +41,7 @@ export class RecentPostDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loginUserId = this.commonService.loggedInUserId();
     this.activitieDetails = this.data.data;
+    console.log(this.activitieDetails );
     this.pageNo = this.data.pageNo;
     this.activityId = this.activitieDetails.Id;
     this.getLikesList(this.activityId)

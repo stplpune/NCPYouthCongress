@@ -209,7 +209,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   defaultBodyMemForm() {
     this.bodyMember = this.fb.group({
-      PostfromDate: ['', Validators.required],
+      PostfromDate: [''],
       BodyName: [this.getCommitteeName, Validators.required],
       bodyId: ['', Validators.required],
       prevMember: [''],
@@ -577,7 +577,8 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
+    // let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
+    let postFromDate: any = this.datepipe.transform(new Date(), 'dd/MM/YYYY');
     this.submitted = true;
     if (this.bodyMember.invalid) {
       this.spinner.hide();

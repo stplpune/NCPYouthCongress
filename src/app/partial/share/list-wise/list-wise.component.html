@@ -1,4 +1,5 @@
 
+        <div class="recent-posts">
         <div class="row member-posts">
             <div class="col-sm-6" *ngFor="let dashboardActivities of resDashboardActivities">
                 <a class="card shadow-none border" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
@@ -18,7 +19,7 @@
                     <div class="card-footer bg-transparent p-0 d-flex justify-content-between">
                         <a href="#" class="card-link"><i class="fas fa-thumbs-up me-2 text-primary"></i>{{dashboardActivities?.Likes}}</a>
                         <a href="#" class="card-link border-start border-end"><i class="fas fa-comments me-2 text-success"></i>{{dashboardActivities?.Comments}}</a>
-                        <a href="#" class="card-link"><i class="fas fa-share-square me-2 text-info"></i>{{dashboardActivities?.Shares}}</a>
+                        <a href="#" class="card-link"><i class="fas far fa-eye me-2 text-info"></i>{{dashboardActivities?.IsLike}}</a>
                     </div>
                 </a>
             </div>
@@ -44,3 +45,4 @@
             </div>
            -->
         </div>
+    </div>

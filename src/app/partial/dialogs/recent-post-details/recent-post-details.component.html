@@ -69,7 +69,7 @@
                                         autocomplete="off">
                                     <label class="btn btn-outline-info shadow-none" for="btnradio13"
                                         (click)="socialMediaCheck('Shared')">
-                                        <i class="far fa-share-square me-2"></i>{{activitieDetails?.Shares}}
+                                        <i class="far fa-eye me-2"></i>{{activitieDetails?.IsLike}}
                                     </label>
                                 </div>
                             </div>
@@ -121,10 +121,10 @@
                                 </div>
                                 <div class="card" *ngIf="Shared">
                                     <div class="card-header fw-bold bg-transparent text-info">
-                                        Shared By
+                                        View By
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="p-2"> <a>Shared By {{activitieDetails?.Shares}} Users</a></li>
+                                        <li class="p-2"> <a>View By {{activitieDetails?.IsLike}} Users</a></li>
                                         <!-- <li class="list-group-item">
                                             <a href="#">Member Name</a>
                                             <span class="small text-muted float-end">12-02-2021</span>

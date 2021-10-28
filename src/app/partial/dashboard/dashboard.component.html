@@ -196,7 +196,7 @@
                     {{activities?.name}}
                 </p> -->
 
-                <div class="card-body recent-posts" *ngIf="ListView">
+                <div class="card-body recent-posts" *ngIf="ListView"  (wheel)="onScroll($event)" >
                     <app-list-wise></app-list-wise>
                 
                    

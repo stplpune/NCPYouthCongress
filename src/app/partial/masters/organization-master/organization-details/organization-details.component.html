@@ -252,10 +252,10 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12 mb-2">
                             Individual Members Progress
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-12">
                             <form [formGroup]="filter">
                                 <div class="row g-2 form-container">
                                     <div class="col-sm-4">
@@ -409,7 +409,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="txtMemberName" class="form-label required-field">
                                         Post From Date</label>
@@ -431,7 +431,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
                             <div class="card">
