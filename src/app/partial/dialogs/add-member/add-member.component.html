@@ -78,12 +78,14 @@
                         </div>
                         <div class="col-sm-4">
                             <label for="ddlVillageTown" class="form-label required-field">Designation</label>
-                            <ngx-select [allowClear]="true" [items]="allDesignatedMembers"
+                            <div class="input-group">
+                                <ngx-select [allowClear]="true" [items]="allDesignatedMembers"
                                 (remove)="clikedClose('Designation')" placeholder="Select Designation"
                                 optionValueField="DesignationId" [disabled]="!this.editProfileForm.value.BodyId || allDesignatedMembers?.length == 0"
-                                formControlName="DesignationId" optionTextField="DesignationName">
+                                formControlName="DesignationId" optionTextField="DesignationName" style="width: 83%;">
                             </ngx-select>
                             <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated(this.editProfileForm.value.BodyId)"><i class="fas fa-plus"></i></button>
+                            </div>
                             <div *ngIf="submitted && f.DesignationId.errors" class="invalid-feedback">
                                 <div *ngIf="f.DesignationId.errors.required">Designation is required
                                 </div>
