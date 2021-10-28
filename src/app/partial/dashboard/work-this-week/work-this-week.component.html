@@ -67,7 +67,7 @@
                             <p class="text-success fw-bold mb-1 small">Top Performance</p>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item text-success" *ngFor="let topPerformance of WorkDoneByYuvakTP"> 
-                                    <i class="fas fa-arrow-up me-2"></i>{{topPerformance.DistrictName}} <a class="text-primary small float-end" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
+                                    {{topPerformance.DistrictName}} <a class="text-primary small float-end" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
                                     <!--</a> -->
                                 </li>
                             </ul>
