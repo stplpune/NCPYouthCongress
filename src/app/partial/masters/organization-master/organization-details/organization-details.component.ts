@@ -722,9 +722,13 @@ export class OrganizationDetailsComponent implements OnInit {
 
 
   addDesignated(){
+    this.addEditMemberModal('close');
     const dialogRef = this.dialog.open(AddDesignationComponent, {
       // width: '1024px',
       data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCurrentDesignatedMembers(this.bodyId);
     });
   }
 }

@@ -33,20 +33,18 @@ export class AddDesignationComponent implements OnInit {
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute, public dialogRef: MatDialogRef<AddMemberComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.desBodyId = this.data.committeeId;
+      this.committeeName = this.data.committeeName;
+    }
 
   ngOnInit(): void {
-    this.desBodyId = this.data.committeeId;
-    this.committeeName = this.data.committeeName;
     this.defaultDesignationForm();
     this.getDesignation();
     this.getBodyAssignedDesignation();
     this.AlreadyAssignedDesignations(this.desBodyId);
   }
 
-  onNoClick(text:any): void {
-    this.dialogRef.close(text);
-  }
 
   
   getDesignation() {
@@ -224,5 +222,9 @@ export class AddDesignationComponent implements OnInit {
         // this.getViewMembers(obj);
       }
     });
+  }
+
+  onNoClick(text:any): void {
+    this.dialogRef.close(text);
   }
 }

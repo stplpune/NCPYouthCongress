@@ -140,7 +140,7 @@
             <div class="card mb-3">
                 <div class="card-header pb-0">
                     Current Designated Members <br/>
-                    <button  (click)="addDesignated()"  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted"><i class="fas fa-plus"></i></button>
+                    <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -387,6 +387,7 @@
                                     <label for="txtBodyName" class="form-label">Designation</label>
                                     <input type="text" class="form-control" readonly
                                         formControlName="currentDesignation" />
+                                        <!-- <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i class="fas fa-plus"></i></button> -->
                                 </div>
                             </div>
                         <!-- </div>
