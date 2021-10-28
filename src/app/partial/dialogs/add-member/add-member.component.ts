@@ -16,7 +16,7 @@ import { AddDesignationComponent } from '../add-designation/add-designation.comp
   templateUrl: './add-member.component.html',
   styleUrls: ['./add-member.component.css']
 })
-export class AddMemberComponent implements OnInit, OnDestroy {
+export class AddMemberComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -507,9 +507,5 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       dialogRefAddDesignated = null;
       this.getCurrentDesignatedMembers(bodyId)
     });
-  }
-
-  ngOnDestroy(){
-    this.dialogRef.close();
   }
 }
