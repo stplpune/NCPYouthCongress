@@ -112,7 +112,7 @@
                                             <p class="mb-0 small text-muted">{{commentsList?.Comments}}
                                                 <button  *ngIf="commentsList?.UserId == loginUserId" (click)="deleteComments(commentsList.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
                                             </p>
-                                            <div class="form-text text-end small">{{commentsList?.CreatedDate}}</div>
+                                            <div class="form-text text-end small">{{commentsList?.CreatedDate}} <small>({{commentsList?.Timeline}})</small></div>
                                         </li>
                                     </ul>
                                     <ng-template #commentsNotfound>

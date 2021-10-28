@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
 
   getLowHighSocialMTypesOfWorks() {//count3 api
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_Count3_Data_1_0?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Count3_Data_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
