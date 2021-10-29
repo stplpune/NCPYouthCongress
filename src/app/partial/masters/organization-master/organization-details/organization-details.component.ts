@@ -571,9 +571,10 @@ export class OrganizationDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
+        console.log(result);
         this.getAllBodyMember();
       }
-      // this.addEditMemberModal('open');
+      this.addEditMemberModal('open');
     });
   }
 
@@ -728,6 +729,7 @@ export class OrganizationDetailsComponent implements OnInit {
       data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName}
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
+     console.log(result);
       this.getCurrentDesignatedMembers(this.bodyId);
     });
   }
