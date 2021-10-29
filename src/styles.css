@@ -234,16 +234,19 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 }
 
 .ngx-pagination .current {
-    padding: 5px 15px !important;
+    padding: 4px 9px !important; 
     background: #272848!important;
     border: solid 1px #272848 !important;
+    font-size: .7rem; 
 }
 
 .ngx-pagination .disabled,
 .ngx-pagination a,
 .ngx-pagination button {
-    padding: 5px 15px !important;
+    padding: 4px 9px !important; 
     text-decoration: none;
+    font-size: .7rem; 
+    
 }
 
 .ngx-pagination li {
