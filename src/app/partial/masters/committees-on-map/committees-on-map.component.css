@@ -6,4 +6,7 @@
     max-height: 67vh;
     overflow-y: auto;
 }
-
+.chartHeight600{
+    height:600px;
+    font-size: .75rem;
+}

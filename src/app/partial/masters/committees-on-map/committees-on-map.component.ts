@@ -398,12 +398,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-      //xAxis.renderer.labels.template.rotation = -45;
+      xAxis.renderer.labels.template.rotation = -90;
       xAxis.renderer.minGridDistance = 30;
 
       let label = xAxis.renderer.labels.template;
-      label.truncate = true;
-      label.maxWidth = 80;
+      // label.truncate = true;
+      // label.maxWidth = 120;
       label.tooltipText = "{category}";
 
       function createSeries(value: string | undefined, name: string) {
