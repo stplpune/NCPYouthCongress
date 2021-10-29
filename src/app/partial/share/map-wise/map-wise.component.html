@@ -3,19 +3,19 @@
         <form [formGroup]="filter">
             <div class="row g-2 form-container">
 
-                <div class="col-sm-4">
+                <div class="offset-4 col-sm-3">
                     <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
                         [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
                         formControlName="CommitteeId" placeholder="Select Committee">
                     </ngx-select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <ngx-select [allowClear]="true" (remove)="clearFilter('Category')" (select)="filterData()"
                         [items]="resWorkcategory" optionValueField="Id" optionTextField="Category"
                         formControlName="CategoryId" placeholder="Select Category">
                     </ngx-select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="input-group">
                         <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)"
                            class="form-control form-control-sm" [selectMode]="'range'"  formControlName="selDate" [max]="maxDate"
@@ -32,8 +32,7 @@
         </form>
     </div>
     <div class="card-body p-0">
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)"
-            style="width: 100vh ; height: 100vh;">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)" class="h-w-100">
             <agm-marker *ngFor="let latlongData of resActivityLocation" [latitude]="latlongData.Latitude"
                 [longitude]="latlongData.Longitude"
                 (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActvityId)">

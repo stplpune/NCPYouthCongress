@@ -8,6 +8,7 @@ import { AccessDeniedComponent } from './errors/access-denied/access-denied.comp
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { PartialComponent } from './partial/partial.component';
+import { MapWiseComponent } from './partial/share/map-wise/map-wise.component';
 import { WebComponent } from './web/web.component';
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'help-support', loadChildren: () => import('./partial/help-support/help-support.module').then(m => m.HelpSupportModule), data: { title: 'Help Support', allowedRoles: ['1', '2', '5'] } },
       { path: 'my-profile', loadChildren: () => import('./partial/user-profile/my-profile/my-profile.module').then(m => m.MyProfileModule), data: { title: 'My Profile', allowedRoles: ['1', '2', '5', '7', '8'] } },
       { path: 'member-report', loadChildren: () => import('./partial/members/member-report/member-report.module').then(m => m.MemberReportModule), data: { title: 'Member Report', allowedRoles: ['2', '1','9'] }  },
+      { path:'map-view', component:MapWiseComponent, data: { title: 'Map View', allowedRoles: ['2', '1','9'] }  },
       // Election
       { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule), data: { title: 'Create Election', allowedRoles: ['7', '1'] } }, //, 
       { path: 'create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule), data: { title: 'Create Constituency', allowedRoles: ['7', '1'] } },
