@@ -42,102 +42,104 @@
                                         {{activitieDetails?.CreatedTime}} </small>
                                 </div>
                             </div>
-                            <div class="post-details">
-                                <div class="text-end">
-                                    <span class="type">{{activitieDetails?.Category}}</span>
-                                </div>
-                                <p class="title">{{activitieDetails?.Title}}</p>
-                                <p class="description">{{activitieDetails?.Description}}</p>
-                            </div>
-                            <div class="my-3">
-                                <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio11"
-                                        autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary shadow-none" for="btnradio11"
-                                        (click)="socialMediaCheck('Liked');insertLikesList(activitieDetails.Id)">
-                                        <i class="far fa-thumbs-up me-2"></i>{{activitieDetails?.Likes}}
-                                    </label>
-
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio12"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-success shadow-none" for="btnradio12"
-                                        (click)="socialMediaCheck('Comments');getCommentsList(activitieDetails.Id)">
-                                        <i class="far fa-comments me-2"></i>{{activitieDetails?.Comments}}
-                                    </label>
-
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio13"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-info shadow-none" for="btnradio13"
-                                        (click)="socialMediaCheck('Shared')">
-                                        <i class="far fa-eye me-2"></i>{{activitieDetails?.IsLike}}
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="likesharecomment">
-                                <div class="card" *ngIf="Liked">
-                                    <div class="card-header fw-bold bg-transparent text-primary">
-                                        Liked By
+                            <div class="modal-post">
+                                <div class="post-details">
+                                    <div class="text-end">
+                                        <span class="type">{{activitieDetails?.Category}}</span>
                                     </div>
-                                    <ul class="list-group list-group-flush"
-                                        *ngIf="resLikesList?.length != 0 else LikedNotfound">
-                                        <li class="list-group-item" *ngFor="let LikesList of resLikesList">
-                                            <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Mname}}
-                                                {{LikesList?.LName}}</a>
-                                            <!-- <span class="small text-muted float-end">12-02-2021</span> -->
-                                        </li>
-
-                                    </ul>
-                                    <ng-template #LikedNotfound>
-                                        <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
-                                    </ng-template>
+                                    <p class="title">{{activitieDetails?.Title}}</p>
+                                    <p class="description">{{activitieDetails?.Description}}</p>
                                 </div>
-                                <div class="card" *ngIf="comments">
-                                    <div class="card-header fw-bold bg-transparent text-success">
-                                        Comments
+                                <div class="my-3">
+                                    <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio11"
+                                            autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary shadow-none" for="btnradio11"
+                                            (click)="socialMediaCheck('Liked');insertLikesList(activitieDetails.Id)">
+                                            <i class="far fa-thumbs-up me-2"></i>{{activitieDetails?.Likes}}
+                                        </label>
+    
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio12"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-success shadow-none" for="btnradio12"
+                                            (click)="socialMediaCheck('Comments');getCommentsList(activitieDetails.Id)">
+                                            <i class="far fa-comments me-2"></i>{{activitieDetails?.Comments}}
+                                        </label>
+    
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio13"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-info shadow-none" for="btnradio13"
+                                            (click)="socialMediaCheck('Shared')">
+                                            <i class="far fa-eye me-2"></i>{{activitieDetails?.IsLike}}
+                                        </label>
                                     </div>
-                                    <div class="bg-light p-2">
-                                        <div class="d-flex flex-row align-items-start">
-                                            <textarea class="form-control ml-1 shadow-none textarea" [formControl]="Comment"></textarea></div>
-                                        <div class="mt-2 float-end">
-                                            <button  class="btn btn-secondary me-2 btn-sm" type="button" (click)="cancel()">Cancel</button>
-                                            <button class="btn btn-sm btn-main" type="button" (click)="submitComment()">Comment</button>
+                                </div>
+    
+                                <div class="likesharecomment">
+                                    <div class="card" *ngIf="Liked">
+                                        <div class="card-header fw-bold bg-transparent text-primary">
+                                            Liked By
                                         </div>
+                                        <ul class="list-group list-group-flush"
+                                            *ngIf="resLikesList?.length != 0 else LikedNotfound">
+                                            <li class="list-group-item" *ngFor="let LikesList of resLikesList">
+                                                <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Mname}}
+                                                    {{LikesList?.LName}}</a>
+                                                <!-- <span class="small text-muted float-end">12-02-2021</span> -->
+                                            </li>
+    
+                                        </ul>
+                                        <ng-template #LikedNotfound>
+                                            <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
+                                        </ng-template>
                                     </div>
-                                    <ul class="list-group list-group-flush"
-                                        *ngIf="resCommentsList_1_0?.length != 0 else commentsNotfound">
-                                        <li class="list-group-item" *ngFor="let commentsList of resCommentsList_1_0">
-                                            <p class="mb-1 small fw-bold"><a href="#">{{commentsList?.Fname}}
-                                                    {{commentsList?.Mname}} {{commentsList?.LName}}</a></p>
-                                            <p class="mb-0 small text-muted">{{commentsList?.Comments}}
-                                                <button  *ngIf="commentsList?.UserId == loginUserId" (click)="deleteComments(commentsList.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
-                                            </p>
-                                            <div class="form-text text-end small">{{commentsList?.CreatedDate}} <small>({{commentsList?.Timeline}})</small></div>
-                                        </li>
-                                    </ul>
-                                    <ng-template #commentsNotfound>
-                                        <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
-                                    </ng-template>
-                                </div>
-                                <div class="card" *ngIf="Shared">
-                                    <div class="card-header fw-bold bg-transparent text-info">
-                                        View By
+                                    <div class="card" *ngIf="comments">
+                                        <div class="card-header fw-bold bg-transparent text-success">
+                                            Comments
+                                        </div>
+                                        <div class="bg-light p-2">
+                                            <div class="d-flex flex-row align-items-start">
+                                                <textarea class="form-control ml-1 shadow-none textarea" [formControl]="Comment"></textarea></div>
+                                            <div class="mt-2 float-end">
+                                                <button  class="btn btn-secondary me-2 btn-sm" type="button" (click)="cancel()">Cancel</button>
+                                                <button class="btn btn-sm btn-main" type="button" (click)="submitComment()">Comment</button>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group list-group-flush"
+                                            *ngIf="resCommentsList_1_0?.length != 0 else commentsNotfound">
+                                            <li class="list-group-item" *ngFor="let commentsList of resCommentsList_1_0">
+                                                <p class="mb-1 small fw-bold"><a href="#">{{commentsList?.Fname}}
+                                                        {{commentsList?.Mname}} {{commentsList?.LName}}</a></p>
+                                                <p class="mb-0 small text-muted">{{commentsList?.Comments}}
+                                                    <button  *ngIf="commentsList?.UserId == loginUserId" (click)="deleteComments(commentsList.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
+                                                </p>
+                                                <div class="form-text text-end small">{{commentsList?.CreatedDate}} <small>({{commentsList?.Timeline}})</small></div>
+                                            </li>
+                                        </ul>
+                                        <ng-template #commentsNotfound>
+                                            <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
+                                        </ng-template>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="p-2"> <a>View By {{activitieDetails?.IsLike}} Users</a></li>
-                                        <!-- <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Member Name</a>
-                                            <span class="small text-muted float-end">12-02-2021</span>
-                                        </li> -->
-                                    </ul>
+                                    <div class="card" *ngIf="Shared">
+                                        <div class="card-header fw-bold bg-transparent text-info">
+                                            View By
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="p-2"> <a>View By {{activitieDetails?.IsLike}} Users</a></li>
+                                            <!-- <li class="list-group-item">
+                                                <a href="#">Member Name</a>
+                                                <span class="small text-muted float-end">12-02-2021</span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="#">Member Name</a>
+                                                <span class="small text-muted float-end">12-02-2021</span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="#">Member Name</a>
+                                                <span class="small text-muted float-end">12-02-2021</span>
+                                            </li> -->
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
