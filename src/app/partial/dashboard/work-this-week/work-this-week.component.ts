@@ -91,8 +91,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         colors: {
           baseDefault: "#bfddff",
           background: "#fff",
-          selected: "#7289da",
-          hover: "#7289da",
+          selected: "#272848",
+          hover: "#272848",
           directory: "#bfddff",
           status: {}
         },
@@ -399,8 +399,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       valueAxis.title.text = "Committes Work Done Count";
 
       let xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-      xAxis.dataFields.category = this.WorkdonebyMembersXaxiesLabel;
-      xAxis.title.text = "District Name";
+      xAxis.dataFields.category = 'DistrictName'
+      xAxis.title.text = this.WorkdonebyMembersXaxiesLabel;
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
@@ -475,7 +475,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
       this.WorkDoneByYuvakBarchart.filter((ele: any) => {
-        $('path#' + ele.DistrictId).css('fill', 'rgb(114, 137, 218)');
+        $('path#' + ele.DistrictId).css('fill', 'rgb(39 40 72)');
         $('#' + ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
