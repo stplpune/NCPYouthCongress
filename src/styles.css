@@ -940,7 +940,7 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 }
 
 .modal-body {
-    /* max-height: calc(100vh - 210px); */
+    max-height: calc(100vh - 0px);
     overflow-y: auto;
 }
 
