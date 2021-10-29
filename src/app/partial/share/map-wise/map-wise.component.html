@@ -10,7 +10,7 @@
                         <form [formGroup]="filter">
                             <div class="row g-2 form-container">
                 
-                                <div class="offset-3 col-sm-4">
+                                <div class="offset-2 col-sm-4">
                                     <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
                                         [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
                                         formControlName="CommitteeId" placeholder="Select Committee">
@@ -22,7 +22,7 @@
                                         formControlName="CategoryId" placeholder="Select Category">
                                     </ngx-select>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <div class="input-group">
                                         <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)"
                                            class="form-control form-control-sm" [selectMode]="'range'"  formControlName="selDate" [max]="maxDate"
@@ -50,8 +50,10 @@
         <div class="col-sm-12">
             <div class="card shadow-none border">
                 <div class="card-body p-0">
+                    <!-- [fitBounds]="true"  -->
                     <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)" class="h-w-100">
-                        <agm-marker *ngFor="let latlongData of resActivityLocation" [latitude]="latlongData.Latitude"
+                        <!-- [agmFitBounds]="true"  -->
+                        <agm-marker  *ngFor="let latlongData of resActivityLocation" [latitude]="latlongData.Latitude"
                             [longitude]="latlongData.Longitude"
                             (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActvityId)">
                         </agm-marker>

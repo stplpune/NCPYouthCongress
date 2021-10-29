@@ -77,7 +77,7 @@ export class AddMemberComponent implements OnInit {
   total: any;
   subject: Subject<any> = new Subject();
   searchFilter = "";
-  profileFlag = "Create";
+  profileFlag = "Add";
   highlightedRow: any;
   getCommiteeName: any;
   allDesignatedMembers: any;
@@ -159,7 +159,7 @@ export class AddMemberComponent implements OnInit {
 
   clearForm() {
     this.submitted = false;
-    this.profileFlag = 'Create';
+    this.profileFlag = 'Add';
     this.paginationNo = 1;
     this.myProfileForm();
     this.removePhoto();
@@ -336,7 +336,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   resetFile() {
-    this.profileFlag = "Create";
+    this.profileFlag = "Add";
     this.myInputVariable.nativeElement.value = '';
   }
 

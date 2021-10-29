@@ -60,7 +60,7 @@
                 <div class="card-header">Work done by Members
 
                     <div class="float-end">
-                        <button class="btn btn-sm btn-ligth">
+                        <button class="btn btn-sm btn-light" routerLink="../../map-view">
                             <i class="fas fa-map-marked-alt"></i>
                         </button>
                     </div>
@@ -74,7 +74,8 @@
                             <p class="text-success fw-bold mb-1 small">Top Performance</p>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item text-success" *ngFor="let topPerformance of WorkDoneByYuvakTP"> 
-                                    {{topPerformance.DistrictName}} <a class="text-primary small float-end" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
+                                    {{topPerformance.DistrictName}} <a class="text-primary small float-end" ></a>
+                                    <!-- <i class="fas fa-external-link-alt" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"></i>  -->
                                     <!--</a> -->
                                 </li>
                             </ul>
@@ -83,7 +84,8 @@
                             <p class="text-danger fw-bold mb-1 small">Bottom Performance</p>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
-                                    {{bottomPerformance.DistrictName}}<a class="text-primary small float-end" (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)"><i class="fas fa-external-link-alt"></i> </a>
+                                    <!-- <i class="fas fa-external-link-alt"  (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)"></i> -->
+                                    {{bottomPerformance.DistrictName}}<a class="text-primary small float-end"> </a>
                                     <!--</a>  -->
                                 </li>
 

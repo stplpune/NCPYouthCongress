@@ -1,4 +1,4 @@
-<div class="modal-dialog m-width" style="width: 1140px;">
+<div class="modal-dialog m-width">
     <div class="modal-content">
         <div class="modal-header">
             <p class="modal-title" id="AddDesignationModalLabel">Add Designation</p>
@@ -87,7 +87,7 @@
                                 <th>Sr. No.</th>
                                 <th>Designation</th>
                                 <th>Person(s) Assigned</th>
-                                <th></th>
+                                <!-- <th></th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +96,12 @@
                                 <td>{{resOfAssignedDesignations.SrNo}}</td>
                                 <td>{{resOfAssignedDesignations.DesignationName}}</td>
                                 <td>{{resOfAssignedDesignations.PersonAssigned | titlecase}}</td>
-                                <td><a (click)="addEditMember('Create',0)" class="btn btn-sm btn-light" title="Add Member"><i class="fas fa-plus"></i></a></td>
+                                <!-- <td>
+                                    <ng-container *ngIf="!resOfAssignedDesignations.PersonAssigned else noDataFound">
+                                        <a (click)="addEditMember('Create',0)" class="btn btn-sm btn-light" title="Add Member"><i class="fas fa-plus"></i></a>
+                                    </ng-container>
+                                    <ng-template #noDataFound>-</ng-template>
+                                </td> -->
 
                             </tr>
                             <tr *ngIf="allAssignedDesignations?.length==0">

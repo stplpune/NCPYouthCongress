@@ -574,7 +574,7 @@ export class OrganizationDetailsComponent implements OnInit {
         console.log(result);
         this.getAllBodyMember();
       }
-      this.addEditMemberModal('open');
+      // this.addEditMemberModal('open');
     });
   }
 
@@ -719,6 +719,9 @@ export class OrganizationDetailsComponent implements OnInit {
       width: '1024px',
       data: this.resultBodyMemActDetails
     });
+    dialogRefActivityDetails.afterClosed().subscribe(result => {
+      console.log(result)
+    });
   }
 
 
@@ -729,7 +732,9 @@ export class OrganizationDetailsComponent implements OnInit {
       data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName, currentModalName:'Add Designation'}
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
-      
+      debugger;
+      if (result == 'Yes') {
+      }
       this.getCurrentDesignatedMembers(this.bodyId);
     });
   }
