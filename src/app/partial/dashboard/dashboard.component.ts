@@ -540,10 +540,4 @@ export class DashboardComponent implements OnInit {
     flag == 'Comments' ? (this.comments = true,  this.Liked = false, this.Shared = false) : '';
     flag == 'Shared' ? (this.Shared = true,  this.comments = false, this.Liked = false) : '';
   }
-
-  onScroll(event:any){
-    console.log(event);
-    console.log("Scolled...");
-  }
-
 }

@@ -168,9 +168,9 @@ export class MapWiseComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resActivityLocation = res.data1;
-        console.log(this.resActivityLocation);
         this.spinner.hide();
       } else {
+        this.toastrService.error('Location is not available')
         this.resActivityLocation = [];
         this.spinner.hide();
       }
