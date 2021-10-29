@@ -128,7 +128,6 @@ export class CommonService {
     }
 
     imgesDataTransform(data: any, type: any) {
-        debugger;
         if (type == 'obj') {
             let images = data.map((item: any) =>
                 new ImageItem({ src: item.ImagePath, thumb: item.ImagePath, text: 'programGalleryImg' }));
