@@ -6,6 +6,7 @@ import { AgmCoreModule} from '@agm/core';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [ 
@@ -17,6 +18,7 @@ import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule,
+    NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',

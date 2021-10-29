@@ -15,6 +15,9 @@ import { RecentPostDetailsComponent } from '../../dialogs/recent-post-details/re
 export class ListWiseComponent implements OnInit {
   resDashboardActivities: any;
   paginationNo = 1;
+  pageSize: number = 10;
+  total:any;
+  
   constructor(public dialog: MatDialog,
     private callAPIService: CallAPIService,
     private toastrService: ToastrService,
@@ -33,6 +36,7 @@ export class ListWiseComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resDashboardActivities = res.data1;
+        this.total = res.data2[0].TotalCount;
         this.spinner.hide();
       } else {
         this.spinner.hide();
@@ -55,5 +59,10 @@ export class ListWiseComponent implements OnInit {
         this.dashboardActivities();
       }
     });
+  }
+
+  onClickPagintion(pageNo: number) {
+    this.paginationNo = pageNo;
+    this.dashboardActivities();
   }
 }
