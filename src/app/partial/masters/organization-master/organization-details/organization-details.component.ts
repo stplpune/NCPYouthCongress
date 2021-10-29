@@ -573,7 +573,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (result == 'Yes') {
         this.getAllBodyMember();
       }
-      this.addEditMemberModal('open');
+      // this.addEditMemberModal('open');
     });
   }
 
@@ -714,7 +714,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   openDialogBodyMemActDetails() {
-    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+    const dialogRefActivityDetails = this.dialog.open(ActivityDetailsComponent, {
       width: '1024px',
       data: this.resultBodyMemActDetails
     });
@@ -723,11 +723,11 @@ export class OrganizationDetailsComponent implements OnInit {
 
   addDesignated(){
     this.addEditMemberModal('close');
-    const dialogRef = this.dialog.open(AddDesignationComponent, {
+    const dialogRefaddEditMember = this.dialog.open(AddDesignationComponent, {
       // width: '1024px',
       data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName}
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRefaddEditMember.afterClosed().subscribe(result => {
       this.getCurrentDesignatedMembers(this.bodyId);
     });
   }

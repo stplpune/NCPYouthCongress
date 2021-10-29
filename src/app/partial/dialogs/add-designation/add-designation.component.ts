@@ -97,7 +97,6 @@ export class AddDesignationComponent implements OnInit {
           this.toastrService.success(res.data1[0].Msg);
           // this.closeModalAddDes();
           this.getBodyAssignedDesignation();
-          this.AlreadyAssignedDesignations(this.desBodyId);
           this.spinner.hide();
         } else {
           this.toastrService.error("Members is not available");
@@ -168,6 +167,7 @@ export class AddDesignationComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allBodyAssignedDesignation = res.data1;
+        this.AlreadyAssignedDesignations(this.desBodyId);
       } else {
         this.spinner.hide();
         // this.toastrService.error("Designations is  not available");
@@ -210,13 +210,13 @@ export class AddDesignationComponent implements OnInit {
 
   addEditMember(flag:any,id:any) {
     // this.highlightedRow = id
-    this.onNoClick('Yes')
+    this.onNoClickModal('No')
     let obj = {"formStatus":flag, 'Id':id}
-    const dialogRef = this.dialog.open(AddMemberComponent, {
+    let dialogRef:any = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       if (result == 'Yes') {
         // let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
         // this.getViewMembers(obj);
@@ -224,7 +224,7 @@ export class AddDesignationComponent implements OnInit {
     });
   }
 
-  onNoClick(text:any): void {
+  onNoClickModal(text:any): void {
     this.dialogRef.close(text);
   }
 }
