@@ -19,7 +19,7 @@ export class MapWiseComponent implements OnInit {
   resActivityLocation:any;
   lat: any = 19.7515;
   lng: any = 75.7139;
-  zoom: any = 7;
+  zoom: any = 6;
   resultBodyMemActDetails:any;
   map:any;
   paths:any;
