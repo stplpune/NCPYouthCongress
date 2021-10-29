@@ -182,7 +182,7 @@
                             </tr>
                             <tr *ngIf="resWorkList?.length == 0">
                                 <td colspan="5">
-                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -198,7 +198,7 @@
 
                 </div>
             </div>
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
                 <div class="card-header">
                     Roles
                 </div>
@@ -229,21 +229,16 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
                 <div class="card-header">
                     Recent Activity Graph
                     <span class="float-end text-muted fw-normal"> {{fromDateWorkdetails}} ~ {{toDateWorkdetails}}</span>
                 </div>
-                <!-- <div class="card-body">
-                    year range filter (current month to last 12 months)
-                    <br>Bar Chart :<br> x-axis : Month name<br> y-axis : Count of likes in this month<br> y-axis : count of work done in this month <br>
-                </div> -->
-
                 <div class="card-body recentActivityGraph chartfont h-400">
                 </div>
-            </div>
+            </div> -->
 
             <div class="card mb-3">
                 <div class="card-header">
@@ -251,7 +246,7 @@
                 </div>
                 <div class="card-body chartbox">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
@@ -274,7 +269,7 @@
                                 </tr>
                                 <tr *ngIf="feedbacks?.length == 0">
                                     <td colspan="5">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                                     </td>
                                 </tr>
                             </tbody>
