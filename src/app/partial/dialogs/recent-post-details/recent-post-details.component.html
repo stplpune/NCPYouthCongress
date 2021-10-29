@@ -16,6 +16,11 @@
                                     [class.active]="i == 0">
                                     <img [src]="img">
                                 </div>
+                                <div class="carousel-item active" *ngIf="!activitieDetails.ImagePath">
+                                    <img src="assets/images/dashboard-images/ncp-default.png">
+                                </div>
+                            
+                                
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselImageSlideshow"
                                 data-bs-slide="prev">

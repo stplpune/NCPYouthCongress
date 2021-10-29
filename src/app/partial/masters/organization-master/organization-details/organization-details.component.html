@@ -10,32 +10,39 @@
         </div>
     </div>
     <div class="row mb-0" id="dash-stats">
-        <div class="col-sm-3 col-6">
+        <div class="col">
             <div class="card card-body bg-cyan mb-3">
                 <i class="fas fa-network-wired"></i>
                 <p>Total Work Done</p>
                 <h3>{{TotalWorkAndIosCount?.TotalWork ? TotalWorkAndIosCount?.TotalWork : '0'}}</h3>
             </div>
         </div>
-        <div class="col-sm-3 col-6">
+        <div class="col">
             <div class="card card-body bg-green mb-3">
                 <i class="fab fa-apple"></i>
                 <p>Total Committees</p>
                 <h3>{{TotalWorkAndIosCount?.TotalCommittees ? TotalWorkAndIosCount?.TotalCommittees : '0'}}</h3>
             </div>
         </div>
-        <div class="col-sm-3 col-6">
+        <div class="col">
             <div class="card card-body bg-blue mb-3">
                 <i class="fab fa-android"></i>
                 <p>Total Executives</p>
                 <h3>{{TotalWorkAndIosCount?.TotalExecutives ? TotalWorkAndIosCount?.TotalExecutives : '0'}}</h3>
             </div>
         </div>
-        <div class="col-sm-3 col-6">
+        <div class="col">
             <div class="card card-body bg-gold mb-3">
                 <i class="fab fa-android"></i>
-                <p>Total Members</p>
-                <h3>{{TotalWorkAndIosCount?.TotalMembers ? TotalWorkAndIosCount?.TotalMembers : '0'}}</h3>
+                <p>Active Members</p>
+                <h3>{{TotalWorkAndIosCount?.ActiveMember ? TotalWorkAndIosCount?.ActiveMember : '0'}}</h3>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body bg-gold mb-3">
+                <i class="fab fa-android"></i>
+                <p>Non Active Members</p>
+                <h3>{{TotalWorkAndIosCount?.InActiveMember ? TotalWorkAndIosCount?.InActiveMember : '0'}}</h3>
             </div>
         </div>
     </div>
@@ -97,7 +104,7 @@
                 <div class="card-header">{{subCommitteeName}}</div>
                 <div class="card-body pt-0 pb-0">
                     <div class="row mb-0" id="dash-stats">
-                        <div class="col-sm-4 col-6">
+                        <div class="col-sm-3 col-6">
                             <div class="card card-body bg-cyan mb-3">
                                 <i class="fas fa-network-wired"></i>
                                 <p>Work Done</p>
@@ -105,20 +112,28 @@
                                     TotalWorkAndIosCount?.IndividualTotalWork : '0'}}</h3>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-6">
-                            <div class="card card-body bg-green mb-3">
-                                <i class="fab fa-apple"></i>
-                                <p>Sub Committees</p>
-                                <h3>{{TotalWorkAndIosCount?.IndividualTotalCommittees ?
-                                    TotalWorkAndIosCount?.IndividualTotalCommittees : '0'}}</h3>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-6">
+                        <div class="col-sm-3 col-6">
                             <div class="card card-body bg-blue mb-3">
                                 <i class="fab fa-android"></i>
                                 <p>Executive Members</p>
                                 <h3>{{TotalWorkAndIosCount?.IndividualTotalExecutives ?
                                     TotalWorkAndIosCount?.IndividualTotalExecutives : '0'}}</h3>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="card card-body bg-green mb-3">
+                                <i class="fab fa-apple"></i>
+                                <p>Active</p>
+                                <h3>{{TotalWorkAndIosCount?.ActiveMember ?
+                                    TotalWorkAndIosCount?.ActiveMember : '0'}}</h3>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="card card-body bg-green mb-3">
+                                <i class="fab fa-apple"></i>
+                                <p>Non Active </p>
+                                <h3>{{TotalWorkAndIosCount?.InActiveMember ?
+                                    TotalWorkAndIosCount?.InActiveMember : '0'}}</h3>
                             </div>
                         </div>
                         <!-- <div class="col-sm-3">

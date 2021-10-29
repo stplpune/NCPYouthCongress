@@ -51,6 +51,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   svgMapWorkDoneByYuvakBP:any;
   svgMapWorkDoneByYuvakTp:any;
   graphInstance:any;
+  WorkdonebyMembersXaxiesLabel:any;
+
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, private route: ActivatedRoute,
@@ -63,6 +65,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
     this.getWorkcategoryFilterDetails();
     this. defaultFilterForm();
     this.defaultFilterBestPer();
@@ -396,7 +399,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       valueAxis.title.text = "Committes Work Done Count";
 
       let xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-      xAxis.dataFields.category = 'DistrictName'
+      xAxis.dataFields.category = this.WorkdonebyMembersXaxiesLabel;
       xAxis.title.text = "District Name";
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
