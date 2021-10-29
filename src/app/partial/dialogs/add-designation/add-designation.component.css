@@ -15,3 +15,7 @@
 .fs-80rem{
     font-size: .80rem !important;
 }
+
+.modal-dialog.m-width {
+    font-size: .85rem;
+}

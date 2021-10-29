@@ -37,6 +37,7 @@ import { UserBlockUnblockComponent } from './partial/dialogs/user-block-unblock/
 import { AddDesignationComponent } from './partial/dialogs/add-designation/add-designation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-details/recent-post-details.component';
+import { TooltipModule } from './partial/directive/tooltip.module';
 
 
 
@@ -75,6 +76,7 @@ import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-detail
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     DragDropModule,
+    TooltipModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,

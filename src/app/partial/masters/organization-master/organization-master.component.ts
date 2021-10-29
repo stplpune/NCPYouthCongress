@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
 import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
+import { AddDesignationComponent } from '../../dialogs/add-designation/add-designation.component';
 
 @Component({
   selector: 'app-organization-master',
@@ -652,21 +653,21 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   AddDesignation(BodyOrgCellName: any, bodyId: any) {
-    // const dialogRef = this.dialog.open(AddDesignationComponent, {
-    //   width: '1024px',
-    //   data: {committeeName:BodyOrgCellName,committeeId:bodyId}
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result == 'Yes') {
-    //     this.getOrganizationList();
-    //   }
-    // });
-    this.desBodyId = bodyId;
-    this.getBodyAssignedDesignation();
-    this.AlreadyAssignedDesignations(this.desBodyId)
-    this.AddDesignationForm.patchValue({
-      BodyId: BodyOrgCellName
-    })
+    const dialogRef = this.dialog.open(AddDesignationComponent, {
+      width: '1024px',
+      data: {committeeName:BodyOrgCellName,committeeId:bodyId}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.getOrganizationList();
+      }
+    });
+    // this.desBodyId = bodyId;
+    // this.getBodyAssignedDesignation();
+    // this.AlreadyAssignedDesignations(this.desBodyId)
+    // this.AddDesignationForm.patchValue({
+    //   BodyId: BodyOrgCellName
+    // })
   }
 
   AlreadyAssignedDesignations(desBodyId: any) {
@@ -815,31 +816,30 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
-  swingDesignation(event: CdkDragDrop<string[]>) {
-    console.log(event);
-    moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
-    let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
-      + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();
+  // swingDesignation(event: CdkDragDrop<string[]>) {
+  //   console.log(event);
+  //   moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
+  //   let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
+  //     + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();
 
-    this.callAPIService.setHttp('get', 'Web_SetDesignationSort?' + stringDesignation, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.toastrService.success(res.data1[0].Msg);
-        this.getBodyAssignedDesignation();
-        this.AlreadyAssignedDesignations(this.desBodyId);
-      } else {
-        this.spinner.hide();
-        // this.toastrService.error("Designations is  not available");
-        this.allBodyAssignedDesignation = [];
-      }
-    }, (error: any) => {
-      this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
-    })
-  }
+  //   this.callAPIService.setHttp('get', 'Web_SetDesignationSort?' + stringDesignation, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.toastrService.success(res.data1[0].Msg);
+  //       this.getBodyAssignedDesignation();
+  //       this.AlreadyAssignedDesignations(this.desBodyId);
+  //     } else {
+  //       this.spinner.hide();
+  //       this.allBodyAssignedDesignation = [];
+  //     }
+  //   }, (error: any) => {
+  //     this.spinner.hide();
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
 
   selCity() {
     //this.spinner.show();

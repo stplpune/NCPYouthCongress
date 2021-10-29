@@ -169,6 +169,7 @@ export class DashboardComponent implements OnInit {
         this.workInThisWeekArray = res.data2;
         this.workInThisWeekArray.map((ele: any) => {
           if (ele.Date) {
+            delete ele['UserCount'] // new mwber count
             let DateFormate = this.changeDateFormat(ele.Date);
             let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
             ele.Date = transformDate;
@@ -283,13 +284,13 @@ export class DashboardComponent implements OnInit {
     series2.tooltipText = "Count: {valueY}";
     series2.legendSettings.valueText = "{valueY}";
 
-    let series3 = chart.series.push(new am4charts.LineSeries());
-    series3.dataFields.valueY = "UserCount";
-    series3.dataFields.categoryX = "Date";
-    series3.name = 'New Member Count';
-    series3.bullets.push(new am4charts.CircleBullet());
-    series3.tooltipText = "Count: {valueY}";
-    series3.legendSettings.valueText = "{valueY}";
+    // let series3 = chart.series.push(new am4charts.LineSeries());
+    // series3.dataFields.valueY = "UserCount";
+    // series3.dataFields.categoryX = "Date";
+    // series3.name = 'New Member Count';
+    // series3.bullets.push(new am4charts.CircleBullet());
+    // series3.tooltipText = "Count: {valueY}";
+    // series3.legendSettings.valueText = "{valueY}";
 
     //Add chart cursor
     chart.cursor = new am4charts.XYCursor();
@@ -303,9 +304,9 @@ export class DashboardComponent implements OnInit {
     hs2.properties.strokeWidth = 5;
     series2.segments.template.strokeWidth = 1;
 
-    let hs3 = series3.segments.template.states.create("hover")
-    hs3.properties.strokeWidth = 5;
-    series3.segments.template.strokeWidth = 1;
+    // let hs3 = series3.segments.template.states.create("hover")
+    // hs3.properties.strokeWidth = 5;
+    // series3.segments.template.strokeWidth = 1;
 
     // Add legend
     chart.legend = new am4charts.Legend();

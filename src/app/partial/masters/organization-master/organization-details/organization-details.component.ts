@@ -726,10 +726,10 @@ export class OrganizationDetailsComponent implements OnInit {
     this.addEditMemberModal('close');
     const dialogRefaddEditMember = this.dialog.open(AddDesignationComponent, {
       // width: '1024px',
-      data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName}
+      data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName, currentModalName:'Add Designation'}
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
-     console.log(result);
+      
       this.getCurrentDesignatedMembers(this.bodyId);
     });
   }
