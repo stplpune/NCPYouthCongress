@@ -180,7 +180,7 @@ export class ViewMembersComponent implements OnInit {
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'Yes') {
+      if (result == 'Yes' || result == 'No') {
         let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
         this.getViewMembers(obj);
       }

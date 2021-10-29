@@ -248,7 +248,7 @@ export class ExecutiveMembersComponent implements OnInit {
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'Yes') {
+      if (result == 'Yes' || result == 'No') {
         this.getViewMembers(this.clearMemberObj);
       }
     });

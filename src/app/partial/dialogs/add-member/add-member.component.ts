@@ -301,10 +301,10 @@ export class AddMemberComponent implements OnInit {
           } else if (result.Msg == "Data Saved Successfully" || result.Msg == "Profile Updated Successfully") {
             this.myProfileForm();
             this.toastrService.success(result.Msg);
+            this.onNoClick('Yes')
           }
           this.ImgUrl = "";
           this.highlightedRow = "";
-          this.onNoClick('Yes')
         } else {
           this.spinner.hide();
           if (res.data == 1) {
