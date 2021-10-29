@@ -96,7 +96,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     } else {
       this.showSvgMap(this.commonService.mapRegions());
       // this.selectDistrict(this.loggedDistrictId);
-      // this.getOrganizationByDistrictId(this.DistrictId);
+      this.getOrganizationByDistrictId(0);
     }
 
     $(document).on('click', 'path', (e: any) => {
@@ -372,7 +372,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
       am4core.useTheme(am4themes_material);
-      let chart = am4core.create('WorkDoneByYuvak', am4charts.XYChart)
+      let chart = am4core.create('WorkDoneByYuvak1', am4charts.XYChart)
+      chart.responsive.enabled = true;
+
       chart.colors.list = [
         // am4core.color("#515ee6"),
         // am4core.color("#515ee6"),

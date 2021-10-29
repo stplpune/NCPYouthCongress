@@ -253,7 +253,6 @@ export class DashboardComponent implements OnInit {
 
     chart.data = this.workInThisWeekArray;
 
-    chart.responsive.enabled = true;
     // Create category axis
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "Date";
@@ -392,7 +391,6 @@ export class DashboardComponent implements OnInit {
 
     // Create chart instance
     let chart = am4core.create("pieChartdiv", am4charts.PieChart);
-    chart.responsive.enabled = true;
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.colors.list = [
@@ -459,7 +457,6 @@ export class DashboardComponent implements OnInit {
 
     let chart = am4core.create("socialMediaChartdiv", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-    chart.responsive.enabled = true;
     chart.data = this.perceptionOnSocialMediaArray;
     chart.colors.list = [
       am4core.color("#99C6F9"),
