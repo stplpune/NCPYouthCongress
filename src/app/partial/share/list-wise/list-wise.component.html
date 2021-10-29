@@ -33,36 +33,43 @@
     <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)">
     </pagination-controls>
 </div> -->
-
-<div class="member-posts" *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-    <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal" (click)="openRecentPostDetails(dashboardActivities)" class="card card-body shadow-none border-0 p-2">
-        <div class="row g-3">
-            <div class="col-3">
-                <img src="{{dashboardActivities?.ImagePath.split(',')[0]}}" class="post-image" alt="...">
-            </div>
-            <div class="col-9">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <span class="post-type">{{dashboardActivities?.Category}}</span>
-                    </div>
-                    <div class="col-sm-6 text-end">
-                        <span class="post-date"><i class="far fa-clock me-1"></i>{{dashboardActivities?.ActivityDate}}</span>
-                    </div>
+<div class="recent-posts">
+    <div class="member-posts"
+        *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+        <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+            (click)="openRecentPostDetails(dashboardActivities)" class="card card-body shadow-none border-0 p-2">
+            <div class="row g-3">
+                <div class="col-3">
+                    <img src="{{dashboardActivities?.ImagePath.split(',')[0]}}" class="post-image" alt="...">
                 </div>
-                <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserLName}}</h6>
-                <div class="post-details">
-                    <p class="post-title">{{dashboardActivities?.Description}}</p>
-                    <div class="row small text-muted">
-                        <div class="col-sm-4"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}</div>
-                        <div class="col-sm-4"><i class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}</div>
-                        <div class="col-sm-4"><i class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
+                <div class="col-9">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <span class="post-type">{{dashboardActivities?.Category}}</span>
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <span class="post-date"><i
+                                    class="far fa-clock me-1"></i>{{dashboardActivities?.ActivityDate}}</span>
+                        </div>
+                    </div>
+                    <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserLName}}</h6>
+                    <div class="post-details">
+                        <p class="post-title">{{dashboardActivities?.Description}}</p>
+                        <div class="row small text-muted">
+                            <div class="col-sm-4"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
+                            </div>
+                            <div class="col-sm-4"><i class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
+                            </div>
+                            <div class="col-sm-4"><i
+                                    class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </a>
-    <hr class="my-2">
+        </a>
+        <hr class="my-2">
+    </div>
 </div>
 <div class="mt-2 text-end" *ngIf="resDashboardActivities?.length != 0">
     <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)">
