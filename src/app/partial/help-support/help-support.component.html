@@ -86,7 +86,7 @@
                                 </div>
                                 <ng-container #messages>
                                     <div class="messagedetails mb-3" #content>
-                                        <ng-container *ngFor="let message of messagebyGroupIdArray">
+                                        <ng-container *ngFor="let message of messagebyGroupIdArray; let i = index">
                                             <div class="mb-4 pb-1 col-sm-10" *ngIf="message.ReceiverId == loginUserId">
                                                 <div class="card card-body border shadow-none position-relative membercall">
                                                     <p class="small text-muted mb-1 lblfeedback">{{message.Sender}}
@@ -96,7 +96,7 @@
                                                     </p>
                                                     <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
-                                                            <img src="{{message.MediaPath}}" class="helpimg">
+                                                            <img src="{{message.MediaPath}}" [lightbox]="0" (click)="open(i,message.MediaPath)"    [src]="message.MediaPath" class="img-thumbnail h-150" class="helpimg">
                                                         </div>
                                                     </ng-container>
                                                     <ng-container *ngIf="message.MediaTypeId == 4">
@@ -127,7 +127,7 @@
                                                    
                                                     <ng-container *ngIf="message.MediaTypeId == 2">
                                                         <div class="img-con">
-                                                            <img src="{{message.MediaPath}}" class="helpimg">
+                                                            <img src="{{message.MediaPath}}"  [lightbox]="0" (click)="open(i,message.MediaPath)"   class="helpimg">
                                                         </div>
                                                     </ng-container>
                                                     <ng-container *ngIf="message.MediaTypeId == 4">

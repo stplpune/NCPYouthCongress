@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { iif, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { Gallery } from '@ngx-gallery/core';
 
 @Component({
   selector: 'app-help-support',
@@ -39,8 +40,10 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput: any;
   MediaTypeId:any;
   submitted = false;
+  comUserdetImg:any;
+
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService, public gallery: Gallery,
     private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
     private commonService: CommonService, public datepipe: DatePipe, private _el: ElementRef) { }
 
@@ -112,8 +115,7 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
           this.scrollToBottom();
         }, 100);
         this.messagebyGroupIdArray = res.data1;
-        // this.getReceiverChatList();
-     
+        this.getReceiverChatList();
       } else {
         this.spinner.hide();
       }
@@ -123,6 +125,14 @@ export class HelpSupportComponent implements OnInit, OnDestroy {
         this.router.navigate(['../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  open(index: number, imgPath:any): void {
+    // open lightbox
+    let array:any = [imgPath]
+    this.comUserdetImg = this.commonService.imgesDataTransform(array,'array');
+    this.gallery.ref().load(this.comUserdetImg);
+    
   }
 
   joinChatGroupMember() {
