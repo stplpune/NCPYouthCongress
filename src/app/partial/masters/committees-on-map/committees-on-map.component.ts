@@ -120,8 +120,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       colors: {
         baseDefault: "#bfddff",
         background: "#fff",
-        selected: "#272848",
-        hover: "#272848",
+        selected: "#7289da",
+        hover: "#7289da",
         directory: "#bfddff",
         status: {}
       },
@@ -240,7 +240,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectedDistrictId = event;
     // this.loggedDistrictId = event;
     this.DistrictWiseCommityWorkGraph();
-    $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
+    $('path#' + this.selectedDistrictId).css('fill', 'rgb(114, 137, 218)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.defaultMembersFlag = false;
 
