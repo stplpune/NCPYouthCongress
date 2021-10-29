@@ -10,7 +10,7 @@
                         <form [formGroup]="filter">
                             <div class="row g-2 form-container">
                 
-                                <div class="offset-4 col-sm-3">
+                                <div class="offset-3 col-sm-4">
                                     <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
                                         [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
                                         formControlName="CommitteeId" placeholder="Select Committee">
