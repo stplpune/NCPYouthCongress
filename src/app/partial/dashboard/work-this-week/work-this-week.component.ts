@@ -91,8 +91,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         colors: {
           baseDefault: "#bfddff",
           background: "#fff",
-          selected: "#272848",
-          hover: "#272848",
+          selected: "#7289da",
+          hover: "#7289da",
           directory: "#bfddff",
           status: {}
         },
@@ -475,7 +475,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
       this.WorkDoneByYuvakBarchart.filter((ele: any) => {
-        $('path#' + ele.DistrictId).css('fill', 'rgb(39 40 72)');
+        $('path#' + ele.DistrictId).css('fill', 'rgb(114, 137, 218)');
         $('#' + ele.DistrictName).text(ele.TotalWork);
         $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);

@@ -76,8 +76,8 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       colors: {
         //baseDefault: "#bfddff",
         background: "#fff",
-        //selected: "#272848",
-        // hover: "#272848",
+        selected: "#7289da",
+        hover: "#7289da",
         directory: "#bfddff",
         status: {}
       },
