@@ -79,6 +79,11 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.allMemberprofile = res.data1[0];
+        if(this.FullName != this.allMemberprofile.FullName){
+          let obj:any = {'memberId':this.memberId, 'FullName':this.allMemberprofile.FullName};
+          sessionStorage.setItem('memberId', JSON.stringify(obj));
+          this.FullName  = this.allMemberprofile.FullName;
+        }
         this.allMemberprofile.IsUserBlock == 1 ? this.checkUserBlock = "Unblock" : this.checkUserBlock = "Block";
       } else {
         // //this.toastrService.error("Data is not available");
