@@ -1019,3 +1019,9 @@ g[shape-rendering="auto"]{
     max-width: 1024px!important;
 }
 }
+/* @media (min-width:320px) and (min-width:480px){
+    .m-width {
+        width:100%!important;
+        max-width: 100%!important;
+    }
+} */

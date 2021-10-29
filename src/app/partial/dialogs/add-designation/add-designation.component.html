@@ -44,43 +44,48 @@
                                 (click)="submitDesignationForm()">{{addDesignation}} Designation</button>
 
                         </div>
-                        <div class="row bg-light border-bottom fw-bold g-1 px-2 py-2 mb-2 mt-3">
-                            <div class="col-sm-2 col-2">
-                                Sr. No.
-                            </div>
-                            <div class="col-sm-9 col-9">
-                                Designation
-                            </div>
-
-                            <div class="col-sm-1 col-1"></div>
-                        </div>
-                        <div cdkDropList class="example-list fs-80rem" (cdkDropListDropped)="swingDesignation($event)">
-                            <div class="row example-box g-1 py-1 px-2 d-flex align-items-center"
-                                *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag
-                                [class.active]="bodyAssignedDesignation.SrNo == heightedRow">
-                                <div class="col-sm-2 col-2">
-                                    {{bodyAssignedDesignation.SrNo}}
+                        <div class="card mt-3 border-0">
+                            <div class="card-header bg-transparent fw-bold ps-2">Designations Added</div>
+                            <div class="card-body p-0">
+                                <div class="row bg-light border-bottom g-1 px-2 py-2 mb-2">
+                                    <div class="col-sm-2 col-2">
+                                        Sr. No.
+                                    </div>
+                                    <div class="col-sm-9 col-9">
+                                        Designation
+                                    </div>
+        
+                                    <div class="col-sm-1 col-1"></div>
                                 </div>
-                                <div class="col-sm-9 col-9">
-                                    {{bodyAssignedDesignation.DesignationName}}
-                                </div>
-                                <div class="col-sm-1 col-1">
-                                    <!-- [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) " -->
-                                    <button class="btn btn-sm btn-light ng-star-inserted"
-                                        (click)=" editDesignationForm(bodyAssignedDesignation) "><i
-                                            class="fas fa-pencil-alt "></i></button>
-                                </div>
-                            </div>
-                            <div class="row" *ngIf="allAssignedDesignations?.length==0">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                <div cdkDropList class="example-list fs-80rem" (cdkDropListDropped)="swingDesignation($event)">
+                                    <div class="row example-box g-1 py-1 px-2 d-flex align-items-center"
+                                        *ngFor="let bodyAssignedDesignation of allBodyAssignedDesignation" cdkDrag
+                                        [class.active]="bodyAssignedDesignation.SrNo == heightedRow">
+                                        <div class="col-sm-2 col-2">
+                                            {{bodyAssignedDesignation.SrNo}}
+                                        </div>
+                                        <div class="col-sm-9 col-9">
+                                            {{bodyAssignedDesignation.DesignationName}}
+                                        </div>
+                                        <div class="col-sm-1 col-1">
+                                            <!-- [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) " -->
+                                            <button class="btn btn-sm btn-light ng-star-inserted"
+                                                (click)=" editDesignationForm(bodyAssignedDesignation) "><i
+                                                    class="fas fa-pencil-alt "></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="allAssignedDesignations?.length==0">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="col-sm-7 mt-3 chartbox">
-                    <p class="fw-bold">Already Assigned Designations</p>
+                    <p class="fw-bold">Previously Assigned Designations</p>
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
