@@ -98,7 +98,6 @@ export class OrganizationMasterComponent implements OnInit {
     this.getCommiteeDetails = this.commonService.getCommiteeInfo();
   }
 
-
   selectLevel(levelId: any, flag: any) {
     this.globalLevelId = levelId;
     if (levelId == 2) {
