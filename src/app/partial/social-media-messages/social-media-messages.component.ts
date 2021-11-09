@@ -9,6 +9,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from '@angular/router';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { Alert } from 'selenium-webdriver';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-social-media-messages',
   templateUrl: './social-media-messages.component.html',
@@ -30,8 +34,8 @@ export class SocialMediaMessagesComponent implements OnInit {
   lng: any;
   zoom: any = 15;
   socialMediaDetailsImageArray: any;
-  defaultToDate: string = '';
-  defaultFromDate: string = '';
+  // defaultToDate: string = '';
+  // defaultFromDate: string = '';
   TotalMsg: any;
   FacebookCount: any;
   WhtasAppCount: any;
@@ -40,6 +44,9 @@ export class SocialMediaMessagesComponent implements OnInit {
   comUserdetImg: any;
   programGalleryImg!: GalleryItem[];
   HighlightRow: any;
+  searchFilter = "";
+  defaultCloseBtn:boolean = false;
+  subject: Subject<any> = new Subject();
 
   constructor(
     private callAPIService: CallAPIService,
@@ -51,7 +58,9 @@ export class SocialMediaMessagesComponent implements OnInit {
     private route: ActivatedRoute,
     public gallery: Gallery,
     private _lightbox: Lightbox,
-  ) { }
+    private datePipe:DatePipe,
+    public dateTimeAdapter: DateTimeAdapter<any>) {
+      {dateTimeAdapter.setLocale('en-IN');} }
 
   ngOnInit(): void {
     this.defaultFilterForm();
@@ -59,6 +68,7 @@ export class SocialMediaMessagesComponent implements OnInit {
     this.getMemberName();
     this.getSocialMedia();
     this.GetSocialMediaMessages();
+    this.searchFilters('false');
   }
 
   defaultFilterForm() {
@@ -66,15 +76,22 @@ export class SocialMediaMessagesComponent implements OnInit {
       memberName: ['0'],
       district: ['0'],
       mediaSource: ['0'],
+      fromTo: [['','']],
+      searchText:[''],
     })
   }
 
   GetSocialMediaMessages() {
     this.spinner.show();
     let formData = this.filterForm.value;
+    let fromDate: any;
+    let toDate: any;
+    formData.fromTo[0] != "" ? (fromDate = this.datePipe.transform(formData.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    formData.fromTo[1] != "" ? (toDate = this.datePipe.transform(formData.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     let obj = 'UserId='+this.commonService.loggedInUserId()+'&Districtid=' + formData.district + '&MediaType=' + formData.mediaSource + '&nopage=' + this.paginationNo +
-      '&MemberId=' + formData.memberName + '&FromDate=' + this.defaultFromDate + '&ToDate=' + this.defaultToDate
-    this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Web_2_0_Committee?' + obj, false, false, false, 'ncpServiceForWeb'); //GetSocialMediaMessages_Web_1_0
+      '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&Search=' + formData.searchText
+    // this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Web_2_0_Committee?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetSocialMediaMessages_Web_2_0_Committee_with_Search?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       res.data == 0 ? (this.TotalMsg = res.data3[4].TotalMsg) : this.TotalMsg = 0;
       res.data == 0 ? (this.FacebookCount = res.data3[1].TotalMsg) : this.FacebookCount = 0;
@@ -100,11 +117,6 @@ export class SocialMediaMessagesComponent implements OnInit {
     })
   }
 
-  filterData() {
-    this.paginationNo = 1;
-    this.GetSocialMediaMessages()
-  }
-
   clearFilter(flag: any) {
     if (flag == 'member') {
       this.filterForm.controls['memberName'].setValue(0);
@@ -112,9 +124,39 @@ export class SocialMediaMessagesComponent implements OnInit {
       this.filterForm.controls['district'].setValue(0);
     } else if (flag == 'media') {
       this.filterForm.controls['mediaSource'].setValue(0);
+    }else  if(flag ==  'search'){
+      this.filterForm.controls['searchText'].setValue('');
+    }else  if(flag ==  'dateRangePIcker'){
+      this.defaultCloseBtn = false;
+      this.filterForm.controls['fromTo'].setValue(['','']);
     }
     this.paginationNo = 1;
-    this.GetSocialMediaMessages()
+    this.GetSocialMediaMessages();
+  }
+
+  filterData(flag:any){
+    flag == 'range' ?  this.defaultCloseBtn = true :  this.defaultCloseBtn = false; 
+    this.paginationNo = 1;
+    this.GetSocialMediaMessages();
+  }
+
+  onKeyUpFilter(){
+    this.subject.next();
+  }
+
+  searchFilters(flag: any) {
+    if (flag == 'true') {
+      if (this.filterForm.value.searchText == "" || this.filterForm.value.searchText == null) {
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
+    this.subject.pipe(debounceTime(700)).subscribe(() => {
+      this.searchFilter = this.filterForm.value.searchText;
+      this.paginationNo = 1;
+      this.GetSocialMediaMessages();
+    }
+    );
   }
 
   getMemberName() {

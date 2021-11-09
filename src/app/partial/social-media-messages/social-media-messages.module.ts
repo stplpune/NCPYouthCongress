@@ -8,6 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
+import { OwlNativeDateTimeModule, OwlDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { GalleryModule } from '@ngx-gallery/core';
     NgxPaginationModule,
     LightboxModule,
     GalleryModule,
+    OwlNativeDateTimeModule,
+    OwlDateTimeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkNBALkBX7trFQFCrcHO2I85Re2MmzTo8',
       language: 'en',

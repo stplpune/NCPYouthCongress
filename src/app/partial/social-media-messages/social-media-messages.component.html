@@ -6,19 +6,55 @@
         <div class="col-sm-8">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-4 offset-5">
+                    <div class="col-sm-3">
                         <ngx-select [allowClear]="true" (remove)="clearFilter('member')"
                                     [items]="memberNameArray" optionValueField="Id" formControlName="memberName"
-                                    optionTextField="FullName" (select)="filterData()" placeholder="Select Member Name">
+                                    optionTextField="FullName" (select)="filterData('Member')" placeholder="Select Member Name">
                                 </ngx-select>
                     </div>
                     <div class="col-sm-3">
                         <ngx-select [allowClear]="true" (remove)="clearFilter('media')"
                                     [items]="socialMediaArray" optionValueField="Id" optionTextField="SocialMediaName"
-                                    (select)="filterData()" formControlName="mediaSource"
+                                    (select)="filterData('Media')" formControlName="mediaSource"
                                     placeholder="Select Media Source">
                                 </ngx-select>
                     </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
+                                formControlName="fromTo" [selectMode]="'range'"
+                                (dateTimeChange)="filterData('range')"
+                                class="form-control border border-end-0" [owlDateTimeTrigger]="dt3"
+                                placeholder="From To Date">
+
+                            <button class="btn btn-light border btn-sm border-start-0 bg-transparent"
+                                type="button" [owlDateTimeTrigger]="dt3" *ngIf="!defaultCloseBtn">
+                                <i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn btn-light border btn-sm border-end-0 bg-transparent"
+                                type="button" *ngIf="defaultCloseBtn"
+                                (click)="clearFilter('dateRangePIcker')">
+                                <i class="fas fa-times"></i></button>
+                        </div>
+                        <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-end-0 border"
+                                formControlName="searchText" placeholder="Search..."
+                                (keyup)="onKeyUpFilter()" />
+                            <button type="button"
+                                class="btn btn-light border btn-sm border-start-0 bg-transparent"
+                                (click)="clearFilter('search')" *ngIf="filterForm.value.searchText"><i
+                                    _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                            <button type="button" *ngIf="!filterForm.value.searchText"
+                                class="btn btn-sm border btn-light border-start-0 bg-transparent"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+
                 </div>
             </form>
         </div>
