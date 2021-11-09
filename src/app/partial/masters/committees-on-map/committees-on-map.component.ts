@@ -58,6 +58,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     let DistrictId = JSON.parse(getsessionStorageData);
     this.DistrictId = DistrictId;
+    
+    // alert(this.DistrictId)
   }
 
   ngOnInit(): void {

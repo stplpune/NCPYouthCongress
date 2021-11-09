@@ -125,22 +125,25 @@ export class DashboardComponent implements OnInit {
         this.lowestActivityDistrictsArray = res.data2;
         this.typesOfWorksArray = res.data3;
         let perOnSocialMedArray = res.data4;
-        let addLogoParty = perOnSocialMedArray.map((ele: any) => {
-          if (ele.PartyShortCode == 'NCP') {
-            ele['href'] = "assets/images/logos/ncp-logo.png";
-          } else if (ele.PartyShortCode == 'SS') {
-            ele['href'] = "assets/images/logos/shivsena-logo.png";
-          } else if (ele.PartyShortCode == 'BJP') {
-            ele['href'] = "assets/images/logos/bjp-logo.png";
-          } else if (ele.PartyShortCode == 'INC') {
-            ele['href'] = "assets/images/logos/inc-logo.png";
-          } else if (ele.PartyShortCode == 'OTR') {
-            ele['href'] = "assets/images/logos/speech.png";
-          }
-          return ele
-        })
+        let addLogoParty:any;
+        if(perOnSocialMedArray != ""){
+          addLogoParty = perOnSocialMedArray.map((ele: any) => {
+            if (ele.PartyShortCode == 'NCP') {
+              ele['href'] = "assets/images/logos/ncp-logo.png";
+            } else if (ele.PartyShortCode == 'SS') {
+              ele['href'] = "assets/images/logos/shivsena-logo.png";
+            } else if (ele.PartyShortCode == 'BJP') {
+              ele['href'] = "assets/images/logos/bjp-logo.png";
+            } else if (ele.PartyShortCode == 'INC') {
+              ele['href'] = "assets/images/logos/inc-logo.png";
+            } else if (ele.PartyShortCode == 'OTR') {
+              ele['href'] = "assets/images/logos/speech.png";
+            }
+            return ele
+          })
+        }
         this.perceptionOnSocialMediaArray = addLogoParty
-        this.pieChart();
+        // this.pieChart();
         this.socialMediaChart();
       } else {
         this.typesOfWorksArray = [];

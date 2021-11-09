@@ -37,7 +37,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   fromDate: any;
   catValue: any;
   bestPerCat = [{'id':1,'name':"Committee"},{'id':0,'name':"Location"}];
-  bestWorstArray = [{'id':0,'name':"Worst"}, {'id':1,'name':"Best"}];
+  bestWorstArray = [{'id':1,'name':"Best"},{'id':0,'name':"Worst"}];
   defultCategoryName:any = 1;
   resWorkcategory:any;
   dateRange:any;
@@ -52,6 +52,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   svgMapWorkDoneByYuvakTp:any;
   graphInstance:any;
   WorkdonebyMembersXaxiesLabel:any;
+  SubUserTypeId = this.commonService.loggedInSubUserTypeId();
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -65,6 +66,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
     this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
     this.getWorkcategoryFilterDetails();
     this. defaultFilterForm();
@@ -404,7 +406,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-      // xAxis.renderer.labels.template.rotation = -45;
+      xAxis.renderer.labels.template.rotation = -90;
       xAxis.renderer.minGridDistance = 30;
 
       function createSeries(value: string | undefined, name: string) {
@@ -428,7 +430,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       chart.data = this.WorkDoneByYuvakBarchart;
 
       chart.padding(10, 5, 5, 5);
-      createSeries('MemberWork', 'Work Done by Committees');
+      createSeries('TotalWork', 'Work Done by Committees');
       // createSeries('TotalWork', 'Total Work Done');
 
       function arrangeColumns() {
@@ -475,10 +477,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
       this.WorkDoneByYuvakBarchart.filter((ele: any) => {
-        $('path#' + ele.DistrictId).css('fill', 'rgb(39 40 72)');
+        console.log(ele)
+        $('path#' + ele.DistrictId).css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)');
         $('#' + ele.DistrictName).text(ele.TotalWork);
-        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
-        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)').prop('selected', true);
+        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)').prop('selected', true);
       })
     } else {
       this.showSvgMap(this.commonService.mapRegions());
@@ -522,7 +525,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getMemberName() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0?', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

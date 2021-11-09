@@ -75,8 +75,8 @@
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item text-success" *ngFor="let topPerformance of WorkDoneByYuvakTP"> 
                                     {{topPerformance.DistrictName}} <a class="text-primary small float-end" ></a>
-                                    <!-- <i class="fas fa-external-link-alt" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"></i>  -->
-                                    <!--</a> -->
+                                    <a class="small text-success float-end"><i class="fas fa-external-link-alt" (click)="redTocommitteesOnMap(topPerformance.DistrictId)"></i> 
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -84,8 +84,8 @@
                             <p class="text-danger fw-bold mb-1 small">Bottom Performance</p>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
-                                    <!-- <i class="fas fa-external-link-alt"  (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)"></i> -->
-                                    {{bottomPerformance.DistrictName}}<a class="text-primary small float-end"> </a>
+                                    {{bottomPerformance.DistrictName}}
+                                    <a class="small float-end text-danger">  <i class="fas fa-external-link-alt"  (click)="redTocommitteesOnMap(bottomPerformance.DistrictId)"></i></a>
                                     <!--</a>  -->
                                 </li>
 
@@ -153,10 +153,22 @@
                                 Best Performance
                             </div>
                             <div class="col-sm-6 text-end">
-                                <div class="form-check form-check-inline" *ngFor="let PerformanceCat of bestPerCat">
-                                    <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes" [value]="PerformanceCat.id" formControlName="IsBody" [checked]="PerformanceCat.id ==  defultCategoryName" (change)="catChange(PerformanceCat)">
-                                    <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat.name}}</label>
+                                <div class="mb-3" >
+                                <div class="form-check form-check-inline" >
+                                    <ng-container *ngIf="SubUserTypeId == 5; else elseBlock">
+                                    <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes" [value]="bestPerCat[0].id" [checked]="true">
+                                    <label class="form-check-label" for="chkIsMultipleYes">{{bestPerCat[0].name}}</label>
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    <div class="form-check form-check-inline" *ngFor="let PerformanceCat of bestPerCat">
+                                        <input class="form-check-input" name="IsBody" type="radio" id="chkIsMultipleYes" [value]="PerformanceCat.id" formControlName="IsBody" [checked]="PerformanceCat.id ==  defultCategoryName" (change)="catChange(PerformanceCat)">
+                                        <label class="form-check-label" for="chkIsMultipleYes">{{PerformanceCat.name}}</label>
+                                    </div>
+                                </ng-template>
                                 </div>
+                            </div>
+                            
+
                                 <!-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="rblWise" id="rbCommittee" value="Committee">
                                     <label class="form-check-label" for="rbCommittee">Committee</label>

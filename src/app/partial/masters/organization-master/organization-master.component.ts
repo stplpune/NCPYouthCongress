@@ -302,7 +302,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   customForm() {
     this.orgMasterForm = this.fb.group({
-      BodyOrgCellName: ['', Validators.required],
+      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
       StateId: ['', Validators.required],
       DistrictId: [],
       TalukaId: [''],
@@ -657,7 +657,7 @@ export class OrganizationMasterComponent implements OnInit {
       data: {committeeName:BodyOrgCellName,committeeId:bodyId}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'Yes') {
+      if (result == 'Yes' || result == 'No') {
         this.getOrganizationList();
       }
     });

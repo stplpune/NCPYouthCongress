@@ -347,15 +347,15 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         this.resultofPartyData.map((ele: any) => {
           if (ele.ActivityCount >= 1) {
             if (this.selectedParty == 1) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#80deea');
+              $('path[id="' + ele.Id + '"]').css('filter', 'invert(97%) sepia(23%) saturate(5530%) hue-rotate(160deg) brightness(94%) contrast(95%)');
             } else if (this.selectedParty == 2) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#ff8a65');
+              $('path[id="' + ele.Id + '"]').css('filter', 'invert(70%) sepia(19%) saturate(2083%) hue-rotate(317deg) brightness(101%) contrast(101%)');
             } else if (this.selectedParty == 3) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#e57373');
+              $('path[id="' + ele.Id + '"]').css('filter', 'invert(44%) sepia(49%) saturate(5572%) hue-rotate(332deg) brightness(94%) contrast(89%)');
             } else if (this.selectedParty == 4) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#7986cb');
+              $('path[id="' + ele.Id + '"]').css('filter', 'invert(52%) sepia(67%) saturate(422%) hue-rotate(3deg) brightness(90%) contrast(88%)');
             }else if (this.selectedParty == 5) {
-              $('path[id="' + ele.Id + '"]').css('fill', '#aa43cb');
+              $('path[id="' + ele.Id + '"]').css('filter', 'invert(54%) sepia(45%) saturate(7483%) hue-rotate(258deg) brightness(81%) contrast(95%)');
             }
           }
           $('#' + ele.DistrictName).text(ele.ActivityCount);
