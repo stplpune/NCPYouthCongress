@@ -477,11 +477,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   mahaSVGMap() {
     if (this.WorkDoneByYuvakBarchart.length != 0) {
       this.WorkDoneByYuvakBarchart.filter((ele: any) => {
-        console.log(ele)
-        $('path#' + ele.DistrictId).css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)');
-        $('#' + ele.DistrictName).text(ele.TotalWork);
-        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)').prop('selected', true);
-        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('filter', 'invert(13%) sepia(100%) saturate(7364%) hue-rotate(356deg) brightness(93%) contrast(119%)').prop('selected', true);
+        if(ele.TotalWork > 0){
+          $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
+          $('#' + ele.DistrictName).text(ele.TotalWork);
+        }
+        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
     } else {
       this.showSvgMap(this.commonService.mapRegions());

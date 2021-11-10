@@ -329,7 +329,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     } else {
       this.allowClearParty = true;
     }
-    $('#map svg path').css('fill', '#4f5298');
+    $('#map svg path').css('fill', '#7289da');
     this.mahaSVGMap()
   }
 
@@ -341,11 +341,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId + '&PartyId=' + this.selectedParty, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      debugger;
       if (res.data == 0) {
         this.resultofPartyData = res.data1;
         this.spinner.hide();
         this.resultofPartyData.map((ele: any) => {
-          if (ele.ActivityCount >= 1) {
+          if (ele.ActivityCount > 0) {
             if (this.selectedParty == 1) {
               $('path[id="' + ele.Id + '"]').css('filter', 'invert(97%) sepia(23%) saturate(5530%) hue-rotate(160deg) brightness(94%) contrast(95%)');
             } else if (this.selectedParty == 2) {
@@ -357,8 +358,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
             }else if (this.selectedParty == 5) {
               $('path[id="' + ele.Id + '"]').css('filter', 'invert(54%) sepia(45%) saturate(7483%) hue-rotate(258deg) brightness(81%) contrast(95%)');
             }
+            $('#' + ele.DistrictName).text(ele.ActivityCount);
+          }else{
+              $('#' + ele.DistrictName).text(''); 
+              $('#map svg path').css('fill', 'invert(47%) sepia(97%) saturate(290%) hue-rotate(190deg) brightness(97%) contrast(83%);');
           }
-          $('#' + ele.DistrictName).text(ele.ActivityCount);
+          // $('#' + ele.DistrictName).text(ele.ActivityCount);
           // $('#mapsvg-menu-regions option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
           // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
         })

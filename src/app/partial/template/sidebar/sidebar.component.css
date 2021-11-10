@@ -4,7 +4,7 @@
     left: -100%;
     height: 100vh;
     background-color: #ffffff;
-    z-index: 9999;
+    z-index: 102;
     transition: .4s;
     border-right: solid 1px #c4c4c4;
     overflow-x: hidden;
