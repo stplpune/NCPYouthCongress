@@ -102,7 +102,6 @@ export class DashboardComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.dashboardCount1Array = res.data1[0];
-        console.log(this.dashboardCount1Array);
       } else {
         this.spinner.hide();
         //this.toastrService.error("Data is not available");

@@ -383,7 +383,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   }
 
   addEditMember(flag:any,id:any) {
-    console.log(id);
     let obj = {"formStatus":flag, 'Id':id}
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',

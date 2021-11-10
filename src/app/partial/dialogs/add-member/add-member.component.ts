@@ -88,11 +88,9 @@ export class AddMemberComponent implements OnInit {
   editMemObj: any;
 
   ngOnInit(): void {
-    // console.log( this.router.url);
     // this.router.url.includes('mobile-login')
     this.profileFlag = this.data.formStatus;
     this.memberID = this.data.Id;
-    console.log(this.data);
     this.getCommiteeName = this.commonService.getCommiteeInfo();
     this.myProfileForm();
     this.getCommitteeName();

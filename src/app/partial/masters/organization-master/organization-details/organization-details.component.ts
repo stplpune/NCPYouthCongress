@@ -719,7 +719,6 @@ export class OrganizationDetailsComponent implements OnInit {
       data: this.resultBodyMemActDetails
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
-      console.log(result)
     });
   }
 

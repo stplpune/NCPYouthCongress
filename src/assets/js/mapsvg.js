@@ -3336,7 +3336,6 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
                             });
                             setTimeout(function(){
                                 // _data.googleMaps.map.addListener('bounds_changed',function(){
-                                //     console.log('changed');
                                 //     // _data.googleMaps.overlay.draw();
                                 //     if (!_data.isScrolling)
                                 //     setTimeout(function(){

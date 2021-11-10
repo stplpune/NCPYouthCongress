@@ -332,7 +332,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.WorkDoneByYuvakTP = res.data1;
-        console.log(this.WorkDoneByYuvakTP);
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
         this.WorkDoneByMemberSVGData = res.data4;

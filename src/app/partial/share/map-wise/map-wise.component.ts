@@ -85,7 +85,6 @@ export class MapWiseComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resCommitee = res.data1;
-        console.log(this.resCommitee);
       } else {
         this.resCommitee = [];
         //this.toastrService.error("Data is not available");
@@ -104,7 +103,6 @@ export class MapWiseComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resWorkcategory = res.data1;
-        console.log(this.resWorkcategory);
       } else {
         this.spinner.hide();
         this.toastrService.error("Member is not available");
@@ -120,7 +118,6 @@ export class MapWiseComponent implements OnInit {
 
   onMapReady(map:any) {
     this.map = map;
-    console.log(this.map);
     this.drawPolygon()
   }
 
