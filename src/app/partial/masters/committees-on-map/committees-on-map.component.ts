@@ -401,6 +401,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       xAxis.renderer.grid.template.location = 0;
       xAxis.renderer.labels.template.rotation = -35;
       xAxis.renderer.minGridDistance = 30;
+      //chart.scrollbarX = new am4core.Scrollbar();
 
       let label = xAxis.renderer.labels.template;
       // label.truncate = true;
