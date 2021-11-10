@@ -48,6 +48,7 @@ export class ActivityAnalysisComponent implements OnInit {
   @ViewChild('TotalComments') TotalComments:any;
   @ViewChild('TotalShares') TotalShares:any;
   @ViewChild('TotalAbuses') TotalAbuses:any;
+  @ViewChild('TotalViews') TotalViews:any;
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -262,6 +263,9 @@ export class ActivityAnalysisComponent implements OnInit {
     } else if (flag == 4) {
       let clickTotalAbuses: any = this.TotalAbuses.nativeElement;
       clickTotalAbuses.click();
+    } else if (flag == 5) {
+      let clickTotalViews: any = this.TotalViews.nativeElement;
+      clickTotalViews.click();
     }
     this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

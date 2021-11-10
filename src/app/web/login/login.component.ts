@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       UserName: ['', Validators.required],
       Password: ['',  [this.passwordValid]],
       recaptchaReactive: [''],
-      // , Validators.required
     })
   }
   get f() { return this.loginForm.controls };
@@ -61,7 +60,6 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('loginDateTime', this.date)
           this.spinner.hide();
           this.toastrService.success('login successfully');
-         
           this.router.navigate(['../'+this.commonService.redirectToDashborad()], { relativeTo: this.route })
         } else {
           if (res.data == 1) {

@@ -32,9 +32,7 @@ export class CallAPIService {
     this.httpObj.options = {};
   }
   constructor(private http: HttpClient, private datepipe: DatePipe, private router: Router) {
-
   }
-
 
   getHttp(): any {
     let temp: any = undefined;
