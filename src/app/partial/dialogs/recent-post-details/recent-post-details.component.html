@@ -38,7 +38,8 @@
                         <div class="card card-body border-0">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <img src="{{activitieDetails?.UserProfilePhoto}}" class="member-photo" alt="...">
+                                    <img *ngIf='activitieDetails?.UserProfilePhoto' src="{{activitieDetails?.UserProfilePhoto}}" class="member-photo" alt="...">
+                                    <img *ngIf='!activitieDetails?.UserProfilePhoto' src="assets/images/dashboard-images/ncp-default.png" class="member-photo" alt="...">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <p class="mb-1 fw-bold">{{activitieDetails?.UserFName}}
