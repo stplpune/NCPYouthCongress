@@ -28,7 +28,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   resultOrganizationMember: any;
   activeRow: any;
   selCommitteeName: any;
-  districtName = "Maharashtra State";
+  districtName: any;
   defaultCommitteesFlag: boolean = false;
   defaultMembersFlag: boolean = false;
   globalBodyId: any;
@@ -57,17 +57,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     let DistrictId = JSON.parse(getsessionStorageData);
-    this.DistrictId = DistrictId;
-    
-    // alert(this.DistrictId)
+    this.DistrictId = DistrictId.DistrictId;
   }
 
   ngOnInit(): void {
     // this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
-    // this.loggedUserTypeId == 5 ?   this.loggedDistrictId = this.commonService.districtId() :   this.loggedDistrictId = 0;
-    this.getOrganizationByDistrictId(0);
-    this.searchFilters('false');
-    this.DistrictWiseCommityWorkGraph();
+    this.loggedUserTypeId == 5 ? this.loggedDistrictId = this.commonService.districtId() : this.loggedDistrictId = 0;
   }
 
   clearFilter(flag: any) {
@@ -92,6 +87,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   };
 
   ngAfterViewInit() {
+    this.getOrganizationByDistrictId(this.loggedDistrictId);
+    this.searchFilters('false');
+    this.DistrictWiseCommityWorkGraph();
+
     if (this.DistrictId) {
       this.showSvgMap(this.commonService.mapRegions());
       this.selectDistrict(this.DistrictId);
@@ -198,7 +197,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     // this.DistrictId ?  $('path#' + this.DistrictId).css('fill', 'red') :  '';
   }
 
-  getOrganizationByDistrictId(id: any) {    
+  getOrganizationByDistrictId(id: any) {
     this.spinner.show();
     this.getDistrict(id)
 
