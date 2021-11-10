@@ -24,6 +24,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   WorkDoneByYuvakBP: any;
   selweekRange: any
   WorkDoneByYuvakBarchart: any;
+  WorkDoneByMemberSVGData: any;
   resBestPerKaryMember: any;
   resBestPerMember: any;
   chart: any;
@@ -331,8 +332,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.WorkDoneByYuvakTP = res.data1;
+        console.log(this.WorkDoneByYuvakTP);
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
+        this.WorkDoneByMemberSVGData = res.data4;
         this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -475,8 +478,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   
   mahaSVGMap() {
-    if (this.WorkDoneByYuvakBarchart.length != 0) {
-      this.WorkDoneByYuvakBarchart.filter((ele: any) => {
+    if (this.WorkDoneByMemberSVGData.length != 0) {
+      this.WorkDoneByMemberSVGData.filter((ele: any) => {
         if(ele.TotalWork > 0){
           $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
           $('#' + ele.DistrictName).text(ele.TotalWork);
@@ -543,8 +546,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
  
-  redTocommitteesOnMap(DistrictId:any){
-    sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
+  redTocommitteesOnMap(DistrictId:any,CommitteeId:any){
+    let obj = {'DistrictId':DistrictId,'CommitteeId':CommitteeId}
+    sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(obj));
     this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
   }
 }
