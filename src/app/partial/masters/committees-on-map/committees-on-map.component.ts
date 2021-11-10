@@ -28,7 +28,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   resultOrganizationMember: any;
   activeRow: any;
   selCommitteeName: any;
-  districtName: any;
+  districtName = "Maharashtra State";
   defaultCommitteesFlag: boolean = false;
   defaultMembersFlag: boolean = false;
   globalBodyId: any;
@@ -49,6 +49,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   loggedDistrictId: any;
   loggedUserTypeId: any;
   allowClear: boolean = true;
+  allDistrictMaharashta:any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -61,8 +62,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    // this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
-    this.loggedUserTypeId == 5 ? this.loggedDistrictId = this.commonService.districtId() : this.loggedDistrictId = 0;
+    this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
+    if (this.loggedUserTypeId == 5) {
+      this.loggedDistrictId = this.commonService.districtId()
+      this.districtName = this.commonService.getCommiteeInfo().CommiteeName
+    } else { this.loggedDistrictId = 0; }
+
   }
 
   clearFilter(flag: any) {
@@ -74,7 +79,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     } else if (flag == 'CommitteesIn') {
-      this.districtName = "Maharashtra State";
+      this.loggedUserTypeId == 5 ?  this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
+
       this.showSvgMap(this.commonService.mapRegions());
       this.defaultMembersFlag = false;
       // this.selectedDistrictId = "";
@@ -100,15 +106,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.getOrganizationByDistrictId(0);
     }
 
-    $(document).on('click', 'path', (e: any) => {
-      $('path#' + this.selectedDistrictId).css('fill', '#7289da');
-      let getClickedId = e.currentTarget;
-      let distrctId = $(getClickedId).attr('id');
-      this.selectDistrict(distrctId);
-      this.getOrganizationByDistrictId(distrctId);
-    });
-
-
+    // $(document).on('click', 'path', (e: any) => {
+    //   $('path#' + this.selectedDistrictId).css('fill', '#7289da');
+    //   let getClickedId = e.currentTarget;
+    //   let distrctId = $(getClickedId).attr('id');
+    //   this.selectDistrict(distrctId);
+    //   this.getOrganizationByDistrictId(distrctId);
+    // });
   }
 
   showSvgMap(regions_m: any) {
@@ -244,11 +248,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     $('path#' + this.selectedDistrictId).css('fill', 'rgb(114, 137, 218)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.defaultMembersFlag = false;
-
   }
 
   getDistrict(id: any) {
-    this.spinner.show();
+    // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -266,7 +269,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
           if (ele.DistrictId == id) {
             this.districtName = ele.DistrictName;
           }
-        })
+        });
+        
       } else {
         // this.toastrService.error("Data is not available 2");
       }
@@ -276,6 +280,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
     })
   }
+
 
   committeeNameByOrganizationMember(bodyId: any, committeeName: any) {
     this.spinner.show();
@@ -358,6 +363,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.DistWiseCommityWGraphArray = res.data1;
         this.WorkDoneByYuvak();
       } else {
+        this.DistWiseCommityWGraphArray = [];
+        this.WorkDoneByYuvak();
         this.spinner.hide();
       }
     }, (error: any) => {
