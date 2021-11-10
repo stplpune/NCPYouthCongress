@@ -35,14 +35,14 @@
             <div class="card card-body bg-gold mb-3">
                 <i class="fab fa-android"></i>
                 <p>Active Members</p>
-                <h3>{{TotalWorkAndIosCount?.ActiveMember ? TotalWorkAndIosCount?.ActiveMember : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?._ActiveMember ? TotalWorkAndIosCount?._ActiveMember : '0'}}</h3>
             </div>
         </div>
         <div class="col">
             <div class="card card-body bg-gold mb-3">
                 <i class="fab fa-android"></i>
                 <p>Non Active Members</p>
-                <h3>{{TotalWorkAndIosCount?.InActiveMember ? TotalWorkAndIosCount?.InActiveMember : '0'}}</h3>
+                <h3>{{TotalWorkAndIosCount?._InActiveMember ? TotalWorkAndIosCount?._InActiveMember : '0'}}</h3>
             </div>
         </div>
     </div>
@@ -124,16 +124,16 @@
                             <div class="card card-body bg-green mb-3">
                                 <i class="fab fa-apple"></i>
                                 <p>Active</p>
-                                <h3>{{TotalWorkAndIosCount?.ActiveMember ?
-                                    TotalWorkAndIosCount?.ActiveMember : '0'}}</h3>
+                                <h3>{{TotalWorkAndIosCount?._ActiveMember ?
+                                    TotalWorkAndIosCount?._ActiveMember : '0'}}</h3>
                             </div>
                         </div>
                         <div class="col-sm-3 col-6">
                             <div class="card card-body bg-green mb-3">
                                 <i class="fab fa-apple"></i>
                                 <p>Non Active </p>
-                                <h3>{{TotalWorkAndIosCount?.InActiveMember ?
-                                    TotalWorkAndIosCount?.InActiveMember : '0'}}</h3>
+                                <h3>{{TotalWorkAndIosCount?._InActiveMember ?
+                                    TotalWorkAndIosCount?._InActiveMember : '0'}}</h3>
                             </div>
                         </div>
                         <!-- <div class="col-sm-3">
@@ -464,11 +464,16 @@
                                     <label class="form-label mb-0">Contact No.</label>
                                     <div class="form-control-plaintext py-0">
                                         {{bodyMemberDetails?.MobileNo}}</div>
+                                       
                                     <label class="form-label mb-0">Location</label>
-                                    <div class="form-control-plaintext py-0">
+                                    <div class="form-control-plaintext py-0" *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
                                         {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
                                         {{bodyMemberDetails?.VillageName}}
                                     </div>
+                                    <ng-template #otherContent>
+                                        <div class="form-control-plaintext py-0">-</div>
+                                    </ng-template>
+
                                 </div>
                             </div>
                         </div>
