@@ -90,7 +90,8 @@
                             <th scope="col">Comments</th>
                             <th scope="col">Shares</th>
                             <th scope="col">Abuses</th>
-                            <th scope="col">View</th>
+                            <th scope="col">Views</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,6 +116,10 @@
                             <td>
                                 <h6 class="mb-0"><a class="text-danger" (click)="getActivityLikes(politicalWork.Id,'4',politicalWork.TotalAbuses)">{{politicalWork.TotalAbuses}}</a></h6>
                                 <input type="hidden"  data-bs-toggle="modal" data-bs-target="#AbuseModal" #TotalAbuses>
+                            </td>
+                            <td>
+                                <h6 class="mb-0"><a class="text-danger" (click)="getActivityLikes(politicalWork.Id,'5',politicalWork.TotalViews)">{{politicalWork.TotalViews}}</a></h6>
+                                <input type="hidden"  data-bs-toggle="modal" data-bs-target="#ViewsModal" #TotalViews>
                             </td>
 
                             <td>
@@ -311,12 +316,32 @@
     </div>
 </div>
 
-<!-- modal for share details -->
+<!-- modal for Abuse details -->
 <div class="modal fade" id="AbuseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AbuseModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-danger">
                 <p class="modal-title" id="AbuseModalLabel">Abuse Reported By</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush">
+                    <a *ngFor="let activityLikes of activityLikesArray" class="list-group-item list-group-item-action">{{activityLikes.FullName}}</a>
+                    <div *ngIf="activityLikesArray?.length == 0" class="m-4">
+                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for Views details -->
+<div class="modal fade" id="ViewsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <p class="modal-title" id="ViewsModalLabel">Views Reported By</p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
