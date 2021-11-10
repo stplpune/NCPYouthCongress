@@ -257,7 +257,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       DistrictId: [0],
       TalukaId: [0],
       VillageId: [0],
-      IsBody: [0],
+      IsBody: [1],
       BodyId: [0],
     })
   }
@@ -362,7 +362,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.BodyId , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+
+     '&IsBody=' + filter.IsBody +'&BodyId=' + filter.BodyId , false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -395,7 +396,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       chart.colors.step = 2;
 
       chart.legend = new am4charts.Legend()
-      chart.legend.position = 'top'
+      chart.legend.position = 'bottom'
       chart.legend.paddingBottom = 10
       chart.legend.labels.template.maxWidth = 20
 
@@ -410,7 +411,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
       xAxis.renderer.labels.template.rotation = -35;
-      xAxis.renderer.minGridDistance = 30;
+      xAxis.renderer.minGridDistance = 0;
+
+      chart.scrollbarX = new am4core.Scrollbar();
+      // chart.scrollbarY = new am4core.Scrollbar();
 
       function createSeries(value: string | undefined, name: string) {
         let series = chart.series.push(new am4charts.ColumnSeries())
@@ -432,7 +436,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
       chart.data = this.WorkDoneByYuvakBarchart;
 
-      chart.padding(10, 5, 5, 5);
+      // chart.padding(10, 5, 5, 5);
       createSeries('TotalWork', 'Work Done by Committees');
       // createSeries('TotalWork', 'Total Work Done');
 
@@ -500,7 +504,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getMemberName();
     }else{
       this.filterBestPer.controls['BodyId'].setValue(0);
-      this.filterBestPer.controls['IsBody'].setValue(0);
+      this.filterBestPer.controls['IsBody'].setValue(1);
     }
     this.bestPerformance();
   }

@@ -132,8 +132,8 @@
                                 </td>
 
                                 <td>
-                                    <ng-container *ngIf="resultExeMember.IsUserBlock == 1 else userUnblock">
-                                        <span class="badge bg-danger">Blocked</span>
+                                    <ng-container *ngIf="resultExeMember.UserStatus != 1 else userUnblock">
+                                        <span class="badge bg-danger">Non Active</span>
                                     </ng-container>
                                     <ng-template #userUnblock> <span class="badge bg-success">Active</span>
                                     </ng-template>
