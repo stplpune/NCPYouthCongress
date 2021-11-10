@@ -86,6 +86,7 @@ export class AddMemberComponent implements OnInit {
   getConstituencyResult: any;
   memberID!: number;
   editMemObj: any;
+  reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
 
   ngOnInit(): void {
     // this.router.url.includes('mobile-login')
@@ -121,9 +122,9 @@ export class AddMemberComponent implements OnInit {
       UserPostBodyId: [0],
       ConstituencyNo: [''],
       IsMultiple: [0],
-      InstagramLink: [''],
-      TwitterLink: [''],
-      FacebookLink: [''],
+      InstagramLink: ['', [Validators.pattern(this.reg)]],
+      TwitterLink: ['' , [Validators.pattern(this.reg)]],
+      FacebookLink: ['' , [Validators.pattern(this.reg)]],
       Address: [''],
     })
   }
