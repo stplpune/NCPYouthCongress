@@ -406,7 +406,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellStartLocation = 0.1
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
-      xAxis.renderer.labels.template.rotation = -90;
+      xAxis.renderer.labels.template.rotation = -35;
       xAxis.renderer.minGridDistance = 30;
 
       function createSeries(value: string | undefined, name: string) {
