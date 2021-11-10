@@ -92,6 +92,7 @@ export class AddMemberComponent implements OnInit {
     // this.router.url.includes('mobile-login')
     this.profileFlag = this.data.formStatus;
     this.memberID = this.data.Id;
+    console.log(this.data);
     this.getCommiteeName = this.commonService.getCommiteeInfo();
     this.myProfileForm();
     this.getCommitteeName();
@@ -421,7 +422,7 @@ export class AddMemberComponent implements OnInit {
           this.editMemObj.DesignationId ? (this.editProfileForm.controls['DesignationId'].setValue(this.editMemObj.DesignationId)) : '';
           this.getConstituencylist();
         }
-
+        this.data.Designation ? (this.editProfileForm.controls['DesignationId'].setValue(this.data.Designation)) : '';
       } else {
         this.allDesignatedMembers = [];
       }
@@ -465,6 +466,7 @@ export class AddMemberComponent implements OnInit {
         if (this.editFlag) {
           this.editMemObj.BodyId ? (this.editProfileForm.controls['BodyId'].setValue(this.editMemObj.BodyId), this.getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)) : '';
         }
+        this.data.CommitteeName ? (this.editProfileForm.controls['BodyId'].setValue(this.data.CommitteeName), this.getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)) : '';
       } else {
         this.resCommittees = [];
         //this.toastrService.error("Data is not available");
@@ -506,6 +508,14 @@ export class AddMemberComponent implements OnInit {
       }
     });
     dialogRefAddDesignated.afterClosed().subscribe((result: any) => {
+      this.getCommitteeName();
+      let bodyId: any = sessionStorage.getItem('bodyId');
+      let bId = JSON.parse(bodyId);
+      let obj = { "formStatus": 'Create', 'Id': 0, 'CommitteeName': bId.bodyId, 'Designation': this.data.Designation };
+      let dialogRef: any = this.dialog.open(AddMemberComponent, {
+        width: '1024px',
+        data: obj
+      });
       dialogRefAddDesignated = null;
       this.getCurrentDesignatedMembers(bodyId)
     });

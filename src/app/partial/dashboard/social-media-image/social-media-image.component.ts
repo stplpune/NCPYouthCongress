@@ -341,7 +341,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId + '&PartyId=' + this.selectedParty, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      debugger;
       if (res.data == 0) {
         this.resultofPartyData = res.data1;
         this.spinner.hide();

@@ -211,7 +211,7 @@ export class AddDesignationComponent implements OnInit {
   addEditMember(flag:any,id:any) {
     // this.highlightedRow = id
     this.onNoClickModal('No')
-    let obj = {"formStatus":flag, 'Id':id}
+    let obj = {"formStatus":flag, 'CommitteeName':id}
     let dialogRef:any = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj

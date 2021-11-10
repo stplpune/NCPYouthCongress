@@ -320,7 +320,6 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
-        debugger
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         // this.getPreDesMembersArray = [];
@@ -565,17 +564,16 @@ export class OrganizationDetailsComponent implements OnInit {
 
   addNewMember(flag:any,id:any) {
     this.addEditMemberModal('close');
-    let obj = {"formStatus":flag, 'Id':id}
+    let obj = {"formStatus":flag, 'Id':id,'CommitteeName':this.bodyId,'Designation':this.dataAddEditMember.DesignationId};
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-        console.log(result);
         this.getAllBodyMember();
       }
-      // this.addEditMemberModal('open');
+      this.addEditMemberModal('open');
     });
   }
 
@@ -733,7 +731,6 @@ export class OrganizationDetailsComponent implements OnInit {
       data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName, currentModalName:'Add Designation'}
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
-      debugger;
       if (result == 'Yes') {
       }
       this.getCurrentDesignatedMembers(this.bodyId);
