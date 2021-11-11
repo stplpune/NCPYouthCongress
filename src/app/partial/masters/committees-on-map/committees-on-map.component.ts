@@ -28,7 +28,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   resultOrganizationMember: any;
   activeRow: any;
   selCommitteeName: any;
-  districtName:any;
+  districtName= "Maharashtra State";
   defaultCommitteesFlag: boolean = false;
   defaultMembersFlag: boolean = false;
   globalBodyId: any;
@@ -80,13 +80,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.DistrictWiseCommityWorkGraph();
     } else if (flag == 'CommitteesIn') {
       this.loggedUserTypeId == 5 ?  this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
-
       this.showSvgMap(this.commonService.mapRegions());
       this.defaultMembersFlag = false;
       // this.selectedDistrictId = "";
       this.selDistrict.reset();
-      this.getOrganizationByDistrictId(0);
-      this.selectDistrict(0);
+
+      this.getOrganizationByDistrictId(this.loggedDistrictId);
+      this.selectDistrict(this.loggedDistrictId);
       this.defaultCloseBtn = false;
       this.DistrictWiseCommityWorkGraph();
     }
@@ -103,7 +103,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     } else {
       this.showSvgMap(this.commonService.mapRegions());
       // this.selectDistrict(this.loggedDistrictId);
-      this.getOrganizationByDistrictId(0);
+      this.getOrganizationByDistrictId(this.loggedDistrictId);
     }
 
     // $(document).on('click', 'path', (e: any) => {
@@ -241,6 +241,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
+    this.Search.reset('');
+    this.searchFilter = "";
     $('path').css('fill', '#7289da');
     this.selectedDistrictId = event;
     // this.loggedDistrictId = event;
@@ -333,9 +335,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
-        //this.districtName = "Maharashtra State";
+        this.loggedUserTypeId == 5 ?  this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
         this.searchFilter = this.Search.value;
-        this.getOrganizationByDistrictId(0);
+        // this.districtName = "Maharashtra State";
+        this.getOrganizationByDistrictId(this.loggedDistrictId);
         this.DistrictWiseCommityWorkGraph();
       }
       );
@@ -343,7 +346,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   clearFilterByCommitteesName() {
     this.searchFilter = "";
     this.Search.reset('');
-    this.getOrganizationByDistrictId(0);
+    this.loggedUserTypeId == 5 ?  this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
+    this.getOrganizationByDistrictId(this.loggedDistrictId);
     this.DistrictWiseCommityWorkGraph();
   }
 

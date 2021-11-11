@@ -289,6 +289,12 @@ export class AddMemberComponent implements OnInit {
       this.callAPIService.setHttp('Post', 'Web_Insert_User_1_0_Committee', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
+           //set username in session storage
+           this.commonService.sendFullName(this.editProfileForm.value.Name);
+           let loginObj: any = sessionStorage.getItem('loggedInDetails');
+           loginObj = JSON.parse(loginObj);
+           loginObj.data1[0].FullName = this.editProfileForm.value.Name;
+
           this.editFlag = false;
           this.disabledEditForm = true;
           this.profilePhotoChange = null;
@@ -411,7 +417,6 @@ export class AddMemberComponent implements OnInit {
   }
 
   getCurrentDesignatedMembers(id: any) {
-    debugger;
     //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -508,16 +513,15 @@ export class AddMemberComponent implements OnInit {
       }
     });
     dialogRefAddDesignated.afterClosed().subscribe((result: any) => {
-      this.getCommitteeName();
       let bodyId: any = sessionStorage.getItem('bodyId');
       let bId = JSON.parse(bodyId);
       let obj = { "formStatus": 'Create', 'Id': 0, 'CommitteeName': bId.bodyId, 'Designation': this.data.Designation };
-      let dialogRef: any = this.dialog.open(AddMemberComponent, {
+      this.dialog.open(AddMemberComponent, {
         width: '1024px',
         data: obj
       });
-      dialogRefAddDesignated = null;
-      this.getCurrentDesignatedMembers(bId.bodyId)
+      // dialogRefAddDesignated = null;
+    //  this.ngOnInit();
     });
   }
 }
