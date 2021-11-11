@@ -9,9 +9,9 @@
                 <div class="offset-sm-6 col-sm-5 col">
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
-                            placeholder="Search Committees..." (keyup)="onKeyUpFilter()" />
+                            placeholder="Search Committees..." (keyup)="filterByCommittee()" />
                         <button type="button" class="btn btn-light border btn-sm"
-                            (click)="clearFilterByCommitteesName()"  *ngIf="Search.value"><i
+                            (click)="clearFilterByCommittee()"  *ngIf="Search.value"><i
                                 _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                         <button type="button" *ngIf="!Search.value"
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
