@@ -51,7 +51,8 @@ export class CommonService {
 
     getFullName() {
         let localStorage = this.getsessionStorageData();
-        let obj = { 'FName': localStorage.FName,'LName': localStorage.LName, 'ProfilePhoto': localStorage.ProfilePhoto }
+        let fName_lName = localStorage.FullName.split(' ')
+        let obj = { 'FName': fName_lName[0],'LName': fName_lName[2], 'ProfilePhoto': localStorage.ProfilePhoto }
         return obj;
     }
 

@@ -67,8 +67,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.nameImgObj = this.commonService.getFullName();
-
-    this.fullName = this.nameImgObj;
     this.pic = this.nameImgObj.ProfilePhoto;
     this.commonService.imageChange.subscribe((imagePath:any) => {
      if (!!imagePath) {
@@ -78,7 +76,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
      }
    });
 
-    this.commonService.getNameOnChange.subscribe(message => {if (message) this.fullName = message });
+    this.commonService.getNameOnChange.subscribe(message => { if(message) {this.fullName = message}});
+    
   }
 
   ngAfterViewInit(){

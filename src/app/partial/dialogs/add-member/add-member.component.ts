@@ -294,6 +294,7 @@ export class AddMemberComponent implements OnInit {
            let loginObj: any = sessionStorage.getItem('loggedInDetails');
            loginObj = JSON.parse(loginObj);
            loginObj.data1[0].FullName = this.editProfileForm.value.Name;
+           sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj))
 
           this.editFlag = false;
           this.disabledEditForm = true;
