@@ -22,17 +22,17 @@
                     </div>
                     <label for="txtFacebookURL" class="form-label"><i class="fab fa-facebook-f me-2 text-primary"></i>Facebook URL</label>
                     <input type="text" class="form-control mb-2" placeholder="Facebook Profile Link" formControlName="FacebookLink">
-                    <div *ngIf="submitted && f.FacebookLink.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.FacebookLink.errors" class="invalid-feedback" style="margin-top: -9px;">
                         <div *ngIf="f.FacebookLink.errors.pattern">Please enter valid url.</div>
                      </div>
                     <label for="txtTwitterURL" class="form-label"><i class="fab fa-twitter me-2 text-info"></i>Twitter URL </label>
                     <input type="text" class="form-control mb-2" placeholder="Twitter Profile Link" formControlName="TwitterLink">
-                    <div *ngIf="submitted && f.TwitterLink.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.TwitterLink.errors" class="invalid-feedback" style="margin-top: -9px;">
                         <div *ngIf="f.TwitterLink.errors.pattern">Please enter valid url.</div>
                      </div>
                     <label for="txtInstagramURL" class="form-label"><i class="fab fa-instagram me-2 text-warning"></i>Instagram URL </label>
-                    <input type="text" class="form-control" placeholder="Instagram Profile Link" formControlName="InstagramLink">
-                   <div *ngIf="submitted && f.InstagramLink.errors" class="invalid-feedback">
+                    <input type="text" class="form-control  mb-2" placeholder="Instagram Profile Link" formControlName="InstagramLink">
+                   <div *ngIf="submitted && f.InstagramLink.errors" class="invalid-feedback" style="margin-top: -9px;">
                       <div *ngIf="f.InstagramLink.errors.pattern">Please enter valid url.</div>
                    </div>
                     
