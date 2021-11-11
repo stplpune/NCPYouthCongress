@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [{ path: '', component: DashboardComponent },
 { path: 'work-this-week', loadChildren: () => import('./work-this-week/work-this-week.module').then(m => m.WorkThisWeekModule), data: { title: 'Work This Week' } },
-{ path: 'social-media-image', loadChildren: () => import('./social-media-image/social-media-image.module').then(m => m.SocialMediaImageModule), data: { title: 'Social Media Image' } },
+{ path: 'social-media-image', loadChildren: () => import('./social-media-image/social-media-image.module').then(m => m.SocialMediaImageModule), data: { title: 'Perception On Social Media' } },
 ];
 
 @NgModule({

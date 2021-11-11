@@ -151,10 +151,11 @@ export class RecentPostDetailsComponent implements OnInit {
     this.spinner.show();
     let obj = 'Id=0&ActivityId=' + activityId + '&Comments=' + this.Comment.value + '&UserId=' + this.commonService.loggedInUserId();
     this.callAPIService.setHttp('get', 'Insert_Comments_1_0?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.Comment.reset();
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.toastrService.success(res.data1[0].Msg);
-        this.Comment.reset();
+        // this.Comment.setValue('');
         this.dashboardActivities('comments');
         this.spinner.hide();
       } else {
