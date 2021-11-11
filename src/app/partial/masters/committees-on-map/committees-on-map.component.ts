@@ -52,6 +52,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   allDistrictMaharashta: any;
   CommitteeId:any;
   committeeName:any;
+  selCommiteeFlag:boolean = true;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -69,6 +70,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
     this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
+    this.searchFilterByCommittee('false');
   }
 
   selDistrictName(){
@@ -136,7 +138,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.allDistrict = res.data1;
         // if district id != 0  then show district name
         
-        this.CommitteeId && this.loggedUserTypeId == 5 ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
+        this.CommitteeId && this.loggedUserTypeId == 5 && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
 
         if(id != 0 ){
           this.allDistrict.find((ele: any) => {
@@ -188,6 +190,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   comActiveClass(flag:any){ // 0 - false 1 - true
     flag == 0 ? this.defaultMembersFlag = false : this.defaultMembersFlag = true;
+    this.selCommiteeFlag = false;
     
   }
   // --------------------------------------- filter start here ----------------------------------------------- //
@@ -207,7 +210,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   selDateRangeByFilter(getDate: any) {
-
+    this.comActiveClass(0);
+    this.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
+    this.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
+    this.districtWiseCommityWorkGraph(0);
   }
 
   clearDateRangeByFilter(){
@@ -218,11 +224,30 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
  
 
   filterByCommittee() {
+    this.subject.next();
+  }
 
+  searchFilterByCommittee(flag: any) {
+    if (flag == 'true') {
+      if (this.Search.value == "" || this.Search.value == null) {
+        this.toastrService.error("Please search and try again");
+        return
+      }
+    }
+    this.subject
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+        this.searchFilter = this.Search.value;
+        this.selDistrictName();
+        this.getOrganizationByDistrictId(0);
+      }
+      );
   }
 
   clearFilterByCommittee() {
     this.Search.reset('');
+    this.searchFilter = "";
+    this.getOrganizationByDistrictId(0);
   }
 
 
