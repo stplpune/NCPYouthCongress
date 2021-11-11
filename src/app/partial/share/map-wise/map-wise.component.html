@@ -26,7 +26,7 @@
                                     <div class="input-group">
                                         <input [owlDateTime]="dt1" (dateTimeChange)="getweekRage($event.value)"
                                            class="form-control form-control-sm" [selectMode]="'range'"  formControlName="selDate" [max]="maxDate"
-                                            [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                            [owlDateTimeTrigger]="dt1" placeholder="From To Date">
                                         <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
                                         <button class="btn btn-light btn-sm" type="button" *ngIf="deafultShowIcon" [owlDateTimeTrigger]="dt1">
                                             <i class="fas fa-calendar-alt"></i>
