@@ -68,9 +68,14 @@
                         </select>
                     </span> -->
                 </div>
-                <div class="card-body chartHeight socialMediaChartdiv">
-
+                <div *ngIf="perOnSocialMedArray?.length !== 0 ; else OtherContent">
+                      <div class="card-body chartHeight socialMediaChartdiv"></div>
                 </div>
+            <ng-template #OtherContent>
+                <div class="chartHeight">
+                    <div class="alert alert-danger text-center py-2">No Data Found..!</div></div>
+            </ng-template>
+
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -83,22 +88,9 @@
                                     <span class="badge bg-success">{{mostLikedPerson.cnt}}</span>
                                 </span>
                             </a>
-                            <!-- <a class="activity-item bg-high">
-                                Sambhajiraje Bhosale
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-high">
-                                NCP
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-high">
-                                Nitin Gadkari
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-high">
-                                Jayant Patil
-                                <span class="float-end">250</span>
-                            </a> -->
+                            <div *ngIf="mostLikedPersonArray?.length == 0">
+                                    <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -112,22 +104,9 @@
                                     <span class="badge bg-danger">{{mostHatedPerson.cnt}}</span>
                                 </span>
                             </a>
-                            <!-- <a class="activity-item bg-low">
-                                Narendra Modi
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-low">
-                                Devendra Fadnavis
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-low">
-                                Adityanath Yogi
-                                <span class="float-end">250</span>
-                            </a>
-                            <a class="activity-item bg-low">
-                                Gas Price Hike
-                                <span class="float-end">250</span>
-                            </a> -->
+                            <div *ngIf="mostHatedPersonArray?.length == 0">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                           </div>
                         </div>
                     </div>
                 </div>

@@ -330,7 +330,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       this.allowClearParty = true;
     }
     $('#map svg path').css('fill', '#7289da');
-    this.mahaSVGMap()
+    this.mahaSVGMap();
   }
 
   mahaSVGMap() {
