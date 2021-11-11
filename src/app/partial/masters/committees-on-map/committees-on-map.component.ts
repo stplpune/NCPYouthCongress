@@ -28,7 +28,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   resultOrganizationMember: any;
   activeRow: any;
   selCommitteeName: any;
-  districtName = "Maharashtra State";
+  districtName:any;
   defaultCommitteesFlag: boolean = false;
   defaultMembersFlag: boolean = false;
   globalBodyId: any;
@@ -37,7 +37,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selectedDistrictId: any;
   selDistrict = new FormControl();
   fromToDate = new FormControl();
-  Search = new FormControl();
+  Search = new FormControl('');
   subject: Subject<any> = new Subject();
   searchFilter = "";
   DistrictId: any; //DistrictId fetch Work this Week Page
@@ -333,16 +333,18 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
-        this.districtName = "Maharashtra State";
+        //this.districtName = "Maharashtra State";
         this.searchFilter = this.Search.value;
         this.getOrganizationByDistrictId(0);
+        this.DistrictWiseCommityWorkGraph();
       }
       );
   }
   clearFilterByCommitteesName() {
     this.searchFilter = "";
-    this.Search.reset();
+    this.Search.reset('');
     this.getOrganizationByDistrictId(0);
+    this.DistrictWiseCommityWorkGraph();
   }
 
   selDateRangeByFilter(getDate: any) {
@@ -355,7 +357,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   DistrictWiseCommityWorkGraph() {
     this.spinner.show();
     let globalDistrictId = this.selectedDistrictId || 0;
-    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + globalDistrictId + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate;
+    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + globalDistrictId + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate+'&Search='+this.Search.value;
     this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

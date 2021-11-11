@@ -411,6 +411,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   getCurrentDesignatedMembers(id: any) {
+    debugger;
     //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -516,7 +517,7 @@ export class AddMemberComponent implements OnInit {
         data: obj
       });
       dialogRefAddDesignated = null;
-      this.getCurrentDesignatedMembers(bodyId)
+      this.getCurrentDesignatedMembers(bId.bodyId)
     });
   }
 }
