@@ -167,6 +167,7 @@
                                     <th>Sr. No.</th>
                                     <th>Member Name</th>
                                     <th>Designation</th>
+                                    <th>Mobile No.</th>
                                     <th>Appointed On</th>
                                     <th></th>
                                 </tr>
@@ -187,10 +188,11 @@
 
                                     </td>
                                     <td>{{designatedMembers.DesignationName}} </td>
+                                    <td>{{designatedMembers.MobileNo}} </td>
                                     <td>{{designatedMembers.PostFromDate}}</td>
                                     <td class="text-end">
                                         <div class="btn-group" role="group" aria-label="Action Buttons">
-                                            <button *ngIf="designatedMembers.MemberName"
+                                            <button *ngIf="designatedMembers.MemberName" [disabled]="designatedMembers.UserId == loggedInUserId"
                                                 (click)="addEditMember(designatedMembers,'Edit')"
                                                 class="btn btn-sm btn-light rounded"> <i
                                                     class="fas fa-pencil-alt"></i></button>
