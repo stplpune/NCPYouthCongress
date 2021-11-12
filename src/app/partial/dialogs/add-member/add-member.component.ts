@@ -519,7 +519,7 @@ export class AddMemberComponent implements OnInit {
     dialogRefAddDesignated.afterClosed().subscribe((result: any) => {
       let bodyId: any = sessionStorage.getItem('bodyId');
       let bId = JSON.parse(bodyId);
-      let obj = { "formStatus": 'Create', 'Id': 0, 'CommitteeName': bId.bodyId, 'Designation': this.data.Designation };
+      let obj = { "formStatus": 'Add', 'Id': 0, 'CommitteeName': bId.bodyId, 'Designation': this.data.Designation };
       this.dialog.open(AddMemberComponent, {
         width: '1024px',
         data: obj
