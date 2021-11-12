@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-6">
-                <span class="page-name">Committees on Map
+                <span class="page-name">Committees Performance
                 </span>
             </div>
         <div class="col-sm-6 text-end">
@@ -75,11 +75,11 @@
                             <div class="card-header pb-0 border-bottom"  *ngIf="defaultMembersFlag">Members in <span class="text-main" style="cursor: pointer;" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush"  *ngIf="defaultMembersFlag">
-                                    <a class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
-                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''"><span class="text-danger">No Member Assigned</span> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small></p>
-                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small></p>
+                                    <div class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
+                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''"><span class="text-danger">No Member Assigned</span> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small></p>
+                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small><a href="tel:{{resOrganizationMember?.MobileNo}}" class="ml-2"><i class="fa fa-phone-volume"></i></a></p>
                                       <span class="small">{{resOrganizationMember.DesignationName}}</span>
-                                    </a>
+                                    </div>
                                     <div  *ngIf="resultOrganizationMember?.length == 0">
                                         <div  class="alert alert-danger text-center py-2">No Members in this Committe..!</div>
                                     </div>
