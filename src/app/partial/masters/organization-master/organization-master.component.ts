@@ -917,7 +917,7 @@ export class OrganizationMasterComponent implements OnInit {
     } else{
       DistrictId = 0;
     }
-    this.router.navigate(['../committees-on-map'], {relativeTo:this.route});
+    this.router.navigate(['../committees-performance'], {relativeTo:this.route});
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
  
   }
