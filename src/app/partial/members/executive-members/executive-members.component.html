@@ -130,7 +130,6 @@
                                     <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">
                                         {{designation}}</p>
                                 </td>
-
                                 <td>
                                     <ng-container *ngIf="resultExeMember.UserStatus != 1 else userUnblock">
                                         <span class="badge bg-danger">Non Active</span>
