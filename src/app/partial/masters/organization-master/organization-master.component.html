@@ -101,7 +101,7 @@
                                         <div class="btn-group">
                                             <button type="button"
                                                 [disabled]="(getCommiteeDetails?.CommiteeId == result?.Id) ?  true : ''"
-                                                title="Edit Committee"
+                                                title="Edit Committee"  data-bs-toggle="modal" data-bs-target="#AddNewCommittee"
                                                 class="btn btn-sm btn-light text-edit me-1 rounded"
                                                 (click)="editOrganization(result.Id)"><i
                                                     class="far fa-edit"></i></button>
@@ -140,13 +140,13 @@
 
 <!-- Modal for Add Designation -->
 <div class="modal fade" id="AddNewCommittee" tabindex="-1" aria-labelledby="AddNewCommitteeLabel"
-    aria-hidden="true">
+    aria-hidden="true" (click)="clearForm()">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header">
                 <p class="modal-title" id="AddNewCommitteeLabel">Add New Committee</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()"></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">

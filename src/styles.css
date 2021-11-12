@@ -985,6 +985,15 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     pointer-events: none;
     cursor: default;
     background: rgb(235, 235, 235) !important;
+    fill: rgb(235, 235, 235) !important;
+}
+.clicked{
+    pointer-events: auto;
+    fill: #7289da !important;
+}
+.svgDistrictActive{
+    pointer-events: auto;
+    fill: rgb(39, 40, 72)!important;
 }
 .mat-tree-node button {
     width: 24px  !important;

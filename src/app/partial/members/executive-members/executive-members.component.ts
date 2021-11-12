@@ -26,14 +26,14 @@ export class ExecutiveMembersComponent implements OnInit {
   total: any;
   pageSize: number = 10;
   globalBodyId: number = 0;
-  viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-  clearMemberObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+  // viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+  // clearMemberObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
   filterForm!: FormGroup;
   memberNameArray: any;
   memberCountData: any;
   subject: Subject<any> = new Subject();
   result: any;
-  highlightedRow:number = 0;
+  highlightedRow: number = 0;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService, public dialog: MatDialog,
@@ -42,17 +42,18 @@ export class ExecutiveMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMemberName();
-    this.getViewMembers(this.viewMembersObj);
     this.getDistrict();
     this.defaultFilterForm();
+    this.getViewMembers(this.filterForm.value);
     this.searchFilter('false');
   }
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      DistrictId: [''],
-      TalukaId: [''],
-      BodyId: [''],
+      DistrictId: [0],
+      TalukaId: [0],
+      villageid: [0],
+      BodyId: [0],
       searchText: ['']
     })
   }
@@ -75,9 +76,6 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   getTaluka(districtId: any) {
-    this.viewMembersObj.DistrictId = districtId
-    this.getViewMembers(this.viewMembersObj);
-
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -112,9 +110,6 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   getVillageOrCity(talukaID: any) {
-    this.viewMembersObj.Talukaid = talukaID
-    this.getViewMembers(this.viewMembersObj);
-
     this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -131,15 +126,14 @@ export class ExecutiveMembersComponent implements OnInit {
     })
   }
 
-  filterVillage(villageId: any) {
-    this.viewMembersObj.villageid = villageId
-    this.getViewMembers(this.viewMembersObj);
-  }
 
   getViewMembers(viewMembersObj: any) {
     (viewMembersObj.DistrictId == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.DistrictId = 0 : viewMembersObj.DistrictId;
-    (viewMembersObj.Talukaid == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.Talukaid = 0 : viewMembersObj.Talukaid;
-    (viewMembersObj.villageid == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.villageid = 0 : viewMembersObj.villageid;
+    (viewMembersObj.Talukaid == undefined || viewMembersObj.Talukaid == null) ? viewMembersObj.Talukaid = 0 : viewMembersObj.Talukaid;
+    (viewMembersObj.villageid == undefined || viewMembersObj.villageid == null) ? viewMembersObj.villageid = 0 : viewMembersObj.villageid;
+    (viewMembersObj.SearchText == undefined || viewMembersObj.SearchText == null) ? viewMembersObj.SearchText = '' : viewMembersObj.SearchText;
+    (viewMembersObj.BodyId == undefined || viewMembersObj.BodyId == null) ? viewMembersObj.BodyId = 0 : viewMembersObj.BodyId;
+
     this.spinner.show();
     this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=0&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + viewMembersObj.BodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -166,46 +160,17 @@ export class ExecutiveMembersComponent implements OnInit {
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
-    this.getViewMembers(this.viewMembersObj)
+    this.getViewMembers(this.filterForm.value)
   }
 
-  committee(event: any) {
-    this.viewMembersObj = { BodyId: event, DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
-    this.getViewMembers(this.viewMembersObj);
+  filter(event: any) {
+    this.paginationNo = 1;
+    this.getViewMembers(this.filterForm.value);
   }
 
   clearFilter(flag: any) {
-    if (flag == 'committee') {
-      this.viewMembersObj = { BodyId: 0, DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
-      this.filterForm.reset();
-    }
-    else if (flag == 'district') {
-      this.viewMembersObj = { BodyId: this.viewMembersObj.BodyId, DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', }
-      this.filterForm.reset({
-        BodyId: this.viewMembersObj.BodyId,
-        DistrictId: 0,
-        Talukaid: 0,
-        VillageId: 0
-      });
-    } else if (flag == 'taluka') {
-      this.filterForm.reset({
-        BodyId: this.viewMembersObj.BodyId,
-        DistrictId: this.viewMembersObj.DistrictId
-      });
-      this.viewMembersObj = { BodyId: this.viewMembersObj.BodyId, 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
-    }
-    // else if (flag == 'village') {
-    //   this.filterForm.reset({
-    //     VillageId: 0
-    //   });
-    //   this.viewMembersObj = {BodyId:this.viewMembersObj.BodyId, 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
-    // } 
-    else if (flag == 'search') {
-      this.viewMembersObj.SearchText = "";
-      this.filterForm.controls['searchText'].setValue('');
-    }
     this.paginationNo = 1;
-    this.getViewMembers(this.viewMembersObj)
+    this.getViewMembers(this.filterForm.value)
   }
 
   searchFilter(flag: any) {
@@ -218,8 +183,8 @@ export class ExecutiveMembersComponent implements OnInit {
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
-        this.viewMembersObj.SearchText = this.filterForm.value.searchText;
-        this.getViewMembers(this.viewMembersObj)
+        this.filterForm.value.SearchText = this.filterForm.value.searchText;
+        this.getViewMembers(this.filterForm.value)
       }
       );
   }
@@ -237,41 +202,41 @@ export class ExecutiveMembersComponent implements OnInit {
   refresh() {
     this.defaultFilterForm();
     let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-    this.getViewMembers(obj);
+    this.getViewMembers(this.filterForm.value);
   }
 
-  addEditMember(flag:any,id:any) {
+  addEditMember(flag: any, id: any) {
     this.highlightedRow = id
-    let obj = {"formStatus":flag, 'Id':id}
+    let obj = { "formStatus": flag, 'Id': id }
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes' || result == 'No') {
-        this.getViewMembers(this.clearMemberObj);
+        this.getViewMembers(this.filterForm.value);
       }
     });
   }
 
-  blockUnblockUserModal(flag:any,id:any) {
+  blockUnblockUserModal(flag: any, id: any) {
     const dialogRef = this.dialog.open(UserBlockUnblockComponent, {
       width: '1024px',
-      data:flag
-    }); 
+      data: flag
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
         //  this.filterForm.controls['BodyId'].setValue('');
-        this.blockUnblockUser(flag,id);
-      }else if (result == 'No'){
+        this.blockUnblockUser(flag, id);
+      } else if (result == 'No') {
         //  this.filterForm.controls['BodyId'].setValue('');
-        this.getViewMembers(this.clearMemberObj);
+        this.getViewMembers(this.filterForm.value);
       }
     });
   }
 
-  blockUnblockUser(blockStatus:any,memberId:number) {
-    let checkBlockStatus!:number;
+  blockUnblockUser(blockStatus: any, memberId: number) {
+    let checkBlockStatus!: number;
     blockStatus == 1 ? checkBlockStatus = 0 : checkBlockStatus = 1;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_BlockUser?MemberId=' + memberId + '&BlockStatus=' + checkBlockStatus + '&Createdby=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
@@ -279,7 +244,7 @@ export class ExecutiveMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        this.getViewMembers(this.clearMemberObj);
+        this.getViewMembers(this.filterForm.value);
       } else {
         // //this.toastrService.error("Data is not available");
       }
