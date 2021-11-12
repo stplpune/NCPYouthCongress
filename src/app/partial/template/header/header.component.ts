@@ -76,7 +76,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
      }
    });
 
-    this.commonService.getNameOnChange.subscribe(message => { if(message) {this.fullName = message}});
+    this.commonService.getNameOnChange.subscribe(message => {
+      if (message) {
+        let name = message.split(' ')
+        this.fullName = name[0] + " " + name[2]
+      } else {
+        this.fullName = this.nameImgObj.FName + " " + this.nameImgObj.LName
+      }
+    });
     
   }
 

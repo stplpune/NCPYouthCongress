@@ -9,9 +9,9 @@
                 <div class="offset-sm-6 col-sm-5 col">
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
-                            placeholder="Search Committees..." (keyup)="onKeyUpFilter()" />
+                            placeholder="Search Committees..." (keyup)="filterByCommittee()" />
                         <button type="button" class="btn btn-light border btn-sm"
-                            (click)="clearFilterByCommitteesName()"  *ngIf="Search.value"><i
+                            (click)="clearFilterByCommittee()"  *ngIf="Search.value"><i
                                 _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                         <button type="button" *ngIf="!Search.value"
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
@@ -96,10 +96,10 @@
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-9">
                                         Comparison of Committees
                                     </div>
-                                    <div class="col-sm-6 text-end">
+                                    <div class="col-sm-3 text-end">
                                         <div class="input-group">
                                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
                                              [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
