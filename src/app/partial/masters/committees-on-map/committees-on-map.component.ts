@@ -79,7 +79,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngAfterViewInit() {
     this.showSvgMap(this.commonService.mapRegions()); // default call SVG MAP
-    this.selectDistrict(this.DistrictId)
+    console.log(this.DistrictId)
+    this.DistrictId == "" || this.DistrictId ==  undefined ? this.DistrictId =  0 : this.DistrictId = this.DistrictId;
+    this.selectDistrict(this.DistrictId);
   }
 
   ngOnDestroy() {
@@ -245,8 +247,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
-        this.selDistrictName();
+        // this.selDistrictName();
         this.getOrganizationByDistrictId(0);
+        this.districtWiseCommityWorkGraph(0);
       });
   }
 
