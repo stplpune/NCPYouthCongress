@@ -99,10 +99,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
-    debugger;
     this.callSVGMap()
     this.selectedDistrictId = event;
     this.clearFilterByCommittee();
+    alert(this.selectedDistrictId);
     $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.comActiveClass(0);
@@ -110,13 +110,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getOrganizationByDistrictId(id: any) {
-    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getDistrict(id)
-        //$('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
         this.defaultCloseBtn = true;
         if (id == 0) {
           this.defaultCloseBtn = false;
