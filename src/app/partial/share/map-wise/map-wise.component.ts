@@ -28,6 +28,8 @@ export class MapWiseComponent implements OnInit {
   filter!:FormGroup;
   maxDate: any = new Date();
   deafultShowIcon:boolean = true;
+  ProgramListArray: any;
+  ProgramListDisabled : boolean = true;
 
   constructor( private callAPIService: CallAPIService,
     private toastrService: ToastrService,
@@ -50,6 +52,7 @@ export class MapWiseComponent implements OnInit {
   defaultFilterForm() {
     this.filter = this.fb.group({
       CommitteeId: [0],
+      ProgramId: [0],
       CategoryId: [0],
       selDate: [['', '']],
       fromDate: [''],
@@ -58,16 +61,32 @@ export class MapWiseComponent implements OnInit {
   }
 
   filterData(){
+    let formData = this.filter.value;
+    if(formData.CategoryId == 5){
+      this.getWebProgramList();
+      this.ProgramListDisabled = false;
+    } else{
+      this.ProgramListDisabled = true;
+      this.filter.controls['ProgramId'].setValue(0);
+    }
     this.dashboardActivityLocation();
   }
 
   clearFilter(flag:any){
+    debugger
     if (flag == 'Committee') {
+      this.filter.controls['ProgramId'].setValue(0);
       this.filter.controls['CommitteeId'].setValue(0);
+    } else if (flag == 'Program') {
+      this.filter.controls['ProgramId'].setValue(0);
+      this.ProgramListDisabled = false;
     } else if (flag == 'Category') {
       this.filter.controls['CategoryId'].setValue(0);
+      this.filter.controls['ProgramId'].setValue(0);
+      this.ProgramListDisabled = true;  
     } else if (flag == 'dateValue') {
       this.deafultShowIcon = true;
+      this.filter.controls['ProgramId'].setValue(0);
       this.filter.controls['selDate'].setValue(['', '']);
     }
     this.dashboardActivityLocation()
@@ -106,6 +125,25 @@ export class MapWiseComponent implements OnInit {
       } else {
         this.spinner.hide();
         this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getWebProgramList() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_getProgramList_1_0?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.ProgramListArray = res.data1;
+      } else {
+        this.spinner.hide();
+        //this.toastrService.error("Member is not available");
       }
     }, (error: any) => {
       this.spinner.hide();
@@ -157,9 +195,10 @@ export class MapWiseComponent implements OnInit {
     let filterValue = this.filter.value;
     let fromDate:any; 
     let toDate:any;
+    filterValue.ProgramId == "" || filterValue.ProgramId == null ?  filterValue.ProgramId = 0 : '';
     filterValue.selDate[0] != "" ? (fromDate = this.datePipe.transform(filterValue.selDate[0], 'dd/MM/yyyy')) : fromDate = '';
     filterValue.selDate[1] != "" ? (toDate = this.datePipe.transform(filterValue.selDate[1], 'dd/MM/yyyy')) : toDate = '';
-    let obj = 'UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+filterValue.CommitteeId+'&CategoryId='+filterValue.CategoryId+'&FromDate='+fromDate+''+'&ToDate='+toDate
+    let obj = 'UserId='+this.commonService.loggedInUserId()+'&CommitteeId='+filterValue.CommitteeId+'&CategoryId='+filterValue.CategoryId+'&FromDate='+fromDate+''+'&ToDate='+toDate +'&ProgramId='+filterValue.ProgramId
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Dashboard_Activity_Location?'+obj, false, false , false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

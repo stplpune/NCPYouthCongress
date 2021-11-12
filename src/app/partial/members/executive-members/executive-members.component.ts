@@ -260,10 +260,10 @@ export class ExecutiveMembersComponent implements OnInit {
     }); 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-         this.filterForm.controls['BodyId'].setValue('');
+        //  this.filterForm.controls['BodyId'].setValue('');
         this.blockUnblockUser(flag,id);
       }else if (result == 'No'){
-         this.filterForm.controls['BodyId'].setValue('');
+        //  this.filterForm.controls['BodyId'].setValue('');
         this.getViewMembers(this.clearMemberObj);
       }
     });
