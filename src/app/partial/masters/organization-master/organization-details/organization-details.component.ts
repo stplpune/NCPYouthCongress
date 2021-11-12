@@ -20,13 +20,14 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { AddMemberComponent } from 'src/app/partial/dialogs/add-member/add-member.component';
 import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation/add-designation.component';
 import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
+import { DeleteComponent } from 'src/app/partial/dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
   styleUrls: ['./organization-details.component.css', '../../../partial.component.css']
 })
-export class OrganizationDetailsComponent implements OnInit, AfterViewInit {
+export class OrganizationDetailsComponent implements OnInit {
 
   bodyMember!: FormGroup;
   globalDistrictId: any;
@@ -94,6 +95,7 @@ export class OrganizationDetailsComponent implements OnInit, AfterViewInit {
   actPageSize: number = 10;
   actTotal: any;
   @ViewChild('tree') tree: any;
+  avtivityId:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -124,10 +126,6 @@ export class OrganizationDetailsComponent implements OnInit, AfterViewInit {
     this.subCommitteeName = this.getCommitteeName;
     this.loggedInUserId = this.commonService.loggedInUserId();
     this.dashboardActivities();
-  }
-
-  ngAfterViewInit() {
-    this.tree.treeControl.expandAll();
   }
 
   defaultFilterForm() {
@@ -789,5 +787,34 @@ export class OrganizationDetailsComponent implements OnInit, AfterViewInit {
   onClickPagintion(pageNo: number) {
     this.actPaginationNo = pageNo;
     this.dashboardActivities();
+  }
+
+  // -------------------------------------- Activity del on  click ----------------------------- //
+  delConfirmCanActivity(avtivityId:any) {
+    this.avtivityId = avtivityId;
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.activitieDel();
+      }
+    });
+  }
+
+  activitieDel() {
+    this.callAPIService.setHttp('get', 'Web_DeleteActivity_1_0?UserId=' + this.commonService.loggedInUserId() + '&Id=' + this.avtivityId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg)
+      } else {
+        this.spinner.hide();
+      }
+      this.dashboardActivities();
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
   }
 }

@@ -204,6 +204,7 @@ export class ExecutiveMembersComponent implements OnInit {
       this.viewMembersObj.SearchText = "";
       this.filterForm.controls['searchText'].setValue('');
     }
+    this.paginationNo = 1;
     this.getViewMembers(this.viewMembersObj)
   }
 

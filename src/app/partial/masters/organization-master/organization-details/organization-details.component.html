@@ -54,7 +54,7 @@
                     <span class="fw-bold text-primary">{{getCommitteeName}}</span>
                 </div> -->
                 <div class="card-body">
-                    <mat-tree #tree  [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                             <li class="mat-tree-node" (click)="openSubCommittees(node.CommitteeId,node?.CommitteeName)"
                                 [class.active]="node.CommitteeId == HighlightRowTree">
@@ -102,7 +102,6 @@
                 <div class="member-posts"
                     *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                     <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
-                        (click)="openRecentPostDetails(dashboardActivities)"
                         class="card card-body shadow-none border-0 p-2">
                         <div class="row g-3">
                             <div class="col-3">
@@ -138,6 +137,8 @@
                                                 class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
                                         </div>
                                     </div>
+                                    <button type="button"  (click)="openRecentPostDetails(dashboardActivities)" class="btn btn-sm btn-light text-danger rounded"><i class="far fa-eye"></i></button>
+                                    <button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </div>
