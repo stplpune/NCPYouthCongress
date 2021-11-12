@@ -79,6 +79,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngAfterViewInit() {
     this.showSvgMap(this.commonService.mapRegions()); // default call SVG MAP
+    this.selectDistrict(this.DistrictId)
   }
 
   ngOnDestroy() {
@@ -206,6 +207,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     }
     this.comActiveClass(0);
     this.activeRow = 0;
+    // this.showSvgMap(this.commonService.mapRegions());
     this.getOrganizationByDistrictId(0);
   }
 
