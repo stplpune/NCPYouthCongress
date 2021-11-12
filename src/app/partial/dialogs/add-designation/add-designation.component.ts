@@ -8,6 +8,7 @@ import { CallAPIService } from 'src/app/services/call-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { AddMemberComponent } from '../add-member/add-member.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-add-designation',
@@ -29,7 +30,10 @@ export class AddDesignationComponent implements OnInit {
   submitted = false;
   heightedRow:any;
   committeeName:any;
-
+  selUserpostbodyId:any;
+  loggedInUserId:any;
+  loggedInDesId:any;
+  
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute, public dialogRef: MatDialogRef<AddMemberComponent>,
@@ -39,6 +43,8 @@ export class AddDesignationComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    let designationId = this.commonService.getsessionStorageData();
+    this.loggedInDesId = designationId.DesignationId;
     this.defaultDesignationForm();
     this.getDesignation();
     this.getBodyAssignedDesignation();
@@ -226,4 +232,30 @@ export class AddDesignationComponent implements OnInit {
   onNoClickModal(text:any): void {
     this.dialogRef.close(text);
   }
+
+  //If member is not assign then designation is delete 
+  getUserPostBodyId(BodyId: any,designationId:any){
+    this.selUserpostbodyId = '?CommitteeId='+BodyId+'&DesignationId='+designationId+'&CreatedBy=' + this.commonService.loggedInUserId();
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_Committee_Designation_1_0'+this.selUserpostbodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.getBodyAssignedDesignation();
+        this.AlreadyAssignedDesignations(this.desBodyId);
+
+      } else {
+        this.spinner.hide();
+        this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+
 }

@@ -86,6 +86,7 @@ export class OrganizationDetailsComponent implements OnInit {
   userPostBodyId:any;
   treeControl = new NestedTreeControl<any>((node: any) => node.children);
   dataSource = new MatTreeNestedDataSource<any>();
+  loggedInUserId:any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -114,6 +115,8 @@ export class OrganizationDetailsComponent implements OnInit {
     this.subCommittess(this.bodyId);
     this.HighlightRowTree = this.bodyId;
     this.subCommitteeName = this.getCommitteeName;
+    this.loggedInUserId = this.commonService.loggedInUserId();
+    console.log(this.loggedInUserId);
   }
 
   defaultFilterForm() {
@@ -141,6 +144,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.ngOnInit();
     // this.subCommittess(this.bodyId);
     this.subCommitteeName = committeeName;
+    this.bodyMember.controls['BodyName'].setValue(committeeName);
   };
 
   subCommittess(bodyId: any) {
@@ -636,7 +640,7 @@ export class OrganizationDetailsComponent implements OnInit {
           closeAddMemModal.click();
           this.resultBodyMemActDetails = res.data1[0];
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
-          this.bodyMember.reset({ BodyName: this.getCommitteeName });
+          this.bodyMember.reset({ BodyName: this.subCommitteeName });
           this.getBodyMemeberGraph(this.bodyId);
           this.addMemberFlag = null
         } else {
@@ -729,7 +733,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.addEditMemberModal('close');
     const dialogRefaddEditMember = this.dialog.open(AddDesignationComponent, {
       // width: '1024px',
-      data: {committeeId:this.bodyId ,committeeName:this.getCommitteeName, currentModalName:'Add Designation'}
+      data: {committeeId:this.bodyId ,committeeName:this.subCommitteeName, currentModalName:'Add Designation'}
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
       if (result == 'Yes') {
