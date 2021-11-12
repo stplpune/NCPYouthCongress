@@ -102,7 +102,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.callSVGMap()
     this.selectedDistrictId = event;
     this.clearFilterByCommittee();
-    alert(this.selectedDistrictId);
     $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.comActiveClass(0);

@@ -10,16 +10,24 @@
                         <form [formGroup]="filter">
                             <div class="row g-2 form-container">
                 
-                                <div class="offset-2 col-sm-4">
-                                    <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
-                                        [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
-                                        formControlName="CommitteeId" placeholder="Select Committee">
-                                    </ngx-select>
-                                </div>
                                 <div class="col-sm-3">
                                     <ngx-select [allowClear]="true" (remove)="clearFilter('Category')" (select)="filterData()"
                                         [items]="resWorkcategory" optionValueField="Id" optionTextField="Category"
                                         formControlName="CategoryId" placeholder="Select Category">
+                                    </ngx-select>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <ngx-select [allowClear]="true" (remove)="clearFilter('Program')" (select)="filterData()"
+                                        [items]="ProgramListArray" [disabled]="ProgramListDisabled" optionValueField="Id" optionTextField="ProgramTitle"
+                                        formControlName="ProgramId" placeholder="Select Program List">
+                                    </ngx-select>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <ngx-select [allowClear]="true" (remove)="clearFilter('Committee')" (select)="filterData()"
+                                        [items]="resCommitee" optionValueField="Id" optionTextField="BodyOrgCellName"
+                                        formControlName="CommitteeId" placeholder="Select Committee">
                                     </ngx-select>
                                 </div>
                                 <div class="col-sm-3">
