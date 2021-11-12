@@ -274,7 +274,7 @@ export class AddMemberComponent implements OnInit {
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
       this.editProfileForm.value.PostfromDate = this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
-
+      this.data.userpostbodyId == "" ||  this.data.userpostbodyId == 0 ? this.editProfileForm.value.UserPostBodyId = 0 : this.editProfileForm.value.UserPostBodyId =this.data.userpostbodyId;
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
@@ -290,11 +290,14 @@ export class AddMemberComponent implements OnInit {
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
            //set username in session storage
-           this.commonService.sendFullName(this.editProfileForm.value.Name);
-           let loginObj: any = sessionStorage.getItem('loggedInDetails');
-           loginObj = JSON.parse(loginObj);
-           loginObj.data1[0].FullName = this.editProfileForm.value.Name;
-           sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj))
+           if(this.editProfileForm.value.UserId == this.commonService.loggedInUserId()){
+            this.commonService.sendFullName(this.editProfileForm.value.Name);
+            let loginObj: any = sessionStorage.getItem('loggedInDetails');
+            loginObj = JSON.parse(loginObj);
+            loginObj.data1[0].FullName = this.editProfileForm.value.Name;
+            sessionStorage.setItem('loggedInDetails', JSON.stringify(loginObj))
+           }
+          
 
           this.editFlag = false;
           this.disabledEditForm = true;

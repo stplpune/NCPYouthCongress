@@ -83,7 +83,7 @@ export class OrganizationDetailsComponent implements OnInit {
   HighlightRowTree: any;
   prevDesignFlag: boolean = false;
   subCommitteeName: any;
-
+  userPostBodyId:any;
   treeControl = new NestedTreeControl<any>((node: any) => node.children);
   dataSource = new MatTreeNestedDataSource<any>();
 
@@ -564,16 +564,17 @@ export class OrganizationDetailsComponent implements OnInit {
 
   addNewMember(flag:any,id:any) {
     this.addEditMemberModal('close');
-    let obj = {"formStatus":flag, 'Id':id,'CommitteeName':this.bodyId,'Designation':this.dataAddEditMember.DesignationId};
+    let obj = {"formStatus":flag, 'Id':id,'CommitteeName':this.bodyId,'Designation':this.dataAddEditMember.DesignationId,'userpostbodyId':this.userPostBodyId};
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
+        this.getCurrentDesignatedMembers(this.bodyId);
         this.getAllBodyMember();
       }
-      this.addEditMemberModal('open');
+     // this.addEditMemberModal('open');
     });
   }
 
@@ -588,6 +589,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addEditMember(data: any, flag: any) {
+    this.userPostBodyId = data.userpostbodyId
     this.HighlightRow = data.SrNo;
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
     this.bodyMember.controls['prevMember'].setValue(data.MemberName);
