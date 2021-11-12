@@ -10,3 +10,17 @@
     height:600px;
     font-size: .75rem;
 }
+.calltomember{
+    float: right;
+    background-color:#e7ebf8 ;
+    color: var(--main-color);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 50%;
+  }
+  .calltomember:hover{
+      background-color: var(--main-color);
+      color: #fff;
+  }

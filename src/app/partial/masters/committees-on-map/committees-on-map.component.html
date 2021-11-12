@@ -77,7 +77,9 @@
                                 <div class="list-group list-group-flush"  *ngIf="defaultMembersFlag">
                                     <div class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
                                       <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''"><span class="text-danger">No Member Assigned</span> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small></p>
-                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small><a href="tel:{{resOrganizationMember?.MobileNo}}" class="ml-2"><i class="fa fa-phone-volume"></i></a></p>
+                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}} <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> ({{resOrganizationMember?.MobileNo}})</small>
+                                        <a class="calltomember" href="tel:{{resOrganizationMember?.MobileNo}}"><i class="fas fa-phone-alt"></i></a>
+                                    </p>
                                       <span class="small">{{resOrganizationMember.DesignationName}}</span>
                                     </div>
                                     <div  *ngIf="resultOrganizationMember?.length == 0">
