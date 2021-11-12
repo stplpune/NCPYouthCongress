@@ -56,7 +56,7 @@
                     </div>
                     <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserLName}}</h6>
                     <div class="post-details">
-                        <p class="post-title">{{dashboardActivities?.Description}}</p>
+                        <p class="post-title">{{dashboardActivities?.Description | titlecase}}</p>
                         <div class="row small text-muted">
                             <div class="col-sm-4"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
                             </div>
