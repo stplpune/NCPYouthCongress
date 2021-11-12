@@ -77,9 +77,16 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.loggedUserTypeId == 5 ? this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
   }
 
+  callSVGMap(){
+    this.showSvgMap(this.commonService.mapRegions()); 
+  }
+
+  svgMapColorReset(){
+    $('path').css('fill', '#7289da');
+  }
+
   ngAfterViewInit() {
-    this.showSvgMap(this.commonService.mapRegions()); // default call SVG MAP
-    console.log(this.DistrictId)
+    this.callSVGMap() // default call SVG MAP
     this.DistrictId == "" || this.DistrictId ==  undefined ? this.DistrictId =  0 : this.DistrictId = this.DistrictId;
     this.selectDistrict(this.DistrictId);
   }
@@ -92,21 +99,24 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
+    debugger;
+    this.callSVGMap()
     this.selectedDistrictId = event;
     this.clearFilterByCommittee();
-    $('path#' + this.selectedDistrictId).css('fill', 'rgb(114, 137, 218)');
+    $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.comActiveClass(0);
     
   }
 
   getOrganizationByDistrictId(id: any) {
+    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getDistrict(id)
-        $('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
+        //$('path#' + this.selectedDistrictId).css('fill', 'rgb(39 40 72)');
         this.defaultCloseBtn = true;
         if (id == 0) {
           this.defaultCloseBtn = false;
@@ -256,9 +266,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   clearFilterByCommittee() {
     this.Search.reset('');
     this.searchFilter = "";
+    this.selDistrict.reset();
+    this.selDistrictName();
     this.getOrganizationByDistrictId(0);
+    this.districtWiseCommityWorkGraph(0);
+    this.defaultCloseBtn = false;
+    this.svgMapColorReset();
   }
-
 
   // --------------------------------------- Comparison of Committees chart start here ----------------------------------------------- //
   districtWiseCommityWorkGraph(id: any) {
