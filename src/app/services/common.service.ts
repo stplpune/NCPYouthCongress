@@ -72,9 +72,6 @@ export class CommonService {
         return SubUserTypeId.SubUserTypeId;
     }
 
-    
-
-
     dateFormatChange(date_string: any) {
         var date_components = date_string.split("/");
         var day = date_components[0];
@@ -82,8 +79,6 @@ export class CommonService {
         var year = date_components[2];
         return new Date(year, month -1, day);
     }
-    
-
 
     dateTransformPipe(date_string: any) {
         let dateFormtchange: any;
