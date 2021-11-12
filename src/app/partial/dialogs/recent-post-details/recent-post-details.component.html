@@ -42,10 +42,14 @@
                                     <img *ngIf='!activitieDetails?.UserProfilePhoto' src="assets/images/dashboard-images/ncp-default.png" class="member-photo" alt="...">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="mb-1 fw-bold">{{activitieDetails?.UserFName}}
-                                        {{activitieDetails?.UserLName}}</p>
-                                    <small class="small text-muted">{{activitieDetails?.CreatedDate}}
-                                        {{activitieDetails?.CreatedTime}} </small>
+                                    <p class="mb-1 fw-bold d-flex justify-content-between">{{activitieDetails?.UserFName}}
+                                        {{activitieDetails?.UserLName}}  
+                                        <span>
+                                            <div class="text-end post-details fw-normal"><span class="type">{{activitieDetails?.ActivityDate}}
+                                                {{activitieDetails?.ActivityTime}}</span></div>
+                                        </span>
+                                    </p>
+                                        <small class="small text-muted"><span class="fa fa-map-marker-alt me-1"></span> {{activitieDetails?.Activitylocation}}</small>
                                 </div>
                             </div>
                             <div class="modal-post">
