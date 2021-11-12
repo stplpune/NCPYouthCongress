@@ -257,11 +257,13 @@ export class ExecutiveMembersComponent implements OnInit {
     const dialogRef = this.dialog.open(UserBlockUnblockComponent, {
       width: '1024px',
       data:flag
-    });
+    }); 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
+         this.filterForm.controls['BodyId'].setValue('');
         this.blockUnblockUser(flag,id);
       }else if (result == 'No'){
+         this.filterForm.controls['BodyId'].setValue('');
         this.getViewMembers(this.clearMemberObj);
       }
     });
