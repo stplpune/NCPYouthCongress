@@ -200,12 +200,17 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.selDistrict.reset();
       this.selDistrictName();
       this.defaultCloseBtn = false;
+      // this.removeSessionData();
     }else if (flag == 'dateRangePIcker'){
       this.clearDateRangeByFilter();
     }
     this.comActiveClass(0);
     this.activeRow = 0;
     this.getOrganizationByDistrictId(0);
+  }
+
+  removeSessionData(){
+    sessionStorage.setItem('DistrictIdWorkThisWeek','');
   }
 
 
