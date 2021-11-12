@@ -36,8 +36,6 @@
 <div class="recent-posts">
     <div class="member-posts"
         *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-        <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
-            (click)="openRecentPostDetails(dashboardActivities)" class="card card-body shadow-none border-0 p-2">
             <div class="row g-3">
                 <div class="col-3">
                     
@@ -66,10 +64,21 @@
                                     class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
                             </div>
                         </div>
+                        <div>
+                                <div class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+                                (click)="openRecentPostDetails(dashboardActivities)"><i class="far fa-eye"></i></div>
+                           
+                            <div *ngIf="dashboardActivities?.Id == userId"><button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button></div>
+                            <div *ngIf="dashboardActivities?.Id != userId">
+                                <a (click)="activitieAbuse()">Abuse</a>
+                            </div>
+                            <!-- (change)="blockUnblockUserModal(resultExeMember.IsUserBlock,resultExeMember?.MemberId)" -->
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </a>
+
         <hr class="my-2">
     </div>
 </div>
