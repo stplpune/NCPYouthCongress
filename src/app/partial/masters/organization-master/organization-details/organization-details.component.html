@@ -54,7 +54,7 @@
                     <span class="fw-bold text-primary">{{getCommitteeName}}</span>
                 </div> -->
                 <div class="card-body">
-                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                    <mat-tree #tree  [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                             <li class="mat-tree-node" (click)="openSubCommittees(node.CommitteeId,node?.CommitteeName)"
                                 [class.active]="node.CommitteeId == HighlightRowTree">
@@ -96,6 +96,58 @@
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </ng-template>
                 </div>
+            </div>
+            <!-- recent activity  section start here  -->
+            <div class="recent-posts">
+                <div class="member-posts"
+                    *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                    <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+                        (click)="openRecentPostDetails(dashboardActivities)"
+                        class="card card-body shadow-none border-0 p-2">
+                        <div class="row g-3">
+                            <div class="col-3">
+
+                                <img *ngIf="dashboardActivities?.ImagePath"
+                                    src="{{dashboardActivities?.ImagePath.split(',')[0]}}" class="post-image" alt="...">
+                                <img *ngIf="!dashboardActivities?.ImagePath"
+                                    src="assets/images/dashboard-images/ncp-default.png" class="post-image" alt="...">
+                            </div>
+                            <div class="col-9">
+                                <div class="row mb-2">
+                                    <div class="col-sm-5">
+                                        <span class="post-type">{{dashboardActivities?.Category}}</span>
+                                    </div>
+                                    <div class="col-sm-7 text-end">
+                                        <span class="post-date"><i
+                                                class="far fa-clock me-1"></i>{{dashboardActivities?.ActivityDate}}
+                                            {{dashboardActivities?.ActivityTime}}</span>
+                                    </div>
+                                </div>
+                                <h6 class="member-name">{{dashboardActivities?.UserFName}}
+                                    {{dashboardActivities?.UserLName}}</h6>
+                                <div class="post-details">
+                                    <p class="post-title">{{dashboardActivities?.Description | titlecase}}</p>
+                                    <div class="row small text-muted">
+                                        <div class="col-sm-4"><i
+                                                class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
+                                        </div>
+                                        <div class="col-sm-4"><i
+                                                class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
+                                        </div>
+                                        <div class="col-sm-4"><i
+                                                class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <div class="mt-2 text-end" *ngIf="resDashboardActivities?.length != 0">
+                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)">
+                </pagination-controls>
             </div>
         </div>
 
@@ -156,7 +208,8 @@
                 <div class="card-header pb-0">
                     Current Designated Members
                     <span class="float-end">
-                        <button title="Add Designation" class="rounded btn btn-sm btn-main   mx-1 ng-star-inserted" (click)="addDesignated()"><small>Add Designation</small></button>
+                        <button title="Add Designation" class="rounded btn btn-sm btn-main   mx-1 ng-star-inserted"
+                            (click)="addDesignated()"><small>Add Designation</small></button>
                     </span>
                 </div>
                 <div class="card-body">
@@ -192,7 +245,8 @@
                                     <td>{{designatedMembers.PostFromDate}}</td>
                                     <td class="text-end">
                                         <div class="btn-group" role="group" aria-label="Action Buttons">
-                                            <button *ngIf="designatedMembers.MemberName" [disabled]="designatedMembers.UserId == loggedInUserId"
+                                            <button *ngIf="designatedMembers.MemberName"
+                                                [disabled]="designatedMembers.UserId == loggedInUserId"
                                                 (click)="addEditMember(designatedMembers,'Edit')"
                                                 class="btn btn-sm btn-light rounded"> <i
                                                     class="fas fa-pencil-alt"></i></button>
@@ -202,12 +256,16 @@
                                                 (click)="addEditMember(designatedMembers,'Add')"
                                                 class="rounded btn btn-sm btn-light mx-1"> <i
                                                     class="fas fa-plus"></i></button>
-                                            <button title="Edit Member" class="btn btn-sm btn-light text-danger mx-1 rounded"
+                                            <button title="Edit Member"
+                                                class="btn btn-sm btn-light text-danger mx-1 rounded"
                                                 *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
                                                 (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
-                                                data-bs-target="#DeleteModal"> <i class="fas fa-trash-alt"></i></button>
-                                            <button title="Remove Designation" data-bs-toggle="modal" data-bs-target="#AddMemberModal"
-                                                #addMemberModal style="display: none;"></button>
+                                                data-bs-target="#DeleteModal"
+                                                [disabled]="designatedMembers.UserId == loggedInUserId"> <i
+                                                    class="fas fa-trash-alt"></i></button>
+                                            <button title="Remove Designation" data-bs-toggle="modal"
+                                                data-bs-target="#AddMemberModal" #addMemberModal
+                                                style="display: none;"></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -315,7 +373,7 @@
                 </div>
                 <div class="card-body">
                     <div class="h-400 membersProBarChart chartfont"></div>
-                    <div class="table-responsive">
+                    <!-- <div class="table-responsive">
                         <table class="table table-hover mt-3 mb-0">
                             <thead>
                                 <tr>
@@ -342,8 +400,6 @@
                                     <td><span class="text-ellipsis-150px" [appTooltip]
                                             title="{{bodyMemActivity.Title}}">{{bodyMemActivity.Title}}</span></td>
                                     <td>
-                                        <!-- <button class="btn btn-sm btn-light" (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i
-                                                class="far fa-eye"></i></button> -->
                                         <button class="btn btn-sm btn-light"
                                             (click)="getBodyMemeberActivitiesDetails(bodyMemActivity.Id)"><i
                                                 class="far fa-eye"></i></button>
@@ -363,7 +419,7 @@
                             (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Work in a Year -->
             <!-- <div class="card mb-3">
@@ -371,8 +427,8 @@
                 <div class="card-body">
                     <div class="card-body recentActivityGraph chartfont h-400">
                     </div>
-                </div>
-            </div> -->
+                </div> -->
+            </div>
         </div>
     </div>
 </div>
@@ -420,7 +476,8 @@
                                             optionValueField="id" optionTextField="fullname"
                                             (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
                                             placeholder="Select Member Name"
-                                            [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }" style="width: 91%;">
+                                            [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
+                                            style="width: 91%;">
                                         </ngx-select>
                                         <button (click)="addNewMember('Add',0)"
                                             class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
@@ -466,9 +523,10 @@
                                     <label class="form-label mb-0">Contact No.</label>
                                     <div class="form-control-plaintext py-0">
                                         {{bodyMemberDetails?.MobileNo}}</div>
-                                       
+
                                     <label class="form-label mb-0">Location</label>
-                                    <div class="form-control-plaintext py-0" *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
+                                    <div class="form-control-plaintext py-0"
+                                        *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
                                         {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
                                         {{bodyMemberDetails?.VillageName}}
                                     </div>

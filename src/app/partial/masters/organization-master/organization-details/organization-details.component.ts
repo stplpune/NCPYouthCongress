@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -19,13 +19,15 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { AddMemberComponent } from 'src/app/partial/dialogs/add-member/add-member.component';
 import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation/add-designation.component';
+import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
 
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
   styleUrls: ['./organization-details.component.css', '../../../partial.component.css']
 })
-export class OrganizationDetailsComponent implements OnInit {
+export class OrganizationDetailsComponent implements OnInit, AfterViewInit {
+
   bodyMember!: FormGroup;
   globalDistrictId: any;
   allDistrict: any;
@@ -83,10 +85,15 @@ export class OrganizationDetailsComponent implements OnInit {
   HighlightRowTree: any;
   prevDesignFlag: boolean = false;
   subCommitteeName: any;
-  userPostBodyId:any;
+  userPostBodyId: any;
   treeControl = new NestedTreeControl<any>((node: any) => node.children);
   dataSource = new MatTreeNestedDataSource<any>();
-  loggedInUserId:any;
+  loggedInUserId: any;
+  resDashboardActivities: any;
+  actPaginationNo = 1;
+  actPageSize: number = 10;
+  actTotal: any;
+  @ViewChild('tree') tree: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -116,7 +123,11 @@ export class OrganizationDetailsComponent implements OnInit {
     this.HighlightRowTree = this.bodyId;
     this.subCommitteeName = this.getCommitteeName;
     this.loggedInUserId = this.commonService.loggedInUserId();
-    console.log(this.loggedInUserId);
+    this.dashboardActivities();
+  }
+
+  ngAfterViewInit() {
+    this.tree.treeControl.expandAll();
   }
 
   defaultFilterForm() {
@@ -429,10 +440,10 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  onClickPagintion(pageNo: number) {
-    this.paginationNo = pageNo;
-    this.getBodyMemeberActivities(this.bodyId);
-  }
+  // onClickPagintion(pageNo: number) {
+  //   this.paginationNo = pageNo;
+  //   this.getBodyMemeberActivities(this.bodyId);
+  // }
 
   getBodyMemeberGraph(id: any) {
     this.spinner.show();
@@ -566,9 +577,9 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
-  addNewMember(flag:any,id:any) {
+  addNewMember(flag: any, id: any) {
     this.addEditMemberModal('close');
-    let obj = {"formStatus":flag, 'Id':id,'CommitteeName':this.bodyId,'Designation':this.dataAddEditMember.DesignationId,'userpostbodyId':this.userPostBodyId};
+    let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
@@ -578,15 +589,15 @@ export class OrganizationDetailsComponent implements OnInit {
         this.getCurrentDesignatedMembers(this.bodyId);
         this.getAllBodyMember();
       }
-     // this.addEditMemberModal('open');
+      // this.addEditMemberModal('open');
     });
   }
 
-  addEditMemberModal(flag:any){
-    if(flag == 'close'){
+  addEditMemberModal(flag: any) {
+    if (flag == 'close') {
       let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
       closeAddMemModal.click();
-    }else if (flag == 'open'){
+    } else if (flag == 'open') {
       let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
       openMemberModal.click();
     }
@@ -729,16 +740,54 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
 
-  addDesignated(){
+  addDesignated() {
     this.addEditMemberModal('close');
     const dialogRefaddEditMember = this.dialog.open(AddDesignationComponent, {
       // width: '1024px',
-      data: {committeeId:this.bodyId ,committeeName:this.subCommitteeName, currentModalName:'Add Designation'}
+      data: { committeeId: this.bodyId, committeeName: this.subCommitteeName, currentModalName: 'Add Designation' }
     });
     dialogRefaddEditMember.afterClosed().subscribe(result => {
       if (result == 'Yes') {
       }
       this.getCurrentDesignatedMembers(this.bodyId);
     });
+  }
+
+  // -------------------------------------- list wise activity is  ----------------------------- //
+
+  dashboardActivities() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Dashboard_Activities_Committee_Web?UserId=' + this.commonService.loggedInUserId() + '&PageNo=' + this.actPaginationNo + '&BodyId=' + this.bodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.resDashboardActivities = res.data1;
+        this.actTotal = res.data2[0].TotalCount;
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  openRecentPostDetails(activitieDetails: any) {
+    let obj = { pageNo: this.paginationNo, data: activitieDetails }
+    const dialogRef = this.dialog.open(RecentPostDetailsComponent, {
+      data: obj,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes' || result == 'No') {
+        this.dashboardActivities();
+      }
+    });
+  }
+
+  onClickPagintion(pageNo: number) {
+    this.actPaginationNo = pageNo;
+    this.dashboardActivities();
   }
 }
