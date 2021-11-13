@@ -73,7 +73,6 @@ export class MapWiseComponent implements OnInit {
   }
 
   clearFilter(flag:any){
-    debugger
     if (flag == 'Committee') {
       this.filter.controls['ProgramId'].setValue(0);
       this.filter.controls['CommitteeId'].setValue(0);

@@ -86,7 +86,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
       $(document).on('click', 'path', (e: any) => { // add on SVG Map
-        debugger;
         let getClickedId = e.currentTarget;
         let distrctId = $(getClickedId).attr('id');
         this.disNameToDisId(distrctId)
@@ -332,7 +331,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getBestPerKaryMember() {
     this.spinner.show();
-    debugger;
     let topFilterValue = this.topFilterForm.value;
     console.log(topFilterValue);
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],

@@ -127,7 +127,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getOrganizationByDistrictId(id: any) {
-    debugger;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -159,7 +158,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getDistrict(id: any) {
-    debugger;
     // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -179,7 +177,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.districtWiseCommityWorkGraph(id);
         this.addClasscommitteeWise(id);
-        //$('path#' + this.selectedDistrictId).addClass('svgDistrictActive');
+        this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
+        
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -290,7 +289,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   clearFilterByCommittee() {
-    debugger;
     this.Search.reset('');
     this.searchFilter = "";
     // this.selDistrict.reset();

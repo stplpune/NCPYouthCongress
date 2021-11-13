@@ -260,8 +260,6 @@ export class AddMemberComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   updateProfile() {
-
-    debugger
     // this.addValiditonTaluka(this.editProfileForm.value.IsRural)
     this.submitted = true;
 
@@ -274,7 +272,6 @@ export class AddMemberComponent implements OnInit {
       if (this.editProfileForm.value.IsRural == 0) {
         this.editProfileForm.value.TalukaId = "";
       }
-      debugger;
       let fromData = new FormData();
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
@@ -455,7 +452,6 @@ export class AddMemberComponent implements OnInit {
         this.spinner.hide();
         this.getConstituencyResult = res.data1;
         if (this.editFlag) {
-          debugger;
           this.editMemObj.ConstituencyNo ? (this.editProfileForm.controls['ConstituencyNo'].setValue(this.editMemObj.ConstituencyNo)) : '';
           this.getDistrict();
         }
