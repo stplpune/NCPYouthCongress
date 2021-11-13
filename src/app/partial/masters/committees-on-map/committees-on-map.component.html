@@ -6,12 +6,12 @@
             </div>
         <div class="col-sm-9 text-end">
             <div class="row g-2">
-                <div class="col-sm-4">
+                <div class="offset-4 col-sm-4">
                     <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)" (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict"  [items]="allDistrict" 
                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                     </ngx-select>
                 </div>
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                     <div class="input-group">
                         <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
                          [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
@@ -21,7 +21,7 @@
                             <i class="fas fa-times"></i></button>
                     </div>
                     <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
-                </div>
+                </div> -->
                 <div class="col-sm">
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
@@ -118,7 +118,7 @@
                                     <div class="col-sm-9">
                                         Comparison of Committees
                                     </div>
-                                    <!-- <div class="col-sm-3 text-end">
+                                    <div class="col-sm-3 text-end">
                                         <div class="input-group">
                                             <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
                                              [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
@@ -128,7 +128,7 @@
                                                 <i class="fas fa-times"></i></button>
                                         </div>
                                         <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body chartHeight600 WorkDoneByYuvak1">

@@ -10,10 +10,10 @@
                         <ngx-select [allowClear]="true" (remove)="clearFilter('district')" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <!-- <div class="col-sm-3">
                         <ngx-select [allowClear]="true" (remove)="clearFilter('taluka')" (select)="filterData()" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" placeholder="Select Taluka" optionValueField="TalukaId" optionTextField="TalukaName">
                         </ngx-select>
-                    </div>
+                    </div> -->
 
                     <div class="col-sm-3">
                         <div class="input-group">
