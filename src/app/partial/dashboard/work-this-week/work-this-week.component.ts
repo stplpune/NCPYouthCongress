@@ -55,6 +55,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   WorkdonebyMembersXaxiesLabel:any;
   SubUserTypeId = this.commonService.loggedInSubUserTypeId();
   selDistrictId:any;
+  selDistrictName:any;
+  getAllDistrict:any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -68,6 +70,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.selDistrictName="";
     this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
     this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
     this.getWorkcategoryFilterDetails();
@@ -85,6 +88,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       $(document).on('click', 'path', (e: any) => { // add on SVG Map
         let getClickedId = e.currentTarget;
         let distrctId = $(getClickedId).attr('id');
+        debugger;
+        this.disNameToDisId(distrctId)
         this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
         this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
         this.toggleClassActive(Number(distrctId));
@@ -95,6 +100,15 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.bestPerformance();
       });
     // }
+  }
+
+  disNameToDisId(distrctId:any){
+    debugger;
+    this.getAllDistrict.forEach((element:any) => {
+        if(element.DistrictId == Number(distrctId)){
+          this.selDistrictName = element.DistrictName;
+        }
+    });
   }
 
   toggleClassActive(distrctId:any){
@@ -207,7 +221,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.defaultCloseBtn = true;
     this.bestPerformance();
     this.getBestPerKaryMember();
-    this.showSvgMap(this.commonService.mapRegions());
+    // this.showSvgMap(this.commonService.mapRegions());
     this.geWeekReport();
   }
 
@@ -356,6 +370,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
         this.WorkDoneByMemberSVGData = res.data4;
+        topFilterValue.DistrictId == 0 ? this.getAllDistrict = res.data4 : '';
         this.addClasscommitteeWise();
         this.WorkDoneByYuvak();
         this.spinner.hide();
@@ -385,7 +400,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
-    debugger;
     // let fromDate: any;
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
@@ -520,7 +534,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
     } else {
-      this.showSvgMap(this.commonService.mapRegions());
+      // this.showSvgMap(this.commonService.mapRegions());
     }
   }
 
