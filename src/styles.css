@@ -877,7 +877,7 @@ mapsvg-layers-wrap+svg {
 .uploadimg img {
     width: 150px;
     height: 150px;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 
 .uploadimg .btn-add {
