@@ -48,8 +48,9 @@
                                     <input type="url" class="form-control" formControlName="Link" id="txtLinkURL"
                                         placeholder="http://www.example.com">
                                     <div *ngIf="submitted && f.Link.errors" class="invalid-feedback">
-                                        <div *ngIf="f.Link.errors.required">Link is required</div>
-                                    </div>
+                                        <div *ngIf="f.Link.errors.pattern">Please enter valid Link.</div>
+                                     </div>
+                  
                                 </div>
                                 <!-- <div class="mb-2">
                                     <label for="fuAttachments" class="form-label">Attachment(s)</label>

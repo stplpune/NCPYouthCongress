@@ -11,6 +11,14 @@
     </div>
 
     <div class="row" id="dash-stats">
+        <div class="col-sm-2"  routerLink="../committee">
+            <div class="card card-body bg-green">
+                <i class="fas fa-user"></i>
+                <p>Total Committees</p>
+                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
+                <h3>{{dashboardCount1Array?.TotalCommittee}}</h3>
+            </div>
+        </div>
         <div class="col-sm-2">
             <div class="card card-body bg-cyan" (click)="redirectCountingPage('executiveMember')">
                 <i class="fas fa-users"></i>
@@ -28,19 +36,12 @@
                 <h3>{{dashboardCount1Array?.YouthMembers}}</h3>
             </div>
         </div>
-        <div class="col-sm-2" *ngIf="this.loginUserType == 2" routerLink="../committee">
-            <div class="card card-body bg-green">
-                <i class="fas fa-user"></i>
-                <p>Total Committees</p>
-                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.YouthMembers "></i></ng-container> -->
-                <h3>{{dashboardCount1Array?.TotalCommittee}}</h3>
-            </div>
-        </div>
+        
         <div class="col-sm-2">
             <div class="card card-body bg-blue" routerLink="../executive-members">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
-                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.ActiveMembers"></i></ng-container> -->
+                
                 <h3>{{dashboardCount1Array?.ActiveMembers}}</h3>
             </div>
         </div>
@@ -60,14 +61,13 @@
                 <h3>{{dashboardCount1Array?.CommitteeWork}}</h3>
             </div>
         </div>
-        <div class="col-sm-2" *ngIf="this.loginUserType != 2"  routerLink="../executive-members">
+        <!-- <div class="col-sm-2" *ngIf="this.loginUserType != 2"  routerLink="../executive-members">
             <div class="card card-body bg-red" (click)="redirectCountingPage('memberWork')">
                 <i class="fas fa-user-cog"></i>
                 <p>Members Activities</p>
-                <!-- <ng-container><i class="fa fa-spinner fa-spin" *ngIf="!dashboardCount1Array?.MemberWork"></i></ng-container> -->
                 <h3>{{dashboardCount1Array?.MemberWork}}</h3>
             </div>
-        </div>
+        </div> -->
         <div class="col-sm-2">
             <div class="card card-body bg-voilet"  routerLink="../social-media">
                 <i class="far fa-thumbs-up"></i>

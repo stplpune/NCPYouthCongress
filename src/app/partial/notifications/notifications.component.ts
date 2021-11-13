@@ -54,6 +54,7 @@ export class NotificationsComponent implements OnInit {
   schedulerFlag:boolean = false;
   minDate: any = new Date();
   IspushedFlag:any = 0;
+  reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
 
   constructor(
     private callAPIService: CallAPIService, 
@@ -85,7 +86,7 @@ export class NotificationsComponent implements OnInit {
       Title: ['', Validators.required],
       Description: ['', Validators.required],
       ImageUrl: [''],
-      Link: [''], 
+      Link: ['', [Validators.pattern(this.reg)]],
       DistrictId: [''],
       BodyId:[''],
       MemberStr: [],
