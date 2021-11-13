@@ -6,7 +6,7 @@
             </div>
         <div class="col-sm-9 text-end">
             <div class="row g-2">
-                <div class="offset-4 col-sm-4">
+                <div class="offset-lg-4 col-sm-4">
                     <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)" (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict"  [items]="allDistrict" 
                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                     </ngx-select>
