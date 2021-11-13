@@ -162,7 +162,6 @@ export class FeedbacksComponent implements OnInit {
     this.FeedbackObj.villageid = villageId;
     this.defualtHideFeedback = false;
     this.getFeedBackData(this.FeedbackObj);
-
   }
 
   getFeedBackData(FeedbackObj: any) {
