@@ -177,7 +177,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.districtWiseCommityWorkGraph(id);
         this.addClasscommitteeWise(id);
-        this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
+        // this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
         
       }
     }, (error: any) => {
