@@ -5,7 +5,7 @@
                 </span>
             </div>
         <div class="col-sm-9 text-end">
-            <div class="row">
+            <div class="row g-2">
                 <div class="col-sm-4">
                     <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)" (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict"  [items]="allDistrict" 
                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
@@ -22,7 +22,7 @@
                     </div>
                     <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm">
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
                             placeholder="Search Committees..." (keyup)="filterByCommittee()" />
@@ -33,7 +33,7 @@
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-sm-1"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
+                <div class="col-auto"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
                     <i class="fas fa-arrow-left"></i>
                 </button></div>
             </div>

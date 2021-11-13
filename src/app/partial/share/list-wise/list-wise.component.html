@@ -65,14 +65,18 @@
                                     class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
                             </div>
                         </div>
-                        <div>
-                                <div class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
-                                (click)="openRecentPostDetails(dashboardActivities)"><i class="far fa-eye"></i></div>
+                        <div class="button-group">
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+                                (click)="openRecentPostDetails(dashboardActivities)"><i class="far fa-eye"></i></button>
                            
-                            <div *ngIf="dashboardActivities?.Createdby == userId"><button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button></div>
-                            <div *ngIf="dashboardActivities?.Createdby != userId">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AbuseModal" (click)="abuseCheckConfirm(dashboardActivities.Id)">Abuse</button>
-                            </div>
+                            <span *ngIf="dashboardActivities?.Createdby == userId">
+                                <button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm btn-light text-danger rounded">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </span>
+                            <span *ngIf="dashboardActivities?.Createdby != userId">
+                                <button class="btn btn-sm btn-primary text-danger" data-bs-toggle="modal" data-bs-target="#AbuseModal" (click)="abuseCheckConfirm(dashboardActivities.Id)">Abuse</button>
+                            </span>
                             <!-- (change)="blockUnblockUserModal(resultExeMember.IsUserBlock,resultExeMember?.MemberId)" -->
 
                         </div>
