@@ -762,6 +762,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.actTotal = res.data2[0].TotalCount;
         this.spinner.hide();
       } else {
+        this.resDashboardActivities = [];
         this.spinner.hide();
       }
     }, (error: any) => {

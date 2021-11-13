@@ -81,7 +81,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
-      // this.addClasscommitteeWise();
   }
 
 
@@ -356,7 +355,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   addClasscommitteeWise() {
     $('.mapsvg-wrap path').addClass('notClicked');
     this.WorkDoneByMemberSVGData.forEach((element:any) => {
-      // $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
+      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
     });
   }
 
@@ -491,11 +490,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.WorkDoneByMemberSVGData.length != 0) {
       this.WorkDoneByMemberSVGData.filter((ele: any) => {
         if(ele.TotalWork > 0){
-          $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
+        //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
           $('#' + ele.DistrictName).text(ele.TotalWork);
         }
-        $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
-        $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+        // $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
+        // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
     } else {
       this.showSvgMap(this.commonService.mapRegions());
