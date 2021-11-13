@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div id="pageheader">
-                <span class="page-name">Committee Details 
+                <span class="page-name">Committee Details
                 </span>
                 <span class="float-end">
                     <button type="button" class="btn btn-sm btn-secondary" (click)="location.back()">
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card card-body bg-gold mb-3">
+            <div class="card card-body bg-voilet mb-3">
                 <i class="fab fa-android"></i>
                 <p>Non Active Members</p>
                 <h3>{{TotalWorkAndIosCount?._InActiveMember ? TotalWorkAndIosCount?._InActiveMember : '0'}}</h3>
@@ -63,9 +63,6 @@
     <div class="row chartbox">
         <div class="col-sm-4">
             <div class="card mb-3">
-                <!-- <div class="card-header pb-0">
-                    <span class="fw-bold text-primary">{{getCommitteeName}}</span>
-                </div> -->
                 <div class="card-body comm-list">
                     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
@@ -111,65 +108,88 @@
                 </div>
             </div>
             <!-- recent activity  section start here  -->
-            <div class="card card-body recent-posts">
-                <div class="member-posts"
-                    *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
-                    <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
-                        class="card card-body shadow-none border-0 p-2">
-                        <div class="row g-3">
-                            <div class="col-3">
-
-                                <img *ngIf="dashboardActivities?.ImagePath"
-                                    src="{{dashboardActivities?.ImagePath.split(',')[0]}}" class="post-image" alt="...">
-                                <img *ngIf="!dashboardActivities?.ImagePath"
-                                    src="assets/images/dashboard-images/ncp-default.png" class="post-image" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="row mb-2">
-                                    <div class="col-sm-6">
-                                        <!-- <span class="post-type">{{dashboardActivities?.Category}}</span> -->
-                                        <span class="post-date"><i
-                                            class="far fa-clock me-1"></i>{{dashboardActivities?.ActivityDate}}
-                                        {{dashboardActivities?.ActivityTime}}</span>
-                                    </div>
-                                    <div class="col-sm-6 text-end">
-                                        <div class="button-group">
-                                            <button type="button"  (click)="openRecentPostDetails(dashboardActivities)" class="btn btn-sm py-0 px-2 text-dark"><i class="far fa-eye"></i></button>
-                                    <button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm py-0 px-2 text-danger"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="post-title fw-bold">{{dashboardActivities?.Title | titlecase}}</p>
-                                <div class="post-details">
-                                    <p class="post-title text-muted">{{dashboardActivities?.Description | titlecase}}</p>
-                                    <div class="row small text-muted">
-                                        <div class="col-sm-4"><i
-                                                class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
-                                        </div>
-                                        <div class="col-sm-4"><i
-                                                class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
-                                        </div>
-                                        <div class="col-sm-4"><i
-                                                class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <hr class="my-2">
+            <div class="card recent-posts">
+                <div class="card-header pb-0">
+                    <span class="fw-bold text-primary">Committee Activities</span>
                 </div>
+                <div class="card-body pt-0">
+                    <div class="member-posts"
+                        *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                        <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+                            class="card card-body shadow-none border-0 p-2">
+                            <div class="row g-3">
+                                <div class="col-3">
+
+                                    <img *ngIf="dashboardActivities?.ImagePath"
+                                        src="{{dashboardActivities?.ImagePath.split(',')[0]}}" class="post-image"
+                                        alt="...">
+                                    <img *ngIf="!dashboardActivities?.ImagePath"
+                                        src="assets/images/dashboard-images/ncp-default.png" class="post-image"
+                                        alt="...">
+                                </div>
+                                <div class="col-9">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-6">
+                                            <!-- <span class="post-type">{{dashboardActivities?.Category}}</span> -->
+                                            <span class="post-date"><i
+                                                    class="far fa-clock me-1"></i>{{dashboardActivities?.CreatedDate}}
+                                                {{dashboardActivities?.CreatedTime}}</span>
+                                        </div>
+                                        <div class="col-sm-6 text-end">
+                                            <div class="button-group">
+                                                <button type="button"
+                                                    (click)="openRecentPostDetails(dashboardActivities)"
+                                                    class="btn btn-sm py-0 px-2 text-dark"><i
+                                                        class="far fa-eye"></i></button>
+                                                <button type="button"
+                                                    (click)="delConfirmCanActivity(dashboardActivities.Id)"
+                                                    class="btn btn-sm py-0 px-2 text-danger"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="post-title fw-bold">{{dashboardActivities?.Title | titlecase}}</p>
+                                    <div class="post-details">
+                                        <p class="post-title text-muted">{{dashboardActivities?.Description |
+                                            titlecase}}</p>
+                                        <div class="row small text-muted">
+                                            <div class="col-sm-4"><i
+                                                    class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
+                                            </div>
+                                            <div class="col-sm-4"><i
+                                                    class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
+                                            </div>
+                                            <div class="col-sm-4"><i
+                                                    class="far fa-share-square me-2"></i>{{dashboardActivities?.IsLike}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <hr class="my-2">
+                    </div>
+                    <div class="mt-2 text-end" *ngIf="resDashboardActivities?.length != 0">
+                        <pagination-controls previousLabel="" nextLabel=""
+                            (pageChange)="onClickPagintion(pageSize = $event)">
+                        </pagination-controls>
+                    </div>
+                    <div *ngIf="resDashboardActivities?.length == 0">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
+                </div>
+                
             </div>
-            <div class="mt-2 text-end" *ngIf="resDashboardActivities?.length != 0">
-                <pagination-controls previousLabel="" nextLabel="" (pageChange)="onClickPagintion(pageSize = $event)">
-                </pagination-controls>
-            </div>
+
+
         </div>
 
         <div class="col-sm-8">
             <div class="card mb-3" role="alert">
-                <div class="card-header"><h6 class="text-main">{{subCommitteeName}}</h6></div>
+                <div class="card-header">
+                    <h6 class="text-main">{{subCommitteeName}}</h6>
+                </div>
                 <div class="card-body pt-0 pb-0">
                     <div class="row mb-0" id="dash-stats">
                         <div class="col-sm-3 col-6">
@@ -197,7 +217,7 @@
                             </div>
                         </div>
                         <div class="col-sm-3 col-6">
-                            <div class="card card-body bg-green mb-3">
+                            <div class="card card-body bg-voilet mb-3">
                                 <i class="fab fa-apple"></i>
                                 <p>Non Active </p>
                                 <h3>{{TotalWorkAndIosCount?._IndiInActiveMember ?
@@ -437,75 +457,77 @@
                 </div>
             </div> -->
 
-            <!-- Work in a Year -->
-            <!-- <div class="card mb-3">
+                    <!-- Work in a Year -->
+                    <!-- <div class="card mb-3">
                 <div class="card-header">Work in a Year</div>
                 <div class="card-body">
                     <div class="card-body recentActivityGraph chartfont h-400">
                     </div>
                 </div> -->
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal for Add/Update/Delete Member for any Designation -->
-<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="AddMemberModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form [formGroup]="bodyMember">
-                <div class="modal-header">
-                    <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-container">
-                        <div class="mb-2">
-                            <label for="txtBodyName" class="form-label">Committee Name</label>
-                            <input type="text" class="form-control" readonly formControlName="BodyName" />
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6" *ngIf="bodyMember.value.prevMember">
-                                <div class="mb-2">
-                                    <label for="txtBodyName" class="form-label">Current Member Name</label>
-                                    <input type="text" class="form-control" readonly formControlName="prevMember" />
-                                </div>
+    <!-- Modal for Add/Update/Delete Member for any Designation -->
+    <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form [formGroup]="bodyMember">
+                    <div class="modal-header">
+                        <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="txtBodyName" class="form-label">Committee Name</label>
+                                <input type="text" class="form-control" readonly formControlName="BodyName" />
                             </div>
-                            <div class="col-sm-6">
-                                <div class="mb-2">
-                                    <label for="txtBodyName" class="form-label">Designation</label>
-                                    <input type="text" class="form-control" readonly
-                                        formControlName="currentDesignation" />
-                                    <!-- <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i class="fas fa-plus"></i></button> -->
-                                </div>
-                            </div>
-                            <!-- </div>
-                        <div class="row"> -->
-                            <div class="col-sm-12">
-                                <div class="mb-2">
-                                    <label for="txtMemberName" class="form-label required-field">New Member Name</label>
-                                    <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
-                                    <div class="input-group">
-                                        <ngx-select [allowClear]="true" [items]="resAllMember" formControlName="bodyId"
-                                            optionValueField="id" optionTextField="fullname"
-                                            (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
-                                            placeholder="Select Member Name"
-                                            [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
-                                            style="width: 91%;">
-                                        </ngx-select>
-                                        <button (click)="addNewMember('Add',0)"
-                                            class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
-                                                class="fas fa-plus"></i></button>
+                            <div class="row">
+                                <div class="col-sm-6" *ngIf="bodyMember.value.prevMember">
+                                    <div class="mb-2">
+                                        <label for="txtBodyName" class="form-label">Current Member Name</label>
+                                        <input type="text" class="form-control" readonly formControlName="prevMember" />
                                     </div>
-                                    <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bodyId.errors.required">Body Member is required
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-2">
+                                        <label for="txtBodyName" class="form-label">Designation</label>
+                                        <input type="text" class="form-control" readonly
+                                            formControlName="currentDesignation" />
+                                        <!-- <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" (click)="addDesignated()"><i class="fas fa-plus"></i></button> -->
+                                    </div>
+                                </div>
+                                <!-- </div>
+                        <div class="row"> -->
+                                <div class="col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="txtMemberName" class="form-label required-field">New Member
+                                            Name</label>
+                                        <!-- <label for="txtMemberName" class="form-label">Member Name</label> -->
+                                        <div class="input-group">
+                                            <ngx-select [allowClear]="true" [items]="resAllMember"
+                                                formControlName="bodyId" optionValueField="id"
+                                                optionTextField="fullname"
+                                                (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
+                                                placeholder="Select Member Name"
+                                                [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
+                                                style="width: 91%;">
+                                            </ngx-select>
+                                            <button (click)="addNewMember('Add',0)"
+                                                class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
+                                                    class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
+                                            <div *ngIf="f.bodyId.errors.required">Body Member is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- <div class="col-sm-6">
+                                <!-- <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="txtMemberName" class="form-label required-field">
                                         Post From Date</label>
@@ -528,68 +550,70 @@
                                     </div>
                                 </div>
                             </div> -->
-                        </div>
-                        <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
-                            <div class="card">
-                                <div class="card-header pb-0">Member Details</div>
-                                <div class="card-body pt-0">
-                                    <label class="form-label mb-0">Email ID</label>
-                                    <div class="form-control-plaintext py-0">
-                                        {{bodyMemberDetails?.Emailid}}</div>
-                                    <label class="form-label mb-0">Contact No.</label>
-                                    <div class="form-control-plaintext py-0">
-                                        {{bodyMemberDetails?.MobileNo}}</div>
+                            </div>
+                            <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
+                                <div class="card">
+                                    <div class="card-header pb-0">Member Details</div>
+                                    <div class="card-body pt-0">
+                                        <label class="form-label mb-0">Email ID</label>
+                                        <div class="form-control-plaintext py-0">
+                                            {{bodyMemberDetails?.Emailid}}</div>
+                                        <label class="form-label mb-0">Contact No.</label>
+                                        <div class="form-control-plaintext py-0">
+                                            {{bodyMemberDetails?.MobileNo}}</div>
 
-                                    <label class="form-label mb-0">Location</label>
-                                    <div class="form-control-plaintext py-0"
-                                        *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
-                                        {{bodyMemberDetails?.DistrictName}}<span *ngIf="bodyMemberDetails?.TalukaName">,</span>{{bodyMemberDetails?.TalukaName}}<span *ngIf="bodyMemberDetails?.VillageName">,</span>{{bodyMemberDetails?.VillageName}}
+                                        <label class="form-label mb-0">Location</label>
+                                        <div class="form-control-plaintext py-0"
+                                            *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
+                                            {{bodyMemberDetails?.DistrictName}}<span
+                                                *ngIf="bodyMemberDetails?.TalukaName">,</span>{{bodyMemberDetails?.TalukaName}}<span
+                                                *ngIf="bodyMemberDetails?.VillageName">,</span>{{bodyMemberDetails?.VillageName}}
+                                        </div>
+                                        <ng-template #otherContent>
+                                            <div class="form-control-plaintext py-0">-</div>
+                                        </ng-template>
+
                                     </div>
-                                    <ng-template #otherContent>
-                                        <div class="form-control-plaintext py-0">-</div>
-                                    </ng-template>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
-                        Member</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Delete Confirmation modal pop up -->
-<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="DeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-transparent border-bottom-0">
-                <!-- <h5 class="modal-title" id="DeleteModalLabel">Modal title</h5> -->
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center pb-5">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
-                        cx="65.1" cy="65.1" r="62.1" />
-                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
-                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
-                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
-                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
-                </svg>
-                <h3 class="my-3">Are You Sure?</h3>
-                <p class="mb-4">Do you really want to delete this record? This process can not be undone.
-                </p>
-                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
-                <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal"
-                    type="button">Delete</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
+                            Member</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <!-- Delete Confirmation modal pop up -->
+    <div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent border-bottom-0">
+                    <!-- <h5 class="modal-title" id="DeleteModalLabel">Modal title</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center pb-5">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                            cx="65.1" cy="65.1" r="62.1" />
+                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                            stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                            stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                    </svg>
+                    <h3 class="my-3">Are You Sure?</h3>
+                    <p class="mb-4">Do you really want to delete this record? This process can not be undone.
+                    </p>
+                    <button class="btn btn-secondary me-2" data-bs-dismiss="modal" type="button">Cancel</button>
+                    <button class="btn btn-danger" type="button" (click)="deleteMember()" data-bs-dismiss="modal"
+                        type="button">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>

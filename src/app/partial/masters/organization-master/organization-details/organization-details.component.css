@@ -70,9 +70,9 @@ agm-map {
       overflow-y: unset !important;
   }
 
-  .member-posts a.card{
+  /* .member-posts a.card{
     margin-bottom: 15px;
-}
+} */
 .member-posts a{
     text-decoration: none !important;
 }
