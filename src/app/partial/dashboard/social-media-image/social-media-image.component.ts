@@ -162,7 +162,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getDistrict() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilter?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -225,15 +225,17 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
   clearFilter(flag: any) {
     if (flag == 'district') {
       this.filterForm.controls['DistrictId'].setValue(0);
-      this.filterForm.controls['TalukaId'].setValue(0);
+      // this.filterForm.controls['TalukaId'].setValue(0);
     } else if (flag == 'taluka') {
       this.filterForm.controls['TalukaId'].setValue(0);
     } else if (flag == 'Date') {
       this.defaultCloseBtn = false;
       this.filterForm.controls['fromTo'].setValue(this.dateRange1);
     }
+
     this.partyChangeEvent(1)
     this.getMostLikeHatedPerson();
+    this.perceptionTrendWeb();
   }
 
   getMostLikeHatedPerson() {
