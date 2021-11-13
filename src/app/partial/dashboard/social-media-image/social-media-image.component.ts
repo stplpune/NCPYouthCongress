@@ -41,6 +41,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
   selectedParty: number = 1;
   resultofPartyData: any;
   allowClearParty:boolean = false; 
+  selPrevPartyId:any = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -161,11 +162,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getDistrict() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
+        this.addClasscommitteeWise();
       } else {
         this.spinner.hide();
         if (res.data == 1) {
@@ -175,6 +177,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         }
       }
     })
+  }
+  addClasscommitteeWise() {
+    $('.mapsvg-wrap path').addClass('notClicked');
+    this.allDistrict.forEach((element:any) => {
+      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
+    });
   }
 
   getTaluka(districtId: any) {
@@ -323,15 +331,21 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   partyChangeEvent(getPartyId: any) {
+    this.prevColorRemove(this.selPrevPartyId);
     this.selectedParty = getPartyId;
+    this.selPrevPartyId = getPartyId;
+
     if (this.selectedParty == 1) {
       this.allowClearParty = false;
+      this.selPrevPartyId = 1;
     } else {
       this.allowClearParty = true;
     }
     $('#map svg path').css('fill', '#7289da');
     this.mahaSVGMap();
   }
+
+
 
   mahaSVGMap() {
     let fromDate: any;
@@ -347,20 +361,19 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         this.resultofPartyData.map((ele: any) => {
           if (ele.ActivityCount > 0) {
             if (this.selectedParty == 1) {
-              $('path[id="' + ele.Id + '"]').css('filter', 'invert(97%) sepia(23%) saturate(5530%) hue-rotate(160deg) brightness(94%) contrast(95%)');
+              $('path[id="' + ele.Id + '"]').addClass('NCPColorCode');
             } else if (this.selectedParty == 2) {
-              $('path[id="' + ele.Id + '"]').css('filter', 'invert(70%) sepia(19%) saturate(2083%) hue-rotate(317deg) brightness(101%) contrast(101%)');
+              $('path[id="' + ele.Id + '"]').addClass('SSColorCode');
             } else if (this.selectedParty == 3) {
-              $('path[id="' + ele.Id + '"]').css('filter', 'invert(44%) sepia(49%) saturate(5572%) hue-rotate(332deg) brightness(94%) contrast(89%)');
+              $('path[id="' + ele.Id + '"]').addClass('BJPCode'); 
             } else if (this.selectedParty == 4) {
-              $('path[id="' + ele.Id + '"]').css('filter', 'invert(52%) sepia(67%) saturate(422%) hue-rotate(3deg) brightness(90%) contrast(88%)');
+              $('path[id="' + ele.Id + '"]').addClass('INCColorCode');
             }else if (this.selectedParty == 5) {
-              $('path[id="' + ele.Id + '"]').css('filter', 'invert(54%) sepia(45%) saturate(7483%) hue-rotate(258deg) brightness(81%) contrast(95%)');
+              $('path[id="' + ele.Id + '"]').addClass('OTRColorCode');
             }
             $('#' + ele.DistrictName).text(ele.ActivityCount);
           }else{
               $('#' + ele.DistrictName).text(''); 
-              $('#map svg path').css('fill', 'invert(47%) sepia(97%) saturate(290%) hue-rotate(190deg) brightness(97%) contrast(83%);');
           }
           // $('#' + ele.DistrictName).text(ele.ActivityCount);
           // $('#mapsvg-menu-regions option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
@@ -369,15 +382,29 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         this.spinner.hide();
         if (res.data == 1) {
+          $("path").removeClass("NCPColorCode SSColorCode BJPCode INCColorCode OTRColorCode");
           //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
       }
     })
-
   }
 
+  prevColorRemove(selPrevPartyId:any) {
+    if (selPrevPartyId == 1) {
+      $('path').removeClass('NCPColorCode');
+    } else if (selPrevPartyId == 2) {
+      $('path').removeClass('SSColorCode');
+    } else if (selPrevPartyId == 3) {
+      $('path').removeClass('BJPCode'); 
+    } else if (selPrevPartyId == 4) {
+      $('path').removeClass('INCColorCode');
+    }else if (selPrevPartyId == 5) {
+      $('path').removeClass('OTRColorCode');
+    }
+  }
+  
   socialMediaChart() {
     am4core.useTheme(am4themes_animated);
     // Themes end
