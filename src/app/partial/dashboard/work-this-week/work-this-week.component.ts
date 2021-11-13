@@ -81,6 +81,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
+      // this.addClasscommitteeWise();
   }
 
 
@@ -95,7 +96,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           baseDefault: "#bfddff",
           background: "#fff",
           selected: "#272848",
-          hover: "#272848",
+          hover: "#ebebeb",
           directory: "#bfddff",
           status: {}
         },
@@ -334,6 +335,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
         this.WorkDoneByMemberSVGData = res.data4;
+        this.addClasscommitteeWise();
         this.WorkDoneByYuvak();
         this.spinner.hide();
       } else {
@@ -351,6 +353,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
+  addClasscommitteeWise() {
+    $('.mapsvg-wrap path').addClass('notClicked');
+    this.WorkDoneByMemberSVGData.forEach((element:any) => {
+      // $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
+    });
+  }
 
   bestPerformance() {
     this.spinner.show();

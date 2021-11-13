@@ -300,8 +300,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   // --------------------------------------- Comparison of Committees chart start here ----------------------------------------------- //
   districtWiseCommityWorkGraph(id: any) {
     this.spinner.show();
-    let globalDistrictId = this.selectedDistrictId || 0;
-    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + id + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value;
+    let globalDistrictId = this.selectedDistrictId || id;
+    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + globalDistrictId + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value;
     this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
