@@ -37,6 +37,7 @@ export class MemberReportComponent implements OnInit {
   ReportRangeDateHide : boolean = false;
   TodayDate = new Date();
   ReportTillDateHide : boolean = true;
+  allowClearMember : boolean = false;
 
   // fromDate: any = new Date();
   // toDate: any = new Date();
@@ -126,7 +127,8 @@ export class MemberReportComponent implements OnInit {
 
   clearFilter(flag: any) {
     if (flag == 'member') {
-      this.filterForm.controls['MemberId'].setValue(0);
+      this.filterForm.controls['MemberId'].setValue(this.memberId);
+      this.allowClearMember = false;
     } else if (flag == 'dateRangePIcker') {
       this.filterForm.controls['fromToDate'].setValue(['', '']);
       this.fromDate = '';
@@ -139,6 +141,7 @@ export class MemberReportComponent implements OnInit {
   }
 
   filterData() {
+    this.allowClearMember = true;
     this.getMemberDetails()
   }
 

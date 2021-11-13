@@ -19,6 +19,7 @@ export class ListWiseComponent implements OnInit {
   total: any;
   userId: any;
   avtivityId: any;
+  abuseActivityId:any;
 
   constructor(public dialog: MatDialog,
     private callAPIService: CallAPIService,
@@ -44,6 +45,29 @@ export class ListWiseComponent implements OnInit {
       } else {
         this.spinner.hide();
       }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  abuseCheckConfirm(abuseActivityId: any) {
+    this.abuseActivityId = abuseActivityId;
+  }
+
+  abuseInsertLikes(LikeTypeId:any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'InsertLikes_1_0?UserId=' + this.commonService.loggedInUserId() + '&ActivityId=' + this.abuseActivityId + '&LikeTypeId=' + LikeTypeId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.toastrService.success(res.data1[0].Msg);
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+      }
+      this.dashboardActivities();
     }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
@@ -103,7 +127,4 @@ export class ListWiseComponent implements OnInit {
     })
   }
 
-  activitieAbuse() {
-
-  }
 }

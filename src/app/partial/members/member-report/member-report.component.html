@@ -7,7 +7,7 @@
             <form [formGroup]="filterForm">
                 <div class="row g-2">
                     <div class="col-sm-3 offset-6">
-                        <ngx-select [allowClear]="true" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
+                        <ngx-select [allowClear]="allowClearMember" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
 

@@ -527,8 +527,7 @@
                                     <label class="form-label mb-0">Location</label>
                                     <div class="form-control-plaintext py-0"
                                         *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
-                                        {{bodyMemberDetails?.DistrictName}}, {{bodyMemberDetails?.TalukaName}},
-                                        {{bodyMemberDetails?.VillageName}}
+                                        {{bodyMemberDetails?.DistrictName}}<span *ngIf="bodyMemberDetails?.TalukaName">,</span>{{bodyMemberDetails?.TalukaName}}<span *ngIf="bodyMemberDetails?.VillageName">,</span>{{bodyMemberDetails?.VillageName}}
                                     </div>
                                     <ng-template #otherContent>
                                         <div class="form-control-plaintext py-0">-</div>
