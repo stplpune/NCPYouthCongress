@@ -86,9 +86,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
       $(document).on('click', 'path', (e: any) => { // add on SVG Map
+        debugger;
         let getClickedId = e.currentTarget;
         let distrctId = $(getClickedId).attr('id');
-        debugger;
         this.disNameToDisId(distrctId)
         this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
         this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
@@ -103,7 +103,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disNameToDisId(distrctId:any){
-    debugger;
     this.getAllDistrict.forEach((element:any) => {
         if(element.DistrictId == Number(distrctId)){
           this.selDistrictName = element.DistrictName;

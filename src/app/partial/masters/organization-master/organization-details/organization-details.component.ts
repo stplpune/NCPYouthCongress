@@ -810,7 +810,7 @@ export class OrganizationDetailsComponent implements OnInit {
       } else {
         this.spinner.hide();
       }
-      this.dashboardActivities();
+      this.ngOnInit();
     }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
