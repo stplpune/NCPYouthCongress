@@ -6,7 +6,7 @@
         <div class="col-sm-9 text-end">
             <form [formGroup]="filterForm">
                 <div class="row g-2">
-                    <div class="col-sm-3 offset-6">
+                    <div class="col-sm-3 offset-lg-6">
                         <ngx-select [allowClear]="allowClearMember" (remove)="clearFilter('member')" [items]="memberNameArray" optionValueField="Id" formControlName="MemberId" (select)="filterData()" optionTextField="FullName" placeholder="Select Member Name">
                         </ngx-select>
                     </div>
@@ -33,17 +33,17 @@
                     <div class="card shadow-none border-bottom mb-3">
                         <div class="card-body">
                             <div class="row" id="personaldetails">
-                                <div class="col-sm-auto">
+                                <div class="col-sm-auto col order-0 order-lg-1">
                                     <img src="assets/images/NCP-logo.svg" class="prof-photo">
                                 </div>
-                                <div class="col-sm text-center">
+                                <div class="col-sm text-center col order-2 order-lg-2">
                                     <h4>{{profileInfo?.FullName}}</h4>
                                     <p>{{profileInfo?.MobileNo}}</p>
                                     <p>{{profileInfo?.EmailId}}</p>
                                     <p>{{profileInfo?.Location}}</p>
                                     <p class="fw-bold">{{profileInfo?.Designation}}</p>
                                 </div>
-                                <div class="col-sm-auto">
+                                <div class="col-sm-auto col order-1 text-end order-lg-3">
                                     <div *ngIf="profileInfo?.ProfilePhoto ; else elseBlock">
                                         <img src="{{profileInfo?.ProfilePhoto}}" class="prof-photo">
                                     </div>
