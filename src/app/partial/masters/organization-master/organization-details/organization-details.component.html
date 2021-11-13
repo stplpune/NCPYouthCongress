@@ -66,7 +66,7 @@
                 <!-- <div class="card-header pb-0">
                     <span class="fw-bold text-primary">{{getCommitteeName}}</span>
                 </div> -->
-                <div class="card-body">
+                <div class="card-body comm-list">
                     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                             <li class="mat-tree-node" (click)="openSubCommittees(node.CommitteeId,node?.CommitteeName)"
