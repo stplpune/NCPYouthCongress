@@ -58,3 +58,6 @@
         padding: 1px;
         overflow-x: hidden;
   }
+  .action-buttons button{
+    font-size: 0.7rem;
+}
