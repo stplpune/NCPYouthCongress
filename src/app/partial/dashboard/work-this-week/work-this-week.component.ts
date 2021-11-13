@@ -54,6 +54,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   graphInstance:any;
   WorkdonebyMembersXaxiesLabel:any;
   SubUserTypeId = this.commonService.loggedInSubUserTypeId();
+  selDistrictId:any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -81,6 +82,24 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
+      $(document).on('click', 'path', (e: any) => { // add on SVG Map
+        let getClickedId = e.currentTarget;
+        let distrctId = $(getClickedId).attr('id');
+        this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
+        this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
+        this.toggleClassActive(Number(distrctId));
+        this.defaultFilterBestPer();
+        this.geWeekReport()
+        this.getDistrict();
+        this.getBestPerKaryMember();
+        this.bestPerformance();
+      });
+    // }
+  }
+
+  toggleClassActive(distrctId:any){
+    let checksvgDistrictActive = $('path').hasClass( "svgDistrictActive");   
+    checksvgDistrictActive == true ?  ($('path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')):  $('path#' + distrctId).addClass('svgDistrictActive');;
   }
 
 
@@ -177,7 +196,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if (flag == 'workType'){
       // this.bestPerformance();
       this.getBestPerKaryMember();
-      this.showSvgMap(this.commonService.mapRegions());
+      // this.showSvgMap(this.commonService.mapRegions());
       this.geWeekReport();
     }
     // district talka committee
@@ -300,14 +319,17 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getBestPerKaryMember() {
     this.spinner.show();
+    debugger;
     let topFilterValue = this.topFilterForm.value;
+    console.log(topFilterValue);
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
-       'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst, false, false, false, 'ncpServiceForWeb');
+       'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst+'&DistrictId='+topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.resBestPerKaryMember = res.data1;
       } else {
+        console.log(this.resBestPerKaryMember);
         this.resBestPerKaryMember = [];
         this.spinner.hide();
         if (res.data == 1) {
@@ -363,11 +385,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
+    debugger;
     // let fromDate: any;
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+topFilterValue.DistrictId+'&TalukaId='+filter.TalukaId+
      '&IsBody=' + filter.IsBody +'&BodyId=' + filter.BodyId , false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
