@@ -78,6 +78,7 @@ export class OrganizationMasterComponent implements OnInit {
   checkUserlevel:any;
   resCommitteeByLevel:any;
   result:any;
+  allDistrictByCommittee:any;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
@@ -95,6 +96,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.getDesignation();
     this.defaultDesignationForm();
     this.searchFilters('false');
+    this.getDistrictByCommittee();
     this.getCommiteeDetails = this.commonService.getCommiteeInfo();
   }
 
@@ -441,6 +443,25 @@ export class OrganizationMasterComponent implements OnInit {
         } else if (this.btnText == "Update Committee" && this.globalLevelId == 5 || this.btnText == "Update Committee" && this.globalLevelId == 4) { // edit for Village
           this.getTaluka(this.globalDistrictId)
         }
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+        // this.toastrService.error("Data is not available 2");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.spinner.hide();
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  getDistrictByCommittee() {
+    //this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.allDistrictByCommittee = res.data1;
         this.spinner.hide();
       } else {
         this.spinner.hide();

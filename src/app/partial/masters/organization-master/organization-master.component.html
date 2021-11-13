@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')"
-                                    (select)="filterData()" formControlName="filterDistrict" [items]="allDistrict"
+                                    (select)="filterData()" formControlName="filterDistrict" [items]="allDistrictByCommittee"
                                     optionValueField="DistrictId" optionTextField="DistrictName"
                                     placeholder="Select District">
                                 </ngx-select>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-body pt-1">
                     <div class="text-end">
-                        <a href="#" class="btn btn-sm btn-link" data-bs-toggle="modal" data-bs-target="#AddNewCommittee">Add New Committee</a>
+                        <a  (click)="clearForm()" class="btn btn-sm btn-link" data-bs-toggle="modal" data-bs-target="#AddNewCommittee">Add New Committee</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -140,12 +140,12 @@
 
 <!-- Modal for Add Designation -->
 <div class="modal fade" id="AddNewCommittee" tabindex="-1" aria-labelledby="AddNewCommitteeLabel"
-    aria-hidden="true" (click)="clearForm()">
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header">
-                <p class="modal-title" id="AddNewCommitteeLabel">Add New Committee</p>
+                <p class="modal-title" id="AddNewCommitteeLabel" >Add New Committee</p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()"></button>
             </div>
             <div class="modal-body">

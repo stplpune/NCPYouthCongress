@@ -120,16 +120,15 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selectDistrict(event: any) {
    // this.callSVGMap()
     this.selectedDistrictId = event;
-
-    this.clearFilterByCommittee();
+    // this.clearFilterByCommittee();
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.toggleClassActive(this.selectedDistrictId)
-    this.comActiveClass(0);  
+    // this.comActiveClass(0);  
   }
 
   getOrganizationByDistrictId(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter+'&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getDistrict(id)
@@ -232,13 +231,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.selDistrictName();
       this.defaultCloseBtn = false;
       // this.removeSessionData();
+      this.toggleClassActive(0);
     }else if (flag == 'dateRangePIcker'){
       this.clearDateRangeByFilter();
     }
     this.comActiveClass(0);
     this.activeRow = 0;
     // this.showSvgMap(this.commonService.mapRegions());
-    this.toggleClassActive(0);
     this.getOrganizationByDistrictId(0);
 
   }

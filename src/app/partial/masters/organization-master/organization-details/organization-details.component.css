@@ -10,9 +10,10 @@ agm-map {
 }
 
 .comm-list {
-    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
 }
-
+/* 
 .comm-list li {
     list-style-type: none;
     margin: 10px 0 10px 10px;
@@ -33,7 +34,7 @@ agm-map {
 
 .comm-list li a:hover {
     color: var(--main-color);
-}
+} */
 
 .active{
     color: #7289da!important;
@@ -111,7 +112,7 @@ agm-map {
   }
   .member-posts .post-image{
       width: 100%;
-      height: 80px;
+      height: 94px;
       object-fit: cover;
       object-position: center;
       border-radius: 5px;

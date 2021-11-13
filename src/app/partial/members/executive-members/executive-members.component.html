@@ -13,20 +13,20 @@
                             placeholder="Select Committee Name">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
                             optionValueField="DistrictId" optionTextField="DistrictName"
                             (remove)="clearFilter('district')" placeholder="Select District"
                             (select)="filter(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <!-- <div class="col-sm-2">
                         <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
                             [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId"
                             (remove)="clearFilter('taluka')" (select)="filter(this.filterForm.value.TalukaId)"
                             placeholder="Select Taluka" optionValueField="TalukaId" optionTextField="TalukaName">
                         </ngx-select>
-                    </div>
+                    </div> -->
                     <!-- <div class="col-sm-3">
                         <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
                             optionTextField="VillageName" placeholder="Select City/Village">

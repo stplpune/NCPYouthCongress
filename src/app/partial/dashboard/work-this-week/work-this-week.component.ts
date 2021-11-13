@@ -266,6 +266,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.topFilterForm = this.fb.group({
       category: [0],
       fromTo: [this.dateRange],
+      DistrictId:[0]
     })
   }
 
@@ -321,14 +322,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   // this.selweekRange.fromDate this.selweekRange.toDate
   geWeekReport() {
     this.spinner.show();
-    let topFilterValue = this.topFilterForm.value
+    let topFilterValue = this.topFilterForm.value;
     // let fromDate: any;
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
-    this.spinner.show();
-
-    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category+'&DistrictId='+topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.WorkDoneByYuvakTP = res.data1;

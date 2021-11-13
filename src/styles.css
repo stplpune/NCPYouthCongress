@@ -995,6 +995,21 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     pointer-events: auto;
     fill: rgb(39, 40, 72)!important;
 }
+.NCPColorCode{
+	fill:#80deea!important;
+}
+.SSColorCode{
+	fill:#ff8a65!important;
+}
+.BJPCode{
+	fill:#e57373!important;
+}
+.INCColorCode{
+	fill:#7986cb!important;
+}
+.OTRColorCode{
+	fill:#aa43cb!important;
+}
 .mat-tree-node button {
     width: 24px  !important;
     height: 24px!important;
