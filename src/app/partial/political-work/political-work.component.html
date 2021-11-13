@@ -90,7 +90,7 @@
                             <th scope="col">Work Date</th>
                             <th scope="col">Member Name</th>
                             <th scope="col">Work Type</th>
-                            <th scope="col">Title / Description</th>
+                            <th scope="col">Title</th>
                             <!-- <th scope="col">Description</th> -->
                             <!-- <th scope="col">Photos</th> -->
                             <th scope="col"></th>
@@ -102,9 +102,12 @@
                             <td>{{politicalWork.ActivityDate}}</td>
                             <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.MemberId, politicalWork.FullName)">{{politicalWork.FullName}}</a></td>
                             <td>{{politicalWork.CategoryName}}</td>
-                            <td>
+                            <td *ngIf="politicalWork?.Title ; else OtherContent">
                                 <span class="text-ellipsis-150px" [appTooltip]  title={{politicalWork.Title}}>{{politicalWork.Title | titlecase}}</span>
                             </td>
+                            <ng-template #OtherContent>
+                                <td> - </td>
+                            </ng-template>
                             <td>
                                 <button class="btn btn-sm btn-light" (click)="ViewPoliticleWorkDetails(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>
