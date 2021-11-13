@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output,
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { debug } from 'console';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -137,6 +138,7 @@ export class AddMemberComponent implements OnInit {
     this.selGender = data.Gender;
     data.IsRural == 1 ? (this.setVillOrcityName = "VillageName", this.setVillOrCityId = "VillageId", this.villageCityLabel = "Village") : (this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id", this.villageCityLabel = "City");
     this.getCommitteeName();
+    // this.getConstituencylist();
     this.ImgUrl = data.ProfilePhoto;
     this.editProfileForm.patchValue({
       UserId: data.Id,
@@ -154,6 +156,7 @@ export class AddMemberComponent implements OnInit {
       FacebookLink: data.FacebookLink,
       InstagramLink: data.InstagramLink,
       TwitterLink: data.TwitterLink,
+      // ConstituencyNo:data.ConstituencyNo
     });
   }
 
@@ -257,6 +260,8 @@ export class AddMemberComponent implements OnInit {
   get f() { return this.editProfileForm.controls };
 
   updateProfile() {
+
+    debugger
     // this.addValiditonTaluka(this.editProfileForm.value.IsRural)
     this.submitted = true;
 
@@ -269,7 +274,7 @@ export class AddMemberComponent implements OnInit {
       if (this.editProfileForm.value.IsRural == 0) {
         this.editProfileForm.value.TalukaId = "";
       }
-
+      debugger;
       let fromData = new FormData();
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
@@ -450,7 +455,8 @@ export class AddMemberComponent implements OnInit {
         this.spinner.hide();
         this.getConstituencyResult = res.data1;
         if (this.editFlag) {
-          this.editMemObj.ConstituencyNo ? (this.editProfileForm.controls['ConstituencyNo'].setValue(this.editMemObj.ConstituencyNo.toString())) : '';
+          debugger;
+          this.editMemObj.ConstituencyNo ? (this.editProfileForm.controls['ConstituencyNo'].setValue(this.editMemObj.ConstituencyNo)) : '';
           this.getDistrict();
         }
 
