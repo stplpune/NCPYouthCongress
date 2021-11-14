@@ -14,13 +14,14 @@ export class ActivityDetailsComponent implements OnInit, AfterViewInit {
   comUserdetImg:any;
   lat: any = 19.75117687556874;
   lng: any = 75.71630325927731;
-  zoom: any = 6;
-
+  zoom: any = 0;
+  previous:any;
   constructor(public gallery: Gallery, public dialogRef: MatDialogRef<ActivityDetailsComponent>, 
      @Inject(MAT_DIALOG_DATA) public data: any, private commonService:CommonService,
      private _lightbox: Lightbox) { }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.resultBodyMemActDetails = this.data;
     this.activitieDetails();
   }
@@ -40,5 +41,12 @@ export class ActivityDetailsComponent implements OnInit, AfterViewInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  clickedMarker(infowindow:any) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
 
 }

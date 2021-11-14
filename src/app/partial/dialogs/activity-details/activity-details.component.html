@@ -1,37 +1,41 @@
 <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
         <div class="modal-header">
-            <h6 class="modal-title" id="ViewDetailsModalLabel">Activity Details</h6>
+            <h6 class="modal-title" id="ViewDetailsModalLabel">Details</h6>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onNoClick()"></button>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-sm-6 form-container">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <label class="form-label">#ID</label>
-                            <div id="txtID" class="form-data">{{resultBodyMemActDetails.Id}}</div>
+                        <div class="col-sm-8">
+                            <label class="form-label">Name</label>
+                            <div id="txtMembersName" class="form-data">
+                                {{resultBodyMemActDetails.FullName}}
+                            </div>
+                            <!-- <label class="form-label">#ID</label>
+                            <div id="txtID" class="form-data">{{resultBodyMemActDetails.Id}}</div> -->
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label class="form-label">Post Date</label>
                             <div id="txtPostDate" class="form-data">
                                 {{resultBodyMemActDetails.ActivityDate}}</div>
                         </div>
                     </div>
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <label class="form-label">Members FullName</label>
                         <div id="txtMembersName" class="form-data">
                             {{resultBodyMemActDetails.FullName}}
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-2">
-                        <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.CategoryName">
+                        <div class="col-sm-12" *ngIf="resultBodyMemActDetails?.CategoryName">
                             <label class="form-label">Work Type</label>
                             <div id="txtWorkType" class="form-data">
                                 {{resultBodyMemActDetails.CategoryName}}
                             </div>
                         </div>
-                        <div class="col-sm-4" *ngIf="resultBodyMemActDetails?.Title">
+                        <div class="col-sm-12" *ngIf="resultBodyMemActDetails?.Title">
                             <label class="form-label">Title</label>
                             <div id="txtTitle" class="form-data">
                                 {{resultBodyMemActDetails.Title}}
@@ -50,14 +54,12 @@
                             {{resultBodyMemActDetails.Description}}
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                             <label class="form-label">Latitude and Longitude</label>
                             <div class="form-data">
-                                <!-- <a href="{{resultBodyMemActDetails.Link}}" target="_blank"> -->
                                     {{resultBodyMemActDetails.ActivityLocation}}
-                                <!-- </a> -->
                             </div>
-                        </div>
+                        </div> -->
                     <div class="row">
                         <div class="col-sm-3">
                             <label class="form-label">Likes</label>
@@ -80,8 +82,12 @@
                 <div class="col-sm-6 form-container bg-light">
                     <div class="" *ngIf="lat!='' && lng!=''; else elseBlock">
                         <label class="form-label">Location</label>
-                        <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                            <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng"></agm-marker>
+                        <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="2" [mapTypeId]="'roadmap'">
+                            <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng"  (markerClick)="clickedMarker(infowindow)">                      
+                            <agm-info-window #infowindow>
+                                <strong>Lat and Long -  {{lat}} {{lng}}</strong>
+                            </agm-info-window>
+                            </agm-marker>
                         </agm-map>
                     </div>
                     <ng-template #elseBlock>

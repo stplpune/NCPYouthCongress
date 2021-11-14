@@ -108,11 +108,11 @@
                 </div>
             </div>
             <!-- recent activity  section start here  -->
-            <div class="card recent-posts mb-3">
+            <div class="card mb-3">
                 <div class="card-header pb-0">
-                    <span class="fw-bold text-primary">Committee Activities</span>
+                    <span class="fw-bold active">Committee Activities</span>
                 </div>
-                <div class="card-body pt-0">
+                <div class="card-body pt-0  recent-posts">
                     <div class="member-posts"
                         *ngFor="let dashboardActivities of resDashboardActivities  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                         <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
@@ -170,16 +170,16 @@
                         </a>
                         <hr class="my-2">
                     </div>
-                    <div class="mt-2 text-end" *ngIf="resDashboardActivities?.length != 0">
-                        <pagination-controls previousLabel="" nextLabel=""
-                            (pageChange)="onClickPagintion(pageSize = $event)">
-                        </pagination-controls>
-                    </div>
+                   
                     <div *ngIf="resDashboardActivities?.length == 0">
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </div>
                 </div>
-                
+                <div class="mt-2 text-end p-2" *ngIf="resDashboardActivities?.length != 0">
+                    <pagination-controls previousLabel="" nextLabel=""
+                        (pageChange)="onClickPagintion(pageSize = $event)">
+                    </pagination-controls>
+                </div>
             </div>
 
 

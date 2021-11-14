@@ -49,6 +49,9 @@ export class ActivityAnalysisComponent implements OnInit {
   @ViewChild('TotalShares') TotalShares:any;
   @ViewChild('TotalAbuses') TotalAbuses:any;
   @ViewChild('TotalViews') TotalViews:any;
+  previous:any;
+
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -314,4 +317,12 @@ export class ActivityAnalysisComponent implements OnInit {
       // }
     })
   }
+
+  clickedMarker(infowindow:any) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
+
 }

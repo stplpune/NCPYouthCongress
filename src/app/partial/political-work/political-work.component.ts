@@ -43,7 +43,8 @@ export class PoliticalWorkComponent implements OnInit {
   programGalleryImg!: GalleryItem[];
   HighlightRow: any;
   mapHideShowDiv: boolean = false;
-
+  previous:any;
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -228,5 +229,12 @@ export class PoliticalWorkComponent implements OnInit {
       this.lng = 75.300293;
     }
   }
+
+  clickedMarker(infowindow:any) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
 
 }

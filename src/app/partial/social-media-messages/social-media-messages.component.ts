@@ -47,7 +47,9 @@ export class SocialMediaMessagesComponent implements OnInit {
   searchFilter = "";
   defaultCloseBtn:boolean = false;
   subject: Subject<any> = new Subject();
-
+  previous:any;
+  socialMediaDetailsAddress:any;
+  
   constructor(
     private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -224,6 +226,7 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.gallery.ref().load(this.programGalleryImg);
 
         let socialMediaDetailsLatLongArray = res.data3[0];
+        this.socialMediaDetailsAddress= res.data3[0].LocationName;
         this.latitudeLongitude(socialMediaDetailsLatLongArray);
       } else {
         //this.toastrService.error("Data is not available");
@@ -262,5 +265,12 @@ export class SocialMediaMessagesComponent implements OnInit {
     sessionStorage.setItem('SocialMediaDataPM', JSON.stringify(obj));
     this.router.navigate(['../social-media/person-profile'], { relativeTo: this.route });
   }
+
+  clickedMarker(infowindow:any) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
 
 }

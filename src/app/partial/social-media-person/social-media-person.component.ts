@@ -40,6 +40,7 @@ export class SocialMediaPersonComponent implements OnInit {
   lat: any;
   lng: any;
   zoom: any = 16;
+  previous:any;
   
   constructor(
     private callAPIService: CallAPIService,
@@ -225,5 +226,10 @@ export class SocialMediaPersonComponent implements OnInit {
   ngOnDestroy() {
     // sessionStorage.removeItem('SocialMediaDataPM');
   }
-
+  clickedMarker(infowindow:any) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
 }

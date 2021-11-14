@@ -755,11 +755,11 @@ export class OrganizationDetailsComponent implements OnInit {
 
   dashboardActivities() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Dashboard_Activities_Committee_Web?UserId=' + this.commonService.loggedInUserId() + '&PageNo=' + this.actPaginationNo + '&BodyId=' + this.bodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Dashboard_Activities_Committee_Web?UserId=' + this.commonService.loggedInUserId() + '&PageNo=' + this.paginationNo + '&BodyId=' + this.bodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resDashboardActivities = res.data1;
-        this.actTotal = res.data2[0].TotalCount;
+        this.total = res.data2[0].TotalCount;
         this.spinner.hide();
       } else {
         this.resDashboardActivities = [];
@@ -786,7 +786,8 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   onClickPagintion(pageNo: number) {
-    this.actPaginationNo = pageNo;
+    window.scroll(0,0);
+    this.paginationNo = pageNo;
     this.dashboardActivities();
   }
 

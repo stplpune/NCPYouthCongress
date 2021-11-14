@@ -194,22 +194,33 @@
                     <div class="col-sm-6 form-container">
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">{{socialMediaDetailsArray?.Id}}</div>
+                                <label class="form-label">Members Name</label>
+                                <div id="txtMembersName" class="form-data">
+                                    {{socialMediaDetailsArray?.MemberName}}
+                                   
+                                </div>
+                                <!-- <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">{{socialMediaDetailsArray?.Id}}</div> -->
                             </div>
+                            <div class="col-sm-6"  *ngIf="socialMediaDetailsArray?.MemberMobileNo">
+                                <label class="form-label">Members  Mobile No.</label>
+                            <div id="txtMembersName" class="form-data">
+                                <span class="text-muted ms-2">{{socialMediaDetailsArray?.MemberMobileNo}}</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <div class="col-sm-6">
                                 <label class="form-label">Post Date</label>
                                 <div id="txtPostDate" class="form-data">{{socialMediaDetailsArray?.PostDate}}</div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.MemberMobileNo">
+                            <!-- <div class="col-sm-6">
                                 <label class="form-label">Members Name</label>
                             <div id="txtMembersName" class="form-data">
                                 {{socialMediaDetailsArray?.MemberName}}
-                                <span class="text-muted ms-2">[{{socialMediaDetailsArray?.MemberMobileNo}}]</span>
+                                <span class="text-muted ms-2" *ngIf="socialMediaDetailsArray?.MemberMobileNo">[{{socialMediaDetailsArray?.MemberMobileNo}}]</span>
                             </div>
-                            </div>
+                            </div> -->
                             <div class="col-sm-6" *ngIf="socialMediaDetailsArray?.SocialMediaName">
                                 <label class="form-label">Social Media Source</label>
                                 <div id="txtSocialMediaSource" class="form-data">
@@ -264,7 +275,12 @@
                     <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="clickedMarker(infowindow)">
+                                <agm-info-window #infowindow>
+                                    <strong><span class="">Address</span> : {{socialMediaDetailsAddress}}</strong>
+                                </agm-info-window>
+    
+                            </agm-marker>
                         </agm-map>
                     </div>
                     <ng-template #elseBlock>

@@ -140,21 +140,25 @@
                 <div class="row">
                     <div class="col-sm-6 form-container">
                         <div class="row mb-3">
-                            <div class="col-sm-6">
-                                <label class="form-label">#ID</label>
-                                <div id="txtID" class="form-data">{{viewPoliticleWorkDetailsById?.SrNo}}</div>
+                            <div class="col-sm-8">
+                                <label class="form-label">Members Name</label>
+                                <div id="txtMembersName" class="form-data">
+                                    {{viewPoliticleWorkDetailsById?.FullName}}
+                                </div>
+                                <!-- <label class="form-label">#ID</label>
+                                <div id="txtID" class="form-data">{{viewPoliticleWorkDetailsById?.SrNo}}</div> -->
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <label class="form-label">Post Date</label>
                                 <div id="txtPostDate" class="form-data">{{viewPoliticleWorkDetailsById?.ActivityDate}}</div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label class="form-label">Members Name</label>
                             <div id="txtMembersName" class="form-data">
                                 {{viewPoliticleWorkDetailsById?.FullName}}
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3" *ngIf="viewPoliticleWorkDetailsById?.Title">
                             <div class="col-sm">
                                 <label class="form-label">Title</label>
@@ -164,33 +168,32 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.ProgramTitle">
+                            <div class="col-sm-12" *ngIf="viewPoliticleWorkDetailsById?.ProgramTitle">
                                 <label class="form-label">Program</label>
                                 <div id="txtSocialMediaSource" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.ProgramTitle}}
                                 </div>
                             </div>
-                            <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.CategoryName">
+                            <div class="col-sm-12" *ngIf="viewPoliticleWorkDetailsById?.CategoryName">
                                 <label class="form-label">Party Work Category</label>
                                 <div id="txtMobileNo" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.CategoryName}}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="viewPoliticleWorkDetailsById?.Description">
                             <label class="form-label">Post Description</label>
                             <div id="txtDescription" class="form-data">
                                 {{viewPoliticleWorkDetailsById?.Description}}
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.ActivityLocation">
+                            <!-- <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.ActivityLocation">
                                 <label class="form-label">Latitude and Longitude </label>
                                 <div id="txtMessageFavour" class="form-data">
                                     {{viewPoliticleWorkDetailsById?.ActivityLocation}}
-                                    <!-- <a href="#">{{viewPoliticleWorkDetailsById?.ActivityLocation}}</a> -->
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-sm" *ngIf="viewPoliticleWorkDetailsById?.PersonContactDetails">
                                 <label class="form-label">Contact Person Details</label>
                                 <div id="txtMessageOppse" class="form-data">
@@ -232,7 +235,11 @@
                         <div class="mb-0" *ngIf="lat!='' && lng!=''; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="clickedMarker(infowindow)">
+                                <agm-info-window #infowindow>
+                                    <strong>Lat and Long -  {{lat}} {{lng}}</strong>
+                                </agm-info-window>
+                            </agm-marker>
                             </agm-map>
                         </div>
                         <ng-template #elseBlock>
