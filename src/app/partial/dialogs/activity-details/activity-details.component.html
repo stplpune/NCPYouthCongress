@@ -85,7 +85,7 @@
                         <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="2" [mapTypeId]="'roadmap'">
                             <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng"  (markerClick)="clickedMarker(infowindow)">                      
                             <agm-info-window #infowindow>
-                                <strong>Lat and Long -  {{lat}} {{lng}}</strong>
+                                <strong>Lat and Long -  {{resultBodyMemActDetails?.ActivityLocationAddress}}</strong>
                             </agm-info-window>
                             </agm-marker>
                         </agm-map>

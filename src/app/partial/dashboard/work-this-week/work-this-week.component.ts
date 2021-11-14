@@ -57,6 +57,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   selDistrictId:any;
   selDistrictName:any;
   getAllDistrict:any;
+  totalWorkCount:any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -88,15 +89,27 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       $(document).on('click', 'path', (e: any) => { // add on SVG Map
         let getClickedId = e.currentTarget;
         let distrctId = $(getClickedId).attr('id');
-        this.disNameToDisId(distrctId)
-        this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
-        this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
-        this.toggleClassActive(Number(distrctId));
-        this.defaultFilterBestPer();
-        this.geWeekReport()
-        this.getDistrict();
-        this.getBestPerKaryMember();
-        this.bestPerformance();
+        // check count on click distrctId 
+        this.WorkDoneByMemberSVGData.forEach((element:any) => {
+            if(distrctId == element.DistrictId){
+              if(element.TotalWork == 0 ){
+                this.toastrService.error("Data is not available");
+                return
+              }else{
+                this.disNameToDisId(distrctId)
+                this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
+                this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
+                this.toggleClassActive(Number(distrctId));
+                this.defaultFilterBestPer();
+                this.geWeekReport()
+                this.getDistrict();
+                this.getBestPerKaryMember();
+                this.bestPerformance();
+              }
+            }
+        });
+
+    
       });
     // }
   }
@@ -526,6 +539,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         if(ele.TotalWork > 0){
         //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
           $('#' + ele.DistrictName).text(ele.TotalWork);
+          ele.TotalWork < 6 ? $('path#' + ele.DistrictId).addClass('lessThanFive'):  '';
+        }else{
+          this.totalWorkCount =  ele.TotalWork;
+          $('path#' + ele.DistrictId).addClass('zeroActivity');
         }
         // $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
         // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);

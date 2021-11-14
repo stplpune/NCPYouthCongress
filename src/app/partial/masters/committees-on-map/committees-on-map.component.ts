@@ -53,6 +53,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   CommitteeId: any;
   committeeName: any;
   selCommiteeFlag: boolean = true;
+  onClickFlag:boolean = false;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -91,10 +92,20 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectDistrict(this.DistrictId);
 
     $(document).on('click', 'path', (e: any) => { // add on SVG Map
+      this.onClickFlag = true;
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
-      this.toggleClassActive(Number(distrctId));
-      this.getOrganizationByDistrictId(Number(distrctId));
+      // this.allDistrict.forEach((element:any) => {
+      //   if(distrctId == element.DistrictId){
+      //     if(element.TotalWork == 0 ){
+      //       this.toastrService.error("Data is not available");
+      //           return
+      //     }else{
+            this.toggleClassActive(Number(distrctId));
+            this.getOrganizationByDistrictId(Number(distrctId));
+      //     }
+      //   }
+      // })
     });
   }
 
@@ -177,6 +188,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         }
         this.districtWiseCommityWorkGraph(id);
         this.addClasscommitteeWise(id);
+        this.onClickFlag == false ?  $('#mapsvg1  path#' + this.selectedDistrictId).addClass('svgDistrictActive') : '';
+       
+        // this.toggleClassActive(0);
         // this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
         
       }
@@ -262,6 +276,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   }
 
+  clearallFilter(){
+    this.clearFilter('CommitteesIn');
+    this.clearDateRangeByFilter();
+    this.clearFilterByCommittee();
+  }
 
   filterByCommittee() {
     this.subject.next();
@@ -278,7 +297,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
-        this.selDistrictName();
+        this.selDistrictName(); 
         this.getOrganizationByDistrictId(this.selectedDistrictId);
         this.districtWiseCommityWorkGraph(this.selectedDistrictId);
         // this.toggleClassActive(0);

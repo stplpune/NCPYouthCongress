@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid commitees">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-3">
                 <span class="page-name">Committees Performance
@@ -33,9 +33,10 @@
                             class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-auto"> <button type="button" class="btn btn-sm btn-secondary" (click)="location.back();">
+                <div class="col-auto"> <button type="button" class="btn btn-sm btn-secondary me-2" (click)="location.back();">
                     <i class="fas fa-arrow-left"></i>
-                </button></div>
+                </button>
+                <!-- <button  class="btn btn-sm btn-main" (click)="clearallFilter()"><i  class="fas fa-sync-alt"></i></button> --></div>
             </div>
         </div>
     </div>
@@ -47,6 +48,8 @@
                     <div class="col-sm-6 border-end">
                         <div class="card card-body shadow-none p-0">
                             <div class="row">
+                                <!-- <div class="mb-0"><span class="lessThanFiveBox"></span><span>Less than 5</span></div>
+                                <div><span class="zeroActivityBox"></span><span>No activity</span></div> -->
                                 <!-- <div class="mb-3 offset-sm-7 col-sm-5">
                                     <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)" (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict"  [items]="allDistrict" 
                                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">

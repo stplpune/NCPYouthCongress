@@ -1010,6 +1010,33 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 .OTRColorCode{
 	fill:#4db6ac!important;
 }
+.zeroActivity{
+    /* pointer-events: none;
+    cursor: default; */
+    fill: #d6b1e5!important;
+    background:#d6b1e5!important;
+}
+.lessThanFive{
+    fill: #c0c5d5!important;
+    background:#c0c5d5!important;
+}
+.lessThanFiveBox{
+    width: 10px; 
+    height: 10px; 
+    display: inline-block;
+    background:#c0c5d5!important;
+    margin-right: 5px;
+}
+.zeroActivityBox{
+    width: 10px; 
+    height: 10px; 
+    display: inline-block;
+    background:#d6b1e5!important;
+    margin-right: 5px;
+}
+.lessThanfifteen{
+    fill: pink!important;
+}
 .mat-tree-node button {
     width: 24px  !important;
     height: 24px!important;
@@ -1036,6 +1063,8 @@ g[shape-rendering="auto"]{
 .cdk-overlay-pane{
     max-width: 100vw !important;
 }
+
+
 
 @media (min-width: 576px){
 .m-width {

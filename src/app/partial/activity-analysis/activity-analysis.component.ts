@@ -236,7 +236,7 @@ export class ActivityAnalysisComponent implements OnInit {
         this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
         this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg,'array');
         this.gallery.ref().load(this.comUserdetImg);
-  
+    console.log(this.viewPoliticleWorkDetailsById);
     let latLong: any = (this.viewPoliticleWorkDetailsById.ActivityLocation);
     if (latLong != "" && latLong != undefined && latLong != null) {
       let getLatLong = latLong.split(',');

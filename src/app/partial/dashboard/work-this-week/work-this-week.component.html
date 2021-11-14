@@ -64,7 +64,10 @@
                         <!-- <button class="btn btn-sm btn-light" routerLink="../../map-view">
                             <i class="fas fa-map-marked-alt"></i>
                         </button> -->
-                    </div>
+                    </div> 
+                    <div class="mb-0"><span class="lessThanFiveBox"></span><span>Less than 5</span></div>
+                    <div><span class="zeroActivityBox"></span><span>No activity</span></div>
+                    
                 </div>
                 <div class="card-body">
                     <div id="mapsvg"></div>
@@ -76,8 +79,8 @@
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item text-success" *ngFor="let topPerformance of WorkDoneByYuvakTP"> 
                                     {{topPerformance.DistrictName}} <a class="text-primary small float-end" ></a>
-                                    <!-- <a class="small text-success float-end"><i class="fas fa-external-link-alt" (click)="redTocommitteesOnMap(topPerformance.DistrictId,topPerformance.CommitteeId,topPerformance.DistrictName)"></i> 
-                                    </a> -->
+                                    <a class="small text-success float-end"><i class="fas fa-external-link-alt" (click)="redTocommitteesOnMap(topPerformance.DistrictId,topPerformance.CommitteeId,topPerformance.DistrictName)"></i> 
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -86,8 +89,8 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-danger" *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
                                     {{bottomPerformance.DistrictName}}
-                                    <!-- <a class="small float-end text-danger">  <i class="fas fa-external-link-alt"  (click)="redTocommitteesOnMap(bottomPerformance.DistrictId,bottomPerformance.CommitteeId,bottomPerformance.DistrictName)"></i></a> -->
-                                    <!--</a>  -->
+                                    <a class="small float-end text-danger">  <i class="fas fa-external-link-alt"  (click)="redTocommitteesOnMap(bottomPerformance.DistrictId,bottomPerformance.CommitteeId,bottomPerformance.DistrictName)"></i>
+                                    </a> 
                                 </li>
 
                             </ul>

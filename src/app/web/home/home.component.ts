@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
         })
       } else {
         this.spinner.hide();
-        this.toastrService.error("Data is not available ");
+        this.allLatestEvent = [];
+        // this.toastrService.error("Data is not available ");
       }
     })
   }

@@ -223,7 +223,7 @@
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
                                 <agm-marker [latitude]="lat" [longitude]="lng"  (markerClick)="clickedMarker(infowindow)">
                                     <agm-info-window #infowindow>
-                                        <strong>Lat and Long -  {{lat}} {{lng}}</strong>
+                                        <strong>Address -  {{viewPoliticleWorkDetailsById?.ActivityLocationAddress}}</strong>
                                     </agm-info-window>
                                 </agm-marker>
                             </agm-map>
