@@ -222,8 +222,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.bestPerformance();
       this.getBestPerKaryMember();
       // this.showSvgMap(this.commonService.mapRegions());
-      this.geWeekReport();
+ 
     }
+    this.geWeekReport();
     // district talka committee
     this.bestPerformance();
   }
@@ -383,12 +384,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         topFilterValue.DistrictId == 0 ? this.getAllDistrict = res.data4 : '';
         this.addClasscommitteeWise();
         this.WorkDoneByYuvak();
+        this.mahaSVGMap(this.WorkDoneByMemberSVGData);
         this.spinner.hide();
       } else {
         this.WorkDoneByYuvakTP = [];
         this.WorkDoneByYuvakBP = [];
         this.WorkDoneByYuvakBarchart = [];
         this.WorkDoneByYuvak();
+        this.mahaSVGMap(this.WorkDoneByMemberSVGData);
         this.spinner.hide();
         if (res.data == 1) {
           //this.toastrService.error("Data is not available");
@@ -530,26 +533,29 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-    this.mahaSVGMap();
   }
   
-  mahaSVGMap() {
-    if (this.WorkDoneByMemberSVGData.length != 0) {
-      this.WorkDoneByMemberSVGData.filter((ele: any) => {
+  mahaSVGMap(data:any) {
+   setTimeout(() => {
+    if (data.length != 0) {
+      data.forEach((ele: any) => {
         if(ele.TotalWork > 0){
         //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
           $('#' + ele.DistrictName).text(ele.TotalWork);
-          ele.TotalWork < 6 ? $('path#' + ele.DistrictId).addClass('lessThanFive'):  '';
+          ele.TotalWork < 6 ? $('.work-this-week path#' + ele.DistrictId).addClass('lessThanFive'):  '';
         }else{
+          let checksvgDistrictActive = $('.work-this-week  path').hasClass("lessThanFive");
+          checksvgDistrictActive == true ? $('.work-this-week  path#' + ele.DistrictId).removeClass("lessThanFive") :''
+          $('.work-this-week path#' + ele.DistrictId).addClass("zeroActivity")
+          $('.work-this-week path#' + ele.DistrictName).text('');
           this.totalWorkCount =  ele.TotalWork;
-          $('path#' + ele.DistrictId).addClass('zeroActivity');
+          // $('path#' + ele.DistrictId).addClass('zeroActivity');
         }
-        // $('#mapsvg-menu-regions option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
-        // $('#mapsvg-menu-regions-marathi option[value="' + ele.DistrictId + '"]').css('fill', '#fff').prop('selected', true);
       })
     } else {
       // this.showSvgMap(this.commonService.mapRegions());
     }
+   }, 500);
   }
 
   catChange(value: any) {

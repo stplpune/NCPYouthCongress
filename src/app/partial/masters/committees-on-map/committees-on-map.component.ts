@@ -78,9 +78,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.loggedUserTypeId == 5 ? this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
   }
 
-  callSVGMap() {
-    this.showSvgMap(this.commonService.mapRegions());
-  }
+  
 
   svgMapColorReset() {
     $('path').css('fill', '#7289da');
@@ -109,11 +107,17 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
+  callSVGMap() {
+    this.showSvgMap(this.commonService.mapRegions());
+  }
+
   addClasscommitteeWise(id: any) {
     $('.mapsvg-wrap path').addClass('notClicked');
-    this.allDistrict.forEach((element: any) => {
-      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked');
-    });
+    setTimeout(() => {
+      this.allDistrict.forEach((element: any) => {
+        $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked');
+      });
+    }, 500);
   }
 
   toggleClassActive(distrctId: any) {
@@ -245,6 +249,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.selDistrict.reset();
       this.selDistrictName();
       this.defaultCloseBtn = false;
+      this.onClickFlag  = true;
       // this.removeSessionData();
       this.toggleClassActive(0);
     } else if (flag == 'dateRangePIcker') {
@@ -297,7 +302,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
-        this.selDistrictName(); 
+        //this.selDistrictName(); 
         this.getOrganizationByDistrictId(this.selectedDistrictId);
         this.districtWiseCommityWorkGraph(this.selectedDistrictId);
         // this.toggleClassActive(0);
