@@ -453,7 +453,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       chart.legend = new am4charts.Legend()
       chart.legend.position = 'bottom'
       chart.legend.paddingBottom = 10
-      chart.legend.labels.template.maxWidth = 20
+      chart.legend.labels.template.maxWidth = 20;
 
       let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
       valueAxis.min = 0;
