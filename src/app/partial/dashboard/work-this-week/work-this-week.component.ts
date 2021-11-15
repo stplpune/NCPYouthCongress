@@ -542,12 +542,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         if(ele.TotalWork > 0){
         //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
           $('#' + ele.DistrictName).text(ele.TotalWork);
-          ele.TotalWork < 6 ? $('path#' + ele.DistrictId).addClass('lessThanFive'):  '';
+          ele.TotalWork < 6 ? $('.work-this-week path#' + ele.DistrictId).addClass('lessThanFive'):  '';
         }else{
-          let checksvgDistrictActive = $('path').hasClass("lessThanFive");
-          checksvgDistrictActive == true ? $('path#' + ele.DistrictId).removeClass("lessThanFive") :''
-          $('path#' + ele.DistrictId).addClass("zeroActivity")
-          $('#' + ele.DistrictName).text('');
+          let checksvgDistrictActive = $('.work-this-week  path').hasClass("lessThanFive");
+          checksvgDistrictActive == true ? $('.work-this-week  path#' + ele.DistrictId).removeClass("lessThanFive") :''
+          $('.work-this-week path#' + ele.DistrictId).addClass("zeroActivity")
+          $('.work-this-week path#' + ele.DistrictName).text('');
           this.totalWorkCount =  ele.TotalWork;
           // $('path#' + ele.DistrictId).addClass('zeroActivity');
         }
