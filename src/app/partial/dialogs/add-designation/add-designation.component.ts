@@ -33,6 +33,8 @@ export class AddDesignationComponent implements OnInit {
   selUserpostbodyId:any;
   loggedInUserId:any;
   loggedInDesId:any;
+  getloggedInDesId:any;
+
   
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
@@ -44,7 +46,7 @@ export class AddDesignationComponent implements OnInit {
 
   ngOnInit(): void {
     let designationId = this.commonService.getsessionStorageData();
-    this.loggedInDesId = designationId.DesignationId;
+    this.getloggedInDesId = designationId.DesignationId;
     this.defaultDesignationForm();
     this.getDesignation();
     this.getBodyAssignedDesignation();
@@ -155,6 +157,7 @@ export class AddDesignationComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allAssignedDesignations = res.data1;
+        this.checkDesMemberAssign(this.allAssignedDesignations);
       } else {
         // this.toastrService.error("Designations is  not available");
         this.allAssignedDesignations = [];
@@ -166,8 +169,17 @@ export class AddDesignationComponent implements OnInit {
     })
   }
 
+  checkDesMemberAssign(allAssignedDes: any) {
+    allAssignedDes.forEach((element: any) => {
+      if (element.DesignationId == this.getloggedInDesId && element.BodyId == this.commonService.getCommiteeInfo().CommiteeId) {
+        this.loggedInDesId = element.DesignationId;
+      }
+    });
+  }
+
   
   getBodyAssignedDesignation() {
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetAssigned_Post_1_0?BodyId=' + this.desBodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {

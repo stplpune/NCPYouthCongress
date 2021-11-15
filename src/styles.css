@@ -1013,25 +1013,25 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 .zeroActivity{
     /* pointer-events: none;
     cursor: default; */
-    fill: #d6b1e5!important;
-    background:#d6b1e5!important;
-}
-.lessThanFive{
     fill: #c0c5d5!important;
     background:#c0c5d5!important;
+}
+.lessThanFive{
+    fill: #d6b1e5!important;
+    background:#d6b1e5!important;
 }
 .lessThanFiveBox{
     width: 10px; 
     height: 10px; 
     display: inline-block;
-    background:#c0c5d5!important;
+    background:#d6b1e5!important;
     margin-right: 5px;
 }
 .zeroActivityBox{
     width: 10px; 
     height: 10px; 
     display: inline-block;
-    background:#d6b1e5!important;
+    background:#c0c5d5!important;
     margin-right: 5px;
 }
 .lessThanfifteen{

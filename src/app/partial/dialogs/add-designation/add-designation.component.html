@@ -69,7 +69,6 @@
                                             {{bodyAssignedDesignation.DesignationName}}
                                         </div>
                                         <div class="col-sm-3 col-3">
-                                            <!-- [disabled]="resOfAssignedDesignations.PersonAssigned" (click)=" submitDesignationForm( 'Edit', resOfAssignedDesignations.PostId) " -->
                                             <button class="btn btn-sm btn-light ng-star-inserted" style="font-size:12px"
                                                 (click)=" editDesignationForm(bodyAssignedDesignation) "  [disabled]="bodyAssignedDesignation.DesignationId == loggedInDesId"><i
                                                     class="fas fa-pencil-alt "></i></button>
