@@ -187,6 +187,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getTaluka(districtId: any) {
     this.getMostLikeHatedPerson();
+     this.partyChangeEvent(1);
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -350,6 +351,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
 
   mahaSVGMap() {
+    debugger;
     let fromDate: any;
     let toDate: any;
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
