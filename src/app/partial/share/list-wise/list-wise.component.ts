@@ -62,7 +62,7 @@ export class ListWiseComponent implements OnInit {
     this.callAPIService.setHttp('get', 'InsertLikes_1_0?UserId=' + this.commonService.loggedInUserId() + '&ActivityId=' + this.abuseActivityId + '&LikeTypeId=' + LikeTypeId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.toastrService.success(res.data1[0].Msg);
+        //this.toastrService.success(res.data1[0].Msg);
         this.spinner.hide();
       } else {
         this.spinner.hide();
@@ -77,6 +77,8 @@ export class ListWiseComponent implements OnInit {
   }
 
   openRecentPostDetails(activitieDetails: any) {
+    this.abuseActivityId = activitieDetails.Id  // View Like Id
+     this.abuseInsertLikes(4);
     let obj = { pageNo: this.paginationNo, data: activitieDetails }
     const dialogRef = this.dialog.open(RecentPostDetailsComponent, {
       data: obj,
@@ -93,7 +95,6 @@ export class ListWiseComponent implements OnInit {
     this.dashboardActivities();
   }
 
- 
   delConfirmCanActivity(avtivityId: any) {
     this.avtivityId = avtivityId;
     this.deleteConfirmModel();

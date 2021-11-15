@@ -76,11 +76,11 @@
                                             <i class="far fa-comments me-2"></i>{{activitieDetails?.Comments}}
                                         </label>
     
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio13"
+                                        <input type="radio" class="btn-check" [disabled]="true" name="btnradio" id="btnradio13"
                                             autocomplete="off">
                                         <label class="btn btn-outline-info shadow-none" for="btnradio13"
                                             (click)="socialMediaCheck('Shared')">
-                                            <i class="far fa-eye me-2"></i>{{activitieDetails?.IsLike}}
+                                            <i class="far fa-eye me-2"></i>{{activitieDetails?.Views}}
                                         </label>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <ul class="list-group list-group-flush"
                                             *ngIf="resLikesList?.length != 0 else LikedNotfound">
                                             <li class="list-group-item" *ngFor="let LikesList of resLikesList">
-                                                <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Mname}}
+                                                <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Fname}}
                                                     {{LikesList?.LName}}</a>
                                                 <!-- <span class="small text-muted float-end">12-02-2021</span> -->
                                             </li>
@@ -130,26 +130,14 @@
                                             <div class="m-4 alert alert-danger text-center py-2">No Data Found..!</div>
                                         </ng-template>
                                     </div>
-                                    <div class="card" *ngIf="Shared">
+                                    <!-- <div class="card" *ngIf="Shared">
                                         <div class="card-header fw-bold bg-transparent text-info">
                                             View By
                                         </div>
                                         <ul class="list-group list-group-flush">
                                             <li class="p-2"> <a>View By {{activitieDetails?.IsLike}} Users</a></li>
-                                            <!-- <li class="list-group-item">
-                                                <a href="#">Member Name</a>
-                                                <span class="small text-muted float-end">12-02-2021</span>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="#">Member Name</a>
-                                                <span class="small text-muted float-end">12-02-2021</span>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="#">Member Name</a>
-                                                <span class="small text-muted float-end">12-02-2021</span>
-                                            </li> -->
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

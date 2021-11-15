@@ -463,8 +463,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       xAxis.renderer.cellEndLocation = 0.9
       xAxis.renderer.grid.template.location = 0;
       xAxis.renderer.labels.template.rotation = -90;
+      xAxis.renderer.labels.template.verticalCenter = "middle";
       xAxis.renderer.minGridDistance = 0;
-
       chart.scrollbarX = new am4core.Scrollbar();
       // chart.scrollbarY = new am4core.Scrollbar();
 
