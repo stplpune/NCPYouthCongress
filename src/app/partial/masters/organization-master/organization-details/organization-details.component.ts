@@ -496,6 +496,7 @@ export class OrganizationDetailsComponent implements OnInit {
       chart.legend.position = 'top'
       chart.legend.paddingBottom = 10
       chart.legend.labels.template.maxWidth = 20
+      
 
       let xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
       xAxis.dataFields.category = 'MemberName'
@@ -504,8 +505,11 @@ export class OrganizationDetailsComponent implements OnInit {
       xAxis.renderer.grid.template.location = 0;
       xAxis.renderer.minGridDistance = 30;
       let label = xAxis.renderer.labels.template;
+      xAxis.renderer.labels.template.rotation = -90;
       label.wrap = true;
       label.maxWidth = 90;
+      xAxis.renderer.labels.template.verticalCenter = "middle";
+      chart.scrollbarX = new am4core.Scrollbar();
 
       let yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
