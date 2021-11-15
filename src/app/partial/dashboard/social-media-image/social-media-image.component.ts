@@ -215,6 +215,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       // this.fromDate = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
       // this.toDate = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
       this.getMostLikeHatedPerson();
+      this.partyChangeEvent(1);
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
     }
