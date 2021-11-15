@@ -1020,6 +1020,13 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     fill: #d6b1e5!important;
     background:#d6b1e5!important;
 }
+.greaterThanFiveBox{
+    width: 10px; 
+    height: 10px; 
+    display: inline-block;
+    background:var(--main-color) !important;
+    margin-right: 5px;
+}
 .lessThanFiveBox{
     width: 10px; 
     height: 10px; 
