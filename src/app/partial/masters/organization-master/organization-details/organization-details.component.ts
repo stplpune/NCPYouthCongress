@@ -505,6 +505,7 @@ export class OrganizationDetailsComponent implements OnInit {
       xAxis.renderer.grid.template.location = 0;
       xAxis.renderer.minGridDistance = 30;
       let label = xAxis.renderer.labels.template;
+      xAxis.renderer.labels.template.rotation = -90;
       label.wrap = true;
       label.maxWidth = 90;
       xAxis.renderer.labels.template.verticalCenter = "middle";

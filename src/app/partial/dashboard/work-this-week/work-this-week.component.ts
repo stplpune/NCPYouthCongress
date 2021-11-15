@@ -86,7 +86,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
       this.showSvgMap(this.commonService.mapRegions());
-      $(document).on('click', 'path', (e: any) => { // add on SVG Map
+      $(document).on('click', '#mapsvg  path', (e: any) => { // add on SVG Map
         let getClickedId = e.currentTarget;
         let distrctId = $(getClickedId).attr('id');
         // check count on click distrctId 
@@ -123,8 +123,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   toggleClassActive(distrctId:any){
-    let checksvgDistrictActive = $('path').hasClass( "svgDistrictActive");   
-    checksvgDistrictActive == true ?  ($('path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')):  $('path#' + distrctId).addClass('svgDistrictActive');;
+    let checksvgDistrictActive = $('#mapsvg  path').hasClass( "svgDistrictActive");   
+    checksvgDistrictActive == true ?  ($('#mapsvg  path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')):  $('path#' + distrctId).addClass('svgDistrictActive');;
   }
 
 
@@ -541,13 +541,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       data.forEach((ele: any) => {
         if(ele.TotalWork > 0){
         //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
-          $('#' + ele.DistrictName).text(ele.TotalWork);
-          ele.TotalWork < 6 ? $('.work-this-week path#' + ele.DistrictId).addClass('lessThanFive'):  '';
+          $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
+          ele.TotalWork < 6 ? $('#mapsvg  path#' + ele.DistrictId).addClass('lessThanFive'):  '';
         }else{
-          let checksvgDistrictActive = $('.work-this-week  path').hasClass("lessThanFive");
-          checksvgDistrictActive == true ? $('.work-this-week  path#' + ele.DistrictId).removeClass("lessThanFive") :''
-          $('.work-this-week path#' + ele.DistrictId).addClass("zeroActivity")
-          $('.work-this-week path#' + ele.DistrictName).text('');
+          let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
+          checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") :''
+          $('#mapsvg  path#' + ele.DistrictId).addClass("zeroActivity")
+          $('#mapsvg  path#' + ele.DistrictName).text('');
           this.totalWorkCount =  ele.TotalWork;
           // $('path#' + ele.DistrictId).addClass('zeroActivity');
         }

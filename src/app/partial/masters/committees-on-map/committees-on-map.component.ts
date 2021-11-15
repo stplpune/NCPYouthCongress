@@ -81,7 +81,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   
 
   svgMapColorReset() {
-    $('path').css('fill', '#7289da');
+    $('#mapsvg1 path').css('fill', '#7289da');
   }
 
   ngAfterViewInit() {
@@ -89,7 +89,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.DistrictId == "" || this.DistrictId == undefined ? this.DistrictId = 0 : this.DistrictId = this.DistrictId;
     this.selectDistrict(this.DistrictId);
 
-    $(document).on('click', 'path', (e: any) => { // add on SVG Map
+    $(document).on('click', '#mapsvg1  path', (e: any) => { // add on SVG Map
       this.onClickFlag = true;
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
@@ -112,17 +112,17 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   addClasscommitteeWise(id: any) {
-    $('.mapsvg-wrap path').addClass('notClicked');
+    $('#mapsvg1  path').addClass('notClicked');
     setTimeout(() => {
       this.allDistrict.forEach((element: any) => {
-        $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked');
+        $('#mapsvg1  path[id="' + element.DistrictId + '"]').addClass('clicked');
       });
     }, 500);
   }
 
   toggleClassActive(distrctId: any) {
-    let checksvgDistrictActive = $('path').hasClass("svgDistrictActive");
-    checksvgDistrictActive == true ? ($('path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')) : $('path#' + distrctId).addClass('svgDistrictActive');;
+    let checksvgDistrictActive = $('#mapsvg1  path').hasClass("svgDistrictActive");
+    checksvgDistrictActive == true ? ($('#mapsvg1  path').removeClass('svgDistrictActive'), $('#mapsvg1  path#' + distrctId).addClass('svgDistrictActive')) : $('#mapsvg1  path#' + distrctId).addClass('svgDistrictActive');;
   }
 
   ngOnDestroy() {
