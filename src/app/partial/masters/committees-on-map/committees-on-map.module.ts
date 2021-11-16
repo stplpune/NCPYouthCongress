@@ -6,6 +6,7 @@ import { CommitteesOnMapComponent } from './committees-on-map.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { TooltipModule } from '../../directive/tooltip.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     FormsModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    TooltipModule
   ]
 })
 export class CommitteesOnMapModule { }

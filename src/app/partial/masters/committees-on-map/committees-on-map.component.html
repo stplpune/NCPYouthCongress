@@ -72,7 +72,7 @@
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)" [class.active]="resCommittes.Id == activeRow" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resCommittes of resultCommittees">
-                                        <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}}</p> <h3>{{resCommittes.AllottedDesignation}}</h3>
+                                        <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span class="badge rounded-pill bg-info text-dark float-end text-center text-white"  [appTooltip] title="Member Count">{{resCommittes?.AllottedDesignation}}</span> </p> 
                                         <span class="small">{{resCommittes.Area | titlecase}}</span>
                                       </a>
                                       
@@ -95,7 +95,8 @@
                                 <div class="list-group list-group-flush"  *ngIf="defaultMembersFlag">
                                     <div class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
                                       <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''"><span class="text-danger">No Member Assigned</span> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small></p>
-                                      <div class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}}        <h3>{{resOrganizationMember.TotalWork}}</h3>
+                                      <div class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}}       
+                                        <span class="badge rounded-pill bg-info text-dark float-end text-center text-white"  [appTooltip] title="Work Count">{{resOrganizationMember.TotalWork}}</span>
                                    <p class="mb-0 fw-bold mt-1"> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> {{resOrganizationMember?.MobileNo}}</small>
                                         <a class="calltomember" href="tel:{{resOrganizationMember?.MobileNo}}"><i class="fas fa-phone-alt"></i></a></p>
                                     </div>

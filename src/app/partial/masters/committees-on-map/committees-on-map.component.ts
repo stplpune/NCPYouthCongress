@@ -69,7 +69,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngOnInit(): void {
     this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
-    this.selDistrictName();
+    // this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
     this.searchFilterByCommittee('false');
   }
@@ -114,6 +114,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     setTimeout(() => {
       this.allDistrict.forEach((element: any) => {
         $('#mapsvg1  path[id="' + element.DistrictId + '"]').addClass('clicked');
+        $('#mapsvg1  #'+element.DistrictName).text(element.TotalCommittee )
       });
     }, 500);
   }
