@@ -78,8 +78,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.loggedUserTypeId == 5 ? this.districtName = this.commonService.getCommiteeInfo().CommiteeName : this.districtName = "Maharashtra State";
   }
 
-  
-
   svgMapColorReset() {
     $('#mapsvg1 path').css('fill', '#7289da');
   }
@@ -174,7 +172,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   getDistrict(id: any) {
     // this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_WithCount_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API  Web_GetDistrict_1_0_Committee
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

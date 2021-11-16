@@ -117,15 +117,16 @@ export class ActivityAnalysisComponent implements OnInit {
     this.filterForm.value.fromTo[1] != "" ? (toDate = this.datePipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
 
     let obj = 'UserId='+this.commonService.loggedInUserId()+'&categoryid=' + formData.workType + '&nopage=' + this.paginationNo + '&MemberId=' + formData.memberName + '&FromDate=' + fromDate + '&ToDate=' + toDate;
-    this.callAPIService.setHttp('get', 'Web_GetPoliticalWork_Web_1_0_Commmittee?' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetPoliticalWork_Analysis_Web_1_0_Commmittee?' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      res.data == 0 ? (this.PoliticalWork = res.data3[0].Totalwork) : this.PoliticalWork = 0;
-      res.data == 0 ? (this.newsLetters = res.data3[1].Totalwork) : this.newsLetters = 0;
-      res.data == 0 ? (this.socialMediaCount = res.data3[2].Totalwork) : this.socialMediaCount = 0;
-      res.data == 0 ? (this.PersonalHelp = res.data3[3].Totalwork) : this.PersonalHelp = 0;
-      res.data == 0 ? (this.partyPrograms = res.data3[4].Totalwork) : this.partyPrograms = 0;
-      res.data == 0 ? (this.Helpme = res.data3[5].Totalwork) : this.Helpme = 0;
-      res.data == 0 ? (this.TotalWorks = res.data3[6].Totalwork) : this.TotalWorks = 0;
+      res.data == 0 ? (this.TotalWorks = res.data3[0].Totalwork) : this.TotalWorks = 0;
+      res.data == 0 ? (this.PoliticalWork = res.data3[1].Totalwork) : this.PoliticalWork = 0;
+      res.data == 0 ? (this.newsLetters = res.data3[2].Totalwork) : this.newsLetters = 0;
+      res.data == 0 ? (this.socialMediaCount = res.data3[3].Totalwork) : this.socialMediaCount = 0;
+      res.data == 0 ? (this.PersonalHelp = res.data3[4].Totalwork) : this.PersonalHelp = 0;
+      res.data == 0 ? (this.partyPrograms = res.data3[5].Totalwork) : this.partyPrograms = 0;
+      res.data == 0 ? (this.Helpme = res.data3[6].Totalwork) : this.Helpme = 0;
+     
       if (res.data == 0) {
         this.spinner.hide();
         this.politicalWorkArray = res.data1;
