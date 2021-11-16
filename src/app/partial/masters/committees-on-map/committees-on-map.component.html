@@ -1,13 +1,14 @@
 <div class="container-fluid commitees">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-3">
-                <span class="page-name">Committees Performance
-                </span>
-            </div>
+            <span class="page-name">Committees Performance
+            </span>
+        </div>
         <div class="col-sm-9 text-end">
             <div class="row g-2">
                 <div class="offset-lg-4 col-sm-4">
-                    <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)" (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict"  [items]="allDistrict" 
+                    <ngx-select [allowClear]="allowClear" (select)="selectDistrict($event)"
+                        (remove)="clearFilter('CommitteesIn')" [formControl]="selDistrict" [items]="allDistrict"
                         optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District">
                     </ngx-select>
                 </div>
@@ -26,17 +27,18 @@
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="Search"
                             placeholder="Search Committees..." (keyup)="filterByCommittee()" />
-                        <button type="button" class="btn btn-light border btn-sm"
-                            (click)="clearFilterByCommittee()"  *ngIf="Search.value"><i
-                                _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
-                        <button type="button" *ngIf="!Search.value"
-                            class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                        <button type="button" class="btn btn-light border btn-sm" (click)="clearFilterByCommittee()"
+                            *ngIf="Search.value"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                        <button type="button" *ngIf="!Search.value" class="btn btn-sm border btn-light"><i
+                                class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-auto"> <button type="button" class="btn btn-sm btn-secondary me-2" (click)="location.back();">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <!-- <button  class="btn btn-sm btn-main" (click)="clearallFilter()"><i  class="fas fa-sync-alt"></i></button> --></div>
+                <div class="col-auto"> <button type="button" class="btn btn-sm btn-secondary me-2"
+                        (click)="location.back();">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <!-- <button  class="btn btn-sm btn-main" (click)="clearallFilter()"><i  class="fas fa-sync-alt"></i></button> -->
+                </div>
             </div>
         </div>
     </div>
@@ -57,12 +59,14 @@
                                 </div> -->
                             </div>
                             <div id="mapsvg1"></div>
+
                             <!-- <img src="assets/images/maharashtra_districts_map.svg" /> -->
                         </div>
                     </div>
                     <div class="col-sm-3 border-end">
-                        <div class="card shadow-none"  *ngIf="defaultCommitteesFlag">
-                            <div class="card-header pb-0 border-bottom">Committees in <span class="text-main">{{districtName | titlecase}}</span>
+                        <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
+                            <div class="card-header pb-0 border-bottom">Committees in <span
+                                    class="text-main">{{districtName | titlecase}}</span>
                                 <!-- <span class="float-end">
                                     <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
                                         <i class="fas fa-times"></i>
@@ -71,45 +75,90 @@
                             </div>
                             <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
-                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)" [class.active]="resCommittes.Id == activeRow" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resCommittes of resultCommittees">
-                                        <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span class="badge rounded-pill bg-info text-dark float-end text-center text-white"  [appTooltip] title="Member Count">{{resCommittes?.AllottedDesignation}}</span> </p> 
+                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)"
+                                        [class.active]="resCommittes.Id == activeRow"
+                                        class="list-group-item list-group-item-action" aria-current="true"
+                                        *ngFor="let resCommittes of resultCommittees">
+                                        <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
+                                                class="badge rounded-pill bg-light text-dark float-end text-center"
+                                                [appTooltip]
+                                                title="Member Count">{{resCommittes?.AllottedDesignation}}</span> </p>
                                         <span class="small">{{resCommittes.Area | titlecase}}</span>
-                                      </a>
-                                      
+                                    </a>
+
                                     <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                                       <span class="small">Ahmednagar - Akole - Abit Khind</span>
                                       <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
                                     </a> -->
-                                  </div>
-                                  <div  *ngIf="resultCommittees?.length == 0">
-                                    <div  class="alert alert-danger text-center py-2">No Committes Found..!</div>
+                                </div>
+                                <div *ngIf="resultCommittees?.length == 0">
+                                    <div class="alert alert-danger text-center py-2">No Committes Found..!</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-sm-3">
-                        <div class="card shadow-none" >
-                            <div class="card-header pb-0 border-bottom"  *ngIf="defaultMembersFlag">Members in <span class="text-main" style="cursor: pointer;" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
+                        <div class="card shadow-none">
+                            <div class="card-header pb-0 border-bottom" *ngIf="defaultMembersFlag">Members in <span
+                                    class="text-main" style="cursor: pointer;"
+                                    (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
                             <div class="card-body p-0 pt-2 fix-height">
-                                <div class="list-group list-group-flush"  *ngIf="defaultMembersFlag">
-                                    <div class="list-group-item list-group-item-action" aria-current="true" *ngFor="let resOrganizationMember of resultOrganizationMember" (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
-                                      <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''"><span class="text-danger">No Member Assigned</span> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small></p>
-                                      <div class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">{{resOrganizationMember.MemberName}}       
-                                        <span class="badge rounded-pill bg-info text-dark float-end text-center text-white"  [appTooltip] title="Work Count">{{resOrganizationMember.TotalWork}}</span>
-                                   <p class="mb-0 fw-bold mt-1"> <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null"> {{resOrganizationMember?.MobileNo}}</small>
-                                        <a class="calltomember" href="tel:{{resOrganizationMember?.MobileNo}}"><i class="fas fa-phone-alt"></i></a></p>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item list-group-item-action p-2" aria-current="true"
+                                        *ngFor="let resOrganizationMember of resultOrganizationMember"
+                                        (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
+                                        <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''">
+                                            <span class="text-danger">No Member Assigned</span> <small
+                                                *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
+                                        </p>
+                                        <div class="d-flex" *ngIf="resOrganizationMember.MemberName != ''">
+                                            <div class="flex-shrink-0 border-end pe-2">
+                                                <span class="text-main fs-5 text" [appTooltip]
+                                                title="Work Count">{{resOrganizationMember.TotalWork}}</span>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1 ps-2">
+                                                {{resOrganizationMember.MemberName}}
+                                                <p class="mb-0 fw-bold mt-1"> <small
+                                                    *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
+                                                    {{resOrganizationMember?.MobileNo}}</small>
+                                                    <a class="calltomember"
+                                                    href="tel:{{resOrganizationMember?.MobileNo}}"><i
+                                                        class="fas fa-phone-alt"></i></a>
+                                            </div>
+                                          </div>
                                     </div>
-                                      <span class="small">{{resOrganizationMember.DesignationName}}</span>
+                                </div>
+
+
+
+                                <!-- <div class="list-group list-group-flush" *ngIf="defaultMembersFlag">
+                                    <div class="list-group-item list-group-item-action" aria-current="true"
+                                        *ngFor="let resOrganizationMember of resultOrganizationMember"
+                                        (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
+                                        <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''">
+                                            <span class="text-danger">No Member Assigned</span> <small
+                                                *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
+                                        </p>
+                                        <div class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName != ''">
+                                            {{resOrganizationMember.MemberName}}
+                                            <span class="badge text-white float-end text-center bg-main" [appTooltip]
+                                                title="Work Count">{{resOrganizationMember.TotalWork}}</span>
+                                            <p class="mb-0 fw-bold mt-1"> <small
+                                                    *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
+                                                    {{resOrganizationMember?.MobileNo}}</small>
+                                                <a class="calltomember"
+                                                    href="tel:{{resOrganizationMember?.MobileNo}}"><i
+                                                        class="fas fa-phone-alt"></i></a>
+                                            </p>
+                                        </div>
+                                        <span class="small">{{resOrganizationMember.DesignationName}}</span>
                                     </div>
-                                    <div  *ngIf="resultOrganizationMember?.length == 0">
-                                        <div  class="alert alert-danger text-center py-2">No Members in this Committe..!</div>
+                                    <div *ngIf="resultOrganizationMember?.length == 0">
+                                        <div class="alert alert-danger text-center py-2">No Members in this Committe..!
+                                        </div>
                                     </div>
-                                    <!-- <a href="#" class="list-group-item list-group-item-action">
-                                        <span class="small">Designation</span>
-                                      <p class="mb-0 fw-bold mt-1">Member Name</p>
-                                    </a> -->
-                                  </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -123,11 +172,16 @@
                                     </div>
                                     <div class="col-sm-3 text-end">
                                         <div class="input-group">
-                                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')" [formControl]="fromToDate"
-                                             [selectMode]="'range'" (dateTimeChange)="selDateRangeByFilter(fromToDate.value)" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Select Date Range">
-                                            <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3" *ngIf="!fromToDate.value">
+                                            <input [owlDateTime]="dt3" (remove)="clearFilter('dateRangePIcker')"
+                                                [formControl]="fromToDate" [selectMode]="'range'"
+                                                (dateTimeChange)="selDateRangeByFilter(fromToDate.value)"
+                                                class="form-control" [owlDateTimeTrigger]="dt3"
+                                                placeholder="Select Date Range">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                [owlDateTimeTrigger]="dt3" *ngIf="!fromToDate.value">
                                                 <i class="fas fa-calendar-alt"></i></button>
-                                            <button class="btn btn-light border btn-sm" type="button" *ngIf="fromToDate.value" (click)="clearFilter('dateRangePIcker')">
+                                            <button class="btn btn-light border btn-sm" type="button"
+                                                *ngIf="fromToDate.value" (click)="clearFilter('dateRangePIcker')">
                                                 <i class="fas fa-times"></i></button>
                                         </div>
                                         <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>

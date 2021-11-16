@@ -34,7 +34,7 @@ export class AddDesignationComponent implements OnInit {
   loggedInUserId:any;
   loggedInDesId:any;
   getloggedInDesId:any;
-
+  cloneAllBodyAssignedDesignation:any
   
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
@@ -185,6 +185,7 @@ export class AddDesignationComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allBodyAssignedDesignation = res.data1;
+        this.cloneAllBodyAssignedDesignation = JSON.parse(JSON.stringify(res.data1));
         this.AlreadyAssignedDesignations(this.desBodyId);
       } else {
         this.spinner.hide();
@@ -201,9 +202,10 @@ export class AddDesignationComponent implements OnInit {
 
   swingDesignation(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.allBodyAssignedDesignation, event.previousIndex, event.currentIndex);
-    let stringDesignation: any = 'oldChangeId=' + this.allBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.allBodyAssignedDesignation[event.previousIndex].SrNo
-      + '&NewChangeId=' + this.allBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.allBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();
-
+    // debugger;
+    // console.log(this.cloneAllBodyAssignedDesignation);
+    let stringDesignation: any = 'oldChangeId=' + this.cloneAllBodyAssignedDesignation[event.previousIndex].Id + '&oldChangesSortNo=' + this.cloneAllBodyAssignedDesignation[event.previousIndex].SrNo
+      + '&NewChangeId=' + this.cloneAllBodyAssignedDesignation[event.currentIndex].Id + '&NewChangesSortNo=' + this.cloneAllBodyAssignedDesignation[event.currentIndex].SrNo + '&Createdby=' + this.commonService.loggedInUserId();
     this.callAPIService.setHttp('get', 'Web_SetDesignationSort?' + stringDesignation, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
