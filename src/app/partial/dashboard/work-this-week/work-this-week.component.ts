@@ -346,7 +346,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   getBestPerKaryMember() {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
-    console.log(topFilterValue);
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
        'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst+'&DistrictId='+topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -354,7 +353,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.spinner.hide();
         this.resBestPerKaryMember = res.data1;
       } else {
-        console.log(this.resBestPerKaryMember);
         this.resBestPerKaryMember = [];
         this.spinner.hide();
         if (res.data == 1) {
@@ -541,13 +539,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       data.forEach((ele: any) => {
         if(ele.TotalWork > 0){
         //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
-          $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
-          ele.TotalWork < 6 ? $('#mapsvg  path#' + ele.DistrictId).addClass('lessThanFive'):  '';
+        $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
+          ele.TotalWork < 6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive'):  '';
         }else{
           let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
           checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") :''
-          $('#mapsvg  path#' + ele.DistrictId).addClass("zeroActivity")
-          $('#mapsvg  path#' + ele.DistrictName).text('');
+          $('#mapsvg  #' + ele.DistrictId).addClass("zeroActivity");
+          $('#mapsvg  #' + ele.DistrictName).text('');
           this.totalWorkCount =  ele.TotalWork;
           // $('path#' + ele.DistrictId).addClass('zeroActivity');
         }
