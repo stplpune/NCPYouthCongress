@@ -255,7 +255,11 @@ export class AddDesignationComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.toastrService.success(res.data1[0].Msg);
+        if(res.data1[0].Msg == "Designation Assigned Successfully"){
+          this.toastrService.success(res.data1[0].Msg);
+        }else{
+          this.toastrService.error(res.data1[0].Msg);
+        }
         this.getBodyAssignedDesignation();
         this.AlreadyAssignedDesignations(this.desBodyId);
 
