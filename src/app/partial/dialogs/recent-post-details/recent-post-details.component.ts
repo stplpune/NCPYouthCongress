@@ -14,7 +14,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./recent-post-details.component.css']
 })
 export class RecentPostDetailsComponent implements OnInit {
-  Liked: boolean = true;
+  Liked: boolean = false;
   comments: boolean = false;
   Shared: boolean = false;
   ListView: boolean = true;

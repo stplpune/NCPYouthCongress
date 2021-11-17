@@ -44,7 +44,7 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getMemberName();
     this.getDistrict();
     this.defaultFilterForm();
-    this.getViewMembers(this.filterForm.value);
+    this.getViewMembers();
     this.searchFilter('false');
   }
 
@@ -127,15 +127,16 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
 
-  getViewMembers(viewMembersObj: any) {
-    (viewMembersObj.DistrictId == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.DistrictId = 0 : viewMembersObj.DistrictId;
-    (viewMembersObj.Talukaid == undefined || viewMembersObj.Talukaid == null) ? viewMembersObj.Talukaid = 0 : viewMembersObj.Talukaid;
-    (viewMembersObj.villageid == undefined || viewMembersObj.villageid == null) ? viewMembersObj.villageid = 0 : viewMembersObj.villageid;
-    (viewMembersObj.SearchText == undefined || viewMembersObj.SearchText == null) ? viewMembersObj.SearchText = '' : viewMembersObj.SearchText;
-    (viewMembersObj.BodyId == undefined || viewMembersObj.BodyId == null) ? viewMembersObj.BodyId = 0 : viewMembersObj.BodyId;
+  getViewMembers() {
+    let formdata = this.filterForm.value;
+    (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
+    (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
+    (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
+    (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
+    (formdata.BodyId == undefined || formdata.BodyId == null) ? formdata.BodyId = 0 : formdata.BodyId;
 
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=0&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + viewMembersObj.BodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -160,17 +161,30 @@ export class ExecutiveMembersComponent implements OnInit {
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
-    this.getViewMembers(this.filterForm.value)
+    this.getViewMembers()
   }
 
   filter(event: any) {
     this.paginationNo = 1;
-    this.getViewMembers(this.filterForm.value);
+    this.getViewMembers();
   }
 
+//   clearFilter(flag: any) {
+//     this.paginationNo = 1;
+// console.log(this.filterForm.value)
+//    // this.getViewMembers(this.filterForm.value)
+//   }
+
   clearFilter(flag: any) {
+    if (flag == 'committee') {
+      this.filterForm.controls['BodyId'].setValue(0);
+    } else if (flag == 'district') {
+      this.filterForm.controls['DistrictId'].setValue(0);
+    } else if (flag == 'search') {
+      this.filterForm.controls['searchText'].setValue('');
+    }
     this.paginationNo = 1;
-    this.getViewMembers(this.filterForm.value)
+    this.getViewMembers()
   }
 
   searchFilter(flag: any) {
@@ -184,7 +198,7 @@ export class ExecutiveMembersComponent implements OnInit {
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.filterForm.value.SearchText = this.filterForm.value.searchText;
-        this.getViewMembers(this.filterForm.value)
+        this.getViewMembers()
       }
       );
   }
@@ -202,7 +216,7 @@ export class ExecutiveMembersComponent implements OnInit {
   refresh() {
     this.defaultFilterForm();
     let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-    this.getViewMembers(this.filterForm.value);
+    this.getViewMembers();
   }
 
   addEditMember(flag: any, id: any) {
@@ -214,7 +228,7 @@ export class ExecutiveMembersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes' || result == 'No') {
-        this.getViewMembers(this.filterForm.value);
+        this.getViewMembers();
       }
     });
   }
@@ -230,7 +244,7 @@ export class ExecutiveMembersComponent implements OnInit {
         this.blockUnblockUser(flag, id);
       } else if (result == 'No') {
         //  this.filterForm.controls['BodyId'].setValue('');
-        this.getViewMembers(this.filterForm.value);
+        this.getViewMembers();
       }
     });
   }
@@ -244,7 +258,7 @@ export class ExecutiveMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        this.getViewMembers(this.filterForm.value);
+        this.getViewMembers();
       } else {
         // //this.toastrService.error("Data is not available");
       }

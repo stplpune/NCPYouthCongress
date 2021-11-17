@@ -101,9 +101,11 @@
                     <div class="col-sm-3">
                         <div class="card shadow-none">
                             <div class="card-header pb-0 border-bottom" *ngIf="defaultMembersFlag">Members in <span
-                                    class="text-main" style="cursor: pointer;"
-                                    (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
-                            <div class="card-body p-0 pt-2 fix-height">
+                                    class="text-main" style="cursor: pointer;" (click)="redirectOrgDetails()"
+                                    >{{selCommitteeName | titlecase}}</span></div>
+                                    <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
+    
+                            <div class="card-body p-0 pt-2 fix-height" *ngIf="defaultMembersFlag">
                                 <div class="list-group list-group-flush">
                                     <div class="list-group-item list-group-item-action p-2" aria-current="true"
                                         *ngFor="let resOrganizationMember of resultOrganizationMember"
@@ -113,15 +115,12 @@
                                                 *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
                                         </p>
                                         <div class="d-flex" *ngIf="resOrganizationMember.MemberName != ''">
-                                            <div class="flex-shrink-0 border-end pe-2">
-                                                <span class="text-main fs-5 text" [appTooltip]
-                                                title="Work Count">{{resOrganizationMember.TotalWork}}</span>
-                                            </div>
                                             <div class="flex-grow-1 ms-1 ps-2">
                                                 {{resOrganizationMember.MemberName}}
                                                 <p class="mb-0 fw-bold mt-1"> <small
                                                     *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
-                                                    {{resOrganizationMember?.MobileNo}}</small>
+                                                    {{resOrganizationMember?.MobileNo}}</small><br>
+                                                    <span><small>Work Count: {{resOrganizationMember.TotalWork}}</small></span>
                                                     <a class="calltomember"
                                                     href="tel:{{resOrganizationMember?.MobileNo}}"><i
                                                         class="fas fa-phone-alt"></i></a>

@@ -89,19 +89,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
     $(document).on('click', '#mapsvg1  path', (e: any) => { // add on SVG Map
       this.onClickFlag = true;
+      this.defaultMembersFlag = false;
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
-      // this.allDistrict.forEach((element:any) => {
-      //   if(distrctId == element.DistrictId){
-      //     if(element.TotalWork == 0 ){
-      //       this.toastrService.error("Data is not available");
-      //           return
-      //     }else{
-            this.toggleClassActive(Number(distrctId));
-            this.getOrganizationByDistrictId(Number(distrctId));
-      //     }
-      //   }
-      // })
+      this.toggleClassActive(Number(distrctId));
+      this.getOrganizationByDistrictId(Number(distrctId));
     });
   }
 
@@ -125,7 +117,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnDestroy() {
-    sessionStorage.removeItem('DistrictIdWorkThisWeek');
+    // sessionStorage.removeItem('DistrictIdWorkThisWeek');
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
@@ -134,9 +126,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selectDistrict(event: any) {
     // this.callSVGMap()
     this.selectedDistrictId = event;
-    // this.clearFilterByCommittee();
     this.getOrganizationByDistrictId(this.selectedDistrictId);
-    this.toggleClassActive(this.selectedDistrictId)
+    this.toggleClassActive(this.selectedDistrictId);
+    this.defaultMembersFlag = false;
     // this.comActiveClass(0);  
   }
 
@@ -230,7 +222,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   redirectOrgDetails() {
-
+      console.log(this.globalBodyId,this.selCommitteeName)
+      let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
+      sessionStorage.setItem('bodyId', JSON.stringify(obj))
+      this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
 
   redToMemberProfile(memberId: any, FullName: any) {
@@ -301,13 +296,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
+        this.activeRow = null;
         //this.selDistrictName(); 
         this.getOrganizationByDistrictId(this.selectedDistrictId);
         this.districtWiseCommityWorkGraph(this.selectedDistrictId);
-        // this.toggleClassActive(0);
-        // this.districtWiseCommityWorkGraph(this.DistrictId);
-        // this.addClasscommitteeWise(this.DistrictId);
-
+      // this.resultOrganizationMember = [];
+      this.defaultMembersFlag = false;
       });
   }
 
@@ -322,6 +316,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.getOrganizationByDistrictId(checkDistrictId);
     this.districtWiseCommityWorkGraph(checkDistrictId);
     this.defaultCloseBtn = false;
+    this.defaultMembersFlag = false;
   }
 
   // --------------------------------------- Comparison of Committees chart start here ----------------------------------------------- //
