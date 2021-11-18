@@ -54,6 +54,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   committeeName: any;
   selCommiteeFlag: boolean = true;
   onClickFlag:boolean = false;
+  allLevels: any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -191,6 +192,26 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
     }, (error: any) => {
       if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  
+  getLevel() {
+    //this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.allLevels = res.data1;
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+        // this.toastrService.error("Data is not available 1");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.spinner.hide();
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
