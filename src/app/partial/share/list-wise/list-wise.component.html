@@ -69,10 +69,10 @@
                         </div>
                         </div>
                     </div>
-                    <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserLName}}</h6>
+                    <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName}}</h6>
+                    <p>{{dashboardActivities?.Designation}}</p>
                     <div class="post-details">
-                        <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p>
-                        <!-- <p class="post-title"><small>{{dashboardActivities?.Description | titlecase}}</small></p> -->
+                        <!-- <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p> -->
                         <div class="row small text-muted">
                             <div class="col-sm-4"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
                             </div>

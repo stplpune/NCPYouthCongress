@@ -401,7 +401,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
 
       chart.data = this.DistWiseCommityWGraphArray;
-      chart.padding(10, 5, 5, 5);
+       chart.padding(10, 5, 5, 5);
       // createSeries('TotalWork', 'Work Done by Committees');
       createSeries('TotalWork', 'Total Work Done');
 

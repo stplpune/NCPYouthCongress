@@ -148,10 +148,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="post-title fw-bold">{{dashboardActivities?.Title | titlecase}}</p>
+                                    <p class="post-title fw-bold">{{dashboardActivities?.UserFName | titlecase}} 
+                                        {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName | titlecase}}
+                                    </p>
+                                    <small class="fw-bold">{{dashboardActivities?.Designation}}</small>
+                                    <!-- <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p> -->
                                     <div class="post-details">
-                                        <p class="post-title text-muted">{{dashboardActivities?.Description |
-                                            titlecase}}</p>
+                                        <!-- <p class="post-title text-muted">{{dashboardActivities?.Description |
+                                            titlecase}}</p> -->
                                         <div class="row small text-muted">
                                             <div class="col-sm-4 col"><i
                                                     class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}

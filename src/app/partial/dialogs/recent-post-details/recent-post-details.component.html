@@ -49,7 +49,8 @@
                                                 {{activitieDetails?.CreatedTime}}</span></div>
                                         </span>
                                     </p>
-                                        <small class="small text-muted"><span class="fa fa-map-marker-alt me-1"></span> {{activitieDetails?.Activitylocation}}</small>
+                                    <p >{{activitieDetails?.Designation}}</p>
+                                        <small class="small text-muted" *ngIf="activitieDetails?.Activitylocation"><span class="fa fa-map-marker-alt me-1"></span> {{activitieDetails?.Activitylocation}}</small>
                                 </div>
                             </div>
                             <div class="modal-post">
