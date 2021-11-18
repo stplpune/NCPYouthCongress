@@ -131,6 +131,18 @@
                                                         {{resOrganizationMember?.MobileNo}}</small><br>
                                                     <span><small>Work Count:
                                                             {{resOrganizationMember.TotalWork}}</small></span>
+
+
+                                                            <td *ngIf="resOrganizationMember?.DeviceType==1" >
+                                                                <img src="assets\images\dashboard-images\Android_robot.svg">
+                                                            </td>
+                                                            <td *ngIf="resOrganizationMember?.DeviceType==2" >
+                                                                <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                                            </td>
+                                                            <td *ngIf="resOrganizationMember?.DeviceType==0">
+                                                                -
+                                                            </td>
+
                                                     <a class="calltomember"
                                                         href="tel:{{resOrganizationMember?.MobileNo}}"><i
                                                             class="fas fa-phone-alt"></i></a>
