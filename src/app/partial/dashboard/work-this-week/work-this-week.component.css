@@ -5,3 +5,10 @@
     display: flex;
     font-size: 0.8rem;
 }
+.calltomember{
+    background-color: #efefef;
+    color: var(--main-color);
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 50%;
+}
