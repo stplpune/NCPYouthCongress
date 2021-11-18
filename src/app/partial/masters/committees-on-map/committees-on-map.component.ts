@@ -55,6 +55,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selCommiteeFlag: boolean = true;
   onClickFlag:boolean = false;
   allLevels: any;
+  commityOnMapForm!: FormGroup;
+  CheckBoxLevelArray: any = [];
+  CheckBoxLevelArrayJSON: any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -73,6 +76,14 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     // this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
     this.searchFilterByCommittee('false');
+    this. getLevel();
+    this.defaultcommityOnMapForm();
+  }
+
+  defaultcommityOnMapForm() {
+    this.commityOnMapForm = this.fb.group({
+      checkLevel: [''],
+    })
   }
 
   selDistrictName() {
@@ -133,9 +144,30 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     // this.comActiveClass(0);  
   }
 
+  onCheckChangeLevel(event: any,CheckBoxLevelId:any){
+    if (event.target.checked == false) {
+      let index = this.CheckBoxLevelArray.map((x: any) => { return x; }).indexOf(CheckBoxLevelId);
+      this.CheckBoxLevelArray.splice(index, 1);
+      this.getOrganizationByDistrictId(this.selectedDistrictId);
+      this.districtWiseCommityWorkGraph(this.selectedDistrictId);
+      this.defaultMembersFlag = false;
+      this.activeRow = 0;
+    }
+    else {
+      this.CheckBoxLevelArray.push(CheckBoxLevelId);
+      this.getOrganizationByDistrictId(this.selectedDistrictId);
+      this.districtWiseCommityWorkGraph(this.selectedDistrictId);
+      this.defaultMembersFlag = false;
+      this.activeRow = 0;
+    }
+  }
+
   getOrganizationByDistrictId(id: any) {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
+//this.CheckBoxLevelArray = this.CheckBoxLevelArray.join();
+    this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join();
+    //this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_3_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&LevelId=' + this.CheckBoxLevelArrayJSON + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getDistrict(id)
@@ -344,8 +376,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   districtWiseCommityWorkGraph(id: any) {
     this.spinner.show();
     let globalDistrictId = this.selectedDistrictId || id;
-    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + id + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value;
-    this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
+    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + id + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value + this.toDate + '&LevelId=' + this.CheckBoxLevelArrayJSON;
+    // this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph_1_0?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();

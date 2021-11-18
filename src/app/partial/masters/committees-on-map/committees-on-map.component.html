@@ -65,22 +65,13 @@
                     </div>
                     <div class="col-sm-3 border-end">
                         <div class="mb-0 small form-container">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="District">
-                                <label class="form-check-label" for="inlineCheckbox2">District</label>
+                            <form [formGroup]="commityOnMapForm">
+                            <div class="form-check form-check-inline" *ngFor="let level of allLevels ; let i = index">
+                                <input class="form-check-input" (change)="onCheckChangeLevel($event,level.Id)" type="checkbox" >
+                                <label class="form-check-label" for="inlineCheckbox{{i}}">{{level.LevelName}}</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Taluka">
-                                <label class="form-check-label" for="inlineCheckbox3">Taluka</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="City">
-                                <label class="form-check-label" for="inlineCheckbox4">City</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Village">
-                                <label class="form-check-label" for="inlineCheckbox5">Village</label>
-                            </div>
+                        </form>
+
                         </div>
                         <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
                             <div class="card-header pb-0 border-bottom">Committees in <span
