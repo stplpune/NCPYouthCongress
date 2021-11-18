@@ -1,7 +1,7 @@
 <div class="container-fluid commitees">
     <div class="row mx-0 px-0" id="pageheader">
         <div class="col-sm-3">
-            <span class="page-name">Committees Performance
+            <span class="page-name">Committees On Map
             </span>
         </div>
         <div class="col-sm-9 text-end">
@@ -64,6 +64,24 @@
                         </div>
                     </div>
                     <div class="col-sm-3 border-end">
+                        <div class="mb-0 small form-container">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="District">
+                                <label class="form-check-label" for="inlineCheckbox2">District</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Taluka">
+                                <label class="form-check-label" for="inlineCheckbox3">Taluka</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="City">
+                                <label class="form-check-label" for="inlineCheckbox4">City</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Village">
+                                <label class="form-check-label" for="inlineCheckbox5">Village</label>
+                            </div>
+                        </div>
                         <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
                             <div class="card-header pb-0 border-bottom">Committees in <span
                                     class="text-main">{{districtName | titlecase}}</span>
@@ -101,10 +119,10 @@
                     <div class="col-sm-3">
                         <div class="card shadow-none">
                             <div class="card-header pb-0 border-bottom" *ngIf="defaultMembersFlag">Members in <span
-                                    class="text-main" style="cursor: pointer;" (click)="redirectOrgDetails()"
-                                    >{{selCommitteeName | titlecase}}</span></div>
-                                    <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
-    
+                                    class="text-main" style="cursor: pointer;"
+                                    (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
+                            <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
+
                             <div class="card-body p-0 pt-2 fix-height" *ngIf="defaultMembersFlag">
                                 <div class="list-group list-group-flush">
                                     <div class="list-group-item list-group-item-action p-2" aria-current="true"
@@ -118,14 +136,15 @@
                                             <div class="flex-grow-1 ms-1 ps-2">
                                                 {{resOrganizationMember.MemberName}}
                                                 <p class="mb-0 fw-bold mt-1"> <small
-                                                    *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
-                                                    {{resOrganizationMember?.MobileNo}}</small><br>
-                                                    <span><small>Work Count: {{resOrganizationMember.TotalWork}}</small></span>
+                                                        *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
+                                                        {{resOrganizationMember?.MobileNo}}</small><br>
+                                                    <span><small>Work Count:
+                                                            {{resOrganizationMember.TotalWork}}</small></span>
                                                     <a class="calltomember"
-                                                    href="tel:{{resOrganizationMember?.MobileNo}}"><i
-                                                        class="fas fa-phone-alt"></i></a>
+                                                        href="tel:{{resOrganizationMember?.MobileNo}}"><i
+                                                            class="fas fa-phone-alt"></i></a>
                                             </div>
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
 
