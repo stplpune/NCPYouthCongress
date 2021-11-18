@@ -64,7 +64,7 @@
 
     <div class="row mb-3">
         <div class="col-sm-5 chartbox">
-            <div class="card mb-3">
+            <div class="card mb-3 d-none d-lg-block d-sm-none">
                 <div class="card-header">Work done by Members
 
                     <div class="float-end">{{selDistrictName}}
@@ -141,7 +141,7 @@
                                 <th>Committee Name</th>
                                 <th>Location</th>
                                 <th>Work Count</th>
-
+                                <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,6 +152,11 @@
                                 </td>
                                 <td>{{result.Area}}</td>
                                 <td>{{result.Totalwork}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
                             </tr>
                             <tr *ngIf="resBestPerKaryMember?.length == 0">
                                 <td colspan="4">
@@ -177,7 +182,12 @@
                                 Best Performance
                             </div>
                             <div class="col-sm-6 text-end">
-                                <div class="mb-3">
+                                <ngx-select [allowClear]="true" [items]="memberNameArray"
+                                    (select)="filterData('committee')" optionValueField="Id" formControlName="BodyId"
+                                    optionTextField="BodyOrgCellName" (remove)="clearFilter('committee')"
+                                    placeholder="Select Committee Name">
+                                </ngx-select>
+                                <!-- <div class="mb-3">
                                     <div class="form-check form-check-inline">
                                         <ng-container *ngIf="SubUserTypeId == 5; else elseBlock">
                                             <input class="form-check-input" name="IsBody" type="radio"
@@ -198,7 +208,7 @@
                                             </div>
                                         </ng-template>
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 <!-- <div class="form-check form-check-inline">
@@ -212,7 +222,7 @@
                             </div>
                         </div>
                         <div class="row g-2" *ngIf="catValue != 'Committee'">
-                            <div class="col-md-4 offset-4">
+                            <!-- <div class="col-md-4 ms-auto">
                                 <ngx-select [allowClear]="true" [items]="allDistrict" (select)="filterData('district')"
                                     (remove)="clearFilter('district')" formControlName="DistrictId"
                                     optionValueField="DistrictId" optionTextField="DistrictName"
@@ -225,14 +235,15 @@
                                     optionValueField="TalukaId" optionTextField="TalukaName" formControlName="TalukaId"
                                     placeholder="Select Taluka" [disabled]="!this.filterBestPer.value.DistrictId">
                                 </ngx-select>
-                            </div>
+                            </div> -->
                             <!-- <div class="col-md-4">
                                 <ngx-select [allowClear]="true" [items]="resultVillageOrCity" (remove)="districtClear('village')" placeholder="Select village" optionValueField="VillageId" optionTextField="VillageName" formControlName="VillageId" [disabled]="!this.filterBestPer.value.TalukaId"
                                     (select)="getVillByTaluka(this.filterBestPer.value.VillageId)">
                                 </ngx-select>
                             </div> -->
                         </div>
-                        <div class="row g-2" *ngIf="catValue == 'Committee'">
+                        <!-- <div class="row g-2" *ngIf="catValue == 'Committee'">
+                            <div class="row g-2" *ngIf="catValue == 'Committee'">
                             <div class="col-md-6 offset-6">
                                 <ngx-select [allowClear]="true" [items]="memberNameArray"
                                     (select)="filterData('committee')" optionValueField="Id" formControlName="BodyId"
@@ -240,43 +251,55 @@
                                     placeholder="Select Committee Name">
                                 </ngx-select>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Sr. No.</th>
-                                <th>Member Name</th>
-                                <th>Political Work</th>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Member Name</th>
+                                    <th>Designation</th>
+                                    <th>Mobile No.</th>
+                                    <th>Total Work</th>
+                                    <th></th>
+                                    <!-- <th>Political Work</th>
                                 <th>News</th>
                                 <th>Social Media Help</th>
                                 <th>Personal Help</th>
-                                <th>Party Program</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <th>Party Program</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                            <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
-                                <td>{{i+1}}</td>
-                                <td><a class="text-primary"
-                                        (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
-                                </td>
-                                <td>{{result.PoliticalCount}}</td>
-                                <!-- <td>{{result.Totalwork}}</td> -->
+                                <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td><a class="text-primary"
+                                            (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
+                                    </td>
+                                    <td>{{result.DesignationName}}</td>
+                                    <td>{{result.MobileNo}}</td>
+                                    <td>{{result.Totalwork}}</td>
+                                    <td>
+                                        <a class="calltomember" href="tel:{{result.MobileNo}}"><i
+                                                class="fas fa-phone-alt"></i></a>
+                                    </td>
+                                    <!-- <td>{{result.PoliticalCount}}</td>
                                 <td>{{result.NewsLetterCount}}</td>
                                 <td>{{result.SocialMediaCount}}</td>
                                 <td>{{result.HelpCount}}</td>
-                                <td>{{result.PartyProgramCount}}</td>
-                            </tr>
-                            <tr *ngIf="resultBestPerKaryMember?.length == 0">
-                                <td colspan="7">
-                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <td>{{result.PartyProgramCount}}</td> -->
+                                </tr>
+                                <tr *ngIf="resultBestPerKaryMember?.length == 0">
+                                    <td colspan="7">
+                                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
