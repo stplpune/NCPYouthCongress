@@ -7,7 +7,7 @@
         <form [formGroup]="editProfileForm" enctype="multipart/form-data">
             <div class="row form-container">
                 <div class="col-sm-3">
-                    <div class="position-relative mb-3">
+                    <div class="position-relative mb-3 d-none d-lg-block d-sm-none">
                         <a class="update-photo" (click)="choosePhoto()">
                             <i class="fas fa-camera"></i>
                         </a>
@@ -20,6 +20,7 @@
                             class="img-fluid img-thumbnail profile-photo">
                         <img *ngIf="ImgUrl" src="{{ImgUrl}}" class="img-fluid img-thumbnail profile-photo">
                     </div>
+                    <div class="d-none d-lg-block d-sm-none">
                     <label for="txtFacebookURL" class="form-label"><i class="fab fa-facebook-f me-2 text-primary"></i>Facebook URL</label>
                     <input type="text" class="form-control mb-2" placeholder="Facebook Profile Link" formControlName="FacebookLink">
                     <div *ngIf="submitted && f.FacebookLink.errors" class="invalid-feedback" style="margin-top: -9px;">
@@ -35,11 +36,11 @@
                    <div *ngIf="submitted && f.InstagramLink.errors" class="invalid-feedback" style="margin-top: -9px;">
                       <div *ngIf="f.InstagramLink.errors.pattern">Please enter valid url.</div>
                    </div>
-                    
+                </div>
                 </div>
                 <div class="col-sm-9">
-                    <div class="mb-3 row">
-                        <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-4 mb-3">
                             <label class="form-label required-field">First Name</label>
                             <input type="text" class="form-control" formControlName="FName" placeholder="First Name"
                                 [ngClass]="{ 'is-invalid': submitted && f.FName.errors }">
@@ -49,7 +50,7 @@
                                 <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 mb-3 d-none d-lg-block d-sm-none">
                             <label for="txtFullName" class="form-label">Middle Name</label>
                             <input type="text" class="form-control" formControlName="MName" placeholder="Middle Name"
                                 [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
@@ -59,7 +60,7 @@
                                 <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 mb-3">
                             <label for="txtFullName" class="form-label required-field">Last Name</label>
                             <input type="text" class="form-control" formControlName="LName" placeholder="Last Name"
                                 [ngClass]="{ 'is-invalid': submitted && f.LName.errors }">
@@ -70,8 +71,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4">
+                    <div class="d-none d-lg-block d-sm-none">
+                    <div class="row">
+                        <div class="col-sm-4 mb-3">
                             <label class="form-label required-field">Committee Name</label>
                             <ngx-select [allowClear]="true" [items]="resCommittees" placeholder="Select Committee"
                                 optionValueField="Id" (remove)="clikedClose('Committees')" formControlName="BodyId"
@@ -83,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 mb-3">
                             <label for="ddlVillageTown" class="form-label required-field">Designation</label>
                             <div class="input-group">
                                 <ngx-select [allowClear]="true" [items]="allDesignatedMembers"
@@ -128,8 +130,10 @@
                             </div>-->
                         </div>
                     </div>
+                    </div>
+
                     <div class="mb-3 row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 d-none d-lg-block d-sm-none">
                             <label for="txtEmailID" class="form-label">Email ID</label>
                             <input type="email" class="form-control" placeholder="Email ID" formControlName="EmailId">
                             <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
@@ -148,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 d-none d-lg-block d-sm-none">
                             <label for="rblArea" class="form-label">Area</label>
                             <div class="d-block">
                                 <div class="form-check form-check-inline" *ngFor="let category of categoryArray">
@@ -161,6 +165,8 @@
                         </div>
                     </div>
                     
+
+                    <div class="d-none d-lg-block d-sm-none">
                     <div class="row mb-3">
                         <div class="col-sm-4">
                             <label for="ddlDistrict" class="form-label">District</label>
@@ -207,6 +213,7 @@
                         </div> -->
                     </div>
                 </div>
+                </div>
 
                 <!-- <div class="mb-3 row">
                     <div class="col-sm-6">
@@ -228,10 +235,10 @@
 
     <div class="modal-footer d-block px-0">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-6">
                 <button class="btn btn-secondary btn-sm" (click)="clearForm()">Clear</button>
             </div>
-            <div class="col-sm-6 text-end">
+            <div class="col-sm-6 col-6 text-end">
                 <button class="btn btn-main btn-sm" type="submit" (click)="updateProfile()">{{profileFlag}}
                     Member</button>
             </div>

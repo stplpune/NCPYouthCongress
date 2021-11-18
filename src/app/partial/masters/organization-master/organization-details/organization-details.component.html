@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="row chartbox">
+    <div class="row chartbox g-3">
         <div class="col-sm-4">
             <div class="card mb-3">
                 <div class="card-body comm-list">
@@ -151,8 +151,8 @@
                                     <p class="post-title fw-bold">{{dashboardActivities?.UserFName | titlecase}} 
                                         {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName | titlecase}}
                                     </p>
-                                    <small class="fw-bold">{{dashboardActivities?.Designation}}</small>
-                                    <!-- <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p> -->
+                                    <small class="small text-muted">{{dashboardActivities?.Designation}}</small>
+                                    <p class="post-title mt-1">{{dashboardActivities?.Title | titlecase}}</p>
                                     <div class="post-details">
                                         <!-- <p class="post-title text-muted">{{dashboardActivities?.Description |
                                             titlecase}}</p> -->
@@ -262,6 +262,7 @@
                                     <th>Designation</th>
                                     <th>Mobile No.</th>
                                     <th>Appointed On</th>
+                                    <th>Device</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -283,6 +284,15 @@
                                     <td>{{designatedMembers.DesignationName}} </td>
                                     <td>{{designatedMembers.MobileNo}} </td>
                                     <td>{{designatedMembers.PostFromDate}}</td>
+                                    <td *ngIf="designatedMembers?.DeviceType==1" >
+                                        <img src="assets\images\dashboard-images\Android_robot.svg">
+                                    </td>
+                                    <td *ngIf="designatedMembers?.DeviceType==2" >
+                                        <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                    </td>
+                                    <td *ngIf="designatedMembers?.DeviceType==0">
+                                        -
+                                    </td>
                                     <td class="text-end">
                                         <div class="btn-group" role="group" aria-label="Action Buttons">
                                             <button *ngIf="designatedMembers.MemberName"
@@ -310,8 +320,8 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="allDesignatedMembers?.length == 0">
-                                    <td colspan="5">
-                                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                                    <td colspan="7">
+                                        <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
                                     </td>
                                 </tr>
                             </tbody>
