@@ -148,8 +148,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="post-title fw-bold">{{dashboardActivities?.UserFName | titlecase}} 
-                                        {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName | titlecase}}
+                                    <p class="post-title fw-bold">{{dashboardActivities?.UserFName | titlecase}}
+                                        {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName
+                                        | titlecase}}
                                     </p>
                                     <small class="small text-muted">{{dashboardActivities?.Designation}}</small>
                                     <p class="post-title mt-1">{{dashboardActivities?.Title | titlecase}}</p>
@@ -174,7 +175,7 @@
                         </a>
                         <hr class="my-2">
                     </div>
-                   
+
                     <div *ngIf="resDashboardActivities?.length == 0">
                         <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                     </div>
@@ -254,7 +255,70 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
+                            *ngFor="let designatedMembers of allDesignatedMembers">
+                            <div class="mb-0 fw-bold mt-1 text-danger" *ngIf="designatedMembers.MemberName == ''">
+                                <p class="mem-name">No Member Assigned</p>
+                                <p class="mem-desi">{{designatedMembers?.DesignationName}}</p>
+                                <small
+                                    *ngIf="designatedMembers?.MobileNo !='' && designatedMembers?.MobileNo != null">{{designatedMembers?.MobileNo}}</small>
+                            </div>
+                            <div *ngIf="designatedMembers.MemberName != ''">
+                                <p class="mem-name">{{designatedMembers?.MemberName}} <small class="mem-no">[{{designatedMembers?.MobileNo}}]</small></p>
+                                <div class="mem-desi">
+                                    {{designatedMembers?.DesignationName}} 
+                                    <small class="mem-no">[{{designatedMembers.PostFromDate}}]</small>
+                                </div>                                    
+                                <div *ngIf="designatedMembers?.DeviceType==1" class="mem-dev">
+                                    <img src="assets\images\dashboard-images\Android_robot.svg">
+                                </div>
+                                <div *ngIf="designatedMembers?.DeviceType==2" class="mem-dev">
+                                    <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                </div>
+                                <div *ngIf="designatedMembers?.DeviceType==0" class="mem-dev">
+                                    <img src="assets\images\dashboard-images\no-cellphone.svg">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-end">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Action Buttons">
+                                        <button *ngIf="designatedMembers.MemberName"
+                                            [disabled]="designatedMembers.UserId == loggedInUserId"
+                                            (click)="addEditMember(designatedMembers,'Edit')"
+                                            class="btn btn-sm btn-light rounded"> <i
+                                                class="fas fa-pencil-alt"></i></button>
+                                        <button
+                                            *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1"
+                                            (click)="addEditMember(designatedMembers,'Add')"
+                                            class="rounded btn btn-sm btn-light mx-1"> <i
+                                                class="fas fa-plus"></i></button>
+                                        <button title="Edit Member"
+                                            class="btn btn-sm btn-light text-danger mx-1 rounded"
+                                            *ngIf="designatedMembers.MemberName" data-bs-toggle="modal"
+                                            (click)="getUserPostBodyId(designatedMembers.userpostbodyId)"
+                                            data-bs-target="#DeleteModal"
+                                            [disabled]="designatedMembers.UserId == loggedInUserId"> <i
+                                                class="fas fa-trash-alt"></i></button>
+                                        <button title="Remove Designation" data-bs-toggle="modal"
+                                            data-bs-target="#AddMemberModal" #addMemberModal
+                                            style="display: none;"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="allDesignatedMembers?.length == 0">
+                            <td colspan="7">
+                                <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
+                            </td>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- <table class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
@@ -270,7 +334,6 @@
                                 <tr *ngFor="let designatedMembers of allDesignatedMembers; let i = index"
                                     [class.active]="designatedMembers.SrNo == HighlightRow">
                                     <td>{{designatedMembers.SrNo}}</td>
-                                    <!-- <td>{{designatedMembers.MemberName | titlecase}}</td> -->
                                     <td>
                                         <ng-container *ngIf="designatedMembers.MemberName else memberNotAssign">
                                             <a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)"
@@ -284,10 +347,10 @@
                                     <td>{{designatedMembers.DesignationName}} </td>
                                     <td>{{designatedMembers.MobileNo}} </td>
                                     <td>{{designatedMembers.PostFromDate}}</td>
-                                    <td *ngIf="designatedMembers?.DeviceType==1" >
+                                    <td *ngIf="designatedMembers?.DeviceType==1">
                                         <img src="assets\images\dashboard-images\Android_robot.svg">
                                     </td>
-                                    <td *ngIf="designatedMembers?.DeviceType==2" >
+                                    <td *ngIf="designatedMembers?.DeviceType==2">
                                         <img src="assets\images\dashboard-images\Apple_logo.svg">
                                     </td>
                                     <td *ngIf="designatedMembers?.DeviceType==0">
@@ -300,7 +363,6 @@
                                                 (click)="addEditMember(designatedMembers,'Edit')"
                                                 class="btn btn-sm btn-light rounded"> <i
                                                     class="fas fa-pencil-alt"></i></button>
-                                            <!-- <button *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && this.allDesignatedMembers.length == i + 1" (click)="addEditMember(designatedMembers,'Add')" class="rounded btn btn-sm btn-light mx-1"> <i class="fas fa-plus"></i></button> -->
                                             <button
                                                 *ngIf="!designatedMembers.MemberName || designatedMembers.IsMultiple == 1 && designatedMembers.LastaddedUser == 1"
                                                 (click)="addEditMember(designatedMembers,'Add')"
@@ -325,7 +387,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
             </div>
