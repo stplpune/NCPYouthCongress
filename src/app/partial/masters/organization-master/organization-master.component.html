@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div id="pageheader" class="row mx-0 px-0">
                 <div class="col-sm-3">
-                    <span class="page-name">Committee Master 
+                    <span class="page-name">Committee Master
                     </span>
                 </div>
                 <div class="col-sm-9">
@@ -24,9 +24,9 @@
                             </div>
                             <div class="col-sm-3">
                                 <ngx-select [allowClear]="allowClearFlag" (remove)="clearFilter('district')"
-                                    (select)="filterData()" formControlName="filterDistrict" [items]="allDistrictByCommittee"
-                                    optionValueField="DistrictId" optionTextField="DistrictName"
-                                    placeholder="Select District">
+                                    (select)="filterData()" formControlName="filterDistrict"
+                                    [items]="allDistrictByCommittee" optionValueField="DistrictId"
+                                    optionTextField="DistrictName" placeholder="Select District">
                                 </ngx-select>
                             </div>
                             <div class="col-sm-3">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </form>
-                   
+
                 </div>
             </div>
         </div>
@@ -64,13 +64,65 @@
                             </button>
                         </div>
                         <div class="col-auto text-end col-lg-6">
-                            <button  (click)="clearForm()" class="add-buttons" data-bs-toggle="modal" data-bs-target="#AddNewCommittee">Add Committee</button>
+                            <button (click)="clearForm()" class="add-buttons" data-bs-toggle="modal"
+                                data-bs-target="#AddNewCommittee">Add Committee</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body pt-1">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <div class="card card-body shadow-none border comm-details pb-1 mb-3" *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
+                        [class.active]="result.Id == HighlightRow">
+                            <div class="row">
+                                <div class="col-sm-6 col-6">
+                                    <span class="com-level">{{result?.LevelName}}</span>
+                                </div>
+                                <div class="col-sm-6 col-6 text-end">
+                                    <div class="btn-group">
+                                        <button type="button"
+                                            [disabled]="(getCommiteeDetails?.CommiteeId == result?.Id) ?  true : ''"
+                                            title="Edit Committee" data-bs-toggle="modal"
+                                            data-bs-target="#AddNewCommittee"
+                                            class="btn btn-light btn-sm text-edit me-2 rounded"
+                                            (click)="editOrganization(result.Id)"><i
+                                                class="far fa-edit"></i></button>
+                                        <button type="button"
+                                            [disabled]="(getCommiteeDetails?.CommiteeId == result?.Id) ?  true : ''"
+                                            title="Delete Committee" class="btn btn-light btn-sm text-danger rounded"
+                                            (click)="deleteCommitteeConfirmation(result.Id, result.AllottedDesignation)"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                        <!-- <input type="hidden" data-bs-toggle="modal" data-bs-target="#delteteModal" #openDeleteCommitteeModal> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comm-name">
+                                <a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)"
+                                            class="text-primary">{{result?.BodyOrgCellName | titlecase}}</a>
+                                <small class="comm-area">[{{result?.Area}}]</small>
+                            </div>
+                            <div class="comm-desis">
+                                {{result?.DesignationAssigned}}
+                            </div>
+                            <div class="row comm-brrs">
+                                <div class="col-sm-6 col-6">
+                                    <span><span class="text-success fw-bold me-1">{{result?.AllottedDesignation}}</span> Appointments</span>
+                                </div>
+                                <div class="col-sm-6 col-6 text-end">
+                                    <button type="button" class="btn btn-light btn-sm" title="Add Designation"
+                                            data-bs-toggle="modal"
+                                            (click)="AddDesignation(result.BodyOrgCellName, result.Id);">
+                                            <!-- data-bs-target="#AddDesignationModal" -->
+                                            <i class="fas fa-user-plus"></i>
+                                        </button> 
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
@@ -84,7 +136,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- | filter:searchText -->
                                 <tr *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
                                     [class.active]="result.Id == HighlightRow">
                                     <td>{{result?.SrNo}}</td>
@@ -100,9 +151,7 @@
 
                                     <td> <button type="button" class="btn btn-light" title="Add Designation"
                                             data-bs-toggle="modal"
-                                            (click)="AddDesignation(result.BodyOrgCellName, result.Id);"
-                                           >
-                                           <!-- data-bs-target="#AddDesignationModal" -->
+                                            (click)="AddDesignation(result.BodyOrgCellName, result.Id);">
                                             <i class="fas fa-user-plus"></i>
                                         </button> </td>
                                     <td>{{result?.AllottedDesignation}}</td>
@@ -110,17 +159,16 @@
                                         <div class="btn-group">
                                             <button type="button"
                                                 [disabled]="(getCommiteeDetails?.CommiteeId == result?.Id) ?  true : ''"
-                                                title="Edit Committee"  data-bs-toggle="modal" data-bs-target="#AddNewCommittee"
+                                                title="Edit Committee" data-bs-toggle="modal"
+                                                data-bs-target="#AddNewCommittee"
                                                 class="btn btn-light text-edit me-2 rounded"
                                                 (click)="editOrganization(result.Id)"><i
                                                     class="far fa-edit"></i></button>
                                             <button type="button"
                                                 [disabled]="(getCommiteeDetails?.CommiteeId == result?.Id) ?  true : ''"
-                                                title="Delete Committee"
-                                                class="btn btn-light text-danger rounded"
+                                                title="Delete Committee" class="btn btn-light text-danger rounded"
                                                 (click)="deleteCommitteeConfirmation(result.Id, result.AllottedDesignation)"><i
                                                     class="fas fa-trash-alt"></i></button>
-                                            <!-- <input type="hidden" data-bs-toggle="modal" data-bs-target="#delteteModal" #openDeleteCommitteeModal> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -130,7 +178,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>                        
+                        </table> -->
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-12 text-end">
@@ -148,14 +196,14 @@
 </div>
 
 <!-- Modal for Add Designation -->
-<div class="modal fade" id="AddNewCommittee" tabindex="-1" aria-labelledby="AddNewCommitteeLabel"
-    aria-hidden="true">
+<div class="modal fade" id="AddNewCommittee" tabindex="-1" aria-labelledby="AddNewCommitteeLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header">
-                <p class="modal-title" id="AddNewCommitteeLabel" >Add New Committee</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()"></button>
+                <p class="modal-title" id="AddNewCommitteeLabel">Add New Committee</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="clearForm()"></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
@@ -167,7 +215,8 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
                             <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
                                 <div *ngIf="f.BodyOrgCellName.errors.required">Committee name is required</div>
-                                <div *ngIf="f.BodyOrgCellName.errors.maxlength">Committee Name can be max 30 characters long.</div>
+                                <div *ngIf="f.BodyOrgCellName.errors.maxlength">Committee Name can be max 30 characters
+                                    long.</div>
                             </div>
                         </div>
                         <div class="mb-2">
@@ -185,12 +234,14 @@
                         <div class="mb-2">
                             <label class="form-label required-field">Parent Committee</label>
                             <ngx-select [allowClear]="true" [items]="resCommitteeByLevel"
-                                formControlName="SubParentCommitteeId" placeholder="Select Parent Committee" optionValueField="Id"
-                                optionTextField="BodyOrgCellName" (remove)="clearselOption('committeeName')"  [disabled]="!this.orgMasterForm.value.BodyLevelId || this.orgMasterForm.value.BodyLevelId == 2"
+                                formControlName="SubParentCommitteeId" placeholder="Select Parent Committee"
+                                optionValueField="Id" optionTextField="BodyOrgCellName"
+                                (remove)="clearselOption('committeeName')"
+                                [disabled]="!this.orgMasterForm.value.BodyLevelId || this.orgMasterForm.value.BodyLevelId == 2"
                                 [ngClass]="{ 'is-invalid': submitted && f.SubParentCommitteeId.errors}">
                             </ngx-select>
                             <div *ngIf="submitted && f.SubParentCommitteeId.errors" class="invalid-feedback">
-                                <div *ngIf="f.SubParentCommitteeId.errors.required">Committee  is required</div>
+                                <div *ngIf="f.SubParentCommitteeId.errors.required">Committee is required</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -233,7 +284,8 @@
                         <!-- -->
                         <div class="row mb-3">
                             <div class="col-sm-6">
-                                <label class="form-label" [ngClass]="{'required-field': submitted && f.TalukaId.errors}">
+                                <label class="form-label"
+                                    [ngClass]="{'required-field': submitted && f.TalukaId.errors}">
                                     Select Taluka</label>
                                 <ngx-select [allowClear]="true" (remove)="clearselOption('TalukaId')"
                                     [items]="getTalkaByDistrict"
@@ -268,7 +320,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-6">
                                     <button type="button" class="btn btn-secondary  float-start"
-                                    (click)="clearForm()">Clear</button>
+                                        (click)="clearForm()">Clear</button>
                                 </div>
                                 <div class="col-sm-6 col-6">
                                     <button type="submit" class="btn btn-main float-end">{{btnText}}</button>
@@ -283,4 +335,3 @@
         </div>
     </div>
 </div>
-
