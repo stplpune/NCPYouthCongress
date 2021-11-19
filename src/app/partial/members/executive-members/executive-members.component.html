@@ -21,17 +21,17 @@
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
-                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
-                            optionValueField="DistrictId" optionTextField="DistrictName"
-                            (remove)="clearFilter('district')" placeholder="Select Member Status"
-                            (select)="filter(this.filterForm.value.DistrictId)">
+                        <ngx-select [allowClear]="true" formControlName="memberStatus" [items]="memberStatusArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('MemberStatus')" placeholder="Select Member Status"
+                            (select)="filter(this.filterForm.value.memberStatus)">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
-                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
-                            optionValueField="DistrictId" optionTextField="DistrictName"
-                            (remove)="clearFilter('district')" placeholder="Select Device"
-                            (select)="filter(this.filterForm.value.DistrictId)">
+                        <ngx-select [allowClear]="true" formControlName="deviceStatus" [items]="DeviceAppArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('DeviceStatus')" placeholder="Select Device"
+                            (select)="filter(this.filterForm.value.deviceStatus)">
                         </ngx-select>
                     </div>
                     <div class="col-sm-3">

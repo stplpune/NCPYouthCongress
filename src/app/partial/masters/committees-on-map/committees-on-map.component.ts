@@ -145,6 +145,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
+      this.CompofComityHide = false;
     }
     else {
       this.CheckBoxLevelArray.push(CheckBoxLevelId);
@@ -152,7 +153,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
+      this.CompofComityHide = false;
     }
+  }
+
+  ScrollCompComity(){
+    this.getOrganizationByDistrictId(this.DistrictId);
+    this.CompofComityHide = true;
   }
 
   getOrganizationByDistrictId(id: any) {
@@ -220,18 +227,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
-  }
-//////////////////////////////////////////
-  ScrollCompComity(){
-    this.getOrganizationByDistrictId(this.DistrictId);
-    this.CompofComityHide = true;
-    
-
-    // window.scrollTo({
-    //   top: -100,
-    //   left: 50,
-    //   behavior: 'smooth'
-    // });
   }
 
   getLevel() {

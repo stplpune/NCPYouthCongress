@@ -34,6 +34,8 @@ export class ExecutiveMembersComponent implements OnInit {
   subject: Subject<any> = new Subject();
   result: any;
   highlightedRow: number = 0;
+  memberStatusArray = [{ id: 1, name: "Active" }, { id: 0, name: "Non Active" }];
+  DeviceAppArray = [{ id: 1, name: "Android" }, { id: 2, name: "iOS" }];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService, public dialog: MatDialog,
@@ -54,6 +56,8 @@ export class ExecutiveMembersComponent implements OnInit {
       TalukaId: [0],
       villageid: [0],
       BodyId: [0],
+      memberStatus: [''],
+      deviceStatus: [0],
       searchText: ['']
     })
   }
@@ -129,14 +133,17 @@ export class ExecutiveMembersComponent implements OnInit {
 
   getViewMembers() {
     let formdata = this.filterForm.value;
+    formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
     (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
     (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
     (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
     (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
     (formdata.BodyId == undefined || formdata.BodyId == null) ? formdata.BodyId = 0 : formdata.BodyId;
-
+    // (formdata.memberStatus == undefined || formdata.memberStatus == null) ? formdata.memberStatus = '' : formdata.memberStatus;
+    // (formdata.deviceStatus == undefined || formdata.deviceStatus == null) ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'ExcecutiveMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Web_ExcecutiveMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId 
+    + '&statustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -182,6 +189,10 @@ export class ExecutiveMembersComponent implements OnInit {
       this.filterForm.controls['DistrictId'].setValue(0);
     } else if (flag == 'search') {
       this.filterForm.controls['searchText'].setValue('');
+    } else if (flag == 'MemberStatus') {
+      this.filterForm.controls['memberStatus'].setValue('');
+    } else if (flag == 'DeviceStatus') {
+      this.filterForm.controls['deviceStatus'].setValue(0);
     }
     this.paginationNo = 1;
     this.getViewMembers()
