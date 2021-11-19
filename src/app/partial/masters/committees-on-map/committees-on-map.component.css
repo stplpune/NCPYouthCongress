@@ -1,9 +1,10 @@
-#committeesonmap .list-group-item.active{
+#committeesonmap .list-group-item.active,
+#committeesonmap .list-group-item:hover{
     background-color:var(--main-color);
     color: #fff;
 }
 .fix-height{
-    max-height: 67vh;
+    max-height: 60vh;
     overflow-y: auto;
 }
 .chartHeight600{

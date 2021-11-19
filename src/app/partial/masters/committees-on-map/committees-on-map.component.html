@@ -71,20 +71,23 @@
                             </div>
 
                         </div>
-                        <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
-                            <div class="card-header pb-0 border-bottom">Committees in <button (click)="ScrollCompComity()">btn</button><span
-                                    class="text-main">{{districtName | titlecase}}</span>
-                                <!-- <span class="float-end">
-                                    <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
-                                        <i class="fas fa-times"></i>
+                        <div class="card shadow-none border" *ngIf="defaultCommitteesFlag">
+                            <div class="card-header py-1 border-bottom">Committees in 
+                                <span class="text-main">{{districtName | titlecase}}</span>
+                                <span class="float-end">
+                                    <button (click)="ScrollCompComity()" class="btn btn-sm btn-light">
+                                        <i class="fas fa-chart-bar"></i>
                                     </button>
-                                </span> -->
+                                    <!-- <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
+                                        <i class="fas fa-times"></i>
+                                    </button> -->
+                                </span>
                             </div>
-                            <div class="card-body p-0 pt-2 fix-height">
+                            <div class="card-body p-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)"
                                         [class.active]="resCommittes.Id == activeRow"
-                                        class="list-group-item list-group-item-action" aria-current="true"
+                                        class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
                                         *ngFor="let resCommittes of resultCommittees">
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
                                                 class="badge rounded-pill bg-light text-dark float-end text-center"
@@ -106,15 +109,15 @@
                     </div>
 
                     <div class="col-sm-3">
-                        <div class="card shadow-none">
-                            <div class="card-header pb-0 border-bottom" *ngIf="defaultMembersFlag">Members in <span
+                        <div class="card shadow-none border">
+                            <div class="card-header py-1 border-bottom" *ngIf="defaultMembersFlag">Members in <span
                                     class="text-main" style="cursor: pointer;"
                                     (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
                             <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
 
-                            <div class="card-body p-0 pt-2 fix-height" *ngIf="defaultMembersFlag">
+                            <div class="card-body p-2 fix-height" *ngIf="defaultMembersFlag">
                                 <div class="list-group list-group-flush">
-                                    <div class="list-group-item list-group-item-action p-2" aria-current="true"
+                                    <div class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
                                         *ngFor="let resOrganizationMember of resultOrganizationMember"
                                         (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
                                         <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''">
@@ -183,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 mt-4" *ngIf="CompofComityHide">
+                    <div class="col-sm-12 mt-4 showmap" *ngIf="CompofComityHide">
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">

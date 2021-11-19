@@ -225,11 +225,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   ScrollCompComity(){
     this.getOrganizationByDistrictId(this.DistrictId);
     this.CompofComityHide = true;
-    window.scrollTo({
-      top: -100,
-      left: 50,
-      behavior: 'smooth'
-    });
+    
+
+    // window.scrollTo({
+    //   top: -100,
+    //   left: 50,
+    //   behavior: 'smooth'
+    // });
   }
 
   getLevel() {
@@ -386,6 +388,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.DistWiseCommityWGraphArray = res.data1;
         this.WorkDoneByYuvak();
+        $('html, body').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
       } else {
         this.DistWiseCommityWGraphArray = [];
         this.WorkDoneByYuvak();
