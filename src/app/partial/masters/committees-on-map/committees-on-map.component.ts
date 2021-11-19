@@ -280,8 +280,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
 
-  redToMemberProfile(memberId: any, FullName: any) {
-  }
+  // redToMemberProfile(memberId: any, FullName: any) {
+  // }
 
   comActiveClass(flag: any) { // 0 - false 1 - true
     flag == 0 ? this.defaultMembersFlag = false : this.defaultMembersFlag = true;
