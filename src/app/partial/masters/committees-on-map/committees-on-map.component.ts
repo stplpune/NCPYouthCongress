@@ -57,7 +57,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   allLevels: any;
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
-  CompofComityHide : boolean = false;
+  CompofComityHide : boolean = true;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -129,7 +129,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
-    // this.callSVGMap()
+    // this.CompofComityHide = false;
     this.selectedDistrictId = event;
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.toggleClassActive(this.selectedDistrictId);
@@ -145,7 +145,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
-      this.CompofComityHide = false;
+      //this.CompofComityHide = false;
     }
     else {
       this.CheckBoxLevelArray.push(CheckBoxLevelId);
@@ -153,13 +153,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
-      this.CompofComityHide = false;
+      //this.CompofComityHide = false;
     }
   }
 
   ScrollCompComity(){
-    this.getOrganizationByDistrictId(this.DistrictId);
-    this.CompofComityHide = true;
+    // this.getOrganizationByDistrictId(this.selectedDistrictId);
+    // this.CompofComityHide = true;
   }
 
   getOrganizationByDistrictId(id: any) {
@@ -292,6 +292,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   clearFilter(flag: any) {
     if (flag == 'CommitteesIn') {
+      //this.CompofComityHide = false;
       this.selDistrict.reset();
       this.selDistrictName();
       this.defaultCloseBtn = false;
@@ -358,6 +359,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   clearFilterByCommittee() {
+    //this.CompofComityHide = false;
     this.Search.reset('');
     this.searchFilter = "";
     // this.selDistrict.reset();
