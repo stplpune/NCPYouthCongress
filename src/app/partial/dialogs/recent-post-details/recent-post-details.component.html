@@ -80,9 +80,17 @@
                                         <input type="radio" class="btn-check" [disabled]="true" name="btnradio" id="btnradio13"
                                             autocomplete="off">
                                         <label class="btn btn-outline-info shadow-none" for="btnradio13"
-                                            (click)="socialMediaCheck('Shared')">
+                                            (click)="socialMediaCheck('Views')">
                                             <i class="far fa-eye me-2"></i>{{activitieDetails?.Views}}
                                         </label>
+
+                                        <input type="radio" class="btn-check" [disabled]="true" name="btnradio" id="btnradio14"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-dark shadow-none" for="btnradio14"
+                                            (click)="socialMediaCheck('Shared')">
+                                            <i class="far fa-share-square me-2"></i>{{activitieDetails?.Shares}}
+                                        </label>
+
                                     </div>
                                 </div>
     
