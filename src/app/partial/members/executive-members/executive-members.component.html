@@ -6,32 +6,34 @@
         <div class="col-sm-10">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-3 ms-auto">
+                    <div class="col-sm-2 ms-auto">
                         <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id"
                             formControlName="BodyId" optionTextField="BodyOrgCellName"
                             (remove)="clearFilter('committee')" (select)="filter($event)"
                             placeholder="Select Committee Name">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
                             optionValueField="DistrictId" optionTextField="DistrictName"
                             (remove)="clearFilter('district')" placeholder="Select District"
                             (select)="filter(this.filterForm.value.DistrictId)">
                         </ngx-select>
                     </div>
-                    <!-- <div class="col-sm-2">
-                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict"
-                            [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId"
-                            (remove)="clearFilter('taluka')" (select)="filter(this.filterForm.value.TalukaId)"
-                            placeholder="Select Taluka" optionValueField="TalukaId" optionTextField="TalukaName">
+                    <div class="col-sm-2">
+                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
+                            optionValueField="DistrictId" optionTextField="DistrictName"
+                            (remove)="clearFilter('district')" placeholder="Select Member Status"
+                            (select)="filter(this.filterForm.value.DistrictId)">
                         </ngx-select>
-                    </div> -->
-                    <!-- <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
-                            optionTextField="VillageName" placeholder="Select City/Village">
+                    </div>
+                    <div class="col-sm-2">
+                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
+                            optionValueField="DistrictId" optionTextField="DistrictName"
+                            (remove)="clearFilter('district')" placeholder="Select Device"
+                            (select)="filter(this.filterForm.value.DistrictId)">
                         </ngx-select>
-                    </div> -->
+                    </div>
                     <div class="col-sm-3">
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="Search Member"
