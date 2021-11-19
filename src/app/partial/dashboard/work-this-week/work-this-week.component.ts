@@ -218,10 +218,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   filterData(flag:any){
-    if (flag == 'district') {
-      this.getTaluka(this.filterBestPer.value.DistrictId)
-    }else if (flag == 'workType'){
-      // this.bestPerformance();
+    if (flag == 'workType'){
+      //  this.bestPerformance();
       this.getBestPerKaryMember();
       // this.showSvgMap(this.commonService.mapRegions());
     }
@@ -387,8 +385,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
     let bodyIdBoth = this.comityDetailBodyId || filter.BodyId ;
-  this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+0+'&TalukaId='+0+
-     '&IsBody=' + 0 +'&BodyId=' + bodyIdBoth , false, false, false, 'ncpServiceForWeb');
+  this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+0+'&TalukaId='+0+
+     '&IsBody=' + 0 +'&BodyId=' + bodyIdBoth +'&CategoryId=' + topFilterValue.category , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resultBestPerKaryMember =  res.data1;
