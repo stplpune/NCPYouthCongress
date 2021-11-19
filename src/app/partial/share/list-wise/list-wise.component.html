@@ -74,13 +74,16 @@
                     <div class="post-details">
                         <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p>
                         <div class="row small text-muted">
-                            <div class="col-sm-4"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
+                            <div class="col-sm-3"><i class="far fa-thumbs-up me-2"></i>{{dashboardActivities?.Likes}}
                             </div>
-                            <div class="col-sm-4"><i class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
+                            <div class="col-sm-3"><i class="far fa-comments me-2"></i>{{dashboardActivities?.Comments}}
                             </div>
-                            <div class="col-sm-4"><i
+                            <div class="col-sm-3"><i
                                     class="far fa-share-square me-2"></i>{{dashboardActivities?.Shares}}
                             </div>
+                            <div class="col-sm-3"><i
+                                class="fas fa-eye me-2"></i>{{dashboardActivities?.Views}}
+                        </div>
                         </div>
                         
                     </div>

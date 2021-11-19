@@ -25,3 +25,39 @@
       background-color: var(--main-color);
       color: #fff;
   }
+  .mem-list{
+      position: relative;
+  }
+  .mem-list:hover{
+    background-color:#eee;
+  }
+    .mem-list .mem-name{
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+  }
+  .mem-list .mem-no{
+      font-size: 0.75rem;
+      color: #454545;
+      margin-bottom: 5px;
+  }
+  .mem-list .mem-desi{
+      font-size: 0.8rem;
+      color: #333;
+      margin-bottom: 5px;
+      font-weight: 600;
+  }
+  .mem-list .mem-act{
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .mem-list .mem-dev{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+  }
+  .mem-list .mem-dev img{
+      width: 22px;
+  }
