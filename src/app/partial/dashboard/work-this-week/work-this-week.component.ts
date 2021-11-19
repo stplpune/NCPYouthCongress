@@ -224,10 +224,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.bestPerformance();
       this.getBestPerKaryMember();
       // this.showSvgMap(this.commonService.mapRegions());
- 
     }
     this.geWeekReport();
-    // district talka committee
     this.bestPerformance();
   }
 
