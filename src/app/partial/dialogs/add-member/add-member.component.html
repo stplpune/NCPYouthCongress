@@ -48,7 +48,7 @@
                                 <div *ngIf="f.FName.errors.required">First name is required
                                 </div>
                                 <div *ngIf="f.FName.errors.pattern">First name can not contain space</div>
-                                <div *ngIf="f.FName.errors.emailDomin">sdgfdghgfjghjkh</div>
+                                <div *ngIf="f.FName.errors.onlyEnglish">Use English Language</div>
                             </div>
                         </div>
                         <div class="col-sm-4 mb-3 d-none d-lg-block d-sm-none">
@@ -56,9 +56,8 @@
                             <input type="text" class="form-control" formControlName="MName" placeholder="Middle Name"
                                 [ngClass]="{ 'is-invalid': submitted && f.MName.errors }">
                             <div *ngIf="submitted && f.MName.errors" class="invalid-feedback">
-                                <!-- <div *ngIf="f.MName.errors.required">Middle name is required
-            </div> -->
                                 <div *ngIf="f.MName.errors.pattern">Middle name can not contain space</div>
+                                <div *ngIf="f.MName.errors.onlyEnglish">Use English Language</div>
                             </div>
                         </div>
                         <div class="col-sm-4 mb-3">
@@ -69,6 +68,7 @@
                                 <div *ngIf="f.LName.errors.required">Last name is required
                                 </div>
                                 <div *ngIf="f.LName.errors.pattern">Last name can not contain space</div>
+                                <div *ngIf="f.LName.errors.onlyEnglish">Use English Language</div>
                             </div>
                         </div>
                     </div>

@@ -159,16 +159,19 @@ export class CommonService {
         this.imgUrlPath.next(imagePath)
     }
 
-    // emailDomin(control: AbstractControl ): { [key: string]: any } | null {
-    //     const email: string = control.value;
-    //     let re = /"^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$"/;
-    //     if (re.test(email)) {
-    //         return null
-    //     } else {
+    onlyEnglish(control: AbstractControl): { [key: string]: any } | null {
+        let text = control.value
+        let re = /^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$/;
+        let  regexp =  /\s/;
+        console.log(regexp.test(text));
         
-    //      return { 'emailDomin': true };
-    //     }
-    //   }
+        if ( text =='' ||re.test(text) || regexp.test(text) ) {
+          // alert();
+          return null;
+        } else {
+          return { 'onlyEnglish': true };
+        }
+      }
 
     setDefaultValueinForm(formName: any, keyName: any, setValue: any) {
         return formName.controls[keyName].setValue(setValue);
