@@ -85,7 +85,7 @@
                             <th scope="col">Member Name</th>
                             <th scope="col">Activity Date</th>
                             <!-- <th scope="col">Activity Type</th> -->
-                            <th scope="col">Activity Title/Description</th>
+                            <th scope="col">Activity Title</th>
                             <th scope="col">Likes</th>
                             <th scope="col">Comments</th>
                             <th scope="col">Shares</th>
@@ -99,7 +99,12 @@
                             <td>{{politicalWork.SrNo}}</td>
                             <td><a class="text-primary" (click)="redToMemberProfile(politicalWork.MemberId, politicalWork.FullName)">{{politicalWork.FullName | titlecase}}</a></td>
                             <td>{{politicalWork.ActivityDate}}</td>
-                            <td>{{politicalWork.Title | titlecase}}</td>
+                            <td *ngIf="politicalWork?.Title ; else OtherContent">
+                                <span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span>
+                            </td>
+                            <ng-template #OtherContent>
+                                <td> - </td>
+                            </ng-template>
                             <!-- <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td> -->
                             <td>
                                 <h6 class="mb-0"><a class="text-primary" (click)="getActivityLikes(politicalWork.Id,'1',politicalWork.TotalLikes)">{{politicalWork.TotalLikes}}</a></h6>

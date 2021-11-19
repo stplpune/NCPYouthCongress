@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { ImageItem } from '@ngx-gallery/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -158,6 +159,16 @@ export class CommonService {
         this.imgUrlPath.next(imagePath)
     }
 
+    // emailDomin(control: AbstractControl ): { [key: string]: any } | null {
+    //     const email: string = control.value;
+    //     let re = /"^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$"/;
+    //     if (re.test(email)) {
+    //         return null
+    //     } else {
+        
+    //      return { 'emailDomin': true };
+    //     }
+    //   }
 
     setDefaultValueinForm(formName: any, keyName: any, setValue: any) {
         return formName.controls[keyName].setValue(setValue);

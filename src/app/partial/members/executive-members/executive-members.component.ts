@@ -34,8 +34,8 @@ export class ExecutiveMembersComponent implements OnInit {
   subject: Subject<any> = new Subject();
   result: any;
   highlightedRow: number = 0;
-  memberStatusArray = [{ id: 1, name: "Active" }, { id: 0, name: "Non Active" }];
-  DeviceAppArray = [{ id: 1, name: "Android" }, { id: 2, name: "iOS" }];
+  memberStatusArray = [{ id: 0, name: "All" } ,{ id: 1, name: "Active" }, { id: 2, name: "Non Active" }];
+  DeviceAppArray = [{ id: 0, name: "All" },{ id: 1, name: "Android" }, { id: 2, name: "iOS" } , { id: 3, name: "No Device" }];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService, public dialog: MatDialog,
@@ -57,7 +57,7 @@ export class ExecutiveMembersComponent implements OnInit {
       villageid: [0],
       BodyId: [0],
       memberStatus: [''],
-      deviceStatus: [0],
+      deviceStatus: [''],
       searchText: ['']
     })
   }
@@ -133,7 +133,8 @@ export class ExecutiveMembersComponent implements OnInit {
 
   getViewMembers() {
     let formdata = this.filterForm.value;
-    formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
+   formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
+   formdata.deviceStatus == '' ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
     (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
     (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
