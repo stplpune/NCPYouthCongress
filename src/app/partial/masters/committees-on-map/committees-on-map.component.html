@@ -72,7 +72,7 @@
 
                         </div>
                         <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
-                            <div class="card-header pb-0 border-bottom">Committees in <span
+                            <div class="card-header pb-0 border-bottom">Committees in <button (click)="ScrollCompComity()">btn</button><span
                                     class="text-main">{{districtName | titlecase}}</span>
                                 <!-- <span class="float-end">
                                     <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
@@ -123,9 +123,10 @@
                                         </p>
                                         <div class="d-flex" *ngIf="resOrganizationMember.MemberName != ''">
                                             <div class="flex-grow-1 ms-1 ps-2">
-                                                {{resOrganizationMember.MemberName}}
-                                                <p class="mb-0 fw-bold mt-1"> <small
-                                                        *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
+                                                {{resOrganizationMember?.MemberName}}
+                                                <p class="mb-0 fw-bold mt-1"> 
+                                                    <span><small>{{resOrganizationMember?.DesignationName}}</small></span><br>
+                                                    <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
                                                         {{resOrganizationMember?.MobileNo}}</small><br>
                                                     <span><small>Work Count:
                                                             {{resOrganizationMember.TotalWork}}</small></span>
@@ -182,7 +183,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 mt-4">
+                    <div class="col-sm-12 mt-4" *ngIf="CompofComityHide">
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">

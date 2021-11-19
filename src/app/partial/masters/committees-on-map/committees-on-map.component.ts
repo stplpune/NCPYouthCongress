@@ -57,6 +57,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   allLevels: any;
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
+  CompofComityHide : boolean = false;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -220,8 +221,17 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
     })
   }
+//////////////////////////////////////////
+  ScrollCompComity(){
+    this.getOrganizationByDistrictId(this.DistrictId);
+    this.CompofComityHide = true;
+    window.scrollTo({
+      top: -100,
+      left: 50,
+      behavior: 'smooth'
+    });
+  }
 
-  
   getLevel() {
     //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
