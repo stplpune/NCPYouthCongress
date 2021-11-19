@@ -58,6 +58,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   selDistrictName:any;
   getAllDistrict:any;
   totalWorkCount:any;
+  comityDetailBodyId: any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -72,7 +73,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.selDistrictName="";
-    this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
+
+    this.getMemberName();
+    this.SubUserTypeId == 5 ? this.catValue ="Committee" : '';
+    // this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
     this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
     this.getWorkcategoryFilterDetails();
     this. defaultFilterForm();
@@ -212,8 +216,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     // });
   }
-
-
 
   filterData(flag:any){
     if (flag == 'district') {
@@ -411,12 +413,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
+
+    let bodyIdBoth = this.comityDetailBodyId || filter.BodyId ;
     // let fromDate: any;
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[0]), 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.commonService.dateFormatChange(topFilterValue.fromTo[1]), 'dd/MM/yyyy')) : toDate = '';
     this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+topFilterValue.DistrictId+'&TalukaId='+filter.TalukaId+
-     '&IsBody=' + filter.IsBody +'&BodyId=' + filter.BodyId , false, false, false, 'ncpServiceForWeb');
+     '&IsBody=' + filter.IsBody +'&BodyId=' + bodyIdBoth , false, false, false, 'ncpServiceForWeb');
     // this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_Filter_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate +'&DistrictId='+filter.DistrictId+'&TalukaId='+filter.TalukaId+ '&IsBody=' + filter.IsBody +'&BodyId=' + filter.DistrictId , false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -589,6 +593,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     let obj = {'memberId':memberId, 'FullName':FullName}
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../profile'], {relativeTo:this.route})
+  }
+
+  CommitteeDetails(BodyId:any){
+    this.comityDetailBodyId = BodyId;
+    this.filterBestPer.patchValue({
+      BodyId : BodyId
+    })
+   this.bestPerformance();
   }
 
   getMemberName() {

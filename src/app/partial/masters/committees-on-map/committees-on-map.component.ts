@@ -55,7 +55,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selCommiteeFlag: boolean = true;
   onClickFlag:boolean = false;
   allLevels: any;
-  commityOnMapForm!: FormGroup;
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
 
@@ -77,13 +76,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
     this.searchFilterByCommittee('false');
     this. getLevel();
-    this.defaultcommityOnMapForm();
-  }
-
-  defaultcommityOnMapForm() {
-    this.commityOnMapForm = this.fb.group({
-      checkLevel: [''],
-    })
   }
 
   selDistrictName() {
@@ -165,7 +157,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   getOrganizationByDistrictId(id: any) {
     this.spinner.show();
 //this.CheckBoxLevelArray = this.CheckBoxLevelArray.join();
-    this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join();
+    this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join() || 0;
     //this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_3_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&LevelId=' + this.CheckBoxLevelArrayJSON + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

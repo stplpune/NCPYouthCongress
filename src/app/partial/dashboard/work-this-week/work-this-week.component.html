@@ -141,7 +141,7 @@
                                 <th>Committee Name</th>
                                 <th>Location</th>
                                 <th>Work Count</th>
-                                <th>View</th>
+                                <th>Commity Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,7 +153,7 @@
                                 <td>{{result.Area}}</td>
                                 <td>{{result.Totalwork}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-light">
+                                    <button class="btn btn-sm btn-light" (click)="CommitteeDetails(result.BodyId)">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
