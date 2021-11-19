@@ -111,6 +111,8 @@ export class AddMemberComponent implements OnInit {
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
       FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      // FName: ['',Validators.compose([ Validators.required,Validators.pattern(/^\S*$/),this.commonService.emailDomin])],
+
       MName: ['', [Validators.pattern(/^\S*$/)]],
       LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       IsRural: [1],

@@ -133,11 +133,22 @@
                                         {{designation}}</p>
                                 </td>
                                 <td>
-                                    <ng-container *ngIf="resultExeMember.UserStatus != 1 else userUnblock">
+                                    <div *ngIf="resultExeMember?.DeviceType==1">
+                                        <img src="assets\images\dashboard-images\Android_robot.svg">
+                                    </div>
+                                    <div *ngIf="resultExeMember?.DeviceType==2">
+                                        <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                    </div>
+                                    <div *ngIf="resultExeMember?.DeviceType==3">
+                                        <img src="assets\images\dashboard-images\no-cellphone.svg">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="resultExeMember?.UserStatus == 2">
                                         <span class="badge bg-danger">Non Active</span>
-                                    </ng-container>
-                                    <ng-template #userUnblock> <span class="badge bg-success">Active</span>
-                                    </ng-template>
+                                    </div>
+                                    <div *ngIf="resultExeMember?.UserStatus == 1"> <span class="badge bg-success">Active</span>
+                                    </div>
                                 </td>
                                 <td>
                                     <!-- <span [appTooltip] title="{{resultExeMember?.UserStatus == 1 ? 'Member Active' : 'Member InActive'}}">
