@@ -169,6 +169,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getOrganizationByDistrictId(id: any) {
+    debugger;
     this.spinner.show();
 //this.CheckBoxLevelArray = this.CheckBoxLevelArray.join();
     this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join() || 0;
@@ -306,6 +307,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       // this.removeSessionData();
       this.toggleClassActive(0);
       this.getLevel();
+      this.CheckBoxLevelArray = [];
+
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }

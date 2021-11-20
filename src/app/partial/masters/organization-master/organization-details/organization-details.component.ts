@@ -21,6 +21,7 @@ import { AddMemberComponent } from 'src/app/partial/dialogs/add-member/add-membe
 import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation/add-designation.component';
 import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
 import { DeleteComponent } from 'src/app/partial/dialogs/delete/delete.component';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 
 @Component({
   selector: 'app-organization-details',
@@ -96,6 +97,8 @@ export class OrganizationDetailsComponent implements OnInit {
   actTotal: any;
   @ViewChild('tree') tree: any;
   avtivityId:any;
+  mobileNoCheckFlag:boolean = false;
+  mobileNoValue:any;
  // memberValue: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -311,15 +314,14 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getMemberValue(event:any){
-    let memberValue = event.target.value;
-    this.redToAddMember(memberValue);
+    this.mobileNoValue = event.target.value;
   }
 
   redToAddMember(memberValue: any) {
-    // if(parseFloat(memberValue) != NaN){
-    //   this.toastrService.error('Invalid Mobile No.');
-    //   return
-    // }
+    if(parseFloat(memberValue) != NaN){
+      this.toastrService.error('Invalid Mobile No.');
+      return
+    }
     sessionStorage.setItem('memberValue', JSON.stringify(memberValue));
   }
 
@@ -594,6 +596,16 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addNewMember(flag: any, id: any, MobileFieldId:any) {
+    if(this.mobileNoValue){
+      debugger;
+      const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
+      if((isNumeric(this.mobileNoValue) != true)){
+        this.toastrService.error('Invalid Mobile No.');
+        return
+      }
+      sessionStorage.setItem('memberValue', JSON.stringify(this.mobileNoValue));
+    }
+   
     this.addEditMemberModal('close');
     let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {
