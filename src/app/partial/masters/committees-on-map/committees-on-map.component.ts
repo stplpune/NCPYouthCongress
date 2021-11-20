@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -55,9 +55,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   selCommiteeFlag: boolean = true;
   onClickFlag:boolean = false;
   allLevels: any;
+  commityOnMapForm!: FormGroup;
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
-  CompofComityHide : boolean = true;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -77,6 +77,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
     this.searchFilterByCommittee('false');
     this. getLevel();
+    this.defaultcommityOnMapForm();
+  }
+
+  defaultcommityOnMapForm() {
+    this.commityOnMapForm = this.fb.group({
+      checkLevel: [''],
+    })
   }
 
   selDistrictName() {
@@ -129,7 +136,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
-    // this.CompofComityHide = false;
+    // this.callSVGMap()
     this.selectedDistrictId = event;
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.toggleClassActive(this.selectedDistrictId);
@@ -145,7 +152,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
-      //this.CompofComityHide = false;
     }
     else {
       this.CheckBoxLevelArray.push(CheckBoxLevelId);
@@ -153,19 +159,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       this.defaultMembersFlag = false;
       this.activeRow = 0;
-      //this.CompofComityHide = false;
     }
-  }
-
-  ScrollCompComity(){
-    // this.getOrganizationByDistrictId(this.selectedDistrictId);
-    // this.CompofComityHide = true;
   }
 
   getOrganizationByDistrictId(id: any) {
     this.spinner.show();
 //this.CheckBoxLevelArray = this.CheckBoxLevelArray.join();
-    this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join() || 0;
+    this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join();
     //this.callAPIService.setHttp('get', 'Sp_Web_GetOrganization_byDistrictId_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.setHttp('get', 'Web_GetOrganization_byDistrictId_3_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + id + '&Search=' + this.searchFilter + '&LevelId=' + this.CheckBoxLevelArrayJSON + '&FromDate=&ToDate=', false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -229,6 +229,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     })
   }
 
+  
   getLevel() {
     //this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
@@ -280,8 +281,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
 
-  // redToMemberProfile(memberId: any, FullName: any) {
-  // }
+  redToMemberProfile(memberId: any, FullName: any) {
+  }
 
   comActiveClass(flag: any) { // 0 - false 1 - true
     flag == 0 ? this.defaultMembersFlag = false : this.defaultMembersFlag = true;
@@ -292,7 +293,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   clearFilter(flag: any) {
     if (flag == 'CommitteesIn') {
-      //this.CompofComityHide = false;
       this.selDistrict.reset();
       this.selDistrictName();
       this.defaultCloseBtn = false;
@@ -359,7 +359,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   clearFilterByCommittee() {
-    //this.CompofComityHide = false;
     this.Search.reset('');
     this.searchFilter = "";
     // this.selDistrict.reset();
@@ -385,7 +384,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.DistWiseCommityWGraphArray = res.data1;
         this.WorkDoneByYuvak();
-        $('html, body').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
       } else {
         this.DistWiseCommityWGraphArray = [];
         this.WorkDoneByYuvak();
@@ -398,7 +396,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
     })
   }
-
 
   WorkDoneByYuvak() {
     am4core.ready(() => {

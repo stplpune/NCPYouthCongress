@@ -65,31 +65,29 @@
                     </div>
                     <div class="col-sm-3 border-end">
                         <div class="mb-0 small form-container">
+                            <form [formGroup]="commityOnMapForm">
                             <div class="form-check form-check-inline" *ngFor="let level of allLevels ; let i = index">
-                                <input class="form-check-input" (change)="onCheckChangeLevel($event,level.Id)"
-                                    type="checkbox">
+                                <input class="form-check-input" (change)="onCheckChangeLevel($event,level.Id)" type="checkbox" >
                                 <label class="form-check-label" for="inlineCheckbox{{i}}">{{level.LevelName}}</label>
                             </div>
+                        </form>
 
                         </div>
-                        <div class="card shadow-none border" *ngIf="defaultCommitteesFlag">
-                            <div class="card-header py-1 border-bottom">Committees in
-                                <span class="text-main">{{districtName | titlecase}}</span>
-                                <span class="float-end">
-                                    <button (click)="ScrollCompComity()" class="btn btn-sm btn-light">
-                                        <i class="fas fa-chart-bar"></i>
-                                    </button>
-                                    <!-- <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
+                        <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
+                            <div class="card-header pb-0 border-bottom">Committees in <span
+                                    class="text-main">{{districtName | titlecase}}</span>
+                                <!-- <span class="float-end">
+                                    <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
                                         <i class="fas fa-times"></i>
-                                    </button> -->
-                                </span>
+                                    </button>
+                                </span> -->
                             </div>
-                            <div class="card-body p-2 fix-height">
+                            <div class="card-body p-0 pt-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)"
                                         [class.active]="resCommittes.Id == activeRow"
-                                        class="list-group-item list-group-item-action border-0 border-bottom"
-                                        aria-current="true" *ngFor="let resCommittes of resultCommittees">
+                                        class="list-group-item list-group-item-action" aria-current="true"
+                                        *ngFor="let resCommittes of resultCommittees">
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
                                                 class="badge rounded-pill bg-light text-dark float-end text-center"
                                                 [appTooltip]
@@ -103,70 +101,38 @@
                                     </a> -->
                                 </div>
                                 <div *ngIf="resultCommittees?.length == 0">
-                                    <div class="alert alert-danger text-center py-2 mb-0 small">No Committees Found..!</div>
+                                    <div class="alert alert-danger text-center py-2">No Committes Found..!</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-3">
-                        <div class="card shadow-none border">
-                            <div class="card-header py-1 border-bottom" *ngIf="defaultMembersFlag">Members in <span
+                        <div class="card shadow-none">
+                            <div class="card-header pb-0 border-bottom" *ngIf="defaultMembersFlag">Members in <span
                                     class="text-main" style="cursor: pointer;"
                                     (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</span></div>
                             <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
 
-                            <div class="card-body p-2 fix-height" *ngIf="defaultMembersFlag">
-                                <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
-                                    *ngFor="let resOrganizationMember of resultOrganizationMember">
-                                    <div class="mb-0 fw-bold mt-1 text-danger" *ngIf="resOrganizationMember.MemberName == ''">
-                                        <p class="mem-name">No Member Assigned</p>
-                                        <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
-                                        <small
-                                            *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
-                                    </div>
-                                    <div *ngIf="resOrganizationMember.MemberName != ''">
-                                        <p class="mem-name">{{resOrganizationMember?.MemberName}}</p>
-                                        <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
-                                        <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
-                                        <div class="mem-act">
-                                            <span>
-                                                <span class="fw-bold me-1">{{resOrganizationMember.TotalWork}}</span>Activities
-                                            </span>
-                                            <span class="float-end">
-                                                <a class="calltomember"
-                                                    href="tel:{{resOrganizationMember?.MobileNo}}"><i
-                                                        class="fas fa-phone-alt"></i></a>
-                                            </span>
-                                        </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==1" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\Android_robot.svg">
-                                        </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==2" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\Apple_logo.svg">
-                                        </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==0" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\no-cellphone.svg">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="list-group list-group-flush">
-                                    <div class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
+                            <div class="card-body p-0 pt-2 fix-height" *ngIf="defaultMembersFlag">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item list-group-item-action p-2" aria-current="true"
                                         *ngFor="let resOrganizationMember of resultOrganizationMember"
                                         (click)="redToMemberProfile(resOrganizationMember.MemberId, resOrganizationMember.MemberName)">
                                         <p class="mb-0 fw-bold mt-1" *ngIf="resOrganizationMember.MemberName == ''">
-                                            <span class="text-danger">No Member Assigned</span> 
-                                            <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
+                                            <span class="text-danger">No Member Assigned</span> <small
+                                                *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
                                         </p>
                                         <div class="d-flex" *ngIf="resOrganizationMember.MemberName != ''">
                                             <div class="flex-grow-1 ms-1 ps-2">
-                                                {{resOrganizationMember?.MemberName}}
-                                                <p class="mb-0 fw-bold mt-1"> 
-                                                    <span><small>{{resOrganizationMember?.DesignationName}}</small></span><br>
-                                                    <small *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
+                                                {{resOrganizationMember.MemberName}}
+                                                <p class="mb-0 fw-bold mt-1"> <small
+                                                        *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">
                                                         {{resOrganizationMember?.MobileNo}}</small><br>
                                                     <span><small>Work Count:
                                                             {{resOrganizationMember.TotalWork}}</small></span>
+
+
                                                             <td *ngIf="resOrganizationMember?.DeviceType==1" >
                                                                 <img src="assets\images\dashboard-images\Android_robot.svg">
                                                             </td>
@@ -183,7 +149,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
 
 
@@ -218,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 mt-4 showmap" *ngIf="CompofComityHide">
+                    <div class="col-sm-12 mt-4">
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">
