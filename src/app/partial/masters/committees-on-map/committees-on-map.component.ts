@@ -280,7 +280,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   redirectOrgDetails() {
-      console.log(this.globalBodyId,this.selCommitteeName)
+      //console.log(this.globalBodyId,this.selCommitteeName)
       let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../committee/details'], { relativeTo: this.route })

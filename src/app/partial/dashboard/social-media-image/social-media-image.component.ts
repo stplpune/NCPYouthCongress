@@ -352,7 +352,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
 
   mahaSVGMap() {
-    debugger;
     let fromDate: any;
     let toDate: any;
     this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';

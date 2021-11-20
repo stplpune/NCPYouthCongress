@@ -21,7 +21,7 @@ export class ActivityDetailsComponent implements OnInit, AfterViewInit {
      private _lightbox: Lightbox) { }
 
   ngOnInit(): void {
-    console.log(this.data);
+    //console.log(this.data);
     this.resultBodyMemActDetails = this.data;
     this.activitieDetails();
   }

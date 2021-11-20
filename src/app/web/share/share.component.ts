@@ -34,7 +34,7 @@ export class ShareComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultOfShareData = res.data1[0];
-        console.log(this.resultOfShareData);
+        //console.log(this.resultOfShareData);
         this.updateMetaInfo(this.resultOfShareData.ProgramTitle, 'https://ncpyouth.erpguru.in/share/' + this.WorkId, this.resultOfShareData.Images.split(',')[0]);
       } else {
         //this.toastrService.error("Data is not available");

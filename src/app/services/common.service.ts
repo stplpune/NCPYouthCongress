@@ -163,7 +163,7 @@ export class CommonService {
         let text = control.value
         let re = /^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$/;
         let  regexp =  /\s/;
-        console.log(regexp.test(text));
+        //console.log(regexp.test(text));
         
         if ( text =='' ||re.test(text) || regexp.test(text) ) {
           // alert();
