@@ -96,6 +96,7 @@ export class OrganizationDetailsComponent implements OnInit {
   actTotal: any;
   @ViewChild('tree') tree: any;
   avtivityId:any;
+ // memberValue: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
@@ -307,6 +308,15 @@ export class OrganizationDetailsComponent implements OnInit {
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  getMemberValue(event:any){
+    let memberValue = event.target.value;
+    this.redToAddMember(memberValue);
+  }
+
+  redToAddMember(memberValue: any) {
+    sessionStorage.setItem('memberValue', JSON.stringify(memberValue));
   }
 
   getWorkcategoryFilterDetails(id: any) {
@@ -580,7 +590,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addNewMember(flag: any, id: any, MobileFieldId:any) {
-    alert(MobileFieldId)
     this.addEditMemberModal('close');
     let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {
@@ -727,11 +736,6 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
-  redToMemberProfile(memberId: any, FullName: any) {
-    let obj = { 'memberId': memberId, 'FullName': FullName }
-    sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../../profile'])
-  }
 
   openDialogBodyMemActDetails() {
     const dialogRefActivityDetails = this.dialog.open(ActivityDetailsComponent, {

@@ -18,6 +18,7 @@ import { AddDesignationComponent } from '../add-designation/add-designation.comp
   styleUrls: ['./add-member.component.css']
 })
 export class AddMemberComponent implements OnInit {
+  memberValue: any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -29,7 +30,10 @@ export class AddMemberComponent implements OnInit {
     private datePipe: DatePipe,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddMemberComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+      let getsessionStorageData: any = sessionStorage.getItem('memberValue');
+      this.memberValue = JSON.parse(getsessionStorageData);
+    }
 
   editProfileForm!: FormGroup;
   categoryArray = [{ id: 1, name: "Rural" }, { id: 0, name: "Urban" }];
@@ -108,12 +112,12 @@ export class AddMemberComponent implements OnInit {
       StateId: [1],
       DistrictId: [0],
       TalukaId: [''],
-      MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      MobileNo: ['' || this.memberValue, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       VillageId: [''],
       //FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
        FName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
       // MName: ['', [Validators.pattern(/^\S*$/)]],
-      MName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
+      MName: ['',Validators.compose([Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
       // LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
       LName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
       IsRural: [1],

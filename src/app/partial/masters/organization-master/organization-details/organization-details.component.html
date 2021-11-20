@@ -587,9 +587,9 @@
                                         <div class="input-group">
                                             <ngx-select [allowClear]="true" [items]="resAllMember"
                                                 formControlName="bodyId" optionValueField="id"
-                                                optionTextField="fullname"
+                                                optionTextField="fullname" (change)="getMemberValue($event)"
                                                 (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
-                                                placeholder="Select Member Name"
+                                                placeholder="Select Member Name" 
                                                 [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
                                                 style="width: 85%;">
                                             </ngx-select>
