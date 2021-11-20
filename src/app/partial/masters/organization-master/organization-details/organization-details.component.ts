@@ -96,6 +96,7 @@ export class OrganizationDetailsComponent implements OnInit {
   actTotal: any;
   @ViewChild('tree') tree: any;
   avtivityId:any;
+  ActivityId: any;
  // memberValue: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -783,6 +784,8 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   openRecentPostDetails(activitieDetails: any) {
+    this.ActivityId = activitieDetails.Id;
+    this.abuseInsertLikes(4);
     let obj = { pageNo: this.paginationNo, data: activitieDetails }
     const dialogRef = this.dialog.open(RecentPostDetailsComponent, {
       data: obj,
@@ -792,6 +795,25 @@ export class OrganizationDetailsComponent implements OnInit {
         this.dashboardActivities();
       }
     });
+  }
+
+  abuseInsertLikes(LikeTypeId:any) {
+    this.spinner.show();
+   this.callAPIService.setHttp('get', 'InsertLikes_1_0?UserId=' + this.commonService.loggedInUserId() + '&ActivityId=' + this.ActivityId + '&LikeTypeId=' + LikeTypeId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        //this.toastrService.success(res.data1[0].Msg);
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+      }
+      this.dashboardActivities();
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
   }
 
   onClickPagintion(pageNo: number) {
