@@ -38,14 +38,14 @@
         </div>
         
         <div class="col-sm-2">
-            <div class="card card-body bg-blue" routerLink="../executive-members">
+            <div class="card card-body bg-blue" (click)="redToMemberProfile(1)">
                 <i class="fas fa-user-shield"></i>
                 <p>Active Members</p>
                 
                 <h3>{{dashboardCount1Array?.ActiveMembers}}</h3>
             </div>
         </div>
-        <div class="col-sm-2" *ngIf="this.loginUserType == 2"  routerLink="../executive-members">
+        <div class="col-sm-2" *ngIf="this.loginUserType == 2" (click)="redToMemberProfile(2)">
             <div class="card card-body bg-red">
                 <i class="fas fa-user-cog"></i>
                 <p>Non Active Members</p>

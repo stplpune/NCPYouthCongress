@@ -36,11 +36,15 @@ export class ExecutiveMembersComponent implements OnInit {
   highlightedRow: number = 0;
   memberStatusArray = [{ id: 0, name: "All" } ,{ id: 1, name: "Active" }, { id: 2, name: "Non Active" }];
   DeviceAppArray = [{ id: 0, name: "All" },{ id: 1, name: "Android" }, { id: 2, name: "iOS" } , { id: 3, name: "No Device" }];
+  activeInactiveId: any;
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService, public dialog: MatDialog,
     private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
-    private commonService: CommonService, public datepipe: DatePipe,) { }
+    private commonService: CommonService, public datepipe: DatePipe,) {
+      let getsessionStorageData: any = sessionStorage.getItem('activeInactiveId');
+      this.activeInactiveId = JSON.parse(getsessionStorageData);
+     }
 
   ngOnInit(): void {
     this.getMemberName();
@@ -56,7 +60,7 @@ export class ExecutiveMembersComponent implements OnInit {
       TalukaId: [0],
       villageid: [0],
       BodyId: [0],
-      memberStatus: [''],
+      memberStatus: ['' || this.activeInactiveId],
       deviceStatus: [''],
       searchText: ['']
     })
@@ -129,7 +133,6 @@ export class ExecutiveMembersComponent implements OnInit {
       }
     })
   }
-
 
   getViewMembers() {
     let formdata = this.filterForm.value;
@@ -226,6 +229,7 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   refresh() {
+    this.activeInactiveId = '';
     this.defaultFilterForm();
     let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
     this.getViewMembers();

@@ -541,4 +541,11 @@ export class DashboardComponent implements OnInit {
     flag == 'Comments' ? (this.comments = true,  this.Liked = false, this.Shared = false) : '';
     flag == 'Shared' ? (this.Shared = true,  this.comments = false, this.Liked = false) : '';
   }
+
+  redToMemberProfile(activeInactiveId:any) {
+    // let obj = { 'memberId': memberId, 'FullName': FullName }
+    sessionStorage.setItem('activeInactiveId', JSON.stringify(activeInactiveId));
+    this.router.navigate(['../executive-members'], { relativeTo: this.route })
+  }
+
 }
