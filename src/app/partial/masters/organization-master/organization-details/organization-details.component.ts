@@ -579,7 +579,8 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
-  addNewMember(flag: any, id: any) {
+  addNewMember(flag: any, id: any, MobileFieldId:any) {
+    alert(MobileFieldId)
     this.addEditMemberModal('close');
     let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {

@@ -593,7 +593,7 @@
                                                 [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
                                                 style="width: 85%;">
                                             </ngx-select>
-                                            <button (click)="addNewMember('Add',0)"
+                                            <button (click)="addNewMember('Add',0,this.bodyMember.value.bodyId)"
                                                 class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
                                                     class="fas fa-plus"></i></button>
                                         </div>
