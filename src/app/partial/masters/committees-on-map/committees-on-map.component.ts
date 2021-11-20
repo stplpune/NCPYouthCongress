@@ -58,6 +58,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
   CompofComityHide : boolean = true;
+  hideComityGraph : boolean = false;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -160,7 +161,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   ScrollCompComity(){
     // this.getOrganizationByDistrictId(this.selectedDistrictId);
     // this.CompofComityHide = true;
-    $('html, body').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
+    this.hideComityGraph = true;
+   setTimeout(() => {
+    $('html, body .showmap').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
+    this.WorkDoneByYuvak();
+   }, 500);
   }
 
   getOrganizationByDistrictId(id: any) {
@@ -300,6 +305,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.onClickFlag  = true;
       // this.removeSessionData();
       this.toggleClassActive(0);
+      this.getLevel();
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }
