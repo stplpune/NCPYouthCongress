@@ -65,12 +65,11 @@
                     </div>
                     <div class="col-sm-3 border-end">
                         <div class="mb-0 small form-container">
-                            <form [formGroup]="commityOnMapForm">
                             <div class="form-check form-check-inline" *ngFor="let level of allLevels ; let i = index">
-                                <input class="form-check-input" (change)="onCheckChangeLevel($event,level.Id)" type="checkbox" >
+                                <input class="form-check-input" (change)="onCheckChangeLevel($event,level.Id)"
+                                    type="checkbox">
                                 <label class="form-check-label" for="inlineCheckbox{{i}}">{{level.LevelName}}</label>
                             </div>
-                        </form>
 
                         </div>
                         <div class="card shadow-none border" *ngIf="defaultCommitteesFlag">
@@ -219,7 +218,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 mt-4" *ngIf="CompofComityHide">
+                    <div class="col-sm-12 mt-4 showmap" *ngIf="CompofComityHide">
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">
