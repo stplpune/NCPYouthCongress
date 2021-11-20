@@ -321,7 +321,7 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
 
 .text-ellipsis-150px {
     white-space: nowrap;
-    width: 150px !important;
+    width: 600px !important;
     display: block;
     overflow: hidden !important;
     text-overflow: ellipsis;

@@ -279,7 +279,10 @@
                                     <td><a class="text-primary"
                                             (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
                                     </td>
-                                    <td>{{result.DesignationName}}</td>
+                                    <td>
+                                        <p class="mb-0">{{result.BodyOrgCellName}}</p>
+                                        <small class="text-muted">{{result.DesignationName}}</small>
+                                    </td>
                                     <td>{{result.MobileNo}}</td>
                                     <td>{{result.Totalwork}}</td>
                                     <td>
