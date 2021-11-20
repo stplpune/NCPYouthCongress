@@ -160,6 +160,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   ScrollCompComity(){
     // this.getOrganizationByDistrictId(this.selectedDistrictId);
     // this.CompofComityHide = true;
+    $('html, body').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
   }
 
   getOrganizationByDistrictId(id: any) {
