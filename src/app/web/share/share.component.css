@@ -19,9 +19,10 @@
 }
 
 #news-details #programcarousel img {
-    height: 250px;
-    max-height: 250px;
-    width: 100%;
+    /* height: 250px;*/
+    max-height: 250px; 
+    width: auto; 
+    object-fit: fill;
 }
 
 #news-details h5.card-title {
