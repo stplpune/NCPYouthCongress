@@ -73,21 +73,24 @@
                         </form>
 
                         </div>
-                      <div class="card shadow-none" *ngIf="defaultCommitteesFlag">
-                            <div class="card-header pb-0 border-bottom">Committees in <span
-                                    class="text-main">{{districtName | titlecase}}</span>
-                                <!-- <span class="float-end">
-                                    <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
-                                        <i class="fas fa-times"></i>
+                        <div class="card shadow-none border" *ngIf="defaultCommitteesFlag">
+                            <div class="card-header py-1 border-bottom">Committees in
+                                <span class="text-main">{{districtName | titlecase}}</span>
+                                <span class="float-end">
+                                    <button (click)="ScrollCompComity()" class="btn btn-sm btn-light">
+                                        <i class="fas fa-chart-bar"></i>
                                     </button>
-                                </span> -->
+                                    <!-- <button *ngIf="defaultCloseBtn" class="btn btn-sm btn-light" type="button" (click)="clearFilter('CommitteesIn')">
+                                        <i class="fas fa-times"></i>
+                                    </button> -->
+                                </span>
                             </div>
-                            <div class="card-body p-0 pt-2 fix-height">
+                            <div class="card-body p-2 fix-height">
                                 <div class="list-group list-group-flush">
                                     <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)"
                                         [class.active]="resCommittes.Id == activeRow"
-                                        class="list-group-item list-group-item-action" aria-current="true"
-                                        *ngFor="let resCommittes of resultCommittees">
+                                        class="list-group-item list-group-item-action border-0 border-bottom"
+                                        aria-current="true" *ngFor="let resCommittes of resultCommittees">
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
                                                 class="badge rounded-pill bg-light text-dark float-end text-center"
                                                 [appTooltip]
@@ -101,7 +104,7 @@
                                     </a> -->
                                 </div>
                                 <div *ngIf="resultCommittees?.length == 0">
-                                    <div class="alert alert-danger text-center py-2">No Committes Found..!</div>
+                                    <div class="alert alert-danger text-center py-2 mb-0 small">No Committees Found..!</div>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +219,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 mt-4">
+                    <div class="col-sm-12 mt-4" *ngIf="CompofComityHide">
                         <div class="card shadow-none border">
                             <div class="card-header">
                                 <div class="row">

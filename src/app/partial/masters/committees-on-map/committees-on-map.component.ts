@@ -58,6 +58,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   commityOnMapForm!: FormGroup;
   CheckBoxLevelArray: any = [];
   CheckBoxLevelArrayJSON: any;
+  CompofComityHide : boolean = false;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -133,6 +134,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
+  }
+
+  ScrollCompComity(){
+     this.getOrganizationByDistrictId(this.selectedDistrictId);
+    this.CompofComityHide = true;
   }
 
   selectDistrict(event: any) {
