@@ -317,6 +317,10 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   redToAddMember(memberValue: any) {
+    // if(parseFloat(memberValue) != NaN){
+    //   this.toastrService.error('Invalid Mobile No.');
+    //   return
+    // }
     sessionStorage.setItem('memberValue', JSON.stringify(memberValue));
   }
 
