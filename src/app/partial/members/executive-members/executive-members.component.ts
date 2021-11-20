@@ -134,17 +134,21 @@ export class ExecutiveMembersComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    sessionStorage.removeItem('activeInactiveId');
+  }
+
   getViewMembers() {
     let formdata = this.filterForm.value;
-   formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
-   formdata.deviceStatus == '' ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
     (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
     (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
     (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
     (formdata.BodyId == undefined || formdata.BodyId == null) ? formdata.BodyId = 0 : formdata.BodyId;
-    // (formdata.memberStatus == undefined || formdata.memberStatus == null) ? formdata.memberStatus = '' : formdata.memberStatus;
-    // (formdata.deviceStatus == undefined || formdata.deviceStatus == null) ? formdata.deviceStatus = 0 : formdata.deviceStatus;
+    (formdata.memberStatus == undefined || formdata.memberStatus == null || formdata.memberStatus == '') ? formdata.memberStatus = 0 : formdata.memberStatus;
+    (formdata.deviceStatus == undefined || formdata.deviceStatus == null || formdata.deviceStatus == '') ? formdata.deviceStatus = 0 : formdata.deviceStatus;
+    // formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
+    // formdata.deviceStatus == '' ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_ExcecutiveMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId 
     + '&statustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
