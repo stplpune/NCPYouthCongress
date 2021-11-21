@@ -73,10 +73,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.selDistrictName="";
-
     this.getMemberName();
-    this.SubUserTypeId == 5 ? this.catValue ="Committee" : '';
-    // this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
+    this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
     this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
     this.getWorkcategoryFilterDetails();
     this. defaultFilterForm();
@@ -217,13 +215,25 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     // });
   }
 
+  CommitteeDetails(BodyId:any){
+    this.comityDetailBodyId = BodyId;
+    this.filterBestPer.patchValue({
+      BodyId : BodyId
+    })
+   this.bestPerformance();
+  }
+
   filterData(flag:any){
-    if (flag == 'workType'){
-      //  this.bestPerformance();
+    if (flag == 'district') {
+      this.getTaluka(this.filterBestPer.value.DistrictId)
+    }else if (flag == 'workType'){
+      // this.bestPerformance();
       this.getBestPerKaryMember();
       // this.showSvgMap(this.commonService.mapRegions());
+ 
     }
     this.geWeekReport();
+    // district talka committee
     this.bestPerformance();
   }
 
@@ -297,6 +307,10 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   defaultFilterBestPer() {
     this.filterBestPer = this.fb.group({
+      DistrictId: [0],
+      TalukaId: [0],
+      VillageId: [0],
+      IsBody: [1],
       BodyId: [0],
     })
   }
@@ -320,8 +334,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.savgMapArray = [];
       this.getBestPerKaryMember();
       this.geWeekReport();
+    }  else if (flag == 'district') {
+      this.filterBestPer.controls['DistrictId'].setValue(0);
+      this.filterBestPer.controls['TalukaId'].setValue(0);
+    } else if (flag == 'taluka') {
+      this.filterBestPer.controls['TalukaId'].setValue(0);
     }  else if (flag == 'committee') {
       this.filterBestPer.controls['BodyId'].setValue(0);
+      this.filterBestPer.controls['IsBody'].setValue(1);
       this.comityDetailBodyId = 0 ; 
     } 
     
@@ -352,65 +372,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
-
-  CommitteeDetails(BodyId:any){
-    this.comityDetailBodyId = BodyId;
-    this.filterBestPer.patchValue({
-      BodyId : BodyId
-    })
-   this.bestPerformance();
-  }
-
-  getMemberName() {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.memberNameArray = res.data1;
-      } else {
-        this.spinner.hide();
-          //this.toastrService.error("Data is not available");
-      }
-    } ,(error:any) => {
-      this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  bestPerformance() {
-    this.spinner.show();
-    let topFilterValue = this.topFilterForm.value;
-    let filter = this.filterBestPer.value;
-    let bodyIdBoth = this.comityDetailBodyId || filter.BodyId ;
-  this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+0+'&TalukaId='+0+
-     '&IsBody=' + 1 +'&BodyId=' + bodyIdBoth +'&CategoryId=' + topFilterValue.category , false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.resultBestPerKaryMember =  res.data1;
-        this.spinner.hide();
-      } else {
-        this.resultBestPerKaryMember =  [];
-        this.spinner.hide();
-        if (res.data == 1) {
-         //this.toastrService.error("Data is not available");
-        } else {
-          this.toastrService.error("Please try again something went wrong");
-        }
-      }
-    })
-  }
-
-  
-  bestWorstPer(value: any) {
-    this.isBestworst=value.id;
-    this.getBestPerKaryMember();
-    this.comityDetailBodyId = 0 ;
-    this.filterBestPer.controls['BodyId'].setValue(0);
-    this.bestPerformance();
- }
 
   // this.selweekRange.fromDate this.selweekRange.toDate
   geWeekReport() {
@@ -453,6 +414,29 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.WorkDoneByMemberSVGData.forEach((element:any) => {
       $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
     });
+  }
+
+  bestPerformance() {
+    this.spinner.show();
+    let topFilterValue = this.topFilterForm.value;
+    let filter = this.filterBestPer.value;
+    let bodyIdBoth = this.comityDetailBodyId || filter.BodyId ;
+  this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+0+'&TalukaId='+0+
+     '&IsBody=' + 1 +'&BodyId=' + bodyIdBoth +'&CategoryId=' + topFilterValue.category , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.resultBestPerKaryMember =  res.data1;
+        this.spinner.hide();
+      } else {
+        this.resultBestPerKaryMember =  [];
+        this.spinner.hide();
+        if (res.data == 1) {
+         //this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
   }
 
   // chart DIv 
@@ -576,18 +560,26 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
    }, 500);
   }
 
-  // catChange(value: any) {
-  //   this.catValue = value.name;
-  //   if(this.catValue == 'Committee'){
-  //     this.filterBestPer.controls['DistrictId'].setValue(0);
-  //     this.filterBestPer.controls['TalukaId'].setValue(0);
-  //     this.getMemberName();
-  //   }else{
-  //     this.filterBestPer.controls['BodyId'].setValue(0);
-  //     this.filterBestPer.controls['IsBody'].setValue(1);
-  //   }
-  //   this.bestPerformance();
-  // }
+  catChange(value: any) {
+    this.catValue = value.name;
+    if(this.catValue == 'Committee'){
+      this.filterBestPer.controls['DistrictId'].setValue(0);
+      this.filterBestPer.controls['TalukaId'].setValue(0);
+      this.getMemberName();
+    }else{
+      this.filterBestPer.controls['BodyId'].setValue(0);
+      this.filterBestPer.controls['IsBody'].setValue(1);
+    }
+    this.bestPerformance();
+  }
+
+  bestWorstPer(value: any) {
+    this.isBestworst=value.id;
+    this.getBestPerKaryMember();
+    this.comityDetailBodyId = 0 ;
+    this.filterBestPer.controls['BodyId'].setValue(0);
+    this.bestPerformance();
+ }
 
   ngOnDestroy() {
     // sessionStorage.removeItem('weekRange');
@@ -605,11 +597,30 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../profile'], {relativeTo:this.route})
   }
+
+  getMemberName() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.memberNameArray = res.data1;
+      } else {
+        this.spinner.hide();
+          //this.toastrService.error("Data is not available");
+      }
+    } ,(error:any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
  
   redTocommitteesOnMap(DistrictId:any,CommitteeId:any, committeeName:any){
     let obj = {'DistrictId':DistrictId,'CommitteeId':CommitteeId, 'committeeName':committeeName}
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(obj));
-    this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
+    this.router.navigate(['../../committees-performance'], {relativeTo:this.route});
   }
 }
 
