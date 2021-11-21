@@ -600,7 +600,7 @@ export class OrganizationDetailsComponent implements OnInit {
     if(this.mobileNoValue){
       debugger;
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
-      if((isNumeric(this.mobileNoValue) != true)){
+      if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
         this.toastrService.error('Invalid Mobile No.');
         return
       }
