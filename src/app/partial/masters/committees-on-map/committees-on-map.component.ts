@@ -94,10 +94,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectDistrict(this.DistrictId);
 
     $(document).on('click', '#mapsvg1  path', (e: any) => { // add on SVG Map
+      this.getLevel();
+      this.CheckBoxLevelArray = [];
       this.onClickFlag = true;
       this.defaultMembersFlag = false;
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
+      this.selectedDistrictId = distrctId;
       this.toggleClassActive(Number(distrctId));
       this.getOrganizationByDistrictId(Number(distrctId));
     });
@@ -130,6 +133,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
+    this.getLevel();
+    this.CheckBoxLevelArray = [];
     // this.CompofComityHide = false;
     this.selectedDistrictId = event;
     this.getOrganizationByDistrictId(this.selectedDistrictId);

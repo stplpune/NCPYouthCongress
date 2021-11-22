@@ -37,34 +37,34 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   toDate: any;
   fromDate: any;
   catValue: any;
-  bestPerCat = [{'id':1,'name':"Committee"},{'id':0,'name':"Location"}];
-  bestWorstArray = [{'id':1,'name':"Best"},{'id':0,'name':"Worst"}];
-  defultCategoryName:any = 1;
-  resWorkcategory:any;
-  dateRange:any;
-  dateRange1:any;
+  bestPerCat = [{ 'id': 1, 'name': "Committee" }, { 'id': 0, 'name': "Location" }];
+  bestWorstArray = [{ 'id': 1, 'name': "Best" }, { 'id': 0, 'name': "Worst" }];
+  defultCategoryName: any = 1;
+  resWorkcategory: any;
+  dateRange: any;
+  dateRange1: any;
   defaultCloseBtn: boolean = false;
-  resultBestPerKaryMember:any;
-  memberNameArray:any;
-  regions_m:any;
+  resultBestPerKaryMember: any;
+  memberNameArray: any;
+  regions_m: any;
   isBestworst = 1;
-  savgMapArray:any;
-  svgMapWorkDoneByYuvakBP:any;
-  svgMapWorkDoneByYuvakTp:any;
-  graphInstance:any;
-  WorkdonebyMembersXaxiesLabel:any;
+  savgMapArray: any;
+  svgMapWorkDoneByYuvakBP: any;
+  svgMapWorkDoneByYuvakTp: any;
+  graphInstance: any;
+  WorkdonebyMembersXaxiesLabel: any;
   SubUserTypeId = this.commonService.loggedInSubUserTypeId();
-  selDistrictId:any;
-  selDistrictName:any;
-  getAllDistrict:any;
-  totalWorkCount:any;
+  selDistrictId: any;
+  selDistrictName: any;
+  getAllDistrict: any;
+  totalWorkCount: any;
   comityDetailBodyId: any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
     public datepipe: DatePipe, private route: ActivatedRoute,
-    public location: Location,  public dateTimeAdapter: DateTimeAdapter<any>) {
-   {dateTimeAdapter.setLocale('en-IN');} 
+    public location: Location, public dateTimeAdapter: DateTimeAdapter<any>) {
+    { dateTimeAdapter.setLocale('en-IN'); }
     let data: any = sessionStorage.getItem('weekRange');
     this.selweekRange = JSON.parse(data);
     this.dateRange1 = [this.selweekRange.fromDate, this.selweekRange.toDate];
@@ -72,12 +72,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.selDistrictName="";
+    this.selDistrictName = "";
     this.getMemberName();
-    this.SubUserTypeId == 5 ? (this.catValue ="Committee", this.getMemberName()) : '';
-    this.commonService.loggedInUserType() ==  1 ?  this.WorkdonebyMembersXaxiesLabel ="District Name" : this.WorkdonebyMembersXaxiesLabel ="Committes Name"
+    this.SubUserTypeId == 5 ? (this.catValue = "Committee", this.getMemberName()) : '';
+    this.commonService.loggedInUserType() == 1 ? this.WorkdonebyMembersXaxiesLabel = "District Name" : this.WorkdonebyMembersXaxiesLabel = "Committes Name"
     this.getWorkcategoryFilterDetails();
-    this. defaultFilterForm();
+    this.defaultFilterForm();
     this.defaultFilterBestPer();
     this.geWeekReport()
     this.getDistrict();
@@ -87,157 +87,157 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-      this.showSvgMap(this.commonService.mapRegions());
-      $(document).on('click', '#mapsvg  path', (e: any) => { // add on SVG Map
-        let getClickedId = e.currentTarget;
-        let distrctId = $(getClickedId).attr('id');
-        // check count on click distrctId 
-        this.WorkDoneByMemberSVGData.forEach((element:any) => {
-            if(distrctId == element.DistrictId){
-              if(element.TotalWork == 0 ){
-                this.toastrService.error("Data is not available");
-                return
-              }else{
-                this.disNameToDisId(distrctId)
-                this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
-                this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
-                this.toggleClassActive(Number(distrctId));
-                this.defaultFilterBestPer();
-                this.geWeekReport()
-                this.getDistrict();
-                this.getBestPerKaryMember();
-                this.bestPerformance();
-              }
-            }
-        });
-
-    
+    this.showSvgMap(this.commonService.mapRegions());
+    $(document).on('click', '#mapsvg  path', (e: any) => { // add on SVG Map
+      let getClickedId = e.currentTarget;
+      let distrctId = $(getClickedId).attr('id');
+      // check count on click distrctId 
+      this.WorkDoneByMemberSVGData.forEach((element: any) => {
+        if (distrctId == element.DistrictId) {
+          if (element.TotalWork == 0) {
+            this.toastrService.error("Data is not available");
+            return
+          } else {
+            this.disNameToDisId(distrctId)
+            this.topFilterForm.controls['DistrictId'].setValue(Number(distrctId));
+            this.filterBestPer.controls['DistrictId'].setValue(Number(distrctId));
+            this.toggleClassActive(Number(distrctId));
+            this.defaultFilterBestPer();
+            this.geWeekReport()
+            this.getDistrict();
+            this.getBestPerKaryMember();
+            this.bestPerformance();
+          }
+        }
       });
+
+
+    });
     // }
   }
 
-  disNameToDisId(distrctId:any){
-    this.getAllDistrict.forEach((element:any) => {
-        if(element.DistrictId == Number(distrctId)){
-          this.selDistrictName = element.DistrictName;
-        }
+  disNameToDisId(distrctId: any) {
+    this.getAllDistrict.forEach((element: any) => {
+      if (element.DistrictId == Number(distrctId)) {
+        this.selDistrictName = element.DistrictName;
+      }
     });
   }
 
-  toggleClassActive(distrctId:any){
-    let checksvgDistrictActive = $('#mapsvg  path').hasClass( "svgDistrictActive");   
-    checksvgDistrictActive == true ?  ($('#mapsvg  path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')):  $('path#' + distrctId).addClass('svgDistrictActive');;
+  toggleClassActive(distrctId: any) {
+    let checksvgDistrictActive = $('#mapsvg  path').hasClass("svgDistrictActive");
+    checksvgDistrictActive == true ? ($('#mapsvg  path').removeClass('svgDistrictActive'), $('path#' + distrctId).addClass('svgDistrictActive')) : $('path#' + distrctId).addClass('svgDistrictActive');;
   }
 
 
-  showSvgMap(regions_m:any) {
+  showSvgMap(regions_m: any) {
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
-     this.graphInstance = $("#mapsvg").mapSvg({
-        width: 550,
-        height: 430,
+    this.graphInstance = $("#mapsvg").mapSvg({
+      width: 550,
+      height: 430,
+      colors: {
+        baseDefault: "#bfddff",
+        background: "#fff",
+        selected: "#272848",
+        hover: "#ebebeb",
+        directory: "#bfddff",
+        status: {}
+      },
+      regions: regions_m,
+      viewBox: [0, 0, 763.614, 599.92],
+      cursor: "pointer",
+      zoom: {
+        on: false,
+        limit: [0, 50],
+        delta: 2,
+        buttons: {
+          on: true,
+          location: "left"
+        },
+        mousewheel: true
+      },
+      tooltips: {
+        mode: "title",
+        off: true,
+        priority: "local",
+        position: "bottom"
+      },
+      popovers: {
+        mode: "on",
+        on: false,
+        priority: "local",
+        position: "top",
+        centerOn: false,
+        width: 300,
+        maxWidth: 50,
+        maxHeight: 50,
+        resetViewboxOnClose: false,
+        mobileFullscreen: false
+      },
+      gauge: {
+        on: false,
+        labels: {
+          low: "low",
+          high: "high"
+        },
         colors: {
-          baseDefault: "#bfddff",
-          background: "#fff",
-          selected: "#272848",
-          hover: "#ebebeb",
-          directory: "#bfddff",
-          status: {}
-        },
-        regions: regions_m,
-        viewBox: [0, 0, 763.614, 599.92],
-        cursor: "pointer",
-        zoom: {
-          on: false,
-          limit: [0, 50],
-          delta: 2,
-          buttons: {
-            on: true,
-            location: "left"
+          lowRGB: {
+            r: 211,
+            g: 227,
+            b: 245,
+            a: 1
           },
-          mousewheel: true
-        },
-        tooltips: {
-          mode: "title",
-          off: true,
-          priority: "local",
-          position: "bottom"
-        },
-        popovers: {
-          mode: "on",
-          on: false,
-          priority: "local",
-          position: "top",
-          centerOn: false,
-          width: 300,
-          maxWidth: 50,
-          maxHeight: 50,
-          resetViewboxOnClose: false,
-          mobileFullscreen: false
-        },
-        gauge: {
-          on: false,
-          labels: {
-            low: "low",
-            high: "high"
+          highRGB: {
+            r: 67,
+            g: 109,
+            b: 154,
+            a: 1
           },
-          colors: {
-            lowRGB: {
-              r: 211,
-              g: 227,
-              b: 245,
-              a: 1
-            },
-            highRGB: {
-              r: 67,
-              g: 109,
-              b: 154,
-              a: 1
-            },
-            low: "#d3e3f5",
-            high: "#436d9a",
-            diffRGB: {
-              r: -144,
-              g: -118,
-              b: -91,
-              a: 0
-            }
-          },
-          min: 0,
-          max: false
+          low: "#d3e3f5",
+          high: "#436d9a",
+          diffRGB: {
+            r: -144,
+            g: -118,
+            b: -91,
+            a: 0
+          }
         },
-        source: "assets/images/maharashtra_districts_texts.svg",
-        // source: "assets/images/divisionwise.svg",
-        title: "Maharashtra-bg_o",
-        responsive: true
-      });
+        min: 0,
+        max: false
+      },
+      source: "assets/images/maharashtra_districts_texts.svg",
+      // source: "assets/images/divisionwise.svg",
+      title: "Maharashtra-bg_o",
+      responsive: true
+    });
     // });
   }
 
-  CommitteeDetails(BodyId:any){
+  CommitteeDetails(BodyId: any) {
     this.comityDetailBodyId = BodyId;
     this.filterBestPer.patchValue({
-      BodyId : BodyId
+      BodyId: BodyId
     })
-   this.bestPerformance();
+    this.bestPerformance();
   }
 
-  filterData(flag:any){
+  filterData(flag: any) {
     if (flag == 'district') {
       this.getTaluka(this.filterBestPer.value.DistrictId)
-    }else if (flag == 'workType'){
+    } else if (flag == 'workType') {
       // this.bestPerformance();
       this.getBestPerKaryMember();
       // this.showSvgMap(this.commonService.mapRegions());
- 
+
     }
     this.geWeekReport();
     // district talka committee
     this.bestPerformance();
   }
 
-  getweekRage(event:any){
+  getweekRage(event: any) {
     this.defaultCloseBtn = true;
     this.bestPerformance();
     this.getBestPerKaryMember();
@@ -319,11 +319,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.topFilterForm = this.fb.group({
       category: [0],
       fromTo: [this.dateRange],
-      DistrictId:[0]
+      DistrictId: [0]
     })
   }
 
-  clearFilter(flag:any){
+  clearFilter(flag: any) {
     if (flag == 'workType') {
       this.topFilterForm.controls['category'].setValue(0);
       this.getBestPerKaryMember();
@@ -334,17 +334,17 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       this.savgMapArray = [];
       this.getBestPerKaryMember();
       this.geWeekReport();
-    }  else if (flag == 'district') {
+    } else if (flag == 'district') {
       this.filterBestPer.controls['DistrictId'].setValue(0);
       this.filterBestPer.controls['TalukaId'].setValue(0);
     } else if (flag == 'taluka') {
       this.filterBestPer.controls['TalukaId'].setValue(0);
-    }  else if (flag == 'committee') {
+    } else if (flag == 'committee') {
       this.filterBestPer.controls['BodyId'].setValue(0);
       this.filterBestPer.controls['IsBody'].setValue(1);
-      this.comityDetailBodyId = 0 ; 
-    } 
-    
+      this.comityDetailBodyId = 0;
+    }
+
     this.bestPerformance();
   }
 
@@ -355,8 +355,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   getBestPerKaryMember() {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
-       'dd/MM/yyyy')+ '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst+'&DistrictId='+topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
+      'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst + '&DistrictId=' + topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -381,9 +381,11 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     // let toDate: any;
     // topFilterValue.fromTo[0] != "" ? (fromDate = this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
-    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() +  '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category+'&DistrictId='+topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&DistrictId=' + topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
+      debugger
       if (res.data == 0) {
+
         this.WorkDoneByYuvakTP = res.data1;
         this.WorkDoneByYuvakBP = res.data2;
         this.WorkDoneByYuvakBarchart = res.data3;
@@ -397,6 +399,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.WorkDoneByYuvakTP = [];
         this.WorkDoneByYuvakBP = [];
         this.WorkDoneByYuvakBarchart = [];
+        this.WorkDoneByMemberSVGData = [];
+        this.addClasscommitteeWise();
         this.WorkDoneByYuvak();
         this.mahaSVGMap(this.WorkDoneByMemberSVGData);
         this.spinner.hide();
@@ -411,8 +415,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   addClasscommitteeWise() {
     $('.mapsvg-wrap path').addClass('notClicked');
-    this.WorkDoneByMemberSVGData.forEach((element:any) => {
-      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
+    this.WorkDoneByMemberSVGData.forEach((element: any) => {
+      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked');
     });
   }
 
@@ -420,18 +424,19 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
-    let bodyIdBoth = this.comityDetailBodyId || filter.BodyId ;
-  this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')  +'&DistrictId='+0+'&TalukaId='+0+
-     '&IsBody=' + 1 +'&BodyId=' + bodyIdBoth +'&CategoryId=' + topFilterValue.category , false, false, false, 'ncpServiceForWeb');
+    debugger;
+    let bodyIdBoth = filter.BodyId;
+    this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + 0 + '&TalukaId=' + 0 +
+      '&IsBody=' + 1 + '&BodyId=' + bodyIdBoth + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.resultBestPerKaryMember =  res.data1;
+        this.resultBestPerKaryMember = res.data1;
         this.spinner.hide();
       } else {
-        this.resultBestPerKaryMember =  [];
+        this.resultBestPerKaryMember = [];
         this.spinner.hide();
         if (res.data == 1) {
-         //this.toastrService.error("Data is not available");
+          //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
         }
@@ -440,7 +445,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // chart DIv 
-  WorkDoneByYuvak() {  
+  WorkDoneByYuvak() {
 
     am4core.ready(() => {
       am4core.useTheme(am4themes_animated);
@@ -536,37 +541,37 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  
-  mahaSVGMap(data:any) {
-   setTimeout(() => {
-    if (data.length != 0) {
-      data.forEach((ele: any) => {
-        if(ele.TotalWork > 0){
-        //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
-        $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
-          ele.TotalWork < 6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive'):  '';
-        }else{
-          let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
-          checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") :''
-          $('#mapsvg  #' + ele.DistrictId).addClass("zeroActivity");
-          $('#mapsvg  #' + ele.DistrictName).text('');
-          this.totalWorkCount =  ele.TotalWork;
-          // $('path#' + ele.DistrictId).addClass('zeroActivity');
-        }
-      })
-    } else {
-      // this.showSvgMap(this.commonService.mapRegions());
-    }
-   }, 500);
+
+  mahaSVGMap(data: any) {
+    setTimeout(() => {
+      if (data.length != 0) {
+        data.forEach((ele: any) => {
+          if (ele.TotalWork > 0) {
+            //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
+            $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
+            ele.TotalWork < 6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') : '';
+          } else {
+            let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
+            checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") : ''
+            $('#mapsvg  #' + ele.DistrictId).addClass("zeroActivity");
+            $('#mapsvg  #' + ele.DistrictName).text('');
+            this.totalWorkCount = ele.TotalWork;
+            // $('path#' + ele.DistrictId).addClass('zeroActivity');
+          }
+        })
+      } else {
+        this.addClasscommitteeWise();
+      }
+    }, 500);
   }
 
   catChange(value: any) {
     this.catValue = value.name;
-    if(this.catValue == 'Committee'){
+    if (this.catValue == 'Committee') {
       this.filterBestPer.controls['DistrictId'].setValue(0);
       this.filterBestPer.controls['TalukaId'].setValue(0);
       this.getMemberName();
-    }else{
+    } else {
       this.filterBestPer.controls['BodyId'].setValue(0);
       this.filterBestPer.controls['IsBody'].setValue(1);
     }
@@ -574,28 +579,28 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   bestWorstPer(value: any) {
-    this.isBestworst=value.id;
+    this.isBestworst = value.id;
     this.getBestPerKaryMember();
-    this.comityDetailBodyId = 0 ;
+    this.comityDetailBodyId = 0;
     this.filterBestPer.controls['BodyId'].setValue(0);
     this.bestPerformance();
- }
+  }
 
   ngOnDestroy() {
     // sessionStorage.removeItem('weekRange');
     this.graphInstance.destroy();
   }
 
-  redirectOrgDetails(bodyId: any,  BodyOrgCellName:any) {
-      let obj = {bodyId:bodyId, BodyOrgCellName:BodyOrgCellName}
-      sessionStorage.setItem('bodyId', JSON.stringify(obj))
-      this.router.navigate(['../../committee/details'], { relativeTo: this.route })
+  redirectOrgDetails(bodyId: any, BodyOrgCellName: any) {
+    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
+    sessionStorage.setItem('bodyId', JSON.stringify(obj))
+    this.router.navigate(['../../committee/details'], { relativeTo: this.route })
   }
 
-  redToMemberProfile(memberId:any,FullName:any){
-    let obj = {'memberId':memberId, 'FullName':FullName}
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
-    this.router.navigate(['../../profile'], {relativeTo:this.route})
+    this.router.navigate(['../../profile'], { relativeTo: this.route })
   }
 
   getMemberName() {
@@ -607,20 +612,20 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.memberNameArray = res.data1;
       } else {
         this.spinner.hide();
-          //this.toastrService.error("Data is not available");
+        //this.toastrService.error("Data is not available");
       }
-    } ,(error:any) => {
+    }, (error: any) => {
       this.spinner.hide();
       if (error.status == 500) {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
   }
- 
-  redTocommitteesOnMap(DistrictId:any,CommitteeId:any, committeeName:any){
-    let obj = {'DistrictId':DistrictId,'CommitteeId':CommitteeId, 'committeeName':committeeName}
+
+  redTocommitteesOnMap(DistrictId: any, CommitteeId: any, committeeName: any) {
+    let obj = { 'DistrictId': DistrictId, 'CommitteeId': CommitteeId, 'committeeName': committeeName }
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(obj));
-    this.router.navigate(['../../committees-performance'], {relativeTo:this.route});
+    this.router.navigate(['../../committees-performance'], { relativeTo: this.route });
   }
 }
 
