@@ -1,38 +1,19 @@
-<!-- <header class="header">
-    <div class="header__container">
-        <img src="assets/images/dashboard-images/ncplogo.png" alt="" class="header__img"> sdf
-        <div class="header__toggle">
-            <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>
-        </div>
-    </div>
-</header> -->
-
 <header class="header">
     <div class="header__container">
-        <h5 class="mb-0">
+        <h5 class="mb-0 d-none d-lg-block d-sm-none">
             <div class="header-mp">महाराष्ट्र प्रदेश</div> राष्ट्रवादी युवक कॉंग्रेस
         </h5>
         <div class="rightmenu">
-            <div class="dropdown">
+            <p class="fw-bold text-light mb-0">MH State Karyakarni</p>
+            <div class="dropdown d-none d-lg-block d-sm-none">
                 <button class="btn text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="{{pic == '' || pic == null ? 'assets/images/user.png' : pic}}" class="header__img"> 
                   {{fullName | titlecase}}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                  <!-- <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user-cog me-2"></i>Profile</a></li> -->
                   <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                 </ul>
               </div>
-            <!-- <div class="me-3">
-                <span class="fw-bold">
-                    {{fullName | titlecase}}
-                </span>
-            </div>
-            <div class="ms-2">
-                <a class="btn btn-sm btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i
-                        class="fas fa-sign-out-alt me-2"></i>Logout</a>
-            </div> -->
-
         </div>
         <div class="header__toggle">
             <i class='fas fa-bars' id="header-toggle" [class.fa-times]="isShowMenu" (click)="showMenu()"></i>
