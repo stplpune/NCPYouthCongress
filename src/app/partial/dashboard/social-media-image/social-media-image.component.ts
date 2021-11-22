@@ -55,8 +55,9 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
   ) { { dateTimeAdapter.setLocale('en-IN'); } }
 
   ngOnInit(): void {
-    this.getDistrict();
+  
     this.defaultFilterForm();
+    this.getDistrict();
     this.getMostLikeHatedPerson();
     this.getPoliticalParty();
   }
@@ -162,27 +163,42 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getDistrict() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilter?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilter?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    let fromDate: any;
+    let toDate: any;
+    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+  
+
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilterWithDate?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId() +'&FromDate='+fromDate+'&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDistrict = res.data1;
         this.addClasscommitteeWise();
       } else {
+        this.allDistrict = [];
+        this.addClasscommitteeWise();
         this.spinner.hide();
         if (res.data == 1) {
-          this.toastrService.error("Data is not available 2");
+          // this.toastrService.error("Data is not available 2");
         } else {
-          this.toastrService.error("Please try again something went wrong");
+          // this.toastrService.error("Please try again something went wrong");
         }
       }
     })
   }
   addClasscommitteeWise() {
+    debugger;
     $('.mapsvg-wrap path').addClass('notClicked');
-    this.allDistrict.forEach((element:any) => {
-      $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
-    });
+    if(this.allDistrict.length != 0 ){
+      this.allDistrict.forEach((element:any) => {
+        $('.mapsvg-wrap path[id="' + element.DistrictId + '"]').addClass('clicked'); 
+      });
+    }else{
+      $('.mapsvg-wrap path').removeClass('clicked');
+    }
+    
   }
 
   getTaluka(districtId: any) {
@@ -211,11 +227,13 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     var Time = dates.value[1].getTime() - dates.value[0].getTime();
     var Days = Time / (1000 * 3600 * 24);
 
+    // this.getMostLikeHatedPerson();
+    // this.partyChangeEvent(1);
+    // this.getDistrict();
     if (Days <= 7) {
-      // this.fromDate = this.datepipe.transform(dates.value[0], 'dd/MM/yyyy');
-      // this.toDate = this.datepipe.transform(dates.value[1], 'dd/MM/yyyy');
       this.getMostLikeHatedPerson();
       this.partyChangeEvent(1);
+      this.getDistrict();
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
     }

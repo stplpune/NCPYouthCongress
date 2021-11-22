@@ -6,10 +6,7 @@
         <div class="col-sm-9">
             <form [formGroup]="filterForm">
                 <div class="row g-1 d-flex justify-content-end">
-                    <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" (remove)="clearFilter('district')" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
-                        </ngx-select>
-                    </div>
+        
                     <!-- <div class="col-sm-3">
                         <ngx-select [allowClear]="true" (remove)="clearFilter('taluka')" (select)="filterData()" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" placeholder="Select Taluka" optionValueField="TalukaId" optionTextField="TalukaName">
                         </ngx-select>
@@ -23,6 +20,10 @@
                             <button class="btn btn-light border btn-sm" type="button" *ngIf="defaultCloseBtn" (click)="clearFilter('Date')">
                             <i class="fas fa-times"></i></button>
                         </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" (remove)="clearFilter('district')" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
+                        </ngx-select>
                     </div>
                     <div class="col-sm-auto">
                         <button type="button" class="btn btn-secondary rounded btn-sm" (click)="location.back();"><i class="fas fa-arrow-left"></i></button>

@@ -218,7 +218,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         // if district id != 0  then show district name
 
         this.CommitteeId && this.loggedUserTypeId == 5 && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
-
         if (id != 0) {
           this.allDistrict.find((ele: any) => {
             if (ele.DistrictId == id) {

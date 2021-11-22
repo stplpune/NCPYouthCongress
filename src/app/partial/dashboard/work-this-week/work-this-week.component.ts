@@ -59,6 +59,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   getAllDistrict: any;
   totalWorkCount: any;
   comityDetailBodyId: any;
+  clickDistrictId:any = 0;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -91,6 +92,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     $(document).on('click', '#mapsvg  path', (e: any) => { // add on SVG Map
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
+      this.clickDistrictId = distrctId;
       // check count on click distrctId 
       this.WorkDoneByMemberSVGData.forEach((element: any) => {
         if (distrctId == element.DistrictId) {
@@ -426,7 +428,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     let filter = this.filterBestPer.value;
     debugger;
     let bodyIdBoth = filter.BodyId;
-    this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + 0 + '&TalukaId=' + 0 +
+    this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + this.clickDistrictId + '&TalukaId=' + 0 +
       '&IsBody=' + 1 + '&BodyId=' + bodyIdBoth + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -549,7 +551,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
           if (ele.TotalWork > 0) {
             //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
             $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
-            ele.TotalWork < 6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') : '';
+            ele.TotalWork <  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') :  '';
+            
           } else {
             let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
             checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") : ''
