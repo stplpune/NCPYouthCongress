@@ -597,9 +597,14 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
+  redToMemberProfile(memberId: any, FullName: any) {
+    let obj = { 'memberId': memberId, 'FullName': FullName }
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../../../profile'])
+  }
+  
   addNewMember(flag: any, id: any, MobileFieldId:any) {
     if(this.mobileNoValue){
-      debugger;
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
       if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
         this.toastrService.error('Invalid Mobile No.');
