@@ -543,7 +543,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-
   mahaSVGMap(data: any) {
     setTimeout(() => {
       if (data.length != 0) {
