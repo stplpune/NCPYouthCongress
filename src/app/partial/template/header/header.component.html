@@ -9,7 +9,7 @@
 
 <header class="header">
     <div class="header__container">
-        <h5 class="mb-0">
+        <h5 class="mb-0 d-none d-lg-block d-sm-none">
             <div class="header-mp">महाराष्ट्र प्रदेश</div> राष्ट्रवादी युवक कॉंग्रेस
         </h5>
         <div class="rightmenu">
@@ -19,7 +19,7 @@
                   {{fullName | titlecase}}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                  <!-- <li><a class="dropdown-item" routerLink="my-profile"><i class="fas fa-user-cog me-2"></i>Profile</a></li> -->
+                  <li class="dropdown-header small fw-bold text-muted">{{committeename.CommiteeName | titlecase}}</li>
                   <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                 </ul>
               </div>

@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   show_eye1: Boolean = false;
   show_button2: Boolean = false;
   show_eye2: Boolean = false;
+  committeename:any;
   fullName:any;
   nameImgObj:any;
   pic:any;
@@ -67,6 +68,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.nameImgObj = this.commonService.getFullName();
+    this.committeename = this.commonService.getCommiteeInfo()
     this.pic = this.nameImgObj.ProfilePhoto;
     this.commonService.imageChange.subscribe((imagePath:any) => {
      if (!!imagePath) {
