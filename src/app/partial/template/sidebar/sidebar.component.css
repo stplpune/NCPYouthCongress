@@ -65,7 +65,6 @@
     .nav:hover .nav__logo-name {
         opacity: 1
     }
-    
 }
 
 @media screen and (max-width: 480px) {
@@ -75,9 +74,6 @@
     .show-menu {
         width: 219px;
     }
-    .nav .nav-head img {
-        width: 100%;
-    }
 }
 
 .nava {
@@ -85,6 +81,140 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+
+/* .nava a,
+.nava label {
+    display: block;
+    padding: 0.4rem .85rem;
+    color: #333;
+    background-color: #fff;
+    -webkit-transition: all .25s ease-in;
+    transition: all .25s ease-in;
+    text-decoration: none;
+}
+
+.nava ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nava a:focus,
+.nava a:hover,
+.nava label:focus,
+.nava label:hover {
+    color: #fff !important;
+    background: var(--main-color);
+}
+
+.nava label:hover i {
+    fill: #fff;
+    color: #fff;
+}
+
+.nava label {
+    cursor: pointer;
+}
+
+.group-list a,
+.group-list label {
+    padding: 10px 10px 10px 2rem;
+    background: #fff;
+    font-size: 0.75rem !important;
+}
+
+.group-list a:focus,
+.group-list a:hover,
+.group-list label:focus,
+.group-list label:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.sub-group-list a,
+.sub-group-list label {
+    padding-left: 3rem;
+    background: #fff;
+    color: #333;
+}
+
+.sub-group-list a:focus,
+.sub-group-list a:hover,
+.sub-group-list label:focus,
+.sub-group-list label:hover {
+    background: #eee;
+}
+
+.sub-sub-group-list a,
+.sub-sub-group-list label {
+    padding-left: 6rem;
+    background: #eee;
+}
+
+.sub-sub-group-list a:focus,
+.sub-sub-group-list a:hover,
+.sub-sub-group-list label:focus,
+.sub-sub-group-list label:hover {
+    background: #333333;
+}
+
+.group-list,
+.sub-group-list,
+.sub-sub-group-list {
+    height: 100%;
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height .5s ease-in-out;
+    transition: max-height .5s ease-in-out;
+}
+
+.nav__list input[type=checkbox]:checked+label+ul {
+    max-height: 1000px;
+}
+
+label>span {
+    float: right;
+    -webkit-transition: -webkit-transform .65s ease;
+    transition: transform .65s ease;
+}
+
+.nav__list input[type=checkbox]:checked+label>span {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.nav__list i {
+    padding: 10px;
+    border-radius: 3px;
+    margin-right: 20px;
+    min-width: 36px;
+    min-height: 36px;
+    width: 36px;
+    height: 36px;
+    color: var(--main-color);
+}
+
+.nav__list li label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+.nav__list span {
+    position: absolute;
+    right: 15px;
+} */
+
 .accordion-item {
     flex-wrap: nowrap;
     align-items: center;
@@ -187,13 +317,4 @@
 a.list-group-item.list-group-item-action.ng-star-inserted.active1 {
     color: #fff!important;
     background: var(--main-color) !important;
-}
-#profile-head{
-    border: 0;
-    text-align: center;
-    padding-top: 0;
-}
-#profile-head img{
-    width: 80px;
-    margin: 0 auto;
 }
