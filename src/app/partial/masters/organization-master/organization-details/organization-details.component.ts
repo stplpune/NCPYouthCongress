@@ -321,6 +321,7 @@ export class OrganizationDetailsComponent implements OnInit {
   redToAddMember(memberValue: any) {
     if(parseFloat(memberValue) != NaN){
       this.toastrService.error('Invalid Mobile No.');
+      this.mobileNoValue = '';
       return
     }
     sessionStorage.setItem('memberValue', JSON.stringify(memberValue));
@@ -602,6 +603,7 @@ export class OrganizationDetailsComponent implements OnInit {
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
       if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
         this.toastrService.error('Invalid Mobile No.');
+        this.mobileNoValue = '';
         return
       }
       sessionStorage.setItem('memberValue', JSON.stringify(this.mobileNoValue));
