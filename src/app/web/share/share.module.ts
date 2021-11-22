@@ -4,6 +4,8 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { ShareRoutingModule } from './share-routing.module';
 import { ShareComponent } from './share.component';
+import { GalleryModule } from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { ShareComponent } from './share.component';
   ],
   imports: [
     CommonModule,
-    ShareRoutingModule
+    ShareRoutingModule,
+    LightboxModule,
+    GalleryModule,
   ],
   providers: [
     Title

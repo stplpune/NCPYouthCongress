@@ -19,8 +19,8 @@
 }
 
 #news-details #programcarousel img {
-    /* height: 250px;*/
-    max-height: 250px; 
+    /* height: 250px;
+    max-height: 250px; */
     width: auto; 
     object-fit: fill;
 }

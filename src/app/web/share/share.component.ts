@@ -4,6 +4,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { CommonService } from 'src/app/services/common.service';
+import { Gallery } from '@ngx-gallery/core';
 
 @Component({
   selector: 'app-share',
@@ -14,10 +16,11 @@ export class ShareComponent implements OnInit {
   WorkId!: number;
   resultOfShareData: any;
   imagesArray: any;
+  sharedImages:any;
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private router: Router, private route: ActivatedRoute,
-    private titleService: Title,
+    private titleService: Title, private commonService:CommonService, public gallery: Gallery, 
     private meta: Meta,
 
   ) { }
@@ -34,7 +37,11 @@ export class ShareComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.resultOfShareData = res.data1[0];
-        //console.log(this.resultOfShareData);
+        // for lightbox 
+        this.sharedImages = this.resultOfShareData.Images.split(',');
+        this.sharedImages = this.commonService.imgesDataTransform(this.sharedImages,'array');
+        this.gallery.ref().load(this.sharedImages);
+
         this.updateMetaInfo(this.resultOfShareData.ProgramTitle, 'https://ncpyouth.erpguru.in/share/' + this.WorkId, this.resultOfShareData.Images.split(',')[0]);
       } else {
         //this.toastrService.error("Data is not available");
