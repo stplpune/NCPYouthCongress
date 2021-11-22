@@ -51,16 +51,16 @@
                         </div>
                         <div class="col-sm-4 text-end">
                             <div class="button-group action-buttons">
-                                <button class="btn btn-sm py-0 me-1 px-2" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
+                                <button class="btn btn-sm py-0 me-1 px-2" title="View Details" data-bs-toggle="modal" data-bs-target="#PostDetailModal"
                                 (click)="openRecentPostDetails(dashboardActivities)"><i class="fas fa-info-circle"></i></button>
                            
                             <span *ngIf="dashboardActivities?.Createdby == userId">
-                                <button type="button" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm py-0 text-danger me-1 px-2">
+                                <button type="button" title="Delete Activity" (click)="delConfirmCanActivity(dashboardActivities.Id)" class="btn btn-sm py-0 text-danger me-1 px-2">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </span>
                             <span *ngIf="dashboardActivities?.Createdby != userId">
-                                <button class="btn btn-sm py-0 text-danger px-2" data-bs-toggle="modal" data-bs-target="#AbuseModal" (click)="abuseCheckConfirm(dashboardActivities.Id)">
+                                <button class="btn btn-sm py-0 text-danger px-2" title="Abuse Activity" data-bs-toggle="modal" data-bs-target="#AbuseModal" (click)="abuseCheckConfirm(dashboardActivities.Id)">
                                     <i class="far fa-pause-circle"></i>
                                 </button>
                             </span>
