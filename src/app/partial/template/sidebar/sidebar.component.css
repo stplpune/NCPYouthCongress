@@ -74,6 +74,9 @@
     .show-menu {
         width: 219px;
     }
+    .nav .nav-head img {
+        width: 100%;
+    }
 }
 
 .nava {
