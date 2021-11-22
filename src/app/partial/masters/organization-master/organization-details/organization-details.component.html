@@ -267,7 +267,7 @@
                                     *ngIf="designatedMembers?.MobileNo !='' && designatedMembers?.MobileNo != null">{{designatedMembers?.MobileNo}}</small>
                             </div>
                             <div *ngIf="designatedMembers.MemberName != ''">
-                                <p class="mem-name">{{designatedMembers?.MemberName}} <small class="mem-no">[{{designatedMembers?.MobileNo}}]</small></p>
+                                <p class="mem-name text-primary"><a (click)="redToMemberProfile(designatedMembers.UserId, designatedMembers.MemberName)">{{designatedMembers?.MemberName}} <small class="mem-no">[{{designatedMembers?.MobileNo}}]</small></a></p>
                                 <div class="mem-desi">
                                     {{designatedMembers?.DesignationName}} 
                                     <small class="mem-no">[{{designatedMembers.PostFromDate}}]</small>

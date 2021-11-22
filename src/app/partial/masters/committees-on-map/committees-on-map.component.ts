@@ -94,6 +94,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectDistrict(this.DistrictId);
 
     $(document).on('click', '#mapsvg1  path', (e: any) => { // add on SVG Map
+      this.hideComityGraph= false;
       this.getLevel();
       this.CheckBoxLevelArray = [];
       this.onClickFlag = true;
@@ -133,6 +134,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   selectDistrict(event: any) {
+    this.hideComityGraph= false;
     this.getLevel();
     this.CheckBoxLevelArray = [];
     // this.CompofComityHide = false;
@@ -174,7 +176,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   getOrganizationByDistrictId(id: any) {
-    debugger;
     this.spinner.show();
 //this.CheckBoxLevelArray = this.CheckBoxLevelArray.join();
     this.CheckBoxLevelArrayJSON = this.CheckBoxLevelArray.join() || 0;
@@ -192,6 +193,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.resultCommittees = res.data1;
         this.selDistrict.setValue(Number(id));
       } else {
+        this.getDistrict(id)
         this.defaultCommitteesFlag = true;
         this.defaultCloseBtn = true;
         this.resultCommittees = [];
@@ -216,7 +218,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.allDistrict = res.data1;
         // if district id != 0  then show district name
-
         this.CommitteeId && this.loggedUserTypeId == 5 && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
         if (id != 0) {
           this.allDistrict.find((ele: any) => {
@@ -316,6 +317,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }
+    this.hideComityGraph= false;
     this.comActiveClass(0);
     this.activeRow = 0;
     this.getOrganizationByDistrictId(0);
@@ -365,6 +367,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.searchFilter = this.Search.value;
         this.activeRow = null;
         //this.selDistrictName(); 
+        this.hideComityGraph= false;
         this.getOrganizationByDistrictId(this.selectedDistrictId);
         this.districtWiseCommityWorkGraph(this.selectedDistrictId);
       // this.resultOrganizationMember = [];
@@ -373,6 +376,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   clearFilterByCommittee() {
+    this.hideComityGraph= false;
     //this.CompofComityHide = false;
     this.Search.reset('');
     this.searchFilter = "";

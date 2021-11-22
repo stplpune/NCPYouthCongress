@@ -545,27 +545,19 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   mahaSVGMap(data: any) {
-    debugger;
     setTimeout(() => {
       if (data.length != 0) {
         data.forEach((ele: any) => {
           if (ele.TotalWork > 0) {
-            let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
-            let checksvgDistrictActiveClass =  $('#mapsvg   path').hasClass("greaterThanFive");
-            if(checksvgDistrictActive == true) $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive")
-            if(checksvgDistrictActiveClass == true)$('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive");
+            this.addAndRemoveClass(ele.DistrictId);
             //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
             $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
             ele.TotalWork <  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') : ele.TotalWork >  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('greaterThanFive') :   '';
             
           } else {
-            let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
-            let checksvgDistrictActiveClass =  $('#mapsvg   path').hasClass("greaterThanFive");
-            if(checksvgDistrictActive == true) $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive")
-            if(checksvgDistrictActiveClass == true)$('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive");
             // let checksvgDistrictActive1 = $('#mapsvg   path').hasClass("greaterThanFive");
             // checksvgDistrictActive1 == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive") : ''
-
+            this.addAndRemoveClass(ele.DistrictId);
             $('#mapsvg  #' + ele.DistrictId).addClass("zeroActivity");
             $('#mapsvg  #' + ele.DistrictName).text('');
             this.totalWorkCount = ele.TotalWork;
@@ -576,6 +568,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.addClasscommitteeWise();
       }
     }, 500);
+  }
+
+  addAndRemoveClass(DistrictId:any){
+    let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
+    let checksvgDistrictActiveClass =  $('#mapsvg   path').hasClass("greaterThanFive");
+    if(checksvgDistrictActive == true) $('#mapsvg   path#' + DistrictId).removeClass("lessThanFive")
+    if(checksvgDistrictActiveClass == true)$('#mapsvg   path#' + DistrictId).removeClass("greaterThanFive");
   }
 
   catChange(value: any) {

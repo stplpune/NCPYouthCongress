@@ -163,14 +163,14 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getDistrict() {
     this.spinner.show();
-    // this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilter?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
-    let fromDate: any;
-    let toDate: any;
-    this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
-    this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilter?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    // let fromDate: any;
+    // let toDate: any;
+    // this.filterForm.value.fromTo[0] != "" ? (fromDate = this.datepipe.transform(this.filterForm.value.fromTo[0], 'dd/MM/yyyy')) : fromDate = '';
+    // this.filterForm.value.fromTo[1] != "" ? (toDate = this.datepipe.transform(this.filterForm.value.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
   
 
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilterWithDate?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId() +'&FromDate='+fromDate+'&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
+    // this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveSocialMediaFilterWithDate?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId() +'&FromDate='+fromDate+'&ToDate='+toDate, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -189,7 +189,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     })
   }
   addClasscommitteeWise() {
-    debugger;
     $('.mapsvg-wrap path').addClass('notClicked');
     if(this.allDistrict.length != 0 ){
       this.allDistrict.forEach((element:any) => {
@@ -203,7 +202,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getTaluka(districtId: any) {
     this.getMostLikeHatedPerson();
-     this.partyChangeEvent(1);
+    this.partyChangeEvent(1);
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -233,7 +232,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     if (Days <= 7) {
       this.getMostLikeHatedPerson();
       this.partyChangeEvent(1);
-      this.getDistrict();
+      // this.getDistrict();
     } else {
       this.toastrService.error("Please Select Date Only Week Range");
     }
@@ -252,7 +251,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       this.defaultCloseBtn = false;
       this.filterForm.controls['fromTo'].setValue(this.dateRange1);
     }
-
+    // this.getDistrict();
     this.partyChangeEvent(1)
     this.getMostLikeHatedPerson();
     this.perceptionTrendWeb();
@@ -272,16 +271,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
         this.mostHatedPersonArray = res.data2;
         this.perceptionTrendWeb();
       } else {
-        this.perceptionTrendWeb();
-        if (res.data == 1) {
-          this.spinner.hide();
-          //this.toastrService.error("Data is not available");
-          this.mostLikedPersonArray = [];
-          this.mostHatedPersonArray = [];
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
+       
+        this.spinner.hide();
+        //this.toastrService.error("Data is not available");
+        this.mostLikedPersonArray = [];
+        this.mostHatedPersonArray = [];
+       this.perceptionTrendWeb();
       }
     })
   }
@@ -309,21 +304,13 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
           }
         })
         this.trendSocialMediaLineChart();
-        this.socialMediaChart();
+        //this.socialMediaChart();
         this.spinner.hide();
       } else {
-        if (res.data == 1) {
-
-          //this.toastrService.error("Data is not available");
           this.perOnSocialMedArray = [];
           this.trendOnSocialMediaArray = [];
           this.trendSocialMediaLineChart();
-          this.socialMediaChart();
           this.spinner.hide();
-        } else {
-          this.spinner.hide();
-          this.toastrService.error("Please try again something went wrong");
-        }
       }
     })
   }
@@ -607,10 +594,12 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
    chart.cursor = new am4charts.XYCursor()
    chart.cursor.maxTooltipDistance = -1
-
+   setTimeout(() => {
+    this.socialMediaChart();
+   }, 1000);
   }
 
   ngOnDestroy() {
-    this.graphInstance.destroy();
+   this.graphInstance.destroy();
   }
 }
