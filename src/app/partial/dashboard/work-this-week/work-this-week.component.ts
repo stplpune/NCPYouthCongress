@@ -385,12 +385,13 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     // topFilterValue.fromTo[1] != "" ? (toDate = this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy')) : toDate = '';
     this.callAPIService.setHttp('get', 'DashboardData_Week_web_1_0_Committee?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&DistrictId=' + topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      debugger
       if (res.data == 0) {
-
-        this.WorkDoneByYuvakTP = res.data1;
-        this.WorkDoneByYuvakBP = res.data2;
-        this.WorkDoneByYuvakBarchart = res.data3;
+        res.data1 == "" ?  this.WorkDoneByYuvakTP = []  : this.WorkDoneByYuvakTP = res.data1;
+        res.data2 == "" ?  this.WorkDoneByYuvakBP = []  : this.WorkDoneByYuvakBP = res.data2;
+        res.data3 == "" ?  this.WorkDoneByYuvakBarchart = []  : this.WorkDoneByYuvakBarchart = res.data3;
+        // this.WorkDoneByYuvakTP = res.data1;
+        // this.WorkDoneByYuvakBP = res.data2;
+        // this.WorkDoneByYuvakBarchart = res.data3;
         this.WorkDoneByMemberSVGData = res.data4;
         topFilterValue.DistrictId == 0 ? this.getAllDistrict = res.data4 : '';
         this.addClasscommitteeWise();
@@ -426,7 +427,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
-    debugger;
     let bodyIdBoth = filter.BodyId;
     this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + this.clickDistrictId + '&TalukaId=' + 0 +
       '&IsBody=' + 1 + '&BodyId=' + bodyIdBoth + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
@@ -545,17 +545,27 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   mahaSVGMap(data: any) {
+    debugger;
     setTimeout(() => {
       if (data.length != 0) {
         data.forEach((ele: any) => {
           if (ele.TotalWork > 0) {
+            let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
+            let checksvgDistrictActiveClass =  $('#mapsvg   path').hasClass("greaterThanFive");
+            if(checksvgDistrictActive == true) $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive")
+            if(checksvgDistrictActiveClass == true)$('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive");
             //   $('path#' + ele.DistrictId).css('filter', 'invert(11%) sepia(7%) saturate(6689%) hue-rotate(205deg) brightness(98%) contrast(87%)');
             $('#mapsvg  #' + ele.DistrictName).text(ele.TotalWork);
-            ele.TotalWork <  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') :  '';
+            ele.TotalWork <  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('lessThanFive') : ele.TotalWork >  6 ? $('#mapsvg  #' + ele.DistrictId).addClass('greaterThanFive') :   '';
             
           } else {
             let checksvgDistrictActive = $('#mapsvg   path').hasClass("lessThanFive");
-            checksvgDistrictActive == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive") : ''
+            let checksvgDistrictActiveClass =  $('#mapsvg   path').hasClass("greaterThanFive");
+            if(checksvgDistrictActive == true) $('#mapsvg   path#' + ele.DistrictId).removeClass("lessThanFive")
+            if(checksvgDistrictActiveClass == true)$('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive");
+            // let checksvgDistrictActive1 = $('#mapsvg   path').hasClass("greaterThanFive");
+            // checksvgDistrictActive1 == true ? $('#mapsvg   path#' + ele.DistrictId).removeClass("greaterThanFive") : ''
+
             $('#mapsvg  #' + ele.DistrictId).addClass("zeroActivity");
             $('#mapsvg  #' + ele.DistrictName).text('');
             this.totalWorkCount = ele.TotalWork;

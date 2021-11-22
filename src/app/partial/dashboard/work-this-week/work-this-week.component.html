@@ -69,7 +69,7 @@
 
                     <div class="float-end">{{selDistrictName}}
                         <a *ngIf="selDistrictName" class="btn btn-sm btn-light"
-                            (click)="ngOnInit();toggleClassActive(0);"> <i class="fas fa-times"></i></a>
+                            (click)="clickDistrictId = 0; ngOnInit();toggleClassActive(0);"> <i class="fas fa-times"></i></a>
                         <!-- <button class="btn btn-sm btn-light" routerLink="../../map-view">
                             <i class="fas fa-map-marked-alt"></i>
                         </button> -->
@@ -97,9 +97,9 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-danger"
                                     *ngFor="let bottomPerformance of WorkDoneByYuvakBP">
-                                    {{bottomPerformance.DistrictName}}
+                                    {{bottomPerformance?.DistrictName}}
                                     <a class="small float-end text-danger"> <i class="fas fa-external-link-alt"
-                                            (click)="redTocommitteesOnMap(bottomPerformance.DistrictId,bottomPerformance.CommitteeId,bottomPerformance.DistrictName)"></i>
+                                            (click)="redTocommitteesOnMap(bottomPerformance?.DistrictId,bottomPerformance?.CommitteeId,bottomPerformance?.DistrictName)"></i>
                                     </a>
                                 </li>
 
