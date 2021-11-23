@@ -102,7 +102,7 @@
                                         <ul class="list-group list-group-flush"
                                             *ngIf="resLikesList?.length != 0 else LikedNotfound">
                                             <li class="list-group-item" *ngFor="let LikesList of resLikesList">
-                                                <a href="#">{{LikesList?.resLikesList}} {{LikesList?.Fname}}
+                                                <a>{{LikesList?.resLikesList}} {{LikesList?.Fname}}
                                                     {{LikesList?.LName}}</a>
                                                 <!-- <span class="small text-muted float-end">12-02-2021</span> -->
                                             </li>
@@ -127,7 +127,7 @@
                                         <ul class="list-group list-group-flush"
                                             *ngIf="resCommentsList_1_0?.length != 0 else commentsNotfound">
                                             <li class="list-group-item" *ngFor="let commentsList of resCommentsList_1_0">
-                                                <p class="mb-1 small fw-bold"><a href="#">{{commentsList?.Fname}}
+                                                <p class="mb-1 small fw-bold"><a>{{commentsList?.Fname}}
                                                         {{commentsList?.Mname}} {{commentsList?.LName}}</a></p>
                                                 <p class="mb-0 small text-muted">{{commentsList?.Comments}}
                                                     <button  *ngIf="commentsList?.UserId == loginUserId" (click)="deleteComments(commentsList.Id)" class="btn btn-sm btn-light text-danger rounded"><i class="fas fa-trash-alt"></i></button>

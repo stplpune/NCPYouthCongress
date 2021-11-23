@@ -66,10 +66,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     , public dateTimeAdapter: DateTimeAdapter<any>) {
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
-    let DistrictId = JSON.parse(getsessionStorageData);
-    this.DistrictId = DistrictId.DistrictId;
-    this.CommitteeId = DistrictId.CommitteeId;
-    this.committeeName = DistrictId.committeeName;
+    if(getsessionStorageData){
+      let DistrictId = JSON.parse(getsessionStorageData);
+      this.DistrictId = DistrictId.DistrictId;
+      this.CommitteeId = DistrictId.CommitteeId;
+      this.committeeName = DistrictId.committeeName;
+    }
   }
 
   ngOnInit(): void {
@@ -127,7 +129,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnDestroy() {
-    // sessionStorage.removeItem('DistrictIdWorkThisWeek');
+    sessionStorage.removeItem('DistrictIdWorkThisWeek');
     if (this.graphInstance) {
       this.graphInstance.destroy();
     }
@@ -218,7 +220,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.allDistrict = res.data1;
         // if district id != 0  then show district name
-        this.CommitteeId && this.loggedUserTypeId == 5 && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
+        debugger;
+        this.CommitteeId && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
         if (id != 0) {
           this.allDistrict.find((ele: any) => {
             if (ele.DistrictId == id) {
@@ -286,14 +289,18 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   redirectOrgDetails() {
+    debugger;
       //console.log(this.globalBodyId,this.selCommitteeName)
       let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
 
-  // redToMemberProfile(memberId: any, FullName: any) {
-  // }
+  redToMemberProfile(memberId:any,FullName:any){
+    let obj = {'memberId':memberId, 'FullName':FullName}
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['/profile'], {relativeTo:this.route})
+  }
 
   comActiveClass(flag: any) { // 0 - false 1 - true
     flag == 0 ? this.defaultMembersFlag = false : this.defaultMembersFlag = true;
@@ -466,7 +473,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
         series.events.on("hidden", arrangeColumns);
         series.events.on("shown", arrangeColumns);
-
+        series.columns.template.tooltipText = "{valueY.value}";
         let bullet = series.bullets.push(new am4charts.LabelBullet())
         bullet.interactionsEnabled = false
         bullet.dy = 30;
@@ -603,5 +610,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       responsive: true
     });
   }
+
 }
 

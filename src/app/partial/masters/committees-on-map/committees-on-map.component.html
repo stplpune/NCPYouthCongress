@@ -97,7 +97,7 @@
                                         <span class="small">{{resCommittes.Area | titlecase}}</span>
                                     </a>
 
-                                    <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                    <!-- <a " class="list-group-item list-group-item-action active" aria-current="true">
                                       <span class="small">Ahmednagar - Akole - Abit Khind</span>
                                       <p class="mb-0 fw-bold mt-1">Abit Khind City Committee</p>
                                     </a> -->
@@ -126,7 +126,7 @@
                                             *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
                                     </div>
                                     <div *ngIf="resOrganizationMember.MemberName != ''">
-                                        <p class="mem-name">{{resOrganizationMember?.MemberName}}</p>
+                                        <a class="mem-name text-main" (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName}}</a>
                                         <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <div class="mem-act">

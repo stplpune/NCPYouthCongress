@@ -488,7 +488,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
         series.events.on("hidden", arrangeColumns);
         series.events.on("shown", arrangeColumns);
-
+        series.columns.template.tooltipText = "{valueY.value}";
+        
         let bullet = series.bullets.push(new am4charts.LabelBullet())
         bullet.interactionsEnabled = false
         bullet.dy = 30;
