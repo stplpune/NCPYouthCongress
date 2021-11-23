@@ -313,7 +313,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.toggleClassActive(0);
       this.getLevel();
       this.CheckBoxLevelArray = [];
-
+      this.selectedDistrictId = 0;
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }
