@@ -2151,7 +2151,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
             getPagination : function(callback){
 
                 _data.pager && (_data.pager.empty().remove());
-                _data.pager = $('<nav class="mapsvg-pagination"><ul class="pager"><!--<li class="mapsvg-first"><a href="#">First</a></li>--><li class="mapsvg-prev"><a href="#">&larr; Prev. '+_data.options.database.pagination.perpage+'</a></li><li class="mapsvg-next"><a href="#">Next '+_data.options.database.pagination.perpage+' &rarr;</a></li><!--<li class="mapsvg-last"><a href="#">Last</a></li>--></ul></nav>');
+                _data.pager = $('<nav class="mapsvg-pagination"><ul class="pager"><!--<li class="mapsvg-first"><a >First</a></li>--><li class="mapsvg-prev"><a >&larr; Prev. '+_data.options.database.pagination.perpage+'</a></li><li class="mapsvg-next"><a >Next '+_data.options.database.pagination.perpage+' &rarr;</a></li><!--<li class="mapsvg-last"><a >Last</a></li>--></ul></nav>');
 
                 if(_this.database.onFirstPage() && _this.database.onLastPage()){
                     _data.pager.hide();

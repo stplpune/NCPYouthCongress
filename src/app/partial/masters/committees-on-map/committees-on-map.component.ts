@@ -321,6 +321,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.getLevel();
       this.CheckBoxLevelArray = [];
       this.selectedDistrictId = 0;
+      sessionStorage.removeItem('DistrictIdWorkThisWeek');
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }

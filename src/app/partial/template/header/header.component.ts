@@ -68,7 +68,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.nameImgObj = this.commonService.getFullName();
-    this.committeename = this.commonService.getCommiteeInfo()
+    this.committeename = this.commonService.getCommiteeInfo();
+    console.log(this.committeename);
     this.pic = this.nameImgObj.ProfilePhoto;
     this.commonService.imageChange.subscribe((imagePath:any) => {
      if (!!imagePath) {
@@ -419,5 +420,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   DisabledAllForm(){//Disabled hole Form When Click model Close Button
     this.disabledEditForm = true;
+  }
+
+  redirectOrgDetails(bodyId: any, BodyOrgCellName: any) {
+    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
+    sessionStorage.setItem('bodyId', JSON.stringify(obj))
+    this.router.navigate(['../committee/details'], { relativeTo: this.route })
+    //}
   }
 }
