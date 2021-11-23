@@ -637,6 +637,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     let obj = { 'DistrictId': DistrictId, 'CommitteeId': CommitteeId, 'committeeName': committeeName }
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(obj));
     this.router.navigate(['../../committees-on-map'], { relativeTo: this.route });
+    
   }
 }
 
