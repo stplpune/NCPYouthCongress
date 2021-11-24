@@ -29,9 +29,12 @@ export class ViewMembersComponent implements OnInit {
   memberCountData: any;
   highlightedRow:number = 0;
 
-  viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+  // viewMembersObj: any = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
   filterForm!: FormGroup;
   subject: Subject<any> = new Subject();
+
+  memberStatusArray = [{ id: 0, name: "All" } ,{ id: 1, name: "Active" }, { id: 2, name: "Non Active" }];
+  DeviceAppArray = [{ id: 0, name: "All" },{ id: 1, name: "Android" }, { id: 2, name: "iOS" } , { id: 3, name: "No Device" }];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
     private spinner: NgxSpinnerService,
@@ -41,18 +44,20 @@ export class ViewMembersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getViewMembers(this.viewMembersObj);
-    this.getDistrict();
     this.defaultFilterForm();
+    this.getDistrict();
+    this.getViewMembers();
     this.searchFilter('false');
   }
 
   defaultFilterForm() {
     this.filterForm = this.fb.group({
-      DistrictId: [''],
-      TalukaId: [''],
-      VillageId: [''],
-      searchText: ['']
+      DistrictId: [0],
+      TalukaId: [0],
+      VillageId: [0],
+      searchText: [''],
+      memberStatus: [''],
+      deviceStatus: ['']
     })
   }
 
@@ -73,57 +78,70 @@ export class ViewMembersComponent implements OnInit {
     })
   }
 
-  getTaluka(districtId: any) {
-    this.viewMembersObj.DistrictId = districtId;
-    this.getViewMembers(this.viewMembersObj);
+  // getTaluka(districtId: any) {
+  //   this.viewMembersObj.DistrictId = districtId;
+  //   this.getViewMembers(this.viewMembersObj);
 
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.getTalkaByDistrict = res.data1;
+  //     } else {
+  //       //this.toastrService.error("Data is not available");
+  //     }
+  //   }, (error: any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
+  // getVillageOrCity(talukaID: any) {
+  //   this.viewMembersObj.Talukaid = talukaID;
+  //   this.getViewMembers(this.viewMembersObj);
+
+  //   this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.resultVillageOrCity = res.data1;
+
+  //     } else {
+  //       this.toastrService.error("Data is not available1");
+  //     }
+  //   }, (error: any) => {
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
+
+  filter() {
+    this.paginationNo = 1;
+    this.getViewMembers();
+  }
+
+  // filterVillage(villageId: any) {
+  //   this.viewMembersObj.villageid = villageId;
+  //   this.getViewMembers();
+  // }
+
+  getViewMembers() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.getTalkaByDistrict = res.data1;
-      } else {
-        //this.toastrService.error("Data is not available");
-      }
-    }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  getVillageOrCity(talukaID: any) {
-    this.viewMembersObj.Talukaid = talukaID;
-    this.getViewMembers(this.viewMembersObj);
-
-    this.callAPIService.setHttp('get', 'Web_GetVillage_1_0?talukaid=' + talukaID, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.resultVillageOrCity = res.data1;
-
-      } else {
-        this.toastrService.error("Data is not available1");
-      }
-    }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../500'], { relativeTo: this.route });
-      }
-    })
-  }
-
-  filterVillage(villageId: any) {
-    this.viewMembersObj.villageid = villageId;
-    this.getViewMembers(this.viewMembersObj);
-  }
-
-  getViewMembers(viewMembersObj: any) {
-    (viewMembersObj.DistrictId == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.DistrictId = 0 : viewMembersObj.DistrictId;
-    (viewMembersObj.Talukaid == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.Talukaid = 0 : viewMembersObj.Talukaid;
-    (viewMembersObj.villageid == undefined || viewMembersObj.DistrictId == null) ? viewMembersObj.villageid = 0 : viewMembersObj.villageid;
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'ViewMembers_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + viewMembersObj.DistrictId + '&Talukaid=' + viewMembersObj.Talukaid + '&villageid=' + viewMembersObj.villageid + '&SearchText=' + viewMembersObj.SearchText + '&PageNo=' + this.paginationNo, false, false, false, 'ncpServiceForWeb');
+    let formdata = this.filterForm.value;
+    // (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
+    // (formdata.Talukaid == undefined || formdata.DistrictId == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
+    // (formdata.villageid == undefined || formdata.DistrictId == null) ? formdata.villageid = 0 : formdata.villageid;
+    (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
+    (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
+    (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
+    (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
+    (formdata.memberStatus == undefined || formdata.memberStatus == null || formdata.memberStatus == '') ? formdata.memberStatus = 0 : formdata.memberStatus;
+    (formdata.deviceStatus == undefined || formdata.deviceStatus == null || formdata.deviceStatus == '') ? formdata.deviceStatus = 0 : formdata.deviceStatus;
+    this.callAPIService.setHttp('get', 'ViewMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=' + formdata.villageid + '&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo 
+    + '&StatustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -149,27 +167,41 @@ export class ViewMembersComponent implements OnInit {
 
   onClickPagintion(pageNo: number) {
     this.paginationNo = pageNo;
-    this.getViewMembers(this.viewMembersObj);
+    this.getViewMembers();
   }
 
-  districtClear(flag: any) {
-    if (flag == 'district') {
-      this.viewMembersObj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
-      this.filterForm.reset();
-    } else if (flag == 'taluka') {
-      this.filterForm.reset({ DistrictId: this.viewMembersObj.DistrictId });
-      this.viewMembersObj = { 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
-    }
-    else if (flag == 'village') {
-      this.filterForm.reset({
-        VillageId: 0
-      });
-      this.viewMembersObj = { 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
+  // districtClear(flag: any) {
+  //   if (flag == 'district') {
+  //     this.viewMembersObj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+  //     this.filterForm.reset();
+  //   } else if (flag == 'taluka') {
+  //     this.filterForm.reset({ DistrictId: this.viewMembersObj.DistrictId });
+  //     this.viewMembersObj = { 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId, SearchText: '' }
+  //   }
+  //   else if (flag == 'village') {
+  //     this.filterForm.reset({
+  //       VillageId: 0
+  //     });
+  //     this.viewMembersObj = { 'DistrictId': this.viewMembersObj.DistrictId, 'TalukaId': this.filterForm.value.TalukaId, 'VillageId': this.filterForm.value.VillageId }
+  //   } else if (flag == 'search') {
+  //     this.viewMembersObj.SearchText = "";
+  //     this.filterForm.controls['searchText'].setValue('');
+  //   }
+  //   this.getViewMembers(this.viewMembersObj);
+  // }
+
+  clearFilter(flag: any) {
+  if (flag == 'district') {
+      this.filterForm.controls['DistrictId'].setValue(0);
     } else if (flag == 'search') {
-      this.viewMembersObj.SearchText = "";
       this.filterForm.controls['searchText'].setValue('');
+    } else if (flag == 'MemberStatus') {
+      this.filterForm.controls['memberStatus'].setValue('');
+    } else if (flag == 'DeviceStatus') {
+      this.filterForm.controls['deviceStatus'].setValue('');
     }
-    this.getViewMembers(this.viewMembersObj);
+    this.paginationNo = 1;
+    this.getViewMembers();
   }
 
   addEditMember(flag:any,id:any) {
@@ -181,8 +213,8 @@ export class ViewMembersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes' || result == 'No') {
-        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
-        this.getViewMembers(obj);
+        //let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '' }
+        this.getViewMembers();
       }
     });
   }
@@ -197,8 +229,8 @@ export class ViewMembersComponent implements OnInit {
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
-        this.viewMembersObj.SearchText = this.filterForm.value.searchText;
-        this.getViewMembers(this.viewMembersObj);
+        this.filterForm.value.SearchText = this.filterForm.value.searchText;
+        this.getViewMembers();
       }
       );
   }
@@ -222,8 +254,8 @@ export class ViewMembersComponent implements OnInit {
       if (result == 'Yes') {
         this.blockUnblockUser(flag,id);
       }else if (result == 'No'){
-        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-        this.getViewMembers(obj);
+        //let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers();
       }
     });
   }
@@ -237,8 +269,8 @@ export class ViewMembersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.toastrService.success(res.data1[0].Msg);
-        let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
-        this.getViewMembers(obj);
+        // let obj = { DistrictId: 0, Talukaid: 0, villageid: 0, SearchText: '', BodyId: 0 }
+        this.getViewMembers();
       } else {
         // //this.toastrService.error("Data is not available");
       }
