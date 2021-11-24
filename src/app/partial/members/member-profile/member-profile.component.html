@@ -160,7 +160,7 @@
                                 <th scope="col">Sr. No.</th>
                                 <th scope="col">Work Date</th>
                                 <th scope="col">Work Type</th>
-                                <th scope="col">Title/Description</th>
+                                <th scope="col">Title</th>
                                 <!-- <th scope="col">Photos</th> -->
                                 <th scope="col"></th>
                             </tr>
@@ -170,7 +170,8 @@
                                 <td>{{workList?.SrNo}}</td>
                                 <td>{{workList?.ActivityDate}}</td>
                                 <td>{{workList?.Category}}</td>
-                                <td>{{workList?.Title}}</td>
+                                <td *ngIf="workList?.Title ; else otherContent">{{workList?.Title}}</td>
+                                <ng-template #otherContent><td>-</td></ng-template>
                                 <!-- <td>
                                     <a  data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
                                     <a  data-bs-toggle="modal" data-bs-target="#PhotoGalleryModal"><img src="assets/images/dashboard-images/ncplogo.png" /></a>
