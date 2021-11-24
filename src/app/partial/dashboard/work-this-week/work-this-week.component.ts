@@ -427,7 +427,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
-    let bodyIdBoth = filter.BodyId;
+    console.log(this.comityDetailBodyId , filter.BodyId)
+    let bodyIdBoth = this.comityDetailBodyId || filter.BodyId;
     this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + this.clickDistrictId + '&TalukaId=' + 0 +
       '&IsBody=' + 1 + '&BodyId=' + bodyIdBoth + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -484,12 +485,12 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         let series = chart.series.push(new am4charts.ColumnSeries())
         series.dataFields.valueY = value
         series.dataFields.categoryX = 'DistrictName'
-        series.name = name
+        series.name = name;
 
         series.events.on("hidden", arrangeColumns);
         series.events.on("shown", arrangeColumns);
         series.columns.template.tooltipText = "{valueY.value}";
-        
+
         let bullet = series.bullets.push(new am4charts.LabelBullet())
         bullet.interactionsEnabled = false
         bullet.dy = 30;

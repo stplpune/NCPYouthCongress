@@ -632,7 +632,7 @@ mapsvg-layers-wrap+svg {
 
 .cdk-global-overlay-wrapper,
 .cdk-overlay-container {
-    z-index: 99999 !important;
+    z-index: 9999 !important;
 }
 
 .form-container .form-label {

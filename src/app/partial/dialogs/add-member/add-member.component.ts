@@ -176,11 +176,11 @@ export class AddMemberComponent implements OnInit, OnDestroy {
   }
 
   getDistrict() {
-    //this.spinner.show();
+    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.allDistrict = res.data1;
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
@@ -245,7 +245,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       this.villageCityLabel = "City", this.setVillOrcityName = "CityName", this.setVillOrCityId = "Id";
     }
     this.villageDisabled = false;
-    //this.spinner.show();
+    this.spinner.show();
     let appendString = "";
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0?talukaid=' + talukaID : appendString = 'Web_GetCity_1_0?DistrictId=' + this.editProfileForm.value.DistrictId;
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
