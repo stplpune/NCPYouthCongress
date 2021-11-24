@@ -75,9 +75,12 @@ export class AddDesignationComponent implements OnInit {
   get d() { return this.AddDesignationForm.controls };
 
   clearAddDesignationForm() {
+    this.heightedRow = null;
     this.addDesFormSubmitted = false;
+    this.addDesignation = "Assign";
     this.AddDesignationForm.patchValue({
       IsMultiple: '',
+      Id: 0,
       DesignationId: '',
     });
   }

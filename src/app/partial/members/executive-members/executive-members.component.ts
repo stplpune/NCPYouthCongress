@@ -184,12 +184,6 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers();
   }
 
-//   clearFilter(flag: any) {
-//     this.paginationNo = 1;
-// console.log(this.filterForm.value)
-//    // this.getViewMembers(this.filterForm.value)
-//   }
-
   clearFilter(flag: any) {
     if (flag == 'committee') {
       this.filterForm.controls['BodyId'].setValue(0);
