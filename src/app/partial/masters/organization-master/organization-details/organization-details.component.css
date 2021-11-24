@@ -125,7 +125,7 @@ agm-map {
     color: #000;
 }
 .recent-posts{
-    height: 603px;
+    max-height: 603px;
         overflow-y: auto;
         padding: 1px;
         overflow-x: hidden;
