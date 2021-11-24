@@ -6,24 +6,30 @@
         <div class="col-sm-9">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="offset-6 col-sm-3">
-                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict" optionValueField="DistrictId" optionTextField="DistrictName" (remove)="districtClear('district')" placeholder="Select District" (select)="getTaluka(this.filterForm.value.DistrictId)">
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"  
+                        optionValueField="DistrictId" optionTextField="DistrictName" (remove)="clearFilter('district')" 
+                        placeholder="Select District" (select)="filter()">
                         </ngx-select>
                     </div>
-                    <!-- <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" [items]="getTalkaByDistrict" [disabled]="!filterForm.value.DistrictId" formControlName="TalukaId" (remove)="districtClear('taluka')" (select)="getVillageOrCity(this.filterForm.value.TalukaId)" placeholder="Select Member Status"
-                            optionValueField="TalukaId" optionTextField="TalukaName">
-                        </ngx-select>
-                    </div> 
                     <div class="col-sm-3">
-                        <ngx-select [allowClear]="true" [items]="resultVillageOrCity" [disabled]="!filterForm.value.TalukaId" formControlName="VillageId" (remove)="districtClear('village')" optionValueField="VillageId" (select)="filterVillage(this.filterForm.value.VillageId)"
-                            optionTextField="VillageName" placeholder="Select Device">
+                        <ngx-select [allowClear]="true" formControlName="memberStatus" [items]="memberStatusArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('MemberStatus')" placeholder="Select Member Status"
+                            (select)="filter()">
                         </ngx-select>
-                    </div> -->
+                    </div>
+                    <div class="col-sm-3">
+                        <ngx-select [allowClear]="true" formControlName="deviceStatus" [items]="DeviceAppArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('DeviceStatus')" placeholder="Select Device"
+                            (select)="filter()">
+                        </ngx-select>
+                    </div>
                     <div class="col-sm-3">
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" (keyup)="onKeyUpFilter()" />
-                            <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="districtClear('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                            <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="clearFilter('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
                             <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.searchText" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
@@ -90,6 +96,7 @@
                             <th scope="col">Contacts</th>
                             <th scope="col">Location</th>
                             <th scope="col">Designation</th>
+                            <th scope="col">Divice</th>
                             <th scope="col">User Status</th>
                             <!-- <th scope="col">Active Status</th> -->
                             <th scope="col"></th>
@@ -110,10 +117,28 @@
                             <td><span>{{allMembers.Location}}</span></td>
                             <td><span>{{allMembers.Designation}}</span></td>
                             <td>
+                                <div *ngIf="allMembers?.DeviceType==1">
+                                    <img src="assets\images\dashboard-images\Android_robot.svg">
+                                </div>
+                                <div *ngIf="allMembers?.DeviceType==2">
+                                    <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                </div>
+                                <div *ngIf="allMembers?.DeviceType==3">
+                                    <img src="assets\images\dashboard-images\no-cellphone.svg">
+                                </div>
+                            </td>
+                            <!-- <td>
                                 <ng-container *ngIf="allMembers.IsUserBlock == 1 else userUnblock">
                                     <span class="badge bg-danger">Blocked</span>
                                 </ng-container>
                                 <ng-template #userUnblock> <span class="badge bg-success">Active</span></ng-template>
+                            </td> -->
+                            <td>
+                                <div *ngIf="allMembers?.UserStatus == 2">
+                                    <span class="badge bg-danger">Non Active</span>
+                                </div>
+                                <div *ngIf="allMembers?.UserStatus == 1"> <span class="badge bg-success">Active</span>
+                                </div>
                             </td>
                             <!-- <td>
                             <span [appTooltip] title="{{allMembers?.UserStatus == 1 ? 'Member Active' : 'Member InActive'}}">

@@ -139,6 +139,7 @@ export class ExecutiveMembersComponent implements OnInit {
   }
 
   getViewMembers() {
+    this.spinner.show();
     let formdata = this.filterForm.value;
     (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
     (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
@@ -149,7 +150,6 @@ export class ExecutiveMembersComponent implements OnInit {
     (formdata.deviceStatus == undefined || formdata.deviceStatus == null || formdata.deviceStatus == '') ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     // formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
     // formdata.deviceStatus == '' ? formdata.deviceStatus = 0 : formdata.deviceStatus;
-    this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_ExcecutiveMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId 
     + '&statustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -200,7 +200,7 @@ export class ExecutiveMembersComponent implements OnInit {
     } else if (flag == 'MemberStatus') {
       this.filterForm.controls['memberStatus'].setValue('');
     } else if (flag == 'DeviceStatus') {
-      this.filterForm.controls['deviceStatus'].setValue(0);
+      this.filterForm.controls['deviceStatus'].setValue('');
     }
     this.paginationNo = 1;
     this.getViewMembers()

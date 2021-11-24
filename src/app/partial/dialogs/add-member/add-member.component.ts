@@ -180,7 +180,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        // this.spinner.hide();
+         this.spinner.hide();
         this.allDistrict = res.data1;
         if (this.editFlag && this.editProfileForm.value.IsRural == 0) {
           this.getVillageOrCity(this.editProfileForm.value.DistrictId, 'City')
