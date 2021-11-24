@@ -199,6 +199,7 @@ export class ExecutiveMembersComponent implements OnInit {
       this.filterForm.controls['searchText'].setValue('');
     } else if (flag == 'MemberStatus') {
       this.filterForm.controls['memberStatus'].setValue('');
+      sessionStorage.removeItem('activeInactiveId');
     } else if (flag == 'DeviceStatus') {
       this.filterForm.controls['deviceStatus'].setValue('');
     }
