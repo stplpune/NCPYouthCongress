@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.nameImgObj = this.commonService.getFullName();
     this.committeename = this.commonService.getCommiteeInfo();
-    console.log(this.committeename);
+    //console.log(this.committeename);
     this.pic = this.nameImgObj.ProfilePhoto;
     this.commonService.imageChange.subscribe((imagePath:any) => {
      if (!!imagePath) {
