@@ -425,7 +425,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       am4core.color("#80DEEA"),
       am4core.color("#FF8A65"),
       am4core.color("#E57373"),
-      am4core.color("#7986CB"),
+      am4core.color("rgb(205, 130, 184)"),
       am4core.color("#4DB6AC"),
     ];
 
@@ -490,7 +490,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       am4core.color("#80DEEA"),
       am4core.color("#FF8A65"),
       am4core.color("#E57373"),
-      am4core.color("#7986CB"),
+      am4core.color("rgb(205, 130, 184)"),
       am4core.color("#4DB6AC"),
     ];
 

@@ -464,7 +464,7 @@ export class DashboardComponent implements OnInit {
       am4core.color("#99C6F9"),
       am4core.color("#FFB888"),
       am4core.color("#A7D89C"),
-      am4core.color("#A0A7E3"),
+      am4core.color("rgb(205, 130, 184)"),
       am4core.color("#F8BFBF"),
     ];
 
