@@ -6,27 +6,34 @@
         <div class="col-sm-9">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"  
                         optionValueField="DistrictId" optionTextField="DistrictName" (remove)="clearFilter('district')" 
                         placeholder="Select District" (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="memberStatus" [items]="memberStatusArray"
                             optionValueField="id" optionTextField="name"
-                            (remove)="clearFilter('MemberStatus')" placeholder="Select Member Status"
+                            (remove)="clearFilter('MemberStatus')" placeholder="Member Status"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="deviceStatus" [items]="DeviceAppArray"
                             optionValueField="id" optionTextField="name"
                             (remove)="clearFilter('DeviceStatus')" placeholder="Select Device"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
+                        <ngx-select [allowClear]="true" formControlName="deviceVersion" [items]="DeviceVersionArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('DeviceVersion')" placeholder="Device Version"
+                            (select)="filter()">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-4">
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="Search Member" formControlName="searchText" (keyup)="onKeyUpFilter()" />
                             <button type="button" class="btn btn-light border btn-sm" *ngIf="filterForm.value.searchText" (click)="clearFilter('search')"><i _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
@@ -53,7 +60,8 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-gold">
+            <!-- <div class="card card-body bg-gold" (click)="cardFilterData('memStatusFlag',1)"> -->
+                <div class="card card-body bg-gold">
                 <i class="fas fa-people-arrows"></i>
                 <p>Active Members</p>
                 <h3>{{memberCountData?.ActiveMember}}</h3>
@@ -67,7 +75,8 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-body bg-blue">
+            <!-- <div class="card card-body bg-blue" (click)="cardFilterData('diviceFlag',2)"> -->
+                <div class="card card-body bg-blue">
                 <i class="fab fa-apple"></i>
                 <p>iOS Users</p>
                 <h3>{{memberCountData?.iOS}}</h3>
@@ -90,6 +99,7 @@
                 <table class="table table-hover table-borderless mt-2">
                     <thead>
                         <tr>
+                            <th scope="col">Sr No.</th>
                             <th scope="col"></th>
                             <th scope="col">Registration Date</th>
                             <th scope="col">Member Name</th>
@@ -97,6 +107,7 @@
                             <th scope="col">Location</th>
                             <th scope="col">Designation</th>
                             <th scope="col">Divice</th>
+                            <th></th>
                             <th scope="col">User Status</th>
                             <!-- <th scope="col">Active Status</th> -->
                             <th scope="col"></th>
@@ -104,6 +115,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let allMembers of resultAllViewMembers | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                            <td>{{allMembers.SrNo}}</td>
                             <th scope="row">
                                 <img *ngIf="allMembers.ProfilePhoto" src="{{allMembers.ProfilePhoto}}" class="prophoto" />
                                 <img *ngIf="!allMembers.ProfilePhoto" src="assets/images/ncp-default.png" class="prophoto" />
@@ -117,22 +129,34 @@
                             <td><span>{{allMembers.Location}}</span></td>
                             <td><span>{{allMembers.Designation}}</span></td>
                             <td>
-                                <div *ngIf="allMembers?.DeviceType==1">
-                                    <img src="assets\images\dashboard-images\Android_robot.svg">
+                                <div *ngIf="allMembers?.DeviceType == 1">
+                                    <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionAndroid">
+                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                    </ng-container>
+                                    <ng-template #oldVersionAndroid>
+                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                    </ng-template>
                                 </div>
+
                                 <div *ngIf="allMembers?.DeviceType==2">
-                                    <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                    <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionIos">
+                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                    </ng-container>
+                                    <ng-template #oldVersionIos>
+                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                    </ng-template>
                                 </div>
+
                                 <div *ngIf="allMembers?.DeviceType==3">
                                     <img src="assets\images\dashboard-images\no-cellphone.svg">
                                 </div>
                             </td>
-                            <!-- <td>
-                                <ng-container *ngIf="allMembers.IsUserBlock == 1 else userUnblock">
-                                    <span class="badge bg-danger">Blocked</span>
-                                </ng-container>
-                                <ng-template #userUnblock> <span class="badge bg-success">Active</span></ng-template>
-                            </td> -->
+                            <td>
+                                <div>
+                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{allMembers.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Playstore/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                    <img src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                </div>
+                            </td>
                             <td>
                                 <div *ngIf="allMembers?.UserStatus == 2">
                                     <span class="badge bg-danger">Non Active</span>
@@ -151,7 +175,7 @@
                                     <button class="btn btn-sm btn-light text-edit rounded me-2" [disabled]="allMembers.IsUserBlock == 1" title="Edit Member" (click)="addEditMember('Update',allMembers?.MemberId)" title="Edit Member"><i class="fas fa-pen"></i></button>
                                     <!-- <button class="btn btn-sm btn-light text-danger mx-1 rounded" title="Delete Member"><i class="fas fa-trash-alt"></i></button> -->
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input"   (change)="blockUnblockUserModal(allMembers.IsUserBlock,allMembers?.MemberId)" [checked]="allMembers?.IsUserBlock == 0" type="checkbox" id="flexSwitchCheckDefault">
+                                        <input class="form-check-input" (change)="blockUnblockUserModal(allMembers.IsUserBlock,allMembers?.MemberId)" [checked]="allMembers?.IsUserBlock == 0" type="checkbox" id="flexSwitchCheckDefault">
                                       </div>
                                 </div>
                             </td>

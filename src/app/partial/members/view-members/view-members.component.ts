@@ -34,6 +34,7 @@ export class ViewMembersComponent implements OnInit {
   subject: Subject<any> = new Subject();
 
   memberStatusArray = [{ id: 0, name: "All" } ,{ id: 1, name: "Active" }, { id: 2, name: "Non Active" }];
+  DeviceVersionArray = [{ id: 0, name: "All" } ,{ id: 1, name: "New" }, { id: 2, name: "Old" }];
   DeviceAppArray = [{ id: 0, name: "All" },{ id: 1, name: "Android" }, { id: 2, name: "iOS" } , { id: 3, name: "No Device" }];
 
   constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
@@ -57,7 +58,8 @@ export class ViewMembersComponent implements OnInit {
       VillageId: [0],
       searchText: [''],
       memberStatus: [''],
-      deviceStatus: ['']
+      deviceStatus: [''],
+      deviceVersion: ['']
     })
   }
 
@@ -123,25 +125,30 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers();
   }
 
-  // filterVillage(villageId: any) {
-  //   this.viewMembersObj.villageid = villageId;
-  //   this.getViewMembers();
+
+  // cardFilterData(status:any,flag:any){
+  //   if(status == "memStatusFlag"){
+  //     alert(flag)
+  //     this.getViewMembers();
+  //   }else 
+  //   if(status =='diviceFlag'){
+  //    alert(flag)
+  //     this.getViewMembers();
+  //   }
   // }
 
   getViewMembers() {
     this.spinner.show();
     let formdata = this.filterForm.value;
-    // (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
-    // (formdata.Talukaid == undefined || formdata.DistrictId == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
-    // (formdata.villageid == undefined || formdata.DistrictId == null) ? formdata.villageid = 0 : formdata.villageid;
     (formdata.DistrictId == undefined || formdata.DistrictId == null) ? formdata.DistrictId = 0 : formdata.DistrictId;
     (formdata.Talukaid == undefined || formdata.Talukaid == null) ? formdata.Talukaid = 0 : formdata.Talukaid;
     (formdata.villageid == undefined || formdata.villageid == null) ? formdata.villageid = 0 : formdata.villageid;
     (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
     (formdata.memberStatus == undefined || formdata.memberStatus == null || formdata.memberStatus == '') ? formdata.memberStatus = 0 : formdata.memberStatus;
+    (formdata.deviceVersion == undefined || formdata.deviceVersion == null || formdata.deviceVersion == '') ? formdata.deviceVersion = 0 : formdata.deviceVersion;
     (formdata.deviceStatus == undefined || formdata.deviceStatus == null || formdata.deviceStatus == '') ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     this.callAPIService.setHttp('get', 'ViewMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=' + formdata.villageid + '&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo 
-    + '&StatustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
+    + '&StatustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus + '&Version_Status=' + formdata.deviceVersion, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -199,6 +206,8 @@ export class ViewMembersComponent implements OnInit {
       this.filterForm.controls['memberStatus'].setValue('');
     } else if (flag == 'DeviceStatus') {
       this.filterForm.controls['deviceStatus'].setValue('');
+    } else if (flag == 'DeviceVersion') {
+      this.filterForm.controls['deviceVersion'].setValue('');
     }
     this.paginationNo = 1;
     this.getViewMembers();

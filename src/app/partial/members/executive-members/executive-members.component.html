@@ -6,32 +6,39 @@
         <div class="col-sm-10">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-3 ms-auto">
+                    <div class="col-sm-2 ms-auto">
                         <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id"
                             formControlName="BodyId" optionTextField="BodyOrgCellName"
-                            (remove)="clearFilter('committee')" (select)="filter($event)"
-                            placeholder="Select Committee Name">
+                            (remove)="clearFilter('committee')" (select)="filter()"
+                            placeholder="Committee Name">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
                             optionValueField="DistrictId" optionTextField="DistrictName"
                             (remove)="clearFilter('district')" placeholder="Select District"
-                            (select)="filter(this.filterForm.value.DistrictId)">
+                            (select)="filter()">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="memberStatus" [items]="memberStatusArray"
                             optionValueField="id" optionTextField="name"
-                            (remove)="clearFilter('MemberStatus')" placeholder="Select Member Status"
-                            (select)="filter(this.filterForm.value.memberStatus)">
+                            (remove)="clearFilter('MemberStatus')" placeholder="Member Status"
+                            (select)="filter()">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
                         <ngx-select [allowClear]="true" formControlName="deviceStatus" [items]="DeviceAppArray"
                             optionValueField="id" optionTextField="name"
                             (remove)="clearFilter('DeviceStatus')" placeholder="Select Device"
-                            (select)="filter(this.filterForm.value.deviceStatus)">
+                            (select)="filter()">
+                        </ngx-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <ngx-select [allowClear]="true" formControlName="deviceVersion" [items]="DeviceVersionArray"
+                            optionValueField="id" optionTextField="name"
+                            (remove)="clearFilter('DeviceVersion')" placeholder="Version"
+                            (select)="filter()">
                         </ngx-select>
                     </div>
                     <div class="col-sm-2">
@@ -109,6 +116,7 @@
                         <tbody>
                             <tr *ngFor="let resultExeMember of resultAllExeMembers  | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index"
                                 [class.active]="resultExeMember?.MemberId == highlightedRow">
+                                <td>{{resultExeMember.SrNo}}</td>
                                 <td>
                                     <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}"
                                         class="prophoto" />
@@ -133,14 +141,32 @@
                                         {{designation}}</p>
                                 </td>
                                 <td>
-                                    <div *ngIf="resultExeMember?.DeviceType==1">
-                                        <img src="assets\images\dashboard-images\Android_robot.svg">
+                                    <div *ngIf="resultExeMember?.DeviceType == 1">
+                                        <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionAndroid">
+                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                        </ng-container>
+                                        <ng-template #oldVersionAndroid>
+                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                        </ng-template>
                                     </div>
+    
                                     <div *ngIf="resultExeMember?.DeviceType==2">
-                                        <img src="assets\images\dashboard-images\Apple_logo.svg">
+                                        <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionIos">
+                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                        </ng-container>
+                                        <ng-template #oldVersionIos>
+                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                        </ng-template>
                                     </div>
+
                                     <div *ngIf="resultExeMember?.DeviceType==3">
                                         <img src="assets\images\dashboard-images\no-cellphone.svg">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Playstore/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                        <img src="assets\images\dashboard-images\whatsapp.svg"></a>
                                     </div>
                                 </td>
                                 <td>

@@ -35,6 +35,7 @@ export class ExecutiveMembersComponent implements OnInit {
   result: any;
   highlightedRow: number = 0;
   memberStatusArray = [{ id: 0, name: "All" } ,{ id: 1, name: "Active" }, { id: 2, name: "Non Active" }];
+  DeviceVersionArray = [{ id: 0, name: "All" } ,{ id: 1, name: "New" }, { id: 2, name: "Old" }];
   DeviceAppArray = [{ id: 0, name: "All" },{ id: 1, name: "Android" }, { id: 2, name: "iOS" } , { id: 3, name: "No Device" }];
   activeInactiveId: any;
 
@@ -62,7 +63,8 @@ export class ExecutiveMembersComponent implements OnInit {
       BodyId: [0],
       memberStatus: ['' || this.activeInactiveId],
       deviceStatus: [''],
-      searchText: ['']
+      searchText: [''],
+      deviceVersion: ['']
     })
   }
 
@@ -147,11 +149,12 @@ export class ExecutiveMembersComponent implements OnInit {
     (formdata.SearchText == undefined || formdata.SearchText == null) ? formdata.SearchText = '' : formdata.SearchText;
     (formdata.BodyId == undefined || formdata.BodyId == null) ? formdata.BodyId = 0 : formdata.BodyId;
     (formdata.memberStatus == undefined || formdata.memberStatus == null || formdata.memberStatus == '') ? formdata.memberStatus = 0 : formdata.memberStatus;
+    (formdata.deviceVersion == undefined || formdata.deviceVersion == null || formdata.deviceVersion == '') ? formdata.deviceVersion = 0 : formdata.deviceVersion;
     (formdata.deviceStatus == undefined || formdata.deviceStatus == null || formdata.deviceStatus == '') ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     // formdata.memberStatus == '' ? formdata.memberStatus = 0 : formdata.memberStatus;
     // formdata.deviceStatus == '' ? formdata.deviceStatus = 0 : formdata.deviceStatus;
     this.callAPIService.setHttp('get', 'Web_ExcecutiveMembers_Web_2_0?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + formdata.DistrictId + '&Talukaid=' + formdata.Talukaid + '&villageid=0&SearchText=' + formdata.SearchText + '&PageNo=' + this.paginationNo + '&BodyId=' + formdata.BodyId 
-    + '&statustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus, false, false, false, 'ncpServiceForWeb');
+    + '&statustypeId=' + formdata.memberStatus + '&DeviceTypeId=' + formdata.deviceStatus + '&Version_Status=' + formdata.deviceVersion, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
@@ -179,7 +182,7 @@ export class ExecutiveMembersComponent implements OnInit {
     this.getViewMembers()
   }
 
-  filter(event: any) {
+  filter() {
     this.paginationNo = 1;
     this.getViewMembers();
   }
@@ -196,6 +199,8 @@ export class ExecutiveMembersComponent implements OnInit {
       sessionStorage.removeItem('activeInactiveId');
     } else if (flag == 'DeviceStatus') {
       this.filterForm.controls['deviceStatus'].setValue('');
+    } else if (flag == 'DeviceVersion') {
+      this.filterForm.controls['deviceVersion'].setValue('');
     }
     this.paginationNo = 1;
     this.getViewMembers()
