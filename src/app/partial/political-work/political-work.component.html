@@ -107,10 +107,9 @@
                                 <span class="text-ellipsis-150px" [appTooltip]  title={{politicalWork.Title}}>{{politicalWork.Title | titlecase}}</span>
                             </td>
                             <ng-template #OtherContent>
-                                <td> - </td>
+                                <td *ngIf="politicalWork?.ProgramTitle">{{politicalWork.ProgramTitle | titlecase}}</td>
+                                <td *ngIf="!politicalWork?.ProgramTitle"> - </td>
                             </ng-template>
-                            
-                        <!-- <td *ngIf="politicalWork.categoryid == 5">{{politicalWork.Program}}</td> -->
                             <td>
                                 <button class="btn btn-sm btn-light" (click)="ViewPoliticleWorkDetails(i)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal"><i class="far fa-eye"></i></button>
                             </td>

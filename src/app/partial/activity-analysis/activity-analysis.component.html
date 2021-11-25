@@ -103,7 +103,8 @@
                                 <span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span>
                             </td>
                             <ng-template #OtherContent>
-                                <td> - </td>
+                                <td *ngIf="politicalWork?.ProgramTitle">{{politicalWork.ProgramTitle | titlecase}}</td>
+                                <td *ngIf="!politicalWork?.ProgramTitle"> - </td>
                             </ng-template>
                             <!-- <td><span class="text-ellipsis-150px">{{politicalWork.Title | titlecase}}</span></td> -->
                             <td>

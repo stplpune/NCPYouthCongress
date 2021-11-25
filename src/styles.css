@@ -1017,8 +1017,8 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
     background:#c0c5d5!important;
 }
 .lessThanFive{
-    fill: #d6b1e5!important;
-    background:#d6b1e5!important;
+    fill: #b959e0!important;
+    background: #b959e0!important;
 }
 
 .greaterThanFive{
