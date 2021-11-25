@@ -495,7 +495,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         bullet.dy = 30;
         bullet.label.text = '{valueY}'
         bullet.label.fill = am4core.color('#ffffff')
-
         return series;
       }
 
