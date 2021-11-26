@@ -144,19 +144,19 @@
                                 <td>
                                     <div *ngIf="resultExeMember?.DeviceType == 1">
                                         <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionAndroid">
-                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                            <img [appTooltip] title="New Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot.svg">
                                         </ng-container>
                                         <ng-template #oldVersionAndroid>
-                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                            <img [appTooltip] title="Old Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
                                         </ng-template>
                                     </div>
     
                                     <div *ngIf="resultExeMember?.DeviceType==2">
                                         <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionIos">
-                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                            <img [appTooltip] title="New Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo.svg">
                                         </ng-container>
                                         <ng-template #oldVersionIos>
-                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                            <img [appTooltip] title="Old Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
                                         </ng-template>
                                     </div>
 

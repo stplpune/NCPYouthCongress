@@ -135,19 +135,19 @@
                             <td>
                                 <div *ngIf="allMembers?.DeviceType == 1">
                                     <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionAndroid">
-                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                        <img [appTooltip] title="New Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot.svg">
                                     </ng-container>
                                     <ng-template #oldVersionAndroid>
-                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                        <img [appTooltip] title="Old Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
                                     </ng-template>
                                 </div>
 
                                 <div *ngIf="allMembers?.DeviceType==2">
                                     <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionIos">
-                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                        <img [appTooltip] title="New Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo.svg">
                                     </ng-container>
                                     <ng-template #oldVersionIos>
-                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                        <img [appTooltip] title="Old Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
                                     </ng-template>
                                 </div>
 
