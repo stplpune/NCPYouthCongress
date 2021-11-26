@@ -43,10 +43,14 @@ export class AddCommitteeComponent implements OnInit {
     public dialogRef: MatDialogRef<AddCommitteeComponent>,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this. customForm();
-  }
-
+    ngOnInit(): void {
+      this.customForm();
+      this.getLevel();
+      this.getState();
+      this.getDistrict();
+      this.getDistrictByCommittee();
+    }
+    
   customForm() {
     this.addCommitteeForm = this.fb.group({
       BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
