@@ -1,3 +1,11 @@
 .chartHeight{
     height: 350px;
 }
+
+.legends{
+    position: absolute;
+    top: 44px;
+    right: 20px;
+    display: flex;
+    font-size: 0.8rem;
+}

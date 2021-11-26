@@ -47,16 +47,19 @@
                     <div class="col-sm-6">
                        Party Influence Map
                     </div>
-                    <div class="col-sm-6">
+                    <!-- <div class="col-sm-6">
                         <ngx-select  [allowClear]="allowClearParty"  (remove)="partyChangeEvent(1)" [items]="resPoliticalParty"  (select)="partyChangeEvent(selectedParty)"  optionValueField="Id" optionTextField="PartyName" [(ngModel)]="selectedParty">
                         </ngx-select>
-                    </div>
+                    </div> -->
                 </div>
                 </div>
                 <div class="card-body" id="map">
                     <div id="mapsvg"></div>
                     <!-- <img src="assets/images/map_maha_m.svg" class="img-fluid mb-4" /> -->
                     <!-- <img src="assets/images/mahamap.svg" class="img-fluid mb-4" /> -->
+                    <div class="legends">
+                        <div><span class="zeroActivityBox"></span><span>No activity</span></div>
+                    </div>
                 </div>
             </div>
         </div>
