@@ -220,7 +220,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.spinner.hide();
         this.allDistrict = res.data1;
         // if district id != 0  then show district name
-        debugger;
         this.CommitteeId && this.selCommiteeFlag ? this.committeeNameByOrganizationMember(this.CommitteeId, this.committeeName) : '';
         if (id != 0) {
           this.allDistrict.find((ele: any) => {
@@ -289,7 +288,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   redirectOrgDetails() {
-    debugger;
       //console.log(this.globalBodyId,this.selCommitteeName)
       let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
       sessionStorage.setItem('bodyId', JSON.stringify(obj))

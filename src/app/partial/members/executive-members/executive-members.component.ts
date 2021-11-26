@@ -140,6 +140,17 @@ export class ExecutiveMembersComponent implements OnInit {
     sessionStorage.removeItem('activeInactiveId');
   }
 
+  cardFilterData(status:any,flag:any){
+    if(status == "memStatusFlag"){
+      this.filterForm.controls['memberStatus'].setValue(flag);
+      this.getViewMembers();
+    }else 
+    if(status =='diviceFlag'){
+      this.filterForm.controls['deviceStatus'].setValue(flag);
+      this.getViewMembers();
+    }
+  }
+
   getViewMembers() {
     this.spinner.show();
     let formdata = this.filterForm.value;

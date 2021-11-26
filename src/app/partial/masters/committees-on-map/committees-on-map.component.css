@@ -59,5 +59,13 @@
       right: 5px;
   }
   .mem-list .mem-dev img{
-      width: 22px;
+      width: 20px;
   }
+  .mem-list .mem-dev1{
+    position: absolute;
+    top: 5px;
+    left: 224px;
+}
+.mem-list .mem-dev1 img{
+    width: 20px;
+}

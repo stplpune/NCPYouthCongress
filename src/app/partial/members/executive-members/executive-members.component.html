@@ -75,28 +75,28 @@
                 <h3>{{memberCountData?.TotalMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('memStatusFlag',1)">
             <div class="card card-body bg-gold">
                 <i class="fas fa-people-arrows"></i>
                 <p>Active Members</p>
                 <h3>{{memberCountData?.ActiveMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('memStatusFlag',2)">
             <div class="card card-body bg-red">
                 <i class="fas fa-user-alt-slash"></i>
                 <p>Non Active Members</p>
                 <h3>{{memberCountData?.InActiveMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('diviceFlag',2)">
             <div class="card card-body bg-blue">
                 <i class="fab fa-apple"></i>
                 <p>iOS Users</p>
                 <h3>{{memberCountData?.iOS}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('diviceFlag',1)">
             <div class="card card-body bg-voilet">
                 <i class="fas fa-robot"></i>
                 <p>Andriod Users</p>
@@ -121,7 +121,7 @@
                                     <img *ngIf="resultExeMember.ProfilePhoto" src="{{resultExeMember.ProfilePhoto}}"
                                         class="prophoto" />
                                     <img *ngIf="!resultExeMember.ProfilePhoto" src="assets/images/ncp-default.png"
-                                        class="prophoto" />
+                                        class="prophoto"/>
                                 </td>
                                 <td>
                                     <a (click)="redToMemberProfile(resultExeMember.MemberId,resultExeMember.FullName)"
@@ -134,7 +134,8 @@
                                         {{resultExeMember.MobileNo ? (resultExeMember.MobileNo | titlecase) : 'NA'}}</p>
                                 </td>
                                 <td>
-                                    <span class="mb-1">{{resultExeMember?.Location}}</span>
+                                    <div *ngIf="resultExeMember?.Location"><span class="mb-1">{{resultExeMember?.Location}}</span></div>
+                                    <div *ngIf="resultExeMember?.Location == '' || resultExeMember?.Location == null"><span class="mb-1">-</span></div>
                                 </td>
                                 <td>
                                     <p class="mb-1" *ngFor="let designation of resultExeMember.Designation.split(',')">
@@ -143,19 +144,19 @@
                                 <td>
                                     <div *ngIf="resultExeMember?.DeviceType == 1">
                                         <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionAndroid">
-                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                            <img [appTooltip] title="New Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot.svg">
                                         </ng-container>
                                         <ng-template #oldVersionAndroid>
-                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                            <img [appTooltip] title="Old Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
                                         </ng-template>
                                     </div>
     
                                     <div *ngIf="resultExeMember?.DeviceType==2">
                                         <ng-container *ngIf="resultExeMember?.Version_Status==1 ; else oldVersionIos">
-                                            <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                            <img [appTooltip] title="New Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo.svg">
                                         </ng-container>
                                         <ng-template #oldVersionIos>
-                                            <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                            <img [appTooltip] title="Old Version:{{resultExeMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
                                         </ng-template>
                                     </div>
 
@@ -167,12 +168,12 @@
                                 <td>
                                     <div *ngIf="resultExeMember?.Version_Status==2">
                                         <div *ngIf="resultExeMember?.DeviceType != 3">
-                                            <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
-                                                <img [appTooltip] title="Update App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                            <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                                <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
                                        </div>
                                        <div *ngIf="resultExeMember?.DeviceType == 3">
-                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
-                                            <img [appTooltip] title="Download App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                            <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
                                        </div>
                                     </div>
                                     <div *ngIf="resultExeMember?.Version_Status==1">-</div>

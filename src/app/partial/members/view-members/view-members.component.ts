@@ -125,17 +125,16 @@ export class ViewMembersComponent implements OnInit {
     this.getViewMembers();
   }
 
-
-  // cardFilterData(status:any,flag:any){
-  //   if(status == "memStatusFlag"){
-  //     alert(flag)
-  //     this.getViewMembers();
-  //   }else 
-  //   if(status =='diviceFlag'){
-  //    alert(flag)
-  //     this.getViewMembers();
-  //   }
-  // }
+  cardFilterData(status:any,flag:any){
+    if(status == "memStatusFlag"){
+      this.filterForm.controls['memberStatus'].setValue(flag);
+      this.getViewMembers();
+    }else 
+    if(status =='diviceFlag'){
+      this.filterForm.controls['deviceStatus'].setValue(flag);
+      this.getViewMembers();
+    }
+  }
 
   getViewMembers() {
     this.spinner.show();

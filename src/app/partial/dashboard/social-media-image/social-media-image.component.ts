@@ -293,9 +293,16 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
         this.perOnSocialMedArray = res.data2;
 
+        // party sel count and color changed 
+        const amounts = this.perOnSocialMedArray.map((a:any) => a.ActivityCount)
+        const highestAmount = Math.max(...amounts);
+        const highestShots = this.perOnSocialMedArray.filter((shot:any) => shot.ActivityCount === highestAmount)
+        debugger;
+        highestShots.length >  1 ? this.mahaSVGMap() :  (this.partyChangeEvent(highestShots[0].PartyId), this.mahaSVGMap()); 
+
+
+
         this.trendOnSocialMediaArray = res.data1;
-
-
         this.trendOnSocialMediaArray.map((ele: any) => {
           if (ele.Date) {
             let DateFormate = this.changeDateFormat(ele.Date);

@@ -59,7 +59,7 @@
                 <h3>{{memberCountData?.ExcutiveMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('memStatusFlag',1)">
             <!-- <div class="card card-body bg-gold" (click)="cardFilterData('memStatusFlag',1)"> -->
                 <div class="card card-body bg-gold">
                 <i class="fas fa-people-arrows"></i>
@@ -67,14 +67,14 @@
                 <h3>{{memberCountData?.ActiveMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('memStatusFlag',2)">
             <div class="card card-body bg-red">
                 <i class="fas fa-user-alt-slash"></i>
                 <p>Non Active Members</p>
                 <h3>{{memberCountData?.InActiveMember}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('diviceFlag',2)">
             <!-- <div class="card card-body bg-blue" (click)="cardFilterData('diviceFlag',2)"> -->
                 <div class="card card-body bg-blue">
                 <i class="fab fa-apple"></i>
@@ -82,7 +82,7 @@
                 <h3>{{memberCountData?.iOS}}</h3>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" (click)="cardFilterData('diviceFlag',1)">
             <div class="card card-body bg-voilet">
                 <i class="fas fa-robot"></i>
                 <p>Andriod Users</p>
@@ -126,24 +126,28 @@
                                 <p class="mb-0">{{allMembers.EmailId}}</p>
                                 <p class="mb-0">{{allMembers.MobileNo}}</p>
                             </td>
-                            <td><span>{{allMembers.Location}}</span></td>
+                            <!-- <td><span>{{allMembers.Location}}</span></td> -->
+                            <td>
+                                <div *ngIf="allMembers?.Location"><span>{{allMembers?.Location}}</span></div>
+                                <div *ngIf="allMembers?.Location == '' || allMembers?.Location == null"><span>-</span></div>
+                            </td>
                             <td><span>{{allMembers.Designation}}</span></td>
                             <td>
                                 <div *ngIf="allMembers?.DeviceType == 1">
                                     <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionAndroid">
-                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Android_robot.svg">
+                                        <img [appTooltip] title="New Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot.svg">
                                     </ng-container>
                                     <ng-template #oldVersionAndroid>
-                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                        <img [appTooltip] title="Old Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
                                     </ng-template>
                                 </div>
 
                                 <div *ngIf="allMembers?.DeviceType==2">
                                     <ng-container *ngIf="allMembers?.Version_Status==1 ; else oldVersionIos">
-                                        <img [appTooltip] title="New Version" src="assets\images\dashboard-images\Apple_logo.svg">
+                                        <img [appTooltip] title="New Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo.svg">
                                     </ng-container>
                                     <ng-template #oldVersionIos>
-                                        <img [appTooltip] title="Old Version" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                        <img [appTooltip] title="Old Version:{{allMembers.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
                                     </ng-template>
                                 </div>
 
@@ -161,12 +165,12 @@
                             <td>
                                 <div *ngIf="allMembers?.Version_Status==2">
                                     <div *ngIf="allMembers?.DeviceType != 3">
-                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{allMembers.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
-                                            <img [appTooltip] title="Update App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{allMembers.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                            <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
                                    </div>
                                    <div *ngIf="allMembers?.DeviceType == 3">
-                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{allMembers.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
-                                        <img [appTooltip] title="Download App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{allMembers.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                        <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
                                    </div>
                                 </div>
                                 <div *ngIf="allMembers?.Version_Status==1">-</div>

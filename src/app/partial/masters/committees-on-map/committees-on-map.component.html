@@ -139,15 +139,45 @@
                                                         class="fas fa-phone-alt"></i></a>
                                             </span>
                                         </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==1" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\Android_robot.svg">
+
+                                        <!-- Divice Code Start-->
+                                        <div *ngIf="resOrganizationMember?.DeviceType == 1" class="mem-dev1">
+                                            <ng-container *ngIf="resOrganizationMember?.Version_Status==1 ; else oldVersionAndroid">
+                                                <img [appTooltip] title="New Version:{{resOrganizationMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot.svg">
+                                            </ng-container>
+                                            <ng-template #oldVersionAndroid>
+                                                <img [appTooltip] title="Old Version:{{resOrganizationMember.UserAppVersion}}" src="assets\images\dashboard-images\Android_robot_light_Red.svg">
+                                            </ng-template>
                                         </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==2" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\Apple_logo.svg">
+        
+                                        <div *ngIf="resOrganizationMember?.DeviceType==2" class="mem-dev1">
+                                            <ng-container *ngIf="resOrganizationMember?.Version_Status==1 ; else oldVersionIos">
+                                                <img [appTooltip] title="New Version:{{resOrganizationMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo.svg">
+                                            </ng-container>
+                                            <ng-template #oldVersionIos>
+                                                <img [appTooltip] title="Old Version:{{resOrganizationMember.UserAppVersion}}" src="assets\images\dashboard-images\Apple_logo_light_red.svg">
+                                            </ng-template>
                                         </div>
-                                        <div *ngIf="resOrganizationMember?.DeviceType==0" class="mem-dev">
-                                            <img src="assets\images\dashboard-images\no-cellphone.svg">
+    
+                                        <div *ngIf="resOrganizationMember?.DeviceType==0" class="mem-dev1">
+                                            <img [appTooltip] title="No Divice" src="assets\images\dashboard-images\no-cellphone.svg">
                                         </div>
+                                        <!-- Divice Code End-->
+
+                                            <!-- send Link Code Start-->
+                                        <div *ngIf="resOrganizationMember?.Version_Status==2" class="mem-dev">
+                                            <div *ngIf="resOrganizationMember?.DeviceType != 0">
+                                                <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resOrganizationMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                                    <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                           </div>
+                                           <div *ngIf="resOrganizationMember?.DeviceType == 0">
+                                            <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resOrganizationMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/App+Store+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                                <img [appTooltip] title="Send Link" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                           </div>
+                                        </div>
+                                        <div *ngIf="resOrganizationMember?.Version_Status==1" class="mem-dev">-</div>
+                                        <!-- send Link Code end-->
+
                                     </div>
                                 </div>
                                 <!-- <div class="list-group list-group-flush">
