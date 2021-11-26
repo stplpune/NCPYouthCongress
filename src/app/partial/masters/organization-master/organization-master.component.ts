@@ -101,6 +101,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
+    alert(levelId);
     this.globalLevelId = levelId;
     if (levelId == 2) {
       this.disableFlagDist = true;

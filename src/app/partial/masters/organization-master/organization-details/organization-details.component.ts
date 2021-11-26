@@ -22,7 +22,7 @@ import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation
 import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
 import { DeleteComponent } from 'src/app/partial/dialogs/delete/delete.component';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
-
+import { AddCommitteeComponent } from '../../../dialogs/add-committee/add-committee.component';
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
@@ -872,5 +872,15 @@ export class OrganizationDetailsComponent implements OnInit {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+
+  openDialogAddCommittee() {
+    const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
+      width: '1024px',
+     // data: this.resultBodyMemActDetails
+    });
+    dialogRefActivityDetails.afterClosed().subscribe(result => {
+    });
   }
 }
