@@ -160,15 +160,24 @@
                                     </div>
 
                                     <div *ngIf="resultExeMember?.DeviceType==3">
-                                        <img src="assets\images\dashboard-images\no-cellphone.svg">
+                                        <img [appTooltip] title="No Divice" src="assets\images\dashboard-images\no-cellphone.svg">
                                     </div>
                                 </td>
+
                                 <td>
-                                    <div>
-                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Playstore/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
-                                        <img src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                    <div *ngIf="resultExeMember?.Version_Status==2">
+                                        <div *ngIf="resultExeMember?.DeviceType != 3">
+                                            <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+Update+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                                <img [appTooltip] title="Update App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                       </div>
+                                       <div *ngIf="resultExeMember?.DeviceType == 3">
+                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+91{{resultExeMember.MobileNo}}&amp;text=Dear+Sir/Mam,+Please+download+NCP+Youth+Mobile+App+from+Play+Store/Appmarket+and+get+connected+with+Natonalist+Youth+Congress.+Android+Link+-+https://play.google.com/store/apps/details?id=com.develop.ncp_youth,+iOS+Link+-+https://apps.apple.com/in/app/ncp-youth/id1581373014">
+                                            <img [appTooltip] title="Download App" src="assets\images\dashboard-images\whatsapp.svg"></a>
+                                       </div>
                                     </div>
+                                    <div *ngIf="resultExeMember?.Version_Status==1">-</div>
                                 </td>
+
                                 <td>
                                     <div *ngIf="resultExeMember?.UserStatus == 2">
                                         <span class="badge bg-danger">Non Active</span>
