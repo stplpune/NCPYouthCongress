@@ -22,11 +22,14 @@ import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation
 import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
 import { DeleteComponent } from 'src/app/partial/dialogs/delete/delete.component';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { SearchPipe } from 'src/app/partial/pipes/search.pipe';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
-  styleUrls: ['./organization-details.component.css', '../../../partial.component.css']
+  styleUrls: ['./organization-details.component.css', '../../../partial.component.css'],
+  providers: [ SearchPipe ]
 })
 export class OrganizationDetailsComponent implements OnInit {
 
@@ -102,7 +105,7 @@ export class OrganizationDetailsComponent implements OnInit {
   ActivityId: any;
  // memberValue: any;
 
-  constructor(private fb: FormBuilder, private callAPIService: CallAPIService,
+  constructor(private fb: FormBuilder, private searchPipe: SearchPipe, private callAPIService: CallAPIService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService, public dateTimeAdapter: DateTimeAdapter<any>,
     private toastrService: ToastrService,
@@ -872,5 +875,15 @@ export class OrganizationDetailsComponent implements OnInit {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+
+  checkBodyId(flag:any,event:any):any{
+    let filterData =   this.searchPipe.transform(this.resAllMember,[event], 'pipeFilter');
+    console.log(this.resAllMember)
+   return  this.resAllMember = filterData;
+
+  // this.resAllMember = s;
+  // console.log(this.resAllMember)
   }
 }
