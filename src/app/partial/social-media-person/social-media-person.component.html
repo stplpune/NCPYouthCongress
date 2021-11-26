@@ -88,6 +88,14 @@
                                 <td>{{socialMediaMessagesPerson.PostDate}}</td>
                                 <td>{{socialMediaMessagesPerson.SocialMediaName}}</td>
                                 <td>{{socialMediaMessagesPerson.InFavorOf}}</td>
+                                <!-- <td>
+                                    <div *ngIf="socialMediaMessagesPerson?.InFavorOf"><span class="mb-1">{{socialMediaMessagesPerson?.InFavorOf}}</span></div>
+                                    <div *ngIf="socialMediaMessagesPerson?.InFavorOf == '' || socialMediaMessagesPerson?.InFavorOf == null"><span class="mb-1">-</span></div>
+                                </td> -->
+                                <!-- <td>
+                                    <div *ngIf="socialMediaMessagesPerson?.InOppositionOf">{{socialMediaMessagesPerson?.InOppositionOf}}</div>
+                                    <div *ngIf="socialMediaMessagesPerson?.InOppositionOf == '' || socialMediaMessagesPerson?.InOppositionOf == null">-</div>
+                                </td> -->
                                 <td>{{socialMediaMessagesPerson.InOppositionOf}}</td>
                                 <td>
                                     <img src="{{socialMediaMessagesPerson.PartyIconImage}}" />
