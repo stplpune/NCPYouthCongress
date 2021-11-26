@@ -3377,7 +3377,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
                     if(MapSVG.GoogleMapBadApiKey){
                         MapSVG.GoogleMapBadApiKey();
                     }else{
-                        alert("Google maps API key is incorrect.");
+                       // alert("Google maps API key is incorrect.");
                     }
                 };
                 _data.googleMapsScript = document.createElement('script');
@@ -5230,7 +5230,7 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
                             _data.svgDefault.width   = parseFloat(_data.svgDefault.viewBox[2]);
                             _data.svgDefault.height  = parseFloat(_data.svgDefault.viewBox[3]);
                         }else{
-                            alert('MapSVG needs width/height or viewBox parameter to be present in SVG file.')
+                            //alert('MapSVG needs width/height or viewBox parameter to be present in SVG file.')
                             return false;
                         }
                         // Get geo-coordinates view  box from SVG file
