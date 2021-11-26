@@ -101,6 +101,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   selectLevel(levelId: any, flag: any) {
+    alert(levelId);
     this.globalLevelId = levelId;
     if (levelId == 2) {
       this.disableFlagDist = true;
@@ -211,6 +212,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   updateValueAndValidityMF(levelId: any) {
+    debugger;
     if (levelId == 2) {
       this.orgMasterForm.controls["StateId"].updateValueAndValidity();
     } else if (levelId == 3) {
@@ -266,7 +268,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["VillageId"].setValue("");
       this.orgMasterForm.controls["SubParentCommitteeId"].setValue("");
       this.orgMasterForm.controls['VillageId'].clearValidators();
-      this.orgMasterForm.controls['SubParentCommitteeId'].clearValidators();
+      this.orgMasterForm.controls['SubParentCommitteeId'].updateValueAndValidity();
       this.orgMasterForm.controls['VillageId'].updateValueAndValidity();
       this.orgMasterForm.controls['SubParentCommitteeId'].updateValueAndValidity();
     }
@@ -279,7 +281,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["TalukaId"].setValue("");
       this.orgMasterForm.controls["SubParentCommitteeId"].setValue("");
       this.orgMasterForm.controls['TalukaId'].clearValidators();
-      this.orgMasterForm.controls['SubParentCommitteeId'].clearValidators();
+      this.orgMasterForm.controls['SubParentCommitteeId'].updateValueAndValidity();
       this.orgMasterForm.controls["TalukaId"].updateValueAndValidity();
       this.orgMasterForm.controls["SubParentCommitteeId"].updateValueAndValidity();
     }

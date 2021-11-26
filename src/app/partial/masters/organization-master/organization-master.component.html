@@ -208,18 +208,7 @@
                 <form [formGroup]="orgMasterForm" (ngSubmit)="onSubmit()">
                     <div class="form-container">
                         <div class="mb-2">
-                            <label for="txtBodyName" class="form-label required-field">Committee Name</label>
-                            <input type="text" class="form-control" id="txtBodyName" placeholder="Committee Name"
-                                formControlName="BodyOrgCellName"
-                                [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
-                            <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
-                                <div *ngIf="f.BodyOrgCellName.errors.required">Committee name is required</div>
-                                <div *ngIf="f.BodyOrgCellName.errors.maxlength">Committee Name can be max 30 characters
-                                    long.</div>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label required-field">Select Level</label>
+                            <label class="form-label required-field">Select Committee Level</label>
                             <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels"
                                 (select)="selectLevel(this.orgMasterForm.value.BodyLevelId, 'select');getCommitteeByLevel(this.orgMasterForm.value.BodyLevelId)"
                                 formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id"
@@ -243,6 +232,18 @@
                                 <div *ngIf="f.SubParentCommitteeId.errors.required">Committee is required</div>
                             </div>
                         </div>
+                        <div class="mb-2">
+                            <label for="txtBodyName" class="form-label required-field">Committee Name</label>
+                            <input type="text" class="form-control" id="txtBodyName" placeholder="Committee Name"
+                                formControlName="BodyOrgCellName"
+                                [ngClass]="{ 'is-invalid': submitted && f.BodyOrgCellName.errors }">
+                            <div *ngIf="submitted && f.BodyOrgCellName.errors" class="invalid-feedback">
+                                <div *ngIf="f.BodyOrgCellName.errors.required">Committee name is required</div>
+                                <div *ngIf="f.BodyOrgCellName.errors.maxlength">Committee Name can be max 30 characters
+                                    long.</div>
+                            </div>
+                        </div>
+                   
                         <div class="row mb-3">
                             <div class="col-sm-6">
                                 <label class="form-label required-field">Select State</label>
