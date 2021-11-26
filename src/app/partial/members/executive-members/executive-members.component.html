@@ -1,47 +1,47 @@
 <div class="container-fluid">
     <div class="row mx-0 px-0" id="pageheader">
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <span class="page-name">Executive Members</span>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm">
             <form [formGroup]="filterForm">
                 <div class="row g-1">
-                    <div class="col-sm-2 ms-auto">
+                    <div class="col-sm ms-auto">
                         <ngx-select [allowClear]="true" [items]="memberNameArray" optionValueField="Id"
                             formControlName="BodyId" optionTextField="BodyOrgCellName"
                             (remove)="clearFilter('committee')" (select)="filter()"
                             placeholder="Committee Name">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <ngx-select [allowClear]="true" formControlName="DistrictId" [items]="allDistrict"
                             optionValueField="DistrictId" optionTextField="DistrictName"
                             (remove)="clearFilter('district')" placeholder="Select District"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <ngx-select [allowClear]="true" formControlName="memberStatus" [items]="memberStatusArray"
                             optionValueField="id" optionTextField="name"
                             (remove)="clearFilter('MemberStatus')" placeholder="Member Status"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <ngx-select [allowClear]="true" formControlName="deviceStatus" [items]="DeviceAppArray"
                             optionValueField="id" optionTextField="name"
                             (remove)="clearFilter('DeviceStatus')" placeholder="Select Device"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <ngx-select [allowClear]="true" formControlName="deviceVersion" [items]="DeviceVersionArray"
                             optionValueField="id" optionTextField="name"
                             (remove)="clearFilter('DeviceVersion')" placeholder="Version"
                             (select)="filter()">
                         </ngx-select>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="Search Member"
                                 formControlName="searchText" (keyup)="onKeyUpFilter()" />
