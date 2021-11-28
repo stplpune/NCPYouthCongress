@@ -36,14 +36,19 @@ export class AddCommitteeComponent implements OnInit {
   disableFlagVill: boolean = true;
   redioBtnDisabled: boolean = true;
   globalLevelId: any;
+  parentCommitteeId: any;
+  bodyLevelIdBoth: any;
 
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
     private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
-    public dialogRef: MatDialogRef<AddCommitteeComponent>,
-    private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
+    public dialogRef: MatDialogRef<AddCommitteeComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
+    private spinner: NgxSpinnerService, private route: ActivatedRoute) { 
+    }
 
     ngOnInit(): void {
+      this.parentCommitteeId = this.data;
+      this.getCommitteeByLevel(this.bodyLevelIdBoth);
       this.customForm();
       this.getLevel();
       this.getState();
@@ -53,6 +58,7 @@ export class AddCommitteeComponent implements OnInit {
     
   customForm() {
     this.addCommitteeForm = this.fb.group({
+      Id:[0],
       BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
       StateId: ['', Validators.required],
       DistrictId: [],
@@ -60,37 +66,32 @@ export class AddCommitteeComponent implements OnInit {
       VillageId: [''],
       IsRural: [1],
       BodyLevelId: ['', Validators.required],
-      SubParentCommitteeId:[''],
+      SubParentCommitteeId:[this.parentCommitteeId],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
   }
 
-  onSubmit(){
-
-  }
-
-  
   clearselOption(flag: any) { // on click select option close icon
     if (flag == 'State') {
-      // this.disableFlagDist = true;
-      // this.disableFlagTal = true;
-      // this.disableFlagVill = true;
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
       this.addCommitteeForm.controls["StateId"].setValue("");
       this.addCommitteeForm.controls["DistrictId"].setValue("");
       this.addCommitteeForm.controls["TalukaId"].setValue("");
       this.addCommitteeForm.controls["VillageId"].setValue("");
     } else if (flag == 'District') {
-      // this.disableFlagDist = true;
-      // this.disableFlagTal = true;
-      // this.disableFlagVill = true;
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
       this.addCommitteeForm.controls["DistrictId"].setValue("");
       this.addCommitteeForm.controls["TalukaId"].setValue("");
       this.addCommitteeForm.controls["VillageId"].setValue("");
       this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
     } else if (flag == 'Taluka') {
-      // this.disableFlagDist = true;
-      // this.disableFlagTal = true;
-      // this.disableFlagVill = false;
+      this.disableFlagDist = true;
+      this.disableFlagTal = true;
+      this.disableFlagVill = false;
       this.addCommitteeForm.controls["TalukaId"].setValue("");
       this.addCommitteeForm.controls["VillageId"].setValue("");
       this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
@@ -106,9 +107,9 @@ export class AddCommitteeComponent implements OnInit {
   }
 
   selectLevelClear() {
-    // this.disableFlagDist = true;
-    // this.disableFlagTal = true;
-    // this.disableFlagVill = true;
+    this.disableFlagDist = true;
+    this.disableFlagTal = true;
+    this.disableFlagVill = true;
     this.addCommitteeForm.controls["StateId"].setValue("");
     this.addCommitteeForm.controls["DistrictId"].setValue("");
     this.addCommitteeForm.controls["TalukaId"].setValue("");
@@ -126,8 +127,6 @@ export class AddCommitteeComponent implements OnInit {
     //this.getOrganizationList();
     this.selectLevelClear();
   }
-
-
 
   getLevel() {
     //this.spinner.show();
@@ -150,7 +149,8 @@ export class AddCommitteeComponent implements OnInit {
 
   getCommitteeByLevel(bodyLevelId:any) {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId='+this.commonService.loggedInUserId()+'&BodyLevelId='+bodyLevelId, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
+    this.bodyLevelIdBoth = bodyLevelId || 4;
+    this.callAPIService.setHttp('get','Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId='+this.commonService.loggedInUserId()+'&BodyLevelId='+this.bodyLevelIdBoth, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resCommitteeByLevel = res.data1;
@@ -186,7 +186,7 @@ export class AddCommitteeComponent implements OnInit {
   districtEvent(levelId: any, districtId: any) {
     if (levelId == 6) {
       this.globalDistrictId = districtId;
-      // this.selCity();
+       this.selCity();
     }
   }
 
@@ -268,11 +268,212 @@ export class AddCommitteeComponent implements OnInit {
     })
   }
 
+  selectLevel(levelId: any, flag: any) {
+    debugger
+    this.globalLevelId = levelId;
+    if (levelId == 2) {
+      this.disableFlagDist = true;
+      // if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
+      //   this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
+      // }
+    }
+    else if (levelId == 3) {
+      this.disableFlagDist = false;
+      this.disableFlagTal = true;
+      this.disableFlagVill = true;
+    }
+    else if (levelId == 4) {
+      this.disableFlagTal = false;
+      this.disableFlagDist = false;
+      this.disableFlagVill = true;
+    }
+    else if (levelId == 5) {
+      this.addCommitteeForm.controls["VillageId"].setValue("");
+      this.disableFlagTal = false;
+      this.disableFlagDist = false;
+      this.disableFlagVill = false;
+      this.setVillOrcityName = "VillageName";
+      this.setVillOrCityId = "VillageId";
+      this.villageCityLabel = "Village";
+      // if (this.addCommitteeForm == 'edit' && flag == 'select') { // DistrictId is availble then show city 
+      //   this.getTaluka(this.orgMasterForm.value.DistrictId);
+      // }
+    }
+    else if (levelId == 6) {
+      this.addCommitteeForm.controls["VillageId"].setValue("");
+      this.disableFlagDist = false;
+      this.disableFlagTal = true;
+      this.disableFlagVill = false;
+      this.setVillOrcityName = "CityName";
+      this.setVillOrCityId = "Id";
+      this.villageCityLabel = "City";
+      // if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
+      //   this.districtEvent(this.orgMasterForm.value.BodyLevelId, this.orgMasterForm.value.DistrictId);
+      // }
+
+    }
+     this.validationOncondition(levelId);
+  }
+  selCity() {
+    //this.spinner.show();
+    this.villageCityLabel = "City";
+    if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
+      this.toastrService.error("Please select district");
+      this.spinner.hide();
+      return
+    } else {
+      this.disableFlagVill = false;
+      this.getVillageOrCity(this.globalDistrictId, 'City');
+      this.setVillOrcityName = "CityName";
+      this.setVillOrCityId = "Id";
+      this.spinner.hide();
+    }
+  }
+
+  validationOncondition(levelId: any) {
+    if (levelId == 2) {
+      this.addCommitteeForm.controls["StateId"].setValidators(Validators.required);
+    } else if (levelId == 3) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["StateId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["DistrictId"].setValidators(Validators.required);
+    } else if (levelId == 4) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["StateId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["DistrictId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["TalukaId"].setValidators(Validators.required);
+
+    } else if (levelId == 5) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["StateId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["DistrictId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["TalukaId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["VillageId"].setValidators(Validators.required);
+
+    } else if (levelId == 6) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["StateId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["DistrictId"].setValidators(Validators.required);
+      this.addCommitteeForm.controls["VillageId"].setValidators(Validators.required);
+    }
+    this.updateValueAndValidityMF(levelId);
+  }
+
+  updateValueAndValidityMF(levelId: any) {
+    if (levelId == 2) {
+      this.addCommitteeForm.controls["StateId"].updateValueAndValidity();
+    } else if (levelId == 3) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["StateId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["DistrictId"].updateValueAndValidity();
+    } else if (levelId == 4) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["StateId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["DistrictId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+    } else if (levelId == 5) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["StateId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["DistrictId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["VillageId"].updateValueAndValidity();
+    } else if (levelId == 6) {
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["StateId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["DistrictId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["VillageId"].updateValueAndValidity();
+    }
+    this.clearValidatorsMF(levelId);
+  }
+
+  clearValidatorsMF(levelId: any) {
+    if (levelId == 2) {
+      this.addCommitteeForm.controls["DistrictId"].setValue("");
+      this.addCommitteeForm.controls["TalukaId"].setValue("");
+      this.addCommitteeForm.controls["VillageId"].setValue("");
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
+      this.addCommitteeForm.controls['DistrictId'].clearValidators();
+      this.addCommitteeForm.controls["DistrictId"].updateValueAndValidity();
+      this.addCommitteeForm.controls['TalukaId'].clearValidators();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+      this.addCommitteeForm.controls['VillageId'].clearValidators();
+      this.addCommitteeForm.controls['VillageId'].updateValueAndValidity();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].clearValidators();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].updateValueAndValidity();
+    } else if (levelId == 3) {
+      this.addCommitteeForm.controls["TalukaId"].setValue("");
+      this.addCommitteeForm.controls["VillageId"].setValue("");
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
+      this.addCommitteeForm.controls['TalukaId'].clearValidators();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+      this.addCommitteeForm.controls['VillageId'].clearValidators();
+      this.addCommitteeForm.controls['VillageId'].updateValueAndValidity();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].updateValueAndValidity();
+    } else if (levelId == 4) {
+      this.addCommitteeForm.controls["VillageId"].setValue("");
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
+      this.addCommitteeForm.controls['VillageId'].clearValidators();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].updateValueAndValidity();
+      this.addCommitteeForm.controls['VillageId'].updateValueAndValidity();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].updateValueAndValidity();
+    }
+    else if (levelId == 6) {
+      this.addCommitteeForm.controls["TalukaId"].setValue("");
+      this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
+      this.addCommitteeForm.controls['TalukaId'].clearValidators();
+      this.addCommitteeForm.controls['SubParentCommitteeId'].updateValueAndValidity();
+      this.addCommitteeForm.controls["TalukaId"].updateValueAndValidity();
+      this.addCommitteeForm.controls["SubParentCommitteeId"].updateValueAndValidity();
+    }
+  }
+
+
   onNoClick(): void {
     this.dialogRef.close();
   }
   get f() { return this.addCommitteeForm.controls };
 
+  onSubmit() {
+    this.submitted = true;
+    if (this.addCommitteeForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    else if (this.addCommitteeForm.value.BodyOrgCellName.trim() == '' || this.addCommitteeForm.value.BodyOrgCellName == null || this.addCommitteeForm.value.BodyOrgCellName == undefined) {
+      this.toastrService.error("Committee Name can not contain space only");
+      this.spinner.hide();
+      return;
+    }
+    else {
+      // //this.spinner.show();
+      let fromData: any = new FormData();
+      this.addCommitteeForm.value.BodyLevelId == 6 ? this.addCommitteeForm.value.IsRural = 0 : this.addCommitteeForm.value.IsRural = 1;
 
+
+      Object.keys(this.addCommitteeForm.value).forEach((cr: any, ind: any) => {
+        let value = Object.values(this.addCommitteeForm.value)[ind] != null ? Object.values(this.addCommitteeForm.value)[ind] : 0;
+        fromData.append(cr, value)
+      })
+
+      this.callAPIService.setHttp('Post', 'Web_Insert_bodycellorgmaster_1_0_SubCommittee', false, fromData, false, 'ncpServiceForWeb');
+      this.callAPIService.getHttp().subscribe((res: any) => {
+        if (res.data == 0) {
+          this.selectLevelClear();
+          this.spinner.hide();
+          this.toastrService.success(res.data1[0].Msg);
+          //this.getOrganizationList();
+          this.clearForm();
+        } else {
+          // //this.toastrService.error("Data is not available");
+        }
+      }, (error: any) => {
+        if (error.status == 500) {
+          this.router.navigate(['../../500'], { relativeTo: this.route });
+        }
+      })
+    }
+  }
 
 }

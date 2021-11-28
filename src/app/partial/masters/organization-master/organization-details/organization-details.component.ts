@@ -878,13 +878,15 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
   openDialogAddCommittee() {
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
-     // data: this.resultBodyMemActDetails
+       data: this.bodyId
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        //this.subCommittess(this.bodyId);
+      }
     });
   }
   
