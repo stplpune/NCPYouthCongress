@@ -17,10 +17,14 @@ export class CallAPIService {
       //live server base url 
       //case 'ncpServiceForWeb': return 'http://ncpwebservice.ncpyouths.com/Service.asmx/'; break;
       //development server base url 
-      case 'ncpServiceForWeb': return 'http://ncpserviceweb.eanifarm.com/Service.asmx/'; break;
-      default: return ''; break;
+      case 'ncpServiceForWeb': return 'http://electionwservice.erpguru.in/service.asmx/'; break;
+      default: return ''; break; 
     }
   }
+  
+  // http://electionwservice.erpguru.in/service.asmx
+  //http://ncpserviceweb.eanifarm.com/Service.asmx
+  
   private httpObj: any = {
     type: '',
     url: '',

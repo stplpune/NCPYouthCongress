@@ -5,32 +5,39 @@
             </span>
         </div>
         <div class="col-sm-9 text-end">
+            <form [formGroup]="filterForm">
             <div class="row g-2">
                 <div class="col-sm-3">
-                    <select class="form-select">
-                        <option value="">Select Candidate</option>
-                    </select>
+                    <ngx-select [allowClear]="selClientFlag" [items]="clientNameArray" formControlName="ClientId"
+                    (remove)="clearFilter('clientId')" (select)="filterData()"
+                    optionValueField="id" optionTextField="Fullname" placeholder="Select Client">
+                </ngx-select>
                 </div>
                 <div class="col-sm-3">
-                    <select class="form-select">
-                        <option value="">Select Election</option>
-                    </select>
+                    <ngx-select [allowClear]="selClientFlag" [items]="electionNameArray"
+                    (remove)="clearFilter('electionId')" (select)="filterData()" formControlName="ElectionId"
+                    optionValueField="ElectionId" optionTextField="ElectionName" placeholder="Select Election">
+                </ngx-select>
                 </div>
                 <div class="col-sm-3">
-                    <select class="form-select">
-                        <option value="">Select Constituency</option>
-                    </select>
+                    <ngx-select [allowClear]="true" [items]="constituencyNameArray"
+                    (remove)="clearFilter('constituencyId')" (select)="filterData()" formControlName="ConstituencyId" 
+                    optionValueField="ConstituencyId" optionTextField="ConstituencyName" placeholder="Select Constituency">
+                </ngx-select>
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Search..." />
-                        <button class="btn btn-light btn-sm text-dark" type="button"><i
-                                class="fas fa-times"></i></button>
-                        <button class="btn btn-light btn-sm text-dark" type="button"><i
-                                class="fas fa-search"></i></button>
+                        <input class="form-control" type="text" placeholder="Search..."
+                            formControlName="Search" (keyup)="onKeyUpFilter()" />
+                        <button type="button" class="btn btn-light border btn-sm"
+                            *ngIf="filterForm.value.Search" (click)="clearFilter('search')"><i
+                                _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                        <button type="button" (click)="searchFilter('true')" *ngIf="!filterForm.value.Search"
+                            class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -67,7 +74,7 @@
             <div class="card card-body bg-red">
                 <i class="fas fa-star-half-alt"></i>
                 <p>Fill / Pending</p>
-                <h3>3456 / 15442</h3>
+                <h3>345/154</h3>
             </div>
         </div>
         <div class="col-sm-2">
@@ -256,7 +263,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-9">
-                                                asdf
+                                              -
                                             </div>
                                         </div>
                                         

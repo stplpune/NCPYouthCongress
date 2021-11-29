@@ -97,8 +97,8 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   get a() { return this.assAgentToBoothForm.controls };
 
   clearAgentToBoothForm() {
-    this.submitted = false;
-    this.AgentForm();
+    this.aAsubmitted = false;
+    this.AgentToBoothForm();
   }
 
   AgentForm() {
@@ -106,9 +106,9 @@ export class AssignAgentsToBoothsComponent implements OnInit {
       Id: [0],
       ClientId: [''],
       FullName: [''],
-      FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
-      MName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
-      LName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+      FName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
+      MName: ['',Validators.compose([Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
+      LName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
       Address: ['', Validators.required],
       MobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       IsMemberAddAllow: [''],
@@ -346,10 +346,11 @@ export class AssignAgentsToBoothsComponent implements OnInit {
   onSubmitAssAgentToBoothForm(){
     this.aAsubmitted = true;
     let formData = this.assAgentToBoothForm.value;
-
     if (this.assAgentToBoothForm.invalid) {
       this.spinner.hide();
-    }else if (this.AssemblyBoothArray.length == 0  ||  this.AssemblyBoothArray.length == 0){
+      return;
+    }
+    else if (this.AssemblyBoothArray.length == 0  ||  this.AssemblyBoothArray.length == 0){
       this.toastrService.error("Assembly Or Booth is required");
       return;
     }
