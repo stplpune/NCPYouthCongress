@@ -38,6 +38,7 @@ import { AddDesignationComponent } from './partial/dialogs/add-designation/add-d
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-details/recent-post-details.component';
 import { TooltipModule } from './partial/directive/tooltip.module';
+import { AddCommitteeComponent } from './partial/dialogs/add-committee/add-committee.component';
 
 
 
@@ -59,6 +60,7 @@ import { TooltipModule } from './partial/directive/tooltip.module';
     UserBlockUnblockComponent,
     AddDesignationComponent,
     RecentPostDetailsComponent,
+    AddCommitteeComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,7 @@ import { AddDesignationComponent } from 'src/app/partial/dialogs/add-designation
 import { RecentPostDetailsComponent } from 'src/app/partial/dialogs/recent-post-details/recent-post-details.component';
 import { DeleteComponent } from 'src/app/partial/dialogs/delete/delete.component';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { AddCommitteeComponent } from '../../../dialogs/add-committee/add-committee.component';
 import { SearchPipe } from 'src/app/partial/pipes/search.pipe';
 import { Observable } from 'rxjs';
 
@@ -877,7 +878,18 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-
+  openDialogAddCommittee() {
+    const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
+      width: '1024px',
+       data: this.bodyId
+    });
+    dialogRefActivityDetails.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        //this.subCommittess(this.bodyId);
+      }
+    });
+  }
+  
   checkBodyId(flag:any,event:any):any{
     let filterData =   this.searchPipe.transform(this.resAllMember,[event], 'pipeFilter');
     console.log(this.resAllMember)
