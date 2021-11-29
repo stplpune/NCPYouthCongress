@@ -96,25 +96,28 @@ export class AssignBoothComponent implements OnInit {
   onCheckChangeAssembly(event: any, assemblyId:any) {
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
+    debugger;
     if (event.target.checked == false) {
       let index = this.assemblyIdArray.indexOf(this.AssemblyId);
       this.assemblyIdArray.splice(index, 1);
-  
+
       let indexBoothArray = this.AssemblyBoothArray.findIndex((x:any)=> x.AssemblyId == this.AssemblyId);
       this.AssemblyBoothArray.splice(indexBoothArray, 1);
       // this.onCheckChangeBooths(event, assemblyId);
       this.boothListMergeArray = this.boothListMergeArray.filter((ele: any) => {
-        if (ele.AssemblyId !== Number(this.AssemblyId)) {
+        if (ele.AssemblyId !== Number(assemblyId)) {
           return ele;
         }
       });
       this.boothListMergeArray.length == 0 ?   this.boothDivHide = false : this.boothDivHide = true;
+      console.log(this.selBoothId);
     }
     else {
       this.assemblyIdArray.push(this.AssemblyId);
       this.GetBoothList(this.AssemblyId);
     };
     // this.GetBoothList(this.AssemblyId);
+    console.log(this.assemblyIdArray);
   }
 
   onCheckChangeBooths(event: any, assemblyId: any, boothId: any) {
@@ -142,9 +145,9 @@ export class AssignBoothComponent implements OnInit {
       this.assemblyBoothJSON = JSON.stringify(this.AssemblyBoothArray);
       let id;
       formData.Id == "" || formData.Id == null ? id = 0 : id = formData.Id;
-
       let obj = id + '&ElectionId=' + formData.ElectionId + '&ConstituencyId=' + formData.ConstituencyId
         + '&strAssmblyBoothId=' + this.assemblyBoothJSON + '&CreatedBy=' + this.commonService.loggedInUserId();
+        
       this.callAPIService.setHttp('get', 'Web_Insert_Election_AssignBoothToElection?Id=' + obj, false, false, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
@@ -211,7 +214,6 @@ export class AssignBoothComponent implements OnInit {
     })
   }
 
-
   getAssembly() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Election_GetAssembly?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
@@ -241,12 +243,12 @@ export class AssignBoothComponent implements OnInit {
         this.boothListArray = res.data1;
         this.boothListArray.map((ele: any) => {
           if (this.assemblyCheckBoxCheck) {
-            this.boothListMergeArray.unshift(ele);
+            this.boothListMergeArray.push(ele);
           }
         });
         if (this.btnText == 'Update Booths') {
           let BoothIdArray = this.selBoothId.split(',');
-          this.checkBoxCehckBoothArray(BoothIdArray);
+          this.checkBoxCheckBoothArray(BoothIdArray);
         }
 
       } else {
@@ -309,6 +311,7 @@ export class AssignBoothComponent implements OnInit {
     this.callAPIService.setHttp('get', 'Web_Election_GetAssignedBoothListbyHeaderId?HeaderId=' + HeaderId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        console.log(res.data1[0])
         this.editAssignBoothsPatchValue(res.data1[0]);
 
       } else {
@@ -328,10 +331,12 @@ export class AssignBoothComponent implements OnInit {
     this.HighlightRow = objData.Id;
     this.boothDivHide = true;
     this.selBoothId = objData.BoothId;
-    this.ConstituencyIdArray = objData.Assembly.split('');
+
+    // this.assemblyIdArray.push
+    this.ConstituencyIdArray = objData.Assembly.split(',');
     this.assemblyCheckBoxCheck = true;
     let assemblyArray = objData.Assembly.split(',');
-    this.checkBoxCehckAssemblyArray(assemblyArray);
+    this.checkBoxCheckAssemblyArray(assemblyArray);
 
     assemblyArray.forEach((ele: any) => {
       this.GetBoothList(ele)
@@ -349,26 +354,28 @@ export class AssignBoothComponent implements OnInit {
 
   editAssemblyBoothArray() {
     let boothArray = this.selBoothId.split(',');
+    console.log(this.selBoothId);
     this.boothListMergeArray.find((ele: any) => {
       boothArray.find((el: any) => {
         if (ele.Id == Number(el)) {
+          console.log(ele)
           this.AssemblyBoothArray.push({ 'AssemblyId': ele.AssemblyId, 'BoothId': ele.Id });
         }
       })
     });
   }
 
-  checkBoxCehckAssemblyArray(ConstituencyId: any) {
+  checkBoxCheckAssemblyArray(ConstituencyId: any) {
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j < this.assemblyArray.length; j++) {
-        if (this.assemblyArray[j].ConstituencyNo === ConstituencyId[i]) {
+        if (this.assemblyArray[j].Id == ConstituencyId[i]) {
           this.assemblyArray[j].checked = true;
         }
       }
     }
   }
 
-  checkBoxCehckBoothArray(ConstituencyId: any) {
+  checkBoxCheckBoothArray(ConstituencyId: any) {
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j < this.boothListArray.length; j++) {
         if (this.boothListArray[j].Id == Number(ConstituencyId[i])) {
@@ -376,6 +383,12 @@ export class AssignBoothComponent implements OnInit {
         }
       }
     }
+  }
+
+  unCheckBoxCheckBoothArray(ConstituencyId: any){
+    console.log(this.boothListArray)
+    // this.boothListArray[ConstituencyId].checked = false;
+
   }
 
   clearForm() {
