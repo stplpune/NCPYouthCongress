@@ -104,6 +104,7 @@ export class OrganizationDetailsComponent implements OnInit {
   mobileNoCheckFlag:boolean = false;
   mobileNoValue:any;
   ActivityId: any;
+  bodylevelId: any;
  // memberValue: any;
 
   constructor(private fb: FormBuilder, private searchPipe: SearchPipe, private callAPIService: CallAPIService,
@@ -117,6 +118,7 @@ export class OrganizationDetailsComponent implements OnInit {
     getsessionStorageData = JSON.parse(getsessionStorageData);
     this.bodyId = getsessionStorageData.bodyId;
     this.getCommitteeName = getsessionStorageData.BodyOrgCellName;
+    this.bodylevelId = getsessionStorageData.bodylevelId;
     { dateTimeAdapter.setLocale('en-IN') }
   }
 
@@ -865,7 +867,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.toastrService.success(res.data1[0].Msg)
+        this.toastrService.success(res.data1[0].Msg);
       } else {
         this.spinner.hide();
       }
@@ -881,12 +883,12 @@ export class OrganizationDetailsComponent implements OnInit {
   openDialogAddCommittee() {
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
-       data: this.bodyId
+       data: { bodyId : this.bodyId, bodylevelId : this.bodylevelId}
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-        //this.subCommittess(this.bodyId);
       }
+      this.subCommittess(this.bodyId);
     });
   }
   
