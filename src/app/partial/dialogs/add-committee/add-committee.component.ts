@@ -38,6 +38,7 @@ export class AddCommitteeComponent implements OnInit {
   globalLevelId: any;
   parentCommitteeId: any;
   bodyLevelIdBoth: any;
+  bodylevelId: any;
 
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
@@ -47,10 +48,11 @@ export class AddCommitteeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.parentCommitteeId = this.data;
-      this.getCommitteeByLevel(this.bodyLevelIdBoth);
+      this.parentCommitteeId = this.data.bodyId;
+      this.bodylevelId = this.data.bodylevelId;
       this.customForm();
       this.getLevel();
+      this.getCommitteeByLevel(this.bodyLevelIdBoth);
       this.getState();
       this.getDistrict();
       this.getDistrictByCommittee();
@@ -65,7 +67,7 @@ export class AddCommitteeComponent implements OnInit {
       TalukaId: [''],
       VillageId: [''],
       IsRural: [1],
-      BodyLevelId: ['', Validators.required],
+      BodyLevelId: [this.bodylevelId, Validators.required],
       SubParentCommitteeId:[this.parentCommitteeId],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
@@ -130,6 +132,7 @@ export class AddCommitteeComponent implements OnInit {
 
   getLevel() {
     //this.spinner.show();
+    this.selectLevel(this.globalLevelId);
     this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -149,7 +152,7 @@ export class AddCommitteeComponent implements OnInit {
 
   getCommitteeByLevel(bodyLevelId:any) {
     //this.spinner.show();
-    this.bodyLevelIdBoth = bodyLevelId || 4;
+    this.bodyLevelIdBoth = bodyLevelId || this.bodylevelId;
     this.callAPIService.setHttp('get','Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId='+this.commonService.loggedInUserId()+'&BodyLevelId='+this.bodyLevelIdBoth, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -268,26 +271,25 @@ export class AddCommitteeComponent implements OnInit {
     })
   }
 
-  selectLevel(levelId: any, flag: any) {
-    debugger
-    this.globalLevelId = levelId;
-    if (levelId == 2) {
+  selectLevel(levelId: any) {
+    this.globalLevelId = levelId || this.bodylevelId;
+    if (this.globalLevelId == 2) {
       this.disableFlagDist = true;
       // if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
       //   this.addCommitteeForm.controls["SubParentCommitteeId"].setValue("");
       // }
     }
-    else if (levelId == 3) {
+    else if (this.globalLevelId == 3) {
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
     }
-    else if (levelId == 4) {
+    else if (this.globalLevelId == 4) {
       this.disableFlagTal = false;
       this.disableFlagDist = false;
       this.disableFlagVill = true;
     }
-    else if (levelId == 5) {
+    else if (this.globalLevelId == 5) {
       this.addCommitteeForm.controls["VillageId"].setValue("");
       this.disableFlagTal = false;
       this.disableFlagDist = false;
@@ -299,7 +301,7 @@ export class AddCommitteeComponent implements OnInit {
       //   this.getTaluka(this.orgMasterForm.value.DistrictId);
       // }
     }
-    else if (levelId == 6) {
+    else if (this.globalLevelId == 6) {
       this.addCommitteeForm.controls["VillageId"].setValue("");
       this.disableFlagDist = false;
       this.disableFlagTal = true;

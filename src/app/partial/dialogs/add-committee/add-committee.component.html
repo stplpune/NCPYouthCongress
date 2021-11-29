@@ -11,7 +11,7 @@
                             <label class="form-label required-field">Select Committee Level</label>
                             <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels"
                                 formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id"
-                                optionTextField="LevelName"  (select)="selectLevel(this.addCommitteeForm.value.BodyLevelId, 'select');getCommitteeByLevel(this.addCommitteeForm.value.BodyLevelId)"
+                                optionTextField="LevelName"  (select)="selectLevel(this.addCommitteeForm.value.BodyLevelId);getCommitteeByLevel(this.addCommitteeForm.value.BodyLevelId)"
                                 [ngClass]="{ 'is-invalid': submitted && f.BodyLevelId.errors }">
                             </ngx-select>
                             <div *ngIf="submitted && f.BodyLevelId.errors" class="invalid-feedback">
@@ -63,7 +63,7 @@
                                 <ngx-select [allowClear]="true" (remove)="clearselOption('District')"
                                     [items]="allDistrict" formControlName="DistrictId"
                                     (select)="districtEvent(this.addCommitteeForm.value.BodyLevelId, this.addCommitteeForm.value.DistrictId)"
-                                    [disabled]="disableFlagDist"
+                                    [disabled]="disableFlagDist || !this.addCommitteeForm.value.StateId"
                                     (select)="getTaluka(this.addCommitteeForm.value.DistrictId)"
                                     optionValueField="DistrictId" optionTextField="DistrictName"
                                     placeholder="Select District"
@@ -82,7 +82,7 @@
                                     Select Taluka</label>
                                 <ngx-select [allowClear]="true" (remove)="clearselOption('TalukaId')"
                                     [items]="getTalkaByDistrict"
-                                    [disabled]="disableFlagTal"
+                                    [disabled]="disableFlagTal || !this.addCommitteeForm.value.DistrictId"
                                     formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName"
                                     placeholder="Select Taluka"
                                     (select)="getVillageOrCity(this.addCommitteeForm.value.TalukaId,villageCityLabel)"
@@ -100,7 +100,7 @@
                                     [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}"
                                     [optionValueField]="setVillOrCityId" formControlName="VillageId"
                                     [optionTextField]="setVillOrcityName"
-                                    [disabled]="disableFlagVill"
+                                    [disabled]="disableFlagVill || !this.addCommitteeForm.value.DistrictId"
                                     [ngClass]="{ 'is-invalid': submitted && f.VillageId.errors }">
                                 </ngx-select>
                                 <div *ngIf="submitted && f.VillageId.errors" class="invalid-feedback">

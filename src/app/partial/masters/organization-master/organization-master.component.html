@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="comm-name">
-                                <a (click)="redirectOrgDetails(result.Id,result.DesignationAssigned,result.BodyOrgCellName)"
+                                <a (click)="redirectOrgDetails(result.Id,result.bodylevel,result.BodyOrgCellName)"
                                             class="text-primary">{{result?.BodyOrgCellName | titlecase}}</a>
                                 <small class="comm-area">[{{result?.Area}}]</small>
                             </div>
@@ -194,7 +194,7 @@
     </div>
 </div>
 
-<!-- Modal for Add Designation -->
+<!-- Modal for Add Add New Committee -->
 <div class="modal fade" id="AddNewCommittee" tabindex="-1" aria-labelledby="AddNewCommitteeLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">

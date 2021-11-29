@@ -38,7 +38,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
   perOnSocialMedArray: any;
   graphInstance: any;
   resPoliticalParty: any;
-  selectedParty: number = 0;
+  selectedParty: number = 1;
   resultofPartyData: any;
   allowClearParty:boolean = false; 
   selPrevPartyId:any = 1;
@@ -202,7 +202,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
   getTaluka(districtId: any) {
     this.getMostLikeHatedPerson();
-    // this.partyChangeEvent();
+    this.partyChangeEvent(1);
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0?DistrictId=' + districtId, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
@@ -293,16 +293,9 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
 
         this.perOnSocialMedArray = res.data2;
 
-        // party sel count and color changed 
-        const amounts = this.perOnSocialMedArray.map((a:any) => a.ActivityCount)
-        const highestAmount = Math.max(...amounts);
-        const highestShots = this.perOnSocialMedArray.filter((shot:any) => shot.ActivityCount === highestAmount)
-        debugger;
-        highestShots.length >  0 ? (this.partyChangeEvent(6),  this.mahaSVGMap()) :  (this.partyChangeEvent(highestShots[0].PartyId), this.mahaSVGMap()); 
-
-
-
         this.trendOnSocialMediaArray = res.data1;
+
+
         this.trendOnSocialMediaArray.map((ele: any) => {
           if (ele.Date) {
             let DateFormate = this.changeDateFormat(ele.Date);
@@ -371,7 +364,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Dashboard_PerceptionPartywise_web_2_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.filterForm.value.DistrictId + '&TalukaId=' + this.filterForm.value.TalukaId + '&PartyId=' + this.selectedParty, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
-      debugger;
       if (res.data == 0) {
         this.resultofPartyData = res.data1;
         this.spinner.hide();
@@ -389,11 +381,8 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
               $('path[id="' + ele.Id + '"]').addClass('OTRColorCode');
             }
             $('#' + ele.DistrictName).text(ele.ActivityCount);
-            this.zeroActivityClass(this.filterForm.value.DistrictId);
           }else{
-              this.selectedParty == 6 ? (this.zeroActivityClass(this.filterForm.value.DistrictId), $('path[id="' + this.filterForm.value.DistrictId + '"]').addClass('zeroActivity')): this.zeroActivityClass(this.filterForm.value.DistrictId);
               $('#' + ele.DistrictName).text(''); 
-             // $("path").removeClass("NCPColorCode SSColorCode BJPCode INCColorCode OTRColorCode");
           }
           // $('#' + ele.DistrictName).text(ele.ActivityCount);
           // $('#mapsvg-menu-regions option[value="' + ele.DistrictName + '"]').css('fill', '#fff').prop('selected', true);
@@ -402,7 +391,7 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       } else {
         this.spinner.hide();
         if (res.data == 1) {
-          $("path").removeClass("NCPColorCode SSColorCode BJPCode INCColorCode OTRColorCode zeroActivity");
+          $("path").removeClass("NCPColorCode SSColorCode BJPCode INCColorCode OTRColorCode");
           //this.toastrService.error("Data is not available");
         } else {
           this.toastrService.error("Please try again something went wrong");
@@ -410,12 +399,6 @@ export class SocialMediaImageComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
-
-  zeroActivityClass(districtId:any){
-    let checksvgDistrictActive = $('path').hasClass("zeroActivity");
-    checksvgDistrictActive == true ?  $('path[id="' + districtId + '"]').removeClass('zeroActivity'):'';
-  }
-
 
   prevColorRemove(selPrevPartyId:any) {
     if (selPrevPartyId == 1) {
