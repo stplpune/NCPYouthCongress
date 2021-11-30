@@ -320,10 +320,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.CheckBoxLevelArray = [];
       this.selectedDistrictId = 0;
       sessionStorage.removeItem('DistrictIdWorkThisWeek');
+      this.hideComityGraph= false;
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }
-    this.hideComityGraph= false;
+
     this.comActiveClass(0);
     this.activeRow = 0;
     this.getOrganizationByDistrictId(0);
@@ -401,7 +402,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   districtWiseCommityWorkGraph(id: any) {
     this.spinner.show();
     let globalDistrictId = this.selectedDistrictId || id;
-    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + id + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value + this.toDate + '&LevelId=' + this.CheckBoxLevelArrayJSON;
+    let obj = this.commonService.loggedInUserId() + '&DistrictId=' + id + '&FromDate=' + this.fromDate + '&ToDate=' + this.toDate + '&Search=' + this.Search.value+ '&LevelId=' + this.CheckBoxLevelArrayJSON;
     // this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.setHttp('get', 'Web_DistrictWiseCommitteeWorkGraph_1_0?UserId=' + obj, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {

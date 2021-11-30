@@ -159,7 +159,6 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   openSubCommittees(bodyId: any, committeeName: any,BodyLevelCommittee:any) {
-    alert(this.BodyLevelCommitteeId)
     this.BodyLevelCommitteeId=BodyLevelCommittee;
     this.subCommittessId = 1;
     this.bodyId = bodyId;
@@ -606,6 +605,13 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
+  closeModelAddEditMember(){
+    // this.bodyMember.controls["bodyId"].setValue("");
+    // this.bodyMember.controls['bodyId'].clearValidators();
+    // this.bodyMember.controls["bodyId"].updateValueAndValidity();
+    this.defaultBodyMemForm();
+  }
+
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
@@ -695,6 +701,7 @@ export class OrganizationDetailsComponent implements OnInit {
           let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
           closeAddMemModal.click();
           this.resultBodyMemActDetails = res.data1[0];
+          this.getBodyMemberFilterDetails(this.bodyId);
           this.toastrService.success(this.resultBodyMemActDetails.Msg);
           this.bodyMember.reset({ BodyName: this.subCommitteeName });
           this.getBodyMemeberGraph(this.bodyId);
@@ -884,6 +891,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   openDialogAddCommittee() {
+    this.BodyLevelCommitteeId = this.BodyLevelCommitteeId || this.bodylevelId
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
        data: { bodyId : this.bodyId, bodylevelId : this.BodyLevelCommitteeId}
