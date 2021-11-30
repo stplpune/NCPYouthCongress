@@ -105,6 +105,7 @@ export class OrganizationDetailsComponent implements OnInit {
   mobileNoValue:any;
   ActivityId: any;
   bodylevelId: any;
+  BodyLevelCommitteeId: any;
  // memberValue: any;
 
   constructor(private fb: FormBuilder, private searchPipe: SearchPipe, private callAPIService: CallAPIService,
@@ -157,7 +158,9 @@ export class OrganizationDetailsComponent implements OnInit {
 
   }
 
-  openSubCommittees(bodyId: any, committeeName: any) {
+  openSubCommittees(bodyId: any, committeeName: any,BodyLevelCommittee:any) {
+    alert(this.BodyLevelCommitteeId)
+    this.BodyLevelCommitteeId=BodyLevelCommittee;
     this.subCommittessId = 1;
     this.bodyId = bodyId;
     this.HighlightRowTree = this.bodyId;
@@ -883,7 +886,7 @@ export class OrganizationDetailsComponent implements OnInit {
   openDialogAddCommittee() {
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
-       data: { bodyId : this.bodyId, bodylevelId : this.bodylevelId}
+       data: { bodyId : this.bodyId, bodylevelId : this.BodyLevelCommitteeId}
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
       if (result == 'Yes') {
