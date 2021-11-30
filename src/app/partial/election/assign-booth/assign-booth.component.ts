@@ -96,7 +96,6 @@ export class AssignBoothComponent implements OnInit {
   onCheckChangeAssembly(event: any, assemblyId:any) {
     this.assemblyCheckBoxCheck = event.target.checked;
     this.AssemblyId = assemblyId;
-    debugger;
     if (event.target.checked == false) {
       let index = this.assemblyIdArray.indexOf(this.AssemblyId);
       this.assemblyIdArray.splice(index, 1);
@@ -110,7 +109,7 @@ export class AssignBoothComponent implements OnInit {
         }
       });
       this.boothListMergeArray.length == 0 ?   this.boothDivHide = false : this.boothDivHide = true;
-      console.log(this.selBoothId);
+      // this.unCheckAssemblyArray(this.AssemblyId)
     }
     else {
       this.assemblyIdArray.push(this.AssemblyId);
@@ -358,7 +357,6 @@ export class AssignBoothComponent implements OnInit {
     this.boothListMergeArray.find((ele: any) => {
       boothArray.find((el: any) => {
         if (ele.Id == Number(el)) {
-          console.log(ele)
           this.AssemblyBoothArray.push({ 'AssemblyId': ele.AssemblyId, 'BoothId': ele.Id });
         }
       })
@@ -375,21 +373,28 @@ export class AssignBoothComponent implements OnInit {
     }
   }
 
+  unCheckAssemblyArray(ConstituencyId: any) {
+    let boothListArray = this.boothListArray.filter((x: any) => x.AssemblyId === ConstituencyId && x.checked == true);
+    if( this.boothListArray.length > 0){
+    //  this.boothListMergeArray =  boothListArray.filter((item:any)=>{
+    //     item.checked = false;
+    //     return item
+    //   });
+    }
+  }
+
   checkBoxCheckBoothArray(ConstituencyId: any) {
     for (let i = 0; i < ConstituencyId.length; i++) {
       for (let j = 0; j < this.boothListArray.length; j++) {
         if (this.boothListArray[j].Id == Number(ConstituencyId[i])) {
           this.boothListArray[j].checked = true;
+        }else{
+          this.boothListArray[j].checked = false;
         }
       }
     }
   }
 
-  unCheckBoxCheckBoothArray(ConstituencyId: any){
-    console.log(this.boothListArray)
-    // this.boothListArray[ConstituencyId].checked = false;
-
-  }
 
   clearForm() {
     this.submitted = false;

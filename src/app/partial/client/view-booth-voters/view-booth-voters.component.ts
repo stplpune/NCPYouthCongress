@@ -16,14 +16,17 @@ import { Subject } from 'rxjs';
 export class ViewBoothVotersComponent implements OnInit {
   clientNameArray: any;
   // viewBoothVotersForm!:FormGroup;
-  filterForm!:FormGroup;
+  filterForm!: FormGroup;
   electionNameArray: any;
   constituencyNameArray: any;
   paginationNo: number = 1;
   pageSize: number = 10;
   total: any;
   subject: Subject<any> = new Subject();
-  selClientFlag:boolean = true;
+  selectCloseFlag: boolean = true;
+  boothArray:any;
+  clientWiseBoothListArray:any;
+
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -38,8 +41,6 @@ export class ViewBoothVotersComponent implements OnInit {
   ngOnInit(): void {
     this.defaultFilterForm();
     this.getClientName();
-    // this.getElectionName();
-    // this.getConstituencyName();
     this.searchFilter('false');
   }
 
@@ -59,7 +60,7 @@ export class ViewBoothVotersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.clientNameArray = res.data1;
-        this.clientNameArray.length == 1 ? (this.filterForm.patchValue({ClientId:this.clientNameArray[0].id}), this.getElectionName(), this.selClientFlag = false ): this.getElectionName();
+        this.clientNameArray.length == 1 ? (this.filterForm.patchValue({ ClientId: this.clientNameArray[0].id }), this.getElectionName(), this.selectCloseFlag = false) : '';
       } else {
         this.spinner.hide();
       }
@@ -78,7 +79,7 @@ export class ViewBoothVotersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.electionNameArray = res.data1;
-        this.electionNameArray.length == 1 ? (this.filterForm.patchValue({ElectionId:this.electionNameArray[0].ElectionId}), this.getConstituencyName()) : this.selClientFlag = true;
+        this.electionNameArray.length == 1 ? (this.filterForm.patchValue({ ElectionId: this.electionNameArray[0].ElectionId }), this.getConstituencyName(), this.selectCloseFlag = false) : '';
       } else {
         this.spinner.hide();
       }
@@ -97,7 +98,7 @@ export class ViewBoothVotersComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.constituencyNameArray = res.data1;
-        // this.electionNameArray.length == 1 ? (this.filterForm.patchValue({ElectionId:this.electionNameArray[0].ElectionId}), this.getConstituencyName()) : this.selClientFlag = true;
+        this.constituencyNameArray.length == 1 ? (this.filterForm.patchValue({ ConstituencyId: this.constituencyNameArray[0].ConstituencyId }),  this.selectCloseFlag = false) : '';
       } else {
         this.spinner.hide();
       }
@@ -108,6 +109,51 @@ export class ViewBoothVotersComponent implements OnInit {
       }
     })
   }
+
+
+  boothSummary() {
+    let obj = 'ClientId=' + this.filterForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + this.filterForm.value.ElectionId + '&ConstituencyId=' + this.filterForm.value.ConstituencyId 
+    + '&AssemblyId=' + this.filterForm.value.AssemblyId + '&IsSubElectionApplicable=' + this.filterForm.value.IsSubElectionApplicable
+    this.spinner.show();
+    this.callAPIService.setHttp('get', '  Web_Get_Clientwise_BoothSummary?'+obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.boothArray = res.data1;
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  ClientWiseBoothList() {
+    let obj = 'ClientId=' + this.filterForm.value.ClientId + '&UserId=' + this.commonService.loggedInUserId() + '&ElectionId=' + this.filterForm.value.ElectionId + '&ConstituencyId=' + this.filterForm.value.ConstituencyId 
+    + '&AssemblyId=' + this.filterForm.value.AssemblyId + '&IsSubElectionApplicable=' + this.filterForm.value.IsSubElectionApplicable
+    this.spinner.show();
+    this.callAPIService.setHttp('get', '  Web_Get_Clientwise_BoothList?'+obj, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.clientWiseBoothListArray = res.data1;
+      } else {
+        this.spinner.hide();
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
+
+  
+
+  // ------------------------------------------filter data all methodes start here ------------------------------ //
 
   clearFilter(flag: any) {
     if (flag == 'clientId') {
@@ -120,12 +166,12 @@ export class ViewBoothVotersComponent implements OnInit {
       this.filterForm.controls['Search'].setValue('');
     }
     this.paginationNo = 1;
-   // this.getClientAgentWithBooths();
+    // this.getClientAgentWithBooths();
   }
 
   filterData() {
     this.paginationNo = 1;
-   // this.getClientAgentWithBooths();
+    // this.getClientAgentWithBooths();
   }
 
   onKeyUpFilter() {
@@ -147,5 +193,7 @@ export class ViewBoothVotersComponent implements OnInit {
       }
       );
   }
+
+  // ------------------------------------------filter data all methodes start here ------------------------------ //
 
 }

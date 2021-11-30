@@ -8,21 +8,21 @@
             <form [formGroup]="filterForm">
             <div class="row g-2">
                 <div class="col-sm-3">
-                    <ngx-select [allowClear]="selClientFlag" [items]="clientNameArray" formControlName="ClientId"
-                    (remove)="clearFilter('clientId')" (select)="filterData()"
+                    <ngx-select [allowClear]="selectCloseFlag" [items]="clientNameArray" formControlName="ClientId"
+                    (remove)="clearFilter('clientId')"  (select)="getElectionName()"
                     optionValueField="id" optionTextField="Fullname" placeholder="Select Client">
                 </ngx-select>
                 </div>
                 <div class="col-sm-3">
-                    <ngx-select [allowClear]="selClientFlag" [items]="electionNameArray"
-                    (remove)="clearFilter('electionId')" (select)="filterData()" formControlName="ElectionId"
-                    optionValueField="ElectionId" optionTextField="ElectionName" placeholder="Select Election">
+                    <ngx-select [allowClear]="selectCloseFlag" [items]="electionNameArray"
+                    (remove)="clearFilter('electionId')" (select)="getConstituencyName()" formControlName="ElectionId"
+                    optionValueField="ElectionId" optionTextField="ElectionName" [disabled]="!this.filterForm.value.ClientId" placeholder="Select Election">
                 </ngx-select>
                 </div>
                 <div class="col-sm-3">
-                    <ngx-select [allowClear]="true" [items]="constituencyNameArray"
-                    (remove)="clearFilter('constituencyId')" (select)="filterData()" formControlName="ConstituencyId" 
-                    optionValueField="ConstituencyId" optionTextField="ConstituencyName" placeholder="Select Constituency">
+                    <ngx-select [allowClear]="selectCloseFlag" [items]="constituencyNameArray"
+                    (remove)="clearFilter('constituencyId')"  formControlName="ConstituencyId" 
+                    optionValueField="ConstituencyId" optionTextField="ConstituencyName" [disabled]="!this.filterForm.value.ElectionId" placeholder="Select Constituency">
                 </ngx-select>
                 </div>
                 <div class="col-sm-3">
