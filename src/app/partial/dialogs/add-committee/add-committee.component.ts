@@ -48,8 +48,9 @@ export class AddCommitteeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      console.log(this.data);
       this.parentCommitteeId = this.data.bodyId;
-      this.bodylevelId = this.data.bodylevelId;
+      this.bodylevelId = this.data.bodylevelId; 
       this.customForm();
       this.getLevel();
       this.getCommitteeByLevel(this.bodyLevelIdBoth);
@@ -133,10 +134,12 @@ export class AddCommitteeComponent implements OnInit {
   getLevel() {
     //this.spinner.show();
     this.selectLevel(this.globalLevelId);
-    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
+    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.allLevels = res.data1;
+        let Levels = res.data1;
+        //filter by level
+        this.bindLevelWise(Levels);
         this.spinner.hide();
       } else {
         this.spinner.hide();
@@ -148,6 +151,14 @@ export class AddCommitteeComponent implements OnInit {
         this.router.navigate(['../../500'], { relativeTo: this.route });
       }
     })
+  }
+
+  bindLevelWise(Levels:any){
+    this.allLevels =  Levels.filter((item: any) => {
+      if (item.Id >= this.bodylevelId) {
+        return item
+      }
+    });
   }
 
   getCommitteeByLevel(bodyLevelId:any) {
