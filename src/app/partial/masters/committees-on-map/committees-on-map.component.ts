@@ -698,7 +698,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   // -------------------- Modal for Add/Update/Delete Member for any Designation start here   -------------------- //
 
   defaultBodyMemForm(selCommitteeName:any) {
-    debugger;
     this.bodyMember = this.fb.group({
       PostfromDate: [''],
       BodyName: [selCommitteeName, Validators.required],
@@ -816,17 +815,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   onSubmit(){
-    debugger
-      // let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
       let postFromDate: any = this.datepipe.transform(new Date(), 'dd/MM/YYYY');
       this.submitted = true;
       if (this.bodyMember.invalid) {
         this.spinner.hide();
         return;
       }
-      // else if(this.dataAddEditMember.PostFromDate == postFromDate){
-  
-      // }
       else {
 
         let UserPostBodyId: any;
@@ -844,6 +838,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.callAPIService.getHttp().subscribe((res: any) => {
           if (res.data == 0) {
             this.getCurrentDesignatedMembers(this.bodyId);
+            this.committeeNameByOrganizationMember(this.dataAddEditMember.BodyId, this.bodyMember.value.BodyName)
             this.submitted = false;
             this.spinner.hide();
             let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
