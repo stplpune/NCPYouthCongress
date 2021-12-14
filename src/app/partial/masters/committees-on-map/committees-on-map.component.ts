@@ -79,7 +79,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   DesignationNameBYBodyId: any;
   resultBodyMemActDetails: any;
   subCommitteeName: any;
-
+  commiteeObj:any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -749,6 +749,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
   
   addNewMember(flag: any, id: any, MobileFieldId:any) {
+    debugger
     if(this.mobileNoValue){
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
       if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
@@ -760,7 +761,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     }
    
     this.addEditMemberModal('close');
-    let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
+    let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.dataAddEditMember.BodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj

@@ -48,7 +48,7 @@ export class AddCommitteeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      console.log(this.data);
+ 
       this.parentCommitteeId = this.data.bodyId;
       this.bodylevelId = this.data.bodylevelId; 
       this.customForm();

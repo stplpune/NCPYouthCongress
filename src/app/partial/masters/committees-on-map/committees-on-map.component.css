@@ -2,6 +2,9 @@
     background-color:var(--main-color);
     color: #fff;
 }
+#committeesonmap .list-group-item p{
+    font-size: 0.85rem;
+}
 .fix-height{
     max-height: 60vh;
     overflow-y: auto;

@@ -72,8 +72,8 @@
                             </div>
                             <!-- <i  class="fas fa-plus" (click)="openDialogAddCommittee()"></i> -->
                         </div>
-                        <div class="card shadow-none border" *ngIf="defaultCommitteesFlag">
-                            <div class="card-header py-1 border-bottom">Committees in
+                        <div class="card shadow-none border-0" *ngIf="defaultCommitteesFlag">
+                            <div class="card-header py-1 px-0 border-bottom">Committees in
                                 <span class="text-main">{{districtName | titlecase}}</span>
                                 <span class="float-end">
                                     <button (click)="ScrollCompComity()" class="btn btn-sm btn-light">
@@ -84,27 +84,17 @@
                                     </button> -->
                                 </span>
                             </div>
-                            <div class="card-body p-2 fix-height">
+                            <div class="card-body p-0 fix-height">
                                 <div class="list-group list-group-flush">
-                                    <div [class.active]="resCommittes.Id == activeRow"
-                                        class="list-group-item list-group-item-action border-0 border-bottom"
+                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName); this.commiteeObj = resCommittes " [class.active]="resCommittes.Id == activeRow"
+                                        class="list-group-item list-group-item-action border-0 border-bottom px-2"
                                         aria-current="true" *ngFor="let resCommittes of resultCommittees">
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
                                                 class="badge rounded-pill bg-light text-dark float-end text-center"
                                                 [appTooltip]
                                                 title="Member Count">{{resCommittes?.AllottedDesignation}}</span> </p>
                                         <span class="small">{{resCommittes.Area | titlecase}}</span>
-                                        <div class="button-group text-end list-buttons">
-                                            <button
-                                                (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName)"
-                                                class="btn btn-sm btn-light text-dark me-1 rounded" type="button">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-light text-main rounded" type="button" (click)="openDialogAddCommittee(resCommittes)">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </a>
 
                                     <!-- <a " class="list-group-item list-group-item-action active" aria-current="true">
                                       <span class="small">Ahmednagar - Akole - Abit Khind</span>
@@ -121,16 +111,22 @@
 
                     <div class="col-sm-3">
                         <div class="card shadow-none">
-                            <div class="card-header p-0" *ngIf="defaultMembersFlag">Members in <span class="text-main"
+                            <div class="card-header p-0" *ngIf="defaultMembersFlag">
+                                <div class="button-group text-end list-buttons">
+                                    <button class="btn btn-sm btn-light text-dark fw-bold rounded" type="button" (click)="openDialogAddCommittee(commiteeObj)">
+                                        Add Committee
+                                    </button>
+                                </div>                                
+                                Members in <span class="text-main"
                                     style="cursor: pointer;" (click)="redirectOrgDetails()">{{selCommitteeName |
-                                    titlecase}}</span></div>
+                                    titlecase}}</span>
+                                </div>
                             <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
 
                             <div class="card-body p-0 fix-height" *ngIf="defaultMembersFlag">
                                 <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
                                     *ngFor="let resOrganizationMember of resultOrganizationMember">
-                                    <div class="mb-0 fw-bold mt-1 text-danger"
-                                        *ngIf="resOrganizationMember.MemberName == ''">
+                                    <div class="mb-0 fw-bold mt-1 text-danger"  *ngIf="resOrganizationMember.MemberName == ''">
                                         <p class="mem-name">No Member Assigned</p>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <small
@@ -142,10 +138,11 @@
                                         <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <div class="mem-act">
-                                            <span>
+                                            <span class="float-start">
                                                 <span
                                                     class="fw-bold me-1">{{resOrganizationMember.TotalWork}}</span>Activities
                                             </span>
+                                           
                                         </div>
 
                                         <ul class="list-group list-group-horizontal list-group-flush mem-dev">
@@ -212,21 +209,22 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div role="group" aria-label="Action Buttons" class="button-group text-end list-buttons">
-                                        <button class="rounded btn btn-sm btn-light"  title="Add Member" (click)="addEditMember(resOrganizationMember, 'Add');getAllBodyMember()" *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                        <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </button>
-                                        <button class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button title="Remove Designation" data-bs-toggle="modal"
-                                        data-bs-target="#AddMemberModal" #addMemberModal
-                                        style="display: none;"></button>
-                                    </div>
-
+                                    <span class="float-end">
+                                        <div role="group" aria-label="Action Buttons" class="button-group text-end list-buttons">
+                                            <button class="rounded btn btn-sm btn-light"  title="Add Member" (click)="addEditMember(resOrganizationMember, 'Add');getAllBodyMember()" *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                            <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button title="Remove Designation" data-bs-toggle="modal"
+                                            data-bs-target="#AddMemberModal" #addMemberModal
+                                            style="display: none;"></button>
+                                        </div>
+                                    </span>
                                 </div>
                                 <!-- <div class="list-group list-group-flush">
                                     <div class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
@@ -375,7 +373,7 @@
                                            [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
                                            style="width: 85%;">
                                        </ngx-select>
-                                       <button (click)="addNewMember('Add',0,this.bodyMember.value.bodyId)"
+                                       <button (click)="addNewMember('Add',0, this.bodyMember.value.bodyId)"
                                            class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
                                                class="fas fa-plus"></i></button>
                                    </div>

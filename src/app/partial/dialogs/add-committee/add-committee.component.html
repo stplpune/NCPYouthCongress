@@ -19,12 +19,14 @@
                             </div>
                         </div>
                         <div class="mb-2">
+                            <!-- [disabled]="!this.addCommitteeForm.value.BodyLevelId || this.addCommitteeForm.value.BodyLevelId == 2" -->
                             <label class="form-label required-field">Parent Committee</label>
                             <ngx-select [allowClear]="true" [items]="resCommitteeByLevel"
                                 formControlName="SubParentCommitteeId" placeholder="Select Parent Committee"
                                 optionValueField="Id" optionTextField="BodyOrgCellName"
                                 (remove)="clearselOption('committeeName')"
-                                [disabled]="!this.addCommitteeForm.value.BodyLevelId || this.addCommitteeForm.value.BodyLevelId == 2"
+                              
+                                [disabled]="true"
                                 [ngClass]="{ 'is-invalid': submitted && f.SubParentCommitteeId.errors}">
                             </ngx-select>
                             <div *ngIf="submitted && f.SubParentCommitteeId.errors" class="invalid-feedback">

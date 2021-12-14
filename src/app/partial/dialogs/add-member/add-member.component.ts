@@ -92,8 +92,11 @@ export class AddMemberComponent implements OnInit, OnDestroy {
   memberID!: number;
   editMemObj: any;
   reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+  disableCommitee:boolean = false;
 
   ngOnInit(): void {
+    debugger;
+    this.data ? this.disableCommitee = true : this.disableCommitee = false ;
     // this.router.url.includes('mobile-login')
     this.profileFlag = this.data.formStatus;
     this.memberID = this.data.Id;
@@ -138,6 +141,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
   }
 
   profileFormPathValue(data: any) {
+    debugger;
     this.editFlag = true;
     this.editMemObj = data;
     this.profileFlag = 'Update';
@@ -481,6 +485,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resCommittees = res.data1;
+        debugger;
         if (this.editFlag) {
           this.editMemObj.BodyId ? (this.editProfileForm.controls['BodyId'].setValue(this.editMemObj.BodyId), this.getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)) : '';
         }
