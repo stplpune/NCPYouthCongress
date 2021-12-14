@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,10 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
+import { AddCommitteeComponent } from '../../dialogs/add-committee/add-committee.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../../dialogs/delete/delete.component';
+import { AddMemberComponent } from '../../dialogs/add-member/add-member.component';
 
 @Component({
   selector: 'app-committees-on-map',
@@ -59,11 +63,29 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   CheckBoxLevelArrayJSON: any;
   CompofComityHide : boolean = true;
   hideComityGraph : boolean = false;
+  bodyMember!:FormGroup;
+  addMemberFlag: any;
+  resAllMember: any;
+  bodyMemberDetails: any;
+  mobileNoValue: any;
+  submitted: boolean = false;
+  @ViewChild('addMemberModal') addMemberModal: any;
+  @ViewChild('closeAddMemberModal') closeAddMemberModal: any;
+  dataAddEditMember: any;
+  bodyId: any;
+  userPostBodyId: any;
+  allDesignatedMembers: any;
+  TotalWorkAndIosCount: any;
+  DesignationNameBYBodyId: any;
+  resultBodyMemActDetails: any;
+  subCommitteeName: any;
+
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
-    private route: ActivatedRoute, private callAPIService: CallAPIService, public location: Location
-    , public dateTimeAdapter: DateTimeAdapter<any>) {
+    private route: ActivatedRoute, private callAPIService: CallAPIService, public location: Location, 
+    private datepipe:DatePipe,
+    public dialog: MatDialog, public dateTimeAdapter: DateTimeAdapter<any>) {
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     if(getsessionStorageData){
@@ -263,6 +285,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   committeeNameByOrganizationMember(bodyId: any, committeeName: any) {
+    this.defaultBodyMemForm(committeeName);
     this.spinner.show();
     this.globalBodyId = bodyId;
     this.activeRow = bodyId
@@ -272,6 +295,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.comActiveClass(1)
         this.spinner.hide();
         this.selCommitteeName = committeeName;
+       
         this.resultOrganizationMember = res.data1;
       } else {
         this.comActiveClass(1)
@@ -610,5 +634,239 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
+
+  // --------------------------------------- Open dialog Add Committee ----------------------------------------------- //
+
+  openDialogAddCommittee(Data:any) {
+    const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
+      width: '1024px',
+      data: { bodyId : Data.SubParentCommitteeId, bodylevelId : Data.bodylevel}
+    });
+    dialogRefActivityDetails.afterClosed().subscribe(result => {
+      this.getOrganizationByDistrictId(0);
+    });
+  }
+
+  deleteConfirmModel(userpostbodyId:any, bodyId:any, bodyName:any) {
+    const dialogRef = this.dialog.open(DeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+       this.deleteClientData(userpostbodyId, bodyId, bodyName);
+      }
+    });
+  }
+
+  deleteClientData(userpostbodyId:any, bodyId:any, bodyName:any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_Delete_AssignMember_1_0?userpostbodyId=' + userpostbodyId + '&CreatedBy=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.toastrService.success(res.data1[0].Msg);
+        this.committeeNameByOrganizationMember(bodyId, bodyName);
+        // this.getBodyMemeberGraph(this.bodyId);
+      } else {
+        this.spinner.hide();
+        // this.toastrService.error("Member is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+
+  }
+
+  addEditMember(data: any, flag: any) {
+    console.log(data);
+    debugger;
+    this.userPostBodyId = data.userpostbodyId
+    this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
+    this.bodyMember.controls['prevMember'].setValue(data.MemberName);
+    this.addMemberFlag = flag;
+    if (data.UserId == "" || data.UserId == "") {
+      this.toastrService.error("Please select member and try again");
+    }
+    else {
+      this.dataAddEditMember = data
+      this.addEditMemberModal('open');
+    }
+  }
+
+  // -------------------- Modal for Add/Update/Delete Member for any Designation start here   -------------------- //
+
+  defaultBodyMemForm(selCommitteeName:any) {
+    debugger;
+    this.bodyMember = this.fb.group({
+      PostfromDate: [''],
+      BodyName: [selCommitteeName, Validators.required],
+      bodyId: ['', Validators.required],
+      prevMember: [''],
+      currentDesignation: [''],
+    })
+  }
+
+  get f() { return this.bodyMember.controls };
+
+  getAllBodyMember() {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetAllMember_1_0', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.resAllMember = res.data1;
+      } else {
+        this.resAllMember = [];
+        // this.toastrService.error("Body member is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  
+  getMemberValue(event:any){
+    this.mobileNoValue = event.target.value;
+  }
+
+  getBodyMemberDetails(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetMemberDetails_1_0?MemberId=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.bodyMemberDetails = res.data1[0];
+      } else {
+        //this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  
+  addNewMember(flag: any, id: any, MobileFieldId:any) {
+    if(this.mobileNoValue){
+      const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
+      if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
+        this.toastrService.error('Invalid Mobile No.');
+        this.mobileNoValue = '';
+        return
+      }
+      sessionStorage.setItem('memberValue', JSON.stringify(this.mobileNoValue));
+    }
+   
+    this.addEditMemberModal('close');
+    let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '1024px',
+      data: obj
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.getCurrentDesignatedMembers(this.bodyId);
+        this.getAllBodyMember();
+      }
+      // this.addEditMemberModal('open');
+    });
+  }
+
+  getCurrentDesignatedMembers(id: any) {
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.allDesignatedMembers = res.data1;
+        this.TotalWorkAndIosCount = res.data2[0];
+        this.DesignationNameBYBodyId = res.data3;
+        // this.getPreDesMembersArray = [];
+        // this.DesignationNameBYBodyId.forEach((ele: any) => {
+        //   this.getPreviousDesignatedMembers(this.bodyId, ele.DesignationId,ele.DesignationName);
+        // });
+        this.getPreviousDesignatedMembers(this.bodyId)
+        // this.DesignationNameBYBodyId1 = res.data3;
+      } else {
+        this.allDesignatedMembers = [];
+        this.TotalWorkAndIosCount = [];
+        this.DesignationNameBYBodyId = [];
+      }
+    }, (error: any) => {
+      if (error.status == 500) {
+        this.router.navigate(['../../500'], { relativeTo: this.route });
+      }
+    })
+  }
+  getPreviousDesignatedMembers(bodyId: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  addEditMemberModal(flag: any) {
+    if (flag == 'close') {
+      let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
+      closeAddMemModal.click();
+    } else if (flag == 'open') {
+      let openMemberModal: HTMLElement = this.addMemberModal.nativeElement;
+      openMemberModal.click();
+    }
+  }
+
+  onSubmit(){
+    debugger
+      // let postFromDate: any = this.datepipe.transform(this.bodyMember.value.PostfromDate, 'dd/MM/YYYY');
+      let postFromDate: any = this.datepipe.transform(new Date(), 'dd/MM/YYYY');
+      this.submitted = true;
+      if (this.bodyMember.invalid) {
+        this.spinner.hide();
+        return;
+      }
+      // else if(this.dataAddEditMember.PostFromDate == postFromDate){
+  
+      // }
+      else {
+
+        let UserPostBodyId: any;
+        this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
+        let fromData = new FormData();
+        fromData.append('UserPostBodyId', UserPostBodyId);
+        fromData.append('BodyId', this.dataAddEditMember.BodyId);
+        fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
+        fromData.append('UserId', this.bodyMember.value.bodyId);
+        fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
+        fromData.append('CreatedBy', this.commonService.loggedInUserId());
+        fromData.append('PostfromDate', postFromDate);
+        this.spinner.show();
+        this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
+        this.callAPIService.getHttp().subscribe((res: any) => {
+          if (res.data == 0) {
+            this.getCurrentDesignatedMembers(this.bodyId);
+            this.submitted = false;
+            this.spinner.hide();
+            let closeAddMemModal: HTMLElement = this.closeAddMemberModal.nativeElement;
+            closeAddMemModal.click();
+            this.resultBodyMemActDetails = res.data1[0];
+            this.toastrService.success(this.resultBodyMemActDetails.Msg);
+            this.bodyMember.reset({ BodyName: this.subCommitteeName });
+            this.getBodyMemeberGraph(this.bodyId);
+            this.addMemberFlag = null
+          } else {
+            // this.toastrService.error("Member is not available");
+          }
+        }, (error: any) => {
+          if (error.status == 500) {
+            this.spinner.hide();
+            this.router.navigate(['../../../500'], { relativeTo: this.route });
+          }
+        })
+      }
+  }
+  getBodyMemeberGraph(bodyId: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  // -------------------- Modal for Add/Update/Delete Member for any Designation end here   -------------------- //
 }
 
