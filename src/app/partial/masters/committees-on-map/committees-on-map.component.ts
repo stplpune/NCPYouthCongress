@@ -639,9 +639,10 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   // --------------------------------------- Open dialog Add Committee ----------------------------------------------- //
 
   openDialogAddCommittee(Data:any) {
+    debugger
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
-      data: { bodyId : Data.SubParentCommitteeId, bodylevelId : Data.bodylevel}
+      data: { bodyId : Data.Id, bodylevelId : Data.bodylevel}
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
       this.getOrganizationByDistrictId(0);
