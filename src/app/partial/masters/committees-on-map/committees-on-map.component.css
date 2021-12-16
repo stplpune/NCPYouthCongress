@@ -9,6 +9,10 @@
     max-height: 60vh;
     overflow-y: auto;
 }
+.fix-height1{
+    max-height: 73vh;
+    overflow-y: auto;
+}
 .chartHeight600{
     height:600px;
     font-size: .75rem;

@@ -128,7 +128,7 @@
                                 </div>
                             <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
 
-                            <div class="card-body p-0 fix-height" *ngIf="defaultMembersFlag">
+                            <div class="card-body p-0 fix-height1" *ngIf="defaultMembersFlag">
                                 <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
                                     *ngFor="let resOrganizationMember of resultOrganizationMember">
                                     <div class="mb-0 fw-bold mt-1 text-danger"  *ngIf="resOrganizationMember.MemberName == ''">
@@ -147,7 +147,22 @@
                                                 <span
                                                     class="fw-bold me-1">{{resOrganizationMember.TotalWork}}</span>Activities
                                             </span>
-                                           
+                                            <span class="float-end">
+                                                <div role="group" aria-label="Action Buttons" class="button-group text-end list-buttons">
+                                                    <button class="rounded btn btn-sm btn-light"  title="Add Member" (click)="addEditMember(resOrganizationMember, 'Add');getAllBodyMember()" *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                    <button *ngIf="resOrganizationMember.MemberName" class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    <button title="Remove Designation" data-bs-toggle="modal"
+                                                    data-bs-target="#AddMemberModal" #addMemberModal
+                                                    style="display: none;"></button>
+                                                </div>
+                                            </span>
                                         </div>
 
                                         <ul class="list-group list-group-horizontal list-group-flush mem-dev">
@@ -214,22 +229,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <span class="float-end">
-                                        <div role="group" aria-label="Action Buttons" class="button-group text-end list-buttons">
-                                            <button class="rounded btn btn-sm btn-light"  title="Add Member" (click)="addEditMember(resOrganizationMember, 'Add');getAllBodyMember()" *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                            <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <button *ngIf="resOrganizationMember.MemberName" class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button title="Remove Designation" data-bs-toggle="modal"
-                                            data-bs-target="#AddMemberModal" #addMemberModal
-                                            style="display: none;"></button>
-                                        </div>
-                                    </span>
+                                    
                                 </div>
                                 <!-- <div class="list-group list-group-flush">
                                     <div class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
