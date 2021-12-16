@@ -305,7 +305,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   customForm() {
     this.orgMasterForm = this.fb.group({
-      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
+      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(50)]],
       StateId: ['', Validators.required],
       DistrictId: [],
       TalukaId: [''],

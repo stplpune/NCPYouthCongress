@@ -62,7 +62,7 @@ export class AddCommitteeComponent implements OnInit {
   customForm() {
     this.addCommitteeForm = this.fb.group({
       Id:[0],
-      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
+      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(50)]],
       StateId: ['', Validators.required],
       DistrictId: [],
       TalukaId: [''],
