@@ -168,6 +168,18 @@ export class AddCommitteeComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resCommitteeByLevel = res.data1;
+
+        if(this.bodyLevelIdBoth != 2){
+        this.resCommitteeByLevel.forEach((element:any, i:any) => {
+          if(this.resCommitteeByLevel[i].Id == this.parentCommitteeId){
+            debugger
+            this.addCommitteeForm.controls["SubParentCommitteeId"].setValue(element.Id)
+          }
+        });
+        }else{
+          this.addCommitteeForm.controls["SubParentCommitteeId"].setValue(0)
+        }
+        
         this.spinner.hide();
       } else {
         // this.toastrService.error("Data is not available 1");
