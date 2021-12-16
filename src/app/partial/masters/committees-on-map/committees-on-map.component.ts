@@ -687,8 +687,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   addEditMember(data: any, flag: any) {
-    console.log(data);
-    debugger;
     this.userPostBodyId = data.userpostbodyId
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
     this.bodyMember.controls['prevMember'].setValue(data.MemberName);

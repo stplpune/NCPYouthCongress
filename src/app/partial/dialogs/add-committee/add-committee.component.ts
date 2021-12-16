@@ -172,7 +172,6 @@ export class AddCommitteeComponent implements OnInit {
         if(this.bodyLevelIdBoth != 2){
         this.resCommitteeByLevel.forEach((element:any, i:any) => {
           if(this.resCommitteeByLevel[i].Id == this.parentCommitteeId){
-            debugger
             this.addCommitteeForm.controls["SubParentCommitteeId"].setValue(element.Id)
           }
         });
