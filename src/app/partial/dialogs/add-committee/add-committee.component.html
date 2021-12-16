@@ -25,8 +25,7 @@
                                 formControlName="SubParentCommitteeId" placeholder="Select Parent Committee"
                                 optionValueField="Id" optionTextField="BodyOrgCellName"
                                 (remove)="clearselOption('committeeName')"
-                              
-                                [disabled]="true"
+                                [disabled]="!this.addCommitteeForm.value.BodyLevelId || this.addCommitteeForm.value.BodyLevelId == 2" 
                                 [ngClass]="{ 'is-invalid': submitted && f.SubParentCommitteeId.errors}">
                             </ngx-select>
                             <div *ngIf="submitted && f.SubParentCommitteeId.errors" class="invalid-feedback">
