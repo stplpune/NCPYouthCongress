@@ -640,9 +640,15 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   openDialogAddCommittee(Data:any) {
     debugger
+    let obj:any
+    if(Data == undefined || Data == null || Data == '' ){
+      obj =  { bodyId :'', bodylevelId : 2}
+    }else{
+      obj =  { bodyId : Data.Id, bodylevelId : Data.bodylevel}
+    }
     const dialogRefActivityDetails = this.dialog.open(AddCommitteeComponent, {
       width: '1024px',
-      data: { bodyId : Data.Id, bodylevelId : Data.bodylevel}
+      data: obj
     });
     dialogRefActivityDetails.afterClosed().subscribe(result => {
       this.getOrganizationByDistrictId(0);
@@ -686,6 +692,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.userPostBodyId = data.userpostbodyId
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
     this.bodyMember.controls['prevMember'].setValue(data.MemberName);
+    this.bodyMember.controls['BodyName'].setValue(data.BodyOrgCellName);
     this.addMemberFlag = flag;
     if (data.UserId == "" || data.UserId == "") {
       this.toastrService.error("Please select member and try again");
@@ -778,6 +785,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   getCurrentDesignatedMembers(id: any) {
     this.spinner.show();
+    id == undefined || id == "" || id == null ? id = 0 : id = id;
     this.callAPIService.setHttp('get', 'Web_GetCurrentDesignatedMembers_1_0?BodyId=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -862,7 +870,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
   }
   getBodyMemeberGraph(bodyId: any) {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
   }
 
   // -------------------- Modal for Add/Update/Delete Member for any Designation end here   -------------------- //

@@ -48,9 +48,9 @@ export class AddCommitteeComponent implements OnInit {
     }
 
     ngOnInit(): void {
- 
       this.parentCommitteeId = this.data.bodyId;
-      this.bodylevelId = this.data.bodylevelId; 
+      this.bodylevelId = this.data.bodylevelId;
+
       this.customForm();
       this.getLevel();
       this.getCommitteeByLevel(this.bodyLevelIdBoth);
@@ -68,8 +68,8 @@ export class AddCommitteeComponent implements OnInit {
       TalukaId: [''],
       VillageId: [''],
       IsRural: [1],
-      BodyLevelId: [this.bodylevelId, Validators.required],
-      SubParentCommitteeId:[this.parentCommitteeId],
+      BodyLevelId: [this.bodylevelId || 2, Validators.required],
+      SubParentCommitteeId:[this.parentCommitteeId || ''],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
   }

@@ -222,7 +222,7 @@
                                             <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
-                                            <button class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
+                                            <button *ngIf="resOrganizationMember.MemberName" class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                             <button title="Remove Designation" data-bs-toggle="modal"
