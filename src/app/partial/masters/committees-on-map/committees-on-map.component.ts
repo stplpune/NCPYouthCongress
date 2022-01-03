@@ -773,9 +773,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       data: obj
     });
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       if (result == 'Yes') {
-        this.getCurrentDesignatedMembers(this.bodyId);
+        this.getCurrentDesignatedMembers(this.dataAddEditMember.BodyId);
         this.getAllBodyMember();
+        this.committeeNameByOrganizationMember(this.dataAddEditMember.BodyId, this.selCommitteeName); 
       }
       // this.addEditMemberModal('open');
     });

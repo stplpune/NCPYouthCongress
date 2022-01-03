@@ -139,7 +139,7 @@
                                     </div>
                                     <div>
                                         <a class="mem-name text-main"
-                                            (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName}}</a>
+                                            (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName | titlecase}}</a>
                                         <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <div class="mem-act">
