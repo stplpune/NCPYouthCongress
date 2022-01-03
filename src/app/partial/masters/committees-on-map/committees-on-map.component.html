@@ -133,17 +133,17 @@
                                     *ngFor="let resOrganizationMember of resultOrganizationMember">
                                     <div class="mb-0 fw-bold mt-1 text-danger"  *ngIf="resOrganizationMember.MemberName == ''">
                                         <p class="mem-name">No Member Assigned</p>
-                                        <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
-                                        <small
-                                            *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small>
+                                        <!-- <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p> -->
+                                        <!-- <small
+                                            *ngIf="resOrganizationMember?.MobileNo !='' && resOrganizationMember?.MobileNo != null">{{resOrganizationMember?.MobileNo}}</small> -->
                                     </div>
-                                    <div *ngIf="resOrganizationMember.MemberName != ''">
+                                    <div>
                                         <a class="mem-name text-main"
                                             (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName}}</a>
                                         <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <div class="mem-act">
-                                            <span class="float-start">
+                                            <span class="float-start"  *ngIf="resOrganizationMember.MemberName != ''">
                                                 <span
                                                     class="fw-bold me-1">{{resOrganizationMember.TotalWork}}</span>Activities
                                             </span>
@@ -165,7 +165,7 @@
                                             </span>
                                         </div>
 
-                                        <ul class="list-group list-group-horizontal list-group-flush mem-dev">
+                                        <ul class="list-group list-group-horizontal list-group-flush mem-dev" *ngIf="resOrganizationMember.MemberName != ''">
                                             <li class="list-group-item">
                                                 <!-- Device Code Start-->
                                                 <div *ngIf="resOrganizationMember?.DeviceType == 1">
