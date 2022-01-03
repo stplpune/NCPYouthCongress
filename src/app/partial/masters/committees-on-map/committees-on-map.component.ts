@@ -80,6 +80,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   resultBodyMemActDetails: any;
   subCommitteeName: any;
   commiteeObj:any;
+  globalbodylevel:any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -215,6 +216,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.defaultCommitteesFlag = true;
         this.spinner.hide();
         this.resultCommittees = res.data1;
+        console.log( this.resultCommittees);
         this.selDistrict.setValue(Number(id));
       } else {
         this.getDistrict(id)
@@ -312,8 +314,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   redirectOrgDetails() {
-      //console.log(this.globalBodyId,this.selCommitteeName)
-      let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName }
+      let obj = { bodyId: this.globalBodyId, BodyOrgCellName: this.selCommitteeName,bodylevelId:this.commiteeObj.bodylevel}
       sessionStorage.setItem('bodyId', JSON.stringify(obj))
       this.router.navigate(['../committee/details'], { relativeTo: this.route })
   }
