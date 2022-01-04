@@ -18,7 +18,7 @@ export class CallAPIService {
       //development server base url 
       // http://electionwservice.erpguru.in/service.asmx
       //http://ncpserviceweb.eanifarm.com/Service.asmx
-      case 'ncpServiceForWeb': return 'http://electionwservice.erpguru.in/service.asmx/'; break;
+      case 'ncpServiceForWeb': return 'http://ncpserviceweb.eanifarm.com/Service.asmx/'; break;
       default: return ''; break;
     }
   }
