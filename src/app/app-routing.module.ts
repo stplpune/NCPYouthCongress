@@ -56,24 +56,7 @@ const routes: Routes = [
       { path: 'member-report', loadChildren: () => import('./partial/members/member-report/member-report.module').then(m => m.MemberReportModule), data: { title: 'Member Report', allowedRoles: ['2', '1','9','5'] }  },
       { path:'map-view', component:MapWiseComponent, data: { title: 'Map View'}  },
       // Election
-      { path: 'create-election', loadChildren: () => import('./partial/election/create-election/create-election.module').then(m => m.CreateElectionModule), data: { title: 'Create Election', allowedRoles: ['7', '1'] } }, //, 
-      { path: 'create-constituency', loadChildren: () => import('./partial/election/create-constituency/create-constituency.module').then(m => m.CreateConstituencyModule), data: { title: 'Create Constituency', allowedRoles: ['7', '1'] } },
-      { path: 'assign-booth', loadChildren: () => import('./partial/election/assign-booth/assign-booth.module').then(m => m.AssignBoothModule), data: { title: 'Assign Booths to Constituency', allowedRoles: ['7', '1'] } },
-      { path: 'election-profile', loadChildren: () => import('./partial/election/election-profile/election-profile.module').then(m => m.ElectionProfileModule), data: { title: 'Election Profile', allowedRoles: ['7', '1'] } },
-      { path: 'e-dashboard', loadChildren: () => import('./partial/election/dashboard-election/dashboard-election.module').then(m => m.DashboardElectionModule), data: { title: 'e-dashboard', allowedRoles: ['7', '1'] } },      
-      { path: 'add-client', loadChildren: () => import('./partial/election/add-client/add-client.module').then(m => m.AddClientModule), data: { title: 'Create Regional Leader', allowedRoles: ['7', '1'] } },
-      { path: 'assign-elections', loadChildren: () => import('./partial/election/assign-elections/assign-elections.module').then(m => m.AssignElectionsModule), data: { title: 'Assign Election to Client', allowedRoles: ['7', '1'] } },
-      { path: 'candidate-registration', loadChildren: () => import('./partial/election/candidate-registration/candidate-registration.module').then(m => m.CandidateRegistrationModule), data: { title: 'Candidate Registration', allowedRoles: ['7', '1'] } }, 
-     
-      // Client
-      { path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule), data: { title: 'Assign Voters', allowedRoles: ['8', '1'] } },
-      //{ path: 'assign-agents-to-booths', loadChildren: () => import('./partial/client/assign-agents-to-booths/assign-agents-to-booths.module').then(m => m.AssignAgentsToBoothsModule) },
-      { path: 'c-dashboard', loadChildren: () => import('./partial/client/c-dashboard/c-dashboard.module').then(m => m.CDashboardModule), data: { title: 'Dashboard', allowedRoles: ['8', '1'] } },
-      { path: 'election-details', loadChildren: () => import('./partial/client/election-details/election-details.module').then(m => m.ElectionDetailsModule), data: { title: 'Election Details', allowedRoles: ['8', '1'] } },
-      { path: 'view-booth-voters', loadChildren: () => import('./partial/client/view-booth-voters/view-booth-voters.module').then(m => m.ViewBoothVotersModule), data: { title: 'View Booth Voters', allowedRoles: ['8', '1'] } },
-      { path: 'asssign-constituency-to-candidate', loadChildren: () => import('./partial/client/asssign-constituency-to-candidate/asssign-constituency-to-candidate.module').then(m => m.AsssignConstituencyToCandidateModule), data: { title: 'Asssign Constituency To Candidate', allowedRoles: ['8', '1'] } }, 
-      { path: 'access-denied', component: AccessDeniedComponent },
-    ]
+  ]
   },
   { path: '500', component: ServerErrorComponent },
   { path: '**', component: PageNotFoundComponent },
