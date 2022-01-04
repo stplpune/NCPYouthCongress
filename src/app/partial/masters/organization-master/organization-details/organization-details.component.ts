@@ -127,6 +127,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.defaultFilterForm()
     this.defaultBodyMemForm();
     this.getAllBodyMember();
+    
     this.getBodyMemberFilterDetails(this.bodyId);
     this.getCurrentDesignatedMembers(this.bodyId);
     //this.getBodyMemeberActivities(this.bodyId);
