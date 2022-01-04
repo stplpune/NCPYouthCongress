@@ -856,6 +856,7 @@ mapsvg-layers-wrap+svg {
 .mat-dialog-container {
     padding: 0 !important;
     height: none !important;
+    overflow: inherit !important;
 }
 
 /* .modal-dialog {
@@ -940,8 +941,8 @@ ngx-select.ng-untouched.ng-invalid.is-invalid .ngx-select__toggle {
 }
 
 .modal-body {
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
+    /* max-height: calc(100vh - 100px); */
+    /* overflow-y: auto; */
 }
 
 .remove-shape {
@@ -1089,4 +1090,9 @@ g[shape-rendering="auto"]{
         width:100%!important;
         max-width: 100%!important;
     }
+} */
+/* .ngx-select__choices{
+    z-index: 9999;
+    width:14.5% !important;
+    min-width: fit-content !important;
 } */

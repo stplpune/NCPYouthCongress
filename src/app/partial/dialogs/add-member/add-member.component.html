@@ -79,6 +79,7 @@
                             <ngx-select [allowClear]="true" [items]="resCommittees" placeholder="Select Committee"
                                 optionValueField="Id" (remove)="clikedClose('Committees')" formControlName="BodyId"
                                 optionTextField="BodyOrgCellName"
+                                [disabled]="disableCommitee"
                                 (select)="getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)">
                             </ngx-select>
                             <div *ngIf="submitted && f.BodyId.errors" class="invalid-feedback">
@@ -91,7 +92,8 @@
                             <div class="input-group">
                                 <ngx-select [allowClear]="true" [items]="allDesignatedMembers"
                                 (remove)="clikedClose('Designation')" placeholder="Select Designation"
-                                optionValueField="DesignationId" [disabled]="!this.editProfileForm.value.BodyId || allDesignatedMembers?.length == 0"
+                                optionValueField="DesignationId"
+                                 [disabled]="!this.editProfileForm.value.BodyId || allDesignatedMembers?.length == 0 || disableCommitee"
                                 formControlName="DesignationId" optionTextField="DesignationName" style="width: 100%;">
                             </ngx-select>
                             <!--  style="width: 83%;" <button  class="rounded btn btn-sm btn-light mx-1 ng-star-inserted" title="Add Designation" (click)="addDesignated(this.editProfileForm.value.BodyId)"><i class="fas fa-plus"></i></button> -->

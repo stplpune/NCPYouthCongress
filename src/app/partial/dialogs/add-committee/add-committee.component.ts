@@ -48,9 +48,9 @@ export class AddCommitteeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      console.log(this.data);
       this.parentCommitteeId = this.data.bodyId;
-      this.bodylevelId = this.data.bodylevelId; 
+      this.bodylevelId = this.data.bodylevelId;
+
       this.customForm();
       this.getLevel();
       this.getCommitteeByLevel(this.bodyLevelIdBoth);
@@ -62,14 +62,14 @@ export class AddCommitteeComponent implements OnInit {
   customForm() {
     this.addCommitteeForm = this.fb.group({
       Id:[0],
-      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(30)]],
+      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(100)]],
       StateId: ['', Validators.required],
       DistrictId: [],
       TalukaId: [''],
       VillageId: [''],
       IsRural: [1],
-      BodyLevelId: [this.bodylevelId, Validators.required],
-      SubParentCommitteeId:[this.parentCommitteeId],
+      BodyLevelId: [this.bodylevelId || 2, Validators.required],
+      SubParentCommitteeId:[this.parentCommitteeId || ''],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
   }
@@ -168,6 +168,17 @@ export class AddCommitteeComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resCommitteeByLevel = res.data1;
+
+        if(this.bodyLevelIdBoth != 2){
+        this.resCommitteeByLevel.forEach((element:any, i:any) => {
+          if(this.resCommitteeByLevel[i].Id == this.parentCommitteeId){
+            this.addCommitteeForm.controls["SubParentCommitteeId"].setValue(element.Id)
+          }
+        });
+        }else{
+          this.addCommitteeForm.controls["SubParentCommitteeId"].setValue(0)
+        }
+        
         this.spinner.hide();
       } else {
         // this.toastrService.error("Data is not available 1");
