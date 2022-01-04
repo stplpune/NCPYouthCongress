@@ -20,7 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class DashboardComponent implements OnInit {
-  allDistrictArray: any;
+  // allDistrictArray: any;
   dashboardCount1Array: any;
   lowestActivityDistrictsArray: any;
   workInThisWeekArray: any;
@@ -58,11 +58,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.toDate=new Date();
     this.workLineChart();
-    this.getDistrict();
+    // this.getDistrict();
     this.getDashboardCount1();
     this.getLowHighSocialMTypesOfWorks();
-    this.getNewMemberAndWorkInThisWeek();
-    this.getDistrictWiseMemberCount(false);
+    // this.getNewMemberAndWorkInThisWeek();
+    // this.getDistrictWiseMemberCount(false);
     this.getweekRage(this.toDate);
     this.loginUserType = this.commonService.loggedInUserType();
   }
@@ -76,24 +76,23 @@ export class DashboardComponent implements OnInit {
     this.getNewMemberAndWorkInThisWeek();
   }
 
-  getDistrict() {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.allDistrictArray = res.data1;
-      } else {
-        this.spinner.hide();
-        //this.toastrService.error("Data is not available");
-      }
-    }, (error: any) => {
-      this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  }
+  // getDistrict() {
+  //   this.spinner.show();
+  //   this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.allDistrictArray = res.data1;
+  //     } else {
+  //       this.spinner.hide();
+  //     }
+  //   }, (error: any) => {
+  //     this.spinner.hide();
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
@@ -186,7 +185,7 @@ export class DashboardComponent implements OnInit {
             ele.Date = transformDate;
           }
         })
-        this.weeklyColumnChart();
+        // this.weeklyColumnChart();
       } else {
         this.workInThisWeekArray = [];
         this.newMemberInThisWeekArray = [];
@@ -207,35 +206,35 @@ export class DashboardComponent implements OnInit {
     return ddMMYYYYDate;
   }
 
-  getDistrictWiseMemberCount(event: any) {
-    event == false ? this.districtId = 0 : this.districtId = event;
-    this.spinner.show();
-    let fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
-    let toDate = this.datepipe.transform(this.toDate, 'dd/MM/yyyy');
-    this.callAPIService.setHttp('get', 'Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.districtId, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.newMemberInThisWeekArray = res.data1;
-        this.newMemberInThisWeekArray.map((ele: any) => {
-          if (ele.Date) {
-            let DateFormate = this.changeDateFormat(ele.Date);
-            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
-            ele.Date = transformDate;
-          }
-        })
-        this.weeklyColumnChart();
-      } else {
-        this.spinner.hide();
-        //this.toastrService.error("Data is not available");
-      }
-    }, (error: any) => {
-      this.spinner.hide();
-      if (error.status == 500) {
-        this.router.navigate(['../500'], { relativeTo: this.route });
-      }
-    })
-  }
+  // getDistrictWiseMemberCount(event: any) {
+  //   event == false ? this.districtId = 0 : this.districtId = event;
+  //   this.spinner.show();
+  //   let fromDate = this.datepipe.transform(this.fromDate, 'dd/MM/yyyy');
+  //   let toDate = this.datepipe.transform(this.toDate, 'dd/MM/yyyy');
+  //   this.callAPIService.setHttp('get', 'Dashboard_CountNewmember_Dist_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + fromDate + '&ToDate=' + toDate + '&DistrictId=' + this.districtId, false, false, false, 'ncpServiceForWeb');
+  //   this.callAPIService.getHttp().subscribe((res: any) => {
+  //     if (res.data == 0) {
+  //       this.spinner.hide();
+  //       this.newMemberInThisWeekArray = res.data1;
+  //       this.newMemberInThisWeekArray.map((ele: any) => {
+  //         if (ele.Date) {
+  //           let DateFormate = this.changeDateFormat(ele.Date);
+  //           let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
+  //           ele.Date = transformDate;
+  //         }
+  //       })
+  //       // this.weeklyColumnChart();
+  //     } else {
+  //       this.spinner.hide();
+  //       //this.toastrService.error("Data is not available");
+  //     }
+  //   }, (error: any) => {
+  //     this.spinner.hide();
+  //     if (error.status == 500) {
+  //       this.router.navigate(['../500'], { relativeTo: this.route });
+  //     }
+  //   })
+  // }
  
   /* Chart code */
   workLineChart() {
@@ -322,71 +321,71 @@ export class DashboardComponent implements OnInit {
    chart.cursor.maxTooltipDistance = -1
   }
 
-  weeklyColumnChart() {
-    // Themes begin
-    am4core.useTheme(am4themes_kelly);
-    am4core.useTheme(am4themes_animated);
-    // Themes end
+  // weeklyColumnChart() {
+  //   // Themes begin
+  //   am4core.useTheme(am4themes_kelly);
+  //   am4core.useTheme(am4themes_animated);
+  //   // Themes end
 
-    let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
-    chart.colors.list = [
-      am4core.color("#F1948A"),
-      am4core.color("#E59866"),
-      am4core.color("#AED6F1"),
-      am4core.color("#ABEBC6"),
-      am4core.color("#80DEEA"),
-      am4core.color("#99A3A4"),
-      am4core.color("#D2B4DE")
-    ];
-    chart.data = this.newMemberInThisWeekArray;
-    //chart.padding(5, 5, 5, 5);
+  //   let chart = am4core.create("weeklyChartdiv", am4charts.XYChart);
+  //   chart.colors.list = [
+  //     am4core.color("#F1948A"),
+  //     am4core.color("#E59866"),
+  //     am4core.color("#AED6F1"),
+  //     am4core.color("#ABEBC6"),
+  //     am4core.color("#80DEEA"),
+  //     am4core.color("#99A3A4"),
+  //     am4core.color("#D2B4DE")
+  //   ];
+  //   chart.data = this.newMemberInThisWeekArray;
+  //   //chart.padding(5, 5, 5, 5);
 
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "Date";
-    categoryAxis.title.text = "Dates";
-    // categoryAxis.renderer.minGridDistance = 60;
-    // categoryAxis.renderer.labels.template.rotation = -45;
-    categoryAxis.renderer.minGridDistance = 20;
-    let label = categoryAxis.renderer.labels.template;
-    label.truncate = true;
-    label.maxWidth = 60;
-    // categoryAxis.renderer.inversed = true;
-    // categoryAxis.renderer.grid.template.disabled = true;
+  //   let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  //   categoryAxis.renderer.grid.template.location = 0;
+  //   categoryAxis.dataFields.category = "Date";
+  //   categoryAxis.title.text = "Dates";
+  //   // categoryAxis.renderer.minGridDistance = 60;
+  //   // categoryAxis.renderer.labels.template.rotation = -45;
+  //   categoryAxis.renderer.minGridDistance = 20;
+  //   let label = categoryAxis.renderer.labels.template;
+  //   label.truncate = true;
+  //   label.maxWidth = 60;
+  //   // categoryAxis.renderer.inversed = true;
+  //   // categoryAxis.renderer.grid.template.disabled = true;
 
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.min = 0;
-    valueAxis.title.text = "New Members in This Week Count";
-    valueAxis.extraMax = 0.1;
+  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  //   valueAxis.min = 0;
+  //   valueAxis.title.text = "New Members in This Week Count";
+  //   valueAxis.extraMax = 0.1;
 
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryX = "Date";
-    series.dataFields.valueY = "UserCount";
-    series.tooltipText = "{valueY.value}"
-    series.columns.template.strokeOpacity = 0;
-    series.columns.template.column.cornerRadiusTopRight = 10;
-    series.columns.template.column.cornerRadiusTopLeft = 10;
-    let labelBullet = series.bullets.push(new am4charts.LabelBullet());
-    labelBullet.label.fill = am4core.color("#00000");
-    labelBullet.label.verticalCenter = "top";
-    labelBullet.label.dy = 5;
-    labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+  //   let series = chart.series.push(new am4charts.ColumnSeries());
+  //   series.dataFields.categoryX = "Date";
+  //   series.dataFields.valueY = "UserCount";
+  //   series.tooltipText = "{valueY.value}"
+  //   series.columns.template.strokeOpacity = 0;
+  //   series.columns.template.column.cornerRadiusTopRight = 10;
+  //   series.columns.template.column.cornerRadiusTopLeft = 10;
+  //   let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+  //   labelBullet.label.fill = am4core.color("#00000");
+  //   labelBullet.label.verticalCenter = "top";
+  //   labelBullet.label.dy = 5;
+  //   labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
 
-    chart.zoomOutButton.disabled = true;
+  //   chart.zoomOutButton.disabled = true;
 
-    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-    series.columns.template.adapter.add("fill", function (fill, target: any) {
-      return chart.colors.getIndex(target.dataItem.index);
-    });
+  //   // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+  //   series.columns.template.adapter.add("fill", function (fill, target: any) {
+  //     return chart.colors.getIndex(target.dataItem.index);
+  //   });
 
-    setInterval(function () {
-      am4core.array.each(chart.data, function (item) {
-        item.UserCount += Math.round(Math.random() * 200 - 100);
-        // item.UserCount = Math.abs(item.UserCount);
-      })
-      // chart.invalidateRawData();
-    }, 2000)
-  }
+  //   setInterval(function () {
+  //     am4core.array.each(chart.data, function (item) {
+  //       item.UserCount += Math.round(Math.random() * 200 - 100);
+  //       // item.UserCount = Math.abs(item.UserCount);
+  //     })
+  //     // chart.invalidateRawData();
+  //   }, 2000)
+  // }
 
   pieChart() {
     am4core.useTheme(am4themes_animated);
