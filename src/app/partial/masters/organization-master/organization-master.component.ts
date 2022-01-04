@@ -91,13 +91,16 @@ export class OrganizationMasterComponent implements OnInit {
     this.getOrganizationList();
     this.customForm();
     this.getLevel();
+    this.searchFilters('false');
+    this.getDistrictByCommittee();
+    this.getCommiteeDetails = this.commonService.getCommiteeInfo();
+  }
+
+  initCommittees(){
     this.getState();
     this.getDistrict();
     this.getDesignation();
     this.defaultDesignationForm();
-    this.searchFilters('false');
-    this.getDistrictByCommittee();
-    this.getCommiteeDetails = this.commonService.getCommiteeInfo();
   }
 
   selectLevel(levelId: any, flag: any) {
@@ -934,7 +937,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   redTocommitteesOnMap(){
     let DistrictId:any;
-    if(this.allDistrict.length == 1){
+    if(this.allDistrict?.length == 1){
       DistrictId =  this.allDistrict[0].DistrictId;
     } else{
       DistrictId = 0;

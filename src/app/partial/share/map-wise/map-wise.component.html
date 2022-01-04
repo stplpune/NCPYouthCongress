@@ -59,7 +59,7 @@
             <div class="card shadow-none border">
                 <div class="card-body p-0">
                     <!-- [fitBounds]="true"  -->
-                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)" class="h-w-100">
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)" class="h-w-100" [fullscreenControl]='true'>
                         <!-- [agmFitBounds]="true"  -->
                         <agm-marker  *ngFor="let latlongData of resActivityLocation" [latitude]="latlongData.Latitude"
                             [longitude]="latlongData.Longitude"

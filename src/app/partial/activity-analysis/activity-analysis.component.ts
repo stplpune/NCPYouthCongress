@@ -71,7 +71,7 @@ export class ActivityAnalysisComponent implements OnInit {
     this.defaultFilterForm();
     this.getPoliticalWork();
     this.getMemberName();
-    this.getSocialMedia();
+    //this.getSocialMedia();
     this.getCategory();
   }
 
