@@ -126,13 +126,13 @@ export class OrganizationDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.defaultFilterForm()
     this.defaultBodyMemForm();
-    this.getAllBodyMember();
+    //this.getAllBodyMember(); add member
     this.getBodyMemberFilterDetails(this.bodyId);
     this.getCurrentDesignatedMembers(this.bodyId);
-    this.getBodyMemeberActivities(this.bodyId);
+    //this.getBodyMemeberActivities(this.bodyId);
     this.getBodyMemeberGraph(this.bodyId);
     this.getWorkcategoryFilterDetails(this.bodyId);
-    this.activitiesPerodicGraph(this.bodyId);
+    //this.activitiesPerodicGraph(this.bodyId);
     this.subCommittess(this.bodyId);
     this.HighlightRowTree = this.bodyId;
     this.subCommitteeName = this.getCommitteeName;

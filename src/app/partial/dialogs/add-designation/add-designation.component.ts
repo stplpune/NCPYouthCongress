@@ -50,7 +50,7 @@ export class AddDesignationComponent implements OnInit {
     this.defaultDesignationForm();
     this.getDesignation();
     this.getBodyAssignedDesignation();
-    this.AlreadyAssignedDesignations(this.desBodyId);
+    //this.AlreadyAssignedDesignations(this.desBodyId);
   }
 
 

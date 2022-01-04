@@ -56,7 +56,7 @@ export class AddCommitteeComponent implements OnInit {
       this.getCommitteeByLevel(this.bodyLevelIdBoth);
       this.getState();
       this.getDistrict();
-      this.getDistrictByCommittee();
+      //this.getDistrictByCommittee();
     }
     
   customForm() {

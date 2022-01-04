@@ -74,14 +74,14 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.selDistrictName = "";
-    this.getMemberName();
+    //this.getMemberName();
     this.SubUserTypeId == 5 ? (this.catValue = "Committee", this.getMemberName()) : '';
     this.commonService.loggedInUserType() == 1 ? this.WorkdonebyMembersXaxiesLabel = "District Name" : this.WorkdonebyMembersXaxiesLabel = "Committes Name"
     this.getWorkcategoryFilterDetails();
     this.defaultFilterForm();
     this.defaultFilterBestPer();
     this.geWeekReport()
-    this.getDistrict();
+    //this.getDistrict();
     this.getBestPerKaryMember();
     this.bestPerformance();
 
