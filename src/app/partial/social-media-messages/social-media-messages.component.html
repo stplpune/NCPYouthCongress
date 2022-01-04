@@ -274,7 +274,7 @@
                         
                     <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
                         <label class="form-label">Location</label>
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'" [fullscreenControl]='true'>
                             <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="clickedMarker(infowindow)">
                                 <agm-info-window #infowindow>
                                     <strong><span class="">Address</span> : {{socialMediaDetailsAddress}}</strong>

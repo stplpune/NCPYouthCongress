@@ -82,10 +82,12 @@
                 <div class="col-sm-6 form-container bg-light">
                     <div class="" *ngIf="lat!='' && lng!=''; else elseBlock">
                         <label class="form-label">Location</label>
-                        <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
-                            <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng"  (markerClick)="clickedMarker(infowindow)">                      
+                        <!-- [fitBounds]="true" -->
+                        <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="15" [mapTypeId]="'roadmap'" [fullscreenControl]='true'>
+                            <agm-marker   [latitude]="lat" [longitude]="lng"  (markerClick)="clickedMarker(infowindow)"> 
+                                <!-- [agmFitBounds]="true"-->
                             <agm-info-window #infowindow>
-                                <strong>Lat and Long -  {{resultBodyMemActDetails?.ActivityLocationAddress}}</strong>
+                                <strong>Address -  {{resultBodyMemActDetails?.ActivityLocationAddress}}</strong>
                             </agm-info-window>
                             </agm-marker>
                         </agm-map>

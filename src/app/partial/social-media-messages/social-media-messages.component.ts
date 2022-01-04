@@ -66,7 +66,7 @@ export class SocialMediaMessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultFilterForm();
-    this.getDistrict();
+    //this.getDistrict();
     this.getMemberName();
     this.getSocialMedia();
     this.GetSocialMediaMessages();

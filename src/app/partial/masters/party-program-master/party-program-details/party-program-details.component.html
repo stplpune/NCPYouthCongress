@@ -239,7 +239,7 @@
                 <div class="card-body border" *ngIf="MapHide">
                     <div class="mb-3" *ngIf="(membersDataArray?.length != 0 && commityDataArray?.length != 0); else NotFoundBlock">
                         <label class="form-label">Location</label>
-                        <agm-map    [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)"> 
+                        <agm-map    [latitude]="lat" [longitude]="lng" [zoom]='zoom' (mapReady)="onMapReady($event)" [fullscreenControl]='true'> 
                             <!-- [fitBounds]="true"  -->
                             <agm-marker  *ngFor="let latlongData of programDetailsLatLongArray" [latitude]="latlongData.latitude" [longitude]="latlongData.Longitude" (markerClick)="getBodyMemeberActivitiesDetails(latlongData?.ActivityId)">
                                 <!-- [agmFitBounds]="true" -->
@@ -368,7 +368,7 @@
                     <div class="col-sm-6 form-container">
                         <div class="mb-3" *ngIf="lat!='' && lng!=''; else NotFoundBlock">
                             <label class="form-label">Location</label>
-                            <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'">
+                            <agm-map [fitBounds]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'" [fullscreenControl]='true'>
                                 <agm-marker [agmFitBounds]="true"  [latitude]="lat" [longitude]="lng">
                                     <agm-info-window>
                                         <table class="table table-bordered table-sm mb-0">
@@ -504,7 +504,7 @@
                                             <div class="col-sm-6">
                                                 <div *ngIf="activitiesDetailslat!='' && activitiesDetailslng!=''; else NotFoundBlock">
                                                     <label class="form-label">Location</label>
-                                                    <agm-map [fitBounds]="true" [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px">
+                                                    <agm-map [fitBounds]="true" [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng" [zoom]="zoom" [mapTypeId]="'roadmap'" style="height:220px" [fullscreenControl]='true'>
                                                         <agm-marker [agmFitBounds]="true"  [latitude]="activitiesDetailslat" [longitude]="activitiesDetailslng">
                                                             <agm-info-window>
                                                                 <table class="table table-bordered table-sm mb-0">
