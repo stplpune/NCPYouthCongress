@@ -38,7 +38,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   fromDate: any;
   catValue: any;
   bestPerCat = [{ 'id': 1, 'name': "Committee" }, { 'id': 0, 'name': "Location" }];
-  bestWorstArray = [{ 'id': 1, 'name': "Best" }, { 'id': 0, 'name': "Worst" }];
+  bestWorstArray = [{ 'id': 1, 'name': "Best" }, { 'id': 0, 'name': "Worst" }, { 'id': 2, 'name': "No Performance" }];
   defultCategoryName: any = 1;
   resWorkcategory: any;
   dateRange: any;
@@ -74,8 +74,9 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.selDistrictName = "";
-    //this.getMemberName();
-    this.SubUserTypeId == 5 ? (this.catValue = "Committee", this.getMemberName()) : '';
+    this.getMemberName();
+    // this.SubUserTypeId == 5 ? (this.catValue = "Committee", this.getMemberName()) : '';
+    this.SubUserTypeId == 5 ? (this.catValue = "Committee") : '';
     this.commonService.loggedInUserType() == 1 ? this.WorkdonebyMembersXaxiesLabel = "District Name" : this.WorkdonebyMembersXaxiesLabel = "Committes Name"
     this.getWorkcategoryFilterDetails();
     this.defaultFilterForm();
@@ -593,7 +594,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getBestPerKaryMember();
     this.comityDetailBodyId = 0;
     this.filterBestPer.controls['BodyId'].setValue(0);
-    this.bestPerformance();
+   // this.bestPerformance();
   }
 
   ngOnDestroy() {
@@ -621,7 +622,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
         this.spinner.hide();
         this.memberNameArray = res.data1;
       } else {
-        this.spinner.hide();
+        this.spinner.hide(this.memberNameArray);
         //this.toastrService.error("Data is not available");
       }
     }, (error: any) => {
