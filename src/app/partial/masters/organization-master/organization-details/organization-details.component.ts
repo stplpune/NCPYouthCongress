@@ -126,7 +126,7 @@ export class OrganizationDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.defaultFilterForm()
     this.defaultBodyMemForm();
-    this.getAllBodyMember();
+    // this.getAllBodyMember();
     
     this.getBodyMemberFilterDetails(this.bodyId);
     this.getCurrentDesignatedMembers(this.bodyId);
@@ -656,6 +656,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addEditMember(data: any, flag: any) {
+    this.getAllBodyMember();
     this.userPostBodyId = data.userpostbodyId
     this.HighlightRow = data.SrNo;
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
@@ -906,7 +907,6 @@ export class OrganizationDetailsComponent implements OnInit {
   
   checkBodyId(flag:any,event:any):any{
     let filterData =   this.searchPipe.transform(this.resAllMember,[event], 'pipeFilter');
-    console.log(this.resAllMember)
    return  this.resAllMember = filterData;
 
   // this.resAllMember = s;

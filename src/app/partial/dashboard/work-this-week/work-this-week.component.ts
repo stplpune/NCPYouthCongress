@@ -602,8 +602,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.graphInstance.destroy();
   }
 
-  redirectOrgDetails(bodyId: any, BodyOrgCellName: any) {
-    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName }
+  redirectOrgDetails(bodyId: any, BodyOrgCellName: any , bodylevelId:any) {
+    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName,bodylevelId:bodylevelId}
     sessionStorage.setItem('bodyId', JSON.stringify(obj))
     this.router.navigate(['../../committee/details'], { relativeTo: this.route })
   }

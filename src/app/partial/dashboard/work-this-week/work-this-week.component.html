@@ -147,7 +147,7 @@
                             <tr *ngFor="let result of resBestPerKaryMember; let i = index">
                                 <td>{{i+1}}</td>
                                 <td><a class="text-primary"
-                                        (click)="redirectOrgDetails(result.BodyId,result.BodyOrgCellName)">{{result.BodyOrgCellName}}</a>
+                                        (click)="redirectOrgDetails(result.BodyId,result.BodyOrgCellName,result.bodylevel)">{{result.BodyOrgCellName}}</a>
                                 </td>
                                 <td>{{result.Area}}</td>
                                 <td>{{result.Totalwork}}</td>
@@ -275,11 +275,14 @@
 
                                 <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
                                     <td>{{i+1}}</td>
-                                    <td><a class="text-primary"
-                                            (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
+                                    <td *ngIf="result.IsCurrent == 0"><a class="text-primary"
+                                            (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}} <span class="badge bg-danger"> Ex</span></a>
                                     </td>
+                                    <td *ngIf="result.IsCurrent != 0"><a class="text-primary"
+                                        (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
+                                </td>
                                     <td>
-                                        <p class="mb-0">{{result.DesignationName}}</p>
+                                        <p class="mb-0">{{result.DesignationName}} </p>
                                         <small class="text-muted">{{result.BodyOrgCellName}}</small>
                                     </td>
                                     <td>{{result.MobileNo}}</td>
