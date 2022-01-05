@@ -275,14 +275,12 @@
 
                                 <tr *ngFor="let result of resultBestPerKaryMember; let i = index">
                                     <td>{{i+1}}</td>
-                                    <td *ngIf="result.IsCurrent == 0"><a class="text-primary"
-                                            (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}} <span class="badge bg-danger"> Ex</span></a>
+                                    <td><a class="text-primary"
+                                            (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
                                     </td>
-                                    <td *ngIf="result.IsCurrent != 0"><a class="text-primary"
-                                        (click)="redToMemberProfile(result.MemberId, result.FullName)">{{result.FullName}}</a>
-                                </td>
                                     <td>
-                                        <p class="mb-0">{{result.DesignationName}} </p>
+                                        <p class="mb-0" *ngIf="result.IsCurrent == 0">{{result.DesignationName}} <span class="badge bg-danger"> Ex</span></p>
+                                        <p class="mb-0" *ngIf="result.IsCurrent != 0">{{result.DesignationName}}</p>
                                         <small class="text-muted">{{result.BodyOrgCellName}}</small>
                                     </td>
                                     <td>{{result.MobileNo}}</td>
