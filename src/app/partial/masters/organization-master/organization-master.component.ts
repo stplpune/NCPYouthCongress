@@ -31,7 +31,7 @@ export class OrganizationMasterComponent implements OnInit {
   selCityFlag: boolean = false;
   selVillageFlag: boolean = true;
   resultVillageOrCity: any;
-  villageCityLabel = "Village";
+  villageCityLabel = "Village/Town";
   allStates: any;
   globalDistrictId: any;
   allLevels: any;
@@ -128,7 +128,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
-      this.villageCityLabel = "Village";
+      this.villageCityLabel = "Village/Town";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.getTaluka(this.orgMasterForm.value.DistrictId);
       }
@@ -140,7 +140,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
-      this.villageCityLabel = "City";
+      this.villageCityLabel = "City District";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.districtEvent(this.orgMasterForm.value.BodyLevelId, this.orgMasterForm.value.DistrictId);
       }
@@ -866,7 +866,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   selCity() {
     //this.spinner.show();
-    this.villageCityLabel = "City";
+    this.villageCityLabel = "City District";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
       this.spinner.hide();
