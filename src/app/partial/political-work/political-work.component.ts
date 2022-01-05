@@ -44,6 +44,8 @@ export class PoliticalWorkComponent implements OnInit {
   HighlightRow: any;
   mapHideShowDiv: boolean = false;
   previous:any;
+  checkMapAvailable: any;
+  CategoryId: any;
   
   constructor(
     private callAPIService: CallAPIService,
@@ -214,6 +216,8 @@ export class PoliticalWorkComponent implements OnInit {
   ViewPoliticleWorkDetails(index: any) {
     this.viewPoliticleWorkDetailsById = null;
     this.viewPoliticleWorkDetailsById = this.politicalWorkArray[index];
+    this.CategoryId =  this.viewPoliticleWorkDetailsById.CategoryId;
+   this.checkMapAvailable =  this.viewPoliticleWorkDetailsById.ActivityLocation; // only checking lat long Available or not
     this.HighlightRow = this.viewPoliticleWorkDetailsById.Id;
     this.comUserdetImg = this.viewPoliticleWorkDetailsById.Images.split(',');
     this.comUserdetImg = this.commonService.imgesDataTransform(this.comUserdetImg, 'array');

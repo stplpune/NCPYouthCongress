@@ -233,7 +233,7 @@
 
                     <!-- <div class="col-sm-6 form-container" *ngIf="mapHideShowDiv"> -->
                         <div class="col-sm-6 form-container">
-                        <div class="mb-0" *ngIf="lat!='' && lng!=''; else elseBlock">
+                        <div class="mb-0" *ngIf="checkMapAvailable != '' && CategoryId != 3; else elseBlock">
                             <label class="form-label">Location</label>
                             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'" [fullscreenControl]='true'>
                                 <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="clickedMarker(infowindow)">
