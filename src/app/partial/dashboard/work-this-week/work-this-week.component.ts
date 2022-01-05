@@ -310,7 +310,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-
   getWorkcategoryFilterDetails() {
     this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_Workcategory_1_0', false, false, false, 'ncpServiceForWeb');
@@ -380,9 +379,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   committee() {
     this.bestPerformance();
   }
-
-
-
 
   getBestPerKaryMember() {
     this.spinner.show();
@@ -464,7 +460,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.noPerfPaginationNo = pageNo;
     this.getNoPerfMember();
   }
-  
 
   bestWorstPer(value: any) {
     this.isBestworst = value.id;
@@ -701,7 +696,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.bestPerformance();
   }
-
 
   ngOnDestroy() {
     // sessionStorage.removeItem('weekRange');
