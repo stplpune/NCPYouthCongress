@@ -160,18 +160,13 @@
                                     </button>
                                 </td>
                             </tr>
-                            <!-- <tr *ngIf="resBestPerKaryMember?.length == 0">
-                                <td colspan="4">
-                                    <div class="alert alert-danger text-center py-2 mb-0">No Data Found..!</div>
-                                </td>
-                            </tr> -->
                         </tbody>
                     </table>
                     <div class="mt-2 text-end" *ngIf="resBestPerKaryMember?.length == 0">
                         <div class="alert alert-danger text-center py-2">No Data Found..!
                         </div>
                     </div>
-                    <pagination-controls id="bestPerfPagination"
+                    <pagination-controls class="text-end" id="bestPerfPagination"
                         *ngIf="resBestPerKaryMember?.length != 0" previousLabel=""
                         nextLabel=""
                         (pageChange)="onClickPagintionBestPerf(bestPerfPageSize  = $event)">
@@ -180,7 +175,7 @@
 
                              <!-- ..................Best Performance Table End .....................-->      
 
-                                 <!-- ..................Worst Performance Table Start .....................-->
+                            <!-- ..................Worst Performance Table Start .....................-->
 
                     <div *ngIf="hideWorstPerfTable">
                     <table class="table table-hover">
@@ -213,7 +208,7 @@
                         <div class="alert alert-danger text-center py-2">No Data Found..!
                         </div>
                     </div>
-                    <pagination-controls id="worstPerfPagination"
+                    <pagination-controls class="text-end" id="worstPerfPagination"
                         *ngIf="worstPerfMemberArray?.length != 0" previousLabel=""
                         nextLabel=""
                         (pageChange)="onClickPagintionWorstPerf(worsPerfPageSize  = $event)">
@@ -222,7 +217,7 @@
 
                              <!-- ..................Worst Performance Table End .....................-->      
 
-                                              <!-- ..................No Performance Table Start .....................-->
+                              <!-- ..................No Performance Table Start .....................-->
                                               
                    <div *ngIf="hideNoPerfTable">
                     <table class="table table-hover">
@@ -255,7 +250,7 @@
                         <div class="alert alert-danger text-center py-2">No Data Found..!
                         </div>
                     </div>
-                    <pagination-controls id="noPerfPagination"
+                    <pagination-controls class="text-end" id="noPerfPagination"
                         *ngIf="noPerfMemberArray?.length != 0" previousLabel=""
                         nextLabel=""
                         (pageChange)="onClickPagintionNoPerf(noPerfPageSize  = $event)">
