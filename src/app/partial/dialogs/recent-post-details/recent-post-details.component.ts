@@ -17,7 +17,7 @@ export class RecentPostDetailsComponent implements OnInit {
   Liked: boolean = false;
   comments: boolean = false;
   Shared: boolean = false;
-  ListView: boolean = true;
+  ListView: boolean = false;
   MapView: boolean = false;
   activitieDetails: any;
   resLikesList: any;
@@ -27,6 +27,7 @@ export class RecentPostDetailsComponent implements OnInit {
   Comment = new FormControl();
   pageNo: any;
   loginUserId: any;
+  viewDataArray: any;
 
   constructor(
     private callAPIService: CallAPIService,
@@ -41,6 +42,7 @@ export class RecentPostDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loginUserId = this.commonService.loggedInUserId();
     this.activitieDetails = this.data.data;
+    console.log(this.activitieDetails)
     this.pageNo = this.data.pageNo;
     this.activityId = this.activitieDetails.Id;
     this.getLikesList(this.activityId)
@@ -114,6 +116,26 @@ export class RecentPostDetailsComponent implements OnInit {
     })
   }
 
+  viewListdata(activityId: any , flag:any) { //view and Shared Api
+    this.spinner.show();
+    this.callAPIService.setHttp('get', 'Web_GetActivityLikes_1_0?ActivityId=' + activityId + '&flag='+ flag , false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.viewDataArray = res.data1;
+        console.log(this.viewDataArray)
+      } else {
+        this.spinner.hide();
+        this.viewDataArray = [];
+        // //this.toastrService.error("Data is not available");
+      }
+    }, (error: any) => {
+      this.spinner.hide();
+      if (error.status == 500) {
+        this.router.navigate(['../500'], { relativeTo: this.route });
+      }
+    })
+  }
 
   getCommentsList(activityId: any) {
     this.spinner.show();
@@ -190,9 +212,10 @@ export class RecentPostDetailsComponent implements OnInit {
   // Comments function's end here
 
   socialMediaCheck(flag: any) {
-    flag == 'Liked' ? (this.Liked = true, this.comments = false, this.Shared = false) : '';
-    flag == 'Comments' ? (this.comments = true, this.Liked = false, this.Shared = false) : '';
-    flag == 'Shared' ? (this.Shared = true, this.comments = false, this.Liked = false) : '';
+    flag == 'Liked' ? (this.Liked = true, this.comments = false, this.Shared = false , this.ListView = false) : '';
+    flag == 'ListView' ? (this.ListView = true, this.comments = false, this.Shared = false , this.Liked = false) : '';
+    flag == 'Comments' ? (this.comments = true, this.Liked = false, this.Shared = false , this.ListView = false) : '';
+    flag == 'Shared' ? (this.Shared = true, this.comments = false, this.Liked = false , this.ListView = false) : '';
   }
 
 

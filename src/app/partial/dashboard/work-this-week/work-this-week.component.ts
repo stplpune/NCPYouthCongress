@@ -25,7 +25,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   selweekRange: any
   WorkDoneByYuvakBarchart: any;
   WorkDoneByMemberSVGData: any;
-  resBestPerKaryMember: any;
   resBestPerMember: any;
   chart: any;
   allDistrict: any;
@@ -60,6 +59,25 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   totalWorkCount: any;
   comityDetailBodyId: any;
   clickDistrictId:any = 0;
+
+  resBestPerKaryMember: any;
+  bestPerfListTotal: any;
+  bestPerfPaginationNo: number = 1;
+  bestPerfPageSize: number = 10;
+  hideBestPerfTable: boolean = true;
+
+  worstPerfMemberArray: any;
+  worstPerfListTotal: any;
+  worsPerfPaginationNo: number = 1;
+  worsPerfPageSize: number = 10;
+  hideWorstPerfTable: boolean = false;
+
+  noPerfMemberArray: any;
+  noPerfListTotal: any;
+  noPerfPaginationNo: number = 1;
+  noPerfPageSize: number = 10;
+  hideNoPerfTable: boolean = false;
+
 
   constructor(private callAPIService: CallAPIService, private spinner: NgxSpinnerService,
     private toastrService: ToastrService, private commonService: CommonService, private router: Router, private fb: FormBuilder,
@@ -232,6 +250,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (flag == 'workType') {
       // this.bestPerformance();
       this.getBestPerKaryMember();
+      this.getWorstPerfMember();
+      this.getNoPerfMember();
       // this.showSvgMap(this.commonService.mapRegions());
 
     }
@@ -244,6 +264,8 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.defaultCloseBtn = true;
     this.bestPerformance();
     this.getBestPerKaryMember();
+    this.getWorstPerfMember();
+    this.getNoPerfMember();
     // this.showSvgMap(this.commonService.mapRegions());
     this.geWeekReport();
   }
@@ -330,12 +352,16 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     if (flag == 'workType') {
       this.topFilterForm.controls['category'].setValue(0);
       this.getBestPerKaryMember();
+      this.getWorstPerfMember();
+      this.getNoPerfMember();
       this.geWeekReport();
     } else if (flag == 'dateValue') {
       this.defaultCloseBtn = false;
       this.topFilterForm.controls['fromTo'].setValue(this.dateRange1);
       this.savgMapArray = [];
       this.getBestPerKaryMember();
+      this.getWorstPerfMember();
+      this.getNoPerfMember();   
       this.geWeekReport();
     } else if (flag == 'district') {
       this.filterBestPer.controls['DistrictId'].setValue(0);
@@ -355,15 +381,19 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.bestPerformance();
   }
 
+
+
+
   getBestPerKaryMember() {
     this.spinner.show();
     let topFilterValue = this.topFilterForm.value;
-    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
-      'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst + '&DistrictId=' + topFilterValue.DistrictId, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'DashboardData_BestPerformance_web_1_0_Pagination?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
+      'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst + '&DistrictId=' + topFilterValue.DistrictId + '&nopage=' + this.bestPerfPaginationNo, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.resBestPerKaryMember = res.data1;
+        this.bestPerfListTotal = res.data2[0].TotalCount;
       } else {
         this.resBestPerKaryMember = [];
         this.spinner.hide();
@@ -375,6 +405,89 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
+
+  onClickPagintionBestPerf(pageNo: any) {
+    this.bestPerfPaginationNo = pageNo;
+    this.getBestPerKaryMember();
+  }
+
+  getWorstPerfMember() {
+    this.spinner.show();
+    let topFilterValue = this.topFilterForm.value;
+    this.callAPIService.setHttp('get', 'DashboardData_WorstPerformance_web_1_0_Pagination?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
+      'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst + '&DistrictId=' + topFilterValue.DistrictId + '&nopage=' + this.worsPerfPaginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.worstPerfMemberArray = res.data1;
+        this.worstPerfListTotal = res.data2[0].TotalCount;
+      } else {
+        this.worstPerfMemberArray = [];
+        this.spinner.hide();
+        if (res.data == 1) {
+          //this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  onClickPagintionWorstPerf(pageNo: any) {
+    this.worsPerfPaginationNo = pageNo;
+    this.getWorstPerfMember();
+  }
+
+  getNoPerfMember() {
+    this.spinner.show();
+    let topFilterValue = this.topFilterForm.value;
+    this.callAPIService.setHttp('get', 'DashboardData_NoPerformance_web_1_0_Pagination?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1],
+      'dd/MM/yyyy') + '&CategoryId=' + topFilterValue.category + '&IsBest=' + this.isBestworst + '&DistrictId=' + topFilterValue.DistrictId + '&nopage=' + this.noPerfPaginationNo, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.getHttp().subscribe((res: any) => {
+      if (res.data == 0) {
+        this.spinner.hide();
+        this.noPerfMemberArray = res.data1;
+        this.noPerfListTotal = res.data2[0].TotalCount;
+      } else {
+        this.noPerfMemberArray = [];
+        this.spinner.hide();
+        if (res.data == 1) {
+          //this.toastrService.error("Data is not available");
+        } else {
+          this.toastrService.error("Please try again something went wrong");
+        }
+      }
+    })
+  }
+
+  onClickPagintionNoPerf(pageNo: any) {
+    this.noPerfPaginationNo = pageNo;
+    this.getNoPerfMember();
+  }
+  
+
+  bestWorstPer(value: any) {
+    this.isBestworst = value.id;
+    if(value.id == 1){
+      this.getBestPerKaryMember();
+      this.hideBestPerfTable = true;
+      this.hideWorstPerfTable = false;
+      this.hideNoPerfTable = false;
+    } else if(value.id == 0){
+      this.getWorstPerfMember();
+      this.hideBestPerfTable = false;
+      this.hideWorstPerfTable = true;
+      this.hideNoPerfTable = false;
+    } else if(value.id == 2){
+      this.getNoPerfMember();
+      this.hideBestPerfTable = false;
+      this.hideWorstPerfTable = false;
+      this.hideNoPerfTable = true;
+    }
+    this.comityDetailBodyId = 0;
+    this.filterBestPer.controls['BodyId'].setValue(0);
+  }
+
 
   // this.selweekRange.fromDate this.selweekRange.toDate
   geWeekReport() {
@@ -589,13 +702,6 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     this.bestPerformance();
   }
 
-  bestWorstPer(value: any) {
-    this.isBestworst = value.id;
-    this.getBestPerKaryMember();
-    this.comityDetailBodyId = 0;
-    this.filterBestPer.controls['BodyId'].setValue(0);
-   // this.bestPerformance();
-  }
 
   ngOnDestroy() {
     // sessionStorage.removeItem('weekRange');

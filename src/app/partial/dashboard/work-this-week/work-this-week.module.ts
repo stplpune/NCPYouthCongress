@@ -6,7 +6,7 @@ import { WorkThisWeekComponent } from './work-this-week.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     FormsModule,
     OwlNativeDateTimeModule,
-    OwlDateTimeModule
+    OwlDateTimeModule,
+    NgxPaginationModule
   ]
 })
 export class WorkThisWeekModule { }

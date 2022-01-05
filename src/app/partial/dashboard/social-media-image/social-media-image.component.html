@@ -86,7 +86,7 @@
                             <a class="activity-item bg-high"  *ngFor="let mostLikedPerson of mostLikedPersonArray">
                                <span [appTooltip] title="Person Name">{{mostLikedPerson.PersonName}}</span> 
                                 <span class="float-end">
-                                    <span [appTooltip] title="Count" class="badge bg-success">{{mostLikedPerson.cnt}}</span>
+                                    <span [appTooltip] title="Count: {{mostLikedPerson.cnt}}" class="badge bg-success">{{mostLikedPerson.cnt}}</span>
                                 </span>
                             </a>
                             <div *ngIf="mostLikedPersonArray?.length == 0">
@@ -102,7 +102,7 @@
                             <a class="activity-item bg-low" *ngFor="let mostHatedPerson of mostHatedPersonArray">
                                 <span [appTooltip] title="Person Name">{{mostHatedPerson.PersonName}}</span>
                                 <span class="float-end">
-                                    <span [appTooltip] title="Count" class="badge bg-danger">{{mostHatedPerson.cnt}}</span>
+                                    <span [appTooltip] title="Count: {{mostHatedPerson.cnt}}" class="badge bg-danger">{{mostHatedPerson.cnt}}</span>
                                 </span>
                             </a>
                             <div *ngIf="mostHatedPersonArray?.length == 0">
