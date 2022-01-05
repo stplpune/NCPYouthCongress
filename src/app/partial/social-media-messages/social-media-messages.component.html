@@ -272,7 +272,7 @@
                     </div>
                     <div class="col-sm-6 form-container">
                         
-                    <div class="mb-3" *ngIf="lat!='' && lng!=''; else elseBlock">
+                    <div class="mb-3" *ngIf="socialMediaDetailsLatLongArray!=undefined; else elseBlock">
                         <label class="form-label">Location</label>
                         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeId]="'roadmap'" [fullscreenControl]='true'>
                             <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="clickedMarker(infowindow)">

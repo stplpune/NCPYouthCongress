@@ -49,6 +49,7 @@ export class SocialMediaMessagesComponent implements OnInit {
   subject: Subject<any> = new Subject();
   previous:any;
   socialMediaDetailsAddress:any;
+  socialMediaDetailsLatLongArray: any;
   
   constructor(
     private callAPIService: CallAPIService,
@@ -214,6 +215,7 @@ export class SocialMediaMessagesComponent implements OnInit {
 
   getSocialMediaDetails(id: any) {
     this.spinner.show();
+    this.socialMediaDetailsAddress = '';
     this.callAPIService.setHttp('get', 'GetSocialMediaMessage_Details_Web_1_0?UserId=' + this.commonService.loggedInUserId() + '&Id=' + id, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -225,9 +227,9 @@ export class SocialMediaMessagesComponent implements OnInit {
         this.programGalleryImg = this.commonService.imgesDataTransform(this.programGalleryImg, 'obj');
         this.gallery.ref().load(this.programGalleryImg);
 
-        let socialMediaDetailsLatLongArray = res.data3[0];
-        this.socialMediaDetailsAddress= res.data3[0].LocationName;
-        this.latitudeLongitude(socialMediaDetailsLatLongArray);
+        this.socialMediaDetailsLatLongArray = res.data3[0];
+        this.socialMediaDetailsAddress= res.data3[0]?.LocationName;
+        this.latitudeLongitude(this.socialMediaDetailsLatLongArray);
       } else {
         //this.toastrService.error("Data is not available");
       }
@@ -239,6 +241,7 @@ export class SocialMediaMessagesComponent implements OnInit {
   }
 
   latitudeLongitude(latlagData: any) { // only Add latLong Array formate
+    console.log(this.socialMediaDetailsLatLongArray)
     if (latlagData != "" && latlagData != undefined && latlagData != null) {
       let latLong = [latlagData.Latitude ,latlagData.Longitude]
       this.lat = Number(latLong[0]);
