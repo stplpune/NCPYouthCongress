@@ -22,13 +22,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class DashboardComponent implements OnInit {
   // allDistrictArray: any;
   dashboardCount1Array: any;
-  lowestActivityDistrictsArray: any;
+  //lowestActivityDistrictsArray: any;
   workInThisWeekArray: any;
-  highestActivityDistrictsArray: any;
-  typesOfWorksArray: any;
+  //highestActivityDistrictsArray: any;
+  //typesOfWorksArray: any;
   perceptionOnSocialMediaArray: any;
   workInThisWeekForm: any;
-  newMemberInThisWeekArray: any;
+  //newMemberInThisWeekArray: any;
   districtWiseMemberCountArray: any;
   districtId: number = 0;
   maxDate: any = new Date();
@@ -119,9 +119,9 @@ export class DashboardComponent implements OnInit {
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.highestActivityDistrictsArray = res.data1;
-        this.lowestActivityDistrictsArray = res.data2;
-        this.typesOfWorksArray = res.data3;
+        //this.highestActivityDistrictsArray = res.data1;
+        //this.lowestActivityDistrictsArray = res.data2;
+        //this.typesOfWorksArray = res.data3;
         let perOnSocialMedArray = res.data4;
         let addLogoParty:any;
         if(perOnSocialMedArray != ""){
@@ -144,10 +144,10 @@ export class DashboardComponent implements OnInit {
         // this.pieChart();
         this.socialMediaChart();
       } else {
-        this.typesOfWorksArray = [];
+        //this.typesOfWorksArray = [];
         this.perceptionOnSocialMediaArray = [];
-        this.highestActivityDistrictsArray = [];
-        this.lowestActivityDistrictsArray = [];
+        //this.highestActivityDistrictsArray = [];
+        //this.lowestActivityDistrictsArray = [];
         this.spinner.hide();
         //this.toastrService.error("Data is not available");
       }
@@ -177,18 +177,18 @@ export class DashboardComponent implements OnInit {
           }
         })
         this.workLineChart();
-        this.newMemberInThisWeekArray = res.data1;
-        this.newMemberInThisWeekArray.map((ele: any) => {
-          if (ele.Date) {
-            let DateFormate = this.changeDateFormat(ele.Date);
-            let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
-            ele.Date = transformDate;
-          }
-        })
+        // this.newMemberInThisWeekArray = res.data1;
+        // this.newMemberInThisWeekArray.map((ele: any) => {
+        //   if (ele.Date) {
+        //     let DateFormate = this.changeDateFormat(ele.Date);
+        //     let transformDate = this.datepipe.transform(DateFormate, 'MMM d');
+        //     ele.Date = transformDate;
+        //   }
+        // })
         // this.weeklyColumnChart();
       } else {
         this.workInThisWeekArray = [];
-        this.newMemberInThisWeekArray = [];
+        // this.newMemberInThisWeekArray = [];
         this.spinner.hide();
         //this.toastrService.error("Data is not available");
       }
@@ -387,70 +387,70 @@ export class DashboardComponent implements OnInit {
   //   }, 2000)
   // }
 
-  pieChart() {
-    am4core.useTheme(am4themes_animated);
+  // pieChart() {
+  //   am4core.useTheme(am4themes_animated);
 
-    // Create chart instance
-    let chart = am4core.create("pieChartdiv", am4charts.PieChart);
-    // Add and configure Series
-    let pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.colors.list = [
-      am4core.color("#CC9999"),
-      am4core.color("#4DB6AC"),
-      am4core.color("#FF6F91"),
-      am4core.color("#FF9671"),
-      am4core.color("#FFC75F"),
-      am4core.color("#9FA8DA"),
-    ];
+  //   // Create chart instance
+  //   let chart = am4core.create("pieChartdiv", am4charts.PieChart);
+  //   // Add and configure Series
+  //   let pieSeries = chart.series.push(new am4charts.PieSeries());
+  //   pieSeries.colors.list = [
+  //     am4core.color("#CC9999"),
+  //     am4core.color("#4DB6AC"),
+  //     am4core.color("#FF6F91"),
+  //     am4core.color("#FF9671"),
+  //     am4core.color("#FFC75F"),
+  //     am4core.color("#9FA8DA"),
+  //   ];
 
-    pieSeries.dataFields.value = "ActivityCount";
-    pieSeries.dataFields.category = "Category";
+  //   pieSeries.dataFields.value = "ActivityCount";
+  //   pieSeries.dataFields.category = "Category";
 
 
-    // Let's cut a hole in our Pie chart the size of 30% the radius
-    // chart.innerRadius = am4core.percent(30);
+  //   // Let's cut a hole in our Pie chart the size of 30% the radius
+  //   // chart.innerRadius = am4core.percent(30);
 
-    // Put a thick white border around each Slice
-    pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeWidth = 2;
-    pieSeries.slices.template.strokeOpacity = 1;
-    pieSeries.slices.template 
-      .cursorOverStyle = [
-        {
-          "property": "cursor",
-          "value": "pointer"
-        }
-      ];
+  //   // Put a thick white border around each Slice
+  //   pieSeries.slices.template.stroke = am4core.color("#fff");
+  //   pieSeries.slices.template.strokeWidth = 2;
+  //   pieSeries.slices.template.strokeOpacity = 1;
+  //   pieSeries.slices.template 
+  //     .cursorOverStyle = [
+  //       {
+  //         "property": "cursor",
+  //         "value": "pointer"
+  //       }
+  //     ];
 
-    // Create a base filter effect (as if it's not there) for the hover to return to
-    let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-    shadow.opacity = 0;
+  //   // Create a base filter effect (as if it's not there) for the hover to return to
+  //   let shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+  //   shadow.opacity = 0;
     
-    // Create hover state
-    let hoverState: any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+  //   // Create hover state
+  //   let hoverState: any = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
 
-    // Slightly shift the shadow and make it more prominent on hover
-    let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-    hoverShadow.opacity = 0.7;
-    hoverShadow.blur = 5;
-    chart.radius = am4core.percent(100);
-    // Add a legend
-    chart.legend = new am4charts.Legend();
-    chart.legend.maxWidth = 100;
-    chart.legend.fontSize = 10;
-    chart.legend.scrollable = true;
-    chart.legend.position = "bottom";
-    chart.legend.contentAlign = "left";
+  //   // Slightly shift the shadow and make it more prominent on hover
+  //   let hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+  //   hoverShadow.opacity = 0.7;
+  //   hoverShadow.blur = 5;
+  //   chart.radius = am4core.percent(100);
+  //   // Add a legend
+  //   chart.legend = new am4charts.Legend();
+  //   chart.legend.maxWidth = 100;
+  //   chart.legend.fontSize = 10;
+  //   chart.legend.scrollable = true;
+  //   chart.legend.position = "bottom";
+  //   chart.legend.contentAlign = "left";
 
-    let markerTemplate = chart.legend.markers.template;
-    markerTemplate.width = 15;
-    markerTemplate.height = 15;
-    pieSeries.labels.template.disabled = true;
+  //   let markerTemplate = chart.legend.markers.template;
+  //   markerTemplate.width = 15;
+  //   markerTemplate.height = 15;
+  //   pieSeries.labels.template.disabled = true;
 
 
-    chart.data = this.typesOfWorksArray;
+  //   chart.data = this.typesOfWorksArray;
 
-  }
+  // }
 
   socialMediaChart() {
     am4core.useTheme(am4themes_animated);
