@@ -20,7 +20,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class DashboardComponent implements OnInit {
-  // allDistrictArray: any;
   dashboardCount1Array: any;
   //lowestActivityDistrictsArray: any;
   workInThisWeekArray: any;
@@ -58,7 +57,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.toDate=new Date();
     this.workLineChart();
-    // this.getDistrict();
     this.getDashboardCount1();
     this.getLowHighSocialMTypesOfWorks();
     // this.getNewMemberAndWorkInThisWeek();
@@ -67,7 +65,6 @@ export class DashboardComponent implements OnInit {
     this.loginUserType = this.commonService.loggedInUserType();
   }
 
-
   getweekRage(dates: any) {
     this.toDate= dates;         //selected Date
     this.fromDate= new Date((this.toDate) - 6 * 24 * 60 * 60 * 1000)
@@ -75,24 +72,6 @@ export class DashboardComponent implements OnInit {
     sessionStorage.setItem('weekRange', JSON.stringify(this.weekRangeObj));
     this.getNewMemberAndWorkInThisWeek();
   }
-
-  // getDistrict() {
-  //   this.spinner.show();
-  //   this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0?StateId=' + 1, false, false, false, 'ncpServiceForWeb');
-  //   this.callAPIService.getHttp().subscribe((res: any) => {
-  //     if (res.data == 0) {
-  //       this.spinner.hide();
-  //       this.allDistrictArray = res.data1;
-  //     } else {
-  //       this.spinner.hide();
-  //     }
-  //   }, (error: any) => {
-  //     this.spinner.hide();
-  //     if (error.status == 500) {
-  //       this.router.navigate(['../500'], { relativeTo: this.route });
-  //     }
-  //   })
-  // }
 
   getDashboardCount1() {//count1 api
     this.spinner.show();
