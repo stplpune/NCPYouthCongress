@@ -537,7 +537,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
     let topFilterValue = this.topFilterForm.value;
     let filter = this.filterBestPer.value;
     let bodyIdBoth = this.comityDetailBodyId || filter.BodyId;
-    this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_3_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + this.clickDistrictId + '&TalukaId=' + 0 +
+    this.callAPIService.setHttp('get', 'Web_DashboardData_BestPerformance_Filter_web_4_0?UserId=' + this.commonService.loggedInUserId() + '&FromDate=' + this.datepipe.transform(topFilterValue.fromTo[0], 'dd/MM/yyyy') + '&ToDate=' + this.datepipe.transform(topFilterValue.fromTo[1], 'dd/MM/yyyy') + '&DistrictId=' + this.clickDistrictId + '&TalukaId=' + 0 +
       '&IsBody=' + 1 + '&BodyId=' + bodyIdBoth + '&CategoryId=' + topFilterValue.category, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
