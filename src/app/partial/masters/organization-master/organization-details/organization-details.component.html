@@ -283,7 +283,7 @@
                                         {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName
                                         | titlecase}}
                                     </p>
-                                    <small class="small text-muted" *ngIf="dashboardActivities.IsCurrent == 0">{{dashboardActivities?.Designation}}<span class="badge bg-danger">Ex</span></small>
+                                    <small class="small text-muted" *ngIf="dashboardActivities.IsCurrent == 0"><span class="badge bg-danger">Ex</span> {{dashboardActivities?.Designation}}</small>
                                     <small class="small text-muted" *ngIf="dashboardActivities.IsCurrent != 0">{{dashboardActivities?.Designation}}</small>
                                     
                                     <p class="post-title mt-1">{{dashboardActivities?.Title | titlecase}}</p>
