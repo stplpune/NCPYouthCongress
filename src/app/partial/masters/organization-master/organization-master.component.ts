@@ -31,7 +31,7 @@ export class OrganizationMasterComponent implements OnInit {
   selCityFlag: boolean = false;
   selVillageFlag: boolean = true;
   resultVillageOrCity: any;
-  villageCityLabel = "Village/Town";
+  villageCityLabel = "Village";
   allStates: any;
   globalDistrictId: any;
   allLevels: any;
@@ -105,6 +105,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   selectLevel(levelId: any, flag: any) {
     this.globalLevelId = levelId;
+    console.log(levelId);
     if (levelId == 2) {
       this.disableFlagDist = true;
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
@@ -112,6 +113,7 @@ export class OrganizationMasterComponent implements OnInit {
       }
     }
     else if (levelId == 3) {
+      this.orgMasterForm.controls["SubParentCommitteeId"].setValue("");
       this.disableFlagDist = false;
       this.disableFlagTal = true;
       this.disableFlagVill = true;
@@ -128,7 +130,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
-      this.villageCityLabel = "Village/Town";
+      this.villageCityLabel = "Village";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.getTaluka(this.orgMasterForm.value.DistrictId);
       }
@@ -140,7 +142,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
-      this.villageCityLabel = "City District";
+      this.villageCityLabel = "City";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.districtEvent(this.orgMasterForm.value.BodyLevelId, this.orgMasterForm.value.DistrictId);
       }
@@ -214,7 +216,6 @@ export class OrganizationMasterComponent implements OnInit {
   }
 
   updateValueAndValidityMF(levelId: any) {
-    debugger;
     if (levelId == 2) {
       this.orgMasterForm.controls["StateId"].updateValueAndValidity();
     } else if (levelId == 3) {
@@ -517,6 +518,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
+        debugger
         this.resultVillageOrCity = res.data1;
         if (this.btnText == "Update Committee") { // edit
           let VillageId: any;
@@ -866,7 +868,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   selCity() {
     //this.spinner.show();
-    this.villageCityLabel = "City District";
+    this.villageCityLabel = "City";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
       this.spinner.hide();

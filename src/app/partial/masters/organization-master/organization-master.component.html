@@ -244,7 +244,7 @@
                             <div class="col-sm-6">
                                 <label class="form-label required-field">Select State</label>
                                 <ngx-select [allowClear]="true" (remove)="clearselOption('State')" [items]="allStates"
-                                    formControlName="StateId" placeholder="Select State" optionValueField="Id"
+                                    formControlName="StateId" (select)="getDistrict();" placeholder="Select State" optionValueField="Id"
                                     optionTextField="StateName"
                                     [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
                                     [disabled]="!this.orgMasterForm.value.SubParentCommitteeId && this.orgMasterForm.value.BodyLevelId != 2">
