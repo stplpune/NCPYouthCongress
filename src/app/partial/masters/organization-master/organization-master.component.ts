@@ -31,7 +31,7 @@ export class OrganizationMasterComponent implements OnInit {
   selCityFlag: boolean = false;
   selVillageFlag: boolean = true;
   resultVillageOrCity: any;
-  villageCityLabel = "Village";
+  villageCityLabel = "Village/Town";
   allStates: any;
   globalDistrictId: any;
   allLevels: any;
@@ -130,7 +130,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
-      this.villageCityLabel = "Village";
+      this.villageCityLabel = "Village/Town";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.getTaluka(this.orgMasterForm.value.DistrictId);
       }
@@ -142,7 +142,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.disableFlagVill = false;
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
-      this.villageCityLabel = "City";
+      this.villageCityLabel = "City/District";
       if (this.editLevalFlag == 'edit' && flag == 'select') { // DistrictId is availble then show city 
         this.districtEvent(this.orgMasterForm.value.BodyLevelId, this.orgMasterForm.value.DistrictId);
       }
@@ -514,7 +514,7 @@ export class OrganizationMasterComponent implements OnInit {
   getVillageOrCity(talukaID: any, selType: any) {
     //this.spinner.show();
     let appendString = "";
-    selType == 'Village' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID+'&UserId='+this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId+'&UserId='+this.commonService.loggedInUserId(); //Web_GetVillage_1_0
+    selType == 'Village/Town' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID+'&UserId='+this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId+'&UserId='+this.commonService.loggedInUserId(); //Web_GetVillage_1_0
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -868,14 +868,14 @@ export class OrganizationMasterComponent implements OnInit {
 
   selCity() {
     //this.spinner.show();
-    this.villageCityLabel = "City";
+    this.villageCityLabel = "City/District";
     if (this.globalDistrictId == undefined || this.globalDistrictId == "") {
       this.toastrService.error("Please select district");
       this.spinner.hide();
       return
     } else {
       this.disableFlagVill = false;
-      this.getVillageOrCity(this.globalDistrictId, 'City');
+      this.getVillageOrCity(this.globalDistrictId, 'City/District');
       this.setVillOrcityName = "CityName";
       this.setVillOrCityId = "Id";
       this.spinner.hide();
@@ -891,7 +891,7 @@ export class OrganizationMasterComponent implements OnInit {
     } else {
       this.disableFlagVill = false;
       this.globalTalukaID == undefined ? this.globalTalukaID = 0 : this.globalTalukaID;
-      this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village') : '';
+      this.btnText == "Update Committee" ? this.getVillageOrCity(this.globalTalukaID, 'Village/Town') : '';
       this.setVillOrcityName = "VillageName";
       this.setVillOrCityId = "VillageId";
       this.spinner.hide();
