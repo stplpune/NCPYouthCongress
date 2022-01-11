@@ -55,7 +55,7 @@ export class AddCommitteeComponent implements OnInit {
       this.getLevel();
       this.getCommitteeByLevel(this.bodyLevelIdBoth);
       this.getState();
-      this.getDistrict();
+      // this.getDistrict();
       //this.getDistrictByCommittee();
     }
     
