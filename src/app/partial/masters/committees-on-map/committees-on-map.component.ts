@@ -90,6 +90,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     if(getsessionStorageData){
+      debugger;
       let DistrictId = JSON.parse(getsessionStorageData);
       this.DistrictId = DistrictId.DistrictId;
       this.CommitteeId = DistrictId.CommitteeId;
@@ -98,6 +99,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
+    debugger;
     this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
     // this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
@@ -259,7 +261,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.addClasscommitteeWise(id);
         this.onClickFlag == false ?  $('#mapsvg1  path#' + this.selectedDistrictId).addClass('svgDistrictActive') : '';
        
-        // this.toggleClassActive(0);
+         id == undefined ||   id == null ||  id == ""  ? '': this.toggleClassActive(id);
+        // debugger;
         // this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
         
       }

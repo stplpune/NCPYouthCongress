@@ -10,7 +10,7 @@
             <div class="form-container">
                 <div class="mb-2">
                     <label class="form-label required-field">Select Committee Level</label>
-                    <ngx-select [allowClear]="true" (remove)="selectLevelClear()" [items]="allLevels"
+                    <ngx-select [allowClear]="false" (remove)="selectLevelClear()" [items]="allLevels"
                         formControlName="BodyLevelId" placeholder="Select Level" optionValueField="Id"
                         optionTextField="LevelName"
                         (select)="selectLevel(this.addCommitteeForm.value.BodyLevelId);getCommitteeByLevel(this.addCommitteeForm.value.BodyLevelId)"
@@ -23,7 +23,7 @@
                 <div class="mb-2">
                     <!-- [disabled]="!this.addCommitteeForm.value.BodyLevelId || this.addCommitteeForm.value.BodyLevelId == 2" -->
                     <label class="form-label required-field">Parent Committee</label>
-                    <ngx-select [allowClear]="true" [items]="resCommitteeByLevel" formControlName="SubParentCommitteeId"
+                    <ngx-select [allowClear]="false" [items]="resCommitteeByLevel" formControlName="SubParentCommitteeId"
                         placeholder="Select Parent Committee" optionValueField="Id" optionTextField="BodyOrgCellName"
                         (remove)="clearselOption('committeeName')"
                         [disabled]="!this.addCommitteeForm.value.BodyLevelId || this.addCommitteeForm.value.BodyLevelId == 2"
@@ -48,7 +48,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-6">
                         <label class="form-label required-field">Select State</label>
-                        <ngx-select [allowClear]="true" (remove)="clearselOption('State')" [items]="allStates"
+                        <ngx-select [allowClear]="false" (remove)="clearselOption('State')" [items]="allStates"
                             formControlName="StateId" (select)="getDistrict()" placeholder="Select State" optionValueField="Id"
                             optionTextField="StateName" [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }"
                             [disabled]="!this.addCommitteeForm.value.SubParentCommitteeId && this.addCommitteeForm.value.BodyLevelId != 2">
@@ -61,7 +61,7 @@
                         <label class="form-label"
                             [ngClass]="{ 'required-field': submitted && f.DistrictId.errors }">Select
                             District</label>
-                        <ngx-select [allowClear]="true" (remove)="clearselOption('District')" [items]="allDistrict"
+                        <ngx-select [allowClear]="false" (remove)="clearselOption('District')" [items]="allDistrict"
                             formControlName="DistrictId"
                             (select)="districtEvent(this.addCommitteeForm.value.BodyLevelId, this.addCommitteeForm.value.DistrictId)"
                             [disabled]="disableFlagDist || !this.addCommitteeForm.value.StateId"
@@ -79,7 +79,7 @@
                     <div class="col-sm-6">
                         <label class="form-label" [ngClass]="{'required-field': submitted && f.TalukaId.errors}">
                             Select Taluka</label>
-                        <ngx-select [allowClear]="true" (remove)="clearselOption('TalukaId')"
+                        <ngx-select [allowClear]="false" (remove)="clearselOption('TalukaId')"
                             [items]="getTalkaByDistrict"
                             [disabled]="disableFlagTal || !this.addCommitteeForm.value.DistrictId"
                             formControlName="TalukaId" optionValueField="TalukaId" optionTextField="TalukaName"
@@ -95,7 +95,7 @@
                         <label class="form-label"
                             [ngClass]="{ 'required-field': submitted && f.VillageId.errors }">Select
                             {{villageCityLabel}}</label>
-                        <ngx-select [allowClear]="true" (remove)="clearselOption('Village')"
+                        <ngx-select [allowClear]="false" (remove)="clearselOption('Village')"
                             [items]="resultVillageOrCity" placeholder="Select {{villageCityLabel}}"
                             [optionValueField]="setVillOrCityId" formControlName="VillageId"
                             [optionTextField]="setVillOrcityName"
