@@ -39,7 +39,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   defaultCloseBtn: boolean = false;
   allDistrict: any;
   selectedDistrictId: any;
-  selDistrict = new FormControl();
+  selDistrict = new FormControl(0);
   fromToDate = new FormControl();
   Search = new FormControl('');
   subject: Subject<any> = new Subject();
@@ -90,7 +90,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     if(getsessionStorageData){
-      debugger;
       let DistrictId = JSON.parse(getsessionStorageData);
       this.DistrictId = DistrictId.DistrictId;
       this.CommitteeId = DistrictId.CommitteeId;
@@ -99,7 +98,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    debugger;
     this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
     // this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
@@ -228,7 +226,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.defaultCommitteesFlag = true;
         this.defaultCloseBtn = true;
         this.resultCommittees = [];
-        this.selDistrict.setValue('');
+        this.selDistrict.setValue(0);
         this.spinner.hide();
         this.selDistrict.setValue(Number(id));
       }
@@ -341,7 +339,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   clearFilter(flag: any) {
     if (flag == 'CommitteesIn') {
       //this.CompofComityHide = false;
-      this.selDistrict.reset();
+      this.selDistrict.reset(0);
       this.selDistrictName();
       this.defaultCloseBtn = false;
       this.onClickFlag  = true;
@@ -418,10 +416,11 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     //this.CompofComityHide = false;
     this.Search.reset('');
     this.searchFilter = "";
-    // this.selDistrict.reset();
+    this.selDistrict.reset(0);
     this.selDistrictName();
-    let checkDistrictId;
-    this.selDistrict.value =="" || this.selDistrict.value  == null ? checkDistrictId = 0 :  checkDistrictId =  this.selDistrict.value;
+    let checkDistrictId = 0;
+    // this.selDistrict.value =="" || this.selDistrict.value  == null  || this.selDistrict.value == NaN ? checkDistrictId = 0 :  checkDistrictId =  this.selDistrict.value;
+    //this.selDistrict.value == NaN ? checkDistrictId = 0 :  checkDistrictId =  this.selDistrict.value;
     this.toggleClassActive(checkDistrictId);
     this.getOrganizationByDistrictId(checkDistrictId);
     //this.districtWiseCommityWorkGraph(checkDistrictId);  10/1/22
