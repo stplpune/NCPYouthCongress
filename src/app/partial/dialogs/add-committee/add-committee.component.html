@@ -6,7 +6,7 @@
             (click)="onNoClick()"></button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="addCommitteeForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="addCommitteeForm">
             <div class="form-container">
                 <div class="mb-2">
                     <label class="form-label required-field">Select Committee Level</label>
@@ -116,7 +116,7 @@
                 <button type="button" class="btn btn-secondary  float-start" (click)="clearForm()">Clear</button>
             </div>
             <div class="col-sm-6 col-6">
-                <button type="submit" class="btn btn-main float-end">Create Committee</button>
+                <button type="submit" class="btn btn-main float-end" (click)="onSubmit()">Create Committee</button>
             </div>
         </div>
     </div>
