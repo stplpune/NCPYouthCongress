@@ -90,7 +90,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     { dateTimeAdapter.setLocale('en-IN'); }
     let getsessionStorageData: any = sessionStorage.getItem('DistrictIdWorkThisWeek');
     if(getsessionStorageData){
-      debugger;
       let DistrictId = JSON.parse(getsessionStorageData);
       this.DistrictId = DistrictId.DistrictId;
       this.CommitteeId = DistrictId.CommitteeId;
@@ -99,7 +98,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    debugger;
     this.loggedUserTypeId = this.commonService.loggedInSubUserTypeId();
     // this.selDistrictName();
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
@@ -128,6 +126,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.defaultMembersFlag = false;
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
+      this.DistrictId = 0;
       this.selectedDistrictId = distrctId;
       this.toggleClassActive(Number(distrctId));
       this.getOrganizationByDistrictId(Number(distrctId));
@@ -164,7 +163,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.hideComityGraph= false;
     !this.allLevels ? this.getLevel() : '';
     this.CheckBoxLevelArray = [];
-    // this.CompofComityHide = false;
+    this.DistrictId = 0;
     this.selectedDistrictId = event;
     this.getOrganizationByDistrictId(this.selectedDistrictId);
     this.toggleClassActive(this.selectedDistrictId);
@@ -194,13 +193,16 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ScrollCompComity(){
-    // this.getOrganizationByDistrictId();
-    // this.CompofComityHide = true;
+    this.fromToDate.setValue('');
+    this.fromDate = '';
+    this.toDate = '';
     this.hideComityGraph = true;
    setTimeout(() => {
     $('html, body .showmap').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
 
-    this.districtWiseCommityWorkGraph(this.selectedDistrictId);
+    let checkDistrictId = this.DistrictId || this.selectedDistrictId;
+    alert(checkDistrictId)
+    this.districtWiseCommityWorkGraph(checkDistrictId);
    }, 500);
   }
 
@@ -262,7 +264,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.onClickFlag == false ?  $('#mapsvg1  path#' + this.selectedDistrictId).addClass('svgDistrictActive') : '';
        
          id == undefined ||   id == null ||  id == ""  ? '': this.toggleClassActive(id);
-        // debugger;
         // this.selectedDistrictId ? $('path#' + this.selectedDistrictId).addClass('svgDistrictActive') : this.toggleClassActive(0);
         
       }
