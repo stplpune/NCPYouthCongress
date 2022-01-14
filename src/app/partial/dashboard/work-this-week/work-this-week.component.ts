@@ -33,6 +33,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
   resultVillageOrCity: any;
   filterBestPer!: FormGroup;
   topFilterForm!: FormGroup;
+  maxDate = new Date();
   toDate: any;
   fromDate: any;
   catValue: any;

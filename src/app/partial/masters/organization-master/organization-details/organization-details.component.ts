@@ -25,6 +25,8 @@ import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { AddCommitteeComponent } from '../../../dialogs/add-committee/add-committee.component';
 import { SearchPipe } from 'src/app/partial/pipes/search.pipe';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization-details',
@@ -106,6 +108,10 @@ export class OrganizationDetailsComponent implements OnInit {
   ActivityId: any;
   bodylevelId: any;
   BodyLevelCommitteeId: any;
+  subject: Subject<any> = new Subject();
+  searchFilter = "";
+  hideMemberDetailsField : boolean = false;
+  UserIdForRegMobileNo = '';
  // memberValue: any;
 
   constructor(private fb: FormBuilder, private searchPipe: SearchPipe, private callAPIService: CallAPIService,
@@ -139,6 +145,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.subCommitteeName = this.getCommitteeName;
     this.loggedInUserId = this.commonService.loggedInUserId();
     this.dashboardActivities();
+    this.searchFilterMember('false');
   }
 
   defaultFilterForm() {
@@ -202,7 +209,6 @@ export class OrganizationDetailsComponent implements OnInit {
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
-
   createTree(arr: any) {
     this.spinner.show();
     var tree = [];
@@ -239,7 +245,8 @@ export class OrganizationDetailsComponent implements OnInit {
     this.bodyMember = this.fb.group({
       PostfromDate: [''],
       BodyName: [this.getCommitteeName, Validators.required],
-      bodyId: ['', Validators.required],
+      // bodyId: ['', Validators.required],
+      mobileNo: ['', [Validators.required, Validators.pattern('[6-9]\\d{9}')]],
       prevMember: [''],
       currentDesignation: [''],
     })
@@ -271,16 +278,27 @@ export class OrganizationDetailsComponent implements OnInit {
     this.getBodyMemeberGraph(this.bodyId);
   }
 
-  getAllBodyMember() {
+
+
+
+
+
+
+  getAllBodyMemberDetail() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetAllMember_1_0', false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Mob_GetMemberDetails_With_MobileNo_1_0?MobileNo=' + this.searchFilter, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
-        this.resAllMember = res.data1;
+        // this.resAllMember = res.data1;
+        this.bodyMemberDetails = res.data1[0];
+        this.UserIdForRegMobileNo = this.bodyMemberDetails?.UserId;
+        this.hideMemberDetailsField = true;
       } else {
-        this.resAllMember = [];
-        // this.toastrService.error("Body member is not available");
+        this.spinner.hide();
+        // this.resAllMember = [];
+        this.bodyMemberDetails = [];
+        this.hideMemberDetailsField = true;
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -289,22 +307,45 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getBodyMemberDetails(id: any) {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetMemberDetails_1_0?MemberId=' + id, false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.bodyMemberDetails = res.data1[0];
-      } else {
-        //this.toastrService.error("Data is not available");
-      }
-    }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../../500'], { relativeTo: this.route });
-      }
-    })
+  filterByMember() {
+    this.subject.next();
   }
+
+  searchFilterMember(flag: any) {
+    this.subject
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+         if(this.bodyMember.value.mobileNo.length == 10 && !this.bodyMember.invalid){
+          this.searchFilter = this.bodyMember.value.mobileNo;
+          this.getAllBodyMemberDetail();
+         }else{
+            this.bodyMemberDetails = [];
+         }
+      });
+  }
+
+  closeModelAddEditMember(){
+    this.defaultBodyMemForm();
+    this.bodyMemberDetails = [];
+    this.hideMemberDetailsField = false;
+    this.submitted = false;
+  }
+
+  acceptedOnlyNumbers(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+
+
+
+
+
+
+ 
 
   getBodyMemberFilterDetails(id: any) {
     this.spinner.show();
@@ -323,9 +364,6 @@ export class OrganizationDetailsComponent implements OnInit {
     })
   }
 
-  getMemberValue(event:any){
-    this.mobileNoValue = event.target.value;
-  }
 
   redToAddMember(memberValue: any) {
     if(parseFloat(memberValue) != NaN){
@@ -360,6 +398,7 @@ export class OrganizationDetailsComponent implements OnInit {
       if (res.data == 0) {
         this.spinner.hide();
         this.allDesignatedMembers = res.data1;
+        console.log(this.allDesignatedMembers);
         this.TotalWorkAndIosCount = res.data2[0];
         this.DesignationNameBYBodyId = res.data3;
         // this.getPreDesMembersArray = [];
@@ -606,22 +645,17 @@ export class OrganizationDetailsComponent implements OnInit {
     // sessionStorage.removeItem('bodyId');
   }
 
-  closeModelAddEditMember(){
-    // this.bodyMember.controls["bodyId"].setValue("");
-    // this.bodyMember.controls['bodyId'].clearValidators();
-    // this.bodyMember.controls["bodyId"].updateValueAndValidity();
-    this.defaultBodyMemForm();
-  }
-
   redToMemberProfile(memberId: any, FullName: any) {
     let obj = { 'memberId': memberId, 'FullName': FullName }
     sessionStorage.setItem('memberId', JSON.stringify(obj));
     this.router.navigate(['../../../profile'])
   }
   
-  addNewMember(flag: any, id: any, MobileFieldId:any) {
+  addNewMember(flag: any, id: any,mobileNo:any) {
+    this.mobileNoValue = mobileNo;
     if(this.mobileNoValue){
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
+
       if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
         this.toastrService.error('Invalid Mobile No.');
         this.mobileNoValue = '';
@@ -639,7 +673,7 @@ export class OrganizationDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
         this.getCurrentDesignatedMembers(this.bodyId);
-        this.getAllBodyMember();
+        // this.getAllBodyMember();
       }
       // this.addEditMemberModal('open');
     });
@@ -656,7 +690,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   addEditMember(data: any, flag: any) {
-    this.getAllBodyMember();
+    //this.getAllBodyMember();
     this.userPostBodyId = data.userpostbodyId
     this.HighlightRow = data.SrNo;
     this.bodyMember.controls['currentDesignation'].setValue(data.DesignationName);
@@ -666,7 +700,7 @@ export class OrganizationDetailsComponent implements OnInit {
       this.toastrService.error("Please select member and try again");
     }
     else {
-      this.dataAddEditMember = data
+      this.dataAddEditMember = data;
       this.addEditMemberModal('open');
     }
   }
@@ -679,17 +713,18 @@ export class OrganizationDetailsComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    // else if(this.dataAddEditMember.PostFromDate == postFromDate){
-
-    // }
-    else {
+    else if(this.bodyMemberDetails?.MobileNo !=  this.bodyMember.value.mobileNo){
+      this.toastrService.error("Please Add Member......!!!");
+      return;
+    }
+    else{
       let UserPostBodyId: any;
       this.addMemberFlag == 'Add' ? UserPostBodyId = 0 : UserPostBodyId = this.dataAddEditMember.userpostbodyId;
       let fromData = new FormData();
       fromData.append('UserPostBodyId', UserPostBodyId);
       fromData.append('BodyId', this.dataAddEditMember.BodyId);
       fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
-      fromData.append('UserId', this.bodyMember.value.bodyId);
+      fromData.append('UserId', this.UserIdForRegMobileNo);
       fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('PostfromDate', postFromDate);

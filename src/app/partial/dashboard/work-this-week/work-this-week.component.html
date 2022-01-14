@@ -17,7 +17,7 @@
                         <div class="input-group">
                             <div class="input-group">
                                 <input [owlDateTime]="dt1" formControlName="fromTo"
-                                    (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm"
+                                    (dateTimeChange)="getweekRage($event)" class="form-control form-control-sm" [max]="maxDate"
                                     [(ngModel)]="dateRange" [selectMode]="'range'" [owlDateTimeTrigger]="dt1"
                                     placeholder="Date Time">
                                 <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +39,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RecentPostDetailsComponent } from './partial/dialogs/recent-post-details/recent-post-details.component';
 import { TooltipModule } from './partial/directive/tooltip.module';
 import { AddCommitteeComponent } from './partial/dialogs/add-committee/add-committee.component';
-
+import { NgIdleModule } from "@ng-idle/core";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 
 
 @NgModule({
@@ -79,6 +81,7 @@ import { AddCommitteeComponent } from './partial/dialogs/add-committee/add-commi
     OwlNativeDateTimeModule,
     DragDropModule,
     TooltipModule,
+    NgIdleModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
@@ -96,4 +99,36 @@ import { AddCommitteeComponent } from './partial/dialogs/add-committee/add-commi
   providers: [DatePipe, AuthorizationService, NoAuthGuardService, AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{
+  constructor(
+    private idle: Idle,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastrService: ToastrService,
+  ){ this.sessionTimeOut(); }
+  timedOut = false;
+
+  sessionTimeOut(){
+    // 3600(second) = 60 minutes
+    this.idle.setIdle(3600); // 60 minutes Before Reset Website 
+    // this.idle.setTimeout(5);
+    this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+    this.idle.onTimeout.subscribe(() => {
+      this.timedOut = true;
+    });
+    this.idle.onTimeoutWarning.subscribe((countdown) => this.logOut());
+    this.reset();
+    // this.toastrService.error("Session Time Out...!!!");
+  }
+  
+  logOut() {
+    sessionStorage.clear();
+    this.router.navigate(['/home'], { relativeTo: this.route })
+  }
+  
+  reset() {
+      this.idle.watch();
+      this.timedOut = false;
+    }
+  
+ }
