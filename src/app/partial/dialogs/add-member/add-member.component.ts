@@ -115,7 +115,8 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       StateId: [1],
       DistrictId: [0],
       TalukaId: [''],
-      MobileNo: ['' || this.memberValue, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      // MobileNo: ['' || this.memberValue, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      MobileNo: [''|| this.memberValue, [Validators.required, Validators.pattern('[6-9]\\d{9}')]],
       VillageId: [''],
       //FName: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
        FName: ['',Validators.compose([Validators.required ,Validators.pattern(/^\S*$/),this.commonService.onlyEnglish])],
@@ -541,6 +542,14 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       // dialogRefAddDesignated = null;
     //  this.ngOnInit();
     });
+  }
+
+  acceptedOnlyNumbers(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   ngOnDestroy(){
