@@ -201,7 +201,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     $('html, body .showmap').animate({ scrollTop: $('.showmap').offset().top }, 'slow');
 
     let checkDistrictId = this.DistrictId || this.selectedDistrictId;
-    alert(checkDistrictId)
     this.districtWiseCommityWorkGraph(checkDistrictId);
    }, 500);
   }
