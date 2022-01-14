@@ -352,13 +352,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.selectedDistrictId = 0;
       sessionStorage.removeItem('DistrictIdWorkThisWeek');
       this.hideComityGraph= false;
+      this.getOrganizationByDistrictId(0);
     } else if (flag == 'dateRangePIcker') {
       this.clearDateRangeByFilter();
     }
-
     this.comActiveClass(0);
     this.activeRow = 0;
-    this.getOrganizationByDistrictId(0);
     // this.showSvgMap(this.commonService.mapRegions());
 
   }
@@ -372,14 +371,18 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.comActiveClass(0);
     this.fromDate = this.datePipe.transform(getDate[0], 'dd/MM/yyyy');
     this.toDate = this.datePipe.transform(getDate[1], 'dd/MM/yyyy');
-    // this.districtWiseCommityWorkGraph(0); 10/01/22
+    let checkDistrictId;
+    (this.selDistrict.value =="" || this.selDistrict.value  == null || isNaN(this.selDistrict.value) == true)  ? checkDistrictId = 0 :  checkDistrictId =  this.selDistrict.value;
+    this.districtWiseCommityWorkGraph(checkDistrictId);
   }
 
   clearDateRangeByFilter() {
     this.fromToDate.setValue('');
     this.fromDate = '';
     this.toDate = '';
-
+    let checkDistrictId;
+    (this.selDistrict.value =="" || this.selDistrict.value  == null || isNaN(this.selDistrict.value) == true)  ? checkDistrictId = 0 :  checkDistrictId =  this.selDistrict.value;
+    this.districtWiseCommityWorkGraph(checkDistrictId);
   }
 
   clearallFilter(){
