@@ -275,6 +275,8 @@ export class AddCommitteeComponent implements OnInit {
   getVillageOrCity(talukaID: any, selType: any) {
     //this.spinner.show();
     let appendString = "";
+    // let globalDistrictId ;
+    // this.globalDistrictId == undefined  ? globalDistrictId = 0 : globalDistrictId = this.globalDistrictId
     selType == 'Village' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID+'&UserId='+this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId+'&UserId='+this.commonService.loggedInUserId(); //Web_GetVillage_1_0
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
