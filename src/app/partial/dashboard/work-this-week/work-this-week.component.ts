@@ -629,7 +629,7 @@ export class WorkThisWeekComponent implements OnInit, OnDestroy, AfterViewInit {
 
         let bullet = series.bullets.push(new am4charts.LabelBullet())
         bullet.interactionsEnabled = false
-        bullet.dy = 30;
+        bullet.dy = 15;
         bullet.label.text = '{valueY}'
         bullet.label.fill = am4core.color('#ffffff')
         return series;
