@@ -71,10 +71,11 @@
                                 <label class="form-check-label" for="inlineCheckbox{{i}}">{{level.LevelName}}</label>
                             </div>
                             <div class="button-group text-end list-buttons">
-                                <button class="btn btn-sm btn-light text-dark fw-bold rounded" type="button" (click)="openDialogAddCommittee(commiteeObj)">
+                                <button class="btn btn-sm btn-light text-dark fw-bold rounded" type="button"
+                                    (click)="openDialogAddCommittee(commiteeObj)">
                                     Add Committee
                                 </button>
-                            </div>   
+                            </div>
                             <!-- <i  class="fas fa-plus" (click)="openDialogAddCommittee()"></i> -->
                         </div>
                         <div class="card shadow-none border-0" *ngIf="defaultCommitteesFlag">
@@ -91,7 +92,8 @@
                             </div>
                             <div class="card-body p-0 fix-height">
                                 <div class="list-group list-group-flush">
-                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName); this.commiteeObj = resCommittes; this.hideComityGraph = false " [class.active]="resCommittes.Id == activeRow"
+                                    <a (click)="committeeNameByOrganizationMember(resCommittes.Id, resCommittes.BodyOrgCellName); this.commiteeObj = resCommittes; this.hideComityGraph = false "
+                                        [class.active]="resCommittes.Id == activeRow"
                                         class="list-group-item list-group-item-action border-0 border-bottom px-2"
                                         aria-current="true" *ngFor="let resCommittes of resultCommittees">
                                         <p class="mb-0 fw-bold mt-1">{{resCommittes.BodyOrgCellName | titlecase}} <span
@@ -122,16 +124,17 @@
                                         Add Committee
                                     </button>
                                 </div>                                 -->
-                                Members in <span class="text-main"
-                                    style="cursor: pointer;" (click)="redirectOrgDetails()">{{selCommitteeName |
+                                Members in <span class="text-main" style="cursor: pointer;"
+                                    (click)="redirectOrgDetails()">{{selCommitteeName |
                                     titlecase}}</span>
-                                </div>
+                            </div>
                             <!-- <a class="text-primary text-decoration-none" (click)="redirectOrgDetails()">{{selCommitteeName | titlecase}}</a> -->
 
                             <div class="card-body p-0 fix-height1" *ngIf="defaultMembersFlag">
                                 <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
                                     *ngFor="let resOrganizationMember of resultOrganizationMember">
-                                    <div class="mb-0 fw-bold mt-1 text-danger"  *ngIf="resOrganizationMember.MemberName == ''">
+                                    <div class="mb-0 fw-bold mt-1 text-danger"
+                                        *ngIf="resOrganizationMember.MemberName == ''">
                                         <p class="mem-name">No Member Assigned</p>
                                         <!-- <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p> -->
                                         <!-- <small
@@ -139,33 +142,43 @@
                                     </div>
                                     <div>
                                         <a class="mem-name text-main"
-                                            (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName | titlecase}}</a>
+                                            (click)="redToMemberProfile(resOrganizationMember?.MemberId,resOrganizationMember?.MemberName)">{{resOrganizationMember?.MemberName
+                                            | titlecase}}</a>
                                         <div class="mem-no">{{resOrganizationMember?.MobileNo}}</div>
                                         <p class="mem-desi">{{resOrganizationMember?.DesignationName}}</p>
                                         <div class="mem-act">
-                                            <span class="float-start"  *ngIf="resOrganizationMember.MemberName != ''">
+                                            <span class="float-start" *ngIf="resOrganizationMember.MemberName != ''">
                                                 <span
                                                     class="fw-bold me-1">{{resOrganizationMember.TotalWork}}</span>Activities
                                             </span>
                                             <span class="float-end">
-                                                <div role="group" aria-label="Action Buttons" class="button-group text-end list-buttons">
-                                                    <button class="rounded btn btn-sm btn-light"  title="Add Member" (click)="addEditMember(resOrganizationMember, 'Add');getAllBodyMember()" *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
+                                                <div role="group" aria-label="Action Buttons"
+                                                    class="button-group text-end list-buttons">
+                                                    <button class="rounded btn btn-sm btn-light" title="Add Member"
+                                                        (click)="addEditMember(resOrganizationMember, 'Add')"
+                                                        *ngIf="!resOrganizationMember.MemberName || resOrganizationMember.IsMultiple == 1 && resOrganizationMember.LastaddedUser == 1">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
-                                                    <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"  (click)="addEditMember(resOrganizationMember, 'Update');getAllBodyMember()" class="btn btn-sm btn-light text-edit mx-1 rounded">
+                                                    <button title="Edit Member" *ngIf="resOrganizationMember.MemberName"
+                                                        (click)="addEditMember(resOrganizationMember, 'Update')"
+                                                        class="btn btn-sm btn-light text-edit mx-1 rounded">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                    <button *ngIf="resOrganizationMember.MemberName" class="rounded btn btn-sm btn-light text-danger" (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)" title="Remove Designation">
+                                                    <button *ngIf="resOrganizationMember.MemberName"
+                                                        class="rounded btn btn-sm btn-light text-danger"
+                                                        (click)="deleteConfirmModel(resOrganizationMember.userpostbodyId, resOrganizationMember.BodyId, resOrganizationMember.BodyOrgCellName)"
+                                                        title="Remove Designation">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                     <button title="Remove Designation" data-bs-toggle="modal"
-                                                    data-bs-target="#AddMemberModal" #addMemberModal
-                                                    style="display: none;"></button>
+                                                        data-bs-target="#AddMemberModal" #addMemberModal
+                                                        style="display: none;"></button>
                                                 </div>
                                             </span>
                                         </div>
 
-                                        <ul class="list-group list-group-horizontal list-group-flush mem-dev" *ngIf="resOrganizationMember.MemberName != ''">
+                                        <ul class="list-group list-group-horizontal list-group-flush mem-dev"
+                                            *ngIf="resOrganizationMember.MemberName != ''">
                                             <li class="list-group-item">
                                                 <!-- Device Code Start-->
                                                 <div *ngIf="resOrganizationMember?.DeviceType == 1">
@@ -229,7 +242,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    
+
                                 </div>
                                 <!-- <div class="list-group list-group-flush">
                                     <div class="list-group-item list-group-item-action border-0 border-bottom" aria-current="true"
@@ -334,94 +347,98 @@
     </div>
 </div>
 
-   <!-- Modal for Add/Update/Delete Member for any Designation -->
-   <div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-   aria-labelledby="AddMemberModalLabel" aria-hidden="true" *ngIf="selCommitteeName">
-   <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content">
-           <form [formGroup]="bodyMember">
-               <div class="modal-header">
-                   <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
-                       aria-label="Close"></button>
-               </div>
-               <div class="modal-body">
-                   <div class="form-container">
-                       <div class="mb-2">
-                           <label for="txtBodyName" class="form-label">Committee Name</label>
-                           <input type="text" class="form-control" readonly formControlName="BodyName" />
-                       </div>
-                       <div class="row">
-                           <div class="col-sm-6" *ngIf="bodyMember.value.prevMember">
-                               <div class="mb-2">
-                                   <label for="txtBodyName" class="form-label">Current Member Name</label>
-                                   <input type="text" class="form-control" readonly formControlName="prevMember" />
-                               </div>
-                           </div>
-                           <div class="col-sm-6">
-                               <div class="mb-2">
-                                   <label for="txtBodyName" class="form-label">Designation</label>
-                                   <input type="text" class="form-control" readonly
-                                       formControlName="currentDesignation" />
-                                  </div>
-                           </div>
-                           <div class="col-sm-12">
-                               <div class="mb-2">
-                                   <label for="txtMemberName" class="form-label required-field">New Member
-                                       Name</label>
-                                   <div class="input-group">
-                                       <ngx-select [allowClear]="true" [items]="resAllMember"
-                                           formControlName="bodyId" optionValueField="id"
-                                           optionTextField="fullname" (change)="getMemberValue($event)"
-                                           (select)="getBodyMemberDetails(this.bodyMember.value.bodyId)"
-                                           placeholder="Select Member Name"
-                                           [ngClass]="{ 'is-invalid': submitted && f.bodyId.errors }"
-                                           style="width: 85%;">
-                                       </ngx-select>
-                                       <button (click)="addNewMember('Add',0, this.bodyMember.value.bodyId)"
-                                           class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
-                                               class="fas fa-plus"></i></button>
-                                   </div>
-                                   <div *ngIf="submitted && f.bodyId.errors" class="invalid-feedback">
-                                       <div *ngIf="f.bodyId.errors.required">Body Member is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                          
-                       </div>
-                       <div class="mb-3 chartbox" *ngIf="this.bodyMember.value.bodyId">
-                           <div class="card">
-                               <div class="card-header pb-0">Member Details</div>
-                               <div class="card-body pt-0">
-                                   <label class="form-label mb-0">Email ID</label>
-                                   <div class="form-control-plaintext py-0">
-                                       {{bodyMemberDetails?.Emailid}}</div>
-                                   <label class="form-label mb-0">Contact No.</label>
-                                   <div class="form-control-plaintext py-0">
-                                       {{bodyMemberDetails?.MobileNo}}</div>
+<!-- Modal for Add/Update/Delete Member for any Designation -->
+<div class="modal fade" id="AddMemberModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddMemberModalLabel" aria-hidden="true" *ngIf="selCommitteeName">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form [formGroup]="bodyMember">
+                <div class="modal-header">
+                    <p class="modal-title" id="AddMemberModalLabel">{{addMemberFlag}} Member</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #closeAddMemberModal
+                        aria-label="Close" (click)="closeModelAddEditMember()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-container">
+                        <div class="mb-2">
+                            <label for="txtBodyName" class="form-label">Committee Name</label>
+                            <input type="text" class="form-control" readonly formControlName="BodyName" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6" *ngIf="bodyMember.value.prevMember">
+                                <div class="mb-2">
+                                    <label for="txtBodyName" class="form-label">Current Member Name</label>
+                                    <input type="text" class="form-control" readonly formControlName="prevMember" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <label for="txtBodyName" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" readonly
+                                        formControlName="currentDesignation" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="mb-2">
+                                    <label for="txtMemberName" class="form-label required-field">Search Mobile
+                                        Number</label>
+                                    <div class="input-group">
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" formControlName="mobileNo"
+                                                    [maxlength]="10" placeholder="Search MobileNo..."
+                                                    (keyup)="filterByMember()" (keypress)="acceptedOnlyNumbers($event)"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }"
+                                                    style="width: 85%;" />
+                                            </div>
+                                        </div>
+                                        <button (click)="addNewMember('Add',0,bodyMember.value.mobileNo)"
+                                            class="rounded btn btn-sm btn-light ms-1 ng-star-inserted"><i
+                                                class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.mobileNo.errors.required">Mobile Number is required </div>
+                                        <div *ngIf="f.mobileNo.errors.pattern">Valid Mobile Number is required </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                   <label class="form-label mb-0">Location</label>
-                                   <div class="form-control-plaintext py-0"
-                                       *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
-                                       {{bodyMemberDetails?.DistrictName}}<span
-                                           *ngIf="bodyMemberDetails?.TalukaName">,</span>{{bodyMemberDetails?.TalukaName}}<span
-                                           *ngIf="bodyMemberDetails?.VillageName">,</span>{{bodyMemberDetails?.VillageName}}
-                                   </div>
-                                   <ng-template #otherContent>
-                                       <div class="form-control-plaintext py-0">-</div>
-                                   </ng-template>
+                        <div class="mb-3 chartbox" *ngIf="hideMemberDetailsField">
+                            <div class="card" *ngIf="bodyMemberDetails?.length != 0">
+                                <div class="card-header pb-0">Member Details</div>
+                                <div class="card-body pt-0">
+                                    <label class="form-label mb-0">Email ID</label>
+                                    <div class="form-control-plaintext py-0">
+                                        {{bodyMemberDetails?.Emailid}}</div>
+                                    <label class="form-label mb-0">Contact No.</label>
+                                    <div class="form-control-plaintext py-0">
+                                        {{bodyMemberDetails?.MobileNo}}</div>
 
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
-                       Member</button>
-               </div>
-           </form>
-       </div>
-   </div>
+                                    <label class="form-label mb-0">Location</label>
+                                    <div class="form-control-plaintext py-0"
+                                        *ngIf="(bodyMemberDetails?.DistrictName || bodyMemberDetails?.TalukaName || bodyMemberDetails?.VillageName) ; else otherContent">
+                                        {{bodyMemberDetails?.DistrictName}}<span
+                                            *ngIf="bodyMemberDetails?.TalukaName">,</span>{{bodyMemberDetails?.TalukaName}}<span
+                                            *ngIf="bodyMemberDetails?.VillageName">,</span>{{bodyMemberDetails?.VillageName}}
+                                    </div>
+                                    <ng-template #otherContent>
+                                        <div class="form-control-plaintext py-0">-</div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-end" *ngIf="bodyMemberDetails?.length == 0">
+                                <div class="alert alert-danger text-center py-2">No Data Found..!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-main" (click)="onSubmit()">Assign
+                        Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

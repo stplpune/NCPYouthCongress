@@ -65,7 +65,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   hideComityGraph : boolean = false;
   bodyMember!:FormGroup;
   addMemberFlag: any;
-  resAllMember: any;
   bodyMemberDetails: any;
   mobileNoValue: any;
   submitted: boolean = false;
@@ -81,6 +80,12 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   subCommitteeName: any;
   commiteeObj:any;
   globalbodylevel:any;
+
+  subject1: Subject<any> = new Subject();
+  searchFilter1 = "";
+  hideMemberDetailsField : boolean = false;
+  UserIdForRegMobileNo = '';
+  committeeNameBOMember: any;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,
     private spinner: NgxSpinnerService, private router: Router, private fb: FormBuilder, public datePipe: DatePipe,
@@ -103,6 +108,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.DistrictId ? this.getOrganizationByDistrictId(this.DistrictId) : this.getOrganizationByDistrictId(0);
     this.searchFilterByCommittee('false');
     !this.allLevels ? this.getLevel() : '';
+     this.searchFilterMember();
   }
 
   selDistrictName() {
@@ -294,6 +300,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   committeeNameByOrganizationMember(bodyId: any, committeeName: any) {
     this.defaultBodyMemForm(committeeName);
+    this.committeeNameBOMember =  committeeName;
     this.spinner.show();
     this.globalBodyId = bodyId;
     this.activeRow = bodyId
@@ -396,22 +403,13 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   searchFilterByCommittee(flag: any) {
-    if (flag == 'true') {
-      if (this.Search.value == "" || this.Search.value == null) {
-        this.toastrService.error("Please search and try again");
-        return
-      }
-    }
     this.subject
       .pipe(debounceTime(700))
       .subscribe(() => {
         this.searchFilter = this.Search.value;
         this.activeRow = null;
-        //this.selDistrictName(); 
         this.hideComityGraph= false;
         this.getOrganizationByDistrictId(this.selectedDistrictId);
-        //this.districtWiseCommityWorkGraph(this.selectedDistrictId); 10/ 01/ 22
-      // this.resultOrganizationMember = [];
       this.defaultMembersFlag = false;
       });
   }
@@ -693,7 +691,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.router.navigate(['../../../500'], { relativeTo: this.route });
       }
     })
-
   }
 
   addEditMember(data: any, flag: any) {
@@ -706,7 +703,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       this.toastrService.error("Please select member and try again");
     }
     else {
-      this.dataAddEditMember = data
+      this.dataAddEditMember = data;
       this.addEditMemberModal('open');
     }
   }
@@ -717,7 +714,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     this.bodyMember = this.fb.group({
       PostfromDate: [''],
       BodyName: [selCommitteeName, Validators.required],
-      bodyId: ['', Validators.required],
+      mobileNo: ['', Validators.required],
       prevMember: [''],
       currentDesignation: [''],
     })
@@ -725,37 +722,19 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
 
   get f() { return this.bodyMember.controls };
 
-  getAllBodyMember() {
+  getAllBodyMemberDetail() {
     this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetAllMember_1_0', false, false, false, 'ncpServiceForWeb');
-    this.callAPIService.getHttp().subscribe((res: any) => {
-      if (res.data == 0) {
-        this.spinner.hide();
-        this.resAllMember = res.data1;
-      } else {
-        this.resAllMember = [];
-        // this.toastrService.error("Body member is not available");
-      }
-    }, (error: any) => {
-      if (error.status == 500) {
-        this.router.navigate(['../../../500'], { relativeTo: this.route });
-      }
-    })
-  }
-  
-  getMemberValue(event:any){
-    this.mobileNoValue = event.target.value;
-  }
-
-  getBodyMemberDetails(id: any) {
-    this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetMemberDetails_1_0?MemberId=' + id, false, false, false, 'ncpServiceForWeb');
+    this.callAPIService.setHttp('get', 'Mob_GetMemberDetails_With_MobileNo_1_0?MobileNo=' + this.searchFilter1, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.spinner.hide();
         this.bodyMemberDetails = res.data1[0];
+        this.UserIdForRegMobileNo = this.bodyMemberDetails?.UserId;
+        this.hideMemberDetailsField = true;
       } else {
-        //this.toastrService.error("Data is not available");
+        this.spinner.hide();
+        this.bodyMemberDetails = [];
+        this.hideMemberDetailsField = true;
       }
     }, (error: any) => {
       if (error.status == 500) {
@@ -763,10 +742,45 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       }
     })
   }
-  
-  addNewMember(flag: any, id: any, MobileFieldId:any) {
+
+  filterByMember() {
+    this.subject1.next();
+  }
+
+  searchFilterMember() {
+    this.subject1
+      .pipe(debounceTime(700))
+      .subscribe(() => {
+         if(this.bodyMember.value.mobileNo.length == 10 && !this.bodyMember.invalid){
+          this.searchFilter1 = this.bodyMember.value.mobileNo;
+          this.getAllBodyMemberDetail();
+         }else{
+            this.bodyMemberDetails = [];
+         }
+      });
+  }
+
+  closeModelAddEditMember(){
+    this.defaultBodyMemForm(this.committeeNameBOMember);
+    this.bodyMemberDetails = [];
+    this.hideMemberDetailsField = false;
+    this.submitted = false;
+  }
+
+  acceptedOnlyNumbers(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+
+  addNewMember(flag: any, id: any,mobileNo:any) {
+    this.mobileNoValue = mobileNo;
     if(this.mobileNoValue){
       const isNumeric:any = (val: string) : boolean => { return !isNaN(Number(val))}
+
       if(this.mobileNoValue.length != 10 || (isNumeric(this.mobileNoValue) != true)){
         this.toastrService.error('Invalid Mobile No.');
         this.mobileNoValue = '';
@@ -784,7 +798,6 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
         this.getCurrentDesignatedMembers(this.dataAddEditMember.BodyId);
-        this.getAllBodyMember();
         this.committeeNameByOrganizationMember(this.dataAddEditMember.BodyId, this.selCommitteeName); 
       }
       // this.addEditMemberModal('open');
@@ -838,6 +851,9 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
       if (this.bodyMember.invalid) {
         this.spinner.hide();
         return;
+      } else if(this.bodyMemberDetails?.MobileNo !=  this.bodyMember.value.mobileNo){
+        this.toastrService.error("Please Add Member......!!!");
+        return;
       }
       else {
 
@@ -847,7 +863,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         fromData.append('UserPostBodyId', UserPostBodyId);
         fromData.append('BodyId', this.dataAddEditMember.BodyId);
         fromData.append('DesignationId', this.dataAddEditMember.DesignationId);
-        fromData.append('UserId', this.bodyMember.value.bodyId);
+        fromData.append('UserId', this.UserIdForRegMobileNo);
         fromData.append('IsMultiple', this.dataAddEditMember.IsMultiple);
         fromData.append('CreatedBy', this.commonService.loggedInUserId());
         fromData.append('PostfromDate', postFromDate);
