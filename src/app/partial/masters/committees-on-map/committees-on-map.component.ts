@@ -871,6 +871,7 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
         this.callAPIService.setHttp('Post', 'Web_Insert_AssignMember_1_0', false, fromData, false, 'ncpServiceForWeb');
         this.callAPIService.getHttp().subscribe((res: any) => {
           if (res.data == 0) {
+           
             this.getCurrentDesignatedMembers(this.bodyId);
             this.committeeNameByOrganizationMember(this.dataAddEditMember.BodyId, this.bodyMember.value.BodyName)
             this.submitted = false;
@@ -881,7 +882,8 @@ export class CommitteesOnMapComponent implements OnInit, OnDestroy, AfterViewIni
             this.toastrService.success(this.resultBodyMemActDetails.Msg);
             this.bodyMember.reset({ BodyName: this.subCommitteeName });
             this.getBodyMemeberGraph(this.bodyId);
-            this.addMemberFlag = null
+            this.addMemberFlag = null;
+            this.getOrganizationByDistrictId(this.selectedDistrictId ? this.selectedDistrictId: 0);
           } else {
             // this.toastrService.error("Member is not available");
           }

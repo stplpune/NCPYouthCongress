@@ -171,23 +171,25 @@
                                                     <!-- <div class="col-sm-2">
                                                         <h6 class="mb-0"><span class="badge rounded-pill bg-light text-dark">{{res?.Category}}</span></h6>
                                                     </div> -->
-                                                    <div class="col-sm-12 p-2">
+                                                    <div class="col-sm-12 px-2 pt-2">
                                                         <div class="mb-0">
                                                             <!-- <span class="float-end" *ngFor="let img of programGalleryImg; index as i">
                                                                 *ngIf="i<4"
                                                              <img class="img-fluid img-thumbnail" [lightbox]="i" [src]="img?.data?.thumb" />
                                                             </span> -->
-
-                                                            <div *ngIf="res?.ImagePath ; else elseBlock">
-                                                                <span class="float-end"><img [src]="res?.ImagePath.split(',')[0]" class="desc-image"> </span>
+                                                            <p class="print-desc mb-2">
+                                                                {{res?.Description}}
+                                                            </p>
+                                                            <div *ngIf="res?.ImagePath ; else elseBlock" class="d-lg-flex align-items-start">
+                                                                <ng-container *ngFor="let test of res?.ImagePath.split(',')" >
+                                                                <span class="float-end__"><img [src]="test" class="desc-image img-thumbnail"> </span>
+                                                            </ng-container>
                                                             </div>
                                                             <ng-template #elseBlock>
                                                                 <span class="float-end"><img src="assets/images/dashboard-images/ncp-default.png" class="desc-image"></span>
                                                             </ng-template>
 
-                                                            <p class="print-desc">
-                                                                {{res?.Description}}
-                                                            </p>
+                                                            
 
                                                         </div>
                                                     </div>

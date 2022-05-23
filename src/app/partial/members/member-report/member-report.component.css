@@ -25,9 +25,10 @@
 }
 
 .desc-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    width: 180px;
+    height: auto;
+   max-height: 300px;
+    /* object-fit: cover;  */
     border-radius: 5px;
     margin: 5px;
 }
@@ -40,4 +41,31 @@
 .print-desc {
     font-size: 0.85rem;
     margin-bottom: 0;
+}
+
+@media print {
+ 
+    .desc-image {
+        width: 180px;
+        height:auto;
+        max-height: 220px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        display: inline-block;
+        
+        /* margin: 5px; */
+        /* clear: both;
+        position: relative;
+        display: block; */
+    }
+    .chartbox .card{
+        padding-bottom: 25px;
+        /* position: relative; */
+         margin-bottom: 25px!important; 
+    }
+    .d-lg-flex.align-items-start{
+        display: flex;
+        align-items:start!important;
+    }
+   
 }
