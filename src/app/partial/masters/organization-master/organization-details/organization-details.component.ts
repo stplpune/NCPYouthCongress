@@ -665,7 +665,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
    
     this.addEditMemberModal('close');
-    let obj = { "formStatus": flag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
+    let obj = { "formStatus": this.addMemberFlag, 'Id': id, 'CommitteeName': this.bodyId, 'Designation': this.dataAddEditMember.DesignationId, 'userpostbodyId': this.userPostBodyId };
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
       data: obj
