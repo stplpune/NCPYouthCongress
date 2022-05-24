@@ -95,7 +95,6 @@ export class AddMemberComponent implements OnInit, OnDestroy {
   disableCommitee:boolean = false;
 
   ngOnInit(): void {
-    debugger;
     this.data ? this.disableCommitee = true : this.disableCommitee = false ;
     // this.router.url.includes('mobile-login')
     this.profileFlag = this.data.formStatus;
@@ -142,7 +141,6 @@ export class AddMemberComponent implements OnInit, OnDestroy {
   }
 
   profileFormPathValue(data: any) {
-    debugger;
     this.editFlag = true;
     this.editMemObj = data;
     this.profileFlag = 'Update';
@@ -288,7 +286,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       let FullName = this.editProfileForm.value.FName + " " + this.editProfileForm.value.MName + " " + this.editProfileForm.value.LName;
       this.editProfileForm.value.Name = FullName;
       this.editProfileForm.value.PostfromDate = this.datePipe.transform(this.editProfileForm.value.PostfromDate, 'dd/MM/YYYY');;
-      this.data.userpostbodyId == "" ||  this.data.userpostbodyId == 0 ? this.editProfileForm.value.UserPostBodyId = 0 : this.editProfileForm.value.UserPostBodyId =this.data.userpostbodyId;
+      this.data.userpostbodyId == "" ||  this.data.userpostbodyId == 0 || this.data.formStatus == 'Add' ? this.editProfileForm.value.UserPostBodyId = 0 : this.editProfileForm.value.UserPostBodyId =this.data.userpostbodyId;
       Object.keys(this.editProfileForm.value).forEach((cr: any, ind: any) => {
         let value: any = Object.values(this.editProfileForm.value)[ind] != null ? Object.values(this.editProfileForm.value)[ind] : 0;
         fromData.append(cr, value)
@@ -486,7 +484,6 @@ export class AddMemberComponent implements OnInit, OnDestroy {
       if (res.data == 0) {
         this.spinner.hide();
         this.resCommittees = res.data1;
-        debugger;
         if (this.editFlag) {
           this.editMemObj.BodyId ? (this.editProfileForm.controls['BodyId'].setValue(this.editMemObj.BodyId), this.getCurrentDesignatedMembers(this.editProfileForm.value.BodyId)) : '';
         }

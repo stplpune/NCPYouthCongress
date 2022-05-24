@@ -518,7 +518,6 @@ export class OrganizationMasterComponent implements OnInit {
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        debugger
         this.resultVillageOrCity = res.data1;
         if (this.btnText == "Update Committee") { // edit
           let VillageId: any;
