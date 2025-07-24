@@ -14,9 +14,9 @@ export class CallAPIService {
   getBaseurl(url: string) {
     switch (url) {
       //live server base url 
-      //case 'ncpServiceForWeb': return 'http://ncpwebservice.ncpyouths.com/Service.asmx/'; break;
+      case 'ncpServiceForWeb': return 'http://ncpwebservice.ncpyouths.com/Service.asmx/'; break;
       //development server base url 
-      case 'ncpServiceForWeb': return 'http://ncpserviceweb.eanifarm.com/Service.asmx/'; break;
+      // case 'ncpServiceForWeb': return 'http://ncpserviceweb.eanifarm.com/Service.asmx/'; break;
       default: return ''; break;
     }
   }

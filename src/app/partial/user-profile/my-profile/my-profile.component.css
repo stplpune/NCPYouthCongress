@@ -34,7 +34,7 @@
     object-fit: cover;
 }
 .profile-photo{
-    object-fit: cover;
+    object-fit: contain;
     height:204px;
     width: 204px;
     object-position: center;
