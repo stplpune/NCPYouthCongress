@@ -243,6 +243,8 @@ export class DashboardComponent implements OnInit {
   
     // Create value axis
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.maxPrecision = 0;  
     valueAxis.renderer.inversed = false;
     valueAxis.title.text = "Work In This Week Dated Count";
     valueAxis.renderer.minLabelPosition = 0.01;
