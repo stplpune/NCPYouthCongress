@@ -59,6 +59,7 @@ const routes: Routes = [
   ]
   },
   { path: '500', component: ServerErrorComponent },
+  { path: 'news', loadChildren: () => import('./partial/news/news.module').then(m => m.NewsModule) },
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
