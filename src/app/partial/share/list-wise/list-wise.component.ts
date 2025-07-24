@@ -128,4 +128,11 @@ export class ListWiseComponent implements OnInit {
     })
   }
 
+  redToMemberProfile(memberId:any) {
+    let obj = { 'memberId': memberId}
+    sessionStorage.setItem('memberId', JSON.stringify(obj));
+    this.router.navigate(['../profile'], { relativeTo: this.route })
+  }
+
+
 }

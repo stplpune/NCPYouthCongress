@@ -69,7 +69,7 @@
                         </div>
                         </div>
                     </div>
-                    <h6 class="member-name">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName}}</h6>
+                    <h6 class="member-name text-primary" style="cursor: pointer;" (click)="redToMemberProfile(dashboardActivities.Createdby)">{{dashboardActivities?.UserFName}} {{dashboardActivities?.UserMName | titlecase}} {{dashboardActivities?.UserLName}}</h6>
                     <p class="mb-1 small text-muted">{{dashboardActivities?.Designation}}</p>
                     <div class="post-details">
                         <p class="post-title">{{dashboardActivities?.Title | titlecase}}</p>
