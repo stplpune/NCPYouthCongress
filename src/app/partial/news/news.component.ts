@@ -14,7 +14,7 @@ import { DeleteComponent } from '../dialogs/delete/delete.component';
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
-  styleUrls: ['./news.component.css']
+  styleUrls: ['./news.component.css', '../partial.component.css']
 })
 export class NewsComponent implements OnInit {
 
