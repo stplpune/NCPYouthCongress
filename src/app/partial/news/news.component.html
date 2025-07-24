@@ -210,7 +210,30 @@
                                 </div>
   </li>
 </ul> -->
-                        <div class="d-flex media" *ngFor="let getnews of getnewsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                       
+ <form [formGroup]="filterForm">
+                            <div class="row g-1 mb-2 border-bottom pb-2">
+                                <div class="offset-sm-4 col-sm-4">
+                                    <div class="input-group">
+                                        <input [owlDateTime]="dt3" placeholder="From To Date">
+                                        <button class="btn btn-light border btn-sm" type="button" [owlDateTimeTrigger]="dt3">
+                                            <i class="fas fa-calendar-alt"></i></button>
+                                        <button class="btn btn-light border btn-sm" type="button" >
+                                            <i class="fas fa-times"></i></button>
+                                    </div>
+                                    <owl-date-time #dt3 [pickerType]="'calendar'"></owl-date-time>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" formControlName="searchText" placeholder="Search..." />
+                                        <button type="button" class="btn btn-light border btn-sm"><i
+                                                _ngcontent-tbl-c102="" class="fas fa-times"></i></button>
+                                        <button type="button" class="btn btn-sm border btn-light"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+<div class="d-flex media" *ngFor="let getnews of getnewsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <div class="flex-shrink-0">
                                 <img *ngIf="getnews?.NewsImages else noImg" src="{{getnews?.NewsImages}}" alt="..." class="media-img">
                                 <ng-template #noImg>
