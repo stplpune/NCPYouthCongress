@@ -48,6 +48,7 @@ const routes: Routes = [
       { path: 'activity-analysis', loadChildren: () => import('./partial/activity-analysis/activity-analysis.module').then(m => m.ActivityAnalysisModule), data: { title: 'Activity Analysis', allowedRoles: ['1', '2', '5'] } },
       { path: 'forward-activity-tracker', loadChildren: () => import('./partial/forward-activity-tracker/forward-activity-tracker.module').then(m => m.ForwardActivityTrackerModule), data: { title: 'Forward Activity Tracker', allowedRoles: ['1', '2', '5'] } },
       { path: 'forward-activities', loadChildren: () => import('./partial/forward-activities/forward-activities.module').then(m => m.ForwardActivitiesModule), data: { title: 'Forward Activities', allowedRoles: ['1', '2'] } },
+      { path: 'news', loadChildren: () => import('./partial/news/news.module').then(m => m.NewsModule), data: { title: 'Forward Activities', allowedRoles: ['1', '2'] } },
       { path: 'social-media/person-profile', loadChildren: () => import('./partial/social-media-person/social-media-person.module').then(m => m.SocialMediaPersonModule), data: { title: 'Social Media Person Profile', allowedRoles: ['1', '2', '5'] } },
       { path: 'feedbacks', loadChildren: () => import('./partial/feedbacks/feedbacks.module').then(m => m.FeedbacksModule), data: { title: 'Feedbacks', allowedRoles: ['1', '2', '5'] } },
       { path: 'notifications', loadChildren: () => import('./partial/notifications/notifications.module').then(m => m.NotificationsModule), data: { title: 'Notifications', allowedRoles: ['1', '2'] } },
@@ -59,7 +60,7 @@ const routes: Routes = [
   ]
   },
   { path: '500', component: ServerErrorComponent },
-  { path: 'news', loadChildren: () => import('./partial/news/news.module').then(m => m.NewsModule) },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
