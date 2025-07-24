@@ -44,6 +44,7 @@ export class NewsComponent implements OnInit {
   selectedFile: any;
   NewsId: any;
   IsChangeImage:boolean = false;
+  editFlag: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;   
 
   constructor(
@@ -72,8 +73,9 @@ export class NewsComponent implements OnInit {
       Id: [0],
       CreatedBy:[this.commonService.loggedInUserId()],
       activityTitle: ['', Validators.required],
-      activityBody: ['', Validators.required],
-      hashtags_Activity: [''],
+      activityBody: [''],
+      // activityBody: ['', Validators.required],
+      hashtags_Activity: ['', Validators.required],
       IsChangeImage: [0],
       NewsType:[''],
     })
@@ -122,7 +124,7 @@ export class NewsComponent implements OnInit {
         }
       }
       this.forwardActivitiForm.value.Id == null ? this.forwardActivitiForm.value.Id = 0 : this.forwardActivitiForm.value.Id;
-      
+ 
       fromData.append('Id', this.forwardActivitiForm.value.Id);
       fromData.append('CreatedBy', this.commonService.loggedInUserId());
       fromData.append('Title', getObj.activityTitle);
@@ -131,7 +133,6 @@ export class NewsComponent implements OnInit {
       fromData.append('NewsType', NewsTypeFlag);  //img + text = 3, & only text = 1 
       fromData.append('IsChangeImage', imageChangeFlag);
       fromData.append('NewsImages ', this.selectedFile);
-  
       this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
@@ -183,7 +184,7 @@ export class NewsComponent implements OnInit {
   deleteImg(){
     this.selectedFile = "";
     this.getImgPath = "";
-    this.fileInput.nativeElement.value = '';
+    // this.fileInput.nativeElement.value = '';
     this.IsChangeImage = true;
   }
   
@@ -338,6 +339,7 @@ export class NewsComponent implements OnInit {
     clickInputFile?.click();
   }
 
-  
-
+  openLink(url: string){
+    window.open(url, "_blank");
+  }
 }
