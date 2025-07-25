@@ -213,9 +213,11 @@ h6.sub-head {
 #exe-members .card {
     transition: all .25s ease-in;
     border-radius: 10px;
-    padding-bottom: 20px;
     border-bottom: solid 4px #eee;
     /* box-shadow: 0 8px 16px 0 rgb(60 110 203 / 10); */
+}
+#exe-members .card .card-footer{
+ background-color: transparent;
 }
 
 #exe-members .card .card-img-top {
