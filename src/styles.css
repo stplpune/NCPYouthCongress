@@ -80,9 +80,10 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     color: blueviolet !important;
 }
 
+.btn-main-light:hover,
 .btn-main {
-    background-color: var(--main-color);
-    color: #fff;
+    background-color: var(--main-color) !important;
+    color: #fff !important;
     font-size: 0.85rem;
 }
 
@@ -90,6 +91,14 @@ ngx-select.ng-untouched.ng-pristine.ng-invalid.is-invalid .ngx-select__toggle {
     background-color: var(--main-color);
     color: #fff;
 }
+
+.btn-main-light{
+    background-color:#eaeeff !important;
+    color: var(--main-color) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
 
 .form-group {
     position: relative;
@@ -514,6 +523,20 @@ owl-date-time-timer.owl-dt-container-row.ng-tns-c96-1.owl-dt-timer.ng-star-inser
     padding: 0;
     object-fit: cover;
     object-position: top;
+}
+.table-height-sm {
+  height: 450px; /* Small table height */
+  overflow-y: auto;
+}
+
+.table-height-md {
+  height: 600px; /* Medium table height */
+  overflow-y: auto;
+}
+
+.table-height-lg {
+  height: 800px; /* Large table height */
+  overflow-y: auto;
 }
 
 .replay {

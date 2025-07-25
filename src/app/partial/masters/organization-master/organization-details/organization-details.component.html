@@ -327,7 +327,7 @@
         </div>
 
         <div class="col-sm-8">
-            <div class="d-none d-lg-block d-sm-none">
+            <div class="d-none d-lg-block d-sm-none" >
                 <div class="card mb-3 " role="alert">
                     <div class="card-header row">
                         <div class="col-sm-9">
@@ -383,15 +383,15 @@
                     </div>
                 </div>
                 <!-- Current Designated Members -->
-                <div class="card mb-3">
-                    <div class="card-header pb-0">
+                <div class="card mb-3" >
+                    <div class="card-header " >
                         Current Designated Members
                         <span class="float-end">
                             <button title="Add Designation" class="rounded btn btn-sm btn-main   mx-1 ng-star-inserted"
                                 (click)="addDesignated()"><small>Add Designation</small></button>
                         </span>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="karyakarni-list">
                         <div class="table-responsive">
                             <div class="card card-body shadow-none border py-2 px-3 mb-2 mem-list"
                                 *ngFor="let designatedMembers of allDesignatedMembers">
@@ -579,6 +579,9 @@
             </div> -->
 
             <!-- Individual Members Progress -->
+            
+        </div>
+        <div class="col-sm-12">
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="row">

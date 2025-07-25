@@ -31,7 +31,7 @@ export class NewsComponent implements OnInit {
   getnewsArray: any;
   total: any;
   paginationNo: number = 1;
-  pageSize: number = 10;
+  pageSize: number =5;
   defaultCloseBtn:boolean = false;
   subject: Subject<any> = new Subject();
   searchFilter = "";

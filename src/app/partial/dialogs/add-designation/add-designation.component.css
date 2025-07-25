@@ -19,3 +19,14 @@
 .modal-dialog.m-width {
     font-size: .85rem;
 }
+/* .chartbox .table-height {
+    max-height: 500vh !important;
+    overflow-y: auto !important;
+}
+
+.chartbox .table-height thead {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: -1px;
+    z-index: 9;
+} */
