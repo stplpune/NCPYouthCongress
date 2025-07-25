@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { Router, NavigationEnd, ActivatedRoute, NavigationStart } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConnectionService } from 'ng-connection-service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,11 @@ export class AppComponent {
         this.titleService.setTitle(data.title)
       })
     })
+     if (environment.production) { // redirect
+      if (location.protocol === 'http:') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    } 
   }
 
   getChild(activatedRoute: ActivatedRoute): any {
