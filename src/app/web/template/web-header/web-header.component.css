@@ -8,7 +8,7 @@ header #topbar{
     padding:8px 0;
 }
 
-header #topbar a{
+header #topbar .email{
     color: var(--main-color);
     text-decoration: none;
 }

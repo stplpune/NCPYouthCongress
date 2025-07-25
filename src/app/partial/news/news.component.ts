@@ -14,7 +14,7 @@ import { DeleteComponent } from '../dialogs/delete/delete.component';
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
-  styleUrls: ['./news.component.css']
+  styleUrls: ['./news.component.css', '../partial.component.css']
 })
 export class NewsComponent implements OnInit {
 
@@ -37,7 +37,7 @@ export class NewsComponent implements OnInit {
   searchFilter = "";
   getImgPath:any;
   globalMemberId:any[]= [];
-  NotificationText:string =  "Push";
+  NotificationText:string =  "Add";
   imgName: any;
   ImgUrl: any;
   getImgExt: any;
@@ -135,13 +135,13 @@ export class NewsComponent implements OnInit {
       fromData.append('NewsImages ', this.selectedFile);
       this.callAPIService.setHttp('post', 'Insert_News_Web_1_0', false, fromData, false, 'ncpServiceForWeb');
       this.callAPIService.getHttp().subscribe((res: any) => {
-        if (res.data == 0) {
+        if (res.data == 2) {
           this.submitted = false;
           this.deleteImg();
-          this.resetNotificationForm();
           this.IsChangeImage = false;
           this.spinner.hide();
-          this.toastrService.success(res.data1[0].Msg);
+          this.toastrService.success(`News ${this.NotificationText ==  "Add"? 'Added' : 'Updated'} Successfully`);
+          this.resetNotificationForm();
           this.getNewsData();
         } else {
           this.spinner.hide();
@@ -178,7 +178,7 @@ export class NewsComponent implements OnInit {
     this.paginationNo = 1;
     this.getImgPath = null;
     this.forwardActivitiForm.reset();
-    this.NotificationText =  "Push";
+    this.NotificationText =  "Add";
   }
 
   deleteImg(){
