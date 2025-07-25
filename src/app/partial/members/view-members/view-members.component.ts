@@ -64,11 +64,11 @@ export class ViewMembersComponent implements OnInit {
   }
 
   getDistrict() {
-    this.spinner.show();
+    // this.spinner.show();
     this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_HaveMemberFilter?StateId=' + 1+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.allDistrict = res.data1;
       } else {
         this.toastrService.error("Data is not available 2");
