@@ -27,7 +27,7 @@
 .desc-image {
     width: 180px;
     height: auto;
-   max-height: 300px;
+    max-height: 300px;
     /* object-fit: cover;  */
     border-radius: 5px;
     margin: 5px;
@@ -36,36 +36,41 @@
 .print-title {
     font-size: 0.95rem;
     color: var(--main-color);
+    line-height: 1.7rem;
+    margin-bottom: 0px;
 }
 
 .print-desc {
     font-size: 0.85rem;
     margin-bottom: 0;
+    line-height: 1.5rem;
 }
 
 @media print {
- 
+
     .desc-image {
         width: 180px;
-        height:auto;
+        height: auto;
         max-height: 220px;
         border-radius: 5px;
         margin-bottom: 15px;
         display: inline-block;
-        
+
         /* margin: 5px; */
         /* clear: both;
         position: relative;
         display: block; */
     }
-    .chartbox .card{
+
+    .chartbox .card {
         padding-bottom: 25px;
         /* position: relative; */
-         margin-bottom: 25px!important; 
+        margin-bottom: 25px !important;
     }
-    .d-lg-flex.align-items-start{
+
+    .d-lg-flex.align-items-start {
         display: flex;
-        align-items:start!important;
+        align-items: start !important;
     }
-   
+
 }

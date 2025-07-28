@@ -13,8 +13,9 @@
       text-align: center;
   }
   #PostDetailModal .carousel-item img{
-    height:92.5vh;
-    width:auto;
+ height: 80.5vh;
+    width: 100%;
+    object-fit: contain !important;
 }
 #PostDetailModal .carousel-control-prev,
 #PostDetailModal .carousel-control-next{
