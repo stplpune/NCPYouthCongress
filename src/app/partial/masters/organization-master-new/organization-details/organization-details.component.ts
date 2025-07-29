@@ -180,7 +180,7 @@ export class OrganizationDetailsComponent implements OnInit {
   subCommittess(bodyId: any) {
     if (this.subCommittessId == 0) {
       this.spinner.show();
-      this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId=' + this.commonService.loggedInUserId() + '&CommitteeId=' + bodyId, false, false, false, 'ncpServiceForWeb');
+      this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId=' + this.commonService.loggedInUserId() + '&CommitteeId=' + 3, false, false, false, 'ncpServiceForWeb'); //bodyId
       this.callAPIService.getHttp().subscribe((res: any) => {
         if (res.data == 0) {
           this.spinner.hide();

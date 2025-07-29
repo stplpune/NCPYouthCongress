@@ -73,15 +73,15 @@ export class OrganizationMasterComponent implements OnInit {
   editLevalFlag: any;
   deletebodyId!: number;
   heightedRow: any;
-  getSessionData:any;
-  getCommiteeDetails:any;
-  checkUserlevel:any;
-  resCommitteeByLevel:any;
-  result:any;
-  allDistrictByCommittee:any;
+  getSessionData: any;
+  getCommiteeDetails: any;
+  checkUserlevel: any;
+  resCommitteeByLevel: any;
+  result: any;
+  allDistrictByCommittee: any;
 
   constructor(private callAPIService: CallAPIService, private router: Router, private fb: FormBuilder,
-    private toastrService: ToastrService, private commonService: CommonService, public dialog: MatDialog,
+    private toastrService: ToastrService, public commonService: CommonService, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -96,7 +96,7 @@ export class OrganizationMasterComponent implements OnInit {
     this.getCommiteeDetails = this.commonService.getCommiteeInfo();
   }
 
-  initCommittees(){
+  initCommittees() {
     this.getState();
     this.getDistrict();
     this.getDesignation();
@@ -208,7 +208,7 @@ export class OrganizationMasterComponent implements OnInit {
       this.orgMasterForm.controls["VillageId"].setValidators(Validators.required);
       this.orgMasterForm.controls["VillageId"].setValue("");
       this.orgMasterForm.controls["SubParentCommitteeId"].setValue("");
-    }else if (flag == 'SubParentCommitteeId') {
+    } else if (flag == 'SubParentCommitteeId') {
       this.orgMasterForm.controls["SubParentCommitteeId"].setValidators(Validators.required);
       this.orgMasterForm.controls["SubParentCommitteeId"].setValue("");
     }
@@ -309,14 +309,14 @@ export class OrganizationMasterComponent implements OnInit {
 
   customForm() {
     this.orgMasterForm = this.fb.group({
-      BodyOrgCellName: ['', [Validators.required,Validators.maxLength(100)]],
+      BodyOrgCellName: ['', [Validators.required, Validators.maxLength(100)]],
       StateId: ['', Validators.required],
       DistrictId: [],
       TalukaId: [''],
       VillageId: [''],
       IsRural: [1],
       BodyLevelId: ['', Validators.required],
-      SubParentCommitteeId:[''],
+      SubParentCommitteeId: [''],
       CreatedBy: [this.commonService.loggedInUserId()],
     })
   }
@@ -336,12 +336,12 @@ export class OrganizationMasterComponent implements OnInit {
     this.searchFilter = "";
     this.getOrganizationList();
   }
-  
+
   getOrganizationList() {
     this.spinner.show();
     let filterData = this.filterForm.value;
     (filterData.AllotedDesignation == null || filterData.AllotedDesignation == "") ? filterData.AllotedDesignation = 0 : filterData.AllotedDesignation = filterData.AllotedDesignation
-    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation + '&LevelId=' + filterData.LevelId;
+    let data = '?UserId=' + this.commonService.loggedInUserId() + '&DistrictId=' + filterData.filterDistrict + '&Search=' + filterData.searchText + '&nopage=' + this.paginationNo + '&AllotedDesignation=' + filterData.AllotedDesignation + '&LevelId=' + 2; //filterData.LevelId
     this.callAPIService.setHttp('get', 'Web_GetOrganizationAssignedBody_1_0_Committee' + data, false, false, false, 'ncpServiceForWeb'); // old Web_GetOrganizationAssignedBody_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -354,6 +354,168 @@ export class OrganizationMasterComponent implements OnInit {
             ele.DesignationAssigned = DesigAss;
           }
         })
+
+        if (this.commonService.loggedInUserId() != 1) {
+          this.organizationRes = this.organizationRes.filter((ele: any) => ele.Id !== 358);
+        }
+
+        const updateMap: {
+          [id: number]: {
+            name: string;
+            photo: string;
+            designation: string;
+            mobileNo: string;
+          }
+        } = {
+          366: {
+            name: 'Rohini Khadase',
+            photo: 'assets/images/executive-members/rohini-khadase.png',
+            designation: 'अध्यक्ष',
+            mobileNo: '9876543210'
+          },
+          3: {
+            name: 'Mehboob Shaikh',
+            photo: 'assets/images/executive-members/Mehbub-Shaikh.png',
+            designation: 'अध्यक्ष',
+            mobileNo: '9123456780'
+          },
+          365: {
+            name: 'Sakshna Salgar',
+            photo: 'assets/images/executive-members/Sakshna-Salgar.png',
+            designation: 'अध्यक्ष',
+            mobileNo: '9988776655'
+          },
+          367: {
+            name: 'Sunil Gavhane',
+            photo: 'assets/images/executive-members/Sunil-Gavhane.png',
+            designation: 'अध्यक्ष',
+            mobileNo: '9090909090'
+          }
+        };
+
+        this.organizationRes.forEach((ele: any) => {
+          const update = updateMap[ele.Id];
+          if (update) {
+            ele.name = update.name;
+            ele.photo = update.photo;
+            ele.designation = update.designation;
+            ele.mobileNo = update.mobileNo;
+          }
+        });
+
+        if (this.commonService.loggedInUserId() != 1) {
+          this.organizationRes = [
+
+    {
+        "SrNo": 2,
+        "Id": 366,
+        "BodyOrgCellName": "Maharashtra Pradesh Mahila Karykarani ",
+        "bodylevel": 2,
+        "LevelName": "State",
+        "Area": "Maharashtra",
+        "StateName": "Maharashtra",
+        "districtName": "",
+        "TalukaName": "",
+        "VillageName": "",
+        "DesignationAssigned": [
+            "President - (अध्यक्ष)",
+            "Vice-President - (उपाध्यक्ष) ",
+            "General Secretary - (सरचिटणीस)",
+            "Secretary - (सचिव)",
+            "Member - (सदस्य)"
+        ],
+        "AllottedDesignation": 1,
+        "SubParentCommitteeId": 358,
+        "LevelSort": 1,
+        "name": "Rohini Khadase",
+        "photo": "assets/images/executive-members/rohini-khadase.png",
+        "designation": "अध्यक्ष",
+        "mobileNo": "9876543210"
+    },
+    {
+        "SrNo": 3,
+        "Id": 367,
+        "BodyOrgCellName": "Maharashtra Pradesh Vidhyarti  Karykarani",
+        "bodylevel": 2,
+        "LevelName": "State",
+        "Area": "Maharashtra",
+        "StateName": "Maharashtra",
+        "districtName": "",
+        "TalukaName": "",
+        "VillageName": "",
+        "DesignationAssigned": [
+            "President - (अध्यक्ष)",
+            "Vice-President - (उपाध्यक्ष) ",
+            "General Secretary - (सरचिटणीस)",
+            "Secretary - (सचिव)",
+            "Member - (सदस्य)"
+        ],
+        "AllottedDesignation": 1,
+        "SubParentCommitteeId": 358,
+        "LevelSort": 1,
+        "name": "Sunil Gavhane",
+        "photo": "assets/images/executive-members/Sunil-Gavhane.png",
+        "designation": "अध्यक्ष",
+        "mobileNo": "9090909090"
+    },
+    {
+        "SrNo": 4,
+        "Id": 3,
+        "BodyOrgCellName": "Maharashtra Pradesh Yuvak Karykarani",
+        "bodylevel": 2,
+        "LevelName": "State",
+        "Area": "Maharashtra",
+        "StateName": "Maharashtra",
+        "districtName": "",
+        "TalukaName": "",
+        "VillageName": "",
+        "DesignationAssigned": [
+            "President - (अध्यक्ष)",
+            "Acting President - (कार्याध्यक्ष) ",
+            "Vice-President - (उपाध्यक्ष) ",
+            "General Secretary - (सरचिटणीस)",
+            "Secretary - (सचिव)",
+            "Member - (सदस्य)"
+        ],
+        "AllottedDesignation": 107,
+        "SubParentCommitteeId": 3,
+        "LevelSort": 1,
+        "name": "Mehboob Shaikh",
+        "photo": "assets/images/executive-members/Mehbub-Shaikh.png",
+        "designation": "अध्यक्ष",
+        "mobileNo": "9123456780"
+    },
+    {
+        "SrNo": 5,
+        "Id": 365,
+        "BodyOrgCellName": "Maharashtra Pradesh Yuvati Karykarani ",
+        "bodylevel": 2,
+        "LevelName": "State",
+        "Area": "Maharashtra",
+        "StateName": "Maharashtra",
+        "districtName": "",
+        "TalukaName": "",
+        "VillageName": "",
+        "DesignationAssigned": [
+            "President - (अध्यक्ष)",
+            "Vice-President - (उपाध्यक्ष) ",
+            "General Secretary - (सरचिटणीस)",
+            "Secretary - (सचिव)",
+            "Member - (सदस्य)"
+        ],
+        "AllottedDesignation": 1,
+        "SubParentCommitteeId": 358,
+        "LevelSort": 1,
+        "name": "Sakshna Salgar",
+        "photo": "assets/images/executive-members/Sakshna-Salgar.png",
+        "designation": "अध्यक्ष",
+        "mobileNo": "9988776655"
+    }
+]
+        }
+
+        console.log(this.organizationRes);
+        
 
         this.total = res.data2[0].TotalCount;
       } else {
@@ -374,7 +536,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   getLevel() {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
+    this.callAPIService.setHttp('get', 'Web_GetLevel_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allLevels = res.data1;
@@ -391,16 +553,16 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
-  getCommitteeByLevel(bodyLevelId:any) {
+  getCommitteeByLevel(bodyLevelId: any) {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId='+this.commonService.loggedInUserId()+'&BodyLevelId='+bodyLevelId, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
+    this.callAPIService.setHttp('get', 'Web_GetBodyOrgCellName_1_0_Parent_Committee?UserId=' + this.commonService.loggedInUserId() + '&BodyLevelId=' + bodyLevelId, false, false, false, 'ncpServiceForWeb'); // old API Web_GetLevel_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.resCommitteeByLevel = res.data1;
         if (this.btnText == "Update Committee") { // edit for city
           this.orgMasterForm.controls["SubParentCommitteeId"].setValue(this.selEditOrganization.SubParentCommitteeId)
           this.getDistrict();
-        } 
+        }
         this.spinner.hide();
       } else {
         // this.toastrService.error("Data is not available 1");
@@ -415,7 +577,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   getState() {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetState_1_0_Committee?UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetState_1_0 
+    this.callAPIService.setHttp('get', 'Web_GetState_1_0_Committee?UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetState_1_0 
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allStates = res.data1;
@@ -438,7 +600,7 @@ export class OrganizationMasterComponent implements OnInit {
   }
   getDistrict() {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_Committee?StateId=' + 1 +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_Committee?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allDistrict = res.data1;
@@ -463,7 +625,7 @@ export class OrganizationMasterComponent implements OnInit {
 
   getDistrictByCommittee() {
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 +'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
+    this.callAPIService.setHttp('get', 'Web_GetDistrict_1_0_CommitteeonMap?StateId=' + 1 + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); // old API Web_GetDistrict_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.allDistrictByCommittee = res.data1;
@@ -483,7 +645,7 @@ export class OrganizationMasterComponent implements OnInit {
   getTaluka(districtId: any) {
     this.globalDistrictId = districtId;
     //this.spinner.show();
-    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0_Committee?DistrictId=' + districtId+'&UserId='+this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API Web_GetTaluka_1_0
+    this.callAPIService.setHttp('get', 'Web_GetTaluka_1_0_Committee?DistrictId=' + districtId + '&UserId=' + this.commonService.loggedInUserId(), false, false, false, 'ncpServiceForWeb'); //old API Web_GetTaluka_1_0
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
         this.getTalkaByDistrict = res.data1;
@@ -514,7 +676,7 @@ export class OrganizationMasterComponent implements OnInit {
   getVillageOrCity(talukaID: any, selType: any) {
     //this.spinner.show();
     let appendString = "";
-    selType == 'Village/Town' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID+'&UserId='+this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId+'&UserId='+this.commonService.loggedInUserId(); //Web_GetVillage_1_0
+    selType == 'Village/Town' ? appendString = 'Web_GetVillage_1_0_Committee?talukaid=' + talukaID + '&UserId=' + this.commonService.loggedInUserId() : appendString = 'Web_GetCity_1_0_Committee?DistrictId=' + this.globalDistrictId + '&UserId=' + this.commonService.loggedInUserId(); //Web_GetVillage_1_0
     this.callAPIService.setHttp('get', appendString, false, false, false, 'ncpServiceForWeb');
     this.callAPIService.getHttp().subscribe((res: any) => {
       if (res.data == 0) {
@@ -680,7 +842,7 @@ export class OrganizationMasterComponent implements OnInit {
   AddDesignation(BodyOrgCellName: any, bodyId: any) {
     const dialogRef = this.dialog.open(AddDesignationComponent, {
       width: '1024px',
-      data: {committeeName:BodyOrgCellName,committeeId:bodyId}
+      data: { committeeName: BodyOrgCellName, committeeId: bodyId }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes' || result == 'No') {
@@ -795,7 +957,7 @@ export class OrganizationMasterComponent implements OnInit {
     // if (officeBearers == "" || officeBearers == null) {
     //   this.toastrService.error("Data not found..");
     // } else {
-    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName,bodylevelId: bodylevelId}
+    let obj = { bodyId: bodyId, BodyOrgCellName: BodyOrgCellName, bodylevelId: bodylevelId }
     sessionStorage.setItem('bodyId', JSON.stringify(obj))
     this.router.navigate(['details'], { relativeTo: this.route })
     //}
@@ -936,22 +1098,22 @@ export class OrganizationMasterComponent implements OnInit {
     })
   }
 
-  redTocommitteesOnMap(){
-    let DistrictId:any;
-    if(this.allDistrict?.length == 1){
-      DistrictId =  this.allDistrict[0].DistrictId;
-    } else{
+  redTocommitteesOnMap() {
+    let DistrictId: any;
+    if (this.allDistrict?.length == 1) {
+      DistrictId = this.allDistrict[0].DistrictId;
+    } else {
       DistrictId = 0;
     }
-    this.router.navigate(['../committees-on-map'], {relativeTo:this.route});
+    this.router.navigate(['../committees-on-map'], { relativeTo: this.route });
     sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
- 
+
   }
 
-  addMember(){
+  addMember() {
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '1024px',
-      data:this.result
+      data: this.result
     });
   }
 
