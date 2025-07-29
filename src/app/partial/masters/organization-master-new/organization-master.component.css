@@ -111,6 +111,29 @@
       object-fit: cover;
     }
 
+.main-card .details-card {
+  position: relative;
+  overflow: hidden; /* ensures the logo doesn't overflow */
+  background-color: white; /* optional: to contrast logo */
+}
+
+.main-card .details-card::before {
+  content: '';
+    position: absolute;
+    top: 55px;
+    left: 225px;
+    right: -20px;
+    bottom: 0;
+  background-image: url('../../../../assets/images/logos/icon-logo.svg');
+  background-repeat: no-repeat;
+    background-size: 53%;
+    background-position: center;
+    opacity: 0.30;
+    z-index: 10;
+}
+
+
+
     .main-card .details-card  .member-count{
         border: 1px solid lightgray;
         width: auto !important;
