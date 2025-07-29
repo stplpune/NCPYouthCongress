@@ -7,6 +7,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     NgxPaginationModule,
     TooltipModule,
     DragDropModule,
+    MatIconModule
   ]
 })
 export class OrganizationMasterModule { }

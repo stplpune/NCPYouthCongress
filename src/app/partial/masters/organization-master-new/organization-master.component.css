@@ -79,7 +79,7 @@
 
 .main-card .details-card .list-group .list-group-item{
     border: none !important;
-    padding-block: 7px !important;
+    padding-block: 5px !important;
 }
 
  .avatar-group {
@@ -118,3 +118,19 @@
         padding: 5px 10px;
         font-size: 0.70rem;
     }
+
+    .main-card .details-card .btn-menu{
+        width: fit-content;
+        margin-left: auto !important;
+    }
+     .main-card .details-card .btn-menu .btn:hover,
+     .main-card .details-card .btn-menu .btn:active,
+     .main-card .details-card .btn-menu .btn.active,
+     .main-card .details-card .btn-men .btn.show,
+     .main-card .details-card .btn-menu .btn:focus{
+        color: var(--main-color);
+        background-color: #fff;
+     }
+     .main-card .details-card .btn-menu .dropdown-menu{
+        font-size: 0.80rem !important;
+     }
