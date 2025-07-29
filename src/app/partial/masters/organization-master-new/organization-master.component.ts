@@ -954,5 +954,7 @@ export class OrganizationMasterComponent implements OnInit {
       data:this.result
     });
   }
+
+
 }
 

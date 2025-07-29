@@ -947,4 +947,16 @@ export class OrganizationDetailsComponent implements OnInit {
   // this.resAllMember = s;
   // console.log(this.resAllMember)
   }
+  redTocommitteesOnMap(){
+    debugger
+    let DistrictId:any;
+    if(this.allDistrict?.length == 1){
+      DistrictId =  this.allDistrict[0].DistrictId;
+    } else{
+      DistrictId = 0;
+    }
+    this.router.navigate(['../../committees-on-map'], {relativeTo:this.route});
+    sessionStorage.setItem('DistrictIdWorkThisWeek', JSON.stringify(DistrictId));
+ 
+  }
 }

@@ -64,7 +64,9 @@
         <div class="col-sm-4">
             <div class="card mb-3">
                 <div class="card-body comm-list">
-                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                  <div class="d-flex  justify-content-between">
+                      <div>
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                             <li class="mat-tree-node" (click)="openSubCommittees(node.CommitteeId,node?.CommitteeName,node.BodyLevelCommittee)"
                                 [class.active]="node.CommitteeId == HighlightRowTree">
@@ -91,6 +93,12 @@
                             </li>
                         </mat-nested-tree-node>
                     </mat-tree>
+                      </div>
+
+                    <div>
+                        <button type="button" class="btn btn-icon btn-main-light "><i class="fas fa-map"></i> </button>
+                    </div>
+                  </div>
 
                     <!-- <div *ngIf="subCommittessResult?.length > 1 else noSubCommittee">
                         <ul class="comm-list">
