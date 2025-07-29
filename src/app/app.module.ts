@@ -11,7 +11,7 @@ import { WebComponent } from './web/web.component';
 import { PartialComponent } from './partial/partial.component';
 import { WebHeaderComponent } from './web/template/web-header/web-header.component';
 import { WebFooterComponent } from './web/template/web-footer/web-footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
@@ -42,7 +42,15 @@ import { AddCommitteeComponent } from './partial/dialogs/add-committee/add-commi
 import { NgIdleModule } from "@ng-idle/core";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+// export function httpTranslateLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http);
+// }
 
+export function httpTranslateLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -81,12 +89,21 @@ import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
     OwlNativeDateTimeModule,
     DragDropModule,
     TooltipModule,
+    TranslateModule,
+    HttpClientModule,
     NgIdleModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       closeButton: true,
       progressBar:true,
       preventDuplicates: true,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
@@ -96,6 +113,7 @@ import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
     }),
     // AgmDrawingModule,
   ],
+  exports : [WebHeaderComponent],
   providers: [DatePipe, AuthorizationService, NoAuthGuardService, AuthGuard],
   bootstrap: [AppComponent]
 })

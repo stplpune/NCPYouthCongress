@@ -1,0 +1,26 @@
+{
+    "header" : {
+        "english" : "English",
+        "marathi" : "Marathi"
+    },
+    "home": {
+        "we_are_working_for_people_countrys_development": "We are working for People & Country's Development",
+        "together_nation":"Together we will move the Nation",
+        "voice_change":"The Power of Your Voice will bring the Change.",
+        "president_message":"President's Message",
+        "mission_statement":"It is our mission to build a stronger India by following the path shown by our visionary leader Hon. Sharadchandraji Pawar saheb. We take inspiration from social reformers like Shahu Maharaj, Mahatma Jyotirao Phule and Dr. Babasaheb Ambedkar. We follow a Country-first approach and we will do our best to make our nation great by abiding to the principles of our constitution.",
+        "organizing_action":"Organizing for Action",
+        "what_we_do":"What We Do?",
+         "sharad_pawar_vision_p1":"Shri. Sharad Pawar Saheb has always considered Nationalist Youth Congress as a platform for youth to build their leadership qualities and to increase their active participation in politics. Nationalist Youth Congress has emerged as one of the strongest youth organizations in Maharashtra. The important agendas of the party are carried out by this youth cell. It is one of the most active cells of the party and plays a major role in many activities.",
+        "sharad_pawar_vision_p2":"Shashikant Shinde, its state president, has made efforts for the advancement of the youth in many ways. Nationalist Youth Congress has brought about a great convergence with its innovative agitations on various issues.",
+        "sharad_pawar_vision_p3":"Nationalist Youth Congress has always taken an initiative to serve people in social issues as well as during natural calamities.",
+        "our_mission" : "Our Mission",
+        "fighting_hate" : "Fighting Hate",
+        "fighting_hate_desc" : "We are committed to fight against Caste, Religion, Economical, Gender based hate.",
+        "make_yuva_strong" : "Make Yuva Strong",
+        "make_yuva_strong_desc" : "We made efforts for the advancement of Yuva in many ways by providing them able guidance, support.",
+        "Voice_of_youth" : "Voice of Youth",
+        "Voice_of_youth_desc" : "We always raise our voice for Youths and their problems and helped to solve them."
+   
+      }
+}

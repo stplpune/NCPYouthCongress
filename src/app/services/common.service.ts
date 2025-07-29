@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class CommonService {
+    setLanguage = new BehaviorSubject('');
     constructor(private datePipe: DatePipe) {
 
     }
