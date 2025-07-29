@@ -365,31 +365,48 @@ export class OrganizationMasterComponent implements OnInit {
             photo: string;
             designation: string;
             mobileNo: string;
+              memberList:any,
           }
-        } = {
+        } =
+         {
+          358: {
+            name: 'Mehboob Shaikh',
+            photo: 'assets/images/dashboard-images/ncp-default.png',
+            designation: 'अध्यक्ष',
+            mobileNo: '9123456780',
+           memberList:['assets/images/dashboard-images/ncp-default.png',
+            'assets/images/executive-members/Mehbub-Shaikh.png',
+            'assets/images/executive-members/Sakshna-Salgar.png',
+          'assets/images/executive-members/Sunil-Gavhane.png'],
+          },
           366: {
             name: 'Rohini Khadase',
             photo: 'assets/images/executive-members/rohini-khadase.png',
             designation: 'अध्यक्ष',
-            mobileNo: '9876543210'
+            mobileNo: '9876543210',
+            memberList:['assets/images/executive-members/rohini-khadase.png'],
           },
           3: {
             name: 'Mehboob Shaikh',
             photo: 'assets/images/executive-members/Mehbub-Shaikh.png',
             designation: 'अध्यक्ष',
-            mobileNo: '9123456780'
+            mobileNo: '9123456780',
+           memberList:['assets/images/executive-members/Mehbub-Shaikh.png',
+            'https://ncpservice.ncpyouths.com//Images/ProfilePhoto/29062022062447674PM_22_IMG_20220629_182430.jpg'],
           },
           365: {
             name: 'Sakshna Salgar',
             photo: 'assets/images/executive-members/Sakshna-Salgar.png',
             designation: 'अध्यक्ष',
-            mobileNo: '9988776655'
+            mobileNo: '9988776655',
+           memberList:['assets/images/executive-members/Sakshna-Salgar.png'],
           },
           367: {
             name: 'Sunil Gavhane',
             photo: 'assets/images/executive-members/Sunil-Gavhane.png',
             designation: 'अध्यक्ष',
-            mobileNo: '9090909090'
+            mobileNo: '9090909090',
+            memberList:['assets/images/executive-members/Sunil-Gavhane.png'],
           }
         };
 
@@ -400,6 +417,7 @@ export class OrganizationMasterComponent implements OnInit {
             ele.photo = update.photo;
             ele.designation = update.designation;
             ele.mobileNo = update.mobileNo;
+           ele.memberList = update.memberList;
           }
         });
 
@@ -513,7 +531,6 @@ export class OrganizationMasterComponent implements OnInit {
     }
 ]
         }
-
         console.log(this.organizationRes);
         
 
