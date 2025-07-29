@@ -111,7 +111,7 @@
       object-fit: cover;
     }
 
-    .main-card .details-card .list-group .list-group-item .member-count{
+    .main-card .details-card  .member-count{
         border: 1px solid lightgray;
         width: auto !important;
         border-radius: 25px !important;
