@@ -85,7 +85,7 @@
                                             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                         </mat-icon>
                                     </button>
-                                    {{node.CommitteeName}}
+                                    {{CheckBodyId == 367 ? 'Maharashtra Pradesh Vidhyarti Karykarani' : CheckBodyId == 365 ? 'Maharashtra Pradesh Yuvati Karykarani' : CheckBodyId == 366 ? 'Maharashtra Pradesh Mahila Karykarani' : CheckBodyId == 3 ? 'Maharashtra Pradesh Yuvak Karykarani' : node.CommitteeName}}
                                 </div>
                                 <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
                                     <ng-container matTreeNodeOutlet></ng-container>

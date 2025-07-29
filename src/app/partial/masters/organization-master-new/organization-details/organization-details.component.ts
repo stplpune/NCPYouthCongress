@@ -177,7 +177,9 @@ export class OrganizationDetailsComponent implements OnInit {
     this.bodyMember.controls['BodyName'].setValue(committeeName);
   };
 
+  CheckBodyId:any;
   subCommittess(bodyId: any) {
+    this.CheckBodyId = bodyId;
     if (this.subCommittessId == 0) {
       this.spinner.show();
       this.callAPIService.setHttp('get', 'Web_GetSubCommitteeForTreenode?UserId=' + this.commonService.loggedInUserId() + '&CommitteeId=' + 3, false, false, false, 'ncpServiceForWeb'); //bodyId
