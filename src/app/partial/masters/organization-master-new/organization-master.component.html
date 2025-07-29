@@ -23,7 +23,8 @@
                     <div class="col-sm-3" *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
                         [class.active]="result.Id == HighlightRow"
                         (click)="redirectOrgDetails(result.Id,result.bodylevel,result.BodyOrgCellName)">
-                        <div class="card card-body border rounded-4 shadow-none details-card h-100" >
+                    <div class="card h-100 border rounded-4 shadow-none details-card ">
+                            <div class=" card-body " >
                             <!-- <div class="dropdown btn-menu">
                                 <button class="btn  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <mat-icon class="material-symbols-outlined">
@@ -55,8 +56,11 @@
                                         <div class="form-data">{{result?.mobileNo || '8899889977'}}</div>
                                     </div>
                                 </li>
-                                <li class="list-group-item  border-0">
-                                    <div class="d-flex align-items-center  justify-content-between">
+                               
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white">
+                              <div class="d-flex align-items-center  justify-content-between">
                                         <div class="avatar-group">
                                             <ng-container *ngFor="let member of result?.memberList">
                                             <div class="avatar">
@@ -69,9 +73,8 @@
                                             <i class="far fa-id-badge text-main"></i> {{result?.Id == "358" ? 110 : result?.AllottedDesignation}} Members
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
                         </div>
+                    </div>
                     </div>
 
                 </div>
