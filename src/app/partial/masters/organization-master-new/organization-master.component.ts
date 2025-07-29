@@ -355,184 +355,230 @@ export class OrganizationMasterComponent implements OnInit {
           }
         })
 
+
+        // const updateMap: {
+        //   [id: number]: {
+        //     name: string;
+        //     photo: string;
+        //     designation: string;
+        //     mobileNo: string;
+        //       memberList:any,
+        //   }
+        // } =
+        //  {
+        //   358: {
+        //     name: 'Mehboob Shaikh',
+        //     photo: 'assets/images/dashboard-images/ncp-default.png',
+        //     designation: 'अध्यक्ष',
+        //     mobileNo: '9123456780',
+        //    memberList:['assets/images/dashboard-images/ncp-default.png',
+        //     'assets/images/executive-members/Mehbub-Shaikh.png',
+        //     'assets/images/executive-members/Sakshna-Salgar.png',
+        //   'assets/images/executive-members/Sunil-Gavhane.png'],
+        //   },
+        //   366: {
+        //     name: 'Rohini Khadase',
+        //     photo: 'assets/images/executive-members/rohini-khadase.png',
+        //     designation: 'अध्यक्ष',
+        //     mobileNo: '9876543210',
+        //     memberList:['assets/images/executive-members/rohini-khadase.png'],
+        //   },
+        //   3: {
+        //     name: 'Mehboob Shaikh',
+        //     photo: 'assets/images/executive-members/Mehbub-Shaikh.png',
+        //     designation: 'अध्यक्ष',
+        //     mobileNo: '9123456780',
+        //    memberList:['assets/images/executive-members/Mehbub-Shaikh.png',
+        //     'https://ncpservice.ncpyouths.com//Images/ProfilePhoto/29062022062447674PM_22_IMG_20220629_182430.jpg'],
+        //   },
+        //   365: {
+        //     name: 'Sakshna Salgar',
+        //     photo: 'assets/images/executive-members/Sakshna-Salgar.png',
+        //     designation: 'अध्यक्ष',
+        //     mobileNo: '9988776655',
+        //    memberList:['assets/images/executive-members/Sakshna-Salgar.png'],
+        //   },
+        //   367: {
+        //     name: 'Sunil Gavhane',
+        //     photo: 'assets/images/executive-members/Sunil-Gavhane.png',
+        //     designation: 'अध्यक्ष',
+        //     mobileNo: '9090909090',
+        //     memberList:['assets/images/executive-members/Sunil-Gavhane.png'],
+        //   }
+        // };
+
+        // this.organizationRes.forEach((ele: any) => {
+        //   const update = updateMap[ele.Id];
+        //   if (update) {
+        //     ele.name = update.name;
+        //     ele.photo = update.photo;
+        //     ele.designation = update.designation;
+        //     ele.mobileNo = update.mobileNo;
+        //    ele.memberList = update.memberList;
+        //   }
+        // });
+
+        this.organizationRes = [
+          {
+            "SrNo": 1,
+            "Id": 358,
+            "BodyOrgCellName": "Maharashtra NCP Pradesh Committee",
+            "bodylevel": 2,
+            "LevelName": "State",
+            "Area": "Maharashtra",
+            "StateName": "Maharashtra",
+            "districtName": "",
+            "TalukaName": "",
+            "VillageName": "",
+            "DesignationAssigned": [
+              "President - (अध्यक्ष)",
+              "Vice-President - (उपाध्यक्ष) ",
+              "General Secretary - (सरचिटणीस)",
+              "Secretary - (सचिव)",
+              "Member - (सदस्य)"
+            ],
+            "AllottedDesignation": 0,
+            "SubParentCommitteeId": 358,
+            "LevelSort": 1,
+            "name": "Sagar Patil",
+            "photo": "assets/images/dashboard-images/ncp-default.png",
+            "designation": "अध्यक्ष",
+            "mobileNo": "9123456780",
+            "memberList": [
+              "assets/images/dashboard-images/ncp-default.png",
+              "assets/images/executive-members/Mehbub-Shaikh.png",
+              "assets/images/executive-members/Sakshna-Salgar.png",
+              "assets/images/executive-members/Sunil-Gavhane.png"
+            ]
+          },
+          {
+            "SrNo": 2,
+            "Id": 366,
+            "BodyOrgCellName": "Maharashtra Pradesh Mahila Karykarani ",
+            "bodylevel": 2,
+            "LevelName": "State",
+            "Area": "Maharashtra",
+            "StateName": "Maharashtra",
+            "districtName": "",
+            "TalukaName": "",
+            "VillageName": "",
+            "DesignationAssigned": [
+              "President - (अध्यक्ष)",
+              "Vice-President - (उपाध्यक्ष) ",
+              "General Secretary - (सरचिटणीस)",
+              "Secretary - (सचिव)",
+              "Member - (सदस्य)"
+            ],
+            "AllottedDesignation": 1,
+            "SubParentCommitteeId": 358,
+            "LevelSort": 1,
+            "name": "Rohini Khadase",
+            "photo": "assets/images/executive-members/rohini-khadase.png",
+            "designation": "अध्यक्ष",
+            "mobileNo": "9876543210",
+            "memberList": [
+              "assets/images/executive-members/rohini-khadase.png"
+            ]
+          },
+
+          {
+            "SrNo": 4,
+            "Id": 3,
+            "BodyOrgCellName": "Maharashtra Pradesh Yuvak Karykarani",
+            "bodylevel": 2,
+            "LevelName": "State",
+            "Area": "Maharashtra",
+            "StateName": "Maharashtra",
+            "districtName": "",
+            "TalukaName": "",
+            "VillageName": "",
+            "DesignationAssigned": [
+              "President - (अध्यक्ष)",
+              "Acting President - (कार्याध्यक्ष) ",
+              "Vice-President - (उपाध्यक्ष) ",
+              "General Secretary - (सरचिटणीस)",
+              "Secretary - (सचिव)",
+              "Member - (सदस्य)"
+            ],
+            "AllottedDesignation": 107,
+            "SubParentCommitteeId": 3,
+            "LevelSort": 1,
+            "name": "Mehboob Shaikh",
+            "photo": "assets/images/executive-members/Mehbub-Shaikh.png",
+            "designation": "अध्यक्ष",
+            "mobileNo": "9123456780",
+            "memberList": [
+              "assets/images/executive-members/Mehbub-Shaikh.png",
+              "https://ncpservice.ncpyouths.com//Images/ProfilePhoto/29062022062447674PM_22_IMG_20220629_182430.jpg"
+            ]
+          },
+          {
+            "SrNo": 5,
+            "Id": 365,
+            "BodyOrgCellName": "Maharashtra Pradesh Yuvati Karykarani ",
+            "bodylevel": 2,
+            "LevelName": "State",
+            "Area": "Maharashtra",
+            "StateName": "Maharashtra",
+            "districtName": "",
+            "TalukaName": "",
+            "VillageName": "",
+            "DesignationAssigned": [
+              "President - (अध्यक्ष)",
+              "Vice-President - (उपाध्यक्ष) ",
+              "General Secretary - (सरचिटणीस)",
+              "Secretary - (सचिव)",
+              "Member - (सदस्य)"
+            ],
+            "AllottedDesignation": 1,
+            "SubParentCommitteeId": 358,
+            "LevelSort": 1,
+            "name": "Sakshna Salgar",
+            "photo": "assets/images/executive-members/Sakshna-Salgar.png",
+            "designation": "अध्यक्ष",
+            "mobileNo": "9988776655",
+            "memberList": [
+              "assets/images/executive-members/Sakshna-Salgar.png"
+            ]
+          },
+          {
+            "SrNo": 3,
+            "Id": 367,
+            "BodyOrgCellName": "Maharashtra Pradesh Vidhyarti  Karykarani",
+            "bodylevel": 2,
+            "LevelName": "State",
+            "Area": "Maharashtra",
+            "StateName": "Maharashtra",
+            "districtName": "",
+            "TalukaName": "",
+            "VillageName": "",
+            "DesignationAssigned": [
+              "President - (अध्यक्ष)",
+              "Vice-President - (उपाध्यक्ष) ",
+              "General Secretary - (सरचिटणीस)",
+              "Secretary - (सचिव)",
+              "Member - (सदस्य)"
+            ],
+            "AllottedDesignation": 1,
+            "SubParentCommitteeId": 358,
+            "LevelSort": 1,
+            "name": "Sunil Gavhane",
+            "photo": "assets/images/executive-members/Sunil-Gavhane.png",
+            "designation": "अध्यक्ष",
+            "mobileNo": "9090909090",
+            "memberList": [
+              "assets/images/executive-members/Sunil-Gavhane.png"
+            ]
+          }
+
+        ]
+
         if (this.commonService.loggedInUserId() != 1) {
           this.organizationRes = this.organizationRes.filter((ele: any) => ele.Id !== 358);
         }
 
-        const updateMap: {
-          [id: number]: {
-            name: string;
-            photo: string;
-            designation: string;
-            mobileNo: string;
-              memberList:any,
-          }
-        } =
-         {
-          358: {
-            name: 'Mehboob Shaikh',
-            photo: 'assets/images/dashboard-images/ncp-default.png',
-            designation: 'अध्यक्ष',
-            mobileNo: '9123456780',
-           memberList:['assets/images/dashboard-images/ncp-default.png',
-            'assets/images/executive-members/Mehbub-Shaikh.png',
-            'assets/images/executive-members/Sakshna-Salgar.png',
-          'assets/images/executive-members/Sunil-Gavhane.png'],
-          },
-          366: {
-            name: 'Rohini Khadase',
-            photo: 'assets/images/executive-members/rohini-khadase.png',
-            designation: 'अध्यक्ष',
-            mobileNo: '9876543210',
-            memberList:['assets/images/executive-members/rohini-khadase.png'],
-          },
-          3: {
-            name: 'Mehboob Shaikh',
-            photo: 'assets/images/executive-members/Mehbub-Shaikh.png',
-            designation: 'अध्यक्ष',
-            mobileNo: '9123456780',
-           memberList:['assets/images/executive-members/Mehbub-Shaikh.png',
-            'https://ncpservice.ncpyouths.com//Images/ProfilePhoto/29062022062447674PM_22_IMG_20220629_182430.jpg'],
-          },
-          365: {
-            name: 'Sakshna Salgar',
-            photo: 'assets/images/executive-members/Sakshna-Salgar.png',
-            designation: 'अध्यक्ष',
-            mobileNo: '9988776655',
-           memberList:['assets/images/executive-members/Sakshna-Salgar.png'],
-          },
-          367: {
-            name: 'Sunil Gavhane',
-            photo: 'assets/images/executive-members/Sunil-Gavhane.png',
-            designation: 'अध्यक्ष',
-            mobileNo: '9090909090',
-            memberList:['assets/images/executive-members/Sunil-Gavhane.png'],
-          }
-        };
 
-        this.organizationRes.forEach((ele: any) => {
-          const update = updateMap[ele.Id];
-          if (update) {
-            ele.name = update.name;
-            ele.photo = update.photo;
-            ele.designation = update.designation;
-            ele.mobileNo = update.mobileNo;
-           ele.memberList = update.memberList;
-          }
-        });
-
-        if (this.commonService.loggedInUserId() != 1) {
-          this.organizationRes = [
-
-    {
-        "SrNo": 2,
-        "Id": 366,
-        "BodyOrgCellName": "Maharashtra Pradesh Mahila Karykarani ",
-        "bodylevel": 2,
-        "LevelName": "State",
-        "Area": "Maharashtra",
-        "StateName": "Maharashtra",
-        "districtName": "",
-        "TalukaName": "",
-        "VillageName": "",
-        "DesignationAssigned": [
-            "President - (अध्यक्ष)",
-            "Vice-President - (उपाध्यक्ष) ",
-            "General Secretary - (सरचिटणीस)",
-            "Secretary - (सचिव)",
-            "Member - (सदस्य)"
-        ],
-        "AllottedDesignation": 1,
-        "SubParentCommitteeId": 358,
-        "LevelSort": 1,
-        "name": "Rohini Khadase",
-        "photo": "assets/images/executive-members/rohini-khadase.png",
-        "designation": "अध्यक्ष",
-        "mobileNo": "9876543210"
-    },
-    {
-        "SrNo": 3,
-        "Id": 367,
-        "BodyOrgCellName": "Maharashtra Pradesh Vidhyarti  Karykarani",
-        "bodylevel": 2,
-        "LevelName": "State",
-        "Area": "Maharashtra",
-        "StateName": "Maharashtra",
-        "districtName": "",
-        "TalukaName": "",
-        "VillageName": "",
-        "DesignationAssigned": [
-            "President - (अध्यक्ष)",
-            "Vice-President - (उपाध्यक्ष) ",
-            "General Secretary - (सरचिटणीस)",
-            "Secretary - (सचिव)",
-            "Member - (सदस्य)"
-        ],
-        "AllottedDesignation": 1,
-        "SubParentCommitteeId": 358,
-        "LevelSort": 1,
-        "name": "Sunil Gavhane",
-        "photo": "assets/images/executive-members/Sunil-Gavhane.png",
-        "designation": "अध्यक्ष",
-        "mobileNo": "9090909090"
-    },
-    {
-        "SrNo": 4,
-        "Id": 3,
-        "BodyOrgCellName": "Maharashtra Pradesh Yuvak Karykarani",
-        "bodylevel": 2,
-        "LevelName": "State",
-        "Area": "Maharashtra",
-        "StateName": "Maharashtra",
-        "districtName": "",
-        "TalukaName": "",
-        "VillageName": "",
-        "DesignationAssigned": [
-            "President - (अध्यक्ष)",
-            "Acting President - (कार्याध्यक्ष) ",
-            "Vice-President - (उपाध्यक्ष) ",
-            "General Secretary - (सरचिटणीस)",
-            "Secretary - (सचिव)",
-            "Member - (सदस्य)"
-        ],
-        "AllottedDesignation": 107,
-        "SubParentCommitteeId": 3,
-        "LevelSort": 1,
-        "name": "Mehboob Shaikh",
-        "photo": "assets/images/executive-members/Mehbub-Shaikh.png",
-        "designation": "अध्यक्ष",
-        "mobileNo": "9123456780"
-    },
-    {
-        "SrNo": 5,
-        "Id": 365,
-        "BodyOrgCellName": "Maharashtra Pradesh Yuvati Karykarani ",
-        "bodylevel": 2,
-        "LevelName": "State",
-        "Area": "Maharashtra",
-        "StateName": "Maharashtra",
-        "districtName": "",
-        "TalukaName": "",
-        "VillageName": "",
-        "DesignationAssigned": [
-            "President - (अध्यक्ष)",
-            "Vice-President - (उपाध्यक्ष) ",
-            "General Secretary - (सरचिटणीस)",
-            "Secretary - (सचिव)",
-            "Member - (सदस्य)"
-        ],
-        "AllottedDesignation": 1,
-        "SubParentCommitteeId": 358,
-        "LevelSort": 1,
-        "name": "Sakshna Salgar",
-        "photo": "assets/images/executive-members/Sakshna-Salgar.png",
-        "designation": "अध्यक्ष",
-        "mobileNo": "9988776655"
-    }
-]
-        }
         console.log(this.organizationRes);
-        
 
         this.total = res.data2[0].TotalCount;
       } else {
