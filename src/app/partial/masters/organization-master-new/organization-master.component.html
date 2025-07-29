@@ -23,7 +23,7 @@
                     <div class="col-sm-3" *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
                         [class.active]="result.Id == HighlightRow"
                         (click)="redirectOrgDetails(result.Id,result.bodylevel,result.BodyOrgCellName)">
-                        <div class="card card-body border rounded-4 shadow-none details-card" >
+                        <div class="card card-body border rounded-4 shadow-none details-card h-100" >
                             <!-- <div class="dropdown btn-menu">
                                 <button class="btn  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <mat-icon class="material-symbols-outlined">
@@ -58,16 +58,15 @@
                                 <li class="list-group-item  border-0">
                                     <div class="d-flex align-items-center  justify-content-between">
                                         <div class="avatar-group">
+                                            <ng-container *ngFor="let member of result?.memberList">
                                             <div class="avatar">
-                                                <img src="https://i.imgur.com/uIgDDDd.png" alt="Avatar 1" />
+                                                <img src="{{member}}" alt="Avatar 1" />
                                             </div>
-                                            <div class="avatar">
-                                                <img src="https://i.imgur.com/uIgDDDd.png" alt="Avatar 2" />
-                                            </div>
+                                            </ng-container>
                                         </div>
 
                                         <div class="member-count">
-                                            <i class="far fa-id-badge text-main"></i> {{result?.AllottedDesignation}} Members
+                                            <i class="far fa-id-badge text-main"></i> {{result?.Id == "358" ? 110 : result?.AllottedDesignation}} Members
                                         </div>
                                     </div>
                                 </li>
