@@ -172,3 +172,8 @@ agm-map {
 .mem-list .btn{
     font-size: 0.8rem;
 }
+#karyakarni-list{
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

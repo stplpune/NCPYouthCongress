@@ -23,7 +23,8 @@ import { ForwardActivitiesRoutingModule } from '../forward-activities/forward-ac
         ReactiveFormsModule,
         OwlNativeDateTimeModule,
         OwlDateTimeModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        
   ]
 })
 export class NewsModule { }

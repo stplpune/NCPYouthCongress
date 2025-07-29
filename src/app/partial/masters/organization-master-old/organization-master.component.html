@@ -71,7 +71,7 @@
                 </div>
                 <div class="card-body pt-1">
                     <div class="table-responsive">
-                        <div class="card card-body shadow-none border comm-details pb-1 mb-3" *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
+                        <div class="card card-body shadow-none border comm-details pb-0 mb-3" *ngFor="let result of organizationRes | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total  }"
                         [class.active]="result.Id == HighlightRow">
                             <div class="row">
                                 <div class="col-sm-6 col-6">
@@ -103,16 +103,17 @@
                             <div class="comm-desis">
                                 {{result?.DesignationAssigned}}
                             </div>
-                            <div class="row comm-brrs">
+                            <div class="row align-items-center comm-brrs">
                                 <div class="col-sm-6 col-6">
-                                    <span><span class="text-success fw-bold me-1">{{result?.AllottedDesignation}}</span> Appointments</span>
+                                    <span><span type="button" class="text-success fw-bold me-1" (click)="redirectOrgDetails(result.Id,result.bodylevel,result.BodyOrgCellName)">{{result?.AllottedDesignation}}</span> Executive Members</span>
                                 </div>
                                 <div class="col-sm-6 col-6 text-end">
-                                    <button type="button" class="btn btn-light btn-sm" title="Add Designation"
-                                            data-bs-toggle="modal"
-                                            (click)="AddDesignation(result.BodyOrgCellName, result.Id);">
+                                    <button class="btn btn-sm mb-0 btn-main-light"  type="button"  title="Add Designation"
+                                            data-bs-toggle="modal" (click)="AddDesignation(result.BodyOrgCellName, result.Id);"> Add Designation</button>
+                                    <!-- <button
+                                            >
                                             <i class="fas fa-user-plus"></i>
-                                        </button> 
+                                        </button>  -->
                                 </div>
                             </div>
                         </div>

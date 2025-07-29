@@ -7,10 +7,10 @@
                 <div class="container">
                     <div class="row mt-3" id="founders">
                         <div class="col-sm-12 text-end">
-                             <img src="assets/images/ncp-founders/supriya-sule.png">
+                            <img src="assets/images/ncp-founders/supriya-sule.png">
                             <img src="assets/images/ncp-founders/jayant-patil.png">
                             <img src="assets/images/ncp-founders/shashikant-shinde.png">
-                           
+
                             <img src="assets/images/ncp-founders/rohit-pawar.png">
                         </div>
                     </div>
@@ -72,8 +72,11 @@
                     <div class="col-sm-6 p-5">
                         <h3 class="section-head">President's Message</h3>
                         <p class="home-para">
-                            It is our mission to built stronger India by following path shown by our visionary leader Hon. Sharadchandraji Pawar saheb. We take inspiration from social reformers like Shahu Maharaj, Mahatma Jyotirao Phule and Dr. Babasaheb Ambedkar. We follow Country
-                            first approach and we will do our best to make our nation great by abiding to the principles of our constitution.
+                            It is our mission to built stronger India by following path shown by our visionary leader
+                            Hon. Sharadchandraji Pawar saheb. We take inspiration from social reformers like Shahu
+                            Maharaj, Mahatma Jyotirao Phule and Dr. Babasaheb Ambedkar. We follow Country
+                            first approach and we will do our best to make our nation great by abiding to the principles
+                            of our constitution.
                         </p>
                     </div>
                 </div>
@@ -88,10 +91,17 @@
                     <div class="col-sm-6">
                         <h6 class="sub-head">Organizing for Action</h6>
                         <h3 class="section-head">What We Do?</h3>
-                        <p class="home-para">Shri. Sharad Pawar Saheb has always considered Nationalist Youth Congress as a platform for youth to build their leadership qualities and to increase their active participation in politics. Nationalist Youth Congress has emerged
-                            as one of the strongest youth organizations in Maharashtra. The important agendas of the party are carried out by this youth cell. It is one of the most active cells of the party and plays a major role in many activities.</p>
-                        <p class="home-para">Mehboob Sheikh, its state president, has made efforts for the advancement of the youth in many ways. Nationalist Youth Congress has brought about a great convergence with its innovative agitations on various issues.</p>
-                        <p class="home-para">Nationalist Youth Congress has always taken an initiative to serve people in social issues as well as during natural calamities.</p>
+                        <p class="home-para">Shri. Sharad Pawar Saheb has always considered Nationalist Youth Congress
+                            as a platform for youth to build their leadership qualities and to increase their active
+                            participation in politics. Nationalist Youth Congress has emerged
+                            as one of the strongest youth organizations in Maharashtra. The important agendas of the
+                            party are carried out by this youth cell. It is one of the most active cells of the party
+                            and plays a major role in many activities.</p>
+                        <p class="home-para">Shashikant shinde, its state president, has made efforts for the
+                            advancement of the youth in many ways. Nationalist Youth Congress has brought about a great
+                            convergence with its innovative agitations on various issues.</p>
+                        <p class="home-para">Nationalist Youth Congress has always taken an initiative to serve people
+                            in social issues as well as during natural calamities.</p>
                     </div>
                     <div class="col-sm-6 ps-5" id="mission">
                         <h4 class="text-muted text-uppercase fw-bold mb-5">Our Mission</h4>
@@ -111,7 +121,8 @@
                             </div>
                             <div class="flex-grow-1 ms-3 media-body">
                                 <h4>Make Yuva Strong</h4>
-                                <p>We made efforts for the advancement of Yuva in many ways by providing them able guidance, support.
+                                <p>We made efforts for the advancement of Yuva in many ways by providing them able
+                                    guidance, support.
                                 </p>
                             </div>
                         </div>
@@ -155,9 +166,12 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col-sm-3" *ngFor="let events of allLatestEvent" (click)="redirectToEvent(events?.EventId)">
+                    <div class="col-sm-3" *ngFor="let events of allLatestEvent"
+                        (click)="redirectToEvent(events?.EventId)">
                         <div class="card">
-                            <img *ngIf="!events?.ImagePath" src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg" class="card-img-top" alt="...">
+                            <img *ngIf="!events?.ImagePath"
+                                src="https://static.indianexpress.com/m-images/M_Id_269657_Nationalist_Congress_Party_Workers.jpg"
+                                class="card-img-top" alt="...">
                             <img *ngIf="events?.ImagePath" src="{{events?.ImagePath}}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="text-end mb-2">
@@ -169,7 +183,9 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="allLatestEvent?.length == 0" class="col-sm-4 mx-auto"> <div class="alert alert-danger text-center py-2">No Data Found..!</div> </div>
+                    <div *ngIf="allLatestEvent?.length == 0" class="col-sm-4 mx-auto">
+                        <div class="alert alert-danger text-center py-2">No Data Found..!</div>
+                    </div>
 
                     <div class="col-sm-12 mt-4 text-center" *ngIf="allLatestEvent?.length != 0">
                         <a routerLink="../events" class="btn btn-main">View All Events</a>
@@ -222,62 +238,105 @@
 
                 <div class="row">
                     <div class="col-sm-3 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body text-center">
-                                <img src="assets/images/executive-members/rohini-khadase.png" class="card-img-top" alt="Ravikant Varpe">
+                                <img src="assets/images/executive-members/rohini-khadase.png" class="card-img-top"
+                                    alt="Ravikant Varpe">
                                 <h5 class="card-title fw-bold">Rohini Khadase</h5>
                                 <h4 class="h6 text-dark pb-3 ">President of Mahila Aghadi </h4>
-                                <a  class="card-link" href="https://www.facebook.com/KhadseRohini" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                                <a  class="card-link" href="https://x.com/rohini_khadse" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a  class="card-link" href="https://www.instagram.com/rohini_khadse/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a  class="card-link" href="https://www.youtube.com/shorts/tbgCGubJtcA#:~:text=Rohini%20Khadse%20:%20%E0%A4%97%E0%A4%9C%E0%A4%AC%20%E0%A4%B8%E0%A4%B0%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%9A%E0%A5%87%20%E0%A4%85%E0%A4%9C%E0%A4%AC,%2Dabp%2Dananda/id811114904?" target="_blank"><i class="fab fa-youtube"></i></a>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a class="card-link" href="https://www.facebook.com/KhadseRohini" target="_blank"><i
+                                            class="fab fa-facebook-square"></i></a>
+                                    <a class="card-link" href="https://x.com/rohini_khadse" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
+                                    <a class="card-link" href="https://www.instagram.com/rohini_khadse/"
+                                        target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a class="card-link"
+                                        href="https://www.youtube.com/shorts/tbgCGubJtcA#:~:text=Rohini%20Khadse%20:%20%E0%A4%97%E0%A4%9C%E0%A4%AC%20%E0%A4%B8%E0%A4%B0%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%9A%E0%A5%87%20%E0%A4%85%E0%A4%9C%E0%A4%AC,%2Dabp%2Dananda/id811114904?"
+                                        target="_blank"><i class="fab fa-youtube"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                     <div class="col-sm-3 mb-3">
-                        <div class="card">
+                    <div class="col-sm-3 mb-3">
+                        <div class="card h-100">
 
                             <div class="card-body text-center">
-                                <img src="assets/images/executive-members/Mehbub-Shaikh.png" class="card-img-top" alt="Arun Asabe">
+                                <img src="assets/images/executive-members/Mehbub-Shaikh.png" class="card-img-top"
+                                    alt="Arun Asabe">
                                 <h5 class="card-title fw-bold">Mehboob Shaikh</h5>
                                 <h4 class="h6 text-dark pb-3 ">President of Nationalist Yuvak Congress</h4>
-                                <a  class="card-link" href="https://www.facebook.com/mahebubshaikh99/" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                                <a  class="card-link" href="https://x.com/mahebubshaikh20" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a  class="card-link" href="https://www.instagram.com/mahebub_shaikh9/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a  class="card-link" href="https://www.youtube.com/watch?v=J2HDRoUx0Ic#:~:text=Mehboob%20Shaikh%20Speech%20:%20Sunil%20Tatkare,News18%20Lokmat%20New%20216K%20views" target="_blank"><i class="fab fa-youtube"></i></a>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a class="card-link" href="https://www.facebook.com/mahebubshaikh99/"
+                                        target="_blank"><i class="fab fa-facebook-square"></i></a>
+                                    <a class="card-link" href="https://x.com/mahebubshaikh20" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
+                                    <a class="card-link" href="https://www.instagram.com/mahebub_shaikh9/"
+                                        target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a class="card-link"
+                                        href="https://www.youtube.com/watch?v=J2HDRoUx0Ic#:~:text=Mehboob%20Shaikh%20Speech%20:%20Sunil%20Tatkare,News18%20Lokmat%20New%20216K%20views"
+                                        target="_blank"><i class="fab fa-youtube"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
 
                             <div class="card-body text-center">
-                                <img src="assets/images/executive-members/Sakshna-Salgar.png" class="card-img-top" alt="Sunil Chavan">
+                                <img src="assets/images/executive-members/Sakshna-Salgar.png" class="card-img-top"
+                                    alt="Sunil Chavan">
                                 <h5 class="card-title fw-bold">Sakshna Salgar</h5>
                                 <h4 class="h6 text-dark pb-3 ">President of Nationalist Yuvati Congress </h4>
-                                <a  class="card-link" href="https://www.facebook.com/SakshnaSalgarNYC/" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                                <a  class="card-link" href="https://x.com/sakshnasalgar" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a  class="card-link" href="https://www.instagram.com/sakshnasalgarspeaks/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a  class="card-link" href="https://www.youtube.com/watch?v=yhWrCv_eRJs#:~:text=Very%20Smart%20Vivaamart%20%7C%20SakshnaTai%20Siddhram,Respect%20%23FarmingToSuccess%20%23VivaamartLeadership%20%23InspiringIndia" target="_blank"><i class="fab fa-youtube"></i></a>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a class="card-link" href="https://www.facebook.com/SakshnaSalgarNYC/"
+                                        target="_blank"><i class="fab fa-facebook-square"></i></a>
+                                    <a class="card-link" href="https://x.com/sakshnasalgar" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
+                                    <a class="card-link" href="https://www.instagram.com/sakshnasalgarspeaks/"
+                                        target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a class="card-link"
+                                        href="https://www.youtube.com/watch?v=yhWrCv_eRJs#:~:text=Very%20Smart%20Vivaamart%20%7C%20SakshnaTai%20Siddhram,Respect%20%23FarmingToSuccess%20%23VivaamartLeadership%20%23InspiringIndia"
+                                        target="_blank"><i class="fab fa-youtube"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
 
                             <div class="card-body text-center">
-                                <img src="assets/images/executive-members/Sunil-Gavhane.png" class="card-img-top" alt="Abhaysingh Jagtap">
+                                <img src="assets/images/executive-members/Sunil-Gavhane.png" class="card-img-top"
+                                    alt="Abhaysingh Jagtap">
                                 <h5 class="card-title fw-bold">Sunil Gavhane</h5>
                                 <h4 class="h6 text-dark pb-3 ">President of Nationalist Vidyarthi Congress </h4>
-                                <a  class="card-link" href="https://www.facebook.com/SunilGspeaks/" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                                <a  class="card-link" href="https://x.com/SunilGavhaneNcp" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a  class="card-link" href="https://www.instagram.com/sunil.gavhane_official/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a  class="card-link"><i class="fab fa-youtube"></i></a>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a class="card-link" href="https://www.facebook.com/SunilGspeaks/"
+                                        target="_blank"><i class="fab fa-facebook-square"></i></a>
+                                    <a class="card-link" href="https://x.com/SunilGavhaneNcp" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
+                                    <a class="card-link" href="https://www.instagram.com/sunil.gavhane_official/"
+                                        target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a class="card-link"><i class="fab fa-youtube"></i></a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                   
-                   
+
+
                 </div>
 
 
@@ -379,7 +438,8 @@
                 <div class="row">
                     <div class="col-sm-6 py-5">
                         <h1 class="display-4 fw-light">Download the App <br>& Join Us</h1>
-                        <h5 class="fw-light lh-base mt-3 mb-5">Lets Connect to most progressive and visionary organization for your better future.</h5>
+                        <h5 class="fw-light lh-base mt-3 mb-5">Lets Connect to most progressive and visionary
+                            organization for your better future.</h5>
                         <a href="https://play.google.com/store/apps/details?id=com.develop.ncp_youth" target="_blank">
                             <img src="assets/images/GooglePlayStore.png" class="store-icon">
                         </a>

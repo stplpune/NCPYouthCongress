@@ -79,21 +79,22 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="d-flex media" *ngFor="let getnews of getnewsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
+                       <div class="table-height-sm">
+                         <div class="d-flex media" *ngFor="let getnews of getnewsArray | paginate: { itemsPerPage: 10, currentPage: paginationNo, totalItems:total}; let i = index">
                             <div class="flex-grow-1 ms-3">
                                 <span class="media-date">{{getnews.NewsDate1}}</span>
                                 <div class="media-title mb-0">
                                  <div class="d-flex gap-2">
-                                   <div class="form-label">Title :</div>
+                                   <div class="form-label text-nowrap">Title :</div>
                                   <div class="form-data">{{(getnews.Title | titlecase) || '-'}}</div></div>
                                  </div>
                                 <div class="media-body">
                                  <div class="d-flex gap-2">
-                                   <div class="form-label">Link :</div>
-                                   <div class="form-data" (click)="openLink(getnews.HashTags)"><a class="text-decoration-none text-main small" >{{getnews.HashTags}} </a></div>
+                                   <div class="form-label text-nowrap">Link :</div>
+                                   <div class="form-data" title="{{getnews.HashTags}}" (click)="openLink(getnews.HashTags)"><a  class="text-decoration-none text-main small text-truncate-custom" >{{getnews.HashTags}} </a></div>
                                  </div>
                                   <div *ngIf="getnews.Description != 'null' && getnews.Description" class="d-flex gap-2">
-                                   <div class="form-label">Description :</div>
+                                   <div class="form-label text-nowrap">Description :</div>
                                    <div class="form-data"> {{(getnews.Description | titlecase)}}</div>
                                  </div>
                                 </div>
@@ -109,13 +110,14 @@
                                 </div>
                             </div>
                         </div>
+                       </div>
                         <div class="mt-2 text-end" *ngIf="getnewsArray?.length == 0">
                             <div class="alert alert-danger text-center py-2">No Data Found..!</div>
                         </div>
-                        <div class="mt-2 text-end" *ngIf="getnewsArray?.length != 0">
+                        <!-- <div class="mt-2 text-end" *ngIf="getnewsArray?.length != 0">
                             <pagination-controls previousLabel="" nextLabel=""
                                 (pageChange)="onClickPagintion(pageSize = $event)"> </pagination-controls>
-                        </div>
+                        </div> -->
 
 
                     </div>

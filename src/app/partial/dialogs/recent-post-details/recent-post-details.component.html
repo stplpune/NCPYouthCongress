@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="onNoClick('No')"></button>
             </div>
-            <div class="modal-body p-0">
+            <div class="modal-body table-height-md p-0">
                 <div class="row m-0 g-0">
                     <div class="col-sm-8 bg-secondary">
                         <div id="carouselImageSlideshow" class="carousel slide" data-bs-ride="carousel">
@@ -144,7 +144,7 @@
                                             View By
                                         </div>
                                         <ul class="list-group list-group-flush" *ngFor="let viewdata of viewDataArray">
-                                            <li class="p-2" >{{viewdata?.FullName}}</li>
+                                            <li class="p-2 small fw-semibold" >{{viewdata?.FullName}}</li>
                                         </ul>
                                     </div>
 

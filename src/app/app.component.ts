@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
 import { Router, NavigationEnd, ActivatedRoute, NavigationStart } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConnectionService } from 'ng-connection-service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
