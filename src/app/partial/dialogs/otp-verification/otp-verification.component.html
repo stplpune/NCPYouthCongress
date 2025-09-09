@@ -14,7 +14,7 @@
         ******{{ data.mobileNo.slice(6, 10) }} पर ओटीपी सफलतापूर्वक भेजा गया।
       </p>
       <p *ngIf="language === 'Marathi'" class="mb-1 fs-80">
-        ******{{ data.mobileNo.slice(6, 10) }} या नंबरवर ओटीपी यशस्वीरित्या
+        *****{{ data.mobileNo.slice(6, 10) }} या नंबरवर ओटीपी यशस्वीरित्या
         पाठवला.
       </p>
     </div>
@@ -55,12 +55,14 @@
       </a>
     </div>
   </div>
-  <div class="d-flex justify-content-end gap-1 w-100 mb-3">
-    <button class="btn mx-auto btn-secondary me-2" data-bs-dismiss="modal" type="button"
+ <div class="modal-footer">
+   <div class="d-flex justify-content-end gap-2 w-100 mb-3">
+    <button class="btn  btn-main-light " data-bs-dismiss="modal" type="button"
       data-bs-dismiss="modal" (click)="onNoClick('withOtp')" aria-label="Close">{{ "common.withOtp" | translate
       }}</button>
-    <button class="btn mx-auto btn-danger" type="button" data-bs-dismiss="modal"
+    <button class="btn  btn-main" type="button" data-bs-dismiss="modal"
       aria-label="Close" type="button" (click)="onNoClick('withOutOtp')" data-bs-dismiss="modal" aria-label="Close">{{
       "common.withOutOtp" | translate }}</button>
   </div>
+</div>
 </div>

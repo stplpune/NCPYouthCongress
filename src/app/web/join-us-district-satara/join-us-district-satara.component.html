@@ -198,9 +198,7 @@
                                     </div>
                                     <ng-container *ngIf="f['ruralUrbanId'].value == 1">
                                         <div class="col-sm-4">
-                                            <label class="form-label" [ngClass]="{
-                        'required-field': submitted && f.talukaId.errors
-                      }">
+                                            <label class="form-label required-field">
                                                 {{ "join_us.select_taluka" | translate }}</label>
                                             <ngx-select [allowClear]="true" formControlName="talukaId"
                                                 [items]="talukaArray"
@@ -222,9 +220,7 @@
                                         </div>
 
                                         <div class="col-sm-4">
-                                            <label class="form-label" [ngClass]="{
-                        'required-field': submitted && f.villageId.errors
-                      }">
+                                            <label class="form-label required-field">
                                                 {{ "join_us.select_village" | translate }}</label>
                                             <ngx-select [allowClear]="true" [items]="villageArray"
                                                 placeholder="{{ 'join_us.select_village' | translate }}"
@@ -245,9 +241,7 @@
                                         </div>
                                     </ng-container>
                                     <div class="col-sm-4" *ngIf="f['ruralUrbanId'].value == 0">
-                                        <label class="form-label" [ngClass]="{
-                      'required-field': submitted && f.nagarPalikaId.errors
-                    }">
+                                        <label class="form-label required-field" >
                                             {{ "join_us.select_city" | translate }}</label>
                                         <ngx-select [allowClear]="true" [items]="nagarPalikaArray"
                                             placeholder="{{ 'join_us.select_city' | translate }}"
