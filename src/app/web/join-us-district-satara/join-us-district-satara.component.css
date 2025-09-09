@@ -1,0 +1,111 @@
+#left-content .logo {
+    width: 100px;
+}
+
+#left-content .sena {
+    height: 60px;
+}
+
+#left-content .image {
+    height: 100px;
+}
+
+#left-content ul {
+    list-style: none;
+    /* Remove default bullets */
+    padding: 0;
+}
+
+#left-content li {
+    position: relative;
+    padding-left: 1.2em;
+    /* Space for the marker */
+}
+
+#left-content li::before {
+    content: "✔";
+    /* Custom marker */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1em;
+}
+
+.btn-language {
+    font-size: 0.8rem;
+    background-color: #362699;
+    color: #fff;
+    border-radius: 0;
+}
+
+.dropdown-item {
+    font-size: 0.8rem;
+}
+.btn-form{
+    background-color: #362699;
+    color: #fff;
+}
+
+.btn-form:hover,
+.btn-form.active,
+.btn-form:active,
+.btn-form:visited ,
+.btn-form:focus {
+    background-color: #221383;
+    color: #fff;
+}
+
+.page-heading {
+  font-size: 1rem;             /* adjust size */
+  font-weight: 600;            /* make it bold */
+  color: #2c3e50;              /* text color */
+  position: relative;          /* allow pseudo element */
+  padding-left: 12px;          /* spacing for line */
+  margin-block: 15px;         /* space below heading */
+}
+
+.page-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;                  /* line thickness */
+  background-color: #221383;   /* line color */
+  border-radius: 2px;          /* rounded edges */
+}
+
+.dropdown-item.active{
+    background-color: #221383 !important;
+    color: #fff;
+}
+.dropdown-item.active:hover,
+.dropdown-item.active:active,
+.dropdown-item.active:visited,
+.dropdown-item.active:focus,
+.dropdown-item:active {
+    background-color: #221383 !important;
+    color: #fff;
+}
+@media (max-width: 768px) {
+
+    #left-content .logo {
+        width: 80px;
+    }
+
+    #left-content .image {
+        height: 60px;
+    }
+
+    #left-content .sena {
+        height: 50px;
+    }
+}
+
+.form-check-input[type=radio]{
+ border: 1px solid #353535;
+}
+.form-check-input[type=checkbox] {
+   
+    box-shadow: none !important;
+}

@@ -1,4 +1,4 @@
-import { NgModule, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +44,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ConfirmationComponent } from './partial/dialogs/confirmation/confirmation.component';
+import { OtpVerificationComponent } from './partial/dialogs/otp-verification/otp-verification.component';
 // export function httpTranslateLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http);
 // }
@@ -71,6 +73,8 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     AddDesignationComponent,
     RecentPostDetailsComponent,
     AddCommitteeComponent,
+    ConfirmationComponent,
+    OtpVerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +117,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     }),
     // AgmDrawingModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports : [WebHeaderComponent],
   providers: [DatePipe, AuthorizationService, NoAuthGuardService, AuthGuard],
   bootstrap: [AppComponent]

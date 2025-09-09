@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ImageItem } from '@ngx-gallery/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+import { ConfigService } from './config.service';
 
 
 @Injectable({
@@ -10,7 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class CommonService {
     setLanguage = new BehaviorSubject('');
-    constructor(private datePipe: DatePipe) {
+    constructor(private datePipe: DatePipe, private configService:ConfigService) {
 
     }
     regions_m: any;
@@ -177,6 +179,40 @@ export class CommonService {
     setDefaultValueinForm(formName: any, keyName: any, setValue: any) {
         return formName.controls[keyName].setValue(setValue);
     }
+
+      encryption256(data: any) {
+    let _key = CryptoJS.enc.Utf8.parse(this.configService.userToken);
+    let _iv = CryptoJS.enc.Utf8.parse(this.configService.userToken);
+    let encrypted = CryptoJS.AES.encrypt(
+      data, _key, {
+      keySize: 256 / 8,
+      iv: _iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.toString();
+  }
+  
+
+  decryptData(encryptedBase64: string): string {
+    try {
+      const key = CryptoJS.enc.Utf8.parse(this.configService.userToken);
+      const iv = CryptoJS.enc.Utf8.parse(this.configService.userToken);
+  
+      const decrypted = CryptoJS.AES.decrypt(encryptedBase64, key, {
+        keySize: 128 / 8,
+        iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+      });
+  
+      const result = decrypted.toString(CryptoJS.enc.Utf8);
+      return result;
+    } catch (error) {
+      console.error('Decryption failed:', error);
+      return '';
+    }
+  }
 
 
     mapRegions(): Observable<any> {

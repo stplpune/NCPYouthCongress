@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'events', loadChildren: () => import('./web/events/events.module').then(m => m.EventsModule), data: { title: 'Events' } },
       { path: 'help', loadChildren: () => import('./web/help/help.module').then(m => m.HelpModule), data: { title: 'Help - Members' } },
       { path: 'help-non-member', loadChildren: () => import('./web/help-non-member/help-non-member.module').then(m => m.HelpNonMemberModule), data: { title: 'Help - Non-Members' } },
+      { path: 'join-us', loadChildren: () => import('./web/join-us-district-satara/join-us-district-satara.module').then(m => m.JoinUsDistrictSataraModule), data: { title: 'Join Us' } },
     ]
   },
   {
@@ -60,7 +61,7 @@ const routes: Routes = [
   ]
   },
   { path: '500', component: ServerErrorComponent },
-
+ 
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({

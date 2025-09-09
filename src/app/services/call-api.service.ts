@@ -13,10 +13,11 @@ export class CallAPIService {
   tokanExpiredFlag: boolean = false;
   getBaseurl(url: string) {
     switch (url) {
+
       //live server base url 
       case 'ncpServiceForWeb': return 'https://ncpwebservice.ncpyouths.com/Service.asmx/'; break;
-      //development server base url 
-      // case 'ncpServiceForWeb': return 'http://ncpserviceweb.eanifarm.com/Service.asmx/'; break;
+      // case 'shisankalpOrg': return 'https://api.shivsankalp.org/'; break;  // live
+       case 'shisankalpOrg': return 'http://demoapi.shivsankalp.org/'; break;   // demo
       default: return ''; break;
     }
   }

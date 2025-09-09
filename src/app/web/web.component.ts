@@ -12,7 +12,7 @@ export class WebComponent implements OnInit {
 
   constructor(private zone: NgZone, private router: Router, private spinner:NgxSpinnerService) {
     // on route change to '/login', set the variable showHead to false
-    if (this.router.url == '/login' || this.router.url == '/help' || this.router.url == '/help-non-member'  || this.router.url.includes('mobile-login') || this.router.url.includes('share')){
+    if (this.router.url == '/login' || this.router.url == '/join-us' || this.router.url == '/help' || this.router.url == '/help-non-member'  || this.router.url.includes('mobile-login') || this.router.url.includes('share')){
       this.login = true;
     }
   }

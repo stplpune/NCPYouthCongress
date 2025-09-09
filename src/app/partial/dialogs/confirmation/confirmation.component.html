@@ -1,0 +1,30 @@
+<div class="modal-content">
+  <div class="modal-header bg-transparent border-bottom-0">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="onNoClick('No')"></button>
+  </div>
+  <div class="modal-body text-center py-3">
+    <ng-container *ngIf="data?.flag == true; else elseBlock">
+      <img src="assets/images/phone-registed.svg" alt="" height="60px" width="60px" class="mb-3">
+    </ng-container>
+
+    <ng-template #elseBlock>
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" sty>
+        <circle class="path circle" fill="none" stroke="#28a745" stroke-width="6" stroke-miterlimit="10" cx="65.1"
+          cy="65.1" r="62.1" />
+        <polyline class="path check" fill="none" stroke="#28a745" stroke-width="6" stroke-linecap="round"
+          stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+      </svg>
+    </ng-template>
+
+    <h3 class="my-3  text-success" *ngIf="data?.flag != true">
+      {{ language == "English" ? "Success!" : language == "Hindi" ? "सफलता!" : "यशस्वी." }}
+    </h3>
+    <p class="mb-4 fw-semibold">
+      {{ data.textMsg }}
+    </p>
+    <button class="btn mx-auto btn-main" type="button" data-bs-dismiss="modal" (click)="onNoClick('Ok')">
+      {{ language == "English" ? "Ok" : language == "Hindi" ? "ठीक है" : "ठीक आहे" }}
+    </button>
+  </div>
+</div>

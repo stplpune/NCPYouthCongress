@@ -1,0 +1,66 @@
+<div class="modal-content">
+  <div class="modal-header bg-transparent border-bottom-0">
+    {{ "otp.otp-verification" | translate }}
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="onNoClick('No')"></button>
+  </div>
+
+  <div class="modal-body text-center py-3">
+    <div class="text-success small" role="alert" *ngIf="!otpTimerFlag">
+      <p *ngIf="language === 'English'" class="mb-1 fs-80">
+        OTP Sent Successfully to ******{{ data.mobileNo.slice(6, 10) }}.
+      </p>
+      <p *ngIf="language === 'Hindi'" class="mb-1 fs-80">
+        ******{{ data.mobileNo.slice(6, 10) }} पर ओटीपी सफलतापूर्वक भेजा गया।
+      </p>
+      <p *ngIf="language === 'Marathi'" class="mb-1 fs-80">
+        ******{{ data.mobileNo.slice(6, 10) }} या नंबरवर ओटीपी यशस्वीरित्या
+        पाठवला.
+      </p>
+    </div>
+
+    <input type="text" placeholder="{{ 'otp.enterOtp' | translate }}" class="form-control w-100" [formControl]="otp"
+      type="text" (keypress)="validation.acceptedOnlyNumbers($event)" maxlength="4" />
+    <mat-error *ngIf="otp?.hasError('required') && (otp?.dirty || otp?.touched)" class="invalid-feedback">
+      {{ "otp.enterOtpVal" | translate }}
+    </mat-error>
+    <mat-error *ngIf="
+      (otp?.hasError('minlength') || otp?.hasError('maxlength')) &&
+      (otp?.dirty || otp?.touched)
+    " class="invalid-feedback">
+      {{ "otp.otpMinLength" | translate }}
+    </mat-error>
+
+    <div class="text-end mt-4" *ngIf="!otpTimerFlag">
+      <p class="text-muted small" *ngIf="language === 'English'">
+        OTP Resend in 00:{{ otpTimer }} Seconds
+      </p>
+      <p class="text-muted small" *ngIf="language === 'Hindi'">
+        00:{{ otpTimer }} सेकंड में ओटीपी पुनः भेजें
+      </p>
+      <p class="text-muted small" *ngIf="language === 'Marathi'">
+        ओटीपी पुन्हा पाठवा 00:{{ otpTimer }} सेकंदात
+      </p>
+    </div>
+
+    <div class="text-end mt-0" *ngIf="otpTimerFlag">
+      <a class="text-decoration-none text-main cursor small" type="button" (click)="sendOtp()">
+        {{
+        language === "English"
+        ? "Resend OTP"
+        : language === "Hindi"
+        ? "ओटीपी पुनः भेजें"
+        : "ओटीपी पुन्हा पाठवा"
+        }}
+      </a>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end gap-1 w-100 mb-3">
+    <button class="btn mx-auto btn-secondary me-2" data-bs-dismiss="modal" type="button"
+      data-bs-dismiss="modal" (click)="onNoClick('withOtp')" aria-label="Close">{{ "common.withOtp" | translate
+      }}</button>
+    <button class="btn mx-auto btn-danger" type="button" data-bs-dismiss="modal"
+      aria-label="Close" type="button" (click)="onNoClick('withOutOtp')" data-bs-dismiss="modal" aria-label="Close">{{
+      "common.withOutOtp" | translate }}</button>
+  </div>
+</div>
