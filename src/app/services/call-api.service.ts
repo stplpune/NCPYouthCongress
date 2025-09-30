@@ -17,7 +17,7 @@ export class CallAPIService {
       //live server base url 
       case 'ncpServiceForWeb': return 'https://ncpwebservice.ncpyouths.com/Service.asmx/'; break;
       // case 'shisankalpOrg': return 'https://api.shivsankalp.org/'; break;  // live
-       case 'shisankalpOrg': return 'http://demoapi.shivsankalp.org/'; break;   // demo
+       case 'shisankalpOrg': return 'https://demoapi.shivsankalp.org/'; break;   // demo
       default: return ''; break;
     }
   }
