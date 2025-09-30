@@ -226,7 +226,7 @@ joinUsForm: FormGroup | any;
         "isDeleted": 0,
         "isOTPVerified":formData?.otp ? 1 : 0,
         "otp" : formData?.otp,
-        isSelfReg:true
+        isSelfReg:true,
       }
   
       // Member/AddMember
