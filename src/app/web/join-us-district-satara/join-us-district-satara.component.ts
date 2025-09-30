@@ -227,6 +227,7 @@ joinUsForm: FormGroup | any;
         "isOTPVerified":formData?.otp ? 1 : 0,
         "otp" : formData?.otp,
         isSelfReg:true,
+        isMannkhatav_web: true 
       }
   
       // Member/AddMember
@@ -257,6 +258,7 @@ joinUsForm: FormGroup | any;
     const dialogRef = this.dialog.open(OtpVerificationComponent, {
       data: { mobileNo: this.f['mobileNo'].value },
       width: '400px',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
