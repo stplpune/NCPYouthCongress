@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -195,5 +195,65 @@ export class ValidatorService {
       event.preventDefault(); // Prevent any space input
     }
   }
+
+acceptOnlyNumbers(event: Event, control: FormControl, maxLength: number = 10) {
+  const input = event.target as HTMLInputElement;
+
+  // remove everything except digits
+  let cleaned = input.value.replace(/[^0-9]/g, '');
+
+  // remove leading spaces (just in case) 
+  cleaned = cleaned.replace(/^\s+/, '');
+
+  // apply max length
+  if (cleaned.length > maxLength) {
+    cleaned = cleaned.slice(0, maxLength);
+  }
+
+  control.setValue(cleaned, { emitEvent: false });
+  input.value = cleaned;
+}
+
+// Block typing first space
+blockFirstSpaceKey(event: KeyboardEvent) {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  if (target.selectionStart === 0 && event.key === ' ') {
+    event.preventDefault(); // stops first space from even appearing
+  }
+}
+
+// Clean pasted spaces
+noFirstSpaceAllowNew(event: Event, control: FormControl) {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  let value = target.value;
+
+  if (value.startsWith(' ')) {
+    value = value.trimStart();
+    control.setValue(value, { emitEvent: false });
+    target.value = value;
+  }
+}
+
+alphabetsWithSpacesNew(event: KeyboardEvent) {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+
+  // Allow control keys: Backspace, Delete, Arrow keys, Tab
+  const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+  if (allowedKeys.includes(event.key)) return;
+
+  // Block first space
+  if (target.selectionStart === 0 && event.key === ' ') {
+    event.preventDefault();
+    return;
+  }
+
+  // Allow only alphabets and space
+  const regex = /^[a-zA-Z ]$/;
+  if (!regex.test(event.key)) {
+    event.preventDefault();
+  }
+}
+
+
 
 }

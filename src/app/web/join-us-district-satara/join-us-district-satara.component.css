@@ -109,3 +109,29 @@
    
     box-shadow: none !important;
 }
+
+
+
+
+
+
+/* Ensure dropdown width matches parent col-sm-4 */
+.col-sm-4.position-relative .list-group {
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .col-sm-4.position-relative {
+    width: 100%; /* Column becomes full width on small screens */
+  }
+
+  .col-sm-4.position-relative .list-group {
+    max-height: 150px;
+    font-size: 13px;
+  }
+}

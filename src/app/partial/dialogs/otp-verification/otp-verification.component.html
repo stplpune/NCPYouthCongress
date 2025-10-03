@@ -19,8 +19,8 @@
       </p>
     </div>
 
-    <input type="text" placeholder="{{ 'otp.enterOtp' | translate }}" class="form-control w-100" [formControl]="otp"
-      type="text" (keypress)="validation.acceptedOnlyNumbers($event)" maxlength="4" />
+    <input type="tel" inputmode="numeric" placeholder="{{ 'otp.enterOtp' | translate }}" class="form-control w-100" [formControl]="otp"
+     (keypress)="validation.acceptedOnlyNumbers($event)" (input)="validation.acceptOnlyNumbers($event, otp, 10)" maxlength="4" />
     <mat-error *ngIf="otp?.hasError('required') && (otp?.dirty || otp?.touched)" class="invalid-feedback">
       {{ "otp.enterOtpVal" | translate }}
     </mat-error>

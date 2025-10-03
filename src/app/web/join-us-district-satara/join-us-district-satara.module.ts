@@ -7,11 +7,13 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CapitalizeWordsDirective } from 'src/app/partial/directive/capitalize-words.directive';
 
 
 @NgModule({
   declarations: [
-    JoinUsDistrictSataraComponent
+    JoinUsDistrictSataraComponent,
+    CapitalizeWordsDirective
   ],
   imports: [
     CommonModule,

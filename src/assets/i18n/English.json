@@ -13,7 +13,7 @@
         "join_us_now": "Join Us Now!",
         "join": "Membership Registration Form – Nationalist Congress Party (Sharadchandra Pawar)",
         "personal_details": "Personal Details",
-        "address_details": "Address Details",
+        "address_details": "Address Details (Native Village)",
         "full_name": "Full Name",
         "gender": "Gender",
         "male": "Male",
@@ -67,7 +67,9 @@
         "abhaysir_desi": "Founder & President, Shivsankalp Rashtranirman Sena",
         "have_otp": "Do you have an OTP?",
         "city_name": "Dahiwadi, Mhaswad, Vaduj",
-        "reg_form": "Membership Registration Form (Man Khatav)"
+        "reg_form": "Membership Registration Form (Man Khatav)",
+        "Place_of_residence_outside_village": "Place of Residence (If living outside the village)",
+        "enter_valid_otherAddress": "Enter valid outside address"
     },
      "otp":{
         "otp-verification": "OTP Verification",

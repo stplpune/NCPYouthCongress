@@ -10,6 +10,8 @@ import { ConfigService } from 'src/app/services/config.service';
 import { CallAPIService } from 'src/app/services/call-api.service';
 import { OtpVerificationComponent } from 'src/app/partial/dialogs/otp-verification/otp-verification.component';
 import { ConfirmationComponent } from 'src/app/partial/dialogs/confirmation/confirmation.component';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
 
 
 @Component({
@@ -22,7 +24,8 @@ export class JoinUsDistrictSataraComponent implements OnInit {
 joinUsForm: FormGroup | any;
   stateArray: any;
   districtArray: any;
-  talukaArray: any;
+
+  talukaArray: any = [{ "id": 3996, "name": "Man","mName": "माण", "code": 4259},{"id": 3272, "name": "Khatav","mName": "खटाव","code": 4260}];
   villageArray: any;
   nagarPalikaArray: any;
   submitted: boolean = false;
@@ -48,6 +51,7 @@ joinUsForm: FormGroup | any;
     this.changeLanguage(localStorage.getItem('language') ? localStorage.getItem('language') : 'Marathi');
     this.joinUs_Form();
     this.getState();
+    this.getOtherAddressList();
   }
 
   changeLanguage(lang?: any) {
@@ -63,29 +67,31 @@ joinUsForm: FormGroup | any;
   joinUs_Form() {
     this.joinUsForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(/^[A-Za-z\u0900-\u097F\uA8E0-\uA8FF\s]+$/)]],
-      gender: ['', [Validators.required]],
+      gender: [1, [Validators.required]],
       mobileNo: ['', [Validators.required, Validators.pattern('[6-9]\\d{9}')]],
       address: ['', [Validators.pattern(/^[\u0900-\u097F\u0900-\u09FF\u0041-\u005A\u0061-\u007A\u0030-\u0039\s.,\-#'"/()]*$/)]],
       feedback: ['', [Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
       stateId: [this.config.stateId, [Validators.required]],
       districtId: [this.config.districtId, [Validators.required]],
-      talukaId: [''],
+      talukaId: [4259],
       villageId: [''],
       nagarPalikaId: [''],
       ruralUrbanId: [1, [Validators.required]],
       isOTPVerified: [true],
-      otp: ['']
+      otp: [''],
+      otherAddress: ['',[Validators.pattern(/^[\u0900-\u097F\u0900-\u09FF\u0041-\u005A\u0061-\u007A\u0030-\u0039\s.,\-#'"/()]*$/)]]
     })
     this.setClearValidation();
   }
 
   selRuralUrban(flag: any) {
     if (flag == 1) {
-      this.f["districtId"].value ? this.getTaluka() : '';
+      // this.f["districtId"].value ? this.getTaluka() : '';
+     this.getVillage();
     } else {
       this.f["districtId"].value ? this.getUrbanCity() : '';
     }
-    this.f["talukaId"].setValue('');
+    // this.f["talukaId"].setValue('');
     this.f["villageId"].setValue('');
     this.f["nagarPalikaId"].setValue('');
     this.setClearValidation();
@@ -108,24 +114,31 @@ joinUsForm: FormGroup | any;
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.responseData != null && res.statusCode == "200") {
         this.districtArray = res.responseData;
-        this.getTaluka();
+        // this.getTaluka();
+        this.getVillage();
       } else { this.districtArray = []; }
     }, (error: any) => {
       this.router.navigate(['../500'], { relativeTo: this.route });
     })
   }
 
-  getTaluka() {
-    this.apiService.setHttp('get', 'api/CommonDropdown/GetTaluka?DistrictCode=' + this.f['districtId'].value, false, false, false, 'shisankalpOrg'); //old API Web_GetTaluka_1_0
-    this.apiService.getHttp().subscribe((res: any) => {
-      if (res.responseData != null && res.statusCode == "200") {
-        this.talukaArray = res.responseData;
-        this.talukaArray = this.talukaArray.filter((item: any) => item.code == 4260 || item.code == 4259); // filter only satara district man & khatav talukas
-      } else { this.talukaArray = []; }
-    }, (error: any) => {
-      this.router.navigate(['../500'], { relativeTo: this.route });
-    })
-  }
+  // getTaluka() {
+  //   this.apiService.setHttp('get', 'api/CommonDropdown/GetTaluka?DistrictCode=' + this.f['districtId'].value, false, false, false, 'shisankalpOrg'); //old API Web_GetTaluka_1_0
+  //   this.apiService.getHttp().subscribe((res: any) => {
+  //     if (res.responseData != null && res.statusCode == "200") {
+  //       this.talukaArray = res.responseData; 
+  //       const allowedTalukaCodes = [4259, 4260]; // filter only satara district man & khatav talukas
+  //       this.talukaArray = this.talukaArray
+  //         .filter((item: any) => allowedTalukaCodes.includes(item.code)).sort((a: any, b: any) => {
+  //           if (a.code === 4259) return -1; // Man first
+  //           if (b.code === 4259) return 1;
+  //           return 0; // keep Khatav next
+  //         });
+  //     } else { this.talukaArray = []; }
+  //   }, (error: any) => {
+  //     this.router.navigate(['../500'], { relativeTo: this.route });
+  //   })
+  // }
 
   getVillage() {
     let url = 'api/CommonDropdown/GetVillage?TalukaCode=' + this.f['talukaId'].value
@@ -163,8 +176,8 @@ joinUsForm: FormGroup | any;
       this.f["talukaId"].setValue('');
       this.f["villageId"].setValue('');
       this.f["nagarPalikaId"].setValue('');
-      // this.f["ruralUrbanId"].setValue('');
-      sf == 'select' ? this.f['ruralUrbanId'].value == 1 ? this.getTaluka() : this.getUrbanCity() : '';
+      // sf == 'select' ? this.f['ruralUrbanId'].value == 1 ? this.getTaluka() : this.getUrbanCity() : '';
+        sf == 'select' ? this.f['ruralUrbanId'].value == 1 ? '' : this.getUrbanCity() : '';
     } else if (flag == 'taluka') {
       this.f["villageId"].setValue('');
       sf == 'select' ? this.getVillage() : '';
@@ -221,6 +234,7 @@ joinUsForm: FormGroup | any;
         "urbanCityCode": formData.nagarPalikaId || 0,
         "urbanCityName": this.nagarPalikaArray?.find((ele: any) => ele.code == this.f['nagarPalikaId'].value)?.name || '',
         "address": formData.address,
+        "otherAddress": formData.otherAddress,
         "remark": formData.feedback,
         "createdDate": new Date(),
         "isDeleted": 0,
@@ -229,12 +243,12 @@ joinUsForm: FormGroup | any;
         isSelfReg:true,
         isMannkhatav_web: true 
       }
-  
-      // Member/AddMember
+
       this.apiService.setHttp('POST', 'Member/AddNewMember', false, obj, false, 'shisankalpOrg');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
+          this.saveOtherAddress(); // to save other address
           this.clearForm();
           this.confirmModel();
           this.submitted = false;
@@ -253,7 +267,6 @@ joinUsForm: FormGroup | any;
       })
   }
 
-
   otp() {
     const dialogRef = this.dialog.open(OtpVerificationComponent, {
       data: { mobileNo: this.f['mobileNo'].value },
@@ -271,8 +284,6 @@ joinUsForm: FormGroup | any;
       }
     });
   }
-
-
 
   confirmModel(textMsg?:any) { // flag => flag true is member already exist
      let obj = textMsg ? ({ flag: true, textMsg: textMsg }) :
@@ -297,5 +308,68 @@ joinUsForm: FormGroup | any;
     this.submitted = false;
   }
 
+
+//..................................................  Autocomplete Other Addrss  ...............................................................//
+
+   showSuggestions: boolean = false;
+  filteredSuggestions: string[] = [];
+  allPlaces: string[] = []; // Store all places fetched once
+
+
+  saveOtherAddress() {
+    let formData = this.joinUsForm.getRawValue();
+
+    const isAlreadyExists = this.allPlaces.map(p => p.toLowerCase()).includes(formData.otherAddress.toLowerCase());
+
+    if (isAlreadyExists) {
+      return;
+    } else {
+      let obj = {
+        "name": formData.otherAddress,
+        "talukaId": 0
+      }
+      this.apiService.setHttp('POST', 'api/elasticSearch/Create', false, obj, false, 'shisankalpOrg');
+      this.apiService.getHttp().subscribe((res: any) => {
+        if (res.statusCode == "200") {
+        } else {
+        }
+      }, (error: any) => {
+      })
+    }
+  }
+
+    getOtherAddressList() {
+    this.apiService.setHttp('get', 'api/elasticSearch/GetAll', false, false, false, 'shisankalpOrg');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.data != null && res.statusCode == "200") {
+        this.allPlaces = res.data.map((item:any) => item.name);
+      } else { this.allPlaces = []; }
+    }, (error: any) => {
+      this.router.navigate(['../500'], { relativeTo: this.route });
+    })
+  }
+
+  onOtherAddressInput() {
+    const value = this.f.otherAddress.value;
+    if (!value) {
+      this.filteredSuggestions = [];
+      return;
+    }
+
+    // Filter locally based on input
+    this.filteredSuggestions = this.allPlaces.filter(item =>
+      item.toLowerCase().startsWith(value.toLowerCase())
+    );
+    this.showSuggestions = this.filteredSuggestions.length > 0;
+  }
+
+  selectSuggestion(item: string) {
+    this.joinUsForm.patchValue({ otherAddress: item });
+    this.showSuggestions = false;
+  }
+
+  hideSuggestions() {
+    setTimeout(() => this.showSuggestions = false, 200);
+  }
 
 }
