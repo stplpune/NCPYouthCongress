@@ -320,7 +320,7 @@
   <!-- Scrollable Suggestions Dropdown -->
   <ul class="list-group position-absolute w-100"
       *ngIf="showSuggestions && filteredSuggestions.length > 0"
-      style="z-index:1000; max-height:180px; overflow-y:auto; box-shadow:0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">
+      style="z-index:1000; max-height:180px; overflow-y:auto; box-shadow:0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;width: 409px!important;">
     <li class="list-group-item list-group-item-action"
         *ngFor="let item of filteredSuggestions"
         (mousedown)="selectSuggestion(item)">
