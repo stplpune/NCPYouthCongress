@@ -87,6 +87,16 @@
     background-color: #221383 !important;
     color: #fff;
 }
+
+.drop-list {
+    z-index: 1000;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width:350px !important;
+    max-width: auto !important;
+}
 @media (max-width: 768px) {
 
     #left-content .logo {
