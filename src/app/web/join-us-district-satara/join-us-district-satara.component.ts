@@ -269,7 +269,7 @@ joinUsForm: FormGroup | any;
 
   otp() {
     const dialogRef = this.dialog.open(OtpVerificationComponent, {
-      data: { mobileNo: this.f['mobileNo'].value },
+      data: { mobileNo: this.f['mobileNo'].value, name: this.f['name'].value },
       width: '400px',
       disableClose: true
     });

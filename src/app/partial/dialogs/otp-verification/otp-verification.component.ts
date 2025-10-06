@@ -50,7 +50,9 @@ export class OtpVerificationComponent {
     this.ngxSpinnerService.show();
     let obj = {
       mobileNo: this.data.mobileNo,
+      name: this.data.name,
       otp: true,
+      isMannkhatav_web: true
     };
     this.apiService.setHttp(
       'Post',
