@@ -69,8 +69,8 @@ joinUsForm: FormGroup | any;
       name: ['', [Validators.required, Validators.pattern(/^[A-Za-z\u0900-\u097F\uA8E0-\uA8FF\s]+$/)]],
       gender: [1, [Validators.required]],
       mobileNo: ['', [Validators.required, Validators.pattern('[6-9]\\d{9}')]],
-      address: ['', [Validators.pattern(/^[\u0900-\u097F\u0900-\u09FF\u0041-\u005A\u0061-\u007A\u0030-\u0039\s.,\-#'"/()]*$/)]],
-      feedback: ['', [Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
+      address: ['', [Validators.pattern(/^[^\s][\u0900-\u097FA-Za-z0-9\s,'\-–./#]{2,500}$/)]],
+      feedback: ['', [Validators.pattern(/^[\u0900-\u097FA-Za-z0-9][\s\S]{2,500}$/)]],
       stateId: [this.config.stateId, [Validators.required]],
       districtId: [this.config.districtId, [Validators.required]],
       talukaId: [4259],
@@ -79,7 +79,7 @@ joinUsForm: FormGroup | any;
       ruralUrbanId: [1, [Validators.required]],
       isOTPVerified: [true],
       otp: [''],
-      otherAddress: ['',[Validators.pattern(/^[\u0900-\u097F\u0900-\u09FF\u0041-\u005A\u0061-\u007A\u0030-\u0039\s.,\-#'"/()]*$/)]]
+      otherAddress: ['',[Validators.pattern(/^[^\s][\u0900-\u097FA-Za-z0-9\s,'\-–./#]{2,500}$/)]]
     })
     this.setClearValidation();
   }
@@ -321,7 +321,7 @@ joinUsForm: FormGroup | any;
 
     const isAlreadyExists = this.allPlaces.map(p => p.toLowerCase()).includes(formData.otherAddress.toLowerCase());
 
-    if (isAlreadyExists) {
+    if (isAlreadyExists || formData.otherAddress == '') {
       return;
     } else {
       let obj = {
