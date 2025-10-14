@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { JoinUsMembersListRoutingModule } from './join-us-members-list-routing.module';
-import { JoinUsMembersListComponent } from './join-us-members-list.component';
+import { ManKhatavMembersListRoutingModule } from './man-khatav-members-list-routing.module';
+import { ManKhatavMembersListComponent } from './man-khatav-members-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule } from 'ngx-select-ex';
@@ -11,13 +11,13 @@ import { TooltipModule } from '../../directive/tooltip.module';
 
 @NgModule({
   declarations: [
-    JoinUsMembersListComponent
+    ManKhatavMembersListComponent
   ],
   imports: [
     CommonModule,
-    JoinUsMembersListRoutingModule,
+    ManKhatavMembersListRoutingModule,
     NgxSelectModule,
-    ReactiveFormsModule, NgxPaginationModule,TooltipModule
+        ReactiveFormsModule, NgxPaginationModule,TooltipModule
   ]
 })
-export class JoinUsMembersListModule { }
+export class ManKhatavMembersListModule { }

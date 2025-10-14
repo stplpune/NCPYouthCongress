@@ -13,11 +13,11 @@ import { ConfigService } from 'src/app/services/config.service';
 import { ValidatorService } from 'src/app/services/validator.service';
 
 @Component({
-  selector: 'app-join-us-members-list',
-  templateUrl: './join-us-members-list.component.html',
-  styleUrls: ['./join-us-members-list.component.css']
+  selector: 'app-man-khatav-members-list',
+  templateUrl: './man-khatav-members-list.component.html',
+  styleUrls: ['./man-khatav-members-list.component.css']
 })
-export class JoinUsMembersListComponent {
+export class ManKhatavMembersListComponent{
 
 filterForm: FormGroup | any;
   stateArray: any;

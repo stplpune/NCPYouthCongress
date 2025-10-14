@@ -60,7 +60,7 @@ const routes: Routes = [
       
       // man Khatav List  https://mankhatav.ncpyouths.com/
 
-       { path: 'all-members', loadChildren: () => import('./partial/members/join-us-members-list/join-us-members-list.module').then(m => m.JoinUsMembersListModule), data: { title: 'Man Khatav Members Report', allowedRoles: ['2', '1','9','5'] }  },
+      { path: 'all-members', loadChildren: () => import('./partial/members/man-khatav-members-list/man-khatav-members-list.module').then(m => m.ManKhatavMembersListModule), data: { title: 'Man Khatav Members Report', allowedRoles: ['2', '1','9','5'] }  },
  
   ]
   },
