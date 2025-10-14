@@ -95,6 +95,7 @@ joinUsForm: FormGroup | any;
     this.f["villageId"].setValue('');
     this.f["nagarPalikaId"].setValue('');
     this.setClearValidation();
+    this.getOtherAddressList();
   }
 
   getState() {// 106 india
@@ -306,6 +307,7 @@ joinUsForm: FormGroup | any;
     this.joinUs_Form();
     this.getDistrict();
     this.submitted = false;
+    this.getOtherAddressList();
   }
 
 
@@ -325,9 +327,16 @@ joinUsForm: FormGroup | any;
       return;
     } else {
       let obj = {
-        "name": formData.otherAddress,
-        "talukaId": 0
+        "name": formData.otherAddress || '',
+        "stateId": formData.stateId || 0,
+        "districtId": formData.districtId || 0,
+        "talukaId": formData.talukaId || 0,
+        "ruralVillageCode": formData.villageId || 0, // new
+        "urbanCityCode": formData.nagarPalikaId || 0, // new
+        "areaTypeId": formData.ruralUrbanId || 0,
+        "areaTypeName":  formData.ruralUrbanId == 1 ? 'Rural' : 'Urban',
       }
+
       this.apiService.setHttp('POST', 'api/elasticSearch/Create', false, obj, false, 'shisankalpOrg');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
@@ -339,7 +348,10 @@ joinUsForm: FormGroup | any;
   }
 
     getOtherAddressList() {
-    this.apiService.setHttp('get', 'api/elasticSearch/GetAll', false, false, false, 'shisankalpOrg');
+          let formData = this.joinUsForm.getRawValue();
+      let obj = `StateId=${this.config.stateId}&DistrictId=${this.config.districtId}&TalukaId=${formData.talukaId || 0}&AreaTypeId=${formData.ruralUrbanId || 0}
+      &AreaTypeName=${formData.ruralUrbanId == 1 ? 'Rural' : 'Urban'}&RuralVillageCode=${formData.villageId || 0}&UrbanCityCode=${formData.nagarPalikaId || 0}`
+    this.apiService.setHttp('get', 'api/elasticSearch/GetAll?' + obj, false, false, false, 'shisankalpOrg');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.data != null && res.statusCode == "200") {
         this.allPlaces = res.data.map((item:any) => item.name);

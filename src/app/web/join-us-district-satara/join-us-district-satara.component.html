@@ -88,7 +88,8 @@
                                             <div class="form-label required-field">
                                                 {{ "join_us.full_name" | translate }} :
                                             </div>
-                                            <input type="text" appCapitalizeWords placeholder="{{ 'join_us.enter_your_full_name' | translate }}"
+                                            <input type="text" appCapitalizeWords
+                                                placeholder="{{ 'join_us.enter_your_full_name' | translate }}"
                                                 class="form-control" formControlName="name" maxlength="50"
                                                 (keydown)="validation.blockFirstSpaceKey($event); validation.alphabetsWithSpacesNew($event)"
                                                 (input)="validation.noFirstSpaceAllowNew($event, f.name)"
@@ -107,8 +108,10 @@
                                                 {{ "join_us.mobile_no" | translate }} :
                                             </div>
                                             <input type="tel" inputmode="numeric" class="form-control" pattern="[0-9]*"
-                                                placeholder="{{ 'join_us.enter_mobile_no' | translate }}" formControlName="mobileNo" maxlength="10"
-                                              (input)="validation.acceptOnlyNumbers($event, joinUsForm.controls['mobileNo'], 10)"  [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }" />
+                                                placeholder="{{ 'join_us.enter_mobile_no' | translate }}"
+                                                formControlName="mobileNo" maxlength="10"
+                                                (input)="validation.acceptOnlyNumbers($event, joinUsForm.controls['mobileNo'], 10)"
+                                                [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }" />
                                             <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
                                                 <span *ngIf="f.mobileNo.errors.required">{{
                                                     "join_us.mobile_no_required" | translate
@@ -229,20 +232,24 @@
                                                 </div>
                                                 <div class="form-check form-check-inline"
                                                     *ngFor="let talukaObj of talukaArray">
-                                                    <input class="form-check-input" type="radio" formControlName="talukaId"
-                                                        (change)="clearSelect('taluka', 'select')"
+                                                    <input class="form-check-input" type="radio"
+                                                        formControlName="talukaId"
+                                                        (change)="clearSelect('taluka', 'select');getOtherAddressList()"
                                                         [ngClass]="!f['districtId'].value ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })"
                                                         [value]="talukaObj.code" name="talukaId"
                                                         [ngClass]="{ 'is-invalid': submitted && f.talukaId.errors }" />
-                                                    <label class="form-check-label" for="rtaluka"> {{this.language == 'English' ? talukaObj.name : talukaObj.mName}}</label>
+                                                    <label class="form-check-label" for="rtaluka"> {{this.language ==
+                                                        'English' ? talukaObj.name : talukaObj.mName}}</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-4">
                                                 <label class="form-label required-field">
                                                     {{ "join_us.select_village" | translate }}</label>
-                                                <ngx-select [allowClear]="true" [items]="villageArray" placeholder="{{ 'join_us.select_village' | translate }}"
-                                                    optionValueField="code" optionTextField="name" formControlName="villageId" [ngClass]="
+                                                <ngx-select [allowClear]="true" [items]="villageArray"
+                                                    placeholder="{{ 'join_us.select_village' | translate }}"
+                                                    (select)="getOtherAddressList()" optionValueField="code"
+                                                    optionTextField="name" formControlName="villageId" [ngClass]="
                                                                     !f['talukaId'].value
                                                                       ? f['villageId'].disable({ onlySelf: true })
                                                                       : f['villageId'].enable({ onlySelf: true })
@@ -261,6 +268,7 @@
                                             <label class="form-label required-field">
                                                 {{ "join_us.select_city" | translate }}</label>
                                             <ngx-select [allowClear]="true" [items]="nagarPalikaArray"
+                                                (select)="getOtherAddressList()"
                                                 placeholder="{{ 'join_us.select_city' | translate }}"
                                                 optionValueField="code" optionTextField="name"
                                                 formControlName="nagarPalikaId" [ngClass]="
@@ -281,18 +289,23 @@
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-sm-4 ">
-                                            <label for="txtAddress" class="form-label">{{ "join_us.address" | translate }}</label>
-                                            <textarea class="form-control" placeholder="{{ 'join_us.address' | translate }}"
-                                            (keydown)="validation.blockFirstSpaceKey($event)"
-                                                (input)="validation.noFirstSpaceAllowNew($event, f.otherAddress)" maxlength="500" formControlName="address" rows="3"
+                                            <label for="txtAddress" class="form-label">{{ "join_us.address" | translate
+                                                }}</label>
+                                            <textarea class="form-control"
+                                                placeholder="{{ 'join_us.address' | translate }}"
+                                                (keydown)="validation.blockFirstSpaceKey($event)"
+                                                (input)="validation.noFirstSpaceAllowNew($event, f.otherAddress)"
+                                                maxlength="500" formControlName="address" rows="3"
                                                 [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
-                                            <div class="form-text text-muted"> {{ "join_us.address_note" | translate }} </div>
+                                            <div class="form-text text-muted"> {{ "join_us.address_note" | translate }}
+                                            </div>
                                             <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                                                 <!-- <div *ngIf="f.address.errors.required">Address is required</div> -->
-                                                <div *ngIf="f.address.errors.pattern"> {{ "join_us.enter_valid_address" | translate }} </div>
+                                                <div *ngIf="f.address.errors.pattern"> {{ "join_us.enter_valid_address"
+                                                    | translate }} </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- <div class="col-sm-4">
                                             <label for="" class="form-label">{{ "join_us.Place_of_residence_outside_village" | translate }}</label>
                                             <textarea class="form-control" rows="3" placeholder="{{ 'join_us.Place_of_residence_outside_village' | translate }}"
@@ -305,39 +318,42 @@
                                         </div> -->
 
                                         <div class="col-sm-4 position-relative">
-  <label class="form-label">{{ "join_us.Place_of_residence_outside_village" | translate }}</label>
-  
-  <textarea class="form-control" rows="3"
-            placeholder="{{ 'join_us.Place_of_residence_outside_village' | translate }}"
-            [ngClass]="{ 'is-invalid': submitted && f.otherAddress.errors }"
-            maxlength="500"
-            formControlName="otherAddress"
-            (keydown)="validation.blockFirstSpaceKey($event)"
-            (input)="onOtherAddressInput()"
-            (focus)="showSuggestions = true"
-            (blur)="hideSuggestions()"></textarea>
+                                            <label class="form-label">{{ "join_us.Place_of_residence_outside_village" |
+                                                translate }}</label>
 
-  <!-- Scrollable Suggestions Dropdown -->
-  <ul class="list-group drop-list position-absolute w-100"
-      *ngIf="showSuggestions && filteredSuggestions.length > 0">
-    <li class="list-group-item list-group-item-action"
-        *ngFor="let item of filteredSuggestions"
-        (mousedown)="selectSuggestion(item)">
-      {{ item }}
-    </li>
-  </ul>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="{{ 'join_us.Place_of_residence_outside_village' | translate }}"
+                                                [ngClass]="{ 'is-invalid': submitted && f.otherAddress.errors }"
+                                                maxlength="500" formControlName="otherAddress"
+                                                (keydown)="validation.blockFirstSpaceKey($event)"
+                                                (input)="onOtherAddressInput()" (focus)="showSuggestions = true"
+                                                (blur)="hideSuggestions()"></textarea>
 
-  <div *ngIf="submitted && f.otherAddress.errors" class="invalid-feedback">
-    <div *ngIf="f.otherAddress.errors.pattern"> {{ "join_us.enter_valid_otherAddress" | translate }} </div>
-  </div>
-</div>
+                                            <!-- Scrollable Suggestions Dropdown -->
+                                            <ul class="list-group drop-list position-absolute w-100"
+                                                *ngIf="showSuggestions && filteredSuggestions.length > 0">
+                                                <li class="list-group-item list-group-item-action"
+                                                    *ngFor="let item of filteredSuggestions"
+                                                    (mousedown)="selectSuggestion(item)">
+                                                    {{ item }}
+                                                </li>
+                                            </ul>
+
+                                            <div *ngIf="submitted && f.otherAddress.errors" class="invalid-feedback">
+                                                <div *ngIf="f.otherAddress.errors.pattern"> {{
+                                                    "join_us.enter_valid_otherAddress" | translate }} </div>
+                                            </div>
+                                        </div>
 
 
                                         <div class="col-sm-4">
-                                            <label for="" class="form-label">{{ "join_us.your_opinion_feedback" | translate }}</label>
-                                            <textarea class="form-control" rows="3" placeholder="{{ 'join_us.your_opinion_feedback' | translate }}"
+                                            <label for="" class="form-label">{{ "join_us.your_opinion_feedback" |
+                                                translate }}</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="{{ 'join_us.your_opinion_feedback' | translate }}"
                                                 [ngClass]="{ 'is-invalid': submitted && f.feedback.errors }"
-                                                maxlength="500" formControlName="feedback" (keydown)="validation.blockFirstSpaceKey($event)"
+                                                maxlength="500" formControlName="feedback"
+                                                (keydown)="validation.blockFirstSpaceKey($event)"
                                                 (input)="validation.noFirstSpaceAllowNew($event, f.otherAddress)"></textarea>
                                             <div *ngIf="submitted && f.feedback.errors" class="invalid-feedback">
                                                 <div *ngIf="f.feedback.errors.pattern">
