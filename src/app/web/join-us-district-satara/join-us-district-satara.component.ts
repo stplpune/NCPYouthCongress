@@ -51,7 +51,7 @@ joinUsForm: FormGroup | any;
     this.changeLanguage(localStorage.getItem('language') ? localStorage.getItem('language') : 'Marathi');
     this.joinUs_Form();
     this.getState();
-    this.getOtherAddressList();
+    // this.getOtherAddressList();
   }
 
   changeLanguage(lang?: any) {
@@ -95,7 +95,8 @@ joinUsForm: FormGroup | any;
     this.f["villageId"].setValue('');
     this.f["nagarPalikaId"].setValue('');
     this.setClearValidation();
-    this.getOtherAddressList();
+    // this.getOtherAddressList();
+    this.allPlaces = [];
   }
 
   getState() {// 106 india
@@ -307,7 +308,8 @@ joinUsForm: FormGroup | any;
     this.joinUs_Form();
     this.getDistrict();
     this.submitted = false;
-    this.getOtherAddressList();
+    // this.getOtherAddressList();
+    this.allPlaces = [];
   }
 
 
