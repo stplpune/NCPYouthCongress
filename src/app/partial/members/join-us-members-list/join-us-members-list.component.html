@@ -1,0 +1,322 @@
+<div class="chartbox">
+    <div class="container-fluid">
+  <div class="fs-main fw-bold mb-2">Man Khatav Members List</div>
+
+  <div class="plain-card table-responsive card border-0 form-container">
+    <div class="card-header bg-transparent px-2">
+      <form [formGroup]="filterForm">
+        <div class="row g-2">
+          <div class="col-sm-2">
+            <ngx-select
+              formControlName="stateId"
+              [items]="stateArray"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              placeholder="Select State"
+              (select)="clearSelect('state')"
+              optionValueField="code"
+              optionTextField="name"
+                 [ngClass]="f['stateId'].value ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })"
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2">
+            <ngx-select
+              formControlName="districtId"
+              [items]="districtArray"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              placeholder="Select District"
+              optionValueField="code"
+              optionTextField="name"
+              [ngClass]="f['districtId'].value
+                  ? f['districtId'].disable({ onlySelf: true })
+                  : f['districtId'].enable({ onlySelf: true })
+              "
+              (select)="clearSelect('district')"
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2">
+            <ngx-select
+              formControlName="ruralUrbanId"
+              [items]="ruralUrbanArray"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              placeholder="Select Rural/Urban"
+              optionValueField="id"
+              optionTextField="name"
+              (select)="clearSelect('ruralUrban')"
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2" >
+            <ngx-select 
+              formControlName="talukaId"
+              [items]="talukaArray"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              placeholder="Select Taluka"
+              (select)="clearSelect('taluka')"
+              [ngClass]="
+                !this.f['districtId'].value || f['ruralUrbanId'].value == 0
+                  ? f['talukaId'].disable({ onlySelf: true })
+                  : f['talukaId'].enable({ onlySelf: true })
+              "
+              optionValueField="code"
+              optionTextField="name"
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2" >
+            <ngx-select
+              [items]="villageArray"
+              placeholder="Select Village"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              optionValueField="code"
+              optionTextField="name"
+              formControlName="villageId"
+              [ngClass]="
+                !this.f['talukaId'].value || f['ruralUrbanId'].value == 0
+                  ? f['villageId'].disable({ onlySelf: true })
+                  : f['villageId'].enable({ onlySelf: true })
+              "
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2" >
+            <ngx-select
+              [items]="nagarPalikaArray"
+              placeholder="Select City"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              optionValueField="code"
+              optionTextField="name"
+              formControlName="nagarPalikaId"
+              [ngClass]="
+                !this.f['districtId'].value ||
+                f['ruralUrbanId'].value === '1' ||
+                f['ruralUrbanId'].value === null ||
+                f['ruralUrbanId'].value === ''
+                  ? f['nagarPalikaId'].disable({ onlySelf: true })
+                  : f['nagarPalikaId'].enable({ onlySelf: true })
+              "
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-2">
+            <ngx-select
+              formControlName="genderId"
+              [items]="genderArray"
+              (keypress)="validation.noFirstSpaceAllow($event)"
+              placeholder="Select Gender"
+              optionValueField="id"
+              optionTextField="name"
+              (select)="clearSelect('gender')"
+            >
+            </ngx-select>
+          </div>
+          <div class="col-sm-4">
+            <input
+              class="form-control"
+              type="search"
+              formControlName="searchText"
+              placeholder="Search by Name / Mobile No."
+              (keypress)="validation.noFirstSpaceAllow($event)"
+            />
+          </div>
+          <div class="col-sm-auto">
+            <div class="d-flex gap-2">
+              <button class="btn btn-main" (click)="searchClick()">
+                Search
+              </button>
+              <button class="btn btn-secondary" (click)="clearFilter()">
+                Clear
+              </button>
+            </div>
+          </div>
+          <!-- <div class="col-sm-auto ms-auto">
+            <div class="d-flex justify-content-end gap-2">
+              <button
+                type="button"
+                [disabled]="!membersListArray?.length"
+                (click)="callApidownloadExcel()"
+                class="btn btn-outline-success"
+                title="Export to Excel"
+              >
+                <i class="fas fa-file-excel"></i>
+                Download Excel
+              </button>
+              <button class="btn btn-main" (click)="addUpdateMember()">
+                Add Member
+              </button>
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </div>
+    <div class="card-body p-2">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th >Sr. No.</th>
+              <th >
+               <div class="d-flex gap-2">
+                 Full Name
+                <div class="fs-70 text-muted">(Mobile No.)</div>
+               </div>
+              </th>
+              <th>Gender</th>
+              <th>State</th>
+              <th>Location</th>
+              <th>Area Type</th>
+              <th>Joining Date</th>
+              <th>OTP Verified</th>
+              <!-- <th>Opinion / Feedback / Suggestions</th> -->
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              tr
+              *ngFor="
+                let memberObj of membersListArray
+                  | paginate
+                    : {
+                        itemsPerPage: pageSize,
+                        currentPage: pageNo,
+                        totalItems: getTotalCount
+                      };
+                let i = index
+              "
+            >
+              <td>{{ (pageNo + 1) * 10 + i + 1 - 20 }}</td>
+              <td>
+                {{ memberObj?.name }}
+                <div class="fs-70 text-muted">{{ memberObj?.mobileNo }}</div>
+              </td>
+              <td>{{ memberObj?.genderId == 1 ? "Male" : memberObj?.genderId == 2 ? "Female" : "Other" }}</td>
+              <td>{{ memberObj?.stateName }}</td>
+              <td>
+                <!-- <div class="fs-80 fw-bold">{{ memberObj?.districtName }}</div> -->
+                <div class="fs-75 d-flex gap-2 text-muted">
+                  <span>District :</span>
+                  <span class="fs-80 fw-bold">{{
+                    memberObj?.districtName
+                  }}</span>
+                </div>
+                <ng-container *ngIf="memberObj?.isRural == 1">
+                  <div class="fs-75 d-flex gap-2 text-muted">
+                    <span>Taluka :</span>
+                    <span class="fw-bold fs-80 ms-1">
+                      {{ memberObj?.subDistrictName }}</span
+                    >
+                  </div>
+                  <div class="fs-75 d-flex gap-2 text-muted">
+                    <span>Village :</span>
+                    <span class="fw-bold fs-80 ms-1">{{
+                      memberObj?.townName
+                    }}</span>
+                  </div>
+                </ng-container>
+                <div
+                  class="fs-75 d-flex gap-2 text-muted"
+                  *ngIf="memberObj?.isRural == 0"
+                >
+                  City :
+                  <span class="fw-bold fs-80">{{
+                    memberObj?.urbanbodyName
+                  }}</span>
+                </div>
+              </td>
+              <!-- <td>
+              {{
+              memberObj?.genderId == 1
+              ? "Male"
+              : memberObj?.genderId == 2
+              ? "Female"
+              : "Other"
+              }}
+            </td> -->
+              <td>{{ memberObj?.isRural == 1 ? "Rural" : "Urban" }}</td>
+              <!-- <td>फ्लॅट क्रमांक, इमारतीचे नाव, रस्त्याचे नाव, क्षेत्र, शहर, जिल्हा, राज्य, पिन कोड.</td> -->
+              <td>
+                {{
+                  memberObj?.memberRegistrationDate
+                    ? memberObj?.memberRegistrationDate
+                    : "-"
+                }}
+              </td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-success': memberObj.isOTPVerified == 1,
+                    'bg-danger':
+                      memberObj.isOTPVerified == 0 ||
+                      memberObj.isOTPVerified == null
+                  }"
+                >
+                  {{ memberObj.isOTPVerified == 1 ? "Yes" : "No" }}
+                </span>
+              </td>
+              <!-- <td>
+                {{ memberObj?.remark ? memberObj?.remark : "-" }}
+              </td> -->
+              <td>
+    <button class="btn btn-sm btn-light" title="View Program Details" [appTooltip] title="View" (click)="viewMemberDetails(memberObj)" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mt-2 text-end" *ngIf="membersListArray?.length == 0">
+      <div class="alert alert-danger text-center py-2">No Results Found!</div>
+    </div>
+    <pagination-controls
+      class="text-end"
+      *ngIf="membersListArray?.length != 0 && getTotalCount > 10"
+      previousLabel=""
+      nextLabel=""
+      (pageChange)="onClickPagintion($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>
+</div>
+
+<!-- View details modal -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ViewDetailsModal" tabindex="-1" aria-labelledby="ViewDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewDetailsModalLabel">View Details</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="selMemberObject">
+                <div class="form-container">
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <p class="form-data">{{selMemberObject.address || '-'}}
+                        </p>
+                    </div>
+                         <div class="mb-3">
+                        <label class="form-label">Place of Residence (If living outside the village)</label>
+                        <p class="form-data"> {{selMemberObject.otherAddress || '-'}}
+                        </p>
+                    </div>
+                         <div class="mb-3">
+                        <label class="form-label">Feedback / Suggestions</label>
+                        <p class="form-data">
+                            {{selMemberObject.remark || '-'}}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="float-end">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

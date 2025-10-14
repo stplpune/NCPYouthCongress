@@ -1,0 +1,9 @@
+#report-stats .card {
+    border-radius: 10px;
+    border: 0;
+}
+
+#report-stats img {
+    width: 50px;
+    margin-bottom: 0.5rem;
+}
